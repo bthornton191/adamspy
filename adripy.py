@@ -1,0 +1,284 @@
+"""
+--------------------------------------------------------------------------
+Description
+--------------------------------------------------------------------------
+adripy is a set of python tools for manipulating MSC Adams Drill files
+
+--------------------------------------------------------------------------
+Author
+--------------------------------------------------------------------------
+Ben Thornton (ben.thornton@mscsofware.com)
+Simulation Consultant - MSC Software
+
+--------------------------------------------------------------------------
+Version
+--------------------------------------------------------------------------
+v1 - 20180810
+
+"""
+from os import environ
+from os import remove
+from os import rename
+
+__adrill_user_cfg__ = environ['USERPROFILE'] + '\\.adrill.cfg'
+
+def get_tool_name(string_file, tool_type, n=1, return_full_path=True):
+    """
+    Return the name and file name of the nth tool of type 'tool_type'
+    in 'string_file'.
+    
+    Parameters
+    ----------
+    string_file :      Full path to an MSC Adams Drill string file 
+                       including the .str extension
+    
+    tool_type :        Tool type as seen in the string file
+                       (e.g. pdc_bit, motor, stabilizer)
+    
+    n :                If the string file has multiple tools of the requested
+                       tool type, use this parameter to return the nth tool.
+                       Default  is n=1.
+    return_full_path : If true, removes the Adrill cdb name and replaces with
+                       the adrill cdb file path.  Default is True
+                  
+    Returns
+    -------
+    tool_name :   Name of the requested tool
+    tool_file :   Full file path the the requested tool's property file
+    """
+    tool_found = False
+    fid = open(string_file,'r')
+    if tool_type == 'hole':
+        for line in fid:
+            if ' Hole_Property_File  =  ' in line:
+                tool_file = line.split("'")[1].replace('/','\\')
+                tool_name = tool_file.split('\\')[-1].split('.')[0]
+                if return_full_path:
+                    if '<' in tool_file:
+                        tool_file_cdb = tool_file.split('>')[0].replace('<','')
+                        adrill_cdbs = get_adrill_cdbs(__adrill_user_cfg__)
+                        tool_file_cdb_path = adrill_cdbs[tool_file_cdb]
+                        tool_file = tool_file_cdb_path + '\\' + tool_file.split('>')[1]
+                tool_found = True
+                break
+    else:
+        count = 0
+        for line in fid:
+            if count == n:
+                if ' Property_File  =  ' in line:
+                    tool_file = line.split("'")[1].replace('/','\\')
+                    tool_name = tool_file.split('\\')[-1].split('.')[0]
+                    if return_full_path:
+                        if '<' in tool_file:
+                            tool_file_cdb = tool_file.split('>')[0].replace('<','')
+                            adrill_cdbs = get_adrill_cdbs(__adrill_user_cfg__)
+                            tool_file_cdb_path = adrill_cdbs[tool_file_cdb]
+                            tool_file = tool_file_cdb_path + tool_file.split('>')[1]
+                    tool_found = True
+                    break
+            elif " Type  =  '{}'".format(tool_type) in line:
+                count += 1
+    
+    if tool_found:
+
+        return tool_name, tool_file
+    else:
+        raise ValueError('Tool of type {} not found in {}'.format(tool_type, string_file))
+
+def get_adrill_cdbs(adrill_user_cfg):
+    """
+    Return the names and locations of all user defined MSC Adams Drill
+    configuration databases (cdbs)
+    
+    Parameters
+    ----------
+    adrill_user_cfg : Full path to an MSC Adams Drill user configuration
+                      file.  This should be in the HOME directory
+                  
+    Returns
+    -------
+    cdbs :  A dictionary with the cdb names as keys and cdb 
+            locations as values.
+    """
+    cdbs = {}
+    fid = open(adrill_user_cfg,'r')
+    for line in fid:
+        if line.startswith('DATABASE'):
+            cdb_name = line.replace('DATABASE','').lstrip().split(' ')[0]
+            cdb_loc = line.replace('DATABASE','').lstrip().split(' ',1)[1].lstrip().replace('\n','').replace('/','\\')
+            cdbs[cdb_name] = cdb_loc
+    return cdbs
+
+def get_TO_param(TO_file, TO_param):
+    """
+    Return the value of a parameter in a tiem orbit file
+    
+    Parameters
+    ----------
+    TO_file :      Full path to a tiem orbit file
+    TO_param : Name of a parameter in TO_file  
+                  
+    Returns
+    -------
+    TO_value :  The value assigned to TO_param in TO_file
+    """
+    param_found = False
+    fid = open(TO_file,'r')
+    for line in fid:
+        if line.lstrip().startswith(TO_param):
+            TO_value = line.replace(' ','').replace('\n','').split('=')[-1]
+            param_found = True
+            break
+    fid.close()
+    if param_found:
+        return TO_value
+    else:
+        raise ValueError('{} does not contain the parameter {}'.format(TO_file,TO_param))
+
+
+def has_tool(string_file, tool_type):
+    """
+    Returns true if string_file has at least one tool of type tool_type
+    
+    Parameters
+    ----------
+    string_file : Full path to an Adams Drill string file
+    tool_type :    Adams Drill tool type
+                  
+    Returns
+    -------
+    tool_type_found: True if string_file contains at least one tool of type tool_type
+    """
+    tool_type_found = False
+    fid = open(string_file,'r')
+    for line in fid:
+        if ' Type  =  ' in line and tool_type in line:
+            tool_type_found = True
+            break
+    fid.close()
+    return tool_type_found
+
+
+def replace_tool(string_file, old_tool_file, new_tool_file, old_tool_name='', new_tool_name='', N=0):
+    """
+    Swaps old_tool_file for new_tool_file in string_file.  Also replaces the tools Name field.
+    
+    Parameters
+    ----------
+    string_file :       Full path to an Adams Drill string file
+    old_tool_file :     Path to an Adams Drill tool property file that exists in string_file. May use full path or Adrill CDB notation.
+    new_tool_file :     Path to an Adams Drill tool property file to replace old_tool_file. May use full path or Adrill CDB notation.
+    n :                 Number of replacements to make. Default is 0 which will replace all instances.
+    old_tool_name :     Name of the tool to replace. Default is the filename.
+    new_tool_name :     Name of the new tool.  Default is the filename.
+                  
+    Returns
+    -------
+    n: Number of replacements that were made.
+    """
+    old_tool_file = old_tool_file.replace('\\','/')
+    new_tool_file = new_tool_file.replace('\\','/')
+    
+    cdbs = get_adrill_cdbs(__adrill_user_cfg__)
+    
+    # Get cdb associated with old_tool_file
+    old_tool_has_cdb = False
+    for cdb_name in cdbs:
+        if '<{}>'.format(cdb_name) in old_tool_file or cdbs[cdb_name].replace('\\','/') in old_tool_file:
+            old_cdb_name = cdb_name
+            old_cdb_loc = cdbs[cdb_name].replace('\\','/')
+            old_tool_has_cdb = True
+            break
+    
+    # If old_tool_file uses cdb notation then change it to full path notation
+    if '<' in old_tool_file:
+        if old_tool_has_cdb:
+            old_tool_file = old_tool_file.replace('<{}>'.format(old_cdb_name), old_cdb_loc)
+        else:
+            raise ValueError('The cdb {}, referenced in {}  does not exist in the Adrill user configuration file, {}'.format(old_cdb_name,old_tool_file,__adrill_user_cfg__))
+            return
+    
+    # Get cdb associated with new_tool_file
+    new_tool_has_cdb = False
+    for cdb_name in cdbs:
+        if '<{}>'.format(cdb_name) in new_tool_file or cdbs[cdb_name].replace('\\','/') in new_tool_file:
+            new_cdb_name = cdb_name
+            new_cdb_loc = cdbs[cdb_name].replace('\\','/')
+            new_tool_has_cdb = True
+            break
+    
+    # If new_tool_file uses cdb notation then change it to full path notation
+    if '<' in new_tool_file:
+        if new_tool_has_cdb:
+            new_tool_file = new_tool_file.replace('<{}>'.format(new_cdb_name), new_cdb_loc)
+        else:
+            raise ValueError('The cdb {}, referenced in {} does not exist in the Adrill user configuration file, {}'.format(new_cdb_name,new_tool_file,__adrill_user_cfg__))
+
+    if old_tool_name == '':
+        old_tool_name = old_tool_file.split('/')[-1].split('.')[0]
+    if new_tool_name == '':
+        new_tool_name = new_tool_file.split('/')[-1].split('.')[0]
+    
+    # Open the original string file for reading and a new string file for writing
+    fid_oldString = open(string_file,'r')
+    fid_newString = open(string_file.replace('.str','.tmp'),'w')
+
+    # Initiate the number of replacements made
+    n = 0
+
+    # If the tool is a hole
+    if old_tool_file.endswith('.hol'):
+        # Loop through the string file to find the hole property file line
+        for line in fid_oldString:
+            if ' Hole_Property_File  =  ' in line:
+                if '<' in line and new_tool_has_cdb:
+                    for cdb_name in cdbs:
+                        if cdbs[cdb_name].replace('\\','/') in new_tool_file:
+                            new_cdb_name = cdb_name
+                            new_cdb_loc = cdbs[cdb_name].replace('\\','/')
+                            break
+                    new_tool_file = new_tool_file.replace(new_cdb_loc, '<' + new_cdb_name + '>')
+                fid_newString.write(" Hole_Property_File  =  '{}'\n".format(new_tool_file))
+                n += 1
+            else:
+                fid_newString.write(line)
+    
+    # If the tool is not a hole
+    else:
+        # Loop through the string file to find and replace the corresponding tool block
+        replace = False
+        for line in fid_oldString:
+            if ' Type  =  ' in line:
+                tool_type = line.split("'")[1]
+                fid_newString.write(line)
+            elif ' Stack_Order  =  ' in line:
+                stack_order = int(line.replace(' ','').replace('\n','').split('=')[1])
+                fid_newString.write(line)
+            elif " Name  =  '{}".format(old_tool_name) in line and (n<N or N==0):
+                if " Name  =  '{}_{:02d}'".format(old_tool_name,stack_order) in line:
+                    fid_newString.write(" Name  =  '{}_{:02d}'\n".format(new_tool_name, stack_order))
+                else:
+                    fid_newString.write(" Name  =  '{}'\n".format(new_tool_name))
+                replace = True
+            elif ' Property_File  =  ' in line and replace:
+                # Check if line uses cdb notation and replace file path with cdb name
+                if '<' in line and new_tool_has_cdb:
+                    for cdb_name in cdbs:
+                        if cdbs[cdb_name].replace('\\','/') in new_tool_file:
+                            new_cdb_name = cdb_name
+                            new_cdb_loc = cdbs[cdb_name].replace('\\','/')
+                            break
+                    new_tool_file = new_tool_file.replace(new_cdb_loc, '<' + new_cdb_name + '>')
+                fid_newString.write(" Property_File  =  '{}'\n".format(new_tool_file))
+                replace = False
+                n += 1
+            else:
+                fid_newString.write(line)
+
+    # Close the string files, delete the original one, and rename the new one
+    fid_oldString.close()
+    fid_newString.close()
+    remove(string_file)
+    rename(string_file.replace('.str','.tmp'), string_file)
+
+    return n
