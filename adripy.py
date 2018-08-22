@@ -125,7 +125,7 @@ def get_TO_param(TO_file, TO_param):
     param_found = False
     fid = open(TO_file,'r')
     for line in fid:
-        if line.lstrip().startswith(TO_param):
+        if line.lstrip().lower().startswith(TO_param.lower()):
             TO_value = line.replace(' ','').replace('\n','').split('=')[-1]
             param_found = True
             break
