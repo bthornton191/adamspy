@@ -22,6 +22,31 @@ from os import rename
 
 __adrill_user_cfg__ = environ['USERPROFILE'] + '\\.adrill.cfg'
 
+
+# Dictionary of TO tool length parameters
+TO_length_param = {}
+TO_length_param['accelerator'] = ['Accelerator_Length']
+TO_length_param['agitator'] = ['Power_Body_Length', 'Shock_Stub_Length']
+TO_length_param['blade_reamer'] = ['Reamer_Length']
+TO_length_param['crossover'] = ['Crossover_Length']
+TO_length_param['dart'] = ['Dart_Length']
+TO_length_param['drill_collar'] = ['Drillcollar_Length']
+TO_length_param['drillpipe'] = ['Pipe_Length']
+TO_length_param['flex_pipe'] = ['Flex_Length']
+TO_length_param['generic_long'] = ['Tool_Length']
+TO_length_param['generic_short'] = ['GenericShort_Length']
+TO_length_param['hw_pipe'] = ['Pipe_Length']
+TO_length_param['instrumentation_sub'] = ['ISUB_Length']
+TO_length_param['jar'] = ['Body_Length', 'Stub_Length']
+TO_length_param['mfr_tool'] = ['Tool_Length']
+TO_length_param['motor'] = ['Motor_Length']
+TO_length_param['mwd_tool'] = ['Tool_Length']
+TO_length_param['pdc_bit'] = ['Bit_Length']
+TO_length_param['roller_cone_bit'] = ['Bit_Length']
+TO_length_param['shock_sub'] = ['Installed_Length']
+TO_length_param['short_collar'] = ['Collar_Length']
+TO_length_param['stabilizer'] = ['Stabilizer_Length']
+
 def get_tool_name(string_file, tool_type, n=1, return_full_path=True):
     """
     Return the name and file name of the nth tool of type 'tool_type'
@@ -248,10 +273,10 @@ def replace_tool(string_file, old_tool_file, new_tool_file, old_tool_name='', ne
         # Loop through the string file to find and replace the corresponding tool block
         replace = False
         for line in fid_oldString:
-            if ' Type  =  ' in line:
+            if ' Type' in line and not line.startswith('$'):
                 tool_type = line.split("'")[1]
                 fid_newString.write(line)
-            elif ' Stack_Order  =  ' in line:
+            elif ' Stack_Order' in line and not line.startswith('$'):
                 stack_order = int(line.replace(' ','').replace('\n','').split('=')[1])
                 fid_newString.write(line)
             elif " Name  =  '{}".format(old_tool_name) in line and (n<N or N==0):
@@ -260,7 +285,7 @@ def replace_tool(string_file, old_tool_file, new_tool_file, old_tool_name='', ne
                 else:
                     fid_newString.write(" Name  =  '{}'\n".format(new_tool_name))
                 replace = True
-            elif ' Property_File  =  ' in line and replace:
+            elif ' Property_File' in line and replace and not line.startswith('$'):
                 # Check if line uses cdb notation and replace file path with cdb name
                 if '<' in line and new_tool_has_cdb:
                     for cdb_name in cdbs:
@@ -282,3 +307,44 @@ def replace_tool(string_file, old_tool_file, new_tool_file, old_tool_name='', ne
     rename(string_file.replace('.str','.tmp'), string_file)
 
     return n
+
+def get_string_length(string_file):
+    cdbs = get_adrill_cdbs(__adrill_user_cfg__)
+    # print(cdbs)
+    tool_lengths = []
+    fid_string = open(string_file, 'r')
+    for line in fid_string:
+        if ' property_file' in line.lower() and not line.startswith('$'):
+            tool_file = line.split("'")[1].replace('/', '\\')
+            if '<' in tool_file:
+                # Get cdb associated with tool_file
+                tool_has_cdb = False
+                for cdb_name in cdbs:
+                    if '<{}>'.format(cdb_name) in tool_file:
+                        tool_cdb_name = cdb_name
+                        cdb_loc = cdbs[cdb_name].replace('/','\\')
+                        tool_has_cdb = True
+                        break  
+                # Change cdb notation to full path notation
+                if tool_has_cdb:
+                    tool_file = tool_file.replace('<{}>'.format(tool_cdb_name), cdb_loc)
+                else:
+                    raise ValueError('The cdb {}, referenced in {} does not exist in the Adrill user configuration file, {}'.format(cdb_name,tool_file,__adrill_user_cfg__))
+            fid_tool = open(tool_file, 'r')
+            file_type = ''
+            for line in fid_tool:
+                if file_type and 'top_drive' not in file_type.lower() and line.replace(' ', '').split('=')[0] in TO_length_param[file_type] and not line.startswith('$'):
+                    tool_length = float(line.replace(' ', '').split('=')[1])
+                    tool_lengths.append(tool_length)
+                    print('{} - {}'.format(file_type, tool_length))
+                elif ' file_type' in line.lower() and not line.startswith('$'):
+                    file_type = line.replace(' ', '').split('=')[1].replace("'",'').replace('\n','')
+            fid_tool.close()
+        if ' number_of_joints' in line.lower():
+            n = int(line.replace(' ','').split('=')[1])
+            tool_lengths[-1] = tool_lengths[-1]*n
+    fid_string.close()
+    return sum(tool_lengths)
+        
+    
+    
