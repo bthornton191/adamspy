@@ -345,6 +345,51 @@ def get_string_length(string_file):
             tool_lengths[-1] = tool_lengths[-1]*n
     fid_string.close()
     return sum(tool_lengths)
+
+    
+def get_string_weight(string_file):
+    cdbs = get_adrill_cdbs(__adrill_user_cfg__)
+    # print(cdbs)
+    tool_masses = []
+    fid_string = open(string_file, 'r')
+    # Loop through string file
+    for line in fid_string:
+        # When a property file definition line is found
+        if ' property_file' in line.lower() and not line.startswith('$'):
+            tool_file = line.split("'")[1].replace('/', '\\')
+            if '<' in tool_file:
+                # Get cdb associated with tool_file
+                tool_has_cdb = False
+                for cdb_name in cdbs:
+                    if '<{}>'.format(cdb_name) in tool_file:
+                        tool_cdb_name = cdb_name
+                        cdb_loc = cdbs[cdb_name].replace('/','\\')
+                        tool_has_cdb = True
+                        break  
+                # Change cdb notation to full path notation
+                if tool_has_cdb:
+                    tool_file = tool_file.replace('<{}>'.format(tool_cdb_name), cdb_loc)
+                else:
+                    raise ValueError('The cdb {}, referenced in {} does not exist in the Adrill user configuration file, {}'.format(cdb_name,tool_file,__adrill_user_cfg__))
+            # Open the property file
+            fid_tool = open(tool_file, 'r')
+            file_type = ''
+            # Loop through the property file
+            for line in fid_tool:
+                # If the tool type has already been determined and it is not a top drive then look for the mass parameter
+                if file_type and 'top_drive' not in file_type.lower() and ' mass ' in line.lower() and not line.startswith('$'):
+                    tool_mass = float(line.replace(' ', '').split('=')[1])
+                    tool_masses.append(tool_mass)
+                    print('{} - {}'.format(file_type, tool_mass))
+                # Get the tool/file type
+                elif ' file_type' in line.lower() and not line.startswith('$'):
+                    file_type = line.replace(' ', '').split('=')[1].replace("'",'').replace('\n','')
+            fid_tool.close()
+        if ' number_of_joints' in line.lower():
+            n = int(line.replace(' ','').split('=')[1])
+            tool_masses[-1] = tool_masses[-1]*n
+    fid_string.close()
+    return sum(tool_masses)
         
     
     
