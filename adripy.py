@@ -86,19 +86,23 @@ def turn_measure_on(string_file, tool_types=[], tool_numbers=[], tool_names=[]):
             elif ' stack_order' in line.lower():
                 if int(line.replace(' ','').replace('\n','').split('=')[-1]) in tool_numbers:
                     mark = True
-                    fid_str_tmp.write(line)
+                fid_str_tmp.write(line)
             
             # Mark if the tool matches a designated tool type
             elif ' type' in line.lower():
-                if line.replace(' ','').replace('\n','').split('=')[-1] in tool_types:
+                if line.replace(' ','').replace('\n','').split("'")[-2] in tool_types:
                     mark = True
-                    fid_str_tmp.write(line)
+                fid_str_tmp.write(line)
             
             # Mark if the tool matches a designated tool name
             elif ' name' in line.lower():
-                if line.replace(' ','').replace('\n','').split('=')[-1] in tool_names:
+                if line.replace(' ','').replace('\n','').split("'")[-2] in tool_names:
                     mark = True
-                    fid_str_tmp.write(line)
+                fid_str_tmp.write(line)
+            
+            else:
+                fid_str_tmp.write(line)
+
     remove(string_file)
     rename(string_file.replace('.str','.tmp'), string_file)
     return n
