@@ -48,6 +48,59 @@ TO_length_param['shock_sub'] = ['Installed_Length']
 TO_length_param['short_collar'] = ['Collar_Length']
 TO_length_param['stabilizer'] = ['Stabilizer_Length']
 
+def turn_measure_on(string_file, tool_types=[], tool_numbers=[], tool_names=[]):
+    """
+    Modify a string file to turn measure on for the designated tools.  Tools may be designated by type, number (stack order), or name
+    
+    Parameters
+    ----------
+    string_file :      Full path to an MSC Adams Drill string file 
+                       including the .str extension
+    
+    tool_types :       List of tool type as seen in the string file
+                       (e.g. pdc_bit, motor, stabilizer)
+    
+    tool_numbers:      List of stack orders corresponding to tools in a string
+    
+    tool_names:        List of tool names.
+
+                  
+    Returns
+    -------
+    n                  number of tools measured
+    """
+    n = 0
+    mark = False
+    with open(string_file,'r') as fid_str, open(string_file.replace('.str','.tmp'),'w') as fid_str_tmp:
+        for line in fid_str:
+            if line.startswith('$'):
+                fid_str_tmp.write(line)
+
+            # If this is a measure line that has been marked
+            elif mark and ' measure' in line.lower():
+                fid_str_tmp.write(" Measure  =  'yes'\n")
+                n += 1
+                mark = False
+                            
+            # Mark if the tool matches a designated stack order
+            elif ' stack_order' in line.lower():
+                if int(line.replace(' ','').replace('\n','').split('=')[-1]) in tool_numbers:
+                    mark = True
+                    fid_str_tmp.write(line)
+            
+            # Mark if the tool matches a designated tool type
+            elif ' type' in line.lower():
+                if line.replace(' ','').replace('\n','').split('=')[-1] in tool_types:
+                    mark = True
+                    fid_str_tmp.write(line)
+            
+            # Mark if the tool matches a designated tool name
+            elif ' name' in line.lower():
+                if line.replace(' ','').replace('\n','').split('=')[-1] in tool_names:
+                    mark = True
+                    fid_str_tmp.write(line)
+    return n
+
 def get_tool_name(string_file, tool_type, n=1, return_full_path=True):
     """
     Return the name and file name of the nth tool of type 'tool_type'
