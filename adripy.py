@@ -99,7 +99,10 @@ def turn_measure_on(string_file, tool_types=[], tool_numbers=[], tool_names=[]):
                 if line.replace(' ','').replace('\n','').split('=')[-1] in tool_names:
                     mark = True
                     fid_str_tmp.write(line)
+    remove(string_file)
+    rename(string_file.replace('.str','.tmp'), string_file)
     return n
+
 
 def get_tool_name(string_file, tool_type, n=1, return_full_path=True):
     """
