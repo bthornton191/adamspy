@@ -129,9 +129,9 @@ def get_tool_name(string_file, tool_type, n=1, return_full_path=True):
                   
     Returns
     -------
-    tool_name :   Name of the requested tool
-    tool_file :   Full file path the the requested tool's property file
-    tool_stack
+    tool_name  :  Name of the requested tool
+    tool_file  :  Full file path the the requested tool's property file
+    tool_stack :  Stack order of tool
     """
     tool_found = False
     fid = open(string_file,'r')
@@ -152,7 +152,7 @@ def get_tool_name(string_file, tool_type, n=1, return_full_path=True):
         count = 0
         for line in fid:
             if ' stack_order' in line.lower():
-                stack_order = int(line.replace(' ','').replace('\n','').split('=','')[-1])
+                stack_order = int(line.replace(' ','').replace('\n','').split('=')[-1])
             elif count == n and ' property_file' in line.lower():
                 tool_file = line.split("'")[1].replace('/','\\')
                 tool_name = tool_file.split('\\')[-1].split('.')[0]
