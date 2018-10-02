@@ -131,6 +131,7 @@ def get_tool_name(string_file, tool_type, n=1, return_full_path=True):
     -------
     tool_name :   Name of the requested tool
     tool_file :   Full file path the the requested tool's property file
+    tool_stack
     """
     tool_found = False
     fid = open(string_file,'r')
@@ -150,24 +151,24 @@ def get_tool_name(string_file, tool_type, n=1, return_full_path=True):
     else:
         count = 0
         for line in fid:
-            if count == n:
-                if ' Property_File  =  ' in line:
-                    tool_file = line.split("'")[1].replace('/','\\')
-                    tool_name = tool_file.split('\\')[-1].split('.')[0]
-                    if return_full_path:
-                        if '<' in tool_file:
-                            tool_file_cdb = tool_file.split('>')[0].replace('<','')
-                            adrill_cdbs = get_adrill_cdbs(__adrill_user_cfg__)
-                            tool_file_cdb_path = adrill_cdbs[tool_file_cdb]
-                            tool_file = tool_file_cdb_path + tool_file.split('>')[1]
-                    tool_found = True
-                    break
-            elif " Type  =  '{}'".format(tool_type) in line:
+            if ' stack_order' in line.lower():
+                stack_order = int(line.replace(' ','').replace('\n','').split('=','')[-1])
+            elif count == n and ' property_file' in line.lower():
+                tool_file = line.split("'")[1].replace('/','\\')
+                tool_name = tool_file.split('\\')[-1].split('.')[0]
+                if return_full_path:
+                    if '<' in tool_file:
+                        tool_file_cdb = tool_file.split('>')[0].replace('<','')
+                        adrill_cdbs = get_adrill_cdbs(__adrill_user_cfg__)
+                        tool_file_cdb_path = adrill_cdbs[tool_file_cdb]
+                        tool_file = tool_file_cdb_path + tool_file.split('>')[1]
+                tool_found = True
+                break
+            elif ' type ' in line.lower() and tool_type.lower() in line.lower():
                 count += 1
     
     if tool_found:
-
-        return tool_name, tool_file
+        return tool_name, tool_file, stack_order
     else:
         raise ValueError('Tool of type {} not found in {}'.format(tool_type, string_file))
 
