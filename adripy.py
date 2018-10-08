@@ -140,6 +140,7 @@ def get_tool_name(string_file, tool_type, n=1, return_full_path=True):
             if ' Hole_Property_File  =  ' in line:
                 tool_file = line.split("'")[1].replace('/','\\')
                 tool_name = tool_file.split('\\')[-1].split('.')[0]
+                group_name = tool_name
                 if return_full_path:
                     if '<' in tool_file:
                         tool_file_cdb = tool_file.split('>')[0].replace('<','')
@@ -147,12 +148,15 @@ def get_tool_name(string_file, tool_type, n=1, return_full_path=True):
                         tool_file_cdb_path = adrill_cdbs[tool_file_cdb]
                         tool_file = tool_file_cdb_path + '\\' + tool_file.split('>')[1]
                 tool_found = True
+                stack_order = 0
                 break
     else:
         count = 0
         for line in fid:
             if ' stack_order' in line.lower():
                 stack_order = int(line.replace(' ','').replace('\n','').split('=')[-1])
+            elif count == n and ' name ' in line.lower():
+                group_name = line.split("'")[1]
             elif count == n and ' property_file' in line.lower():
                 tool_file = line.split("'")[1].replace('/','\\')
                 tool_name = tool_file.split('\\')[-1].split('.')[0]
@@ -168,7 +172,7 @@ def get_tool_name(string_file, tool_type, n=1, return_full_path=True):
                 count += 1
     
     if tool_found:
-        return tool_name, tool_file, stack_order
+        return tool_name, tool_file, stack_order, group_name
     else:
         raise ValueError('Tool of type {} not found in {}'.format(tool_type, string_file))
 
@@ -202,8 +206,8 @@ def get_TO_param(TO_file, TO_param):
     
     Parameters
     ----------
-    TO_file :      Full path to a tiem orbit file
-    TO_param : Name of a parameter in TO_file  
+    TO_file :    Full path to a tiem orbit file
+    TO_param :   Name of a parameter in TO_file  
                   
     Returns
     -------
@@ -245,6 +249,79 @@ def has_tool(string_file, tool_type):
     fid.close()
     return tool_type_found
 
+def fullNotation_to_cdbNotation(string_file):
+    """
+    Replaces all references in a string file that use full path notation to use CDB notation
+    
+    Parameters
+    ----------
+    string_file :       Full path to an Adams Drill string file
+                  
+    Returns
+    -------
+    n: Num
+    """
+
+    cdbs = get_adrill_cdbs(__adrill_user_cfg__)
+    n = 0 
+
+    with open(string_file, 'r') as fid_str, open(string_file.replace('.str','.tmp'), 'w') as fid_str_tmp:
+        for line in fid_str:
+            cdb_found = False
+            if 'property_file' in line.lower():
+                for cdb_name in cdbs:
+                    if cdbs[cdb_name] in line:
+                        cdb_found = True
+                        new_line = line.replace(cdbs[cdb_name], '<{}>'.format(cdb_name))
+                        n += 1
+
+                    elif cdbs[cdb_name].replace('\\','/') in line:
+                        cdb_found = True
+                        new_line = line.replace(cdbs[cdb_name].replace('\\','/'), '<{}>'.format(cdb_name))
+                        n += 1
+
+                    elif cdbs[cdb_name].replace('/','\\') in line:
+                        cdb_found = True
+                        new_line = line.replace(cdbs[cdb_name].replace('/','\\'), '<{}>'.format(cdb_name))
+                        n += 1
+
+            if cdb_found:
+                fid_str_tmp.write(new_line)
+            else:
+                fid_str_tmp.write(line)
+    return n
+
+def cdbNotation_to_fullNotation(string_file):
+    """
+    Replaces all references in a string file that use full path notation to use CDB notation
+    
+    Parameters
+    ----------
+    string_file :       Full path to an Adams Drill string file
+                  
+    Returns
+    -------
+    n: Number of replacements that were made.
+    """
+
+    cdbs = get_adrill_cdbs(__adrill_user_cfg__)
+    n = 0 
+
+    with open(string_file,'r') as fid_str, open(string_file.replace('.str','.tmp'), 'w') as fid_str_tmp:
+        for line in fid_str:
+            cdb_found = False
+            if 'property_file' in line.lower():
+                for cdb_name in cdbs:
+                    if '<{}>'.format(cdb_name) in line:
+                        cdb_found = True
+                        new_line = line.replace('<{}>'.format(cdb_name), cdbs[cdb_name].replace('\\','/'))
+                        n += 1
+
+            if cdb_found:
+                fid_str_tmp.write(new_line)
+            else:
+                fid_str_tmp.write(line)
+    return n
 
 def replace_tool(string_file, old_tool_file, new_tool_file, old_tool_name='', new_tool_name='', N=0):
     """
