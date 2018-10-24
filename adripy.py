@@ -19,8 +19,11 @@ v1 - 20180810
 from os import environ
 from os import remove
 from os import rename
+from scipy import signal
+from numpy import mean
 
 __adrill_user_cfg__ = environ['USERPROFILE'] + '\\.adrill.cfg'
+__home__ = environ['USERPROFILE']
 
 
 # Dictionary of TO tool length parameters
@@ -47,6 +50,103 @@ TO_length_param['roller_cone_bit'] = ['Bit_Length']
 TO_length_param['shock_sub'] = ['Installed_Length']
 TO_length_param['short_collar'] = ['Collar_Length']
 TO_length_param['stabilizer'] = ['Stabilizer_Length']
+
+def pason_post_processing(t,sig):
+    """
+    Process a signal as it would be processed by pason
+    
+    Parameters
+    ----------
+    t :      Time series corresponding to the signal to be processed
+    
+    sig :    Signal to be processed
+                  
+    Returns
+    -------
+    t_4, sig_4         Processed time and signal
+    """
+    # (1) Sample at 50 Hz
+    f = 50
+    num = int((t[-1] - t[0])*f + 1)
+    sig_1, t_1 = signal.resample(sig,num,t)
+
+    # (2) 0.99 Hz Digital Low Pass Filter
+    f_c = 0.99
+    f_s = 1/(t_1[1]-t_1[0])
+    W = f_c/f_s*2
+    b,a = signal.butter(5, W)
+    t_2 = t_1
+    sig_2 = list(signal.filtfilt(b, a, sig_1))
+
+    # (3) resample at 5 Hz
+    f = 5
+    num = int((t_2[-1] - t_2[0])*f + 1)
+    sig_3, t_3 = signal.resample(sig_2,num,t_2)
+
+    # (4) calculate maximum over each 1 sec period
+    t_4 = [t_3[0]]
+    sig_4 = [0]
+    counter = 0
+    for i in range(len(t_3)):
+        if counter == 5:
+            t_4.append(t_3[i])
+            sig_4.append(max(sig_3[i-5:i]))
+            counter = 0
+
+        counter += 1
+
+    # set the first value equal to the second value to make the line look nice
+    sig_4[0] = sig_4[1]
+    
+    # (5) calculate mean over each 1 sec period
+    t_5 = [t_3[0]]
+    sig_5 = [0]
+    counter = 0
+    for i in range(len(t_3)):
+        if counter == 5:
+            t_5.append(t_3[i])
+            sig_5.append(mean(sig_3[i-5:i]))
+            counter = 0
+
+        counter += 1
+    # set the first value equal to the second value to make the line look nice
+    sig_5[0] = sig_5[1]
+    
+    # (6) calculate min over each 1 sec period
+    t_6 = [t_3[0]]
+    sig_6 = [0]
+    counter = 0
+    for i in range(len(t_3)):
+        if counter == 5:
+            t_6.append(t_3[i])
+            sig_6.append(min(sig_3[i-5:i]))
+            counter = 0
+
+        counter += 1
+
+    # set the first value equal to the second value to make the line look nice
+    sig_6[0] = sig_6[1]
+
+    # (7) calculate min over each 1 sec period
+    t_7 = [t_3[0]]
+    sig_7 = [0]
+    counter = 0
+    for i in range(len(t_3)):
+        if counter == 5:
+            t_7.append(t_3[i])
+            sig_7.append(sig_3[i])
+            counter = 0
+
+        counter += 1
+
+    # set the first value equal to the second value to make the line look nice
+    sig_7[0] = sig_7[1]
+    
+    # return t_3, sig_3, t_2, sig_2, t_1, sig_1
+    # return [t_7, sig_7, t_6, sig_6, t_5, sig_5, t_4, sig_4, t_3, sig_3, t_2, sig_2, t_1, sig_1]
+    return t_4, sig_4
+    
+
 
 def turn_measure_on(string_file, tool_types=[], tool_numbers=[], tool_names=[]):
     """
@@ -132,6 +232,7 @@ def get_tool_name(string_file, tool_type, n=1, return_full_path=True):
     tool_name  :  Name of the requested tool
     tool_file  :  Full file path the the requested tool's property file
     tool_stack :  Stack order of tool
+    group_name :  Tools group name if it has one
     """
     tool_found = False
     fid = open(string_file,'r')
@@ -196,7 +297,7 @@ def get_adrill_cdbs(adrill_user_cfg):
     for line in fid:
         if line.startswith('DATABASE'):
             cdb_name = line.replace('DATABASE','').lstrip().split(' ')[0]
-            cdb_loc = line.replace('DATABASE','').lstrip().split(' ',1)[1].lstrip().replace('\n','').replace('/','\\')
+            cdb_loc = line.replace('DATABASE','').lstrip().split(' ',1)[1].lstrip().replace('\n','').replace('$HOME',__home__).replace('/','\\')
             cdbs[cdb_name] = cdb_loc
     return cdbs
 
@@ -289,11 +390,15 @@ def fullNotation_to_cdbNotation(string_file):
                 fid_str_tmp.write(new_line)
             else:
                 fid_str_tmp.write(line)
+    
+    remove(string_file)
+    rename(string_file.replace('.str','.tmp'), string_file)
+
     return n
 
 def cdbNotation_to_fullNotation(string_file):
     """
-    Replaces all references in a string file that use full path notation to use CDB notation
+    Replaces all references in a string file that use CDB notation to use full path notation
     
     Parameters
     ----------
@@ -307,7 +412,7 @@ def cdbNotation_to_fullNotation(string_file):
     cdbs = get_adrill_cdbs(__adrill_user_cfg__)
     n = 0 
 
-    with open(string_file,'r') as fid_str, open(string_file.replace('.str','.tmp'), 'w') as fid_str_tmp:
+    with open(string_file, 'r') as fid_str, open(string_file.replace('.str','.tmp'), 'w') as fid_str_tmp:
         for line in fid_str:
             cdb_found = False
             if 'property_file' in line.lower():
@@ -321,6 +426,10 @@ def cdbNotation_to_fullNotation(string_file):
                 fid_str_tmp.write(new_line)
             else:
                 fid_str_tmp.write(line)
+    
+    remove(string_file)
+    rename(string_file.replace('.str','.tmp'), string_file)
+    
     return n
 
 def replace_tool(string_file, old_tool_file, new_tool_file, old_tool_name='', new_tool_name='', N=0):
@@ -332,7 +441,7 @@ def replace_tool(string_file, old_tool_file, new_tool_file, old_tool_name='', ne
     string_file :       Full path to an Adams Drill string file
     old_tool_file :     Path to an Adams Drill tool property file that exists in string_file. May use full path or Adrill CDB notation.
     new_tool_file :     Path to an Adams Drill tool property file to replace old_tool_file. May use full path or Adrill CDB notation.
-    n :                 Number of replacements to make. Default is 0 which will replace all instances.
+    N :                 Number of replacements to make. Default is 0 which will replace all instances.
     old_tool_name :     Name of the tool to replace. Default is the filename.
     new_tool_name :     Name of the new tool.  Default is the filename.
                   
@@ -360,8 +469,7 @@ def replace_tool(string_file, old_tool_file, new_tool_file, old_tool_name='', ne
             old_tool_file = old_tool_file.replace('<{}>'.format(old_cdb_name), old_cdb_loc)
         else:
             raise ValueError('The cdb {}, referenced in {}  does not exist in the Adrill user configuration file, {}'.format(old_cdb_name,old_tool_file,__adrill_user_cfg__))
-            return
-    
+                
     # Get cdb associated with new_tool_file
     new_tool_has_cdb = False
     for cdb_name in cdbs:
@@ -480,7 +588,7 @@ def get_string_length(string_file):
                 if tool_has_cdb:
                     tool_file = tool_file.replace('<{}>'.format(tool_cdb_name), cdb_loc)
                 else:
-                    raise ValueError('The cdb {}, referenced in {} does not exist in the Adrill user configuration file, {}'.format(cdb_name,tool_file,__adrill_user_cfg__))
+                    raise ValueError('The cdb {}, referenced in {} does not exist in the Adrill user configuration file, {}'.format(tool_cdb_name,tool_file,__adrill_user_cfg__))
             fid_tool = open(tool_file, 'r')
             file_type = ''
             for line in fid_tool:
