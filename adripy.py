@@ -23,6 +23,7 @@ from scipy import signal
 from numpy import mean
 
 __adrill_user_cfg__ = environ['USERPROFILE'] + '\\.adrill.cfg'
+__adrill_shared_cfg__ = 'C:\\MSC.Software\\Adams\\2018\\adrill\\adrill_shared.cdb'
 __home__ = environ['USERPROFILE']
 
 
@@ -243,11 +244,7 @@ def get_tool_name(string_file, tool_type, n=1, return_full_path=True):
                 tool_name = tool_file.split('\\')[-1].split('.')[0]
                 group_name = tool_name
                 if return_full_path:
-                    if '<' in tool_file:
-                        tool_file_cdb = tool_file.split('>')[0].replace('<','')
-                        adrill_cdbs = get_adrill_cdbs(__adrill_user_cfg__)
-                        tool_file_cdb_path = adrill_cdbs[tool_file_cdb]
-                        tool_file = tool_file_cdb_path + '\\' + tool_file.split('>')[1]
+                    tool_file = get_toolFilename_fullNotation(tool_file)
                 tool_found = True
                 stack_order = 0
                 break
@@ -262,11 +259,7 @@ def get_tool_name(string_file, tool_type, n=1, return_full_path=True):
                 tool_file = line.split("'")[1].replace('/','\\')
                 tool_name = tool_file.split('\\')[-1].split('.')[0]
                 if return_full_path:
-                    if '<' in tool_file:
-                        tool_file_cdb = tool_file.split('>')[0].replace('<','')
-                        adrill_cdbs = get_adrill_cdbs(__adrill_user_cfg__)
-                        tool_file_cdb_path = adrill_cdbs[tool_file_cdb]
-                        tool_file = tool_file_cdb_path + tool_file.split('>')[1]
+                    tool_file = get_toolFilename_fullNotation(tool_file)
                 tool_found = True
                 break
             elif ' type ' in line.lower() and tool_type.lower() in line.lower():
@@ -277,7 +270,21 @@ def get_tool_name(string_file, tool_type, n=1, return_full_path=True):
     else:
         raise ValueError('Tool of type {} not found in {}'.format(tool_type, string_file))
 
-def get_adrill_cdbs(adrill_user_cfg):
+def get_toolFilename_fullNotation(toolFilename_cdbNotation):
+    if '<' in toolFilename_cdbNotation:
+        cdb_name = toolFilename_cdbNotation.split('>')[0].replace('<','')
+        cdbs = get_adrill_cdbs(__adrill_user_cfg__, __adrill_shared_cfg__)
+        if cdb_name in cdbs:
+            cdb_path = cdbs[cdb_name]   
+            toolFilename_fullNotation = cdb_path + '\\' + toolFilename_cdbNotation.split('>')[1]                 
+        else:
+            raise cdbError('ADrill Database {} not defined.'.format(cdb_name))
+    else:
+        toolFilename_fullNotation = toolFilename_cdbNotation
+    return toolFilename_fullNotation
+
+
+def get_adrill_cdbs(adrill_user_cfg, adrill_shared_cfg=None):
     """
     Return the names and locations of all user defined MSC Adams Drill
     configuration databases (cdbs)
@@ -293,12 +300,19 @@ def get_adrill_cdbs(adrill_user_cfg):
             locations as values.
     """
     cdbs = {}
-    fid = open(adrill_user_cfg,'r')
-    for line in fid:
-        if line.startswith('DATABASE'):
-            cdb_name = line.replace('DATABASE','').lstrip().split(' ')[0]
-            cdb_loc = line.replace('DATABASE','').lstrip().split(' ',1)[1].lstrip().replace('\n','').replace('$HOME',__home__).replace('/','\\')
-            cdbs[cdb_name] = cdb_loc
+    with open(adrill_user_cfg,'r') as fid:
+        for line in fid:
+            if line.startswith('DATABASE'):
+                cdb_name = line.replace('DATABASE','').lstrip().split(' ')[0]
+                cdb_loc = line.replace('DATABASE','').lstrip().split(' ',1)[1].lstrip().replace('\n','').replace('$HOME',__home__).replace('/','\\')
+                cdbs[cdb_name] = cdb_loc
+    if adrill_shared_cfg:
+        with open(adrill_shared_cfg,'r') as fid:
+            for line in fid:
+                if line.startswith('DATABASE'):
+                    cdb_name = line.replace('DATABASE','').lstrip().split(' ')[0]
+                    cdb_loc = line.replace('DATABASE','').lstrip().split(' ',1)[1].lstrip().replace('\n','').replace('$HOME',__home__).replace('/','\\')
+                    cdbs[cdb_name] = cdb_loc
     return cdbs
 
 def get_TO_param(TO_file, TO_param):
@@ -314,6 +328,10 @@ def get_TO_param(TO_file, TO_param):
     -------
     TO_value :  The value assigned to TO_param in TO_file
     """
+
+    # Check if CDB notation used and Convert
+    TO_file = get_toolFilename_fullNotation(TO_file)
+
     param_found = False
     fid = open(TO_file,'r')
     for line in fid:
@@ -409,7 +427,7 @@ def cdbNotation_to_fullNotation(string_file):
     n: Number of replacements that were made.
     """
 
-    cdbs = get_adrill_cdbs(__adrill_user_cfg__)
+    cdbs = get_adrill_cdbs(__adrill_user_cfg__, __adrill_shared_cfg__)
     n = 0 
 
     with open(string_file, 'r') as fid_str, open(string_file.replace('.str','.tmp'), 'w') as fid_str_tmp:
@@ -452,7 +470,7 @@ def replace_tool(string_file, old_tool_file, new_tool_file, old_tool_name='', ne
     old_tool_file = old_tool_file.replace('\\','/')
     new_tool_file = new_tool_file.replace('\\','/')
     
-    cdbs = get_adrill_cdbs(__adrill_user_cfg__)
+    cdbs = get_adrill_cdbs(__adrill_user_cfg__, __adrill_shared_cfg__)
     
     # Get cdb associated with old_tool_file
     old_tool_has_cdb = False
@@ -468,7 +486,7 @@ def replace_tool(string_file, old_tool_file, new_tool_file, old_tool_name='', ne
         if old_tool_has_cdb:
             old_tool_file = old_tool_file.replace('<{}>'.format(old_cdb_name), old_cdb_loc)
         else:
-            raise ValueError('The cdb {}, referenced in {}  does not exist in the Adrill user configuration file, {}'.format(old_cdb_name,old_tool_file,__adrill_user_cfg__))
+            raise cdbError('ADrill Database {} not defined.'.format(cdb_name))
                 
     # Get cdb associated with new_tool_file
     new_tool_has_cdb = False
@@ -484,7 +502,7 @@ def replace_tool(string_file, old_tool_file, new_tool_file, old_tool_name='', ne
         if new_tool_has_cdb:
             new_tool_file = new_tool_file.replace('<{}>'.format(new_cdb_name), new_cdb_loc)
         else:
-            raise ValueError('The cdb {}, referenced in {} does not exist in the Adrill user configuration file, {}'.format(new_cdb_name,new_tool_file,__adrill_user_cfg__))
+            raise cdbError('ADrill Database {} not defined.'.format(cdb_name))
 
     if old_tool_name == '':
         old_tool_name = old_tool_file.split('/')[-1].split('.')[0]
@@ -565,10 +583,10 @@ def get_string_length(string_file):
                       
     Returns
     -------
-    string_weight:      Cumulative weight of the string
+    string_length:      Cumulative length of the string
     
     """
-    cdbs = get_adrill_cdbs(__adrill_user_cfg__)
+    cdbs = get_adrill_cdbs(__adrill_user_cfg__, __adrill_shared_cfg__)
     # print(cdbs)
     tool_lengths = []
     fid_string = open(string_file, 'r')
@@ -588,7 +606,7 @@ def get_string_length(string_file):
                 if tool_has_cdb:
                     tool_file = tool_file.replace('<{}>'.format(tool_cdb_name), cdb_loc)
                 else:
-                    raise ValueError('The cdb {}, referenced in {} does not exist in the Adrill user configuration file, {}'.format(tool_cdb_name,tool_file,__adrill_user_cfg__))
+                    raise cdbError('ADrill Database {} not defined.'.format(cdb_name))
             fid_tool = open(tool_file, 'r')
             file_type = ''
             for line in fid_tool:
@@ -603,9 +621,77 @@ def get_string_length(string_file):
             n = int(line.replace(' ','').split('=')[1])
             tool_lengths[-1] = tool_lengths[-1]*n
     fid_string.close()
-    string_weight = sum(tool_lengths)
-    return string_weight
+    string_length = sum(tool_lengths)
+    return string_length
 
+def get_number_of_tools(string_file):
+    """
+    Gets the total number of tools in a string.  Tools for which quantitiiy can be defined are only counted once.  The top drive is not included
+
+    Parameters
+    ----------
+    string_file :       Full path to an Adams Drill string file
+                      
+    Returns
+    -------
+    num:                Number of tools  
+    """
+    with open(string_file, 'r') as fid:
+        for line in fid:
+            if line.lower().startswith(' stack_order '):
+                num = int(line.replace(' ','').split('=')[-1])
+    
+    return num
+
+def get_bha_length(string_file):
+    """
+    Gets the total length of the drill string defined in string_file NOT including the equivalent upper string and highest most physical string
+    
+    Parameters
+    ----------
+    string_file :       Full path to an Adams Drill string file
+                      
+    Returns
+    -------
+    string_length:      Cumulative length of the string
+    
+    """
+    cdbs = get_adrill_cdbs(__adrill_user_cfg__)
+    # print(cdbs)
+    tool_lengths = []
+    with open(string_file, 'r') as fid_string:
+        for line in fid_string:
+            if ' property_file' in line.lower() and not line.startswith('$'):
+                tool_file = line.split("'")[1].replace('/', '\\')
+                if '<' in tool_file:
+                    # Get cdb associated with tool_file
+                    tool_has_cdb = False
+                    for cdb_name in cdbs:
+                        if '<{}>'.format(cdb_name) in tool_file:
+                            tool_cdb_name = cdb_name
+                            cdb_loc = cdbs[cdb_name].replace('/','\\')
+                            tool_has_cdb = True
+                            break  
+                    # Change cdb notation to full path notation
+                    if tool_has_cdb:
+                        tool_file = tool_file.replace('<{}>'.format(tool_cdb_name), cdb_loc)
+                    else:
+                        raise cdbError('ADrill Database {} not defined.'.format(cdb_name))
+                fid_tool = open(tool_file, 'r')
+                file_type = ''
+                for line in fid_tool:
+                    if file_type and 'top_drive' not in file_type.lower() and line.replace(' ', '').split('=')[0] in TO_length_param[file_type] and not line.startswith('$'):
+                        tool_length = float(line.replace(' ', '').split('=')[1])
+                        tool_lengths.append(tool_length)
+                        break
+                    elif ' file_type' in line.lower() and not line.startswith('$'):
+                        file_type = line.lower().replace(' ', '').replace("'",'').replace('\n','').split('=')[1]
+                fid_tool.close()
+            if ' number_of_joints' in line.lower():
+                n = int(line.replace(' ','').split('=')[1])
+                tool_lengths[-1] = tool_lengths[-1]*n
+    string_length = sum(tool_lengths[:-2])
+    return string_length
     
 # def get_string_weight(string_file):
 #     cdbs = get_adrill_cdbs(__adrill_user_cfg__)
@@ -655,3 +741,5 @@ def get_string_length(string_file):
         
     
     
+class cdbError(Exception):
+    pass
