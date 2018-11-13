@@ -300,19 +300,26 @@ def get_adrill_cdbs(adrill_user_cfg, adrill_shared_cfg=None):
             locations as values.
     """
     cdbs = {}
+    top_dir = '\\'.join(adrill_shared_cfg.replace('/','\\').split('\\')[:-1])
     with open(adrill_user_cfg,'r') as fid:
         for line in fid:
             if line.startswith('DATABASE'):
-                cdb_name = line.replace('DATABASE','').lstrip().split(' ')[0]
-                cdb_loc = line.replace('DATABASE','').lstrip().split(' ',1)[1].lstrip().replace('\n','').replace('$HOME',__home__).replace('/','\\')
-                cdbs[cdb_name] = cdb_loc
+                try:
+                    cdb_name = line.replace('DATABASE','').lstrip().split(' ')[0]
+                    cdb_loc = line.replace('DATABASE','').lstrip().split(' ',1)[1].lstrip().replace('\n','').replace('$HOME',__home__).replace('/','\\')
+                    cdbs[cdb_name] = cdb_loc
+                except:
+                    raise cdbError('The following line in {} could not be interpreted.\n\n{}'.format(adrill_user_cfg,line))
     if adrill_shared_cfg:
         with open(adrill_shared_cfg,'r') as fid:
             for line in fid:
                 if line.startswith('DATABASE'):
-                    cdb_name = line.replace('DATABASE','').lstrip().split(' ')[0]
-                    cdb_loc = line.replace('DATABASE','').lstrip().split(' ',1)[1].lstrip().replace('\n','').replace('$HOME',__home__).replace('/','\\')
-                    cdbs[cdb_name] = cdb_loc
+                    try:
+                        cdb_name = line.replace('DATABASE','').lstrip().split(' ')[0]
+                        cdb_loc = line.replace('DATABASE','').lstrip().split(' ',1)[1].lstrip().replace('\n','').replace('$HOME',__home__).replace('$topdir',top_dir).replace('/','\\')
+                        cdbs[cdb_name] = cdb_loc
+                    except:
+                        raise cdbError('The following line in {} could not be interpreted.\n\n{}'.format(adrill_shared_cfg,line))
     return cdbs
 
 def get_TO_param(TO_file, TO_param):
