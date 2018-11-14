@@ -19,6 +19,7 @@ v1 - 20180810
 from os import environ
 from os import remove
 from os import rename
+import re
 from scipy import signal
 from numpy import mean
 
@@ -276,7 +277,7 @@ def get_toolFilename_fullNotation(toolFilename_cdbNotation):
         cdbs = get_adrill_cdbs(__adrill_user_cfg__, __adrill_shared_cfg__)
         if cdb_name in cdbs:
             cdb_path = cdbs[cdb_name]   
-            toolFilename_fullNotation = cdb_path + '\\' + toolFilename_cdbNotation.split('>')[1]                 
+            toolFilename_fullNotation = cdb_path + toolFilename_cdbNotation.split('>')[1]                 
         else:
             raise cdbError('ADrill Database {} not defined.'.format(cdb_name))
     else:
@@ -300,23 +301,27 @@ def get_adrill_cdbs(adrill_user_cfg, adrill_shared_cfg=None):
             locations as values.
     """
     cdbs = {}
-    top_dir = '\\'.join(adrill_shared_cfg.replace('/','\\').split('\\')[:-1])
     with open(adrill_user_cfg,'r') as fid:
         for line in fid:
             if line.startswith('DATABASE'):
                 try:
-                    cdb_name = line.replace('DATABASE','').lstrip().split(' ')[0]
-                    cdb_loc = line.replace('DATABASE','').lstrip().split(' ',1)[1].lstrip().replace('\n','').replace('$HOME',__home__).replace('/','\\')
+                    cdb_name = re.split(' |\t',line.replace('DATABASE','').lstrip())[0]
+                    # cdb_name = line.replace('DATABASE','').lstrip().split(' ')[0]
+                    cdb_loc = re.split(' |\t', line.replace('DATABASE','').lstrip())[-1].replace('\n','').replace('$HOME',__home__).replace('/','\\')
+                    # cdb_loc = line.replace('DATABASE','').lstrip().split(' ',1)[1].lstrip().replace('\n','').replace('$HOME',__home__).replace('/','\\')
                     cdbs[cdb_name] = cdb_loc
                 except:
                     raise cdbError('The following line in {} could not be interpreted.\n\n{}'.format(adrill_user_cfg,line))
     if adrill_shared_cfg:
+        top_dir = '\\'.join(adrill_shared_cfg.replace('/','\\').split('\\')[:-1])
         with open(adrill_shared_cfg,'r') as fid:
             for line in fid:
                 if line.startswith('DATABASE'):
                     try:
-                        cdb_name = line.replace('DATABASE','').lstrip().split(' ')[0]
-                        cdb_loc = line.replace('DATABASE','').lstrip().split(' ',1)[1].lstrip().replace('\n','').replace('$HOME',__home__).replace('$topdir',top_dir).replace('/','\\')
+                        cdb_name = re.split(' |\t',line.replace('DATABASE','').lstrip())[0]
+                        # cdb_name = line.replace('DATABASE','').lstrip().split(' ')[0]
+                        cdb_loc = re.split(' |\t', line.replace('DATABASE','').lstrip())[-1].replace('\n','').replace('$HOME',__home__).replace('$topdir',top_dir).replace('/','\\')
+                        # cdb_loc = line.replace('DATABASE','').lstrip().split(' ',1)[1].lstrip().replace('\n','').replace('$HOME',__home__).replace('$topdir',top_dir).replace('/','\\')
                         cdbs[cdb_name] = cdb_loc
                     except:
                         raise cdbError('The following line in {} could not be interpreted.\n\n{}'.format(adrill_shared_cfg,line))
@@ -663,7 +668,7 @@ def get_bha_length(string_file):
     string_length:      Cumulative length of the string
     
     """
-    cdbs = get_adrill_cdbs(__adrill_user_cfg__)
+    cdbs = get_adrill_cdbs(__adrill_user_cfg__, __adrill_shared_cfg__)
     # print(cdbs)
     tool_lengths = []
     with open(string_file, 'r') as fid_string:
