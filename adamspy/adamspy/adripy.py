@@ -22,7 +22,7 @@ from os import rename
 import re
 
 __adrill_user_cfg__ = environ['USERPROFILE'] + '\\.adrill.cfg'
-__adrill_shared_cfg__ = 'C:\\MSC.Software\\Adams\\2018\\adrill\\adrill_shared.cdb'
+__adrill_shared_cfg__ = 'C:\\MSC.Software\\Adams\\2018\\adrill\\adrill.cfg'
 __home__ = environ['USERPROFILE']
 
 # Dictionary of TO tool length parameters
