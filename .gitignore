@@ -1,0 +1,12 @@
+adamspy/dist/
+adamspy/adamspy.egg-info/PKG-INFO
+adamspy/adamspy.egg-info/SOURCES.txt
+adamspy/adamspy.egg-info/dependency_links.txt
+adamspy/adamspy.egg-info/top_level.txt
+adamspy/.vscode/
+__pycache__/
+adamspy/LICENSE
+adamspy/MANIFEST.in
+adamspy/README.md
+adamspy/build/
+adamspy/dist/

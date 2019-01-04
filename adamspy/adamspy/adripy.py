@@ -21,8 +21,14 @@ from os import remove
 from os import rename
 import re
 
-__adrill_user_cfg__ = environ['USERPROFILE'] + '\\.adrill.cfg'
-__adrill_shared_cfg__ = 'C:\\MSC.Software\\Adams\\2018\\adrill\\adrill.cfg'
+if 'ADRILL_USER_CFG' in environ:
+    __adrill_user_cfg__ = environ['__adrill_user_cfg__'] 
+else:
+    __adrill_user_cfg__ = environ['USERPROFILE'] + '\\.adrill.cfg'
+if 'ADRILL_SHARED_CFG' in environ:
+    __adrill_shared_cfg__ = environ['ADRILL_SHARED_CFG']
+else:
+    __adrill_shared_cfg__ = 'C:\\MSC.Software\\Adams\\2018\\adrill\\adrill.cfg'
 __home__ = environ['USERPROFILE']
 
 # Dictionary of TO tool length parameters
@@ -293,7 +299,7 @@ def fullNotation_to_cdbNotation(string_file):
     n: Num
     """
 
-    cdbs = get_adrill_cdbs(__adrill_user_cfg__)
+    cdbs = get_adrill_cdbs(__adrill_user_cfg__, __adrill_shared_cfg__)
     n = 0 
 
     with open(string_file, 'r') as fid_str, open(string_file.replace('.str','.tmp'), 'w') as fid_str_tmp:
@@ -361,6 +367,45 @@ def cdbNotation_to_fullNotation(string_file):
     rename(string_file.replace('.str','.tmp'), string_file)
     
     return n
+
+def get_cdb_path(full_filepath):    
+    """
+    Given the full path to a file located in a cdb, get_cdb_path returns the path to a
+    file with the cdb path replaced by the cdb alias.
+
+    Parameters
+    ----------
+    full_filepath :     Full file path to a file in a cdb
+                  
+    Returns
+    -------
+    cdb_filepath :      Path to a file with the cdb path replaced by the cdb alias.
+    """
+    cdb_filepath = full_filepath
+    cdbs = get_adrill_cdbs(__adrill_user_cfg__, __adrill_shared_cfg__)
+    for cdb_name in cdbs:
+        if cdbs[cdb_name] in full_filepath:
+            cdb_filepath = full_filepath.replace(cdbs[cdb_name], '<{}>'.format(cdb_name))
+        elif cdbs[cdb_name].replace('\\','/') in full_filepath:
+            cdb_filepath = full_filepath.replace(cdbs[cdb_name].replace('\\','/'), '<{}>'.format(cdb_name))
+        elif cdbs[cdb_name].replace('/','\\') in full_filepath:
+            cdb_filepath = full_filepath.replace(cdbs[cdb_name].replace('/','\\'), '<{}>'.format(cdb_name))
+    return cdb_filepath
+
+def get_cdb_location(cdb_name):
+    """
+    Returns the location of cdb 'cdb_name'
+
+    Parameters
+    ----------
+    cdb_name :      Alias of a cdb
+                  
+    Returns
+    -------
+    cdb_location :  Location of cdb
+    """
+    cdbs = get_adrill_cdbs(__adrill_user_cfg__, __adrill_shared_cfg__)
+    return cdbs[cdb_name]
 
 def replace_tool(string_file, old_tool_file, new_tool_file, old_tool_name='', new_tool_name='', N=0):
     """
