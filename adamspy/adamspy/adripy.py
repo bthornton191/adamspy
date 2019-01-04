@@ -392,6 +392,26 @@ def get_cdb_path(full_filepath):
             cdb_filepath = full_filepath.replace(cdbs[cdb_name].replace('/','\\'), '<{}>'.format(cdb_name))
     return cdb_filepath
 
+def get_full_path(cdb_filepath):    
+    """
+    Given the cdb path to a file located in a cdb, get_full_path returns the path to a
+    file with the cdb alias replaced by the cdb location.
+
+    Parameters
+    ----------
+    cdb_filepath :     Full file path to a file in a cdb
+                  
+    Returns
+    -------
+    full_filepath :      Path to a file with the cdb path replaced by the cdb alias.
+    """    
+    full_filepath = cdb_filepath
+    cdbs = get_adrill_cdbs(__adrill_user_cfg__, __adrill_shared_cfg__)
+    for cdb_name in cdbs:
+        if cdb_name in cdb_filepath:
+            full_filepath = cdb_filepath.replace('<{}>'.format(cdb_name), cdbs[cdb_name]).replace('/','\\')
+    return full_filepath
+
 def get_cdb_location(cdb_name):
     """
     Returns the location of cdb 'cdb_name'
