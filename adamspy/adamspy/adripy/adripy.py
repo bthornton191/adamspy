@@ -3,22 +3,16 @@
 Description
 --------------------------------------------------------------------------
 adripy is a set of python tools for manipulating MSC Adams Drill files
-
 --------------------------------------------------------------------------
 Author
 --------------------------------------------------------------------------
 Ben Thornton (ben.thornton@mscsofware.com)
 Simulation Consultant - MSC Software
-
---------------------------------------------------------------------------
-Version
---------------------------------------------------------------------------
-v1 - 20180810
-
 """
 from os import environ
 from os import remove
 from os import rename
+import os.path
 import re
 
 if 'ADRILL_USER_CFG' in environ:
@@ -670,53 +664,58 @@ def get_bha_length(string_file):
     string_length = sum(tool_lengths[:-2])
     return string_length
     
-# def get_string_weight(string_file):
-#     cdbs = get_adrill_cdbs(__adrill_user_cfg__)
-#     # print(cdbs)
-#     tool_masses = []
-#     fid_string = open(string_file, 'r')
-#     # Loop through string file
-#     for line in fid_string:
-#         # When a property file definition line is found
-#         if ' property_file' in line.lower() and not line.startswith('$'):
-#             tool_file = line.split("'")[1].replace('/', '\\')
-#             if '<' in tool_file:
-#                 # Get cdb associated with tool_file
-#                 tool_has_cdb = False
-#                 for cdb_name in cdbs:
-#                     if '<{}>'.format(cdb_name) in tool_file:
-#                         tool_cdb_name = cdb_name
-#                         cdb_loc = cdbs[cdb_name].replace('/','\\')
-#                         tool_has_cdb = True
-#                         break  
-#                 # Change cdb notation to full path notation
-#                 if tool_has_cdb:
-#                     tool_file = tool_file.replace('<{}>'.format(tool_cdb_name), cdb_loc)
-#                 else:
-#                     raise ValueError('The cdb {}, referenced in {} does not exist in the Adrill user configuration file, {}'.format(cdb_name,tool_file,__adrill_user_cfg__))
-#             # Open the property file
-#             fid_tool = open(tool_file, 'r')
-#             file_type = ''
-#             # Loop through the property file
-#             for line in fid_tool:
-#                 # If the tool type has already been determined and it is not a top drive then look for the mass parameter
-#                 if file_type and 'top_drive' not in file_type.lower() and ' mass' in line.lower() and line.replace(' ', '').replace('\n','').split('=')[1].replace('.','').isdigit() and not line.startswith('$'):
-#                     tool_mass = float(line.replace(' ', '').replace('\n','').split('=')[1])
-#                     tool_masses.append(tool_mass)
-#                     print('{} - {}'.format(file_type, tool_mass))
-#                     break
-#                 # Get the tool/file type
-#                 elif ' file_type' in line.lower() and not line.startswith('$'):
-#                     file_type = line.replace(' ', '').split('=')[1].replace("'",'').replace('\n','')
-            
-#             fid_tool.close()
-#         if ' number_of_joints' in line.lower():
-#             n = int(line.replace(' ','').split('=')[1])
-#             tool_masses[-1] = tool_masses[-1]*n
-#     fid_string.close()
-#     return sum(tool_masses)
-        
+def add_cdb_to_cfg(name, loc, cfg_file):
+    """Adds cdb of name 'name' and path 'loc' to cfg_file
     
+    Arguments:
+        name {string} -- name of cdb
+        loc {string} -- path to cdb 
+        cfg_file {string} -- Full filename of an adams drill configuration file
     
+    Raises:
+        ValueError -- Raised if a cdb of the given name or path already exists in the given config file
+        PermissionError -- Raised if the user does not have permissiosn to edit the given config file
+    """
+
+    loc = os.path.normpath(loc)
+    cdbs = {}
+
+    # Read config file
+    with open(cfg_file, 'r') as fid:
+        lines = fid.readlines()
+
+    # Pull cdbs from config file into a dictionary
+    for line in lines:
+        if line.lower().startswith('database'):
+            splt = re.split('[ \t]+', line.replace('\n',''), maxsplit=2)
+            cdbs[splt[1]] = os.path.normpath(splt[2])
+    
+    # Check if cdb name already exists
+    if name in cdbs:
+        raise ValueError('{} already exists in {}.'.format(name, cfg_file))
+    
+    # Check if cdb location already exists
+    for cdb_name in cdbs:
+        if loc is cdbs[cdb_name]:
+            raise ValueError('{} already exists in {}'.format(loc, cfg_file))
+    
+    # Add new cdb to cdbs dictionary
+    cdbs[name] = loc
+
+    # Rewrite config file with new cdb
+    try:
+        with open(cfg_file, 'w') as fid:
+            cdbs_written = False
+            for line in lines:
+                if not line.lower().startswith('database'):
+                    fid.write(line)
+                elif not cdbs_written:
+                    for cdb_name, cdb_loc in cdbs.items():
+                        text = 'DATABASE\t{}\t{}\n'.format(cdb_name, cdb_loc)
+                        fid.write(text)
+                    cdbs_written = True
+    except PermissionError:
+        raise PermissionError('You do not have permission to edit {}.'.format(cfg_file))    
+
 class cdbError(Exception):
     pass
