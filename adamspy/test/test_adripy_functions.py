@@ -36,7 +36,7 @@ DEFAULT_WRITE_DB    adrill_private
 !PROPFILE     pdc_bit           <adrill_private>/pdc_bits.tbl/SC_Acme_Co_695b.pdc
 !----------------------------------------------------------------------!
 '''
-    TEST_NEW_CONFIG_FILE_TEXT = '''!----------------------------------------------------------------------!
+    EXPECTED_CONFIG_FILE_TEXT = '''!----------------------------------------------------------------------!
 ! ************  Adams Drill Private Configuration File  ************
 !----------------------------------------------------------------------!
 !
@@ -81,15 +81,15 @@ DEFAULT_WRITE_DB    adrill_private
         # Run the function
         adripy.add_cdb_to_cfg('_NEW_DATABASE', 'C:/_NEW_DATABASE.cdb', self.TEST_CONFIG_FILENAME)
 
-        # Inspect the results
+        # Read the config file
         with open(self.TEST_CONFIG_FILENAME, 'r') as fid:
             lines = fid.readlines()
+        
+        # Initialize a list of failures
         failures = []
-        actual_cdbs = {}
-        expected_cdbs = {}
 
         # Loop through lines
-        for actual_line, expected_line, line_num in zip(lines, self.TEST_NEW_CONFIG_FILE_TEXT.split('\n'), range(len(lines))):
+        for actual_line, expected_line, line_num in zip(lines, self.EXPECTED_CONFIG_FILE_TEXT.split('\n'), range(len(lines))):
             expected_line += '\n'
 
             # Test if lines are equal
@@ -103,4 +103,3 @@ DEFAULT_WRITE_DB    adrill_private
         
 if __name__ == '__main__':
     unittest.main()
-

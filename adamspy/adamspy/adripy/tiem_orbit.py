@@ -4,7 +4,8 @@ from .adripy import get_cdb_location
 
 env = jinja2.Environment(
     loader=jinja2.PackageLoader('adamspy', 'templates'),
-    autoescape=jinja2.select_autoescape(['evt','str'])
+    autoescape=jinja2.select_autoescape(['evt','str']),
+    keep_trailing_newline=True
 )
 
 class DrillEvent():
@@ -94,6 +95,8 @@ class DrillEvent():
         'DYNAMICS': [[10, .04], [200, .05]]
     }
 
+    CDB_TABLE = 'events.tbl'
+    EXT = '.evt'
 
     def __init__(self, event_name, start_depth, off_bottom, **kwargs):
         self.parameters = kwargs
@@ -152,12 +155,12 @@ class DrillEvent():
             write_directory = get_cdb_location(cdb)        
         if filename is None:
             filename = self.parameters['Event_Name']
-        if not filename.endswith('.evt'):
-            filename += '.evt'
+        if not filename.endswith(self.EXT):
+            filename += self.EXT
                       
-        event_template = env.get_template('template.evt')
+        event_template = env.get_template(f'template{self.EXT}')
         
-        with open(os.path.join(write_directory, filename), 'w') as fid:
+        with open(os.path.join(write_directory, self.CDB_TABLE, filename), 'w') as fid:
             fid.write(event_template.render(self.parameters))
     
     def validate(self):
