@@ -32,9 +32,9 @@ $
 $ 
 (TOP_DRIVE)
 {Start_Time  Ramp_Duration  Delta_RPM}
-{% for start_time, ramp_duration, delta in TOP_DRIVE -%}
+{% for start_time, ramp_duration, delta in _TOP_DRIVE %}
 {{ start_time }}   {{ ramp_duration }}   {{ delta }}
-{%- endfor %}
+{% endfor %}
 $ 
 $ MOTOR valid only for DRIVE_TYPE = WITH_MOTOR
 (MOTOR)
@@ -51,29 +51,29 @@ $ proceed better.  *They should not be changed by the user.*
  Motor_Bend_Ramp  =  {{ Motor_Bend_Ramp }}
 $ 
 {Start_Time  Ramp_Duration  Delta_RPM}
-{% for start_time, ramp_duration, delta in MOTOR -%}
+{% for start_time, ramp_duration, delta in _MOTOR %}
 {{ start_time }}   {{ ramp_duration }}   {{ delta }}
-{%- endfor %}
+{% endfor %}
 $ 
 $ PUMP_FLOW applies only to 3D motors; valid only for DRIVE_TYPE = WITH_MOTOR
 $ Gallons/minute in imperial units; Liters/minute in metric units
 (PUMP_FLOW)
 {Start_Time  Ramp_Duration  Delta_Flow_Rate}
-{% for start_time, ramp_duration, delta in PUMP_FLOW -%}
+{% for start_time, ramp_duration, delta in _PUMP_FLOW %}
 {{ start_time }}   {{ ramp_duration }}   {{ delta }}
-{%- endfor %}
+{% endfor %}
 $ 
 (WOB)
 {Start_Time  Ramp_Duration  Delta_WOB}
-{% for start_time, ramp_duration, delta in WOB -%}
+{% for start_time, ramp_duration, delta in _WOB %}
 {{ start_time }}   {{ ramp_duration }}   {{ delta }}
-{%- endfor %}
+{% endfor %}
 $ 
 (ROP)
 {Start_Time  Ramp_Duration  Delta_ROP}
-{% for start_time, ramp_duration, delta in ROP -%}
+{% for start_time, ramp_duration, delta in _ROP %}
 {{ start_time }}   {{ ramp_duration }}   {{ delta }}
-{%- endfor %}
+{% endfor %}
 $---------------------------------------------------------------------------MISC
 [MISC]
 $ Enter MUD_DENSITY in pounds-mass per cubic foot for IMPERIAL units
@@ -90,16 +90,16 @@ $ See Adams Drill documentation prior to switching NperRev 'on'
  S_threshold  =  {{ S_threshold }}
  C_hi  =  {{ C_hi }}
 {Start_Time  Ramp_Duration}
-{% for start_time, ramp_duration in NPERREV -%}
+{% for start_time, ramp_duration in _NPERREV %}
 {{ start_time }}   {{ ramp_duration }}
-{%- endfor %}
+{% endfor %}
 $-----------------------------------------------------------------------DYNAMICS
 [DYNAMICS]
 $ Specify the simulation time and output rate in seconds
 {End_Time  Output_Step_Size}
-{% for end_time, output_step_size in DYNAMICS -%}
+{% for end_time, output_step_size in _DYNAMICS %}
 {{ end_time }}   {{ output_step_size }}
-{%- endfor %}
+{% endfor %}
 $------------------------------------------------------------------------PLOT_4D
 [PLOT_4D]
 $ Select if 3D and 4D plotting is to be enabled (on/off).

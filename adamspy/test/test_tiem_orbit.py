@@ -1,9 +1,8 @@
 import unittest
 import os
 from adamspy import adripy
-from adamspy.adripy import tiem_orbit
 
-class test_event_file(unittest.TestCase):
+class Test_EventFile(unittest.TestCase):
     """
     Tests that adripy can correctly write an event file
     """
@@ -98,7 +97,8 @@ $-----------------------------------------------------------------------DYNAMICS
 [DYNAMICS]
 $ Specify the simulation time and output rate in seconds
 {End_Time  Output_Step_Size}
-10   0.04200   0.0510   0.05100   0.05
+10   0.05
+100   0.05
 $------------------------------------------------------------------------PLOT_4D
 [PLOT_4D]
 $ Select if 3D and 4D plotting is to be enabled (on/off).
@@ -118,7 +118,7 @@ $ of the physically modeled string. (Equivalent Upper String not allowed.)
 
     def setUp(self):
         # Create event file object
-        self.event_file = tiem_orbit.DrillEvent(self.TEST_EVENT_NAME, 4000, 4)
+        self.event_file = adripy.tiem_orbit.DrillEvent(self.TEST_EVENT_NAME, 4000, 4)
         
         # Add ramp parameters to event file object
         self.event_file.add_ramp('PUMP_FLOW', 1, 10, 500)
@@ -161,4 +161,3 @@ $ of the physically modeled string. (Equivalent Upper String not allowed.)
         
 if __name__ == '__main__':
     unittest.main()
-

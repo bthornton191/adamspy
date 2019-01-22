@@ -1,11 +1,25 @@
+"""
+--------------------------------------------------------------------------
+Description
+--------------------------------------------------------------------------
+tiem_orbit is a set of python tools for manipulating MSC Adams Drill Tiem
+Orbit files.
+--------------------------------------------------------------------------
+Author
+--------------------------------------------------------------------------
+Ben Thornton (ben.thornton@mscsofware.com)
+Simulation Consultant - MSC Software
+"""
 import os
 import jinja2
 from .adripy import get_cdb_location
 
 env = jinja2.Environment(
-    loader=jinja2.PackageLoader('adamspy', 'templates'),
+    loader=jinja2.PackageLoader('adamspy.adripy', 'templates'),
     autoescape=jinja2.select_autoescape(['evt','str']),
-    keep_trailing_newline=True
+    keep_trailing_newline=True,
+    trim_blocks=True,
+    lstrip_blocks=True
 )
 
 class DrillEvent():
@@ -86,13 +100,13 @@ class DrillEvent():
     ]
 
     DEFAULT_PARAMETER_ARRAYS = {
-        'TOP_DRIVE': [],
-        'MOTOR': [[0, 1, 1]],
-        'PUMP_FLOW': [],
-        'WOB': [],
-        'ROP': [],
-        'NPERREV': [[0,1]],
-        'DYNAMICS': [[10, .04], [200, .05]]
+        'TOP_DRIVE': [[],[],[]],
+        'MOTOR': [[0], [1], [1]],
+        'PUMP_FLOW': [[],[],[]],
+        'WOB': [[],[],[]],
+        'ROP': [[],[],[]],
+        'NPERREV': [[0],[1]],
+        'DYNAMICS': [[], []]
     }
 
     CDB_TABLE = 'events.tbl'
@@ -115,9 +129,10 @@ class DrillEvent():
             output_step_size {foat} -- Output step size of the step. Defaults to 0.05.
         """
         if clear_existing:
-            self.parameters['DYNAMICS'] = []
-        self.parameters['DYNAMICS'].append([end_time, output_step_size])
-        self.parameters['_DYNAMICS'] = zip(self.parameters['DYNAMICS'])
+            self.parameters['DYNAMICS'] = [[],[]]
+        self.parameters['DYNAMICS'][0].append(end_time)
+        self.parameters['DYNAMICS'][1].append(output_step_size)
+        self.parameters['_DYNAMICS'] = zip(*self.parameters['DYNAMICS'])
     
     def add_ramp(self, parameter, start_time, ramp_duration, delta, clear_existing=False):
         """Adds a ramp to the specified ramp parameter
@@ -130,10 +145,11 @@ class DrillEvent():
             clear_existing {bool} -- If true, existing ramps for the specified parameter will be deleted.
         """
         if clear_existing:
-            self.parameters[parameter] = []
-        self.parameters[parameter].append([start_time, ramp_duration, delta])
-        self.parameters['_' + parameter] = zip(self.parameters[parameter])
-    
+            self.parameters[parameter] = [[],[],[]]
+        self.parameters[parameter][0].append(start_time)
+        self.parameters[parameter][1].append(ramp_duration)
+        self.parameters[parameter][2].append(delta)
+        self.parameters['_' + parameter] = zip(*self.parameters[parameter])    
 
     def write_to_file(self, write_directory=None, filename=None, cdb=None):
         """Creates an event file from the DrillEvent object.
@@ -195,4 +211,4 @@ class DrillEvent():
         for array_parameter, array in self.DEFAULT_PARAMETER_ARRAYS.items():
             self.parameters[array_parameter] = {}
             self.parameters[array_parameter] = array
-            self.parameters['_' + array_parameter] = zip(self.parameters[array_parameter])
+            self.parameters['_' + array_parameter] = zip(*self.parameters[array_parameter])
