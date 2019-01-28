@@ -1,0 +1,45 @@
+$ ==================================================================
+$ This is an Adams Drill solver settings file (.ssf)
+$ When this file is specified under 'Adams Solver Parameters' on the
+$ 'Run Simulation' tab of an Adams Drill Excel workbook, then the values
+$ specified here will override the Adams defaults.
+$------------------------------------------------------------------------STATICS
+[STATICS]
+$ Sometimes, a standard preliminary static simulation will not be possible,
+$ so we will need to do a static funnel which runs multiple static simulations
+$ with increasingly tighter settings.
+$ 'Equilibirum_Mehtod' options: 'Standard' or 'Static_Funnel'
+ Equilibrium_Method  =  'Static_Funnel'
+$ 
+$ Settings for 'Standard' equilibrium method:
+ Maxit  =  500.0
+ Stability  =  5.0
+ Error  =  1.0
+ Imbalance  =  1.0
+ Tlimit  =  0.5
+ Alimit  =  1.0
+$ 
+$ Settings for 'Static_Funnel' equilibrium method:
+$ Alimit is in degrees
+(FUNNEL)
+{Maxit  Stability  Error  Imbalance  Tlimit  Alimit}
+{% for _Maxit, _Stability, _Error, _Imbalance, _Tlimit, _Alimit in _FUNNEL %}
+{{ _Maxit}}   {{ _Stability }}   {{ _Error }}   {{ _Imbalance }}   {{ _Tlimit }}   {{ _Alimit}}
+{% endfor %}
+$ 
+$-----------------------------------------------------------------------DYNAMICS
+[DYNAMICS]
+$ Integratror options: GSTIFF or HHT
+ Integrator  =  '{{ Integrator }}'
+$ 
+$ Formulation options: I3 or SI2 (I3 is only valid for HHT)
+ Formulation  =  '{{ Formulation }}'
+$ 
+$ Corrector Options: Original or Modified
+ Corrector  =  '{{ Corrector }}'
+ Error  =  {{ Error }}
+ HMax  =  {{ HMax }}
+ Alpha  =  {{ Alpha }}
+$---------------------------------------------------------------------EXECUTABLE
+[EXECUTABLE]
+ Thread_Count  =  {{ Thread_Count }}

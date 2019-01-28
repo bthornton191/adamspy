@@ -1,0 +1,31 @@
+$ NOTE: Block and subblock titles MUST begin in column 1
+$       Comment lines MUST also begin in column 1
+$------------------------------------------------------------ADAMS_DRILL_HEADER
+[ADAMS_DRILL_HEADER]
+ File_Type          =  'hw_pipe'
+ File_Version       =  1.0
+ Name               =  'test_hwdp2'
+ Tool_Name	        =  'test_hwdp2'
+ Manufacturer       =  ''
+$-------------------------------------------------------------------------UNITS
+[UNITS]             
+ Length             =  'foot'
+ Mass               =  'pound_mass'
+$----------------------------------------------------------------------GEOMETRY
+[GEOMETRY]          
+  Pipe_Length       = 32.083
+  Pipe_OD           = 0.5521
+  Pipe_ID           = 0.3750
+  Connection_OD     = 0.6875
+  Connection_Length = 2.0000
+  Rub_OD            = 0.5938
+$---------------------------------------------------------------MASS_PROPERTIES
+[MASS_PROPERTIES]
+$ If known, specify Mass to define the actual component mass, otherwise set=0
+$ and either let Adams compute it based on the density (units: slug/ft^3), or
+$ let Adams compute it based on a selected material from the Adams database.
+$ Young's Modulus is also defined by the material if a material is specified. 
+  Mass              = 0.0
+  Density           = 0.0
+  Youngs_Modulus    = 4.32E9
+  Material          = '.materials.steel'

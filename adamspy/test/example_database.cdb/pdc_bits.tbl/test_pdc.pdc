@@ -1,0 +1,63 @@
+$ NOTE: Block and subblock titles MUST begin in column 1
+$       Comment lines MUST also begin in column 1
+$------------------------------------------------------------ADAMS_DRILL_HEADER
+[ADAMS_DRILL_HEADER]
+ File_Type     =  'PDC_bit'
+ File_Version  =  1.0
+ Name          =  'test_pdc'
+ Tool_Name	   =  'test_pdc'
+ Manufacturer  =  ''
+$-------------------------------------------------------------------------UNITS
+[UNITS]
+ Length        =  'foot'
+ Mass          =  'pound_mass'
+ Angle         =  'degrees'
+ Time          =  'seconds'
+$----------------------------------------------------------------------GEOMETRY
+[GEOMETRY]
+$ bit types can be PDC (multi_blade) or single_point (single force for Roller-Cone or simpler PDC bits)
+  Modeling_Method    = 'single_point'
+  Bit_OD             = 1.0208
+  Bit_Length         = 1.5000
+  Stub_OD            = 0.6875
+  Stub_Length        = 0.4167
+  Shoulder_Length    = 0.16667
+  Number_of_Blades   = 4
+  Blade_Width        = 0.25
+  Blade_Pitch_Angle  = 0.0
+$------------------------------------------------------------------------BLADES
+[BLADES]
+$ For PDC type only! The number of rows MUST match number of blades!
+$ If you have an *axisymmetric* bit, the blades should be at N/360°,
+$ the radii should all == .667*Bit_OD/2, and the factors all == 1.0.
+{ degrees radius factor }
+  0.0    0.3500   1.0
+ 90.0    0.3500   1.0
+180.0    0.3500   1.0
+270.0    0.3500   1.0
+$----------------------------------------------------------------------FRICTION
+[FRICTION]
+$ Cutting_Mu_Dynamic is adjusted to match steady response torque
+$ Cutting_Mu_Static typically about 20% higher than dynamic
+ Cutting_Mu_Dynamic      = 0.90
+ Cutting_Mu_Static       = 1.25
+ Gauge_Mu_Dynamic        = 0.9
+ Gauge_Mu_Static         = 1.25
+$ adjust these *only* if you have some *good* stick-slip data
+ Cutting_Stiction_Vtrans = 0.15
+ Cutting_Friction_Vtrans = 0.30
+$ The clearance factor below artificially reduces the clearance 
+$ between the Bit_OD and the Hole_ID, that is, the working clearance
+$ will be (Hole_ID-Bit_OD)/2*factor. 1.0 is no reduction, 0.9 is very
+$ tight.
+ Bit_Clearance_Factor    = 0.999
+$---------------------------------------------------------------MASS_PROPERTIES
+[MASS_PROPERTIES]
+$ If known, specify Mass to define the actual component mass, otherwise set=0
+$ and either let Adams compute it based on the density (units: slug/ft^3), or
+$ let Adams compute it based on a selected material from the Adams database.
+$ Young's Modulus is also defined by the material if a material is specified. 
+ Mass                   = 467.0
+ Density                = 0.0
+ Youngs_Modulus         = 4.32E9
+ Material               = '.materials.null'

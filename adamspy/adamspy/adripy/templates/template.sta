@@ -1,0 +1,33 @@
+$ NOTE: Block and subblock titles MUST begin in column 1
+$ Comment lines MUST also begin in column 1
+$-------------------------------------------------------------ADAMS_DRILL_HEADER
+[ADAMS_DRILL_HEADER]
+ File_Type  =  '{{ File_Type }}'
+ File_Version  =  {{ File_Version }}
+ Name  =  '{{ Name }}'
+ Tool_Name  =  '{{ Tool_Name }}'
+ Manufacturer  =  '{{ Manufacturer }}'
+$--------------------------------------------------------------------------UNITS
+[UNITS]
+ Length  =  '{{ Units['Length'] }}'
+ Mass  =  '{{ Units['Mass'] }}'
+$-----------------------------------------------------------------------GEOMETRY
+[GEOMETRY]
+ Barrel_Length  =  {{ Barrel_Length }}
+ Barrel_OD  =  {{ Barrel_OD }}
+ Stabilizer_Length  =  {{ Stabilizer_Length }}
+ Stabilizer_ID  =  {{ Stabilizer_ID }}
+ Stub_OD  =  {{ Stub_OD }}
+ Number_of_Blades  =  {{ Number_of_Blades }}
+ Blade_Angle  =  {{ Blade_Angle }}
+ Blade_Width  =  {{ Blade_Width }}
+$----------------------------------------------------------------MASS_PROPERTIES
+[MASS_PROPERTIES]
+$ If known, specify Mass to define the actual component mass, otherwise set=0
+$ and either let Adams compute it based on the density (units: slug/ft^3), or
+$ let Adams compute it based on a selected material from the Adams database.
+$ Young's Modulus is also defined by the material if a material is specified.
+ Mass  =  {{ Mass }}
+ Density  =  {{ Density }}
+ Youngs_Modulus  =  {{ Youngs_Modulus }}
+ Material  =  '{{ Material }}'

@@ -14,16 +14,38 @@ from os import remove
 from os import rename
 import os.path
 import re
+import shutil
+import subprocess
+import jinja2
 
-if 'ADRILL_USER_CFG' in environ:
-    __adrill_user_cfg__ = environ['__adrill_user_cfg__'] 
-else:
-    __adrill_user_cfg__ = environ['USERPROFILE'] + '\\.adrill.cfg'
-if 'ADRILL_SHARED_CFG' in environ:
-    __adrill_shared_cfg__ = environ['ADRILL_SHARED_CFG']
-else:
-    __adrill_shared_cfg__ = 'C:\\MSC.Software\\Adams\\2018\\adrill\\adrill.cfg'
-__home__ = environ['USERPROFILE']
+env = jinja2.Environment(
+    loader=jinja2.PackageLoader('adamspy.adripy', 'templates'),
+    autoescape=jinja2.select_autoescape(['evt','str']),
+    keep_trailing_newline=True,
+    trim_blocks=True,
+    lstrip_blocks=True
+)
+
+# Test that the user config file exists
+if 'ADRILL_USER_CFG' not in os.environ:
+    raise EnvironmentError('ADRILL_USER_CFG environment variable is not set!')
+elif not os.path.exists(os.environ['ADRILL_USER_CFG']):
+    raise FileExistsError('The configuration file {} does not exist!  You must set the ADRILL_USER_CFG environment variable to an existing cfg file before importing adripy.'.format(os.environ['ADRILL_USER_CFG']))
+
+# Test that the user shared file exists
+if 'ADRILL_SHARED_CFG' not in os.environ:
+    raise EnvironmentError('ADRILL_SHARED_CFG environment variable is not set!')
+elif not os.path.exists(os.environ['ADRILL_SHARED_CFG']):
+    raise FileExistsError('The configuration file {} does not exist!  You must set the ADRILL_SHARED_CFG environment variable to an existing cfg file before importing adripy.'.format(os.environ['ADRILL_SHARED_CFG']))
+
+# Test that the adams launch file exists
+if 'ADAMS_LAUNCH_COMMAND' not in os.environ:
+    raise EnvironmentError('ADAMS_LAUNCH_COMMAND environment variable is not set!')
+elif not os.path.exists(os.environ['ADAMS_LAUNCH_COMMAND']):
+    raise FileExistsError('The adams launch file {} does not exist!  You must set the ADRILL_SHARED_CFG environment variable to an existing cfg file before importing adripy.'.format(os.environ['ADAMS_LAUNCH_COMMAND']))
+
+
+environ['USERPROFILE'] = environ['USERPROFILE']
 
 # Dictionary of TO tool length parameters
 TO_LENGTH_PARAM = {}
@@ -174,7 +196,7 @@ def get_tool_name(string_file, tool_type, n=1, return_full_path=True):
 def get_toolFilename_fullNotation(toolFilename_cdbNotation):
     if '<' in toolFilename_cdbNotation:
         cdb_name = toolFilename_cdbNotation.split('>')[0].replace('<','')
-        cdbs = get_adrill_cdbs(__adrill_user_cfg__, __adrill_shared_cfg__)
+        cdbs = get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
         if cdb_name in cdbs:
             cdb_path = cdbs[cdb_name]   
             toolFilename_fullNotation = cdb_path + toolFilename_cdbNotation.split('>')[1]                 
@@ -204,27 +226,23 @@ def get_adrill_cdbs(adrill_user_cfg, adrill_shared_cfg=None):
     with open(adrill_user_cfg,'r') as fid:
         for line in fid:
             if line.startswith('DATABASE'):
-                try:
-                    cdb_name = re.split(' |\t',line.replace('DATABASE','').lstrip())[0]
-                    # cdb_name = line.replace('DATABASE','').lstrip().split(' ')[0]
-                    cdb_loc = re.split(' |\t', line.replace('DATABASE','').lstrip())[-1].replace('\n','').replace('$HOME',__home__).replace('/','\\')
-                    # cdb_loc = line.replace('DATABASE','').lstrip().split(' ',1)[1].lstrip().replace('\n','').replace('$HOME',__home__).replace('/','\\')
-                    cdbs[cdb_name] = cdb_loc
-                except:
-                    raise cdbError('The following line in {} could not be interpreted.\n\n{}'.format(adrill_user_cfg,line))
+                # try:
+                cdb_name = re.split('[\t ]+',line.lstrip())[1]
+                cdb_loc = os.path.normpath(re.split('[\t ]+', line, maxsplit=2)[-1].replace('\n','').replace('$HOME',environ['USERPROFILE']))
+                cdbs[cdb_name] = cdb_loc
+                # except:
+                #     raise cdbError('The following line in {} could not be interpreted.\n\n{}'.format(adrill_user_cfg,line))
     if adrill_shared_cfg:
-        top_dir = '\\'.join(adrill_shared_cfg.replace('/','\\').split('\\')[:-1])
+        top_dir = os.path.split(adrill_shared_cfg)[0]
         with open(adrill_shared_cfg,'r') as fid:
             for line in fid:
                 if line.startswith('DATABASE'):
-                    try:
-                        cdb_name = re.split(' |\t',line.replace('DATABASE','').lstrip())[0]
-                        # cdb_name = line.replace('DATABASE','').lstrip().split(' ')[0]
-                        cdb_loc = re.split(' |\t', line.replace('DATABASE','').lstrip())[-1].replace('\n','').replace('$HOME',__home__).replace('$topdir',top_dir).replace('/','\\')
-                        # cdb_loc = line.replace('DATABASE','').lstrip().split(' ',1)[1].lstrip().replace('\n','').replace('$HOME',__home__).replace('$topdir',top_dir).replace('/','\\')
-                        cdbs[cdb_name] = cdb_loc
-                    except:
-                        raise cdbError('The following line in {} could not be interpreted.\n\n{}'.format(adrill_shared_cfg,line))
+                    # try:
+                    cdb_name = re.split('[\t ]+', line, maxsplit=2)[1]
+                    cdb_loc = os.path.normpath(re.split('[\t ]+', line, maxsplit=2)[-1].replace('\n','').replace('$HOME',environ['USERPROFILE']).replace('$topdir',top_dir))                        
+                    cdbs[cdb_name] = cdb_loc
+                    # except:
+                        # raise cdbError('The following line in {} could not be interpreted.\n\n{}'.format(adrill_shared_cfg,line))
     return cdbs
 
 def get_TO_param(TO_file, TO_param):
@@ -293,7 +311,7 @@ def fullNotation_to_cdbNotation(string_file):
     n: Num
     """
 
-    cdbs = get_adrill_cdbs(__adrill_user_cfg__, __adrill_shared_cfg__)
+    cdbs = get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
     n = 0 
 
     with open(string_file, 'r') as fid_str, open(string_file.replace('.str','.tmp'), 'w') as fid_str_tmp:
@@ -339,7 +357,7 @@ def cdbNotation_to_fullNotation(string_file):
     n: Number of replacements that were made.
     """
 
-    cdbs = get_adrill_cdbs(__adrill_user_cfg__, __adrill_shared_cfg__)
+    cdbs = get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
     n = 0 
 
     with open(string_file, 'r') as fid_str, open(string_file.replace('.str','.tmp'), 'w') as fid_str_tmp:
@@ -365,7 +383,8 @@ def cdbNotation_to_fullNotation(string_file):
 def get_cdb_path(full_filepath):    
     """
     Given the full path to a file located in a cdb, get_cdb_path returns the path to a
-    file with the cdb path replaced by the cdb alias.
+    file with the cdb path replaced by the cdb alias.  full_filepath will be returned if
+    no cdb is found in the path.
 
     Parameters
     ----------
@@ -376,7 +395,7 @@ def get_cdb_path(full_filepath):
     cdb_filepath :      Path to a file with the cdb path replaced by the cdb alias.
     """
     cdb_filepath = full_filepath
-    cdbs = get_adrill_cdbs(__adrill_user_cfg__, __adrill_shared_cfg__)
+    cdbs = get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
     for cdb_name in cdbs:
         if cdbs[cdb_name] in full_filepath:
             cdb_filepath = full_filepath.replace(cdbs[cdb_name], '<{}>'.format(cdb_name))
@@ -399,11 +418,26 @@ def get_full_path(cdb_filepath):
     -------
     full_filepath :      Path to a file with the cdb path replaced by the cdb alias.
     """    
-    full_filepath = cdb_filepath
-    cdbs = get_adrill_cdbs(__adrill_user_cfg__, __adrill_shared_cfg__)
-    for cdb_name in cdbs:
-        if cdb_name in cdb_filepath:
-            full_filepath = cdb_filepath.replace('<{}>'.format(cdb_name), cdbs[cdb_name]).replace('/','\\')
+
+    # Find a string that looks like a database alias
+    match = re.search('^<.+>', cdb_filepath)
+    
+    # Return the given filepath if filepath looks like a full filepath
+    if match is None:
+        return cdb_filepath
+    
+    # Pull the database name out of the group
+    cdb_name = match.group(0).replace('<', '').replace('>', '')
+
+    # Get a dictionar of the known cdbs
+    cdbs = get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
+    
+    # Raise an error if cdb_name is not in the cdbs dictionary
+    if cdb_name not in cdbs:
+        raise ValueError('{} not in {} OR {}!'.format(cdb_name, os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG']))
+    
+    full_filepath = cdb_filepath.replace(match.group(0), cdbs[cdb_name])
+
     return full_filepath
 
 def get_cdb_location(cdb_name):
@@ -418,7 +452,7 @@ def get_cdb_location(cdb_name):
     -------
     cdb_location :  Location of cdb
     """
-    cdbs = get_adrill_cdbs(__adrill_user_cfg__, __adrill_shared_cfg__)
+    cdbs = get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
     return cdbs[cdb_name]
 
 def replace_tool(string_file, old_tool_file, new_tool_file, old_tool_name='', new_tool_name='', N=0):
@@ -441,7 +475,7 @@ def replace_tool(string_file, old_tool_file, new_tool_file, old_tool_name='', ne
     old_tool_file = old_tool_file.replace('\\','/')
     new_tool_file = new_tool_file.replace('\\','/')
     
-    cdbs = get_adrill_cdbs(__adrill_user_cfg__, __adrill_shared_cfg__)
+    cdbs = get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
     
     # Get cdb associated with old_tool_file
     old_tool_has_cdb = False
@@ -557,7 +591,7 @@ def get_string_length(string_file):
     string_length:      Cumulative length of the string
     
     """
-    cdbs = get_adrill_cdbs(__adrill_user_cfg__, __adrill_shared_cfg__)
+    cdbs = get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
     # print(cdbs)
     tool_lengths = []
     fid_string = open(string_file, 'r')
@@ -627,7 +661,7 @@ def get_bha_length(string_file):
     string_length:      Cumulative length of the string
     
     """
-    cdbs = get_adrill_cdbs(__adrill_user_cfg__, __adrill_shared_cfg__)
+    cdbs = get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
     # print(cdbs)
     tool_lengths = []
     with open(string_file, 'r') as fid_string:
@@ -668,8 +702,8 @@ def add_cdb_to_cfg(name, loc, cfg_file):
     """Adds cdb of name 'name' and path 'loc' to cfg_file
     
     Arguments:
-        name {string} -- name of cdb
-        loc {string} -- path to cdb 
+        name {string} -- name of cdb (e.g. example_database)
+        loc {string} -- path to cdb (e.g. C:\\example_database.cdb)
         cfg_file {string} -- Full filename of an adams drill configuration file
     
     Raises:
@@ -711,11 +745,140 @@ def add_cdb_to_cfg(name, loc, cfg_file):
                     fid.write(line)
                 elif not cdbs_written:
                     for cdb_name, cdb_loc in cdbs.items():
-                        text = 'DATABASE\t{}\t{}\n'.format(cdb_name, cdb_loc)
+                        text = 'DATABASE   {}   {}\n'.format(cdb_name, cdb_loc)
                         fid.write(text)
                     cdbs_written = True
     except PermissionError:
         raise PermissionError('You do not have permission to edit {}.'.format(cfg_file))    
+
+def remove_cdb_from_cfg(name, cfg_file):
+    """Removes cdb of name 'name' from cfg_file
+    
+    ==========
+    Arguments:
+    ==========
+        name {string} -- name of cdb (e.g. example_database)
+        cfg_file {string} -- Full filename of an adams drill configuration file
+    
+    ==========
+    Raises:
+    ==========
+        ValueError -- Raised if a cdb of the given name or path already exists in the given config file
+        PermissionError -- Raised if the user does not have permissiosn to edit the given config file
+    """
+
+    # Initialize cdbs dictionary
+    cdbs = {}
+
+    # Read config file
+    with open(cfg_file, 'r') as fid:
+        lines = fid.readlines()
+
+    # Pull cdbs from config file into a dictionary
+    for line in lines:
+        if line.lower().startswith('database'):
+            splt = re.split('[ \t]+', line.replace('\n',''), maxsplit=2)
+            cdbs[splt[1]] = os.path.normpath(splt[2])
+    
+    # Check if cdb name exists
+    if name not in cdbs:
+        raise ValueError('{} does not exist in {}.'.format(name, cfg_file))
+    
+    # Remove cdb from cdbs dictionary
+    del cdbs[name]
+
+    # Rewrite config file with the cdb removed
+    try:
+        with open(cfg_file, 'w') as fid:
+            cdbs_written = False
+            for line in lines:
+                if not line.lower().startswith('database'):
+                    fid.write(line)
+                elif not cdbs_written:
+                    for cdb_name, cdb_loc in cdbs.items():
+                        text = 'DATABASE   {}   {}\n'.format(cdb_name, cdb_loc)
+                        fid.write(text)
+                    cdbs_written = True
+    except PermissionError:
+        raise PermissionError('You do not have permission to edit {}.'.format(cfg_file))  
+
+def create_cfg_file(filename, database_paths):
+    """Create a cfg file with the databases whose paths are given in the database_paths list.
+    Also sets the ADRILL_USER_CONFIG environment variable equal to filename.
+    
+    Arguments:
+        filename {string} -- Filename for the new configuration file.
+        database_paths {list} -- List of database paths to include in the configuration file. 
+    """
+
+
+    # Create a databases dictionary
+    databases = []    
+    for path in database_paths:
+        name = os.path.split(path)[1].replace('.cdb','')
+        databases.append({'name': name, 'path': path})
+
+    # Get the cfg template
+    cfg_template = env.get_template('template.cfg')
+    
+    # Write the new cfg file
+    with open(filename ,'w') as fid:
+        fid.write(cfg_template.render(databases=databases))
+    
+    os.environ['ADRILL_USER_CFG'] = os.path.join(os.getcwd(), filename)
+
+def build(string, solver_settings, working_directory, output_name=None):    
+    """Builds adm, acf, and cmd files from string, event, and solver settings files.
+    
+    Arguments:
+        string {DrillString} -- adripy.tiem_orbit.DrillString object
+        solver_settings {DrillSolverSettings} -- adripy.tiem_orbit.DrillSolverSettings object
+        working_directory {string} -- Path to the directory to put the adm, acf, and cmd.
+    
+    Keyword Arguments:
+        output_name {string} -- Base name of the adm, acf, and cmd files. (default: Same as string_file)
+    """
+    # Create a DrillString object
+    string_file = string.write_to_file(directory=working_directory, publish=True)
+    
+    # Set the output name
+    if output_name is None:
+        output_name = string.parameters['OutputName']
+    else:
+        string.rename(output_name, remove_original=True)
+        
+    # Write a solver settings file to the working directory
+    solver_settings.write_to_file(write_directory=working_directory)    
+
+    # Set the names of the output files
+    adm_file = output_name + '.adm'
+    print(adm_file)
+    acf_file = output_name + '.acf'
+    cmd_file = output_name + '.cmd'
+    
+    # Format the string filename
+    adams_formatted_str_filename = os.path.normpath(get_full_path(string_file)).replace(os.sep, '/')
+    
+    # Set the event filename and solver settings file name (relative paths)
+    evt_name = os.path.split(string.parameters['Event_Property_File'])
+    ssf_name = os.path.split(solver_settings.filename)
+
+    # Create aview script
+    cmds = []    
+    cmds.append(f'ds TOStart string_cfg_file = "{adams_formatted_str_filename}"\n')
+    cmds.append(f'adrill build acf ssf="{ssf_name}" evt="{evt_name}"\n')
+    cmds.append(f'file adams write file="{adm_file}"\n')
+    cmds.append(f'simulation script write_acf sim_script_name = "{output_name}" file_name = "{acf_file}"\n')
+    cmds.append(f'file command write entity_name = "{output_name}" file_name = "{cmd_file}"')
+    with open(os.path.join(working_directory, 'build.cmd'), 'w') as fid:			
+        for cmd in cmds:
+            fid.write(cmd)
+                                            
+    # Run adams to generate adm, acf, cmd
+    startupinfo = subprocess.STARTUPINFO()
+    startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+    process = subprocess.Popen('{} aview ru-s b build.cmd'.format(os.environ['ADAMS_LAUNCH_COMMAND']), cwd=working_directory, startupinfo=startupinfo)
+    process.wait()            
 
 class cdbError(Exception):
     pass

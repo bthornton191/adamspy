@@ -1,0 +1,67 @@
+$ ==================================================================
+$ This is the master drill string assmembly file which contains
+$ the following data blocks:
+$  [UNITS]
+$  [MODEL]
+$  [CONTACT]
+$  [DRIVE]
+$  [MEASUREMENT_POINTS]
+$  [DRILL_TOOL_n]
+$  [TOP_OF_STRING]
+$  [TOP_DRIVE]
+$ 
+$ NOTA BENE: block and subblock titles MUST begin in column 1.
+$ Comments also must begin in column 1.
+$ ==================================================================
+$ 
+$--------------------------------------------------------------------------UNITS
+[UNITS]
+$ Adams Drill supports two units sets:
+$ 'Imperial' (foot, degree, pound force, pound mass, second)
+$ 'Metric' (meter, degree, Newton, kilogram, second)
+ Units  =  '{{ Units }}'
+$--------------------------------------------------------------------------MODEL
+[MODEL]
+$ general model set-up parameters
+ ModelName  =  '{{ ModelName }}'
+ OutputName  =  '{{ OutputName }}'
+ Gravity  =  {{ Gravity }}
+ Deviation_Deg  =  {{ Deviation_Deg }}
+$ Used to rotate gravity direction relative to string
+$ Adams_Results must equal 'standard' 'animation' or 'diagnostics'
+$ Note that 'diagnostics' produces VERY large files sizes
+ Adams_Results  =  '{{ Adams_Results }}'
+ Adams_Requests  =  '{{ Adams_Requests }}'
+ Adams_Graphics  =  '{{ Adams_Graphics }}'
+ SolverDLL  =  '{{ SolverDLL }}'
+$ Do not include the '.dll' extension here
+$------------------------------------------------------------------------CONTACT
+[CONTACT]
+$ ContactMethod options are 'Subroutine' and 'ImpactFunction'
+$ ** but only 'Subroutine' is valid at present **
+ Hole_Property_File  =  '{{ Hole_Property_File }}'
+ Contact_Method  =  '{{ Contact_Method }}'
+ Cyl_Drag_Coeff  =  {{ Cyl_Drag_Coeff }}
+ Hole_Color  =  '{{ Hole_Color }}'
+$--------------------------------------------------------------------------DRIVE
+[DRIVE]
+ Event_Property_File  =  '{{ Event_Property_File }}'
+$-------------------------------------------------------------MEASUREMENT_POINTS
+[MEASUREMENT_POINTS]
+$ These are auxialliary measurement points in addition to any  measurement
+$ requests made directly on tools or pipes in the DRILL_TOOL blocks.
+$ These are locations in the design position of the model at which
+$ output will be generated.  The output will be generated at the nearest
+$ tool or pipe wall contact point in the string.
+{{ '{Distance_from_Bit}' }}
+{% if Distance_from_Bit %}
+{% for distance in Distance_from_Bit %}
+{{ distance }}
+{% endfor %}
+{% endif %}
+$ ------------------------------------------------------------------------------
+$ 
+$  The DRILL_TOOL blocks below form a descriptive list of tools from bottom to top
+$  NOTA BENE: The tools or sections must be numbered from 1 consecutively
+$  and the last tool or section must be 'TopOfString'.  Remember that a
+$  section  of pipes can include many elements.
