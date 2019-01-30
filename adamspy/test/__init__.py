@@ -359,6 +359,184 @@ $----------------------------------------------------------------------TOP_DRIVE
 
 """
 
+EXPECTED_STRING_TO_PARAMETERS = {
+    'UNITS': {'units': 'Imperial'},
+    'MODEL': {
+        'modelname': 'test_string',
+        'outputname': 'test_string',
+        'gravity': 32.187,
+        'deviation_deg': 0.0,
+        'adams_results': 'animation',
+        'adams_requests': 'on',
+        'adams_graphics': 'off',
+        'solverdll': 'adrill_solver'
+    },
+    'CONTACT': {
+        'hole_property_file': '<example_database>\\holes.tbl\\test_hole.hol',
+        'contact_method': 'Subroutine',
+        'cyl_drag_coeff': 1.0,
+        'hole_color': 'LtGray'
+    },
+    'DRIVE': {'event_property_file': '<example_database>\\events.tbl\\test_event.evt'},
+    'MEASUREMENT_POINTS': {'distance_from_bit': [100.0, 300.0, 500.0]},
+    'DRILL_TOOL_01': {
+        'stack_order': 1.0,
+        'type': 'pdc_bit',
+        'name': 'test_pdc_01',
+        'property_file': '<example_database>\\pdc_bits.tbl\\test_pdc.pdc',
+        'measure': 'yes',
+        'color': 'Default'
+    },
+    'DRILL_TOOL_02': {
+        'stack_order': 2.0,
+        'type': 'stabilizer',
+        'name': 'example_stabilizer_02',
+        'property_file': '<example_database>\\stabilizers.tbl\\example_stabilizer.sta',
+        'measure': 'yes',
+        'color': 'Default'
+    },
+    'DRILL_TOOL_03': {
+        'stack_order': 3.0,
+        'type': 'short_collar',
+        'name': 'test_collar_03',
+        'property_file': '<example_database>\\short_collars.tbl\\test_collar.sco',
+        'measure': 'no',
+        'color': 'Default'
+    },
+    'DRILL_TOOL_04': {
+        'stack_order': 4.0,
+        'type': 'generic_long',
+        'name': 'test_generic_long_04',
+        'property_file': '<example_database>/generic_longs.tbl/test_generic_long.gnl',
+        'measure': 'no',
+        'color': 'Default'
+    },
+    'DRILL_TOOL_05': {
+        'stack_order': 5.0,
+        'type': 'stabilizer',
+        'name': 'example_stabilizer_05',
+        'property_file': '<example_database>\\stabilizers.tbl\\example_stabilizer.sta',
+        'measure': 'yes',
+        'color': 'Default'
+    },
+    'DRILL_TOOL_06': {
+        'stack_order': 6.0,
+        'type': 'mwd_tool',
+        'name': 'test_mwd_06',
+        'property_file': '<example_database>\\mwd_tools.tbl\\test_mwd.mwd',
+        'measure': 'no',
+        'color': 'Default'
+    },
+    'DRILL_TOOL_07': {
+        'stack_order': 7.0,
+        'type': 'crossover',
+        'name': 'test_crossover_07',
+        'property_file': '<example_database>\\crossovers.tbl\\test_crossover.crs',
+        'measure': 'no',
+        'color': 'Default'
+    },
+    'DRILL_TOOL_08': {
+        'stack_order': 8.0,
+        'type': 'blade_reamer',
+        'name': 'test_blade_reamer_08',
+        'property_file': '<example_database>\\blade_reamers.tbl\\test_blade_reamer.bre',
+        'measure': 'yes',
+        'color': 'Default'
+    },
+    'DRILL_TOOL_09': {
+        'stack_order': 9.0,
+        'type': 'flex_pipe',
+        'name': 'test_flex_pipe_09',
+        'property_file': '<example_database>\\flex_pipes.tbl\\test_flex_pipe.flp',
+        'measure': 'no',
+        'color': 'Default'
+    },
+    'DRILL_TOOL_10': {
+        'stack_order': 10.0,
+        'type': 'crossover',
+        'name': 'test_float_crossover_10',
+        'property_file': '<example_database>\\crossovers.tbl\\test_float_crossover.crs',
+        'measure': 'no',
+        'color': 'Default'
+    },
+    'DRILL_TOOL_11': {
+        'stack_order': 11.0,
+        'type': 'hw_pipe',
+        'name': 'lower_group',
+        'property_file': '<example_database>\\hw_pipes.tbl\\test_hwdp.hwp',
+        'measure': 'no',
+        'color': 'Default',
+        'number_of_joints': 4.0
+    },
+    'DRILL_TOOL_12': {
+        'stack_order': 12.0,
+        'type': 'jar',
+        'name': 'test_jar_12',
+        'property_file': '<example_database>\\jars.tbl\\test_jar.djr',
+        'measure': 'yes',
+        'color': 'Default'
+    },
+    'DRILL_TOOL_13': {
+        'stack_order': 13.0,
+        'type': 'hw_pipe',
+        'name': 'middle_group',
+        'property_file': '<example_database>\\hw_pipes.tbl\\test_hwdp2.hwp',
+        'measure': 'yes',
+        'color': 'Default',
+        'number_of_joints': 5.0
+    },
+    'DRILL_TOOL_14': {
+        'stack_order': 14.0,
+        'type': 'accelerator',
+        'name': 'test_accelerator_14',
+        'property_file': '<example_database>\\accelerators.tbl\\test_accelerator.acc',
+        'measure': 'yes',
+        'color': 'Default'
+    },
+    'DRILL_TOOL_15': {
+        'stack_order': 15.0,
+        'type': 'hw_pipe',
+        'name': 'upper_group',
+        'property_file': '<example_database>\\hw_pipes.tbl\\test_hwdp3.hwp',
+        'measure': 'no',
+        'color': 'Default',
+        'number_of_joints': 2.0
+    },
+    'DRILL_TOOL_16': {
+        'stack_order': 16.0,
+        'type': 'crossover',
+        'name': 'test_crossover2_16',
+        'property_file': '<example_database>\\crossovers.tbl\\test_crossover2.crs',
+        'measure': 'no',
+        'color': 'Default'
+    },
+    'DRILL_TOOL_17': {
+        'stack_order': 17.0,
+        'type': 'drillpipe',
+        'name': 'Upper_DP_Group',
+        'property_file': '<example_database>\\drill_pipes.tbl\\test_drillpipe.pip',
+        'measure': 'no',
+        'color': 'Default',
+        'number_of_joints': 6.0
+    },
+    'DRILL_TOOL_18': {
+        'stack_order': 18.0,
+        'type': 'equivalent_upper_string',
+        'name': 'equivalent_pipe',
+        'property_file': '<example_database>\\drill_pipes.tbl\\test_eus.pip',
+        'measure': 'yes',
+        'color': 'Default',
+        'number_of_joints': 19.0
+    },
+    'TOP_OF_STRING': {},
+    'TOP_DRIVE': {
+        'type': 'top_drive',
+        'name': 'test_top_drive',
+        'property_file': '<example_database>\\top_drives.tbl\\test_top_drive.tdr'
+    }
+}
+
+
 def check_file_contents(filename, expected_text):
     """Checks that the given file contains the expected text.
     

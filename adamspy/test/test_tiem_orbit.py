@@ -6,6 +6,7 @@ os.environ['ADRILL_SHARED_CFG'] = os.path.join('C:\\', 'MSC.Software', 'Adams', 
 os.environ['ADRILL_USER_CFG'] = os.path.join(os.environ['USERPROFILE'], '.adrill.cfg')
 os.environ['ADAMS_LAUNCH_COMMAND'] = os.path.join('C:\\', 'MSC.Software', 'Adams', '2018', 'common', 'mdi.bat')
 from adamspy import adripy
+from adamspy.adripy.tiem_orbit import utilities
 
 class Test_EventFile(unittest.TestCase):
     """
@@ -134,6 +135,7 @@ class Test_DrillTool(unittest.TestCase):
 class Test_DrillString(unittest.TestCase):
     """Tests the DrillString class.
     """
+    maxDiff = None
     def setUp(self):
         # Create a test config file containing the test database
         adripy.create_cfg_file(TEST_CONFIG_FILENAME, [TEST_DATABASE_PATH, TEST_NEW_DATABASE_PATH])
@@ -220,6 +222,190 @@ class Test_DrillString(unittest.TestCase):
         failures = check_file_contents(expected_string_filename, expected_text)
 
         self.assertListEqual(failures, [])
+    
+    def test_read_string_from_file_parameters(self):
+        """Tests that the parameters in the string are correct after a string is read from a file.
+        """
+        expected_parameters = {
+            'Units': 'Imperial',
+            'ModelName': 'test_string',
+            'OutputName': 'test_string',
+            'Gravity': 32.187,
+            'Deviation_Deg': 0.0,
+            'Adams_Results': 'animation',
+            'Adams_Graphics': 'off',
+            'Adams_Requests': 'on',
+            'Distance_from_Bit': [100.0, 300.0, 500.0],
+            'SolverDLL': 'adrill_solver',
+            'Hole_Property_File': '<example_database>\\holes.tbl\\test_hole.hol',
+            'Contact_Method': 'Subroutine',
+            'Cyl_Drag_Coeff': 1.0,
+            'Hole_Color': 'LtGray',
+            'Event_Property_File': '<example_database>\\events.tbl\\test_event.evt'
+        }
+        # Create a drill string object
+        drill_string_from_file = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+
+        # Read new parameters into the drill string object from a file
+        drill_string_from_file.read_from_file(os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str'))
+        
+        # Remove some keys from the parameters dictionary
+        drill_string_from_file.parameters.pop('_Distance_from_Bit')
+
+        self.assertDictEqual(drill_string_from_file.parameters, expected_parameters)
+
+    def test_read_string_from_file_first_tool(self):
+        """Tests that the first few tools are correct after the string is read from a file
+        """
+        expected_tool = {
+            'Name': 'test_pdc',
+            'Type': 'pdc_bit',
+            'Property_File': '<example_database>\\pdc_bits.tbl\\test_pdc.pdc',
+            'Measure': 'yes',
+            'Color': 'Default',
+            'Stack_Order': 1,
+            'Number_of_Joints': 1,
+        }
+        
+        # Create a drill string object
+        drill_string_from_file = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+
+        # Read new parameters into the drill string object from a file
+        drill_string_from_file.read_from_file(os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str'))
+
+        # Get the first tool
+        actual_tool = drill_string_from_file.tools[0]
+        
+        # Remove the DrillTool key from the dictionary (for testing purposes)
+        actual_tool.pop('DrillTool')
+
+        self.assertDictEqual(actual_tool, expected_tool)
+
+    def test_read_string_from_file_drillpipe(self):
+        """Tests that the first few tools are correct after the string is read from a file
+        """
+        expected_tool = {
+            'Name': 'test_pdc',
+            'Type': 'pdc_bit',
+            'Property_File': '<example_database>\\pdc_bits.tbl\\test_pdc.pdc',
+            'Measure': 'yes',
+            'Color': 'Default',
+            'Stack_Order': 1,
+            'Number_of_Joints': 1,
+        }
+        
+        # Create a drill string object
+        drill_string_from_file = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+
+        # Read new parameters into the drill string object from a file
+        drill_string_from_file.read_from_file(os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str'))
+
+        # Get the first tool
+        actual_tool = drill_string_from_file.tools[0]
+        
+        # Remove the DrillTool key from the dictionary (for testing purposes)
+        actual_tool.pop('DrillTool')
+
+        self.assertDictEqual(actual_tool, expected_tool)
+
+    def test_read_string_from_file_last_tool(self):
+        """Tests that the first few tools are correct after the string is read from a file
+        """
+        expected_tool = {
+            'Name': 'equivalent_pipe',
+            'Type': 'equivalent_upper_string',
+            'Property_File': '<example_database>\\drill_pipes.tbl\\test_eus.pip',
+            'Measure': 'yes',
+            'Color': 'Default',
+            'Stack_Order': 18,
+            'Number_of_Joints': 19,
+        }
+        
+        # Create a drill string object
+        drill_string_from_file = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+
+        # Read new parameters into the drill string object from a file
+        drill_string_from_file.read_from_file(os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str'))
+
+        # Get the first tool
+        actual_tool = drill_string_from_file.tools[-1]
+        
+        # Remove the DrillTool key from the dictionary (for testing purposes)
+        actual_tool.pop('DrillTool')
+
+        self.assertDictEqual(actual_tool, expected_tool)
+
+    def test_read_string_from_file_bit_object(self):
+        """Test that bit object attributes are corrct after a string is read from a file
+        """
+        expected_property_file = '<example_database>\\pdc_bits.tbl\\test_pdc.pdc'
+        expected_name = 'test_pdc'
+        expected_tool_type = 'pdc_bit'
+        expected_extension = 'pdc'
+        expected_table = 'pdc_bits.tbl'
+
+        # Create a drill string object
+        drill_string_from_file = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+
+        # Read new parameters into the drill string object from a file
+        drill_string_from_file.read_from_file(os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str'))
+
+        # Get the first tool
+        bit = drill_string_from_file.tools[0]['DrillTool']
+
+        failures = []
+        
+        expected_attributes = [expected_property_file, expected_name, expected_tool_type, expected_extension, expected_table]
+        actual_attributes = [bit.property_file, bit.name, bit.tool_type, bit.extension]        
+        for actual, expected in zip(actual_attributes, expected_attributes):
+            if actual != expected:
+                failures.append('Attribute Mismatch: {}  --  {}'.format(actual, expected))       
+        
+        self.assertListEqual(failures,[])
+
+    def test_read_string_from_file_drillpipe_object(self):
+        """Test that bit object attributes are corrct after a string is read from a file
+        """
+        expected_property_file = '<example_database>\\drill_pipes.tbl\\test_eus.pip'
+        expected_name = 'test_eus'
+        expected_tool_type = 'drillpipe'
+        expected_extension = 'pip'
+        expected_table = 'drill_pipes.tbl'
+
+        # Create a drill string object
+        drill_string_from_file = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+
+        # Read new parameters into the drill string object from a file
+        drill_string_from_file.read_from_file(os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str'))
+
+        # Get the first tool
+        bit = drill_string_from_file.tools[-1]['DrillTool']
+
+        failures = []
+        
+        expected_attributes = [expected_property_file, expected_name, expected_tool_type, expected_extension, expected_table]
+        actual_attributes = [bit.property_file, bit.name, bit.tool_type, bit.extension]        
+        for actual, expected in zip(actual_attributes, expected_attributes):
+            if actual != expected:
+                failures.append('Attribute Mismatch: {}  --  {}'.format(actual, expected))       
+        
+        self.assertListEqual(failures,[])
+
+    def test_read_string_from_file_ntools(self):
+        """Tests that the number of tools is correct after a string is read from a file
+        """
+
+        expected_n_tools = 18
+
+        # Create a drill string object
+        drill_string_from_file = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+
+        # Read new parameters into the drill string object from a file
+        drill_string_from_file.read_from_file(os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str'))
+
+        actual_n_tools = len(drill_string_from_file.tools)
+
+        self.assertEqual(actual_n_tools, expected_n_tools)
 
     def tearDown(self):
         # Delete test config file
@@ -234,6 +420,161 @@ class Test_DrillString(unittest.TestCase):
             
         # Clear the entire new database
         clear_database(TEST_NEW_DATABASE_PATH)
+
+class Test_ReadTOFile(unittest.TestCase):
+    """Tests adamspy.adripy.tiem_orbit.utilities.read_to_file()    
+    """
+    maxDiff = None
+    def setUp(self):
+        adripy.create_cfg_file(TEST_CONFIG_FILENAME, [TEST_DATABASE_PATH, TEST_NEW_DATABASE_PATH])
+
+    def test_cdb_alias_works(self):
+        try:
+            parameters = utilities.read_TO_file(adripy.get_full_path(os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str')))
+        except FileNotFoundError:
+            self.fail('File not found when cdb alias path used')
+    
+    def test_full_path_works(self):
+        try:
+            parameters = utilities.read_TO_file(os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str'))
+        except FileNotFoundError:
+            self.fail('File not found when full path used')
+        
+    def test_correct_values(self):
+        """Tests that the parameters in the written TO file are as expected
+        """
+        # Create a test config file containing the test database
+        parameters = utilities.read_TO_file(adripy.get_full_path(os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str')))
+
+        self.assertDictEqual(parameters, EXPECTED_STRING_TO_PARAMETERS)
+
+    def tearDown(self):
+        try:
+            os.remove(TEST_CONFIG_FILENAME)
+        except:
+            pass
+        os.environ['ADRILL_USER_CFG'] = os.path.join(os.environ['USERPROFILE'], '.adrill.cfg')
+
+class Test_RexExPatterns(unittest.TestCase):
+    """Tests the regular expressions in adripy.tiem_orbit.utilities    
+    """
+    def setUp(self):
+        return
+
+    def test_block_header_pattern(self):
+        strings_to_match = [
+            '[LKJFDSLKJ]\n',
+            '[lkjfdslkj]\n',
+            '[LKJFDLKJ_FDSD]\n',
+            '[lkjfdlkjfd_lkjfdslkjfds]\n',
+            '[PLOT_4D]\n'
+        ]
+        strings_to_not_match = [
+            '$[LKJFDLKJ]\n',
+            '(LKJFDSLKJ)\n'
+        ]
+        failures = self._find_match_failures(strings_to_match, strings_to_not_match, utilities.TO_BLOCK_HEADER_PATTERN)        
+        self.assertEqual(failures, [])
+
+    def test_subblock_header_pattern(self):
+        strings_to_match = [
+            '(LKJFDSLKJ)\n',
+            '(lkjfdslkj)\n',
+            '(LKJFDLKJ_FDSD)\n',
+            '(lkjfdlkjfd_lkjfdslkjfds)\n',
+            '(PLOT_4D)\n'
+        ]
+        strings_to_not_match = [
+            '[LKJFDLKJ]\n',
+            '$(LKJFDSLKJ)\n'
+        ]
+        failures = self._find_match_failures(strings_to_match, strings_to_not_match, utilities.TO_SUBBLOCK_HEADER_PATTERN)
+        self.assertEqual(failures, [])
+
+    def test_table_header_pattern(self):
+        strings_to_match = [
+            '{lkjfdslkj lkjfds fdslkjs}\n',
+            '{FDSSDF lkjfds fdslkjs}\n',
+            '{FDSLKJFDSLKJ LKJFDLKJ FDSLKJFDS}\n',
+            '{FDSLKJ_FDSLKJ LKJFDLKJ FDSLKJFDS}\n',
+            '{ lkjfdslkj lkjfds fdslkjs }\n'
+        ]
+        strings_to_not_match = [
+            '{FDSLKJ-FDSLKJ, LKJFDLKJ FDSLKJFDS}\n',
+            '[DSF]\n',
+            '${lkjfdslk lkjfdslkj}\n'
+        ]             
+        failures = self._find_match_failures(strings_to_match, strings_to_not_match, utilities.TO_TABLE_HEADER_PATTERN)      
+        self.assertEqual(failures, [])
+
+    def test_table_line_pattern(self):
+        strings_to_match = [
+            ' 432 32.3 -43 -43.45 \n',
+            '432 32.3 -43 -43.45\n',
+            '432  32.3  -43  -43.45 \n',
+            '234.3\n',
+            '\'lkjfdslkj\'\n',
+            '\'lkjfdslkj\' \'DLKDSFLK\'\n',
+            '  \'lkjfdslkj\' \'DLKDSFLK\'  \n',
+            '\'lkjfdslkj\' \'DLKDSFLK_4D\'\n'            
+        ]
+        strings_to_not_match = [
+            '$ 432 32.3 -43 -43.45 \n',
+            '$ [SDFSDFS]\n',
+            '$ (SDFSDFS)\n'
+        ]             
+        failures = self._find_match_failures(strings_to_match, strings_to_not_match, utilities.TO_TABLE_LINE_PATTERN)      
+        self.assertEqual(failures, [])
+
+    def test_parameter_pattern(self):
+        strings_to_match = [
+            ' lkjfdslkj  =  \'lkjfdslkj\' \n',
+            ' lkjfdslkj  =  \'lkjfdslkj\'\n',
+            ' lkjfdslkj  =  100\n',
+            ' lkjfdslkj  =  100.00\n',
+            ' lkjfdslkj  =  -100\n',
+            ' lkjfdslkj  =  -100.00\n',
+            ' DSFDSFFDD  =  100\n',
+            ' DSFdffdsf  =  100\n'
+        ]
+        strings_to_not_match = [
+            ' 1  =  1\n',
+            'lkjfds  =  2\n',
+            '$ lkjfds  =  2\n',
+            ' fdslkj  =  "lkjfdslkj"\n',
+            ' fdslkfds  =  5*10'
+        ]             
+        failures = self._find_match_failures(strings_to_match, strings_to_not_match, utilities.TO_PARAMETER_PATTERN)      
+        self.assertEqual(failures, [])
+
+    def _find_match_failures(self, strings_to_match, strings_to_not_match, pattern):
+        """Test that strings_to_match matches pattern and strings_to_not_match 
+        does not match pattern.
+        
+        Arguments:
+            strings_to_match {str} -- Strings that should match pattern
+            strings_to_not_match {str} -- Strings that should not match pattern
+            pattern {re.match} -- Match object
+        
+        Returns:
+            [list] -- List of failures
+        """
+
+        failures = []
+        # Add missed strings to failures list
+        for string in strings_to_match:
+            if not pattern.match(string):
+                failures.append(f'{string} erroneously not matched')
+        
+        # Add erroneously matched strings to failures list
+        for string in strings_to_not_match:
+            if pattern.match(string):
+                failures.append(f'{string} erroneously matched')
+        
+        return failures
+
+    def tearDown(self):
+        return
 
 if __name__ == '__main__':
     unittest.main()

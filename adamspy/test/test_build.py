@@ -45,7 +45,7 @@ class Test_Build(unittest.TestCase):
         self.assertTrue(os.path.exists(os.path.join(TEST_WORKING_DIRECTORY, TEST_STRING_NAME + '.adm')))
 
     def test_acf(self):
-        """Tests that the adm was created
+        """Tests that the acf was created
         """
         self.assertTrue(os.path.exists(os.path.join(TEST_WORKING_DIRECTORY, TEST_STRING_NAME + '.acf')))
 
