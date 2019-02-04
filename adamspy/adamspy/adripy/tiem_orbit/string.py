@@ -136,6 +136,36 @@ class DrillString():
                 'Property_File': drill_tool.property_file
             }
     
+    def get_tool(self, tool_type, instance='first'):
+        """Returns a DrillTool object of type tool_type in the 
+        DrillString object's tools list.  
+        
+        Arguments:
+            tool_type {str} -- Desired tool type.
+        
+        Keyword Arguments:
+            instance {str or int} -- If 'first', will take the
+                                     first instance.  If 'last', 
+                                     will take the last instance.
+                                     If an integer N is given, 
+                                     will take the Nth instance. 
+                                     (default: {'first'})
+        
+        Returns:
+            DrillTool -- DrillTool object
+        """
+
+        tools_found = []
+        for tool in self.tools:
+            if tool['Type']==tool_type:
+                if instance=='first' or len(tools_found)==instance-1:
+                    return tool['DrillTool']
+                else:
+                    tools_found.append(tool['DrillTool'])
+        
+        if instance=='last':
+            return tools_found[-1]
+    
     def add_measurement_point(self, distance):
         """
         Adds a measurement point at the given distance from the bit in feet.

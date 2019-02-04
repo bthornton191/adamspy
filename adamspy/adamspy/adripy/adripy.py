@@ -14,7 +14,6 @@ from os import remove
 from os import rename
 import os.path
 import re
-import shutil
 import subprocess
 import jinja2
 

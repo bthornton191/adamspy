@@ -104,7 +104,7 @@ class Test_DrillTool(unittest.TestCase):
         """
         tool_name = self.stabilizer.get_parameter_value('Tool_Name')
         self.assertEqual(tool_name, self.TEST_STABILZIER_NAME)
-
+    
     def test_rename_name(self):
         """Tests that DrillTool.name was is changed correctly after DrillTool.rename().
         """
@@ -406,6 +406,25 @@ class Test_DrillString(unittest.TestCase):
         actual_n_tools = len(drill_string_from_file.tools)
 
         self.assertEqual(actual_n_tools, expected_n_tools)
+
+    
+    def test_get_tool_first(self):
+        """Tests that DrillString.get_tool() returns the correct value.
+        """
+        # Create a DrillString object
+        drill_string = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+
+        # Add the DrillTool objects to the DrillString object
+        drill_string.add_tool(self.pdc_bit, measure='yes')
+        drill_string.add_tool(self.stabilizer, measure='yes')
+        drill_string.add_tool(self.stabilizer, measure='no')
+        drill_string.add_tool(self.drill_pipe, joints=20, group_name='Upper_DP_Group')
+        drill_string.add_tool(self.eus, joints=20, group_name='equivalent_pipe', equivalent=True)
+        drill_string.add_tool(self.top_drive)
+
+        got_tool = drill_string.get_tool('stabilizer')
+
+        self.assertEqual(got_tool, self.stabilizer)      
 
     def tearDown(self):
         # Delete test config file
