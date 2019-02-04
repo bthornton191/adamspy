@@ -418,7 +418,7 @@ class DrillString():
                     for sub_block in sub_blocks:
                         # For each sub_block in the block
 
-                        if param.lower() in tiem_orbit_data[block][sub_block]:
+                        if param.lower() in tiem_orbit_data[block][sub_block].lower():
                             # If the parameter is in the sub block, set the parameter and break the loop
                             self.parameters[param] = tiem_orbit_data[block][sub_block][param.lower()]
                             found = True

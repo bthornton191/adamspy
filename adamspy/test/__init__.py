@@ -536,6 +536,45 @@ EXPECTED_STRING_TO_PARAMETERS = {
     }
 }
 
+TEST_EXPECTED_EVENT_TO_PARAMETERS = {
+    'Motor_Bend_Ramp': 9.0,
+    'Motor_Bend_Start': 1.0,
+    'Motor_Type': '3D',
+    'Mud_Density': 75.0,
+    'N': 5,
+    'NPERREV': [[80.0], [20.0]],
+    'NperRev': 'on',
+    'Off_Bottom': 5.0,
+    'PUMP_FLOW': [[33.0], [20.0], [511.0]],
+    'Plotting_4D': 'on',
+    'Plotting_Interval': 0.1,
+    'ROP': [[88.0], [42.0], [125.0]],
+    'S_threshold': 0.5,
+    'Start_Depth': 1300.0,
+    'Start_Distance': 50.0,
+    'Start_Time': [30.0],
+    'TOP_DRIVE': [[30.0], [10.0], [120.0]],
+    'Units': 'Imperial',
+    'WOB': [[85.0], [35.0], [50000.0]],
+    'C_hi': 1.005,
+    'DYNAMICS': [
+        [10.0, 50.0, 100.0, 150.0, 200.0],
+        [0.04, 0.04, 0.02, 0.02, 0.02]
+    ],
+    'Drive_Type': 'TOP_ONLY',
+    'End_Distance': 550.0,
+    'End_Time': [10.0, 50.0, 100.0, 150.0, 200.0],
+    'Event_Name': 'test_event',
+    'File_Type': 'event',
+    'File_Version': 1.0,
+    'Filter_Time_Constant': 0.05,
+    'Impact_Damping_Penetration': 0.005,
+    'Impact_Exponent': 1.05,
+    'Initial_Drive_Torque': 0.0,
+    'MOTOR': [[32.0], [8.0], [85.0]],
+    'MWD_Pulsing': 'on',
+    'Measurement_Tool': 'TOS'
+}
 
 def check_file_contents(filename, expected_text):
     """Checks that the given file contains the expected text.

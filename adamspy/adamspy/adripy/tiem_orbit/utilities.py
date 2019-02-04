@@ -5,11 +5,11 @@ import os
 from thornpy import numtype
 from ..adripy import get_full_path
 
-TO_PARAMETER_PATTERN = re.compile('^ [_a-zA-Z]+ += +((\'[-_0-9a-zA-Z<>\\\\/\\.]+\')|(-?[\\.0-9]+)) *$')
-TO_BLOCK_HEADER_PATTERN = re.compile('^\\[[_0-9a-zA-Z]+\\] *$') 
-TO_SUBBLOCK_HEADER_PATTERN = re.compile('^\\([_0-9a-zA-Z]+\\) *$') 
-TO_TABLE_HEADER_PATTERN = re.compile('^\\{( *[_a-zA-Z])+ *\\} *$')
-TO_TABLE_LINE_PATTERN = re.compile("^(( *\\'[_a-zA-Z]+\\')+)|(( *-?[\\.0-9]+)+) *$")
+TO_PARAMETER_PATTERN = re.compile('^ [_0-9a-zA-Z]+\\s+=\\s+((\'[-_0-9a-zA-Z<>\\\\/\\.]+\')|(-?[\\.0-9]+))\\s*$')
+TO_BLOCK_HEADER_PATTERN = re.compile('^\\[[_0-9a-zA-Z]+\\]\\s*$') 
+TO_SUBBLOCK_HEADER_PATTERN = re.compile('^\\([_0-9a-zA-Z]+\\)\\s*$') 
+TO_TABLE_HEADER_PATTERN = re.compile('^\\{(\\s*[_0-9a-zA-Z])+\\s*\\}\\s*$')
+TO_TABLE_LINE_PATTERN = re.compile("^((\\s*\\'[_0-9a-zA-Z]+\\')+)|((\\s*-?[\\.0-9]+)+)\\s*$")
 
 
 def read_TO_file(filename):
@@ -39,8 +39,8 @@ def read_TO_file(filename):
         # For each line determine if we are at a new Block, new SubBlock, or Table
         
         if TO_BLOCK_HEADER_PATTERN.match(line):
-            # if a block is encountered, reset currents
-            current_block = line.replace('[','').replace(']','').replace(' ','').replace('\n','')            
+            # if a block is encountered, reset currents  
+            current_block = re.sub('[\\[\\]\\s\\n]','',line)       
             current_subblock = None
             current_table_headers = []
             current_table_data = {}
@@ -50,7 +50,7 @@ def read_TO_file(filename):
 
         elif TO_SUBBLOCK_HEADER_PATTERN.match(line):
             # If a subblock is encountered, reset currents
-            current_subblock = line.replace('(','').replace(')','').replace(' ','').replace('\n','')
+            current_subblock = re.sub('[\\(\\)\\s\\n]','',line)       
             current_table_headers = []
             current_table_data = {}
             
@@ -64,8 +64,8 @@ def read_TO_file(filename):
             # Make a dictionary of empty lists to put the table data in
             current_table_data = {header: [] for header in current_table_headers}
         
-        elif TO_PARAMETER_PATTERN.match(line):
-            [parameter, value] = line.replace(' ','').replace('\n','').split('=')
+        elif TO_PARAMETER_PATTERN.match(line):            
+            [parameter, value] = re.sub('[\\s\\n]','',line).split('=')
 
             # Format the value 
             if "'" in value:
@@ -77,7 +77,7 @@ def read_TO_file(filename):
 
             # Add parameter to parameters dictionary
             if current_subblock is not None:
-                parameters[current_block][current_subblock][parameter] = value
+                parameters[current_block][current_subblock][parameter.lower()] = value
             else:
                 parameters[current_block][parameter.lower()] = value
 
