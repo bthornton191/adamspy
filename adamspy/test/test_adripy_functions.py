@@ -13,7 +13,8 @@ class Test_AdripyFunctions(unittest.TestCase):
     
     def setUp(self):
         # Create a test configuration file
-        adripy.create_cfg_file(TEST_CONFIG_FILENAME, [EXISTING_CDB_PATH, CDB_TO_REMOVE_PATH])
+        adripy.create_cfg_file(TEST_CONFIG_FILENAME, [EXISTING_CDB_PATH, CDB_TO_REMOVE_PATH, TEST_DATABASE_PATH])
+        
     
     def test_create_cfg_file(self):
         """Tests that create_cfg_file() creates a configuration file with the expected contents
@@ -55,6 +56,37 @@ class Test_AdripyFunctions(unittest.TestCase):
         full_path = adripy.get_full_path(example_cdb_path)
 
         self.assertEqual(full_path, expected_full_path)
+    
+    def test_get_to_param_string_value(self):
+        """Tests that adripy.get_to_param() returns the correct 
+        parameter when requesting a parameter that has a string
+        as the value.
+        """
+        expected_value = 'test_string'
+        actual_value = adripy.get_TO_param(TEST_EXISTING_STRING_FILE, 'OutputName')
+
+        self.assertEqual(actual_value, expected_value)
+    
+    def test_get_to_param_float_value(self):
+        """Tests that adripy.get_to_param() returns the correct 
+        parameter when requesting a parameter that has a string
+        as the value.
+        """
+        expected_value = 32.187
+        actual_value = adripy.get_TO_param(TEST_EXISTING_STRING_FILE, 'Gravity')
+
+        self.assertEqual(actual_value, expected_value)
+    
+    def test_get_to_param_int_value(self):
+        """Tests that adripy.get_to_param() returns the correct 
+        parameter when requesting a parameter that has a string
+        as the value.
+        """
+        expected_value = 4
+        actual_value = adripy.get_TO_param(TEST_SOLVER_SETTINGS_FILE, 'Thread_Count')
+
+        self.assertEqual(actual_value, expected_value)
+
         
     def tearDown(self):
         os.remove(TEST_CONFIG_FILENAME)

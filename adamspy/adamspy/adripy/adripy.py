@@ -15,7 +15,11 @@ from os import rename
 import os.path
 import re
 import subprocess
+import thornpy
 import jinja2
+
+# Define regular expressions
+TO_PARAMETER_PATTERN = re.compile('^ [_0-9a-zA-Z]+\\s+=\\s+((\'[-_0-9a-zA-Z<>\\\\/\\.]+\')|(-?[\\+-\\.e0-9]+))\\s*$')
 
 env = jinja2.Environment(
     loader=jinja2.PackageLoader('adamspy.adripy', 'templates'),
@@ -244,35 +248,58 @@ def get_adrill_cdbs(adrill_user_cfg, adrill_shared_cfg=None):
                         # raise cdbError('The following line in {} could not be interpreted.\n\n{}'.format(adrill_shared_cfg,line))
     return cdbs
 
-def get_TO_param(TO_file, TO_param):
+def get_TO_param(filename, requested_parameter):
     """
     Return the value of a parameter in a tiem orbit file
     
     Parameters
     ----------
-    TO_file :    Full path to a tiem orbit file
-    TO_param :   Name of a parameter in TO_file  
+    filename            :    Full path to a tiem orbit file
+    requested_parameter :   Name of a parameter in TO_file  
                   
     Returns
     -------
-    TO_value :  The value assigned to TO_param in TO_file
+    requested_value :  The value assigned to TO_param in TO_file
     """
-
     # Check if CDB notation used and Convert
-    TO_file = get_toolFilename_fullNotation(TO_file)
+    filename = get_toolFilename_fullNotation(filename)
 
+    # Initialize a flag indicating that the parameter has not yet
+    # been found
     param_found = False
-    fid = open(TO_file,'r')
-    for line in fid:
-        if line.lstrip().lower().startswith(TO_param.lower()):
-            TO_value = line.replace(' ','').replace('\n','').split('=')[-1]
-            param_found = True
-            break
-    fid.close()
+    
+    # Read in the tiem orbit file
+    with open(filename, 'r') as fid:
+        lines = fid.readlines()
+
+    for line in lines:
+        # For each line in the file, check if we are at a
+        # parameter line
+        if TO_PARAMETER_PATTERN.match(line):
+            # If we're at a parameter line, check if it's the
+            # requested parameter.
+            [parameter, value] = re.sub('[\\s\\n]','',line).split('=')
+
+            if parameter.lower() == requested_parameter.lower():
+                # If we're at the requested parameter line,
+                # check if it's an adams string or a number        
+                
+                if "'" in value:
+                    # If value is an adams string
+                    requested_value = value.replace("'",'')
+                
+                else:
+                    # If value is a number
+                    requested_value = int(value) if thornpy.numtype.str_is_int(value) else float(value)
+                
+                # Mark the parameter as found
+                param_found = True
+                break
+
     if param_found:
-        return TO_value
+        return requested_value
     else:
-        raise ValueError('{} does not contain the parameter {}'.format(TO_file,TO_param))
+        raise ValueError('{} does not contain the parameter {}'.format(filename,requested_parameter))
 
 
 def has_tool(string_file, tool_type):
@@ -826,41 +853,40 @@ def create_cfg_file(filename, database_paths):
     
     os.environ['ADRILL_USER_CFG'] = os.path.join(os.getcwd(), filename)
 
-def build(string, solver_settings, working_directory, output_name=None):    
+def build(string_file, solver_settings_file, working_directory, output_name=None):    
     """Builds adm, acf, and cmd files from string, event, and solver settings files.
     
     Arguments:
-        string {DrillString} -- adripy.tiem_orbit.DrillString object
-        solver_settings {DrillSolverSettings} -- adripy.tiem_orbit.DrillSolverSettings object
+        string {str} -- Filename of a drill string (.str) file.
+        solver_settings {str} -- Filename of a solver settings (.ssf) file.
         working_directory {string} -- Path to the directory to put the adm, acf, and cmd.
     
     Keyword Arguments:
         output_name {string} -- Base name of the adm, acf, and cmd files. (default: Same as string_file)
-    """
-    # Create a DrillString object
-    string_file = string.write_to_file(directory=working_directory, publish=True)
+    """    
+    # Set the output name    
+    output_name = get_TO_param(string_file, 'OutputName')       
     
-    # Set the output name
-    if output_name is None:
-        output_name = string.parameters['OutputName']
-    else:
-        string.rename(output_name, remove_original=True)
-        
-    # Write a solver settings file to the working directory
-    solver_settings.write_to_file(write_directory=working_directory)    
-
     # Set the names of the output files
     adm_file = output_name + '.adm'
-    print(adm_file)
+    
     acf_file = output_name + '.acf'
     cmd_file = output_name + '.cmd'
     
-    # Format the string filename
+    # Format the string filename    
     adams_formatted_str_filename = os.path.normpath(get_full_path(string_file)).replace(os.sep, '/')
     
-    # Set the event filename and solver settings file name (relative paths)
-    evt_name = os.path.split(string.parameters['Event_Property_File'])
-    ssf_name = os.path.split(solver_settings.filename)
+    # Set the event filename and solver settings file name (relative paths if in the same directory)    
+    event_file = os.path.normpath(get_TO_param(string_file, 'Event_Property_File'))
+    if os.path.split(event_file)[0] == os.path.normpath(working_directory):
+        evt_name = os.path.split(event_file)[-1]
+    else:
+        evt_name = os.path.normpath(event_file)
+    
+    if os.path.split(solver_settings_file)[0] == os.path.normpath(working_directory):
+        ssf_name = os.path.split(solver_settings_file)[-1]
+    else:
+        ssf_name = os.path.split(solver_settings_file)
 
     # Create aview script
     cmds = []    

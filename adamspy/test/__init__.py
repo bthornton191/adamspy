@@ -20,8 +20,11 @@ TEST_EVENT_NAME = 'test_event'
 TEST_EVENT_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'events.tbl', TEST_EVENT_NAME + '.evt')
 
 TEST_SOLVER_SETTINGS_NAME = 'test_solver_settings'
+TEST_SOLVER_SETTINGS_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'solver_settings.tbl', TEST_SOLVER_SETTINGS_NAME + '.ssf')
 
 TEST_EXISTING_STRING_NAME = 'test_string'
+TEST_EXISTING_STRING_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str')
+
 TEST_STRING_NAME = 'test_string_1'
 TEST_HOLE_NAME = 'test_hole'
 TEST_HOLE_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'holes.tbl', TEST_HOLE_NAME + '.hol')
@@ -62,6 +65,7 @@ TEST_ORIG_CONFIG_FILE_TEXT = f'''!----------------------------------------------
 !----------------------------------------------------------------------!
 DATABASE   {EXISTING_CDB_NAME}   {EXISTING_CDB_PATH}
 DATABASE   {CDB_TO_REMOVE_NAME}   {CDB_TO_REMOVE_PATH}
+DATABASE   {TEST_DATABASE_NAME}   {TEST_DATABASE_PATH}
 
 DEFAULT_WRITE_DB    adrill_private
 !
@@ -95,6 +99,7 @@ EXPECTED_CONFIG_FILE_AFTER_ADD = f'''!------------------------------------------
 !----------------------------------------------------------------------!
 DATABASE   {EXISTING_CDB_NAME}   {EXISTING_CDB_PATH}
 DATABASE   {CDB_TO_REMOVE_NAME}   {CDB_TO_REMOVE_PATH}
+DATABASE   {TEST_DATABASE_NAME}   {TEST_DATABASE_PATH}
 DATABASE   {NEW_CDB_NAME}   {NEW_CDB_PATH}
 
 DEFAULT_WRITE_DB    adrill_private
@@ -128,6 +133,7 @@ EXPECTED_CONFIG_FILE_AFTER_REMOVE = f'''!---------------------------------------
 !            Database name     Path of Database
 !----------------------------------------------------------------------!
 DATABASE   {EXISTING_CDB_NAME}   {EXISTING_CDB_PATH}
+DATABASE   {TEST_DATABASE_NAME}   {TEST_DATABASE_PATH}
 
 DEFAULT_WRITE_DB    adrill_private
 !

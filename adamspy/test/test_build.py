@@ -32,12 +32,18 @@ class Test_Build(unittest.TestCase):
         string.add_tool(drill_pipe, joints=TEST_NUMBER_OF_DRILLPIPES, group_name='Upper_DP_Group')
         string.add_tool(eus, joints=TEST_NUMBER_OF_EUSPIPES, group_name='equivalent_pipe', equivalent=True)
         string.add_tool(top_drive)
+
+        # Write the string file
+        string_file = string.write_to_file(TEST_WORKING_DIRECTORY)
         
         # Create DrillSolverSettings object
         solver_settings = adripy.tiem_orbit.DrillSolverSettings('baseline_settings')
 
+        # Write the solver settings file
+        solver_settings_file = solver_settings.write_to_file(TEST_WORKING_DIRECTORY)
+
         # Build model
-        adripy.build(string, solver_settings, TEST_WORKING_DIRECTORY)    
+        adripy.build(string_file, solver_settings_file, TEST_WORKING_DIRECTORY)
 
     def test_adm(self):
         """Tests that the adm was created
@@ -54,4 +60,3 @@ class Test_Build(unittest.TestCase):
         # Remove all the files in the working directory
         for file in glob.glob(os.path.join(TEST_WORKING_DIRECTORY, '*')):
             os.remove(file)
-        return
