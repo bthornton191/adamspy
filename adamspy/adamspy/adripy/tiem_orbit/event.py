@@ -135,19 +135,7 @@ class DrillEvent():
         self.parameters[parameter][0].append(start_time)
         self.parameters[parameter][1].append(ramp_duration)
         self.parameters[parameter][2].append(delta)
-        self.parameters['_' + parameter] = zip(*self.parameters[parameter])    
-
-    def read_from_file(self, filename):
-        """Reads an event file and sets self.parameters based on data in the event file.
-        
-        Arguments:
-            filename {str} -- Filename of a .evt file.
-        """
-        # Read the TO data into a dictionary
-        tiem_orbit_data = read_TO_file(get_full_path(filename))
-        
-        # Extract the DrillEvent parameters from the TO dictionary        
-        self._get_params_from_TO_data(tiem_orbit_data)
+        self.parameters['_' + parameter] = zip(*self.parameters[parameter])  
 
     def write_to_file(self, write_directory=None, filename=None, cdb=None):
         """Creates an event file from the DrillEvent object.
@@ -201,7 +189,24 @@ class DrillEvent():
             if not self.parameters[param_name]:
                 validated = False
             
-        return validated        
+        return validated          
+
+    @classmethod
+    def read_from_file(cls, filename):
+        """Reads an event file and sets self.parameters based on data in the event file.
+        
+        Arguments:
+            filename {str} -- Filename of a .evt file.
+        """
+        # Read the TO data into a dictionary
+        tiem_orbit_data = read_TO_file(get_full_path(filename))
+
+        event = cls('','','')
+        
+        # Extract the DrillEvent parameters from the TO dictionary        
+        event._get_params_from_TO_data(tiem_orbit_data) #pylint: disable=protected-access
+
+        return event
 
     def _apply_defaults(self):
         """

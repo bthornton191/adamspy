@@ -39,10 +39,10 @@ class Test_EventFile(unittest.TestCase):
         """
         
         # Create an event object
-        event_from_file = adripy.tiem_orbit.DrillEvent(TEST_EVENT_NAME, 3000, 3)
+        event_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'events.tbl', TEST_EVENT_NAME + '.evt')
 
         # Read new parameters into the drill string object from a file
-        event_from_file.read_from_file(os.path.join(f'<{TEST_DATABASE_NAME}>', 'events.tbl', TEST_EVENT_NAME + '.evt'))
+        event_from_file = adripy.tiem_orbit.DrillEvent.read_from_file(event_file)
         
         params = dict(event_from_file.parameters)
         params.pop('_DYNAMICS')
