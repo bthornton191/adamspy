@@ -175,21 +175,6 @@ class DrillString():
         """
         self.parameters['Distance_from_Bit'].append(distance)
         self.parameters['Distance_from_Bit'].sort()
-
-    def read_from_file(self, filename):
-        """Reads a string file and sets self.parameters based on data in the string file.
-        
-        Arguments:
-            filename {str} -- Filename of a .str file.
-        """
-        # Read the TO data into a dictionary
-        tiem_orbit_data = read_TO_file(get_full_path(filename))
-        
-        # Extract the DrillString parameters from the TO dictionary        
-        self._get_params_from_TO_data(tiem_orbit_data)
-
-        # Extract the DrillTools from the TO dictionary
-        self._get_tools_from_TO_data(tiem_orbit_data)
         
     def write_to_file(self, directory=None, cdb=None, publish=False):
         """Creates string file from the DrillString object.
@@ -284,7 +269,33 @@ class DrillString():
         if not all([eus_found, ps_found, pdc_found]):
             validated = False        
             
-        return validated        
+        return validated            
+    
+    @classmethod
+    def read_from_file(cls, filename):
+        """Reads a string file and returns a DrillString object
+        with DrillString.parameters based on data in the string 
+        file.
+        
+        Arguments:
+            filename {str} -- Filename of a .str file.
+            
+        Returns:
+            {DrillString} -- DrillString object with parameters
+                             from the passed string file.
+        """
+        # Read the TO data into a dictionary
+        tiem_orbit_data = read_TO_file(get_full_path(filename))
+
+        drill_string = cls('','','')
+        
+        # Extract the DrillString parameters from the TO dictionary        
+        drill_string._get_params_from_TO_data(tiem_orbit_data) #pylint: disable=protected-access
+
+        # Extract the DrillTools from the TO dictionary
+        drill_string._get_tools_from_TO_data(tiem_orbit_data) #pylint: disable=protected-access
+
+        return drill_string
 
     def _apply_defaults(self):
         """

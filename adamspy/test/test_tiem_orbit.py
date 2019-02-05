@@ -265,11 +265,10 @@ class Test_DrillString(unittest.TestCase):
             'Hole_Color': 'LtGray',
             'Event_Property_File': '<example_database>\\events.tbl\\test_event.evt'
         }
-        # Create a drill string object
-        drill_string_from_file = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
 
         # Read new parameters into the drill string object from a file
-        drill_string_from_file.read_from_file(os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str'))
+        string_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str')
+        drill_string_from_file = adripy.tiem_orbit.DrillString.read_from_file(string_file)
         
         # Remove some keys from the parameters dictionary
         drill_string_from_file.parameters.pop('_Distance_from_Bit')
@@ -288,13 +287,11 @@ class Test_DrillString(unittest.TestCase):
             'Stack_Order': 1,
             'Number_of_Joints': 1,
         }
-        
-        # Create a drill string object
-        drill_string_from_file = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
 
         # Read new parameters into the drill string object from a file
-        drill_string_from_file.read_from_file(os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str'))
-
+        string_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str')
+        drill_string_from_file = adripy.tiem_orbit.DrillString.read_from_file(string_file)
+        
         # Get the first tool
         actual_tool = drill_string_from_file.tools[0]
         
@@ -315,12 +312,10 @@ class Test_DrillString(unittest.TestCase):
             'Stack_Order': 1,
             'Number_of_Joints': 1,
         }
-        
-        # Create a drill string object
-        drill_string_from_file = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
 
         # Read new parameters into the drill string object from a file
-        drill_string_from_file.read_from_file(os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str'))
+        string_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str')
+        drill_string_from_file = adripy.tiem_orbit.DrillString.read_from_file(string_file)
 
         # Get the first tool
         actual_tool = drill_string_from_file.tools[0]
@@ -342,13 +337,11 @@ class Test_DrillString(unittest.TestCase):
             'Stack_Order': 18,
             'Number_of_Joints': 19,
         }
-        
-        # Create a drill string object
-        drill_string_from_file = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
 
         # Read new parameters into the drill string object from a file
-        drill_string_from_file.read_from_file(os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str'))
-
+        string_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str')
+        drill_string_from_file = adripy.tiem_orbit.DrillString.read_from_file(string_file)
+        
         # Get the first tool
         actual_tool = drill_string_from_file.tools[-1]
         
@@ -366,12 +359,10 @@ class Test_DrillString(unittest.TestCase):
         expected_extension = 'pdc'
         expected_table = 'pdc_bits.tbl'
 
-        # Create a drill string object
-        drill_string_from_file = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
-
         # Read new parameters into the drill string object from a file
-        drill_string_from_file.read_from_file(os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str'))
-
+        string_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str')
+        drill_string_from_file = adripy.tiem_orbit.DrillString.read_from_file(string_file)
+        
         # Get the first tool
         bit = drill_string_from_file.tools[0]['DrillTool']
 
@@ -394,12 +385,10 @@ class Test_DrillString(unittest.TestCase):
         expected_extension = 'pip'
         expected_table = 'drill_pipes.tbl'
 
-        # Create a drill string object
-        drill_string_from_file = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
-
         # Read new parameters into the drill string object from a file
-        drill_string_from_file.read_from_file(os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str'))
-
+        string_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str')
+        drill_string_from_file = adripy.tiem_orbit.DrillString.read_from_file(string_file)
+        
         # Get the first tool
         bit = drill_string_from_file.tools[-1]['DrillTool']
 
@@ -419,12 +408,10 @@ class Test_DrillString(unittest.TestCase):
 
         expected_n_tools = 18
 
-        # Create a drill string object
-        drill_string_from_file = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
-
         # Read new parameters into the drill string object from a file
-        drill_string_from_file.read_from_file(os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str'))
-
+        string_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str')
+        drill_string_from_file = adripy.tiem_orbit.DrillString.read_from_file(string_file)
+        
         actual_n_tools = len(drill_string_from_file.tools)
 
         self.assertEqual(actual_n_tools, expected_n_tools)
