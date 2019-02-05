@@ -449,6 +449,31 @@ class Test_DrillString(unittest.TestCase):
         # Clear the entire new database
         clear_database(TEST_NEW_DATABASE_PATH)
 
+class Test_DrillSolverSettings(unittest.TestCase):
+
+    def setUp(self):        
+        # Create a configuration file for testing
+        adripy.create_cfg_file(TEST_CONFIG_FILENAME, [TEST_DATABASE_PATH])
+
+    def test_read_from_file(self):        
+        """Tests that the parameters in the string are correct after a string is read from a file.
+        """        
+        # Create an event object
+        solver_settings_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'solver_settings.tbl', TEST_SOLVER_SETTINGS_NAME + '.ssf')
+
+        # Read new parameters into the drill string object from a file
+        solver_settings_from_file = adripy.tiem_orbit.DrillSolverSettings.read_from_file(solver_settings_file)
+        
+        params = dict(solver_settings_from_file.parameters)
+
+        self.assertDictEqual(params, TEST_EXPECTED_SOLVER_SETTINGS_TO_PARAMETERS)
+
+    def tearDown(self):
+        # Delete test config file
+        os.remove(TEST_CONFIG_FILENAME)
+        os.environ['ADRILL_USER_CFG'] = os.path.join(os.environ['USERPROFILE'], '.adrill.cfg')
+
+
 class Test_ReadTOFile(unittest.TestCase):
     """Tests adamspy.adripy.tiem_orbit.utilities.read_to_file()    
     """
@@ -540,6 +565,7 @@ class Test_RexExPatterns(unittest.TestCase):
             ' 432 32.3 -43 -43.45 \n',
             '432 32.3 -43 -43.45\n',
             '432  32.3  -43  -43.45 \n',
+            '432  5.55e+02  -4e-3  -43.45 \n',
             '234.3\n',
             '\'lkjfdslkj\'\n',
             '\'lkjfdslkj\' \'DLKDSFLK\'\n',
@@ -564,7 +590,9 @@ class Test_RexExPatterns(unittest.TestCase):
             ' lkjfdslkj  =  -100.00\n',
             ' DSFDSFFDD  =  100\n',
             ' DSFdffdsf  =  100\n',
-            ' Plotting_4D		= \'on\''
+            ' Plotting_4D		= \'on\'',
+            ' Hmax =   5.0e-3',
+            ' PP =   5.0e+3'
         ]
         strings_to_not_match = [
             'lkjfds  =  2\n',
