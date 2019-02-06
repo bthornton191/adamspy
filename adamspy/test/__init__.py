@@ -584,21 +584,22 @@ TEST_EXPECTED_EVENT_TO_PARAMETERS = {
 
 TEST_EXPECTED_SOLVER_SETTINGS_TO_PARAMETERS = {
     'Funnel': [
-        [500, 500, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 100],
-        [0.1, 5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
-        [0.1, 1, 0.3, 0.3, 0.2, 0.2, 0.1, 0.1, 0.05, 0.05, 0.01, 0.01, 0.005, 0.005, 0.005, 0.005],
-        [0.1, 1, 0.3, 0.2, 0.2, 0.1, 0.1, 0.05, 0.05, 0.01, 0.01, 0.005, 0.005, 0.001, 0.0005, 0.005],
-        [1, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
-        [2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        [500, 500, 500],
+        [0.01, 0.001, 0.0005],
+        [0.01, 0.001, 0.0005],
+        [0.01, 0.001, 0.0005],
+        [1, 1, 1],
+        [2, 2, 2]
     ],
     'Integrator': 'HHT',
     'Formulation': 'I3',
-    'Corrector': 'Modified',
-    'Error': 0.00001,
+    'Corrector': 'Original',
+    'Error':  2.0e-5,
     'HMax': 0.005,
     'Alpha': -0.25,
     'Thread_Count': 4
 }
+TEST_EXPECTED_SOLVER_SETTINGS_TO_PARAMETERS['_Funnel'] = zip(*TEST_EXPECTED_SOLVER_SETTINGS_TO_PARAMETERS['Funnel'])
 
 def check_file_contents(filename, expected_text):
     """Checks that the given file contains the expected text.

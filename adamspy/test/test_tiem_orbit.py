@@ -423,6 +423,92 @@ class Test_DrillString(unittest.TestCase):
         # Create a DrillString object
         drill_string = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
 
+        # Define a new stabilizer object
+        different_stabilizer  = adripy.tiem_orbit.DrillTool(TEST_STABILIZER_FILE)
+
+        # Add the DrillTool objects to the DrillString object
+        drill_string.add_tool(self.pdc_bit, measure='yes')
+        drill_string.add_tool(self.stabilizer, measure='yes')
+        drill_string.add_tool(different_stabilizer, measure='no')
+        drill_string.add_tool(self.drill_pipe, joints=20, group_name='Upper_DP_Group')
+        drill_string.add_tool(self.eus, joints=20, group_name='equivalent_pipe', equivalent=True)
+        drill_string.add_tool(self.top_drive)
+
+        got_tool = drill_string.get_tool('stabilizer')
+
+        self.assertEqual(got_tool, self.stabilizer)    
+
+    def test_get_tool_last(self):
+        """Tests that DrillString.get_tool() returns the correct value.
+        """
+        # Create a DrillString object
+        drill_string = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        
+        # Define a new stabilizer object
+        different_stabilizer  = adripy.tiem_orbit.DrillTool(TEST_STABILIZER_FILE)
+        
+        # Add the DrillTool objects to the DrillString object
+        drill_string.add_tool(self.pdc_bit, measure='yes')
+        drill_string.add_tool(self.stabilizer, measure='yes')
+        drill_string.add_tool(different_stabilizer, measure='no')
+        drill_string.add_tool(self.drill_pipe, joints=20, group_name='Upper_DP_Group')
+        drill_string.add_tool(self.eus, joints=20, group_name='equivalent_pipe', equivalent=True)
+        drill_string.add_tool(self.top_drive)
+
+        got_tool = drill_string.get_tool('stabilizer', instance='last')
+
+        self.assertEqual(got_tool, different_stabilizer)  
+
+    def test_get_tool_1(self):
+        """Tests that DrillString.get_tool() returns the correct value.
+        """
+        # Create a DrillString object
+        drill_string = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        
+        # Define a new stabilizer object
+        different_stabilizer  = adripy.tiem_orbit.DrillTool(TEST_STABILIZER_FILE)
+        
+        # Add the DrillTool objects to the DrillString object
+        drill_string.add_tool(self.pdc_bit, measure='yes')
+        drill_string.add_tool(self.stabilizer, measure='yes')
+        drill_string.add_tool(different_stabilizer, measure='no')
+        drill_string.add_tool(self.drill_pipe, joints=20, group_name='Upper_DP_Group')
+        drill_string.add_tool(self.eus, joints=20, group_name='equivalent_pipe', equivalent=True)
+        drill_string.add_tool(self.top_drive)
+
+        got_tool = drill_string.get_tool('stabilizer', instance=1)
+
+        self.assertEqual(got_tool, self.stabilizer)  
+
+    def test_get_tool_2(self):
+        """Tests that DrillString.get_tool() returns the correct value.
+        """
+        # Create a DrillString object
+        drill_string = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        
+        # Define a new stabilizer object
+        different_stabilizer  = adripy.tiem_orbit.DrillTool(TEST_STABILIZER_FILE)
+        
+        # Add the DrillTool objects to the DrillString object
+        drill_string.add_tool(self.pdc_bit, measure='yes')
+        drill_string.add_tool(self.stabilizer, measure='yes')
+        drill_string.add_tool(different_stabilizer, measure='no')
+        drill_string.add_tool(self.drill_pipe, joints=20, group_name='Upper_DP_Group')
+        drill_string.add_tool(self.eus, joints=20, group_name='equivalent_pipe', equivalent=True)
+        drill_string.add_tool(self.top_drive)
+
+        got_tool = drill_string.get_tool('stabilizer', instance=2)
+
+        self.assertEqual(got_tool, different_stabilizer)  
+
+    def test_set_pipe_joints_physical(self):
+        """Tests that DrillString.set_pipe_joints() correctly 
+        sets the number of joints of physical pipe.
+        """
+        expected_joints = 100
+        # Create a DrillString object
+        drill_string = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+
         # Add the DrillTool objects to the DrillString object
         drill_string.add_tool(self.pdc_bit, measure='yes')
         drill_string.add_tool(self.stabilizer, measure='yes')
@@ -431,10 +517,34 @@ class Test_DrillString(unittest.TestCase):
         drill_string.add_tool(self.eus, joints=20, group_name='equivalent_pipe', equivalent=True)
         drill_string.add_tool(self.top_drive)
 
-        got_tool = drill_string.get_tool('stabilizer')
+        drill_string.set_pipe_joints(expected_joints)
 
-        self.assertEqual(got_tool, self.stabilizer)      
+        actual_joints = drill_string.tools[-2]['Number_of_Joints']
 
+        self.assertEqual(actual_joints, expected_joints)
+
+    def test_set_pipe_joints_equivalent(self):
+        """Tests that DrillString.set_pipe_joints() correctly 
+        sets the number of joints of equivalent pipe.
+        """
+        expected_joints = 100
+        # Create a DrillString object
+        drill_string = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+
+        # Add the DrillTool objects to the DrillString object
+        drill_string.add_tool(self.pdc_bit, measure='yes')
+        drill_string.add_tool(self.stabilizer, measure='yes')
+        drill_string.add_tool(self.stabilizer, measure='no')
+        drill_string.add_tool(self.drill_pipe, joints=20, group_name='Upper_DP_Group')
+        drill_string.add_tool(self.eus, joints=20, group_name='equivalent_pipe', equivalent=True)
+        drill_string.add_tool(self.top_drive)
+
+        drill_string.set_pipe_joints(expected_joints, equivalent=True)
+
+        actual_joints = drill_string.tools[-1]['Number_of_Joints']
+
+        self.assertEqual(actual_joints, expected_joints)
+        
     def tearDown(self):
         # Delete test config file
         os.remove(TEST_CONFIG_FILENAME)
@@ -450,7 +560,9 @@ class Test_DrillString(unittest.TestCase):
         clear_database(TEST_NEW_DATABASE_PATH)
 
 class Test_DrillSolverSettings(unittest.TestCase):
-
+    
+    maxDiff = None
+    
     def setUp(self):        
         # Create a configuration file for testing
         adripy.create_cfg_file(TEST_CONFIG_FILENAME, [TEST_DATABASE_PATH])
@@ -465,6 +577,8 @@ class Test_DrillSolverSettings(unittest.TestCase):
         solver_settings_from_file = adripy.tiem_orbit.DrillSolverSettings.read_from_file(solver_settings_file)
         
         params = dict(solver_settings_from_file.parameters)
+        params.pop('_Funnel')
+        TEST_EXPECTED_SOLVER_SETTINGS_TO_PARAMETERS.pop('_Funnel')
 
         self.assertDictEqual(params, TEST_EXPECTED_SOLVER_SETTINGS_TO_PARAMETERS)
 

@@ -136,14 +136,51 @@ class DrillString():
                 'Property_File': drill_tool.property_file
             }
     
+    def set_pipe_joints(self, joints, equivalent=False):
+        """Sets the number of joints in the upper most section of
+        drill pipe. Set pipe_type='equivalent' to adjust equivalent
+        upper string joints'
+        
+        Arguments:
+        ----------
+            joints {int}           -- Number of physical drill 
+                                      pipe joints.
+            equivalent {str}       -- False for physical
+                                      string. True for 
+                                      equivalent upper string.
+                                      Default=False
+        
+        Raises:
+        ----------
+            DrillStringError       -- Raised if the drill string
+                                      doesn't have drill pipe 
+                                      of the specified type.
+        """
+        # Check that the pipe type argument was passed correctly
+
+        tool_type = 'equivalent_upper_string' if equivalent else 'drillpipe'
+
+        found = False
+        for tool in self.tools[::-1]:
+            if tool['Type'] == tool_type:
+                # set the number of joints
+                tool['Number_of_Joints'] = joints
+                found = True
+                break
+
+        if not found:          
+            raise DrillStringError(f'There is no {tool_type} in this string!')        
+    
     def get_tool(self, tool_type, instance='first'):
         """Returns a DrillTool object of type tool_type in the 
         DrillString object's tools list.  
         
         Arguments:
+        ----------
             tool_type {str} -- Desired tool type.
         
         Keyword Arguments:
+        ----------
             instance {str or int} -- If 'first', will take the
                                      first instance.  If 'last', 
                                      will take the last instance.
@@ -152,19 +189,38 @@ class DrillString():
                                      (default: {'first'})
         
         Returns:
-            DrillTool -- DrillTool object
+        ----------
+            DrillTool            -- DrillTool object
+        
+        Raises:
+        ----------
+            DrillStringError     -- Raised if a tools of the
+                                    specified type does not exist
+                                    in the drill string.
         """
-
         tools_found = []
         for tool in self.tools:
             if tool['Type']==tool_type:
-                if instance=='first' or len(tools_found)==instance-1:
-                    return tool['DrillTool']
+                if isinstance(instance,str):
+                    if instance=='first':
+                        return tool['DrillTool']
+                    elif instance=='last':
+                        tools_found.append(tool['DrillTool'])
                 else:
-                    tools_found.append(tool['DrillTool'])
+                    if len(tools_found)==instance-1:
+                        return tool['DrillTool']
+                    else:
+                        tools_found.append(tool['DrillTool'])
+
         
+        # Raise an error if no tools were found
+        if tools_found == []:
+            raise DrillStringError(f'No tool of type {tool_type} was found!')
+
         if instance=='last':
             return tools_found[-1]
+        
+        
     
     def add_measurement_point(self, distance):
         """
@@ -441,3 +497,6 @@ class DrillString():
             # Raise a value error if the parameter isn't found.
             if not found:
                 raise ValueError(f'{param} not found!')
+
+class DrillStringError(Exception):
+    pass

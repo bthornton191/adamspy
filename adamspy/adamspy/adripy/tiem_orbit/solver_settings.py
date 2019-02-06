@@ -33,114 +33,12 @@ class DrillSolverSettings():
 
     DEFAULT_PARAMETER_ARRAYS = {
         'Funnel': [
-            [
-                500,
-                500,
-                51,
-                52,
-                53,
-                54,
-                55,
-                56,
-                57,
-                58,
-                59,
-                60,
-                61,
-                62,
-                63,
-                100
-            ],
-            [
-                0.1,
-                5,
-                0.5,
-                0.5,
-                0.5,
-                0.5,
-                0.5,
-                0.5,
-                0.5,
-                0.5,
-                0.5,
-                0.5,
-                0.5,
-                0.5,
-                0.5,
-                0.5
-            ],
-            [
-                0.1,
-                1,
-                0.3,
-                0.3,
-                0.2,
-                0.2,
-                0.1,
-                0.1,
-                0.05,
-                0.05,
-                0.01,
-                0.01,
-                0.005,
-                0.005,
-                0.005,
-                0.005
-            ],
-            [
-                0.1,
-                1,
-                0.3,
-                0.2,
-                0.2,
-                0.1,
-                0.1,
-                0.05,
-                0.05,
-                0.01,
-                0.01,
-                0.005,
-                0.005,
-                0.001,
-                0.0005,
-                0.005
-            ],
-            [
-                1,
-                0.5,
-                0.5,
-                0.5,
-                0.5,
-                0.5,
-                0.5,
-                0.5,
-                0.5,
-                0.5,
-                0.5,
-                0.5,
-                0.5,
-                0.5,
-                0.5,
-                0.5
-            ],
-            [
-                2,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1
-            ]
+            [500, 500, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 100],
+            [0.1, 5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
+            [0.1, 1, 0.3, 0.3, 0.2, 0.2, 0.1, 0.1, 0.05, 0.05, 0.01, 0.01, 0.005, 0.005, 0.005, 0.005],
+            [0.1, 1, 0.3, 0.2, 0.2, 0.1, 0.1, 0.05, 0.05, 0.01, 0.01, 0.005, 0.005, 0.001, 0.0005, 0.005],
+            [1, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
+            [2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
         ]
     }
 
@@ -278,10 +176,24 @@ class DrillSolverSettings():
                           be found
         """
 
-        for param in self.SCALAR_PARAMETERS + self.ARRAY_PARAMETERS:
+        for param in self.ARRAY_PARAMETERS:
             # For each string parameter initialize a found flag
             found = False
-        
+            
+            if param.lower() == 'funnel':
+                for i, par in enumerate(['maxit', 'stability', 'error', 'imbalance', 'tlimit', 'alimit']):
+                    self.parameters[param][i] = tiem_orbit_data['STATICS']['FUNNEL'][par]
+                self.parameters['_' + param] = zip(*self.parameters[param])
+                found = True
+            
+            # Raise a value error if the parameter isn't found.
+            if not found:
+                raise ValueError(f'{param} not found!')
+
+        for param in self.SCALAR_PARAMETERS:
+            # For each string parameter initialize a found flag
+            found = False
+
             for block in tiem_orbit_data:
                 # For each block in the TO file
 
@@ -290,8 +202,8 @@ class DrillSolverSettings():
                     self.parameters[param] = tiem_orbit_data[block][param.lower()]
                     found = True
                     break
-
-                else:
+ 
+                elif block != 'STATICS':
                     # If the parameter is not in this block, find all the sub blocks 
                     # and look for the parameter inside each sub block
                     sub_blocks = [header for header in tiem_orbit_data[block] if isinstance(tiem_orbit_data[block][header], dict)]
