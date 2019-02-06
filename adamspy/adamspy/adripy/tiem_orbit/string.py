@@ -7,7 +7,7 @@ import re
 from . import TMPLT_ENV
 from .tool import DrillTool
 from .utilities import read_TO_file
-from ..adripy import get_cdb_location, get_cdb_path, get_full_path
+from ..adripy import get_cdb_location, get_cdb_path, get_full_path, TO_LENGTH_PARAM
 
 class DrillString():
     """
@@ -220,7 +220,37 @@ class DrillString():
         if instance=='last':
             return tools_found[-1]
         
+    def get_bha_length(self):
+        """
+        Gets the total length of the drill string defined in 
+        string_file NOT including the equivalent upper string and 
+        highest most physical string.
         
+                        
+        Returns
+        -------
+            {float}:      Cumulative length of the bha    
+        """
+        # Get a list of the drill pipe tools in the string
+        drill_pipe_tools = [tool for tool in self.tools if tool['Type'] == 'drillpipe']
+
+        # Initialize a list of tool lengths
+        tool_lengths = []
+        for tool in self.tools:        
+            # for each tool in the tools list
+            if tool['Type'] != 'equivalent_upper_string' and tool is not drill_pipe_tools[-1]:
+                # If this isn't equivalent upper string or the last drill pipe tool
+                lnth_params = TO_LENGTH_PARAM[tool['Type']]
+                lengths = []
+                for lnth_param in lnth_params:
+                    length = tool['DrillTool'].get_parameter_value(lnth_param)
+                    lengths.append(length)
+                tool_length = sum(lengths)
+                joints = tool['Number_of_Joints']
+                tool_lengths.append(tool_length*joints)        
+        
+        return sum(tool_lengths)
+
     
     def add_measurement_point(self, distance):
         """

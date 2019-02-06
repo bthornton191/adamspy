@@ -16,15 +16,15 @@ $-------------------------------------------------------------------------UNITS
 $----------------------------------------------------------------------GEOMETRY
 [GEOMETRY]
 $ bit types can be PDC (multi_blade) or single_point (single force for Roller-Cone or simpler PDC bits)
-  Modeling_Method    = 'single_point'
-  Bit_OD             = 1.0208
-  Bit_Length         = 1.5000
-  Stub_OD            = 0.6875
-  Stub_Length        = 0.4167
-  Shoulder_Length    = 0.16667
-  Number_of_Blades   = 4
-  Blade_Width        = 0.25
-  Blade_Pitch_Angle  = 0.0
+ Modeling_Method    = 'single_point'
+ Bit_OD             = 1.0208
+ Bit_Length         = 1.5000
+ Stub_OD            = 0.6875
+ Stub_Length        = 0.4167
+ Shoulder_Length    = 0.16667
+ Number_of_Blades   = 4
+ Blade_Width        = 0.25
+ Blade_Pitch_Angle  = 0.0
 $------------------------------------------------------------------------BLADES
 [BLADES]
 $ For PDC type only! The number of rows MUST match number of blades!

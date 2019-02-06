@@ -138,6 +138,16 @@ class Test_DrillTool(unittest.TestCase):
         expected_filename = os.path.join(f'<{TEST_DATABASE_NAME}>', 'stabilizers.tbl', self.NEW_STABILIZER_NAME + '.sta')
         self.assertEqual(self.stabilizer_to_modify.property_file, expected_filename)
   
+    def test_get_parameter_value_bit_length(self):
+        """Tests that DrillTool.get_parameter_value() returns the correct bit length.
+        """
+        pdc_bit = adripy.tiem_orbit.DrillTool(TEST_PDC_FILE)
+        expected_value = 1.5
+        actual_value = pdc_bit.get_parameter_value('Bit_Length')
+
+        self.assertEqual(actual_value, expected_value)
+
+
     def test_modify_parameter_value(self):
         """Modify a parameter value then get the parameter value and test the expected value is returned.
         """
@@ -544,6 +554,25 @@ class Test_DrillString(unittest.TestCase):
         actual_joints = drill_string.tools[-1]['Number_of_Joints']
 
         self.assertEqual(actual_joints, expected_joints)
+
+    def test_get_bha_length(self):
+        """Tests that DrillString.get_bha_length() returns the correct length.
+        """
+        # Create a DrillString object
+        drill_string = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+
+        # Add the DrillTool objects to the DrillString object
+        drill_string.add_tool(self.pdc_bit, measure='yes')
+        drill_string.add_tool(self.stabilizer, measure='yes')
+        drill_string.add_tool(self.stabilizer, measure='no')
+        drill_string.add_tool(self.drill_pipe, joints=20, group_name='Upper_DP_Group')
+        drill_string.add_tool(self.eus, joints=20, group_name='equivalent_pipe', equivalent=True)
+        drill_string.add_tool(self.top_drive)
+
+        expected_length = 5
+        actual_length = drill_string.get_bha_length()
+
+        self.assertEqual(actual_length, expected_length)
         
     def tearDown(self):
         # Delete test config file
@@ -587,7 +616,6 @@ class Test_DrillSolverSettings(unittest.TestCase):
         os.remove(TEST_CONFIG_FILENAME)
         os.environ['ADRILL_USER_CFG'] = os.path.join(os.environ['USERPROFILE'], '.adrill.cfg')
 
-
 class Test_ReadTOFile(unittest.TestCase):
     """Tests adamspy.adripy.tiem_orbit.utilities.read_to_file()    
     """
@@ -613,7 +641,7 @@ class Test_ReadTOFile(unittest.TestCase):
         # Create a test config file containing the test database
         parameters = utilities.read_TO_file(adripy.get_full_path(os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str')))
 
-        self.assertDictEqual(parameters, EXPECTED_STRING_TO_PARAMETERS)
+        self.assertDictEqual(parameters, EXPECTED_STRING_TO_PARAMETERS)    
 
     def tearDown(self):
         try:

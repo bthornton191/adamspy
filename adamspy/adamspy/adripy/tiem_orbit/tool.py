@@ -3,6 +3,7 @@
 
 import os
 import shutil
+from thornpy import numtype
 from .utilities import TO_BLOCK_HEADER_PATTERN, TO_PARAMETER_PATTERN
 from ..adripy import get_cdb_location, get_cdb_path, get_full_path
 
@@ -123,7 +124,7 @@ class DrillTool():
             {string or float} -- Value of the specified parameter from the property file.
         """
         # Initilize return variable as None
-        value = None
+        found = False
 
         # Read the property file
         filename = get_full_path(self.property_file)
@@ -158,8 +159,15 @@ class DrillTool():
                     
                     else:
                         # If the value is a number
-                        value = float(current_value)                    
+                        value = float(current_value) if numtype.str_is_float(current_value) else int(current_value)
+                    found = True
                     break
+        
+        if not found:
+            # If the parameter wasn't found raise an exception
+            filename = self.property_file
+            raise DrillToolError(f'The parameter {parameter_to_get} was not found in {filename}!')
+
         return value
 
     def modify_parameter_value(self, parameter_to_change, new_value):
@@ -215,3 +223,6 @@ class DrillTool():
     def _get_table(self):
         table = self.DATABASE_INFO[self.tool_type]['table']
         return table
+
+class DrillToolError(Exception):
+    pass
