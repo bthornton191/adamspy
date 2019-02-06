@@ -3,16 +3,17 @@
 import os
 from ..adripy import build
 
-class DrillSim():
+class DrillSim(): #pylint: disable=too-many-instance-attributes
     """Contains data defining the files that make up an Adams
     Drill input deck.
     """
-    def __init__(self, string, event, solver_settings, directory, analysis_name):
+    def __init__(self, string, event, solver_settings, directory, analysis_name): #pylint: disable=too-many-arguments
         self.string = string
         self.event = event
         self.solver_settings = solver_settings
         self.directory = directory
         self.analysis_name = analysis_name
+        self.string_filename = ''
         self.adm_filename = ''
         self.acf_filename = ''
         self.cmd_filename = ''
@@ -27,57 +28,34 @@ class DrillSim():
         """Builds the input deck
         """
         # Build the model
-        build(self.string, self.solver_settings, self.directory)
-        
+        adm, acf, cmd = build(self.string.filename, self.solver_settings.filename, self.directory)  
+
+        # store the new filenames as attributes
+        self.adm_filename = adm
+        self.acf_filename = acf
+        self.cmd_filename = cmd
+
+        # Flag this simulation as built
         self.built = True
 
-    def run(self):
+    def run(self): #pylint: disable=no-self-use
         """Run the simulation
         """
-
+        # -------------------
+        # Run Logic
+        # -------------------
         return
-    
-    def build_from_similar(self, similar_drill_sim, wob=None, rpm=None, gpm=None, rop=None):
-        """Copies an input deck with an identical adm file then
-        changes the drilling parameters in the acf file.
-        """       
-        
-        self.built = True
     
     def _write_tiem_orbit_files(self):
         """Writes the three Tiem Orbit files (str, evt, ssf) to
         the simulation directory.
         """     
-        self.solver_settings.write_to_file(write_directory=self.directory)
-        self.string.parameters['Event_Property_File'] = os.path.split(self.event.filename)[1]
+        self.solver_settings.write_to_file(self.analysis_name, write_directory=self.directory)        
+
+        self.event.parameters['Event_Name'] = self.analysis_name
+        self.event.write_to_file(write_directory=self.directory)
+        
+        self.string.parameters['Event_Property_File'] = self.event.filename        
         self.string.parameters['ModelName'] = self.analysis_name
         self.string.parameters['OutputName'] = self.analysis_name
-        self.string.write_to_file(directory=self.directory, publish=True)   
-    
-    def add_sim_info(self, adm_file, wob, rpm, gpm, md):
-        """Add the SimManager info block to the top of the adm file
-        
-        Arguments:
-            adm_file {str} -- adm filename
-            wob {float} -- WOB in the simulation
-            rpm {float} -- RPM in the simulation
-            gpm {float} -- GPM in the simulation
-            md {float} -- Starting Measured Depth in the simulation
-        """
-
-        with open(adm_file, 'r') as fid:
-            lines = fid.readlines()
-
-        with open(adm_file + '.tmp', 'w') as fid:
-            for line in lines:
-                if 'file/model' in line:
-                    fid.write(line)
-                    fid.write(f'!INFO SM Simulation: ADRILL/StdRun\n')
-                    fid.write(f'!INFO RPM={rpm}\n')
-                    fid.write(f'!INFO Flow={gpm}\n')
-                    fid.write(f'!INFO WOB={wob}\n')
-                    fid.write(f'!INFO MeasuredDepth={md}\n')
-        
-        os.remove(adm_file)
-        os.rename(adm_file + '.tmp', adm_file)
-        
+        self.string_filename = self.string.write_to_file(directory=self.directory, publish=True)   

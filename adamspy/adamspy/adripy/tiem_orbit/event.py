@@ -148,21 +148,51 @@ class DrillEvent():
         Raises:
             ValueError -- Raised if not all parameters have been defined.
         """
+        # Raise an error if the parameters can't be validated
         if not self.validate():
             raise ValueError('The parameters could not be validated.')
         
-        if write_directory is None and cdb is None:
-            write_directory = os.getcwd()
+        if write_directory is not None:
+            # If the write_directory argument is passed
+            if filename is None:
+                # If the filename argument is not passed, set the filename
+                # as the Event_Name in the file
+                filename = self.parameters['Event_Name']
+                
+            else:
+                # If the filename argument is passed, strip the path and the 
+                # extension
+                filename = os.path.split(filename)[-1].replace(f'.{self.EXT}','')
+            
+            # Set the filepath to the filename in the given directory
+            filepath = os.path.join(write_directory, filename + f'.{self.EXT}')
+
         elif cdb is not None:
-            write_directory = get_cdb_location(cdb)        
-        if filename is None:
-            filename = self.parameters['Event_Name']
-        if not filename.endswith(f'.{self.EXT}'):
-            filename += f'.{self.EXT}'
+            # If the write_directory argument is not passed, but the cdb
+            # argument is
+
+            if filename is None:
+                # If the filename argument is not passed, set the filename
+                # as the Event_Name in the file
+                filename = self.parameters['Event_Name']
+            
+            else:
+                # If the filename argument is passed, strip the path and the 
+                # extension
+                filename = os.path.split(filename)[-1].replace(f'.{self.EXT}','')
+            
+            # Set the filepath to the file in the cdb
+            filepath = get_full_path(os.path.join(cdb, self.CDB_TABLE, filename + f'.{self.EXT}'))
+
+        elif filename is not None:
+            # If Nothing but a filename is given set that as the full path
+            filepath = os.path.normpath(filename.replace(f'.{self.EXT}',''))            
+
+        else:
+            # If nothing is given, raise an error
+            raise ValueError('One of the following must key work arguments must be defined: write_directory, filename, cdb')
                       
         event_template = TMPLT_ENV.get_template(f'template.{self.EXT}')
-
-        filepath = os.path.join(write_directory, self.CDB_TABLE, filename)
         
         with open(filepath, 'w') as fid:
             fid.write(event_template.render(self.parameters))

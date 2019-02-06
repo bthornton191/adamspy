@@ -42,9 +42,9 @@ class DrillSolverSettings():
         ]
     }
 
-    TABLE = 'solver_settings.tbl'
-    EXTENSION = 'ssf'
-
+    CDB_TABLE = 'solver_settings.tbl'
+    EXT = 'ssf'
+    
     def __init__(self, name, **kwargs):
         self.name = name
         self.parameters = kwargs
@@ -55,7 +55,7 @@ class DrillSolverSettings():
         # Initialize filename instance variable
         self.filename = ''
 
-    def write_to_file(self, write_directory=None, filename=None, cdb=None):
+    def write_to_file(self, filename, write_directory=None, cdb=None):
         """Creates a solver settings file from the DrillSolverSettings object.
         
         Keyword Arguments:
@@ -66,31 +66,36 @@ class DrillSolverSettings():
         Raises:
             ValueError -- Raised if not all parameters have been defined.
         """
+        # Raise an error if the parameters can't be validated
         if not self.validate():
             raise ValueError('The parameters could not be validated.')
         
-        # Determine if writing to cdb or directory
-        if write_directory is None and cdb is None:
-            # If neither cdb nor write_directory are given...            
-            write_directory = os.getcwd()
+        if write_directory is not None:
+            # If the write_directory argument is passed, strip the filename of
+            # it's path and extension
+            filename = os.path.split(filename)[-1].replace(f'.{self.EXT}','')
+            
+            # Set the filepath to the filename in the given directory
+            filepath = os.path.join(write_directory, filename + f'.{self.EXT}')
 
         elif cdb is not None:
-            # If cdb is given
-            write_directory = os.path.join(get_cdb_location(cdb), self.TABLE)       
+            # If the write_directory argument is not passed, but the cdb
+            # argument is, strip the filename of it's path and extension
+            filename = os.path.split(filename)[-1].replace(f'.{self.EXT}','')
+            
+            # Set the filepath to the file in the cdb
+            filepath = get_full_path(os.path.join(cdb, self.CDB_TABLE, filename + f'.{self.EXT}'))
 
-        # If filename not given, filename is object name
-        if filename is None:            
-            filename = self.name
-        
-        # Add extension if filename not getven with one
-        if not filename.endswith(f'.{self.EXTENSION}'):
-            filename += f'.{self.EXTENSION}'
-        
-        # Set the full filepath to the ssf file
-        filepath = os.path.join(write_directory, filename)
+        elif filename is not None:
+            # If Nothing but a filename is given, set that as the full path
+            filepath = os.path.normpath(filename.replace(f'.{self.EXT}',''))            
+
+        else:
+            # If nothing is given, raise an error
+            raise ValueError('One of the following must key work arguments must be defined: write_directory, filename, cdb')
                       
         # Get the jinja2 template for a solver settings file
-        ssf_template = TMPLT_ENV.get_template(f'template.{self.EXTENSION}')
+        ssf_template = TMPLT_ENV.get_template(f'template.{self.EXT}')
 
         # Write the solver settings file
         with open(filepath, 'w') as fid:

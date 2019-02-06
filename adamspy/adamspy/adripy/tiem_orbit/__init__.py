@@ -15,3 +15,4 @@ from .tool import DrillTool
 from .event import DrillEvent
 from .string import DrillString
 from .solver_settings import DrillSolverSettings
+from .drillsim import DrillSim

@@ -50,6 +50,7 @@ TEST_NEW_DATABASE_NAME = 'new_database'
 TEST_NEW_DATABASE_PATH = os.path.join(os.getcwd(), 'test', TEST_NEW_DATABASE_NAME + '.cdb')
 
 TEST_WORKING_DIRECTORY = os.path.join(os.getcwd(), 'test', 'example_working_directory')
+TEST_ANALYSIS_NAME = 'test_analysis_1'
 
 TEST_ORIG_CONFIG_FILE_TEXT = f'''!----------------------------------------------------------------------!
 ! ************  Adams Drill Private Configuration File  ************

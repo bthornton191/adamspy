@@ -1,12 +1,15 @@
+"""Tests related to the tiem_orbit package
+"""
+
 import unittest
 import os
-import glob
 from test import *
 os.environ['ADRILL_SHARED_CFG'] = os.path.join('C:\\', 'MSC.Software', 'Adams', '2018', 'adrill', 'adrill.cfg')
 os.environ['ADRILL_USER_CFG'] = os.path.join(os.environ['USERPROFILE'], '.adrill.cfg')
 os.environ['ADAMS_LAUNCH_COMMAND'] = os.path.join('C:\\', 'MSC.Software', 'Adams', '2018', 'common', 'mdi.bat')
-from adamspy import adripy
-from adamspy.adripy.tiem_orbit import utilities
+    
+from adamspy import adripy #pylint: disable=wrong-import-position
+from adamspy.adripy.tiem_orbit import utilities #pylint: disable=wrong-import-position
 
 class Test_EventFile(unittest.TestCase):
     """
@@ -246,7 +249,7 @@ class Test_DrillString(unittest.TestCase):
         drill_string.add_tool(self.top_drive)
 
         # Publish drill string to new database
-        drill_string.write_to_file(cdb=TEST_NEW_DATABASE_NAME, publish=True)
+        drill_string.write_to_file(cdb=TEST_NEW_DATABASE_NAME, publish=True, publish_event=True)
 
         expected_string_filename = os.path.join(TEST_NEW_DATABASE_PATH, 'drill_strings.tbl', TEST_STRING_NAME + '.str')
         expected_text = EXPECTED_STRING_WRITE_TEXT.replace(TEST_DATABASE_NAME, TEST_NEW_DATABASE_NAME)

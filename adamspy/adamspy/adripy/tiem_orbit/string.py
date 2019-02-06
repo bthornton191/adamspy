@@ -250,7 +250,6 @@ class DrillString():
                 tool_lengths.append(tool_length*joints)        
         
         return sum(tool_lengths)
-
     
     def add_measurement_point(self, distance):
         """
@@ -262,7 +261,7 @@ class DrillString():
         self.parameters['Distance_from_Bit'].append(distance)
         self.parameters['Distance_from_Bit'].sort()
         
-    def write_to_file(self, directory=None, cdb=None, publish=False):
+    def write_to_file(self, directory=None, cdb=None, publish=False, publish_event=False):
         """Creates string file from the DrillString object.
         
         Keyword Arguments:
@@ -294,21 +293,24 @@ class DrillString():
         string_template_1 = TMPLT_ENV.get_template(f'template_1.{self.EXTENSION}')
         string_template_2 = TMPLT_ENV.get_template(f'template_2.{self.EXTENSION}')
         string_template_3 = TMPLT_ENV.get_template(f'template_3.{self.EXTENSION}')
-
         
         if publish is True:
-            # If the string is being published
-
-            # Copy all the tools to the new cdb or directory
+            # If the string is being published, copy all the tools to the new 
+            # cdb or directory
             for tool in self.tools:      
                 tool['DrillTool'].copy_file(cdb=cdb, directory=directory)
                 tool['Property_File'] = tool['DrillTool'].property_file
             
+            # Copy the topdrive file
             self.top_drive['DrillTool'].copy_file(cdb=cdb, directory=directory)
             self.top_drive['Property_File'] = self.top_drive['DrillTool'].property_file
 
-            # Copy the hole and event files to the new cdb
+            # Copy the hole file to the new location
             self._copy_hole_file(cdb=cdb, directory=directory)
+
+        if publish_event is True:
+            # If the string is being published with the event file, copy the
+            # event file to the new location
             self._copy_event_file(cdb=cdb, directory=directory)
 
         with open(filename, 'w') as fid:
