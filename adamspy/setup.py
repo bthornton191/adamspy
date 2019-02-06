@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="adamspy",
-    version="0.3.3",
+    version="0.4.0",
     author="Ben Thornton",
     author_email="ben.thornton@mscsoftware.com",
     description="Python tools for working with Adams data",
