@@ -569,7 +569,7 @@ class Test_DrillString(unittest.TestCase):
         drill_string.add_tool(self.eus, joints=20, group_name='equivalent_pipe', equivalent=True)
         drill_string.add_tool(self.top_drive)
 
-        expected_length = 5
+        expected_length = 14.48
         actual_length = drill_string.get_bha_length()
 
         self.assertEqual(actual_length, expected_length)

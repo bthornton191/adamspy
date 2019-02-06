@@ -864,8 +864,10 @@ def build(string_file, solver_settings_file, working_directory, output_name=None
     Keyword Arguments:
         output_name {string} -- Base name of the adm, acf, and cmd files. (default: Same as string_file)
     """    
-    # Set the output name    
-    output_name = get_TO_param(string_file, 'OutputName')       
+    # Set the output name  
+    if output_name is None:  
+        output_name = get_TO_param(string_file, 'OutputName')       
+    
     
     # Set the names of the output files
     adm_file = output_name + '.adm'
@@ -903,7 +905,9 @@ def build(string_file, solver_settings_file, working_directory, output_name=None
     startupinfo = subprocess.STARTUPINFO()
     startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
     process = subprocess.Popen('{} aview ru-s b build.cmd'.format(os.environ['ADAMS_LAUNCH_COMMAND']), cwd=working_directory, startupinfo=startupinfo)
-    process.wait()            
+    process.wait()    
+
+    return adm_file, acf_file, cmd_file        
 
 class cdbError(Exception):
     pass

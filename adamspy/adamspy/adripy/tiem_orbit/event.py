@@ -308,3 +308,5 @@ class DrillEvent():
                 
             if not found:
                 raise ValueError(f'{param} not found!')
+            
+            self.parameters['_' + param] = zip(*self.parameters[param])
