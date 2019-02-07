@@ -56,8 +56,8 @@ class DrillString():
         'Distance_from_Bit': []
     }
 
-    TABLE = 'drill_strings.tbl'
-    EXTENSION = 'str'
+    CDB_TABLE = 'drill_strings.tbl'
+    EXT = 'str'
     MULTI_JOINT_TOOLS = ['hw_pipe', 'drillpipe', 'equivalent_upper_string']
     
     DRILL_TOOL_PATTERN = re.compile('^DRILL_TOOL_[0-9]{2}$')
@@ -261,7 +261,7 @@ class DrillString():
         self.parameters['Distance_from_Bit'].append(distance)
         self.parameters['Distance_from_Bit'].sort()
         
-    def write_to_file(self, directory=None, cdb=None, publish=False, publish_event=False):
+    def write_to_file(self, directory=None, filename=None, cdb=None, publish=False, publish_event=False):
         """Creates string file from the DrillString object.
         
         Keyword Arguments:
@@ -273,26 +273,54 @@ class DrillString():
             ValueError -- Raised if neither directory nor cdb are given.
             ValueError -- Raised if not all parameters have been defined.
         """
-        # Check that directory or cdb was given.
-        if directory is None and cdb is None:
-            raise ValueError('Either directory or cdb is required!')
-
-        # Validate the parameters
+        # Raise an error if the parameters can't be validated
         if not self.validate():
             raise ValueError('The parameters could not be validated.')
+
+        if directory is not None:
+            # If the write_directory argument is passed
+            if filename is None:
+                # If the filename argument is not passed, set the filename
+                # as the Event_Name in the file
+                filename = self.parameters['ModelName']
+                
+            else:
+                # If the filename argument is passed, strip the path and the 
+                # extension
+                filename = os.path.split(filename)[-1].replace(f'.{self.EXT}','')
+            
+            # Set the filepath to the filename in the given directory
+            filepath = os.path.join(directory, f'{filename}.{self.EXT}')
         
-        # Determine the filename for writing
-        if cdb is not None:
-            # If cdb was given
-            filename = os.path.join(get_cdb_location(cdb), self.TABLE, self.parameters['ModelName'] + '.' +  self.EXTENSION)
+        elif cdb is not None:
+            # If the write_directory argument is not passed, but the cdb
+            # argument is
+
+            if filename is None:
+                # If the filename argument is not passed, set the filename
+                # as the Event_Name in the file
+                filename = self.parameters['ModelName']
+            
+            else:
+                # If the filename argument is passed, strip the path and the 
+                # extension
+                filename = os.path.split(filename)[-1].replace(f'.{self.EXT}','')
+            
+            # Set the filepath to the file in the cdb
+            filepath = get_full_path(os.path.join(f'<{cdb}>', self.CDB_TABLE, f'{filename}.{self.EXT}'))
+
+        elif filename is not None:
+            # If Nothing but a filename is given set that as the full path
+            filepath = os.path.normpath(filename.replace(f'.{self.EXT}',''))            
+
         else:
-            # If cdb not given and directory was given
-            filename = os.path.join(directory, self.parameters['ModelName'] + '.' + self.EXTENSION)
+            # If nothing is given, raise an error
+            raise ValueError('One of the following must key work arguments must be defined: write_directory, filename, cdb')
                       
         # Define templates
-        string_template_1 = TMPLT_ENV.get_template(f'template_1.{self.EXTENSION}')
-        string_template_2 = TMPLT_ENV.get_template(f'template_2.{self.EXTENSION}')
-        string_template_3 = TMPLT_ENV.get_template(f'template_3.{self.EXTENSION}')
+        string_template_1 = TMPLT_ENV.get_template(f'template_1.{self.EXT}')
+        string_template_2 = TMPLT_ENV.get_template(f'template_2.{self.EXT}')
+        string_template_3 = TMPLT_ENV.get_template(f'template_3.{self.EXT}')
         
         if publish is True:
             # If the string is being published, copy all the tools to the new 
@@ -313,7 +341,7 @@ class DrillString():
             # event file to the new location
             self._copy_event_file(cdb=cdb, directory=directory)
 
-        with open(filename, 'w') as fid:
+        with open(filepath, 'w') as fid:
             # Write the top of the file
             fid.write(string_template_1.render(self.parameters))
             
@@ -324,7 +352,7 @@ class DrillString():
             # Write the top_of_string block
             fid.write(string_template_3.render(self.top_drive))
         
-        return get_cdb_path(filename)
+        return get_cdb_path(filepath)
     
     def validate(self):
         """

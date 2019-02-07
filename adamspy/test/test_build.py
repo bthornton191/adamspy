@@ -40,7 +40,7 @@ class Test_Build(unittest.TestCase):
         solver_settings = adripy.tiem_orbit.DrillSolverSettings('baseline_settings')
 
         # Write the solver settings file
-        solver_settings_file = solver_settings.write_to_file(TEST_WORKING_DIRECTORY)
+        solver_settings_file = solver_settings.write_to_file(TEST_SOLVER_SETTINGS_NAME, directory=TEST_WORKING_DIRECTORY)
 
         # Build model
         adripy.build(string_file, solver_settings_file, TEST_WORKING_DIRECTORY)

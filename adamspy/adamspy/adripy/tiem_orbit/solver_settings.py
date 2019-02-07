@@ -55,7 +55,7 @@ class DrillSolverSettings():
         # Initialize filename instance variable
         self.filename = ''
 
-    def write_to_file(self, filename, write_directory=None, cdb=None):
+    def write_to_file(self, filename, directory=None, cdb=None):
         """Creates a solver settings file from the DrillSolverSettings object.
         
         Keyword Arguments:
@@ -70,13 +70,13 @@ class DrillSolverSettings():
         if not self.validate():
             raise ValueError('The parameters could not be validated.')
         
-        if write_directory is not None:
+        if directory is not None:
             # If the write_directory argument is passed, strip the filename of
             # it's path and extension
             filename = os.path.split(filename)[-1].replace(f'.{self.EXT}','')
             
             # Set the filepath to the filename in the given directory
-            filepath = os.path.join(write_directory, filename + f'.{self.EXT}')
+            filepath = os.path.join(directory, filename + f'.{self.EXT}')
 
         elif cdb is not None:
             # If the write_directory argument is not passed, but the cdb

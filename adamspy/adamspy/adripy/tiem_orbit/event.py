@@ -137,7 +137,7 @@ class DrillEvent():
         self.parameters[parameter][2].append(delta)
         self.parameters['_' + parameter] = zip(*self.parameters[parameter])  
 
-    def write_to_file(self, write_directory=None, filename=None, cdb=None):
+    def write_to_file(self, directory=None, filename=None, cdb=None):
         """Creates an event file from the DrillEvent object.
         
         Keyword Arguments:
@@ -152,7 +152,7 @@ class DrillEvent():
         if not self.validate():
             raise ValueError('The parameters could not be validated.')
         
-        if write_directory is not None:
+        if directory is not None:
             # If the write_directory argument is passed
             if filename is None:
                 # If the filename argument is not passed, set the filename
@@ -165,7 +165,7 @@ class DrillEvent():
                 filename = os.path.split(filename)[-1].replace(f'.{self.EXT}','')
             
             # Set the filepath to the filename in the given directory
-            filepath = os.path.join(write_directory, filename + f'.{self.EXT}')
+            filepath = os.path.join(directory, f'{filename}.{self.EXT}')
 
         elif cdb is not None:
             # If the write_directory argument is not passed, but the cdb
@@ -182,15 +182,7 @@ class DrillEvent():
                 filename = os.path.split(filename)[-1].replace(f'.{self.EXT}','')
             
             # Set the filepath to the file in the cdb
-            filepath = get_full_path(os.path.join(cdb, self.CDB_TABLE, filename + f'.{self.EXT}'))
-
-        elif filename is not None:
-            # If Nothing but a filename is given set that as the full path
-            filepath = os.path.normpath(filename.replace(f'.{self.EXT}',''))            
-
-        else:
-            # If nothing is given, raise an error
-            raise ValueError('One of the following must key work arguments must be defined: write_directory, filename, cdb')
+            filepath = get_full_path(os.path.join(f'<{cdb}>', self.CDB_TABLE, f'{filename}.{self.EXT}'))
                       
         event_template = TMPLT_ENV.get_template(f'template.{self.EXT}')
         

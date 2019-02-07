@@ -50,10 +50,10 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         """Writes the three Tiem Orbit files (str, evt, ssf) to
         the simulation directory.
         """     
-        self.solver_settings.write_to_file(self.analysis_name, write_directory=self.directory)        
+        self.solver_settings.write_to_file(self.analysis_name, directory=self.directory)        
 
         self.event.parameters['Event_Name'] = self.analysis_name
-        self.event.write_to_file(write_directory=self.directory)
+        self.event.write_to_file(directory=self.directory)
         
         self.string.parameters['Event_Property_File'] = self.event.filename        
         self.string.parameters['ModelName'] = self.analysis_name
