@@ -1,3 +1,4 @@
+call update_docs.bat
 rmdir /S /Q dist
 rmdir /S /Q build
 rmdir /S /Q adamspy.egg-info
