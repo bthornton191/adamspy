@@ -1,0 +1,417 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>adamspy.adripy.tiem_orbit.event &#8212; adamspy 0.6.5 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">adamspy 0.6.5 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for adamspy.adripy.tiem_orbit.event</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Contains the DrillEvent class</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">TMPLT_ENV</span>
+<span class="kn">from</span> <span class="nn">.utilities</span> <span class="k">import</span> <span class="n">read_TO_file</span>
+<span class="kn">from</span> <span class="nn">..adripy</span> <span class="k">import</span> <span class="n">get_cdb_location</span><span class="p">,</span> <span class="n">get_cdb_path</span><span class="p">,</span> <span class="n">get_full_path</span>
+
+<div class="viewcode-block" id="DrillEvent"><a class="viewcode-back" href="../../../../adamspy.adripy.tiem_orbit.html#adamspy.adripy.tiem_orbit.event.DrillEvent">[docs]</a><span class="k">class</span> <span class="nc">DrillEvent</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates an object with all data necessary to write a drill event.  Once the DrillEvent is instanced</span>
+<span class="sd">    ramp parameters must be defined before the DrillEvent is written to an event file.  </span>
+<span class="sd">    </span>
+<span class="sd">    All parameters in the event file can be specified when the DrillEvent is instanced </span>
+<span class="sd">    using **kwargs or they can be set later using: </span>
+<span class="sd">        </span>
+<span class="sd">        DrillEvent.parameters[parameter] = value    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">SCALAR_PARAMETERS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;File_Type&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Units&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;File_Version&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Event_Name&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Drive_Type&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Measurement_Tool&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Start_Depth&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Off_Bottom&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Initial_Drive_Torque&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Motor_Type&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Filter_Time_Constant&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Motor_Bend_Start&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Motor_Bend_Ramp&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Mud_Density&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Impact_Damping_Penetration&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Impact_Exponent&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;MWD_Pulsing&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;NperRev&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;N&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;S_threshold&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;C_hi&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Plotting_4D&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Start_Time&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;End_Time&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Plotting_Interval&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Start_Distance&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;End_Distance&#39;</span>
+    <span class="p">]</span>
+    <span class="n">DEFAULT_PARAMETER_SCALARS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;File_Type&#39;</span><span class="p">:</span> <span class="s1">&#39;event&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;File_Version&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="s1">&#39;Units&#39;</span><span class="p">:</span> <span class="s1">&#39;Imperial&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Drive_Type&#39;</span><span class="p">:</span> <span class="s1">&#39;WITH_MOTOR&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Measurement_Tool&#39;</span><span class="p">:</span> <span class="s1">&#39;TOS&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Initial_Drive_Torque&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s1">&#39;Motor_Type&#39;</span><span class="p">:</span> <span class="s1">&#39;3D&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Filter_Time_Constant&#39;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span>
+        <span class="s1">&#39;Motor_Bend_Start&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="s1">&#39;Motor_Bend_Ramp&#39;</span><span class="p">:</span> <span class="mf">9.0</span><span class="p">,</span>
+        <span class="s1">&#39;Mud_Density&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span>
+        <span class="s1">&#39;Impact_Damping_Penetration&#39;</span><span class="p">:</span> <span class="mf">0.005</span><span class="p">,</span>
+        <span class="s1">&#39;Impact_Exponent&#39;</span><span class="p">:</span> <span class="mf">1.05</span><span class="p">,</span>
+        <span class="s1">&#39;MWD_Pulsing&#39;</span><span class="p">:</span> <span class="s1">&#39;On&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;NperRev&#39;</span><span class="p">:</span> <span class="s1">&#39;off&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;N&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s1">&#39;S_threshold&#39;</span><span class="p">:</span> <span class="mf">0.55</span><span class="p">,</span>
+        <span class="s1">&#39;C_hi&#39;</span><span class="p">:</span> <span class="mf">1.05</span><span class="p">,</span>
+        <span class="s1">&#39;Plotting_4D&#39;</span><span class="p">:</span> <span class="s1">&#39;off&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Start_Time&#39;</span><span class="p">:</span> <span class="mi">160</span><span class="p">,</span>
+        <span class="s1">&#39;End_Time&#39;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+        <span class="s1">&#39;Plotting_Interval&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>
+        <span class="s1">&#39;Start_Distance&#39;</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">,</span>
+        <span class="s1">&#39;End_Distance&#39;</span><span class="p">:</span> <span class="mf">100.0</span>
+    <span class="p">}</span>
+
+    <span class="n">ARRAY_PARAMETERS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;TOP_DRIVE&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;MOTOR&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;PUMP_FLOW&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;WOB&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;ROP&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;NPERREV&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;DYNAMICS&#39;</span>
+    <span class="p">]</span>
+
+    <span class="n">DEFAULT_PARAMETER_ARRAYS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;TOP_DRIVE&#39;</span><span class="p">:</span> <span class="p">[[],[],[]],</span>
+        <span class="s1">&#39;MOTOR&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+        <span class="s1">&#39;PUMP_FLOW&#39;</span><span class="p">:</span> <span class="p">[[],[],[]],</span>
+        <span class="s1">&#39;WOB&#39;</span><span class="p">:</span> <span class="p">[[],[],[]],</span>
+        <span class="s1">&#39;ROP&#39;</span><span class="p">:</span> <span class="p">[[],[],[]],</span>
+        <span class="s1">&#39;NPERREV&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">]],</span>
+        <span class="s1">&#39;DYNAMICS&#39;</span><span class="p">:</span> <span class="p">[[],</span> <span class="p">[]]</span>
+    <span class="p">}</span>
+
+    <span class="n">CDB_TABLE</span> <span class="o">=</span> <span class="s1">&#39;events.tbl&#39;</span>
+    <span class="n">EXT</span> <span class="o">=</span> <span class="s1">&#39;evt&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event_name</span><span class="p">,</span> <span class="n">start_depth</span><span class="p">,</span> <span class="n">off_bottom</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="n">kwargs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Event_Name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">event_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Start_Depth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">start_depth</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Off_Bottom&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">off_bottom</span>        
+        
+        <span class="c1"># Apply default parameters                </span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_apply_defaults</span><span class="p">()</span>    
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+<div class="viewcode-block" id="DrillEvent.add_simulation_step"><a class="viewcode-back" href="../../../../adamspy.adripy.tiem_orbit.html#adamspy.adripy.tiem_orbit.event.DrillEvent.add_simulation_step">[docs]</a>    <span class="k">def</span> <span class="nf">add_simulation_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">end_time</span><span class="p">,</span> <span class="n">output_step_size</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">clear_existing</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds a dynamic simulation step.</span>
+<span class="sd">        </span>
+<span class="sd">        Arguments:</span>
+<span class="sd">            end_time {float} -- End time of the step.</span>
+<span class="sd">            output_step_size {foat} -- Output step size of the step. Defaults to 0.05.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">clear_existing</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;DYNAMICS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[[],[]]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;DYNAMICS&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">end_time</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;DYNAMICS&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">output_step_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;_DYNAMICS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;DYNAMICS&#39;</span><span class="p">])</span></div>
+    
+<div class="viewcode-block" id="DrillEvent.add_ramp"><a class="viewcode-back" href="../../../../adamspy.adripy.tiem_orbit.html#adamspy.adripy.tiem_orbit.event.DrillEvent.add_ramp">[docs]</a>    <span class="k">def</span> <span class="nf">add_ramp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">ramp_duration</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">clear_existing</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Adds a ramp to the specified ramp parameter</span>
+<span class="sd">        </span>
+<span class="sd">        Arguments:</span>
+<span class="sd">            parameter {string} -- ramp parameter, options are &#39;TOP_DRIVE&#39;, &#39;WOB&#39;, &#39;PUMP_FLOW&#39;, of &#39;ROP&#39;</span>
+<span class="sd">            start_time {float} -- Start time of the ramp.</span>
+<span class="sd">            ramp_duration {float} -- Duration of the ramp.</span>
+<span class="sd">            delta {float} -- Delta of the ramp.</span>
+<span class="sd">            clear_existing {bool} -- If true, existing ramps for the specified parameter will be deleted.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">clear_existing</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">parameter</span><span class="p">]</span> <span class="o">=</span> <span class="p">[[],[],[]]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">parameter</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">start_time</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">parameter</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ramp_duration</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">parameter</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">parameter</span><span class="p">]</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">parameter</span><span class="p">])</span>  </div>
+
+<div class="viewcode-block" id="DrillEvent.write_to_file"><a class="viewcode-back" href="../../../../adamspy.adripy.tiem_orbit.html#adamspy.adripy.tiem_orbit.event.DrillEvent.write_to_file">[docs]</a>    <span class="k">def</span> <span class="nf">write_to_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cdb</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates an event file from the DrillEvent object.</span>
+<span class="sd">        </span>
+<span class="sd">        Keyword Arguments:</span>
+<span class="sd">            write_directory {string} -- (OPTIONAL) Directory in which to write the file. Defaults to current working directory.</span>
+<span class="sd">            filename {string} -- (OPTIONAL) Name of the file to write.  Defaults to self.parameters[&#39;EVENT_NAME&#39;]</span>
+<span class="sd">            cdb {string} -- (OPTIONAL) Name of the cdb in which to write the file.  This argument overrides the write_directory.</span>
+<span class="sd">        </span>
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError -- Raised if not all parameters have been defined.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Raise an error if the parameters can&#39;t be validated</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The parameters could not be validated.&#39;</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">directory</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># If the write_directory argument is passed</span>
+            <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># If the filename argument is not passed, set the filename</span>
+                <span class="c1"># as the Event_Name in the file</span>
+                <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Event_Name&#39;</span><span class="p">]</span>
+                
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># If the filename argument is passed, strip the path and the </span>
+                <span class="c1"># extension</span>
+                <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;.</span><span class="si">{self.EXT}</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            
+            <span class="c1"># Set the filepath to the filename in the given directory</span>
+            <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{filename}</span><span class="s1">.</span><span class="si">{self.EXT}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">cdb</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># If the write_directory argument is not passed, but the cdb</span>
+            <span class="c1"># argument is</span>
+
+            <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># If the filename argument is not passed, set the filename</span>
+                <span class="c1"># as the Event_Name in the file</span>
+                <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Event_Name&#39;</span><span class="p">]</span>
+            
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># If the filename argument is passed, strip the path and the </span>
+                <span class="c1"># extension</span>
+                <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;.</span><span class="si">{self.EXT}</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            
+            <span class="c1"># Set the filepath to the file in the cdb</span>
+            <span class="n">filepath</span> <span class="o">=</span> <span class="n">get_full_path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;&lt;</span><span class="si">{cdb}</span><span class="s1">&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">CDB_TABLE</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{filename}</span><span class="s1">.</span><span class="si">{self.EXT}</span><span class="s1">&#39;</span><span class="p">))</span>
+                      
+        <span class="n">event_template</span> <span class="o">=</span> <span class="n">TMPLT_ENV</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;template.</span><span class="si">{self.EXT}</span><span class="s1">&#39;</span><span class="p">)</span>
+        
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+            <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">event_template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">get_cdb_path</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span></div>
+
+    
+<div class="viewcode-block" id="DrillEvent.validate"><a class="viewcode-back" href="../../../../adamspy.adripy.tiem_orbit.html#adamspy.adripy.tiem_orbit.event.DrillEvent.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Determines if all parameters have been set</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Bool -- True if all parameters have been set. Otherwise False</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">validated</span> <span class="o">=</span> <span class="kc">True</span>        
+        <span class="c1"># Check that all parameters exist in the self.parameters dictionary</span>
+        <span class="k">for</span> <span class="n">param_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">SCALAR_PARAMETERS</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">param_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
+                <span class="n">validated</span> <span class="o">=</span> <span class="kc">False</span>        
+        
+        <span class="k">for</span> <span class="n">param_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ARRAY_PARAMETERS</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param_name</span><span class="p">]:</span>
+                <span class="n">validated</span> <span class="o">=</span> <span class="kc">False</span>
+            
+        <span class="k">return</span> <span class="n">validated</span>          </div>
+
+<div class="viewcode-block" id="DrillEvent.read_from_file"><a class="viewcode-back" href="../../../../adamspy.adripy.tiem_orbit.html#adamspy.adripy.tiem_orbit.event.DrillEvent.read_from_file">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">read_from_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Reads an event file and sets self.parameters based on data in the event file.</span>
+<span class="sd">        </span>
+<span class="sd">        Arguments:</span>
+<span class="sd">            filename {str} -- Filename of a .evt file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Read the TO data into a dictionary</span>
+        <span class="n">tiem_orbit_data</span> <span class="o">=</span> <span class="n">read_TO_file</span><span class="p">(</span><span class="n">get_full_path</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+
+        <span class="n">event</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        
+        <span class="c1"># Extract the DrillEvent parameters from the TO dictionary        </span>
+        <span class="n">event</span><span class="o">.</span><span class="n">_get_params_from_TO_data</span><span class="p">(</span><span class="n">tiem_orbit_data</span><span class="p">)</span> <span class="c1">#pylint: disable=protected-access</span>
+
+        <span class="k">return</span> <span class="n">event</span></div>
+
+    <span class="k">def</span> <span class="nf">_apply_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Applies defaults from class variables</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Applies normal parameter defaults</span>
+        <span class="k">for</span> <span class="n">scalar_parameter</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_PARAMETER_SCALARS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">scalar_parameter</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">scalar_parameter</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+        <span class="c1"># Applies defaults to all ramp parameters</span>
+        <span class="k">for</span> <span class="n">array_parameter</span><span class="p">,</span> <span class="n">array</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_PARAMETER_ARRAYS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># self.parameters[array_parameter] = {}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">array_parameter</span><span class="p">]</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">array_parameter</span><span class="p">]</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">array_parameter</span><span class="p">])</span>
+    
+    <span class="k">def</span> <span class="nf">_get_params_from_TO_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tiem_orbit_data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Reads the event parameters out of a dictoinary of Tiem Orbit</span>
+<span class="sd">        data generated by adripy.utilities.read_TO_file()</span>
+<span class="sd">        </span>
+<span class="sd">        Arguments:</span>
+<span class="sd">            tiem_orbit_data {dict} -- Dictionary of Tiem Orbit data</span>
+<span class="sd">        </span>
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError -- An event parameter could not be found</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">SCALAR_PARAMETERS</span><span class="p">:</span>
+            <span class="c1"># For each event parameter initialize a found flag</span>
+            <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+        
+            <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">tiem_orbit_data</span><span class="p">:</span>
+                <span class="c1"># For each block in the TO file</span>
+
+                <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">]:</span>
+                    <span class="c1"># If the parameter is in this block, set the parameter and break the loop</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="n">param</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+                    <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="k">break</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># If the parameter is not in this block, find all the sub blocks </span>
+                    <span class="c1"># and look for the parameter inside each sub block</span>
+                    <span class="n">sub_blocks</span> <span class="o">=</span> <span class="p">[</span><span class="n">header</span> <span class="k">for</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="n">header</span><span class="p">],</span> <span class="nb">dict</span><span class="p">)]</span>
+                    
+                    <span class="k">for</span> <span class="n">sub_block</span> <span class="ow">in</span> <span class="n">sub_blocks</span><span class="p">:</span>
+                        <span class="c1"># For each sub_block in the block</span>
+
+                        <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="n">sub_block</span><span class="p">]:</span>
+                            <span class="c1"># If the parameter is in the sub block, set the parameter and break the loop</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="n">sub_block</span><span class="p">][</span><span class="n">param</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+                            <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+                            <span class="k">break</span>
+                    
+                    <span class="k">if</span> <span class="n">found</span><span class="p">:</span>
+                        <span class="k">break</span>
+            
+            <span class="c1"># Raise a value error if the parameter isn&#39;t found.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{param}</span><span class="s1"> not found!&#39;</span><span class="p">)</span>
+        
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ARRAY_PARAMETERS</span><span class="p">:</span>
+            <span class="c1"># For each event parameter initialize a found flag</span>
+            <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="n">blocks</span> <span class="o">=</span> <span class="p">[</span><span class="n">header</span> <span class="k">for</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">tiem_orbit_data</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">header</span><span class="p">],</span> <span class="nb">dict</span><span class="p">)]</span>
+        
+            <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">blocks</span><span class="p">:</span>
+                <span class="c1"># For each block in the TO file, get the sub blocks</span>
+                <span class="n">sub_blocks</span> <span class="o">=</span> <span class="p">[</span><span class="n">header</span> <span class="k">for</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="n">header</span><span class="p">],</span> <span class="nb">dict</span><span class="p">)]</span>
+
+                <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">==</span><span class="n">block</span> <span class="ow">and</span> <span class="n">block</span><span class="o">==</span><span class="s1">&#39;DYNAMICS&#39;</span><span class="p">:</span>
+                    <span class="c1"># If the parameter is DYNAMICS and so is the current block</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="s1">&#39;end_time&#39;</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="s1">&#39;output_step_size&#39;</span><span class="p">]</span>
+                    <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="k">break</span>
+
+                <span class="k">elif</span> <span class="n">param</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">==</span><span class="n">block</span> <span class="ow">and</span> <span class="n">param</span><span class="o">.</span><span class="n">upper</span><span class="p">():</span>
+                    <span class="c1"># If the current parameter is the block, add to the parameters dictionary</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="s1">&#39;start_time&#39;</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="s1">&#39;ramp_duration&#39;</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">])</span><span class="o">&gt;</span><span class="mi">2</span><span class="p">:</span>
+                        <span class="n">last_col</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">]</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;start_time&#39;</span><span class="p">,</span><span class="s1">&#39;ramp_duration&#39;</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="n">last_col</span><span class="p">]</span>
+                    <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="k">break</span>
+                
+                <span class="k">elif</span> <span class="n">param</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">in</span> <span class="n">sub_blocks</span><span class="p">:</span>
+                    <span class="c1"># If the current parameter is in this sub block, add to the parameters dictionary</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="n">param</span><span class="o">.</span><span class="n">upper</span><span class="p">()][</span><span class="s1">&#39;start_time&#39;</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="n">param</span><span class="o">.</span><span class="n">upper</span><span class="p">()][</span><span class="s1">&#39;ramp_duration&#39;</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">])</span><span class="o">&gt;</span><span class="mi">2</span><span class="p">:</span>
+                        <span class="n">list_params</span> <span class="o">=</span> <span class="p">[</span><span class="n">par</span> <span class="k">for</span> <span class="n">par</span> <span class="ow">in</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="n">param</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="n">param</span><span class="o">.</span><span class="n">upper</span><span class="p">()][</span><span class="n">par</span><span class="p">],</span> <span class="nb">list</span><span class="p">)]</span>
+                        <span class="n">last_col</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">list_params</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;start_time&#39;</span><span class="p">,</span><span class="s1">&#39;ramp_duration&#39;</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="n">param</span><span class="o">.</span><span class="n">upper</span><span class="p">()][</span><span class="n">last_col</span><span class="p">]</span>
+                    <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="k">break</span>
+                
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{param}</span><span class="s1"> not found!&#39;</span><span class="p">)</span>
+            
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">])</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">adamspy 0.6.5 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Ben Thornton.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+    </div>
+  </body>
+</html>
