@@ -1,0 +1,119 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>adamspy.adamspy &#8212; adamspy 0.6.5 documentation</title>
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">adamspy 0.6.5 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for adamspy.adamspy</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">--------------------------------------------------------------------------</span>
+<span class="sd">Description</span>
+<span class="sd">--------------------------------------------------------------------------</span>
+<span class="sd">adamspy is a set of python tools for manipulating MSC Adams files</span>
+
+<span class="sd">--------------------------------------------------------------------------</span>
+<span class="sd">Author</span>
+<span class="sd">--------------------------------------------------------------------------</span>
+<span class="sd">Ben Thornton (ben.thornton@mscsofware.com)</span>
+<span class="sd">Simulation Consultant - MSC Software</span>
+
+<span class="sd">--------------------------------------------------------------------------</span>
+<span class="sd">Version</span>
+<span class="sd">--------------------------------------------------------------------------</span>
+<span class="sd">v1 - 2018119</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">re</span>
+
+<div class="viewcode-block" id="get_simdur_from_msg"><a class="viewcode-back" href="../../adamspy.html#adamspy.adamspy.get_simdur_from_msg">[docs]</a><span class="k">def</span> <span class="nf">get_simdur_from_msg</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+    <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39; *command: sim(ulate)?/dyn(anmic)?.*, *end *=.*&#39;</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()):</span>
+                <span class="n">sim_dur</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;end *=&#39;</span><span class="p">,</span><span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">sim_dur</span><span class="p">)</span>
+                <span class="n">found</span><span class="o">=</span><span class="kc">True</span>
+    <span class="k">if</span> <span class="n">found</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">sim_dur</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;No simulation end time was found in the specified message file!&#39;</span><span class="p">)</span></div>
+
+
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">adamspy 0.6.5 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Ben Thornton.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+    </div>
+  </body>
+</html>
