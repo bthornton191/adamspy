@@ -1,0 +1,13 @@
+$------------------------------------------------------------------DRILL_TOOL_{{ '{:02d}'.format(Stack_Order) }}
+[DRILL_TOOL_{{ '{:02d}'.format(Stack_Order) }}]
+ Stack_Order  =  {{ Stack_Order }}
+ Type  =  '{{ Type }}'
+{% if Type.lower() in Multi_Joint_Tools %} Name  =  '{{ Name }}'
+{% else %} Name  =  '{{ '{}_{:02d}'.format(Name, Stack_Order) }}'
+{% endif %}
+ Property_File  =  '{{ Property_File }}'
+ Measure  =  '{{ Measure }}'
+ Color  =  '{{ Color }}'
+{% if Type.lower() in Multi_Joint_Tools %}
+ Number_of_Joints  =  {{ Number_of_Joints }}
+{% endif %}

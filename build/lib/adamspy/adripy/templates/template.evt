@@ -1,0 +1,117 @@
+$ ==================================================================
+$ This is the Adams Drill Event file which contains
+$ the following data blocks:
+$   [UNITS]
+$   [DRIVE]
+$   [MISC]
+$ 
+$  NOTA BENE: block and subblock titles MUST begin in column 1.
+$  Comments also must begin in column 1.
+$  ==================================================================
+$-------------------------------------------------------------ADAMS_DRILL_HEADER
+[ADAMS_DRILL_HEADER]
+ File_Type  =  '{{ File_Type }}'
+ File_Version  =  {{ File_Version }}
+$--------------------------------------------------------------------------UNITS
+[UNITS]
+$  Adams Drill currently supports one units set: 
+$  'Imperial' (foot, degree, pound force, pound mass, second)
+ Units  =  '{{ Units }}'
+$--------------------------------------------------------------------------DRIVE
+[DRIVE]
+(GENERAL)
+ Event_Name  =  '{{ Event_Name }}'
+$ Valid Drive Types: 'WITH_MOTOR', 'TOP_ONLY'
+ Drive_Type  =  '{{ Drive_Type }}'
+$ Either 'TOS' (default) or user-selected tool from drill string
+ Measurement_Tool  =  '{{ Measurement_Tool }}'
+ Start_Depth  =  {{ Start_Depth }}
+ Off_Bottom  =  {{ Off_Bottom }}
+$ 
+ Initial_Drive_Torque  =  {{ Initial_Drive_Torque }}
+$ 
+(TOP_DRIVE)
+{Start_Time  Ramp_Duration  Delta_RPM}
+{% for start_time, ramp_duration, delta in _TOP_DRIVE %}
+{{ start_time }}   {{ ramp_duration }}   {{ delta }}
+{% endfor %}
+$ 
+$ MOTOR valid only for DRIVE_TYPE = WITH_MOTOR
+(MOTOR)
+ Motor_Type  =  '{{ Motor_Type }}'
+$ 
+$ No user control of this parameter.
+ Filter_Time_Constant  =  {{ Filter_Time_Constant }}
+$ 
+$ Note that the motor starts out straight for simulation purposes and
+$ builds up to the full bend over the ramp time.  The bend is defined
+$ in the tool description.  These values allow the static simulation to
+$ proceed better.  *They should not be changed by the user.*
+ Motor_Bend_Start  =  {{ Motor_Bend_Start }}
+ Motor_Bend_Ramp  =  {{ Motor_Bend_Ramp }}
+$ 
+{Start_Time  Ramp_Duration  Delta_RPM}
+{% for start_time, ramp_duration, delta in _MOTOR %}
+{{ start_time }}   {{ ramp_duration }}   {{ delta }}
+{% endfor %}
+$ 
+$ PUMP_FLOW applies only to 3D motors; valid only for DRIVE_TYPE = WITH_MOTOR
+$ Gallons/minute in imperial units; Liters/minute in metric units
+(PUMP_FLOW)
+{Start_Time  Ramp_Duration  Delta_Flow_Rate}
+{% for start_time, ramp_duration, delta in _PUMP_FLOW %}
+{{ start_time }}   {{ ramp_duration }}   {{ delta }}
+{% endfor %}
+$ 
+(WOB)
+{Start_Time  Ramp_Duration  Delta_WOB}
+{% for start_time, ramp_duration, delta in _WOB %}
+{{ start_time }}   {{ ramp_duration }}   {{ delta }}
+{% endfor %}
+$ 
+(ROP)
+{Start_Time  Ramp_Duration  Delta_ROP}
+{% for start_time, ramp_duration, delta in _ROP %}
+{{ start_time }}   {{ ramp_duration }}   {{ delta }}
+{% endfor %}
+$---------------------------------------------------------------------------MISC
+[MISC]
+$ Enter MUD_DENSITY in pounds-mass per cubic foot for IMPERIAL units
+$ Enter MUD_DENSITY in kilograms per cubic meter for METRIC units
+ Mud_Density  =  {{ Mud_Density }}
+ Impact_Damping_Penetration  =  {{ Impact_Damping_Penetration }}
+ Impact_Exponent  =  {{ Impact_Exponent }}
+ MWD_Pulsing  =  '{{ MWD_Pulsing }}'
+$ 
+(NPERREV)
+$ See Adams Drill documentation prior to switching NperRev 'on'
+ NperRev  =  '{{ NperRev }}'
+ N  =  {{ N }}
+ S_threshold  =  {{ S_threshold }}
+ C_hi  =  {{ C_hi }}
+{Start_Time  Ramp_Duration}
+{% for start_time, ramp_duration in _NPERREV %}
+{{ start_time }}   {{ ramp_duration }}
+{% endfor %}
+$-----------------------------------------------------------------------DYNAMICS
+[DYNAMICS]
+$ Specify the simulation time and output rate in seconds
+{End_Time  Output_Step_Size}
+{% for end_time, output_step_size in _DYNAMICS %}
+{{ end_time }}   {{ output_step_size }}
+{% endfor %}
+$------------------------------------------------------------------------PLOT_4D
+[PLOT_4D]
+$ Select if 3D and 4D plotting is to be enabled (on/off).
+$ If 3D/4D plotting is turned on, set time range and time increment at which
+$ to take measurements ('Plotting_Interval'). Also specify where along the
+$ string to measure (Start Distance and End Distance are relative to bit at 0).
+$ One (1) contiguous block of not more than a 400 time measurements during the
+$ simulation can be specified, for not more than one 5000ft (1500m) section
+$ of the physically modeled string. (Equivalent Upper String not allowed.)
+ Plotting_4D  =  '{{ Plotting_4D }}'
+ Start_Time  =  {{ Start_Time }}
+ End_Time  =  {{ End_Time }}
+ Plotting_Interval  =  {{ Plotting_Interval }}
+ Start_Distance  =  {{ Start_Distance }}
+ End_Distance  =  {{ End_Distance }}
