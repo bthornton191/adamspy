@@ -1,0 +1,5 @@
+ds TOStart string_cfg_file = "{{ string_filename }}"
+adrill build acf ssf="{{ solver_settings_filename }}" evt="{{ event_filename }}"
+file adams write file="{{ adm_filename }}.adm"
+simulation script write_acf sim_script_name = "{{ sim_script_name }}" file_name = "{{ acf_filename }}.acf"
+file command write entity_name = "{{ model_name }}" file_name = "{{ cmd_filename }}.cmd"                
