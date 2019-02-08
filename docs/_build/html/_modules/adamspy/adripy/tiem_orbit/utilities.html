@@ -1,0 +1,197 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>adamspy.adripy.tiem_orbit.utilities &#8212; adamspy 0.6.5 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">adamspy 0.6.5 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for adamspy.adripy.tiem_orbit.utilities</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Tools for manipulating Tiem Orbit files</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">thornpy</span> <span class="k">import</span> <span class="n">numtype</span>
+<span class="kn">from</span> <span class="nn">..adripy</span> <span class="k">import</span> <span class="n">get_full_path</span>
+
+<span class="n">TO_PARAMETER_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;^ [_0-9a-zA-Z]+</span><span class="se">\\</span><span class="s1">s+=</span><span class="se">\\</span><span class="s1">s+((</span><span class="se">\&#39;</span><span class="s1">[-_0-9a-zA-Z&lt;&gt;</span><span class="se">\\\\</span><span class="s1">/</span><span class="se">\\</span><span class="s1">.]+</span><span class="se">\&#39;</span><span class="s1">)|(-?[</span><span class="se">\\</span><span class="s1">+-</span><span class="se">\\</span><span class="s1">.e0-9]+))</span><span class="se">\\</span><span class="s1">s*$&#39;</span><span class="p">)</span>
+<span class="n">TO_BLOCK_HEADER_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;^</span><span class="se">\\</span><span class="s1">[[_0-9a-zA-Z]+</span><span class="se">\\</span><span class="s1">]</span><span class="se">\\</span><span class="s1">s*$&#39;</span><span class="p">)</span> 
+<span class="n">TO_SUBBLOCK_HEADER_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;^</span><span class="se">\\</span><span class="s1">([_0-9a-zA-Z]+</span><span class="se">\\</span><span class="s1">)</span><span class="se">\\</span><span class="s1">s*$&#39;</span><span class="p">)</span> 
+<span class="n">TO_TABLE_HEADER_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;^</span><span class="se">\\</span><span class="s1">{(</span><span class="se">\\</span><span class="s1">s*[_0-9a-zA-Z])+</span><span class="se">\\</span><span class="s1">s*</span><span class="se">\\</span><span class="s1">}</span><span class="se">\\</span><span class="s1">s*$&#39;</span><span class="p">)</span>
+<span class="n">TO_TABLE_LINE_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;^((</span><span class="se">\\</span><span class="s2">s*</span><span class="se">\\</span><span class="s2">&#39;[_0-9a-zA-Z]+</span><span class="se">\\</span><span class="s2">&#39;)+)|((</span><span class="se">\\</span><span class="s2">s*-?[</span><span class="se">\\</span><span class="s2">+-</span><span class="se">\\</span><span class="s2">.e0-9]+)+)</span><span class="se">\\</span><span class="s2">s*$&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="read_TO_file"><a class="viewcode-back" href="../../../../adamspy.adripy.tiem_orbit.html#adamspy.adripy.tiem_orbit.utilities.read_TO_file">[docs]</a><span class="k">def</span> <span class="nf">read_TO_file</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Reads a Tiem Orbit file into a dictionary of parameters</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        filename {string} -- Filename of the Tiem Orbit file</span>
+<span class="sd">    </span>
+<span class="sd">    Raises:</span>
+<span class="sd">        TiemOrbitSyntaxError -- Raised if the Tiem Orbit syntax is not recognized</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">get_full_path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{filename}</span><span class="s1"> does not exist!&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># Read in the TO file</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">fid</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>    
+
+    <span class="n">current_block</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">current_subblock</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">current_table_headers</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">current_table_data</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">parameters</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+        <span class="c1"># For each line determine if we are at a new Block, new SubBlock, or Table</span>
+        
+        <span class="k">if</span> <span class="n">TO_BLOCK_HEADER_PATTERN</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
+            <span class="c1"># if a block is encountered, reset currents  </span>
+            <span class="n">current_block</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;[</span><span class="se">\\</span><span class="s1">[</span><span class="se">\\</span><span class="s1">]</span><span class="se">\\</span><span class="s1">s</span><span class="se">\\</span><span class="s1">n]&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">line</span><span class="p">)</span>       
+            <span class="n">current_subblock</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">current_table_headers</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">current_table_data</span> <span class="o">=</span> <span class="p">{}</span>
+
+            <span class="c1"># Create a new parameters dictionary entry</span>
+            <span class="n">parameters</span><span class="p">[</span><span class="n">current_block</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">elif</span> <span class="n">TO_SUBBLOCK_HEADER_PATTERN</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
+            <span class="c1"># If a subblock is encountered, reset currents</span>
+            <span class="n">current_subblock</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;[</span><span class="se">\\</span><span class="s1">(</span><span class="se">\\</span><span class="s1">)</span><span class="se">\\</span><span class="s1">s</span><span class="se">\\</span><span class="s1">n]&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">line</span><span class="p">)</span>       
+            <span class="n">current_table_headers</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">current_table_data</span> <span class="o">=</span> <span class="p">{}</span>
+            
+            <span class="c1"># Create a new parameters dictionary entry</span>
+            <span class="n">parameters</span><span class="p">[</span><span class="n">current_block</span><span class="p">][</span><span class="n">current_subblock</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">elif</span> <span class="n">TO_TABLE_HEADER_PATTERN</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
+            <span class="c1"># If a table is encountered, get the table headers            </span>
+            <span class="n">current_table_headers</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; +&#39;</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;{&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;}&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+            
+            <span class="c1"># Make a dictionary of empty lists to put the table data in</span>
+            <span class="n">current_table_data</span> <span class="o">=</span> <span class="p">{</span><span class="n">header</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">current_table_headers</span><span class="p">}</span>
+        
+        <span class="k">elif</span> <span class="n">TO_PARAMETER_PATTERN</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>            
+            <span class="p">[</span><span class="n">parameter</span><span class="p">,</span> <span class="n">value</span><span class="p">]</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;[</span><span class="se">\\</span><span class="s1">s</span><span class="se">\\</span><span class="s1">n]&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">line</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
+
+            <span class="c1"># Format the value </span>
+            <span class="k">if</span> <span class="s2">&quot;&#39;&quot;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+                <span class="c1"># If value is an adams string</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># If value is a number                </span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">if</span> <span class="n">numtype</span><span class="o">.</span><span class="n">str_is_int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">else</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+            <span class="c1"># Add parameter to parameters dictionary</span>
+            <span class="k">if</span> <span class="n">current_subblock</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">parameters</span><span class="p">[</span><span class="n">current_block</span><span class="p">][</span><span class="n">current_subblock</span><span class="p">][</span><span class="n">parameter</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">parameters</span><span class="p">[</span><span class="n">current_block</span><span class="p">][</span><span class="n">parameter</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span> <span class="o">=</span> <span class="n">value</span>
+
+        <span class="k">elif</span> <span class="n">current_table_headers</span> <span class="o">!=</span> <span class="p">[]:</span>
+            <span class="c1"># If already at a table</span>
+
+            <span class="k">if</span> <span class="n">TO_TABLE_LINE_PATTERN</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
+                <span class="c1"># If the current line looks like a table entry</span>
+                <span class="n">values</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; +&#39;</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+                
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">current_table_headers</span><span class="p">):</span>
+                    <span class="c1"># If the number of values doesn&#39;t match the number of table headers raise an error</span>
+                    <span class="k">raise</span> <span class="n">TiemOrbitSyntaxError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Incorrect syntax found while processing a table in the </span><span class="si">{current_block}</span><span class="s1"> block of </span><span class="si">{filename}</span><span class="s1">!&#39;</span><span class="p">)</span>
+                
+                <span class="c1"># Add the value to the table data dictionary</span>
+                <span class="k">for</span> <span class="n">value</span><span class="p">,</span> <span class="n">header</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">current_table_headers</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="s2">&quot;&#39;&quot;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+                        <span class="c1"># If value is an adams string</span>
+                        <span class="n">current_table_data</span><span class="p">[</span><span class="n">header</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="c1"># If value is a number</span>
+                        <span class="n">current_table_data</span><span class="p">[</span><span class="n">header</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">if</span> <span class="n">numtype</span><span class="o">.</span><span class="n">str_is_int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">else</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+
+                <span class="c1"># Add table data to parameters dictionary</span>
+                <span class="k">for</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">current_table_headers</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">current_subblock</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">parameters</span><span class="p">[</span><span class="n">current_block</span><span class="p">][</span><span class="n">current_subblock</span><span class="p">][</span><span class="n">header</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span> <span class="o">=</span> <span class="n">current_table_data</span><span class="p">[</span><span class="n">header</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">parameters</span><span class="p">[</span><span class="n">current_block</span><span class="p">][</span><span class="n">header</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span> <span class="o">=</span> <span class="n">current_table_data</span><span class="p">[</span><span class="n">header</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">parameters</span></div>
+
+<div class="viewcode-block" id="TiemOrbitSyntaxError"><a class="viewcode-back" href="../../../../adamspy.adripy.tiem_orbit.html#adamspy.adripy.tiem_orbit.utilities.TiemOrbitSyntaxError">[docs]</a><span class="k">class</span> <span class="nc">TiemOrbitSyntaxError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">adamspy 0.6.5 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Ben Thornton.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+    </div>
+  </body>
+</html>
