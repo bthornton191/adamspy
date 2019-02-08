@@ -63,8 +63,8 @@ as follows:
 
     import os
     os.environ['ADRILL_USER_CFG'] = 'C:\\users\\user_name\\.adrill.cfg'
-    os.environ['ADRILL_SHARED_CFG'] = 'C:\\MSC.Software:\\Adams:\\2018:\\adrill:\\adrill.cfg'
-    os.environ['ADAMS_LAUNCH_COMMAND'] = 'C:\\MSC.Software:\\Adams\\2018:\\common:\\mdi.bat'
+    os.environ['ADRILL_SHARED_CFG'] = 'C:\\MSC.Software\\Adams\\2018\\adrill\\adrill.cfg'
+    os.environ['ADAMS_LAUNCH_COMMAND'] = 'C:\\MSC.Software\\Adams\\2018\\common\\mdi.bat'
 
 Note: The values above are just for example.  Make sure you use 
 the correct paths for your Adams installation.
@@ -81,8 +81,8 @@ the adamspy package.  Here is an example script:
     # Set Environment Variables
     import os
     os.environ['ADRILL_USER_CFG'] = 'C:\\users\\user_name\\.adrill.cfg'
-    os.environ['ADRILL_SHARED_CFG'] = 'C:\\MSC.Software:\\Adams:\\2018:\\adrill:\\adrill.cfg'
-    os.environ['ADAMS_LAUNCH_COMMAND'] = 'C:\\MSC.Software:\\Adams\\2018:\\common:\\mdi.bat'
+    os.environ['ADRILL_SHARED_CFG'] = 'C:\\MSC.Software\\Adams\\2018\\adrill\\adrill.cfg'
+    os.environ['ADAMS_LAUNCH_COMMAND'] = 'C:\\MSC.Software\\Adams\\2018\\common\\mdi.bat'
     
     # Import the adripy module from the adamspy package
     from adamspy import adripy    
