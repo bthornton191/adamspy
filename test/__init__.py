@@ -1,6 +1,9 @@
 import os
 import glob
 
+from adamspy.adripy.tiem_orbit import tool as _dt
+
+
 EXISTING_CDB_NAME = '_EXISTING_DATABASE_1'
 EXISTING_CDB_PATH = os.path.join('C:\\', EXISTING_CDB_NAME + '.cdb')
 NEW_CDB_NAME = '_NEW_DATABASE'
@@ -640,3 +643,16 @@ def clear_database(database_path):
     for table in glob.glob(os.path.join(database_path,'*')):
         for file in glob.glob(os.path.join(table,'*')):
             os.remove(file)
+
+if not os.path.exists(TEST_WORKING_DIRECTORY):
+    os.mkdir(TEST_WORKING_DIRECTORY)
+
+
+# Make a new database if it doesn't exist already
+if not os.path.exists(TEST_NEW_DATABASE_PATH):
+    os.mkdir(TEST_NEW_DATABASE_PATH)
+
+# Populate the new database with tables
+for table in [_dt.DrillTool.DATABASE_INFO[tool]['table'] for tool in _dt.DrillTool.DATABASE_INFO]:
+    if not os.path.exists(os.path.join(TEST_NEW_DATABASE_PATH, table)):
+        os.mkdir(os.path.join(TEST_NEW_DATABASE_PATH, table))
