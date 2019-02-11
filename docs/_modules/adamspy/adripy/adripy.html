@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.adripy &mdash; adamspy 0.6.7 documentation</title>
+  <title>adamspy.adripy.adripy &mdash; adamspy 0.6.5 documentation</title>
   
 
   
@@ -54,10 +54,6 @@
 
           
             
-            
-              <div class="version">
-                0.6.7
-              </div>
             
           
 
@@ -214,23 +210,25 @@
 <span class="n">TO_LENGTH_PARAM</span><span class="p">[</span><span class="s1">&#39;stabilizer&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Stabilizer_Length&#39;</span><span class="p">]</span>
 
 <div class="viewcode-block" id="turn_measure_on"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.adripy.turn_measure_on">[docs]</a><span class="k">def</span> <span class="nf">turn_measure_on</span><span class="p">(</span><span class="n">string_file</span><span class="p">,</span> <span class="n">tool_types</span><span class="o">=</span><span class="p">[],</span> <span class="n">tool_numbers</span><span class="o">=</span><span class="p">[],</span> <span class="n">tool_names</span><span class="o">=</span><span class="p">[]):</span>
-    <span class="sd">&quot;&quot;&quot;Modify a string file to turn measure on for teh designated tools.  Tools may be designated by type, number (stack order), or name.</span>
+    <span class="sd">&quot;&quot;&quot;Modify a string file to turn measure on for the designated</span>
+<span class="sd">    tools.  Tools may be designated by type, number</span>
+<span class="sd">    (stack order), or name.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        string_file {str}   -- Full path to an MSC Adams Drill </span>
+<span class="sd">                               string file including the .str</span>
+<span class="sd">                               extension</span>
 <span class="sd">    </span>
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    string_file : str</span>
-<span class="sd">        Full path to an MSC Adams Drill string file (include the .str extension)</span>
-<span class="sd">    tool_types : list, optional</span>
-<span class="sd">        List of tool types as seen in the string file (e.g. pdc_bit, motor, stabilizer)</span>
-<span class="sd">    tool_numbers : list, optional</span>
-<span class="sd">        List of stack orders corresponding to tools in the string</span>
-<span class="sd">    tool_names : list, optional</span>
-<span class="sd">        List of tool names</span>
+<span class="sd">    Keyword Arguments:</span>
+<span class="sd">        tool_types {list}   -- List of tool type as seen in the</span>
+<span class="sd">                               string file (e.g. pdc_bit, motor, </span>
+<span class="sd">                               stabilizer)</span>
+<span class="sd">        tool_numbers {list} -- List of stack orders corresponding</span>
+<span class="sd">                               to tools in a string</span>
+<span class="sd">        tool_names {list}   -- List of tool names</span>
 <span class="sd">    </span>
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    int</span>
-<span class="sd">        number of tools measured</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        int                 -- number of tools measured</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">mark</span> <span class="o">=</span> <span class="kc">False</span>
@@ -268,38 +266,67 @@
 
     <span class="n">remove</span><span class="p">(</span><span class="n">string_file</span><span class="p">)</span>
     <span class="n">rename</span><span class="p">(</span><span class="n">string_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.str&#39;</span><span class="p">,</span><span class="s1">&#39;.tmp&#39;</span><span class="p">),</span> <span class="n">string_file</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">n</span></div>
+    <span class="k">return</span> <span class="n">n</span>
 
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the name and file name of the nth tool of type &#39;tool_type&#39;</span>
+<span class="sd">    in &#39;string_file&#39;.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        string_file :      Full path to an MSC Adams Drill string file </span>
+<span class="sd">                        including the .str extension</span>
+<span class="sd">        </span>
+<span class="sd">        tool_type   :        Tool type as seen in the string file</span>
+<span class="sd">                        (e.g. pdc_bit, motor, stabilizer)</span>
+<span class="sd">        </span>
+<span class="sd">        n :                If the string file has multiple tools of the requested</span>
+<span class="sd">                        tool type, use this parameter to return the nth tool.</span>
+<span class="sd">                        Default  is n=1.</span>
+<span class="sd">        return_full_path : If true, removes the Adrill cdb name and replaces with</span>
+<span class="sd">                        the adrill cdb file path.  Default is True</span>
+<span class="sd">                  </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        tool_name  :  Name of the requested tool</span>
+<span class="sd">        tool_file  :  Full file path the the requested tool&#39;s property file</span>
+<span class="sd">        tool_stack :  Stack order of tool</span>
+<span class="sd">        group_name :  Tools group name if it has one</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
 <div class="viewcode-block" id="get_tool_name"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.adripy.get_tool_name">[docs]</a><span class="k">def</span> <span class="nf">get_tool_name</span><span class="p">(</span><span class="n">string_file</span><span class="p">,</span> <span class="n">tool_type</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">return_full_path</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns the name, filename, stack order, and group name of the `n`th tool of type `tool_type` in `string_file`.</span>
+    <span class="sd">&quot;&quot;&quot;Return the name and file name of the nth tool of type &#39;tool_type&#39;</span>
+<span class="sd">    in &#39;string_file&#39;.</span>
 <span class="sd">    </span>
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    string_file : str</span>
-<span class="sd">        Full path to an Adams drill string file (include the .str extension)</span>
-<span class="sd">    tool_type : str</span>
-<span class="sd">        Tool type as seen in the string file (e.g. pdc_bit, motor, stabilizer)</span>
-<span class="sd">    n : int, optional</span>
-<span class="sd">        If the string file has multiple tools of type `tool_type`, returns the `n`th tool of that type. (the default is 1)</span>
-<span class="sd">    return_full_path :  bool, optional</span>
-<span class="sd">        If true, returns the full path to the tool file instead of using the Adams Drill database (cdb)  (the default is True)</span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        string_file {str}       -- Full path to an MSC Adams </span>
+<span class="sd">                                   Drill string file including</span>
+<span class="sd">                                   the .str extension</span>
+<span class="sd">        tool_type {str}         -- Tool type as seen in the</span>
+<span class="sd">                                   string file (e.g. pdc_bit,</span>
+<span class="sd">                                   motor, stabilizer)</span>
 <span class="sd">    </span>
-<span class="sd">    Raises</span>
-<span class="sd">    ------</span>
-<span class="sd">    ValueError</span>
-<span class="sd">        Raised if a tool of type `tool_type` is not found in `string_file`</span>
+<span class="sd">    Keyword Arguments:</span>
+<span class="sd">        n {int}                 -- If the string file has </span>
+<span class="sd">                                   multiple tools of the </span>
+<span class="sd">                                   requested tool type, use this</span>
+<span class="sd">                                   parameter to return the nth </span>
+<span class="sd">                                   tool. (default: 1)</span>
+<span class="sd">        return_full_path {bool} -- If true, removes the Adrill </span>
+<span class="sd">                                   cdb name and replaces with the</span>
+<span class="sd">                                   adrill cdb file path.  </span>
+<span class="sd">                                   (default: True)</span>
 <span class="sd">    </span>
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    str</span>
-<span class="sd">        Name of the requested tool</span>
-<span class="sd">    str</span>
-<span class="sd">        Full filepath the the requested tool&#39;s property file</span>
-<span class="sd">    int</span>
-<span class="sd">        Stack order of tool</span>
-<span class="sd">    str</span>
-<span class="sd">        Tool&#39;s group name if it has one</span>
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError              -- Raised if tool of type </span>
+<span class="sd">                                   tool_type is not found in</span>
+<span class="sd">                                   string_file</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str -- Name of the requested tool</span>
+<span class="sd">        str -- Full file path the the requested tool&#39;s property file</span>
+<span class="sd">        int -- Stack order of tool</span>
+<span class="sd">        str -- Tools group name if it has one</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">tool_found</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">fid</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">string_file</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">tool_type</span> <span class="o">==</span> <span class="s1">&#39;hole&#39;</span><span class="p">:</span>
@@ -348,22 +375,20 @@
         <span class="n">toolFilename_fullNotation</span> <span class="o">=</span> <span class="n">toolFilename_cdbNotation</span>
     <span class="k">return</span> <span class="n">toolFilename_fullNotation</span></div>
 
-<div class="viewcode-block" id="get_adrill_cdbs"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.adripy.get_adrill_cdbs">[docs]</a><span class="k">def</span> <span class="nf">get_adrill_cdbs</span><span class="p">(</span><span class="n">adrill_user_cfg</span><span class="p">,</span> <span class="n">adrill_shared_cfg</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Return the names and locatinos of all user defined MSC Adams Drill databases (cdbs)</span>
-<span class="sd">    </span>
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    adrill_user_cfg : str</span>
-<span class="sd">        Full path to an Adams Drill user configuration file.  This hould be in the users HOME directory.</span>
-<span class="sd">    adrill_shared_cfg : str, optional</span>
-<span class="sd">        Full path to an Adams Drill shared configuration file.  This should be in the Adams Drill installation directory.  (the default is None, which means that only user cdbs will be returned.)</span>
-<span class="sd">        </span>
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    dict</span>
-<span class="sd">        A dictionary in which the cdb names are keys and the cdb locations are values.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
 
+<div class="viewcode-block" id="get_adrill_cdbs"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.adripy.get_adrill_cdbs">[docs]</a><span class="k">def</span> <span class="nf">get_adrill_cdbs</span><span class="p">(</span><span class="n">adrill_user_cfg</span><span class="p">,</span> <span class="n">adrill_shared_cfg</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the names and locations of all user defined MSC Adams Drill</span>
+<span class="sd">    configuration databases (cdbs)</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        adrill_user_cfg : Full path to an MSC Adams Drill user configuration</span>
+<span class="sd">                        file.  This should be in the HOME directory</span>
+<span class="sd">                  </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        cdbs :  A dictionary with the cdb names as keys and cdb </span>
+<span class="sd">                locations as values.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">cdbs</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">adrill_user_cfg</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid</span><span class="p">:</span>
@@ -388,19 +413,15 @@
     <span class="k">return</span> <span class="n">cdbs</span></div>
 
 <div class="viewcode-block" id="get_TO_param"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.adripy.get_TO_param">[docs]</a><span class="k">def</span> <span class="nf">get_TO_param</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">requested_parameter</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Return the value of a parameter in a tiem orbit file</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the value of a parameter in a tiem orbit file</span>
 <span class="sd">    </span>
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    filename : str</span>
-<span class="sd">        Full path to a tiem orbit file</span>
-<span class="sd">    requested_parameter : str</span>
-<span class="sd">        Name of a parameter in TO_file  </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        filename            :    Full path to a tiem orbit file</span>
+<span class="sd">        requested_parameter :   Name of a parameter in TO_file  </span>
 <span class="sd">                  </span>
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    str or int or float</span>
-<span class="sd">        The value assigned to TO_param in TO_file</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        requested_value :  The value assigned to TO_param in TO_file</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Check if CDB notation used and Convert</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="n">get_toolFilename_fullNotation</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
@@ -444,19 +465,15 @@
 
 
 <div class="viewcode-block" id="has_tool"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.adripy.has_tool">[docs]</a><span class="k">def</span> <span class="nf">has_tool</span><span class="p">(</span><span class="n">string_file</span><span class="p">,</span> <span class="n">tool_type</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns true if string_file has at least one tool of type tool_type</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns true if string_file has at least one tool of type tool_type</span>
 <span class="sd">    </span>
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    string_file : str</span>
-<span class="sd">        Full path to an Adams Drill string file</span>
-<span class="sd">    tool_type : str</span>
-<span class="sd">        Adams Drill tool type</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        string_file : Full path to an Adams Drill string file</span>
+<span class="sd">        tool_type :    Adams Drill tool type</span>
 <span class="sd">                  </span>
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    bool</span>
-<span class="sd">        True if string_file contains at least one tool of type tool_type</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        tool_type_found: True if string_file contains at least one tool of type tool_type</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">tool_type_found</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">fid</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">string_file</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
@@ -471,16 +488,13 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Replaces all references in a string file that use full path notation to use CDB notation</span>
 <span class="sd">    </span>
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    string_file : str</span>
-<span class="sd">        Full path to an Adams Drill string file</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        string_file :   Full path to an Adams Drill string file</span>
 <span class="sd">                  </span>
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    int</span>
-<span class="sd">        Number of replacements made</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        n           :   Num</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">cdbs</span> <span class="o">=</span> <span class="n">get_adrill_cdbs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADRILL_USER_CFG&#39;</span><span class="p">],</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADRILL_SHARED_CFG&#39;</span><span class="p">])</span>
     <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span> 
 
@@ -515,17 +529,14 @@
     <span class="k">return</span> <span class="n">n</span></div>
 
 <div class="viewcode-block" id="cdbNotation_to_fullNotation"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.adripy.cdbNotation_to_fullNotation">[docs]</a><span class="k">def</span> <span class="nf">cdbNotation_to_fullNotation</span><span class="p">(</span><span class="n">string_file</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Replaces all references in a string file that use CDB notation to use full path notation</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Replaces all references in a string file that use CDB notation to use full path notation</span>
 <span class="sd">    </span>
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    string_file : str</span>
-<span class="sd">        Full path to an Adams Drill string file</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        string_file :   Full path to an Adams Drill string file</span>
 <span class="sd">                  </span>
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    int</span>
-<span class="sd">        Number of replacements made</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        n           :   Number of replacements that were made.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">cdbs</span> <span class="o">=</span> <span class="n">get_adrill_cdbs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADRILL_USER_CFG&#39;</span><span class="p">],</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADRILL_SHARED_CFG&#39;</span><span class="p">])</span>
@@ -552,19 +563,16 @@
     <span class="k">return</span> <span class="n">n</span></div>
 
 <div class="viewcode-block" id="get_cdb_path"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.adripy.get_cdb_path">[docs]</a><span class="k">def</span> <span class="nf">get_cdb_path</span><span class="p">(</span><span class="n">full_filepath</span><span class="p">):</span>    
-    <span class="sd">&quot;&quot;&quot;Given the full path to a file located in a cdb, get_cdb_path returns the path to a</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given the full path to a file located in a cdb, get_cdb_path returns the path to a</span>
 <span class="sd">    file with the cdb path replaced by the cdb alias.  full_filepath will be returned if</span>
 <span class="sd">    no cdb is found in the path.</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    full_filepath : str</span>
-<span class="sd">        Full file path to a file in a cdb</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        full_filepath   :   Full file path to a file in a cdb</span>
 <span class="sd">                  </span>
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    str</span>
-<span class="sd">        Path to a file with the cdb path replaced by the cdb alias.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        cdb_filepath    :   Path to a file with the cdb path replaced by the cdb alias.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">cdb_filepath</span> <span class="o">=</span> <span class="n">full_filepath</span>
     <span class="n">cdbs</span> <span class="o">=</span> <span class="n">get_adrill_cdbs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADRILL_USER_CFG&#39;</span><span class="p">],</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADRILL_SHARED_CFG&#39;</span><span class="p">])</span>
@@ -578,18 +586,15 @@
     <span class="k">return</span> <span class="n">cdb_filepath</span></div>
 
 <div class="viewcode-block" id="get_full_path"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.adripy.get_full_path">[docs]</a><span class="k">def</span> <span class="nf">get_full_path</span><span class="p">(</span><span class="n">cdb_filepath</span><span class="p">):</span>    
-    <span class="sd">&quot;&quot;&quot;Given the cdb path to a file located in a cdb, get_full_path returns the path to a</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given the cdb path to a file located in a cdb, get_full_path returns the path to a</span>
 <span class="sd">    file with the cdb alias replaced by the cdb location.</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    cdb_filepath : str</span>
-<span class="sd">        Full file path to a file in a cdb</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        cdb_filepath    :   Full file path to a file in a cdb</span>
 <span class="sd">                  </span>
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    str</span>
-<span class="sd">        Path to a file with the cdb path replaced by the cdb alias.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        full_filepath   :   Path to a file with the cdb path replaced by the cdb alias.</span>
 <span class="sd">    &quot;&quot;&quot;</span>    
     <span class="c1"># Find a string that looks like a database alias</span>
     <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;^&lt;.+&gt;&#39;</span><span class="p">,</span> <span class="n">cdb_filepath</span><span class="p">)</span>
@@ -613,43 +618,41 @@
     <span class="k">return</span> <span class="n">full_filepath</span></div>
 
 <div class="viewcode-block" id="get_cdb_location"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.adripy.get_cdb_location">[docs]</a><span class="k">def</span> <span class="nf">get_cdb_location</span><span class="p">(</span><span class="n">cdb_name</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns the location of cdb &#39;cdb_name&#39;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the location of cdb &#39;cdb_name&#39;</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    cdb_name : str</span>
-<span class="sd">        Alias of a cdb</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        cdb_name        :   Alias of a cdb</span>
 <span class="sd">                  </span>
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    str</span>
-<span class="sd">        Location of cdb</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        cdb_location    :   Location of cdb</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">cdbs</span> <span class="o">=</span> <span class="n">get_adrill_cdbs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADRILL_USER_CFG&#39;</span><span class="p">],</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADRILL_SHARED_CFG&#39;</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">cdbs</span><span class="p">[</span><span class="n">cdb_name</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="replace_tool"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.adripy.replace_tool">[docs]</a><span class="k">def</span> <span class="nf">replace_tool</span><span class="p">(</span><span class="n">string_file</span><span class="p">,</span> <span class="n">old_tool_file</span><span class="p">,</span> <span class="n">new_tool_file</span><span class="p">,</span> <span class="n">old_tool_name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">new_tool_name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Swaps old_tool_file for new_tool_file in string_file.  Also replaces the tools Name field.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Swaps old_tool_file for new_tool_file in string_file.  Also replaces the tools Name field.</span>
 <span class="sd">    </span>
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    string_file : str</span>
-<span class="sd">        Full path to an Adams Drill string file</span>
-<span class="sd">    old_tool_file : str</span>
-<span class="sd">        Path to an Adams Drill tool property file that exists in string_file. May use full path or Adrill CDB notation.</span>
-<span class="sd">    new_tool_file : str</span>
-<span class="sd">        Path to an Adams Drill tool property file to replace old_tool_file. May use full path or Adrill CDB notation.</span>
-<span class="sd">    N : int</span>
-<span class="sd">        Number of replacements to make. Default is 0 which will replace all instances.</span>
-<span class="sd">    old_tool_name : str</span>
-<span class="sd">        Name of the tool to replace. Default is the filename.</span>
-<span class="sd">    new_tool_name : str</span>
-<span class="sd">        Name of the new tool.  Default is the filename.</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        string_file     :   Full path to an Adams Drill string </span>
+<span class="sd">                            file</span>
+<span class="sd">        old_tool_file   :   Path to an Adams Drill tool property</span>
+<span class="sd">                            file that exists in string_file. May</span>
+<span class="sd">                            use full path or Adrill CDB notation.</span>
+<span class="sd">        new_tool_file   :   Path to an Adams Drill tool property</span>
+<span class="sd">                            file to replace old_tool_file. May</span>
+<span class="sd">                            use full path or Adrill CDB notation.</span>
+<span class="sd">        N               :   Number of replacements to make.</span>
+<span class="sd">                            Default is 0 which will replace all</span>
+<span class="sd">                            instances.</span>
+<span class="sd">        old_tool_name   :   Name of the tool to replace. Default</span>
+<span class="sd">                            is the filename.</span>
+<span class="sd">        new_tool_name   :   Name of the new tool.  Default is the</span>
+<span class="sd">                            filename.</span>
 <span class="sd">                  </span>
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    int</span>
-<span class="sd">        Number of replacements that were made</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        n               :   Number of replacements that were made</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">old_tool_file</span> <span class="o">=</span> <span class="n">old_tool_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
     <span class="n">new_tool_file</span> <span class="o">=</span> <span class="n">new_tool_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
@@ -758,17 +761,15 @@
     <span class="k">return</span> <span class="n">n</span></div>
 
 <div class="viewcode-block" id="get_string_length"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.adripy.get_string_length">[docs]</a><span class="k">def</span> <span class="nf">get_string_length</span><span class="p">(</span><span class="n">string_file</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Gets the total length of the drill string defined in `string_file`</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets the total length of the drill string defined in string_file</span>
 <span class="sd">    </span>
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    string_file : str</span>
-<span class="sd">        Full path to an Adams Drill string file</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        string_file     :   Full path to an Adams Drill string</span>
+<span class="sd">                            file</span>
 <span class="sd">                      </span>
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    string_length : str</span>
-<span class="sd">        Cumulative length of the string    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        string_length   :   Cumulative length of the string    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">cdbs</span> <span class="o">=</span> <span class="n">get_adrill_cdbs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADRILL_USER_CFG&#39;</span><span class="p">],</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADRILL_SHARED_CFG&#39;</span><span class="p">])</span>
     <span class="c1"># print(cdbs)</span>
@@ -809,17 +810,14 @@
     <span class="k">return</span> <span class="n">string_length</span></div>
 
 <div class="viewcode-block" id="get_number_of_tools"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.adripy.get_number_of_tools">[docs]</a><span class="k">def</span> <span class="nf">get_number_of_tools</span><span class="p">(</span><span class="n">string_file</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Gets the total number of tools in a string.  Tools for which quantitiiy can be defined are only counted once.  The top drive is not included</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets the total number of tools in a string.  Tools for which quantitiiy can be defined are only counted once.  The top drive is not included</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    string_file : str</span>
-<span class="sd">        Full path to an Adams Drill string file</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        string_file :   Full path to an Adams Drill string file</span>
 <span class="sd">                      </span>
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    int</span>
-<span class="sd">        Number of tools  </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        num         :   Number of tools  </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">string_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid</span><span class="p">:</span>
@@ -829,17 +827,15 @@
     <span class="k">return</span> <span class="n">num</span></div>
 
 <div class="viewcode-block" id="get_bha_length"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.adripy.get_bha_length">[docs]</a><span class="k">def</span> <span class="nf">get_bha_length</span><span class="p">(</span><span class="n">string_file</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Gets the total length of the drill string defined in string_file NOT including the equivalent upper string and highest most physical string</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets the total length of the drill string defined in string_file NOT including the equivalent upper string and highest most physical string</span>
 <span class="sd">    </span>
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    string_file : str</span>
-<span class="sd">        Full path to an Adams Drill string file</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        string_file     :   Full path to an Adams Drill string</span>
+<span class="sd">                            file</span>
 
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    float</span>
-<span class="sd">        Cumulative length of the string    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        string_length   :   Cumulative length of the string    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">cdbs</span> <span class="o">=</span> <span class="n">get_adrill_cdbs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADRILL_USER_CFG&#39;</span><span class="p">],</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADRILL_SHARED_CFG&#39;</span><span class="p">])</span>
     <span class="c1"># print(cdbs)</span>
@@ -879,23 +875,21 @@
     <span class="k">return</span> <span class="n">string_length</span></div>
     
 <div class="viewcode-block" id="add_cdb_to_cfg"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.adripy.add_cdb_to_cfg">[docs]</a><span class="k">def</span> <span class="nf">add_cdb_to_cfg</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">loc</span><span class="p">,</span> <span class="n">cfg_file</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Adds cdb of name `name` and path `loc` to `cfg_file`</span>
+    <span class="sd">&quot;&quot;&quot;Adds cdb of name &#39;name&#39; and path &#39;loc&#39; to cfg_file</span>
 <span class="sd">    </span>
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    name : str</span>
-<span class="sd">        Name of cdb (e.g. example_database)</span>
-<span class="sd">    loc : str</span>
-<span class="sd">        path to cdb (e.g. C:\\example_database.cdb)</span>
-<span class="sd">    cfg_file : str</span>
-<span class="sd">        Full filename of an adams drill configuration file</span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        name      {string} -- name of cdb (e.g. example_database)</span>
+<span class="sd">        loc       {string} -- path to cdb (e.g. C:\\example_database.cdb)</span>
+<span class="sd">        cfg_file  {string} -- Full filename of an adams drill </span>
+<span class="sd">                              configuration file</span>
 <span class="sd">    </span>
-<span class="sd">    Raises</span>
-<span class="sd">    ------</span>
-<span class="sd">    ValueError</span>
-<span class="sd">        Raised if a cdb of the given name or path already exists in the given config file</span>
-<span class="sd">    PermissionError</span>
-<span class="sd">        Raised if the user does not have permissiosn to edit the given config file</span>
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError      --  Raised if a cdb of the given name or</span>
+<span class="sd">                            path already exists in the given </span>
+<span class="sd">                            config file</span>
+<span class="sd">        PermissionError --  Raised if the user does not have</span>
+<span class="sd">                            permissiosn to edit the given config</span>
+<span class="sd">                            file</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">loc</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">loc</span><span class="p">)</span>
@@ -939,21 +933,21 @@
         <span class="k">raise</span> <span class="ne">PermissionError</span><span class="p">(</span><span class="s1">&#39;You do not have permission to edit </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cfg_file</span><span class="p">))</span>    </div>
 
 <div class="viewcode-block" id="remove_cdb_from_cfg"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.adripy.remove_cdb_from_cfg">[docs]</a><span class="k">def</span> <span class="nf">remove_cdb_from_cfg</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">cfg_file</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Removes cdb of name `name` from `cfg_file`</span>
+    <span class="sd">&quot;&quot;&quot;Removes cdb of name &#39;name&#39; from cfg_file</span>
 <span class="sd">    </span>
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    name : str</span>
-<span class="sd">        Name of cdb (e.g. example_database)</span>
-<span class="sd">    cfg_file : str</span>
-<span class="sd">        Full filename of an adams drill configuration file</span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        name {string}       --  Name of cdb (e.g. </span>
+<span class="sd">                                example_database)</span>
+<span class="sd">        cfg_file {string}   --  Full filename of an adams drill</span>
+<span class="sd">                                configuration file</span>
 <span class="sd">    </span>
-<span class="sd">    Raises</span>
-<span class="sd">    ------</span>
-<span class="sd">    ValueError</span>
-<span class="sd">        Raised if a cdb of the given name or path already exists in the given config file</span>
-<span class="sd">    PermissionError</span>
-<span class="sd">        Raised if the user does not have permissiosn to edit the given config file</span>
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError      --  Raised if a cdb of the given name or</span>
+<span class="sd">                            path already exists in the given </span>
+<span class="sd">                            config file</span>
+<span class="sd">        PermissionError --  Raised if the user does not have</span>
+<span class="sd">                            permissiosn to edit the given config</span>
+<span class="sd">                            file</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Initialize cdbs dictionary</span>
@@ -992,14 +986,13 @@
         <span class="k">raise</span> <span class="ne">PermissionError</span><span class="p">(</span><span class="s1">&#39;You do not have permission to edit </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cfg_file</span><span class="p">))</span>  </div>
 
 <div class="viewcode-block" id="create_cfg_file"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.adripy.create_cfg_file">[docs]</a><span class="k">def</span> <span class="nf">create_cfg_file</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">database_paths</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Create a cfg file with the databases whose paths are given in the database_paths list. Also sets the ADRILL_USER_CONFIG environment variable equal to filename.</span>
+    <span class="sd">&quot;&quot;&quot;Create a cfg file with the databases whose paths are given</span>
+<span class="sd">    in the database_paths list. Also sets the ADRILL_USER_CONFIG</span>
+<span class="sd">    environment variable equal to filename.</span>
 <span class="sd">    </span>
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    filename : str</span>
-<span class="sd">        Filename for the new configuration file.</span>
-<span class="sd">    database_paths : list</span>
-<span class="sd">        List of database paths to include in the configuration file. </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        filename        {string}    -- Filename for the new configuration file.</span>
+<span class="sd">        database_paths  {list}      -- List of database paths to include in the configuration file. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 
@@ -1021,16 +1014,18 @@
 <div class="viewcode-block" id="build"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.adripy.build">[docs]</a><span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="n">string_file</span><span class="p">,</span> <span class="n">solver_settings_file</span><span class="p">,</span> <span class="n">working_directory</span><span class="p">,</span> <span class="n">output_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>    
     <span class="sd">&quot;&quot;&quot;Builds adm, acf, and cmd files from string, event, and solver settings files.</span>
 <span class="sd">    </span>
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    string : str</span>
-<span class="sd">        Filename of a drill string (.str) file.</span>
-<span class="sd">    solver_settings : str</span>
-<span class="sd">        Filename of a solver settings (.ssf) file.</span>
-<span class="sd">    working_directory : str</span>
-<span class="sd">        Path to the directory to put the adm, acf, and cmd</span>
-<span class="sd">    output_name : str</span>
-<span class="sd">        Base name of the adm, acf, and cmd files. (the default is none, which redefines the `ouput_name` to be the same as the &#39;OutputName&#39; parameter in the string file)</span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        string            {str}     --  Filename of a drill</span>
+<span class="sd">                                        string (.str) file.</span>
+<span class="sd">        solver_settings   {str}     --  Filename of a solver </span>
+<span class="sd">                                        settings (.ssf) file.</span>
+<span class="sd">        working_directory {string}  --  Path to the directory to</span>
+<span class="sd">                                        put the adm, acf, and cmd</span>
+<span class="sd">    </span>
+<span class="sd">    Keyword Arguments:</span>
+<span class="sd">        output_name     {string}    --  Base name of the adm,</span>
+<span class="sd">                                        acf, and cmd files. </span>
+<span class="sd">                                        (default: Same as string_file)</span>
 <span class="sd">    &quot;&quot;&quot;</span>    
     <span class="c1"># Set the output name  </span>
     <span class="k">if</span> <span class="n">output_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  
