@@ -75,7 +75,7 @@ Drill input deck.</p>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Creates an object with all data necessary to write a drill event.  Once the DrillEvent is instanced
 ramp parameters must be defined before the DrillEvent is written to an event file.</p>
-<p>All parameters in the event file can be specified when the DrillEvent is instanced 
+<p>All parameters in the event file can be specified when the DrillEvent is instanced
 using <a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs or they can be set later using:</p>
 <blockquote>
 <div>DrillEvent.parameters[parameter] = value</div></blockquote>
@@ -113,59 +113,90 @@ using <a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs or t
 <dt id="adamspy.adripy.tiem_orbit.event.DrillEvent.add_ramp">
 <code class="descname">add_ramp</code><span class="sig-paren">(</span><em>parameter</em>, <em>start_time</em>, <em>ramp_duration</em>, <em>delta</em>, <em>clear_existing=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/tiem_orbit/event.html#DrillEvent.add_ramp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.tiem_orbit.event.DrillEvent.add_ramp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a ramp to the specified ramp parameter</p>
-<dl class="docutils">
-<dt>Arguments:</dt>
-<dd>parameter {string} – ramp parameter, options are ‘TOP_DRIVE’, ‘WOB’, ‘PUMP_FLOW’, of ‘ROP’
-start_time {float} – Start time of the ramp.
-ramp_duration {float} – Duration of the ramp.
-delta {float} – Delta of the ramp.
-clear_existing {bool} – If true, existing ramps for the specified parameter will be deleted.</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>{string} -- ramp parameter</strong><strong>, </strong><strong>options are 'TOP_DRIVE'</strong><strong>, </strong><strong>'WOB'</strong><strong>, </strong><strong>'PUMP_FLOW'</strong><strong>, </strong><strong>of 'ROP'</strong> (<em>parameter</em>) – </li>
+<li><strong>{float} -- Start time of the ramp.</strong> (<em>start_time</em>) – </li>
+<li><strong>{float} -- Duration of the ramp.</strong> (<em>ramp_duration</em>) – </li>
+<li><strong>{float} -- Delta of the ramp.</strong> (<em>delta</em>) – </li>
+<li><strong>{bool} -- If true</strong><strong>, </strong><strong>existing ramps for the specified parameter will be deleted.</strong> (<em>clear_existing</em>) – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="adamspy.adripy.tiem_orbit.event.DrillEvent.add_simulation_step">
 <code class="descname">add_simulation_step</code><span class="sig-paren">(</span><em>end_time</em>, <em>output_step_size=0.05</em>, <em>clear_existing=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/tiem_orbit/event.html#DrillEvent.add_simulation_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.tiem_orbit.event.DrillEvent.add_simulation_step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a dynamic simulation step.</p>
-<dl class="docutils">
-<dt>Arguments:</dt>
-<dd>end_time {float} – End time of the step.
-output_step_size {foat} – Output step size of the step. Defaults to 0.05.</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>{float} -- End time of the step.</strong> (<em>end_time</em>) – </li>
+<li><strong>{foat} -- Output step size of the step. Defaults to 0.05.</strong> (<em>output_step_size</em>) – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="adamspy.adripy.tiem_orbit.event.DrillEvent.read_from_file">
 <em class="property">classmethod </em><code class="descname">read_from_file</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/tiem_orbit/event.html#DrillEvent.read_from_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.tiem_orbit.event.DrillEvent.read_from_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reads an event file and sets self.parameters based on data in the event file.</p>
-<dl class="docutils">
-<dt>Arguments:</dt>
-<dd>filename {str} – Filename of a .evt file.</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>{str} -- Filename of a .evt file.</strong> (<em>filename</em>) – </td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="adamspy.adripy.tiem_orbit.event.DrillEvent.validate">
 <code class="descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/tiem_orbit/event.html#DrillEvent.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.tiem_orbit.event.DrillEvent.validate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines if all parameters have been set</p>
-<dl class="docutils">
-<dt>Returns:</dt>
-<dd>Bool – True if all parameters have been set. Otherwise False</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Bool – True if all parameters have been set. Otherwise False</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="adamspy.adripy.tiem_orbit.event.DrillEvent.write_to_file">
 <code class="descname">write_to_file</code><span class="sig-paren">(</span><em>directory=None</em>, <em>filename=None</em>, <em>cdb=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/tiem_orbit/event.html#DrillEvent.write_to_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.tiem_orbit.event.DrillEvent.write_to_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates an event file from the DrillEvent object.</p>
-<dl class="docutils">
-<dt>Keyword Arguments:</dt>
-<dd>write_directory {string} – (OPTIONAL) Directory in which to write the file. Defaults to current working directory.
-filename {string} – (OPTIONAL) Name of the file to write.  Defaults to self.parameters[‘EVENT_NAME’]
-cdb {string} – (OPTIONAL) Name of the cdb in which to write the file.  This argument overrides the write_directory.</dd>
-<dt>Raises:</dt>
-<dd>ValueError – Raised if not all parameters have been defined.</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>{string} --</strong> (<em>cdb</em>) – </li>
+<li><strong>{string} --</strong> – </li>
+<li><strong>{string} --</strong> – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last">ValueError – Raised if not all parameters have been defined.</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -212,43 +243,60 @@ cdb {string} – (OPTIONAL) Name of the cdb in which to write the file.  This ar
 <dt id="adamspy.adripy.tiem_orbit.solver_settings.DrillSolverSettings.read_from_file">
 <em class="property">classmethod </em><code class="descname">read_from_file</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/tiem_orbit/solver_settings.html#DrillSolverSettings.read_from_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.tiem_orbit.solver_settings.DrillSolverSettings.read_from_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reads a string file and returns a DrillString object
-with DrillString.parameters based on data in the string 
+with DrillString.parameters based on data in the string
 file.</p>
-<dl class="docutils">
-<dt>Arguments:</dt>
-<dd>filename {str} – Filename of a .str file.</dd>
-<dt>Returns:</dt>
-<dd><dl class="first last docutils">
-<dt>{DrillSolverSettings} – DrillString object with </dt>
-<dd>parameters from the passed 
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>{str} -- Filename of a .str file.</strong> (<em>filename</em>) – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>{DrillSolverSettings} – DrillString object with</dt>
+<dd>parameters from the passed
 string file.</dd>
 </dl>
-</dd>
-</dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="adamspy.adripy.tiem_orbit.solver_settings.DrillSolverSettings.validate">
 <code class="descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/tiem_orbit/solver_settings.html#DrillSolverSettings.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.tiem_orbit.solver_settings.DrillSolverSettings.validate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines if all parameters have been set</p>
-<dl class="docutils">
-<dt>Returns:</dt>
-<dd>Bool – True if all parameters have been set. Otherwise False</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Bool – True if all parameters have been set. Otherwise False</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="adamspy.adripy.tiem_orbit.solver_settings.DrillSolverSettings.write_to_file">
 <code class="descname">write_to_file</code><span class="sig-paren">(</span><em>filename</em>, <em>directory=None</em>, <em>cdb=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/tiem_orbit/solver_settings.html#DrillSolverSettings.write_to_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.tiem_orbit.solver_settings.DrillSolverSettings.write_to_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a solver settings file from the DrillSolverSettings object.</p>
-<dl class="docutils">
-<dt>Keyword Arguments:</dt>
-<dd>write_directory {string} – (OPTIONAL) Directory in which to write the file. Defaults to current working directory.
-filename {string} – (OPTIONAL) Name of the file to write.  Defaults to self.name
-cdb {string} – (OPTIONAL) Name of the cdb in which to write the file.  This argument overrides the write_directory.</dd>
-<dt>Raises:</dt>
-<dd>ValueError – Raised if not all parameters have been defined.</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>{string} --</strong> (<em>cdb</em>) – </li>
+<li><strong>{string} --</strong> – </li>
+<li><strong>{string} --</strong> – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last">ValueError – Raised if not all parameters have been defined.</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -263,7 +311,7 @@ cdb {string} – (OPTIONAL) Name of the cdb in which to write the file.  This ar
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Creates an object with all data necessary to write a drill string.  Once the DrillString is instanced
 tools within the string must be defined as DrillTool objects before the string is written to an string file.</p>
-<p>All parameters in the string file can be specified when the DrillString is instanced 
+<p>All parameters in the string file can be specified when the DrillString is instanced
 using <a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs or they can be set later using:</p>
 <blockquote>
 <div>DrillEvent.parameters[parameter] = value</div></blockquote>
@@ -311,51 +359,72 @@ using <a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs or t
 <dt id="adamspy.adripy.tiem_orbit.string.DrillString.add_measurement_point">
 <code class="descname">add_measurement_point</code><span class="sig-paren">(</span><em>distance</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/tiem_orbit/string.html#DrillString.add_measurement_point"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.tiem_orbit.string.DrillString.add_measurement_point" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a measurement point at the given distance from the bit in feet.</p>
-<dl class="docutils">
-<dt>Arguments:</dt>
-<dd>distance {float} – Distance from the bit (in feet) at which to place a measurement point.</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>{float} -- Distance from the bit</strong> (<em>distance</em>) – </td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="adamspy.adripy.tiem_orbit.string.DrillString.add_tool">
 <code class="descname">add_tool</code><span class="sig-paren">(</span><em>drill_tool</em>, <em>joints=1</em>, <em>measure='no'</em>, <em>stack_order=None</em>, <em>color='Default'</em>, <em>group_name=None</em>, <em>equivalent=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/tiem_orbit/string.html#DrillString.add_tool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.tiem_orbit.string.DrillString.add_tool" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a DrillTool object to the DrillString.</p>
-<dl class="docutils">
-<dt>Arguments:</dt>
-<dd>tool {DrillTool} – An adripy DrillTool object.</dd>
-<dt>Keyword Arguments:</dt>
-<dd>joints {int} – Number of Joints (only applies for certain tool types) (default: {1})
-measure {str} – ‘on’ or ‘off’ (default: {‘no’})
-stack_order {int} – If an integer is given the tool will be inserted into the string at that point.  Otherwise it will be appended (default: {None})
-color {str} – The color used to render the tool in an Adams Drill animation. (default: {‘Default’})</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>{DrillTool} -- An adripy DrillTool object.</strong> (<em>tool</em>) – </p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first last simple">
+<li><strong>{int} -- Number of Joints</strong> (<em>joints</em>) – {1})</li>
+<li><strong>{str} -- 'on'</strong><strong> or </strong><strong>'off'</strong><strong> (</strong><strong>default</strong> (<em>measure</em>) – {‘no’})</li>
+<li><strong>{int} -- If an integer is given the tool will be inserted into the string at that point.  Otherwise it will be appended</strong><strong> (</strong><strong>default</strong> (<em>stack_order</em>) – {None})</li>
+<li><strong>{str} -- The color used to render the tool in an Adams Drill animation.</strong><strong> (</strong><strong>default</strong> (<em>color</em>) – {‘Default’})</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="adamspy.adripy.tiem_orbit.string.DrillString.get_bha_length">
 <code class="descname">get_bha_length</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/tiem_orbit/string.html#DrillString.get_bha_length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.tiem_orbit.string.DrillString.get_bha_length" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the total length of the drill string defined in 
-string_file NOT including the equivalent upper string and 
+<dd><p>Gets the total length of the drill string defined in
+string_file NOT including the equivalent upper string and
 highest most physical string.</p>
-<blockquote>
-<div>{float}:      Cumulative length of the bha</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>{float}</strong></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Cumulative length of the bha</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="adamspy.adripy.tiem_orbit.string.DrillString.get_tool">
 <code class="descname">get_tool</code><span class="sig-paren">(</span><em>tool_type</em>, <em>instance='first'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/tiem_orbit/string.html#DrillString.get_tool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.tiem_orbit.string.DrillString.get_tool" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a DrillTool object of type tool_type in the 
+<dd><p>Returns a DrillTool object of type tool_type in the
 DrillString object’s tools list.</p>
 <blockquote>
 <div>tool_type {str} – Desired tool type.</div></blockquote>
 <blockquote>
 <div><dl class="docutils">
 <dt>instance {str or int} – If ‘first’, will take the</dt>
-<dd>first instance.  If ‘last’, 
+<dd>first instance.  If ‘last’,
 will take the last instance.
-If an integer N is given, 
-will take the Nth instance. 
+If an integer N is given,
+will take the Nth instance.
 (default: {‘first’})</dd>
 </dl>
 </div></blockquote>
@@ -374,18 +443,22 @@ in the drill string.</dd>
 <dt id="adamspy.adripy.tiem_orbit.string.DrillString.read_from_file">
 <em class="property">classmethod </em><code class="descname">read_from_file</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/tiem_orbit/string.html#DrillString.read_from_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.tiem_orbit.string.DrillString.read_from_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reads a string file and returns a DrillString object
-with DrillString.parameters based on data in the string 
+with DrillString.parameters based on data in the string
 file.</p>
-<dl class="docutils">
-<dt>Arguments:</dt>
-<dd>filename {str} – Filename of a .str file.</dd>
-<dt>Returns:</dt>
-<dd><dl class="first last docutils">
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>{str} -- Filename of a .str file.</strong> (<em>filename</em>) – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
 <dt>{DrillString} – DrillString object with parameters</dt>
 <dd>from the passed string file.</dd>
 </dl>
-</dd>
-</dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -396,10 +469,10 @@ drill pipe. Set pipe_type=’equivalent’ to adjust equivalent
 upper string joints’</p>
 <blockquote>
 <div><dl class="docutils">
-<dt>joints {int}           – Number of physical drill </dt>
+<dt>joints {int}           – Number of physical drill</dt>
 <dd>pipe joints.</dd>
 <dt>equivalent {str}       – False for physical</dt>
-<dd>string. True for 
+<dd>string. True for
 equivalent upper string.
 Default=False</dd>
 </dl>
@@ -407,7 +480,7 @@ Default=False</dd>
 <blockquote>
 <div><dl class="docutils">
 <dt>DrillStringError       – Raised if the drill string</dt>
-<dd>doesn’t have drill pipe 
+<dd>doesn’t have drill pipe
 of the specified type.</dd>
 </dl>
 </div></blockquote>
@@ -417,25 +490,40 @@ of the specified type.</dd>
 <dt id="adamspy.adripy.tiem_orbit.string.DrillString.validate">
 <code class="descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/tiem_orbit/string.html#DrillString.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.tiem_orbit.string.DrillString.validate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines if all parameters have been set</p>
-<dl class="docutils">
-<dt>Returns:</dt>
-<dd>Bool – True if all parameters have been set. Otherwise False</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Bool – True if all parameters have been set. Otherwise False</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="adamspy.adripy.tiem_orbit.string.DrillString.write_to_file">
 <code class="descname">write_to_file</code><span class="sig-paren">(</span><em>directory=None</em>, <em>filename=None</em>, <em>cdb=None</em>, <em>publish=False</em>, <em>publish_event=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/tiem_orbit/string.html#DrillString.write_to_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.tiem_orbit.string.DrillString.write_to_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates string file from the DrillString object.</p>
-<dl class="docutils">
-<dt>Keyword Arguments:</dt>
-<dd>write_directory {string} – (OPTIONAL) Directory in which to write the file.            
-cdb {string} – (OPTIONAL) Name of the cdb in which to write the file.  This argument overrides the directory.
-publish {bool} – (OPTIONAL) Writes all the supporting files to the same cdb.</dd>
-<dt>Raises:</dt>
-<dd>ValueError – Raised if neither directory nor cdb are given.
-ValueError – Raised if not all parameters have been defined.</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>{string} --</strong> (<em>cdb</em>) – </li>
+<li><strong>{string} --</strong> – </li>
+<li><strong>{bool} --</strong> (<em>publish</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li>ValueError – Raised if neither directory nor cdb are given.</li>
+<li>ValueError – Raised if not all parameters have been defined.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -455,10 +543,14 @@ ValueError – Raised if not all parameters have been defined.</dd>
 <em class="property">class </em><code class="descclassname">adamspy.adripy.tiem_orbit.tool.</code><code class="descname">DrillTool</code><span class="sig-paren">(</span><em>property_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/tiem_orbit/tool.html#DrillTool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.tiem_orbit.tool.DrillTool" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Object representing an Adams Drill tool.  Instances must be generated from a tool property file.</p>
-<dl class="docutils">
-<dt>Arguments:</dt>
-<dd>{string} – Filepath to an Adams Drill Tool property file.</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>-- Filepath to an Adams Drill Tool property file.</strong> (<em>{string}</em>) – </td>
+</tr>
+</tbody>
+</table>
 <dl class="attribute">
 <dt id="adamspy.adripy.tiem_orbit.tool.DrillTool.DATABASE_INFO">
 <code class="descname">DATABASE_INFO</code><em class="property"> = {'accelerator': {'extension': 'acc', 'table': 'accelerators.tbl'}, 'agitator': {'extension': 'agi', 'table': 'agitators.tbl'}, 'assembly': {'extension': 'str', 'table': 'drill_strings.tbl'}, 'blade_reamer': {'extension': 'bre', 'table': 'blade_reamers.tbl'}, 'crossover': {'extension': 'crs', 'table': 'crossovers.tbl'}, 'dart': {'extension': 'drt', 'table': 'darts.tbl'}, 'darts': {'extension': 'drt', 'table': 'darts.tbl'}, 'drill_collar': {'extension': 'col', 'table': 'drill_collars.tbl'}, 'drillpipe': {'extension': 'pip', 'table': 'drill_pipes.tbl'}, 'equivalent_upper_string': {'extension': 'pip', 'table': 'drill_pipes.tbl'}, 'event': {'extension': 'evt', 'table': 'events.tbl'}, 'flex_pipe': {'extension': 'flp', 'table': 'flex_pipes.tbl'}, 'generic_long': {'extension': 'gnl', 'table': 'generic_longs.tbl'}, 'generic_short': {'extension': 'gns', 'table': 'generic_shorts.tbl'}, 'hole': {'extension': 'hol', 'table': 'holes.tbl'}, 'hw_pipe': {'extension': 'hwp', 'table': 'hw_pipes.tbl'}, 'instrumentation_sub': {'extension': 'ins', 'table': 'instrumentation_subs.tbl'}, 'jar': {'extension': 'djr', 'table': 'jars.tbl'}, 'lwd_tool': {'extension': 'lwd', 'table': 'lwd_tools.tbl'}, 'mfr_tool': {'extension': 'mfr', 'table': 'mfr_tools.tbl'}, 'motor': {'extension': 'mot', 'table': 'motors.tbl'}, 'mwd_tool': {'extension': 'mwd', 'table': 'mwd_tools.tbl'}, 'pdc_bit': {'extension': 'pdc', 'table': 'pdc_bits.tbl'}, 'plot_config': {'extension': 'plt', 'table': 'plot_configs.tbl'}, 'roller_cone_bit': {'extension': 'rcb', 'table': 'roller_cone_bits.tbl'}, 'rss': {'extension': 'rsd', 'table': 'rss.tbl'}, 'shock_sub': {'extension': 'shk', 'table': 'shock_subs.tbl'}, 'short_collar': {'extension': 'sco', 'table': 'short_collars.tbl'}, 'solver_setting': {'extension': 'ssf', 'table': 'solver_settings.tbl'}, 'stabilizer': {'extension': 'sta', 'table': 'stabilizers.tbl'}, 'top_drive': {'extension': 'tdr', 'table': 'top_drives.tbl'}}</em><a class="headerlink" href="#adamspy.adripy.tiem_orbit.tool.DrillTool.DATABASE_INFO" title="Permalink to this definition">¶</a></dt>
@@ -468,50 +560,81 @@ ValueError – Raised if not all parameters have been defined.</dd>
 <dt id="adamspy.adripy.tiem_orbit.tool.DrillTool.copy_file">
 <code class="descname">copy_file</code><span class="sig-paren">(</span><em>directory=None</em>, <em>cdb=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/tiem_orbit/tool.html#DrillTool.copy_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.tiem_orbit.tool.DrillTool.copy_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates string file from the DrillString object.</p>
-<dl class="docutils">
-<dt>Keyword Arguments:</dt>
-<dd>write_directory {string} – (OPTIONAL) Directory in which to write the file.            
-cdb {string} – (OPTIONAL) Name of the cdb in which to write the file.  This argument overrides the directory.</dd>
-<dt>Raises:</dt>
-<dd>ValueError – Raised if neither directory nor cdb are given.
-ValueError – Raised if not all parameters have been defined.</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>{string} --</strong> (<em>cdb</em>) – </li>
+<li><strong>{string} --</strong> – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li>ValueError – Raised if neither directory nor cdb are given.</li>
+<li>ValueError – Raised if not all parameters have been defined.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="adamspy.adripy.tiem_orbit.tool.DrillTool.get_parameter_value">
 <code class="descname">get_parameter_value</code><span class="sig-paren">(</span><em>parameter_to_get</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/tiem_orbit/tool.html#DrillTool.get_parameter_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.tiem_orbit.tool.DrillTool.get_parameter_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the value of the specified parameter from the property file.  NOTE: get_parameter_value cannot get parameters from the UNITS block.</p>
-<dl class="docutils">
-<dt>Arguments:</dt>
-<dd>parameter_to_get {string} – Name of the parameter to get from the property file.</dd>
-<dt>Returns:</dt>
-<dd>{string or float} – Value of the specified parameter from the property file.</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>{string} -- Name of the parameter to get from the property file.</strong> (<em>parameter_to_get</em>) – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">{string or float} – Value of the specified parameter from the property file.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="adamspy.adripy.tiem_orbit.tool.DrillTool.modify_parameter_value">
 <code class="descname">modify_parameter_value</code><span class="sig-paren">(</span><em>parameter_to_change</em>, <em>new_value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/tiem_orbit/tool.html#DrillTool.modify_parameter_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.tiem_orbit.tool.DrillTool.modify_parameter_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>Modifies a parameter in a DrillTool property file</p>
-<dl class="docutils">
-<dt>Arguments:</dt>
-<dd>parameter_to_change {string} – Name of the parameter to modify.  Must match the name in the property file. (Not case sensitive). 
-new_value {float or string} – New value of the parameter to change</dd>
-<dt>Keyword Arguments:</dt>
-<dd>new_filename {string} – Filename of new property file.  If None the original property file will be overwritten (default: {None})</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>{string} -- Name of the parameter to modify.  Must match the name in the property file.</strong> (<em>parameter_to_change</em>) – </li>
+<li><strong>{float</strong><strong> or </strong><strong>string} -- New value of the parameter to change</strong> (<em>new_value</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first last"><strong>{string} -- Filename of new property file.  If None the original property file will be overwritten</strong><strong> (</strong><strong>default</strong> (<em>new_filename</em>) – {None})</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="adamspy.adripy.tiem_orbit.tool.DrillTool.rename">
 <code class="descname">rename</code><span class="sig-paren">(</span><em>new_name</em>, <em>remove_original=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/tiem_orbit/tool.html#DrillTool.rename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.tiem_orbit.tool.DrillTool.rename" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rename the tool</p>
-<dl class="docutils">
-<dt>Arguments:</dt>
-<dd>new_name {string} – New name for the tool.
-in_place {bool} – If True will rename the property file.  If False will create a new one.</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>{string} -- New name for the tool.</strong> (<em>new_name</em>) – </li>
+<li><strong>{bool} -- If True will rename the property file.  If False will create a new one.</strong> (<em>in_place</em>) – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -536,12 +659,16 @@ in_place {bool} – If True will rename the property file.  If False will create
 <dt id="adamspy.adripy.tiem_orbit.utilities.read_TO_file">
 <code class="descclassname">adamspy.adripy.tiem_orbit.utilities.</code><code class="descname">read_TO_file</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/tiem_orbit/utilities.html#read_TO_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.tiem_orbit.utilities.read_TO_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reads a Tiem Orbit file into a dictionary of parameters</p>
-<dl class="docutils">
-<dt>Arguments:</dt>
-<dd>filename {string} – Filename of the Tiem Orbit file</dd>
-<dt>Raises:</dt>
-<dd>TiemOrbitSyntaxError – Raised if the Tiem Orbit syntax is not recognized</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>{string} -- Filename of the Tiem Orbit file</strong> (<em>filename</em>) – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body">TiemOrbitSyntaxError – Raised if the Tiem Orbit syntax is not recognized</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
