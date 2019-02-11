@@ -224,7 +224,7 @@ class DrillString():
                         
         Returns
         -------
-            {float}:      Cumulative length of the bha    
+        float : Cumulative length of the bha    
         """
         # Get a list of the drill pipe tools in the string
         drill_pipe_tools = [tool for tool in self.tools if tool['Type'] == 'drillpipe']
