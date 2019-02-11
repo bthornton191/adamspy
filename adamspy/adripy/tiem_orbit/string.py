@@ -141,7 +141,7 @@ class DrillString():
         drill pipe. Set pipe_type='equivalent' to adjust equivalent
         upper string joints'
         
-        Arguments:
+        Parameters
         ----------
             joints {int}           -- Number of physical drill 
                                       pipe joints.
@@ -150,8 +150,8 @@ class DrillString():
                                       equivalent upper string.
                                       Default=False
         
-        Raises:
-        ----------
+        Raises
+        ------
             DrillStringError       -- Raised if the drill string
                                       doesn't have drill pipe 
                                       of the specified type.
@@ -175,28 +175,23 @@ class DrillString():
         """Returns a DrillTool object of type tool_type in the 
         DrillString object's tools list.  
         
-        Arguments:
+        Parameters
         ----------
-            tool_type {str} -- Desired tool type.
+        tool_type : str
+            Desired tool type.       
         
-        Keyword Arguments:
-        ----------
-            instance {str or int} -- If 'first', will take the
-                                     first instance.  If 'last', 
-                                     will take the last instance.
-                                     If an integer N is given, 
-                                     will take the Nth instance. 
-                                     (default: {'first'})
+        instance : str or int
+            If 'first', will take the first instance.  If 'last', will take the last instance. If an integer N is given, will take the Nth instance. (the default is 'first')
         
-        Returns:
-        ----------
-            DrillTool            -- DrillTool object
+        Raises
+        ------
+        DrillStringError
+            Raised if a tools of the specified type does not exist in the drill string.
         
-        Raises:
-        ----------
-            DrillStringError     -- Raised if a tools of the
-                                    specified type does not exist
-                                    in the drill string.
+        Returns
+        -------
+        DrillTool
+            DrillTool object
         """
         tools_found = []
         for tool in self.tools:
