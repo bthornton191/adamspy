@@ -1,5 +1,5 @@
 cd rst
-sphinx-apidoc -o . ..\adamspy
+sphinx-apidoc -f -o source ..\adamspy
+call make html
 cd ..
-call rst\make html
-robocopy rst\_build\html docs /e /mir
+robocopy rst\build\html docs /e /mir

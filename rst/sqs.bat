@@ -1,0 +1,1 @@
+sphinx-quickstart --quiet --project=adamspy --author="Ben Thornton" -v=0.6.7 --ext-autodoc --ext-todo --ext-viewcode --batchfile --sep
