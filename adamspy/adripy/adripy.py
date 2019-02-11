@@ -69,25 +69,23 @@ TO_LENGTH_PARAM['short_collar'] = ['Collar_Length']
 TO_LENGTH_PARAM['stabilizer'] = ['Stabilizer_Length']
 
 def turn_measure_on(string_file, tool_types=[], tool_numbers=[], tool_names=[]):
-    """Modify a string file to turn measure on for the designated
-    tools.  Tools may be designated by type, number
-    (stack order), or name.
-
-    Arguments:
-        string_file {str}   -- Full path to an MSC Adams Drill 
-                               string file including the .str
-                               extension
+    """Modify a string file to turn measure on for teh designated tools.  Tools may be designated by type, number (stack order), or name.
     
-    Keyword Arguments:
-        tool_types {list}   -- List of tool type as seen in the
-                               string file (e.g. pdc_bit, motor, 
-                               stabilizer)
-        tool_numbers {list} -- List of stack orders corresponding
-                               to tools in a string
-        tool_names {list}   -- List of tool names
+    Parameters
+    ----------
+    string_file : str
+        Full path to an MSC Adams Drill string file (include the .str extension)
+    tool_types : list, optional
+        List of tool types as seen in the string file (e.g. pdc_bit, motor, stabilizer)
+    tool_numbers : list, optional
+        List of stack orders corresponding to tools in the string
+    tool_names : list, optional
+        List of tool names
     
-    Returns:
-        int                 -- number of tools measured
+    Returns
+    -------
+    int
+        number of tools measured
     """
     n = 0
     mark = False
@@ -127,65 +125,36 @@ def turn_measure_on(string_file, tool_types=[], tool_numbers=[], tool_names=[]):
     rename(string_file.replace('.str','.tmp'), string_file)
     return n
 
-
-    """
-    Return the name and file name of the nth tool of type 'tool_type'
-    in 'string_file'.
-    
-    Parameters:
-        string_file :      Full path to an MSC Adams Drill string file 
-                        including the .str extension
-        
-        tool_type   :        Tool type as seen in the string file
-                        (e.g. pdc_bit, motor, stabilizer)
-        
-        n :                If the string file has multiple tools of the requested
-                        tool type, use this parameter to return the nth tool.
-                        Default  is n=1.
-        return_full_path : If true, removes the Adrill cdb name and replaces with
-                        the adrill cdb file path.  Default is True
-                  
-    Returns:
-        tool_name  :  Name of the requested tool
-        tool_file  :  Full file path the the requested tool's property file
-        tool_stack :  Stack order of tool
-        group_name :  Tools group name if it has one
-    """
 def get_tool_name(string_file, tool_type, n=1, return_full_path=True):
-    """Return the name and file name of the nth tool of type 'tool_type'
-    in 'string_file'.
+    """Returns the name, filename, stack order, and group name of the `n`th tool of type `tool_type` in `string_file`.
     
-    Arguments:
-        string_file {str}       -- Full path to an MSC Adams 
-                                   Drill string file including
-                                   the .str extension
-        tool_type {str}         -- Tool type as seen in the
-                                   string file (e.g. pdc_bit,
-                                   motor, stabilizer)
+    Parameters
+    ----------
+    string_file : str
+        Full path to an Adams drill string file (include the .str extension)
+    tool_type : str
+        Tool type as seen in the string file (e.g. pdc_bit, motor, stabilizer)
+    n : int, optional
+        If the string file has multiple tools of type `tool_type`, returns the `n`th tool of that type. (the default is 1)
+    return_full_path :  bool, optional
+        If true, returns the full path to the tool file instead of using the Adams Drill database (cdb)  (the default is True)
     
-    Keyword Arguments:
-        n {int}                 -- If the string file has 
-                                   multiple tools of the 
-                                   requested tool type, use this
-                                   parameter to return the nth 
-                                   tool. (default: 1)
-        return_full_path {bool} -- If true, removes the Adrill 
-                                   cdb name and replaces with the
-                                   adrill cdb file path.  
-                                   (default: True)
+    Raises
+    ------
+    ValueError
+        Raised if a tool of type `tool_type` is not found in `string_file`
     
-    Raises:
-        ValueError              -- Raised if tool of type 
-                                   tool_type is not found in
-                                   string_file
-
-    Returns:
-        str -- Name of the requested tool
-        str -- Full file path the the requested tool's property file
-        int -- Stack order of tool
-        str -- Tools group name if it has one
+    Returns
+    -------
+    str
+        Name of the requested tool
+    str
+        Full filepath the the requested tool's property file
+    int
+        Stack order of tool
+    str
+        Tool's group name if it has one
     """
-
     tool_found = False
     fid = open(string_file,'r')
     if tool_type == 'hole':
@@ -234,20 +203,22 @@ def get_toolFilename_fullNotation(toolFilename_cdbNotation):
         toolFilename_fullNotation = toolFilename_cdbNotation
     return toolFilename_fullNotation
 
-
 def get_adrill_cdbs(adrill_user_cfg, adrill_shared_cfg=None):
-    """
-    Return the names and locations of all user defined MSC Adams Drill
-    configuration databases (cdbs)
+    """Return the names and locatinos of all user defined MSC Adams Drill databases (cdbs)
     
-    Parameters:
-        adrill_user_cfg : Full path to an MSC Adams Drill user configuration
-                        file.  This should be in the HOME directory
-                  
-    Returns:
-        cdbs :  A dictionary with the cdb names as keys and cdb 
-                locations as values.
+    Parameters
+    ----------
+    adrill_user_cfg : str
+        Full path to an Adams Drill user configuration file.  This hould be in the users HOME directory.
+    adrill_shared_cfg : str, optional
+        Full path to an Adams Drill shared configuration file.  This should be in the Adams Drill installation directory.  (the default is None, which means that only user cdbs will be returned.)
+        
+    Returns
+    -------
+    dict
+        A dictionary in which the cdb names are keys and the cdb locations are values.
     """
+
     cdbs = {}
     with open(adrill_user_cfg,'r') as fid:
         for line in fid:
