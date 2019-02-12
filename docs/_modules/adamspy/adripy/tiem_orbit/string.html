@@ -282,7 +282,7 @@
 <span class="sd">        drill pipe. Set pipe_type=&#39;equivalent&#39; to adjust equivalent</span>
 <span class="sd">        upper string joints&#39;</span>
 <span class="sd">        </span>
-<span class="sd">        Arguments:</span>
+<span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">            joints {int}           -- Number of physical drill </span>
 <span class="sd">                                      pipe joints.</span>
@@ -291,8 +291,8 @@
 <span class="sd">                                      equivalent upper string.</span>
 <span class="sd">                                      Default=False</span>
 <span class="sd">        </span>
-<span class="sd">        Raises:</span>
-<span class="sd">        ----------</span>
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
 <span class="sd">            DrillStringError       -- Raised if the drill string</span>
 <span class="sd">                                      doesn&#39;t have drill pipe </span>
 <span class="sd">                                      of the specified type.</span>
@@ -316,28 +316,23 @@
         <span class="sd">&quot;&quot;&quot;Returns a DrillTool object of type tool_type in the </span>
 <span class="sd">        DrillString object&#39;s tools list.  </span>
 <span class="sd">        </span>
-<span class="sd">        Arguments:</span>
+<span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">            tool_type {str} -- Desired tool type.</span>
+<span class="sd">        tool_type : str</span>
+<span class="sd">            Desired tool type.       </span>
 <span class="sd">        </span>
-<span class="sd">        Keyword Arguments:</span>
-<span class="sd">        ----------</span>
-<span class="sd">            instance {str or int} -- If &#39;first&#39;, will take the</span>
-<span class="sd">                                     first instance.  If &#39;last&#39;, </span>
-<span class="sd">                                     will take the last instance.</span>
-<span class="sd">                                     If an integer N is given, </span>
-<span class="sd">                                     will take the Nth instance. </span>
-<span class="sd">                                     (default: {&#39;first&#39;})</span>
+<span class="sd">        instance : str or int</span>
+<span class="sd">            If &#39;first&#39;, will take the first instance.  If &#39;last&#39;, will take the last instance. If an integer N is given, will take the Nth instance. (the default is &#39;first&#39;)</span>
 <span class="sd">        </span>
-<span class="sd">        Returns:</span>
-<span class="sd">        ----------</span>
-<span class="sd">            DrillTool            -- DrillTool object</span>
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        DrillStringError</span>
+<span class="sd">            Raised if a tools of the specified type does not exist in the drill string.</span>
 <span class="sd">        </span>
-<span class="sd">        Raises:</span>
-<span class="sd">        ----------</span>
-<span class="sd">            DrillStringError     -- Raised if a tools of the</span>
-<span class="sd">                                    specified type does not exist</span>
-<span class="sd">                                    in the drill string.</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        DrillTool</span>
+<span class="sd">            DrillTool object</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">tools_found</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tools</span><span class="p">:</span>
@@ -370,7 +365,7 @@
 <span class="sd">                        </span>
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">            {float}:      Cumulative length of the bha    </span>
+<span class="sd">        float : Cumulative length of the bha    </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Get a list of the drill pipe tools in the string</span>
         <span class="n">drill_pipe_tools</span> <span class="o">=</span> <span class="p">[</span><span class="n">tool</span> <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tools</span> <span class="k">if</span> <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;Type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;drillpipe&#39;</span><span class="p">]</span>
