@@ -106,6 +106,12 @@ class Test_DrillSim(unittest.TestCase):
         
         self.assertListEqual(sorted(actual_contents), sorted(expected_contents))
 
+    def test_input_deck(self):
+        """Tests that the input deck (adm, acf, cmd files) are written correctly        
+        """
+        self.assertEqual(0,1)
+
+
     def tearDown(self):
         # Remove the test cfg file if it exists
         try:
