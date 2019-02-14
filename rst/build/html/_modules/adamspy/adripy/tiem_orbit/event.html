@@ -269,9 +269,12 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds a dynamic simulation step.</span>
 <span class="sd">        </span>
-<span class="sd">        Arguments:</span>
-<span class="sd">            end_time {float} -- End time of the step.</span>
-<span class="sd">            output_step_size {foat} -- Output step size of the step. Defaults to 0.05.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        end_time : float</span>
+<span class="sd">            End time of the step in seconds.</span>
+<span class="sd">        output_step_size : foat</span>
+<span class="sd">            Output step size of the step in seconds. (defaults is 0.05)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">clear_existing</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;DYNAMICS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[[],[]]</span>
@@ -282,12 +285,18 @@
 <div class="viewcode-block" id="DrillEvent.add_ramp"><a class="viewcode-back" href="../../../../adamspy.adripy.tiem_orbit.html#adamspy.adripy.tiem_orbit.event.DrillEvent.add_ramp">[docs]</a>    <span class="k">def</span> <span class="nf">add_ramp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">ramp_duration</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">clear_existing</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Adds a ramp to the specified ramp parameter</span>
 <span class="sd">        </span>
-<span class="sd">        Arguments:</span>
-<span class="sd">            parameter {string} -- ramp parameter, options are &#39;TOP_DRIVE&#39;, &#39;WOB&#39;, &#39;PUMP_FLOW&#39;, of &#39;ROP&#39;</span>
-<span class="sd">            start_time {float} -- Start time of the ramp.</span>
-<span class="sd">            ramp_duration {float} -- Duration of the ramp.</span>
-<span class="sd">            delta {float} -- Delta of the ramp.</span>
-<span class="sd">            clear_existing {bool} -- If true, existing ramps for the specified parameter will be deleted.</span>
+<span class="sd">        Paramters</span>
+<span class="sd">        ---------</span>
+<span class="sd">        parameter : string</span>
+<span class="sd">            ramp parameter, options are &#39;TOP_DRIVE&#39;, &#39;WOB&#39;, &#39;PUMP_FLOW&#39;, of &#39;ROP&#39;</span>
+<span class="sd">        start_time : float</span>
+<span class="sd">            Start time of the ramp.</span>
+<span class="sd">        ramp_duration : float</span>
+<span class="sd">            Duration of the ramp.</span>
+<span class="sd">        delta : float</span>
+<span class="sd">            Delta of the ramp.</span>
+<span class="sd">        clear_existing : bool</span>
+<span class="sd">            If true, existing ramps for the specified parameter will be deleted.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">clear_existing</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">parameter</span><span class="p">]</span> <span class="o">=</span> <span class="p">[[],[],[]]</span>
@@ -299,13 +308,19 @@
 <div class="viewcode-block" id="DrillEvent.write_to_file"><a class="viewcode-back" href="../../../../adamspy.adripy.tiem_orbit.html#adamspy.adripy.tiem_orbit.event.DrillEvent.write_to_file">[docs]</a>    <span class="k">def</span> <span class="nf">write_to_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cdb</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Creates an event file from the DrillEvent object.</span>
 <span class="sd">        </span>
-<span class="sd">        Keyword Arguments:</span>
-<span class="sd">            write_directory {string} -- (OPTIONAL) Directory in which to write the file. Defaults to current working directory.</span>
-<span class="sd">            filename {string} -- (OPTIONAL) Name of the file to write.  Defaults to self.parameters[&#39;EVENT_NAME&#39;]</span>
-<span class="sd">            cdb {string} -- (OPTIONAL) Name of the cdb in which to write the file.  This argument overrides the write_directory.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        write_directory : str</span>
+<span class="sd">            Directory in which to write the file. Defaults to current working directory.</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            Name of the file to write.  Defaults to self.parameters[&#39;EVENT_NAME&#39;]</span>
+<span class="sd">        cdb : str</span>
+<span class="sd">            Name of the cdb in which to write the file.  This argument overrides the write_directory.</span>
 <span class="sd">        </span>
-<span class="sd">        Raises:</span>
-<span class="sd">            ValueError -- Raised if not all parameters have been defined.</span>
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            Raised if not all parameters have been defined.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Raise an error if the parameters can&#39;t be validated</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">():</span>

@@ -147,6 +147,11 @@
 <div class="viewcode-block" id="DrillSim"><a class="viewcode-back" href="../../../../adamspy.adripy.tiem_orbit.html#adamspy.adripy.tiem_orbit.drillsim.DrillSim">[docs]</a><span class="k">class</span> <span class="nc">DrillSim</span><span class="p">():</span> <span class="c1">#pylint: disable=too-many-instance-attributes</span>
     <span class="sd">&quot;&quot;&quot;Contains data defining the files that make up an Adams Drill input deck.</span>
 
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    &gt;&gt;&gt; my_drillsim = adripy.tiem_orbit.DrillSim(my_string, my_event, my_solversettings, os.getcwd(), &#39;MyAnalysis&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; </span>
+
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
 <span class="sd">    string : DrillString</span>
@@ -207,7 +212,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">built</span> <span class="o">=</span> <span class="kc">False</span>
 
 <div class="viewcode-block" id="DrillSim.build"><a class="viewcode-back" href="../../../../adamspy.adripy.tiem_orbit.html#adamspy.adripy.tiem_orbit.drillsim.DrillSim.build">[docs]</a>    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;This method builds the input deck.  It launches Adams View in batch, and imports `string.filename` and `solver_settings.fileame` and runs the Adams Drill macro `ds tostart` to build a drill string model.  Then it exports that model to `directory`.</span>
+        <span class="sd">&quot;&quot;&quot;This method builds the input deck.  It launches Adams View in batch, and imports `self.string.filename` and `self.solver_settings.fileame` and runs the Adams Drill macro `ds tostart` to build a drill string model.  Then it exports that model to `self.directory`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Build the model</span>
         <span class="n">adm</span><span class="p">,</span> <span class="n">acf</span><span class="p">,</span> <span class="n">cmd</span> <span class="o">=</span> <span class="n">build</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">string_filename</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">solver_settings</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">)</span>  
