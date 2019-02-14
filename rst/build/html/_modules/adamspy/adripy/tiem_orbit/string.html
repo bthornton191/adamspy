@@ -160,7 +160,7 @@
 
 <span class="sd">    Note</span>
 <span class="sd">    ----</span>
-<span class="sd">    Once the DrillString is instanced tools within the string must be defined as DrillTool objects before the string is written to an string file.  </span>
+<span class="sd">    Once the DrillString is instanced tools within the string must be defined as DrillTool objects before the string is written to a string file.  Use the `add_tool()` method to add DrillTool objects to the string.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -246,14 +246,18 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds a DrillTool object to the DrillString.</span>
 <span class="sd">        </span>
-<span class="sd">        Arguments:</span>
-<span class="sd">            tool {DrillTool} -- An adripy DrillTool object.</span>
-<span class="sd">        </span>
-<span class="sd">        Keyword Arguments:</span>
-<span class="sd">            joints {int} -- Number of Joints (only applies for certain tool types) (default: {1})</span>
-<span class="sd">            measure {str} -- &#39;on&#39; or &#39;off&#39; (default: {&#39;no&#39;})</span>
-<span class="sd">            stack_order {int} -- If an integer is given the tool will be inserted into the string at that point.  Otherwise it will be appended (default: {None})</span>
-<span class="sd">            color {str} -- The color used to render the tool in an Adams Drill animation. (default: {&#39;Default&#39;})</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        tool : DrillTool</span>
+<span class="sd">            DrillTool object representing the tool to be added        </span>
+<span class="sd">        joints : int</span>
+<span class="sd">            Number of Joints. Note that this only applies for certain tool types. (default is 1)</span>
+<span class="sd">        measure : bool</span>
+<span class="sd">            If TRUE indicates that output requests should be generated for this tool.  (default is FALSE)</span>
+<span class="sd">        stack_order : int</span>
+<span class="sd">            If an integer is given the tool will be inserted into the string at that point. (default is None and the tool will be appended to the end)</span>
+<span class="sd">        color : str</span>
+<span class="sd">            The color used to render the tool in an Adams Drill animation. (default is &#39;Default&#39;)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Check that the group_name argument is givn</span>
         <span class="k">if</span> <span class="n">drill_tool</span><span class="o">.</span><span class="n">tool_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">MULTI_JOINT_TOOLS</span> <span class="ow">and</span> <span class="n">group_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -267,7 +271,7 @@
                 <span class="s1">&#39;DrillTool&#39;</span><span class="p">:</span> <span class="n">drill_tool</span><span class="p">,</span>
                 <span class="s1">&#39;Name&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
                 <span class="s1">&#39;Property_File&#39;</span><span class="p">:</span> <span class="n">drill_tool</span><span class="o">.</span><span class="n">property_file</span><span class="p">,</span>
-                <span class="s1">&#39;Measure&#39;</span><span class="p">:</span> <span class="n">measure</span><span class="p">,</span>
+                <span class="s1">&#39;Measure&#39;</span><span class="p">:</span> <span class="s1">&#39;yes&#39;</span> <span class="k">if</span> <span class="n">measure</span> <span class="k">else</span> <span class="s1">&#39;no&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;Color&#39;</span><span class="p">:</span> <span class="n">color</span><span class="p">,</span>
                 <span class="s1">&#39;Number_of_Joints&#39;</span><span class="p">:</span> <span class="n">joints</span><span class="p">,</span>
                 <span class="s1">&#39;Stack_Order&#39;</span><span class="p">:</span> <span class="kc">None</span>
