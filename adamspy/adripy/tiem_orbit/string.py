@@ -18,6 +18,31 @@ class DrillString():
     using **kwargs or they can be set later using: 
         
         DrillEvent.parameters[parameter] = value    
+
+    Attributes
+    ----------
+    parameters : dict
+        Dictionary of parameters that make up an Adams Drill string and would be found in an Adams Drill String file (.str).  The keys of the dictionary are the parameter names that would be seen in the string file and the values of the dictionary are the values that would be seen in the string file.
+    tools : list
+        List of tools in the drill string.  Each element of the list is a dictionary with the keys 'DrillTool', 'Name', 'Property_File', 'Measure', 'Color', 'Number_of_Joints', and 'Stack_Order'.
+    top_drive : dict
+        Describes the top drive.  The keys are 'DrillTool', 'Type', 'Name', and 'Property_File'.
+    SCALAR_PARAMETERS : list
+        A class attribute listing the names of all scalar parameters found in an Adams Drill String file.
+    DEFAULT_PARAMETER_SCALARS : dict
+        A class attribute defining defaults for some of the string parameters.
+    ARRAY_PARAMETERS : list 
+        A class attribute listing the names of all array parameters found in an Adams Drill String file.
+    DEFAULT_PARAMETER_ARRAYS : dict
+        A class attribute defining defaults for some of the string parameters.
+    CDB_TABLE : str
+        A class attribute defining the cdb table to be used for Adams Drill String files (.str)
+    EXT : str
+        A class attribute defining the extension of the Adams Drill String files.
+    MULTI_JOINT_TOOLS : list
+        A class attribute listing all the tool types that need to have `Number_of_Joints` defined in the Adams Drill String file.
+    DRILL_TOOL_PATTERN : SRE_Pattern
+        A :class:`_sre.SRE_Pattern` object defining the pattern of the Drill Tool block header in the string file.    
     """
 
     SCALAR_PARAMETERS = [
@@ -257,16 +282,29 @@ class DrillString():
         self.parameters['Distance_from_Bit'].sort()
         
     def write_to_file(self, directory=None, filename=None, cdb=None, publish=False, publish_event=False):
-        """Creates string file from the DrillString object.
+        """Writes a string file from the DrillString object.
+
+        Notes
+        -----
+            There are no required parameters.  However, either `directory` or `cdb` must be defined.  Otherwise `write_to_file()` raises a ValueError.
+
+            When publishing to a directory, relative paths will be used for all filenames in the string file.
         
-        Keyword Arguments:
-            write_directory {string} -- (OPTIONAL) Directory in which to write the file.            
-            cdb {string} -- (OPTIONAL) Name of the cdb in which to write the file.  This argument overrides the directory.
-            publish {bool} -- (OPTIONAL) Writes all the supporting files to the same cdb.
+        Parameters
+        ----------
+        write_directory : str
+            Directory in which to write the file. (default is None which means the string will be written to the cdb given in `cdb`.)
+        cdb : str
+            Name of the cdb in which to write the file.  This argument is overridden by `directory`. (default is None which means the string will be written to the directory in `directory` and will use the filename in `filename`.)  
+        publish : bool
+            If true, writes all the supporting files to the same cdb. (default is False.)
         
-        Raises:
-            ValueError -- Raised if neither directory nor cdb are given.
-            ValueError -- Raised if not all parameters have been defined.
+        Raises
+        ------
+        ValueError
+            Raised if neither directory nor cdb are given.
+        ValueError
+            Raised if not all parameters have been defined.
         """
         # Raise an error if the parameters can't be validated
         if not self.validate():
@@ -286,6 +324,9 @@ class DrillString():
             
             # Set the filepath to the filename in the given directory
             filepath = os.path.join(directory, f'{filename}.{self.EXT}')
+
+            # Set cdb to None to ensure that the directory argument overwrites it
+            cdb = None
         
         elif cdb is not None:
             # If the write_directory argument is not passed, but the cdb
@@ -302,15 +343,11 @@ class DrillString():
                 filename = os.path.split(filename)[-1].replace(f'.{self.EXT}','')
             
             # Set the filepath to the file in the cdb
-            filepath = get_full_path(os.path.join(f'<{cdb}>', self.CDB_TABLE, f'{filename}.{self.EXT}'))
-
-        elif filename is not None:
-            # If Nothing but a filename is given set that as the full path
-            filepath = os.path.normpath(filename.replace(f'.{self.EXT}',''))            
+            filepath = get_full_path(os.path.join(f'<{cdb}>', self.CDB_TABLE, f'{filename}.{self.EXT}'))        
 
         else:
-            # If nothing is given, raise an error
-            raise ValueError('One of the following must key work arguments must be defined: write_directory, filename, cdb')
+            # If neither directory nor cdb is given, raise an error
+            raise ValueError('Ether directory or cdb must be passed.')
                       
         # Define templates
         string_template_1 = TMPLT_ENV.get_template(f'template_1.{self.EXT}')
@@ -322,19 +359,43 @@ class DrillString():
             # cdb or directory
             for tool in self.tools:      
                 tool['DrillTool'].copy_file(cdb=cdb, directory=directory)
-                tool['Property_File'] = tool['DrillTool'].property_file
+
+                # Update the tool file paths in the drill_string.tools list
+                if directory is not None:
+                    # If publishing to a directory, use relative paths
+                    tool['Property_File'] = os.path.split(tool['DrillTool'].property_file)[1]
+
+                else:
+                    # If publsihing to a cdb, use the cdb path
+                    tool['Property_File'] = tool['DrillTool'].property_file
             
             # Copy the topdrive file
             self.top_drive['DrillTool'].copy_file(cdb=cdb, directory=directory)
-            self.top_drive['Property_File'] = self.top_drive['DrillTool'].property_file
+
+            # Update the top drive path in the drill_string.tools list
+            if directory is not None:
+                # If publishing to a directory, use relative path
+                self.top_drive['Property_File'] = os.path.split(self.top_drive['DrillTool'].property_file)[1]
+
+            else:
+                # If publsihing to a cdb, use the cdb path
+                self.top_drive['Property_File'] = self.top_drive['DrillTool'].property_file
 
             # Copy the hole file to the new location
             self._copy_hole_file(cdb=cdb, directory=directory)
+
+            if directory is not None:
+                # If publishing to a direcotry, use relative path                
+                self.parameters['Hole_Property_File'] = os.path.split(self.parameters['Hole_Property_File'])[1]
 
         if publish_event is True:
             # If the string is being published with the event file, copy the
             # event file to the new location
             self._copy_event_file(cdb=cdb, directory=directory)
+
+            if directory is not None:
+                # If publishing to a direcotry, use relative path                
+                self.parameters['Event_Property_File'] = os.path.split(self.parameters['Event_Property_File'])[1]
 
         with open(filepath, 'w') as fid:
             # Write the top of the file

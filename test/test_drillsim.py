@@ -97,20 +97,75 @@ class Test_DrillSim(unittest.TestCase):
             drill_sim.solver_settings.filename
         ]
         for tool in drill_sim.string.tools:
-            expected_contents.append(tool['Property_File'])
+            expected_contents.append(os.path.join(drill_sim.directory, tool['Property_File']))
         
-        expected_contents.append(drill_sim.string.top_drive['Property_File'])
-        expected_contents.append(drill_sim.string.parameters['Hole_Property_File'])
+        expected_contents.append(os.path.join(drill_sim.directory, drill_sim.string.top_drive['Property_File']))
+        expected_contents.append(os.path.join(drill_sim.directory, drill_sim.string.parameters['Hole_Property_File']))
 
         actual_contents = glob.glob(os.path.join(drill_sim.directory, '*'))
         
         self.assertListEqual(sorted(actual_contents), sorted(expected_contents))
-
-    def test_input_deck(self):
-        """Tests that the input deck (adm, acf, cmd files) are written correctly        
+    
+    def test_relativity_in_string_hole_reference(self):
+        """Tests that the file references in the string file are relative to drill_sim.directory       
         """
-        self.assertEqual(0,1)
+        drill_sim = DrillSim(self.drill_string, self.event, self.solver_settings, TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME)
+        
+        hole_filepath = adripy.get_TO_param(drill_sim.string_filename, 'Hole_Property_File')
+        self.assertFalse(os.path.normpath(drill_sim.directory) in os.path.normpath(hole_filepath))
 
+    def test_relativity_in_string_event_reference(self):
+        """Tests that the file references in the string file are relative to drill_sim.directory       
+        """
+        drill_sim = DrillSim(self.drill_string, self.event, self.solver_settings, TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME)
+        
+        event_filepath = adripy.get_TO_param(drill_sim.string_filename, 'Event_Property_File')
+        self.assertFalse(os.path.normpath(drill_sim.directory) in os.path.normpath(event_filepath))
+
+    def test_relativity_in_string_pdc_reference(self):
+        """Tests that the file references in the string file are relative to drill_sim.directory       
+        """
+        drill_sim = DrillSim(self.drill_string, self.event, self.solver_settings, TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME)
+        
+        _name, pdc_filepath, _so, _gn = adripy.get_tool_name(drill_sim.string_filename, 'pdc_bit', return_full_path=True)
+
+        self.assertFalse(os.path.normpath(drill_sim.directory) in os.path.normpath(pdc_filepath))
+
+    def test_input_deck_directory_contents(self):
+        """Tests that the input deck (adm, acf, cmd files) are written to the directory
+        """
+        drill_sim = DrillSim(self.drill_string, self.event, self.solver_settings, TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME)
+        
+        drill_sim.build()
+        expected_contents = [
+            drill_sim.event.filename,
+            drill_sim.string_filename,
+            drill_sim.solver_settings.filename,
+            os.path.join(drill_sim.directory, drill_sim.adm_filename),
+            os.path.join(drill_sim.directory, drill_sim.acf_filename),
+            os.path.join(drill_sim.directory, drill_sim.cmd_filename),
+            os.path.join(drill_sim.directory, 'aview.cmd'),
+            os.path.join(drill_sim.directory, 'aview.log'),
+            os.path.join(drill_sim.directory, 'build.cmd'),   
+        ]
+
+        for tool in drill_sim.string.tools:
+            tool_file = tool['Property_File']
+            expected_contents.append(os.path.join(drill_sim.directory, tool_file))
+        expected_contents.append(os.path.join(drill_sim.directory, drill_sim.string.top_drive['Property_File']))
+        expected_contents.append(os.path.join(drill_sim.directory, drill_sim.string.parameters['Hole_Property_File']))
+
+        actual_contents = glob.glob(os.path.join(drill_sim.directory, '*'))
+        
+        # Remove the aview.cmd.bak file from the actual contents list
+        if os.path.join(drill_sim.directory, 'aview.cmd.bak') in actual_contents:
+            actual_contents.remove(os.path.join(drill_sim.directory, 'aview.cmd.bak'))
+
+        # Remove the aview.loq file from the actual contents list
+        if os.path.join(drill_sim.directory, 'aview.loq') in actual_contents:
+            actual_contents.remove(os.path.join(drill_sim.directory, 'aview.loq'))
+
+        self.assertListEqual(sorted(actual_contents), sorted(expected_contents))    
 
     def tearDown(self):
         # Remove the test cfg file if it exists

@@ -9,6 +9,20 @@ os.environ['ADRILL_SHARED_CFG'] = os.path.join('C:\\', 'MSC.Software', 'Adams', 
 os.environ['ADAMS_LAUNCH_COMMAND'] = os.path.join('C:\\', 'MSC.Software', 'Adams', '2018', 'common', 'mdi.bat')
 from adamspy import adripy
 
+class Test_TOParameterPattern(unittest.TestCase):
+    """Tests that the TO_PARAMTER_PATTERN regex works on a variety of example text. 
+    """
+    
+    def test_string_file_event_property_file(self):
+        line_text = ' Event_Property_File  =  \'c:\\Users\\bthornt\\GUI\\adamspy\\test\example_working_directory\\test_analysis_1.evt\''
+        match = adripy.TO_PARAMETER_PATTERN.match(line_text)
+        self.assertTrue(bool(match))
+    
+    def test_string_file_units(self):
+        line_text = ' Units  =  \'Imperial\''
+        match = adripy.TO_PARAMETER_PATTERN.match(line_text)
+        self.assertTrue(bool(match))
+
 class Test_AdripyFunctions(unittest.TestCase):    
     
     def setUp(self):
@@ -67,6 +81,16 @@ class Test_AdripyFunctions(unittest.TestCase):
 
         self.assertEqual(actual_value, expected_value)
     
+    def test_get_to_param_event_file(self):
+        """Tests that adripy.get_to_param() returns the correct 
+        parameter when requesting a parameter that has a string
+        as the value.
+        """
+        expected_value = '<example_database>\\events.tbl\\test_event.evt'
+        actual_value = adripy.get_TO_param(TEST_EXISTING_STRING_FILE, 'Event_Property_File')
+
+        self.assertEqual(actual_value, expected_value)
+
     def test_get_to_param_float_value(self):
         """Tests that adripy.get_to_param() returns the correct 
         parameter when requesting a parameter that has a string
