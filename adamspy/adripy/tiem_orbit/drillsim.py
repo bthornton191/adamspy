@@ -4,10 +4,51 @@ import os
 from ..adripy import build
 
 class DrillSim(): #pylint: disable=too-many-instance-attributes
-    """Contains data defining the files that make up an Adams
-    Drill input deck.
+    """Contains data defining the files that make up an Adams Drill input deck.
+
+    Attributes
+    ----------
+    string : DrillString
+        DrillString object representing the string to be used in the simulation
+    event : DrillEvent
+        DrillEvent object representing the string to be used in the simulation
+    solver_settings : DrillSolverSettings
+        DrillSolverSettings object representing the string to be used in the simulation
+    directory : str
+        Path to the directory in which to put the simulation files
+    analysis_name : str
+        Name of the analysis.  Used for all file prefixes
+    string_filename : str
+        Filename of the analysis' string file 
+    adm_filename : str
+        Filename of the analysis' adm file 
+    acf_filename : str
+        Filename of the analysis' acf file
+    cmd_filename : str
+        Filename of the analysis' cmd file
+    res_filename : str
+        Filename of the analysis' res file
+    built : bool
+        Indicates whether the input deck (adm, acf, and cmd files) has been built yet for this DrillSim
     """
     def __init__(self, string, event, solver_settings, directory, analysis_name): #pylint: disable=too-many-arguments
+        """Sets instance attributes and writes the string, event, and solver settings files to `directory`.
+
+        Parameters
+        ----------
+        string : DrillString
+            DrillString object representing the string to be used in the simulation
+        event : DrillEvent
+            DrillEvent object representing the string to be used in the simulation
+        solver_settings : DrillSolverSettings
+            DrillSolverSettings object representing the string to be used in the simulation
+        directory : str
+            Path to the directory in which to put the simulation files
+        analysis_name : str
+            Name of the analysis.  Used for all file prefixes
+        
+        """
+
         self.string = string
         self.event = event
         self.solver_settings = solver_settings
@@ -25,10 +66,10 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         self.built = False
 
     def build(self):
-        """Builds the input deck
+        """This method builds the input deck.  It launches Adams View in batch, and imports `string.filename` and `solver_settings.fileame` and runs the Adams Drill macro `ds tostart` to build a drill string model.  Then it exports that model to `directory`.
         """
         # Build the model
-        adm, acf, cmd = build(self.string.filename, self.solver_settings.filename, self.directory)  
+        adm, acf, cmd = build(self.string_filename, self.solver_settings.filename, self.directory)  
 
         # store the new filenames as attributes
         self.adm_filename = adm
@@ -55,7 +96,7 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         self.event.parameters['Event_Name'] = self.analysis_name
         self.event.write_to_file(directory=self.directory)
         
-        self.string.parameters['Event_Property_File'] = self.event.filename        
+        self.string.parameters['Event_Property_File'] = os.path.split(self.event.filename)[1]
         self.string.parameters['ModelName'] = self.analysis_name
         self.string.parameters['OutputName'] = self.analysis_name
         self.string_filename = self.string.write_to_file(directory=self.directory, publish=True)   
