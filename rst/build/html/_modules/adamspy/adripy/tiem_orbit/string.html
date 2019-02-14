@@ -450,12 +450,13 @@
 <span class="sd">        ------</span>
 <span class="sd">        ValueError</span>
 <span class="sd">            Raised if neither directory nor cdb are given.</span>
-<span class="sd">        ValueError</span>
+<span class="sd">        RuntimeError</span>
 <span class="sd">            Raised if not all parameters have been defined.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Raise an error if the parameters can&#39;t be validated</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">():</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The parameters could not be validated.&#39;</span><span class="p">)</span>
+        <span class="n">validation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;valid&#39;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;The parameters could not be validated because </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">validation</span><span class="p">[</span><span class="s1">&#39;reason&#39;</span><span class="p">]))</span>
 
         <span class="k">if</span> <span class="n">directory</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># If the write_directory argument is passed</span>
@@ -562,17 +563,19 @@
 <span class="sd">        Determines if all parameters have been set</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">            Bool -- True if all parameters have been set. Otherwise False</span>
+<span class="sd">            dict -- dicationary with a `valid` key with a boolean value indicating whether the string was successfully validated and a `reason` key with a str value indicating the reason (if any) that the string was not successfully validated.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">validated</span> <span class="o">=</span> <span class="kc">True</span>        
+        <span class="n">validation</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;valid&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;reason&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">}</span>
         <span class="c1"># Check that all parameters exist in the self.parameters dictionary</span>
         <span class="k">for</span> <span class="n">param_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">SCALAR_PARAMETERS</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">param_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
-                <span class="n">validated</span> <span class="o">=</span> <span class="kc">False</span>        
+                <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;valid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;reason&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Not all string parameters have been defined&#39;</span>
         
         <span class="c1"># Test that the DrillString has a top_drive defined</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_drive</span><span class="p">:</span>
-            <span class="n">validated</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;valid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;reason&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;The string doesn</span><span class="se">\&#39;</span><span class="s1">t have a Top Drive&#39;</span>
 
         <span class="c1"># Check that the DrillString has ps, eus, and a pdc</span>
         <span class="n">eus_found</span> <span class="o">=</span> <span class="kc">False</span>
@@ -585,10 +588,18 @@
                 <span class="n">ps_found</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="k">elif</span> <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;Type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;pdc_bit&#39;</span><span class="p">:</span>
                 <span class="n">pdc_found</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">([</span><span class="n">eus_found</span><span class="p">,</span> <span class="n">ps_found</span><span class="p">,</span> <span class="n">pdc_found</span><span class="p">]):</span>
-            <span class="n">validated</span> <span class="o">=</span> <span class="kc">False</span>        
-            
-        <span class="k">return</span> <span class="n">validated</span>            </div>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">eus_found</span><span class="p">:</span>
+            <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;valid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;reason&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;The string doesn</span><span class="se">\&#39;</span><span class="s1">t have equivalent upper string&#39;</span>     
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">ps_found</span><span class="p">:</span>
+            <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;valid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;reason&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;The string doesn</span><span class="se">\&#39;</span><span class="s1">t have physical string&#39;</span>                 
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">pdc_found</span><span class="p">:</span>
+            <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;valid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;reason&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;The string doesn</span><span class="se">\&#39;</span><span class="s1">t have a bit&#39;</span>     
+
+        <span class="k">return</span> <span class="n">validation</span>   </div>
     
 <div class="viewcode-block" id="DrillString.read_from_file"><a class="viewcode-back" href="../../../../adamspy.adripy.tiem_orbit.html#adamspy.adripy.tiem_orbit.string.DrillString.read_from_file">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">read_from_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>

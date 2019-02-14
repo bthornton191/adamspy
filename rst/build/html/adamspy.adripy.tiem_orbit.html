@@ -1163,7 +1163,7 @@ of the specified type.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Bool – True if all parameters have been set. Otherwise False</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dict – dicationary with a <cite>valid</cite> key with a boolean value indicating whether the string was successfully validated and a <cite>reason</cite> key with a str value indicating the reason (if any) that the string was not successfully validated.</td>
 </tr>
 </tbody>
 </table>
@@ -1189,7 +1189,7 @@ of the specified type.</p>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
 <li><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code></a> – Raised if neither directory nor cdb are given.</li>
-<li><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code></a> – Raised if not all parameters have been defined.</li>
+<li><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">RuntimeError</span></code></a> – Raised if not all parameters have been defined.</li>
 </ul>
 </td>
 </tr>
