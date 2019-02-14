@@ -1,4 +1,4 @@
-"""a set of python tools for manipulating MSC Adams Drill files
+"""adripy contains functions for manipulating MSC Adams Drill files
 """
 from os import environ
 from os import remove
@@ -134,10 +134,10 @@ def get_tool_name(string_file, tool_type, n=1, return_full_path=True):
         Full path to an Adams drill string file (include the .str extension)
     tool_type : str
         Tool type as seen in the string file (e.g. pdc_bit, motor, stabilizer)
-    n : int, optional
-        If the string file has multiple tools of type `tool_type`, returns the `n`th tool of that type. (the default is 1)
-    return_full_path :  bool, optional
-        If true, returns the full path to the tool file instead of using the Adams Drill database (cdb)  (the default is True)
+    n : int
+        If the string file has multiple tools of type `tool_type` , returns the `n` th tool of that type. (the default is 1)
+    return_full_path : bool
+        If true, returns the full path to the tool file instead of using the Adams Drill database (cdb). (the default is True)
     
     Raises
     ------
@@ -149,11 +149,11 @@ def get_tool_name(string_file, tool_type, n=1, return_full_path=True):
     str
         Name of the requested tool
     str
-        Full filepath the the requested tool's property file
+        Full filepath the the requested tool\'s property file
     int
         Stack order of tool
     str
-        Tool's group name if it has one
+        Tool\'s group name if it has one
     """
     tool_found = False
     fid = open(string_file,'r')

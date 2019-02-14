@@ -139,30 +139,31 @@
            <div itemprop="articleBody">
             
   <h1>Source code for adamspy.adamspy</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">--------------------------------------------------------------------------</span>
-<span class="sd">Description</span>
-<span class="sd">--------------------------------------------------------------------------</span>
-<span class="sd">adamspy is a set of python tools for manipulating MSC Adams files</span>
-
-<span class="sd">--------------------------------------------------------------------------</span>
-<span class="sd">Author</span>
-<span class="sd">--------------------------------------------------------------------------</span>
-<span class="sd">Ben Thornton (ben.thornton@mscsofware.com)</span>
-<span class="sd">Simulation Consultant - MSC Software</span>
-
-<span class="sd">--------------------------------------------------------------------------</span>
-<span class="sd">Version</span>
-<span class="sd">--------------------------------------------------------------------------</span>
-<span class="sd">v1 - 2018119</span>
-
+<span></span><span class="sd">&quot;&quot;&quot;Functions for manipulating adams files and data</span>
 <span class="sd">&quot;&quot;&quot;</span>
-
 <span class="kn">import</span> <span class="nn">re</span>
 
-<div class="viewcode-block" id="get_simdur_from_msg"><a class="viewcode-back" href="../../adamspy.html#adamspy.adamspy.get_simdur_from_msg">[docs]</a><span class="k">def</span> <span class="nf">get_simdur_from_msg</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+<div class="viewcode-block" id="get_simdur_from_msg"><a class="viewcode-back" href="../../adamspy.html#adamspy.adamspy.get_simdur_from_msg">[docs]</a><span class="k">def</span> <span class="nf">get_simdur_from_msg</span><span class="p">(</span><span class="n">msg_file</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Reads an Adams message file (.msg) and returns the total duration of the simulation.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    msg_file : str</span>
+<span class="sd">        Filepath to an Adams message file (.msg)</span>
+<span class="sd">    </span>
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    RuntimeError</span>
+<span class="sd">        Returned if no simulation end time was found in the specified message file</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Total duration of the simulation</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">msg_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39; *command: sim(ulate)?/dyn(anmic)?.*, *end *=.*&#39;</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()):</span>
                 <span class="n">sim_dur</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;end *=&#39;</span><span class="p">,</span><span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>

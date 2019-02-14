@@ -7,13 +7,33 @@ from ..adripy import get_cdb_location, get_cdb_path, get_full_path
 
 class DrillEvent():
     """
-    Creates an object with all data necessary to write a drill event.  Once the DrillEvent is instanced
-    ramp parameters must be defined before the DrillEvent is written to an event file.  
+    Creates an object with all data necessary to write a drill event.  Once the DrillEvent is instanced ramp parameters must be defined before the DrillEvent is written to an event file.  
     
-    All parameters in the event file can be specified when the DrillEvent is instanced 
-    using **kwargs or they can be set later using: 
-        
-        DrillEvent.parameters[parameter] = value    
+    Notes
+    -----
+        After instancing the class, at least one simulation step must be added using the `add_simulation_step()` method. Also, at least one ramp must be added for each of the four drilling parameters (i.e. wob, rpm, gpm, rop) using the `add_ramp()` method.
+
+        All other parameters in the event file can be specified when the DrillEvent is instanced using kwargs or they can be set later using:             
+            >>> drill_event.parameters[parameter] = value 
+    
+    Attributes
+    ----------
+    parameters : dict
+        Dictionary of parameters that make up an Adams Drill string and would be found in an Adams Drill String file (.str).  The keys of the dictionary are the parameter names that would be seen in the string file and the values of the dictionary are the values that would be seen in the string file.
+    filename : str
+        Name of the event file (.evt) in which this event is stored.  This attribute is initially empty and is populated by the `write_to_file()` method.
+    SCALAR_PARAMETERS : dict
+        A class attribute listing the names of all scalar parameters found in an Adams Drill event file.
+    DEFAULT_PARAMETER_SCALARS: dict
+        A class attribute defining defaults for some of the event parameters.
+    ARRAY_PARAMETERS : list 
+        A class attribute listing the names of all array parameters found in an Adams Drill event file.
+    DEFAULT_PARAMETER_ARRAYS : dict
+        A class attribute defining defaults for some of the event parameters.
+    CDB_TABLE : str
+        A class attribute defining the cdb table to be used for Adams Drill event files (.str)
+    EXT : str
+        A class attribute defining the extension of the Adams Drill event files.   
     """
 
     SCALAR_PARAMETERS = [
