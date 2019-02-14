@@ -101,7 +101,7 @@ class DrillString():
         self.tools = []
         self.top_drive = {}
 
-    def add_tool(self, drill_tool, joints=1, measure='no', stack_order=None, color='Default', group_name=None, equivalent=False):
+    def add_tool(self, drill_tool, joints=1, measure=False, stack_order=None, color='Default', group_name=None, equivalent=False):
         """
         Adds a DrillTool object to the DrillString.
         
