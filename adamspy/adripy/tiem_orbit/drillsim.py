@@ -6,6 +6,11 @@ from ..adripy import build
 class DrillSim(): #pylint: disable=too-many-instance-attributes
     """Contains data defining the files that make up an Adams Drill input deck.
 
+    Example
+    -------
+    >>> my_drillsim = adripy.tiem_orbit.DrillSim(my_string, my_event, my_solversettings, os.getcwd(), 'MyAnalysis')
+    >>> 
+
     Attributes
     ----------
     string : DrillString
@@ -66,7 +71,7 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         self.built = False
 
     def build(self):
-        """This method builds the input deck.  It launches Adams View in batch, and imports `string.filename` and `solver_settings.fileame` and runs the Adams Drill macro `ds tostart` to build a drill string model.  Then it exports that model to `directory`.
+        """This method builds the input deck.  It launches Adams View in batch, and imports `self.string.filename` and `self.solver_settings.fileame` and runs the Adams Drill macro `ds tostart` to build a drill string model.  Then it exports that model to `self.directory`.
         """
         # Build the model
         adm, acf, cmd = build(self.string_filename, self.solver_settings.filename, self.directory)  

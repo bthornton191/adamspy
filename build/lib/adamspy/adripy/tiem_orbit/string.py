@@ -11,11 +11,15 @@ from ..adripy import get_cdb_location, get_cdb_path, get_full_path, TO_LENGTH_PA
 
 class DrillString():
     """
-    Creates an object with all data necessary to write a drill string.  Once the DrillString is instanced tools within the string must be defined as DrillTool objects before the string is written to an string file.  
+    Creates an object with all data necessary to write a drill string.      
     
-    All parameters in the string file can be specified when the DrillString is instanced using kwargs or they can be set later using: 
+    Parameters in the string file can be specified when the DrillString is instanced using kwargs or they can be set later using: 
         
         >>> drill_string.parameters[parameter] = value    
+
+    Note
+    ----
+    Once the DrillString is instanced tools within the string must be defined as DrillTool objects before the string is written to an string file.  
 
     Attributes
     ----------
