@@ -11,36 +11,34 @@ from ..adripy import get_cdb_location, get_cdb_path, get_full_path, TO_LENGTH_PA
 
 class DrillString():
     """
-    Creates an object with all data necessary to write a drill string.  Once the DrillString is instanced
-    tools within the string must be defined as DrillTool objects before the string is written to an string file.  
+    Creates an object with all data necessary to write a drill string.  Once the DrillString is instanced tools within the string must be defined as DrillTool objects before the string is written to an string file.  
     
-    All parameters in the string file can be specified when the DrillString is instanced 
-    using **kwargs or they can be set later using: 
+    All parameters in the string file can be specified when the DrillString is instanced using kwargs or they can be set later using: 
         
-        DrillEvent.parameters[parameter] = value    
+        >>> drill_string.parameters[parameter] = value    
 
     Attributes
     ----------
     parameters : dict
-        Dictionary of parameters that make up an Adams Drill string and would be found in an Adams Drill String file (.str).  The keys of the dictionary are the parameter names that would be seen in the string file and the values of the dictionary are the values that would be seen in the string file.
+        Dictionary of parameters that make up an Adams Drill string and would be found in an Adams Drill string file (.str).  The keys of the dictionary are the parameter names that would be seen in the string file and the values of the dictionary are the values that would be seen in the string file.
     tools : list
         List of tools in the drill string.  Each element of the list is a dictionary with the keys 'DrillTool', 'Name', 'Property_File', 'Measure', 'Color', 'Number_of_Joints', and 'Stack_Order'.
     top_drive : dict
         Describes the top drive.  The keys are 'DrillTool', 'Type', 'Name', and 'Property_File'.
     SCALAR_PARAMETERS : list
-        A class attribute listing the names of all scalar parameters found in an Adams Drill String file.
+        A class attribute listing the names of all scalar parameters found in an Adams Drill string file.
     DEFAULT_PARAMETER_SCALARS : dict
         A class attribute defining defaults for some of the string parameters.
     ARRAY_PARAMETERS : list 
-        A class attribute listing the names of all array parameters found in an Adams Drill String file.
+        A class attribute listing the names of all array parameters found in an Adams Drill string file.
     DEFAULT_PARAMETER_ARRAYS : dict
         A class attribute defining defaults for some of the string parameters.
     CDB_TABLE : str
-        A class attribute defining the cdb table to be used for Adams Drill String files (.str)
+        A class attribute defining the cdb table to be used for Adams Drill string files (.str)
     EXT : str
-        A class attribute defining the extension of the Adams Drill String files.
+        A class attribute defining the extension of the Adams Drill string files.
     MULTI_JOINT_TOOLS : list
-        A class attribute listing all the tool types that need to have `Number_of_Joints` defined in the Adams Drill String file.
+        A class attribute listing all the tool types that need to have `Number_of_Joints` defined in the Adams Drill string file.
     DRILL_TOOL_PATTERN : SRE_Pattern
         A :class:`_sre.SRE_Pattern` object defining the pattern of the Drill Tool block header in the string file.    
     """

@@ -152,13 +152,36 @@
 
 <div class="viewcode-block" id="DrillString"><a class="viewcode-back" href="../../../../adamspy.adripy.tiem_orbit.html#adamspy.adripy.tiem_orbit.string.DrillString">[docs]</a><span class="k">class</span> <span class="nc">DrillString</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates an object with all data necessary to write a drill string.  Once the DrillString is instanced</span>
-<span class="sd">    tools within the string must be defined as DrillTool objects before the string is written to an string file.  </span>
+<span class="sd">    Creates an object with all data necessary to write a drill string.  Once the DrillString is instanced tools within the string must be defined as DrillTool objects before the string is written to an string file.  </span>
 <span class="sd">    </span>
-<span class="sd">    All parameters in the string file can be specified when the DrillString is instanced </span>
-<span class="sd">    using **kwargs or they can be set later using: </span>
+<span class="sd">    All parameters in the string file can be specified when the DrillString is instanced using kwargs or they can be set later using: </span>
 <span class="sd">        </span>
-<span class="sd">        DrillEvent.parameters[parameter] = value    </span>
+<span class="sd">        &gt;&gt;&gt; drill_string.parameters[parameter] = value    </span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    parameters : dict</span>
+<span class="sd">        Dictionary of parameters that make up an Adams Drill string and would be found in an Adams Drill string file (.str).  The keys of the dictionary are the parameter names that would be seen in the string file and the values of the dictionary are the values that would be seen in the string file.</span>
+<span class="sd">    tools : list</span>
+<span class="sd">        List of tools in the drill string.  Each element of the list is a dictionary with the keys &#39;DrillTool&#39;, &#39;Name&#39;, &#39;Property_File&#39;, &#39;Measure&#39;, &#39;Color&#39;, &#39;Number_of_Joints&#39;, and &#39;Stack_Order&#39;.</span>
+<span class="sd">    top_drive : dict</span>
+<span class="sd">        Describes the top drive.  The keys are &#39;DrillTool&#39;, &#39;Type&#39;, &#39;Name&#39;, and &#39;Property_File&#39;.</span>
+<span class="sd">    SCALAR_PARAMETERS : list</span>
+<span class="sd">        A class attribute listing the names of all scalar parameters found in an Adams Drill string file.</span>
+<span class="sd">    DEFAULT_PARAMETER_SCALARS : dict</span>
+<span class="sd">        A class attribute defining defaults for some of the string parameters.</span>
+<span class="sd">    ARRAY_PARAMETERS : list </span>
+<span class="sd">        A class attribute listing the names of all array parameters found in an Adams Drill string file.</span>
+<span class="sd">    DEFAULT_PARAMETER_ARRAYS : dict</span>
+<span class="sd">        A class attribute defining defaults for some of the string parameters.</span>
+<span class="sd">    CDB_TABLE : str</span>
+<span class="sd">        A class attribute defining the cdb table to be used for Adams Drill string files (.str)</span>
+<span class="sd">    EXT : str</span>
+<span class="sd">        A class attribute defining the extension of the Adams Drill string files.</span>
+<span class="sd">    MULTI_JOINT_TOOLS : list</span>
+<span class="sd">        A class attribute listing all the tool types that need to have `Number_of_Joints` defined in the Adams Drill string file.</span>
+<span class="sd">    DRILL_TOOL_PATTERN : SRE_Pattern</span>
+<span class="sd">        A :class:`_sre.SRE_Pattern` object defining the pattern of the Drill Tool block header in the string file.    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">SCALAR_PARAMETERS</span> <span class="o">=</span> <span class="p">[</span>
@@ -398,16 +421,29 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Distance_from_Bit&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span></div>
         
 <div class="viewcode-block" id="DrillString.write_to_file"><a class="viewcode-back" href="../../../../adamspy.adripy.tiem_orbit.html#adamspy.adripy.tiem_orbit.string.DrillString.write_to_file">[docs]</a>    <span class="k">def</span> <span class="nf">write_to_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cdb</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">publish</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">publish_event</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Creates string file from the DrillString object.</span>
+        <span class="sd">&quot;&quot;&quot;Writes a string file from the DrillString object.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">            There are no required parameters.  However, either `directory` or `cdb` must be defined.  Otherwise `write_to_file()` raises a ValueError.</span>
+
+<span class="sd">            When publishing to a directory, relative paths will be used for all filenames in the string file.</span>
 <span class="sd">        </span>
-<span class="sd">        Keyword Arguments:</span>
-<span class="sd">            write_directory {string} -- (OPTIONAL) Directory in which to write the file.            </span>
-<span class="sd">            cdb {string} -- (OPTIONAL) Name of the cdb in which to write the file.  This argument overrides the directory.</span>
-<span class="sd">            publish {bool} -- (OPTIONAL) Writes all the supporting files to the same cdb.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        write_directory : str</span>
+<span class="sd">            Directory in which to write the file. (default is None which means the string will be written to the cdb given in `cdb`.)</span>
+<span class="sd">        cdb : str</span>
+<span class="sd">            Name of the cdb in which to write the file.  This argument is overridden by `directory`. (default is None which means the string will be written to the directory in `directory` and will use the filename in `filename`.)  </span>
+<span class="sd">        publish : bool</span>
+<span class="sd">            If true, writes all the supporting files to the same cdb. (default is False.)</span>
 <span class="sd">        </span>
-<span class="sd">        Raises:</span>
-<span class="sd">            ValueError -- Raised if neither directory nor cdb are given.</span>
-<span class="sd">            ValueError -- Raised if not all parameters have been defined.</span>
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            Raised if neither directory nor cdb are given.</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            Raised if not all parameters have been defined.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Raise an error if the parameters can&#39;t be validated</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">():</span>
@@ -427,6 +463,9 @@
             
             <span class="c1"># Set the filepath to the filename in the given directory</span>
             <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{filename}</span><span class="s1">.</span><span class="si">{self.EXT}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+            <span class="c1"># Set cdb to None to ensure that the directory argument overwrites it</span>
+            <span class="n">cdb</span> <span class="o">=</span> <span class="kc">None</span>
         
         <span class="k">elif</span> <span class="n">cdb</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># If the write_directory argument is not passed, but the cdb</span>
@@ -443,15 +482,11 @@
                 <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;.</span><span class="si">{self.EXT}</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
             
             <span class="c1"># Set the filepath to the file in the cdb</span>
-            <span class="n">filepath</span> <span class="o">=</span> <span class="n">get_full_path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;&lt;</span><span class="si">{cdb}</span><span class="s1">&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">CDB_TABLE</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{filename}</span><span class="s1">.</span><span class="si">{self.EXT}</span><span class="s1">&#39;</span><span class="p">))</span>
-
-        <span class="k">elif</span> <span class="n">filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="c1"># If Nothing but a filename is given set that as the full path</span>
-            <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">filename</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;.</span><span class="si">{self.EXT}</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))</span>            
+            <span class="n">filepath</span> <span class="o">=</span> <span class="n">get_full_path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;&lt;</span><span class="si">{cdb}</span><span class="s1">&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">CDB_TABLE</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{filename}</span><span class="s1">.</span><span class="si">{self.EXT}</span><span class="s1">&#39;</span><span class="p">))</span>        
 
         <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># If nothing is given, raise an error</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;One of the following must key work arguments must be defined: write_directory, filename, cdb&#39;</span><span class="p">)</span>
+            <span class="c1"># If neither directory nor cdb is given, raise an error</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Ether directory or cdb must be passed.&#39;</span><span class="p">)</span>
                       
         <span class="c1"># Define templates</span>
         <span class="n">string_template_1</span> <span class="o">=</span> <span class="n">TMPLT_ENV</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;template_1.</span><span class="si">{self.EXT}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -463,19 +498,43 @@
             <span class="c1"># cdb or directory</span>
             <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tools</span><span class="p">:</span>      
                 <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;DrillTool&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy_file</span><span class="p">(</span><span class="n">cdb</span><span class="o">=</span><span class="n">cdb</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="n">directory</span><span class="p">)</span>
-                <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;Property_File&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;DrillTool&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">property_file</span>
+
+                <span class="c1"># Update the tool file paths in the drill_string.tools list</span>
+                <span class="k">if</span> <span class="n">directory</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="c1"># If publishing to a directory, use relative paths</span>
+                    <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;Property_File&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">tool</span><span class="p">[</span><span class="s1">&#39;DrillTool&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">property_file</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># If publsihing to a cdb, use the cdb path</span>
+                    <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;Property_File&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;DrillTool&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">property_file</span>
             
             <span class="c1"># Copy the topdrive file</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">top_drive</span><span class="p">[</span><span class="s1">&#39;DrillTool&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy_file</span><span class="p">(</span><span class="n">cdb</span><span class="o">=</span><span class="n">cdb</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="n">directory</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">top_drive</span><span class="p">[</span><span class="s1">&#39;Property_File&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_drive</span><span class="p">[</span><span class="s1">&#39;DrillTool&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">property_file</span>
+
+            <span class="c1"># Update the top drive path in the drill_string.tools list</span>
+            <span class="k">if</span> <span class="n">directory</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># If publishing to a directory, use relative path</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">top_drive</span><span class="p">[</span><span class="s1">&#39;Property_File&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top_drive</span><span class="p">[</span><span class="s1">&#39;DrillTool&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">property_file</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># If publsihing to a cdb, use the cdb path</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">top_drive</span><span class="p">[</span><span class="s1">&#39;Property_File&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_drive</span><span class="p">[</span><span class="s1">&#39;DrillTool&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">property_file</span>
 
             <span class="c1"># Copy the hole file to the new location</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_copy_hole_file</span><span class="p">(</span><span class="n">cdb</span><span class="o">=</span><span class="n">cdb</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="n">directory</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">directory</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># If publishing to a direcotry, use relative path                </span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Hole_Property_File&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Hole_Property_File&#39;</span><span class="p">])[</span><span class="mi">1</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="n">publish_event</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
             <span class="c1"># If the string is being published with the event file, copy the</span>
             <span class="c1"># event file to the new location</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_copy_event_file</span><span class="p">(</span><span class="n">cdb</span><span class="o">=</span><span class="n">cdb</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="n">directory</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">directory</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># If publishing to a direcotry, use relative path                </span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Event_Property_File&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Event_Property_File&#39;</span><span class="p">])[</span><span class="mi">1</span><span class="p">]</span>
 
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
             <span class="c1"># Write the top of the file</span>

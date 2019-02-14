@@ -1,27 +1,28 @@
+"""Functions for manipulating adams files and data
 """
---------------------------------------------------------------------------
-Description
---------------------------------------------------------------------------
-adamspy is a set of python tools for manipulating MSC Adams files
-
---------------------------------------------------------------------------
-Author
---------------------------------------------------------------------------
-Ben Thornton (ben.thornton@mscsofware.com)
-Simulation Consultant - MSC Software
-
---------------------------------------------------------------------------
-Version
---------------------------------------------------------------------------
-v1 - 2018119
-
-"""
-
 import re
 
-def get_simdur_from_msg(msg):
+def get_simdur_from_msg(msg_file):
+    """Reads an Adams message file (.msg) and returns the total duration of the simulation.
+    
+    Parameters
+    ----------
+    msg_file : str
+        Filepath to an Adams message file (.msg)
+    
+    Raises
+    ------
+    RuntimeError
+        Returned if no simulation end time was found in the specified message file
+    
+    Returns
+    -------
+    float
+        Total duration of the simulation
+    """
+
     found = False
-    with open(msg, 'r') as fid:
+    with open(msg_file, 'r') as fid:
         for line in fid:
             if re.match(' *command: sim(ulate)?/dyn(anmic)?.*, *end *=.*', line.lower()):
                 sim_dur = float(re.split('end *=',line.lower().replace(' ',''))[-1].split(',')[0])
