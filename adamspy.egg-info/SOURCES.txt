@@ -27,5 +27,6 @@ adamspy/adripy/tiem_orbit/tool.py
 adamspy/adripy/tiem_orbit/utilities.py
 test/test_adripy_functions.py
 test/test_build.py
+test/test_drill_string.py
 test/test_drillsim.py
 test/test_tiem_orbit.py

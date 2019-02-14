@@ -139,7 +139,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for adamspy.adripy.adripy</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;a set of python tools for manipulating MSC Adams Drill files</span>
+<span></span><span class="sd">&quot;&quot;&quot;adripy contains functions for manipulating MSC Adams Drill files</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">environ</span>
 <span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">remove</span>
@@ -151,7 +151,7 @@
 <span class="kn">import</span> <span class="nn">jinja2</span>
 
 <span class="c1"># Define regular expressions</span>
-<span class="n">TO_PARAMETER_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;^ [_0-9a-zA-Z]+</span><span class="se">\\</span><span class="s1">s+=</span><span class="se">\\</span><span class="s1">s+((</span><span class="se">\&#39;</span><span class="s1">[-_0-9a-zA-Z&lt;&gt;</span><span class="se">\\\\</span><span class="s1">/</span><span class="se">\\</span><span class="s1">.]+</span><span class="se">\&#39;</span><span class="s1">)|(-?[</span><span class="se">\\</span><span class="s1">+-</span><span class="se">\\</span><span class="s1">.e0-9]+))</span><span class="se">\\</span><span class="s1">s*$&#39;</span><span class="p">)</span>
+<span class="n">TO_PARAMETER_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;^ [_0-9a-zA-Z]+</span><span class="se">\\</span><span class="s1">s+=</span><span class="se">\\</span><span class="s1">s+((</span><span class="se">\&#39;</span><span class="s1">[-:_0-9a-zA-Z&lt;&gt;</span><span class="se">\\\\</span><span class="s1">/</span><span class="se">\\</span><span class="s1">.]+</span><span class="se">\&#39;</span><span class="s1">)|(-?[</span><span class="se">\\</span><span class="s1">+-</span><span class="se">\\</span><span class="s1">.e0-9]+))</span><span class="se">\\</span><span class="s1">s*$&#39;</span><span class="p">)</span>
 
 <span class="n">env</span> <span class="o">=</span> <span class="n">jinja2</span><span class="o">.</span><span class="n">Environment</span><span class="p">(</span>
     <span class="n">loader</span><span class="o">=</span><span class="n">jinja2</span><span class="o">.</span><span class="n">PackageLoader</span><span class="p">(</span><span class="s1">&#39;adamspy.adripy&#39;</span><span class="p">,</span> <span class="s1">&#39;templates&#39;</span><span class="p">),</span>
@@ -275,10 +275,10 @@
 <span class="sd">        Full path to an Adams drill string file (include the .str extension)</span>
 <span class="sd">    tool_type : str</span>
 <span class="sd">        Tool type as seen in the string file (e.g. pdc_bit, motor, stabilizer)</span>
-<span class="sd">    n : int, optional</span>
-<span class="sd">        If the string file has multiple tools of type `tool_type`, returns the `n`th tool of that type. (the default is 1)</span>
-<span class="sd">    return_full_path :  bool, optional</span>
-<span class="sd">        If true, returns the full path to the tool file instead of using the Adams Drill database (cdb)  (the default is True)</span>
+<span class="sd">    n : int</span>
+<span class="sd">        If the string file has multiple tools of type `tool_type` , returns the `n` th tool of that type. (the default is 1)</span>
+<span class="sd">    return_full_path : bool</span>
+<span class="sd">        If true, returns the full path to the tool file instead of using the Adams Drill database (cdb). (the default is True)</span>
 <span class="sd">    </span>
 <span class="sd">    Raises</span>
 <span class="sd">    ------</span>
@@ -290,11 +290,11 @@
 <span class="sd">    str</span>
 <span class="sd">        Name of the requested tool</span>
 <span class="sd">    str</span>
-<span class="sd">        Full filepath the the requested tool&#39;s property file</span>
+<span class="sd">        Full filepath the the requested tool\&#39;s property file</span>
 <span class="sd">    int</span>
 <span class="sd">        Stack order of tool</span>
 <span class="sd">    str</span>
-<span class="sd">        Tool&#39;s group name if it has one</span>
+<span class="sd">        Tool\&#39;s group name if it has one</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">tool_found</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">fid</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">string_file</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>

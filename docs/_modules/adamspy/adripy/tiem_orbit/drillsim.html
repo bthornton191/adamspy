@@ -145,10 +145,51 @@
 <span class="kn">from</span> <span class="nn">..adripy</span> <span class="k">import</span> <span class="n">build</span>
 
 <div class="viewcode-block" id="DrillSim"><a class="viewcode-back" href="../../../../adamspy.adripy.tiem_orbit.html#adamspy.adripy.tiem_orbit.drillsim.DrillSim">[docs]</a><span class="k">class</span> <span class="nc">DrillSim</span><span class="p">():</span> <span class="c1">#pylint: disable=too-many-instance-attributes</span>
-    <span class="sd">&quot;&quot;&quot;Contains data defining the files that make up an Adams</span>
-<span class="sd">    Drill input deck.</span>
+    <span class="sd">&quot;&quot;&quot;Contains data defining the files that make up an Adams Drill input deck.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    string : DrillString</span>
+<span class="sd">        DrillString object representing the string to be used in the simulation</span>
+<span class="sd">    event : DrillEvent</span>
+<span class="sd">        DrillEvent object representing the string to be used in the simulation</span>
+<span class="sd">    solver_settings : DrillSolverSettings</span>
+<span class="sd">        DrillSolverSettings object representing the string to be used in the simulation</span>
+<span class="sd">    directory : str</span>
+<span class="sd">        Path to the directory in which to put the simulation files</span>
+<span class="sd">    analysis_name : str</span>
+<span class="sd">        Name of the analysis.  Used for all file prefixes</span>
+<span class="sd">    string_filename : str</span>
+<span class="sd">        Filename of the analysis&#39; string file </span>
+<span class="sd">    adm_filename : str</span>
+<span class="sd">        Filename of the analysis&#39; adm file </span>
+<span class="sd">    acf_filename : str</span>
+<span class="sd">        Filename of the analysis&#39; acf file</span>
+<span class="sd">    cmd_filename : str</span>
+<span class="sd">        Filename of the analysis&#39; cmd file</span>
+<span class="sd">    res_filename : str</span>
+<span class="sd">        Filename of the analysis&#39; res file</span>
+<span class="sd">    built : bool</span>
+<span class="sd">        Indicates whether the input deck (adm, acf, and cmd files) has been built yet for this DrillSim</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">solver_settings</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">analysis_name</span><span class="p">):</span> <span class="c1">#pylint: disable=too-many-arguments</span>
+        <span class="sd">&quot;&quot;&quot;Sets instance attributes and writes the string, event, and solver settings files to `directory`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        string : DrillString</span>
+<span class="sd">            DrillString object representing the string to be used in the simulation</span>
+<span class="sd">        event : DrillEvent</span>
+<span class="sd">            DrillEvent object representing the string to be used in the simulation</span>
+<span class="sd">        solver_settings : DrillSolverSettings</span>
+<span class="sd">            DrillSolverSettings object representing the string to be used in the simulation</span>
+<span class="sd">        directory : str</span>
+<span class="sd">            Path to the directory in which to put the simulation files</span>
+<span class="sd">        analysis_name : str</span>
+<span class="sd">            Name of the analysis.  Used for all file prefixes</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="n">string</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">event</span> <span class="o">=</span> <span class="n">event</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">solver_settings</span> <span class="o">=</span> <span class="n">solver_settings</span>
@@ -166,10 +207,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">built</span> <span class="o">=</span> <span class="kc">False</span>
 
 <div class="viewcode-block" id="DrillSim.build"><a class="viewcode-back" href="../../../../adamspy.adripy.tiem_orbit.html#adamspy.adripy.tiem_orbit.drillsim.DrillSim.build">[docs]</a>    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Builds the input deck</span>
+        <span class="sd">&quot;&quot;&quot;This method builds the input deck.  It launches Adams View in batch, and imports `string.filename` and `solver_settings.fileame` and runs the Adams Drill macro `ds tostart` to build a drill string model.  Then it exports that model to `directory`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Build the model</span>
-        <span class="n">adm</span><span class="p">,</span> <span class="n">acf</span><span class="p">,</span> <span class="n">cmd</span> <span class="o">=</span> <span class="n">build</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">solver_settings</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">)</span>  
+        <span class="n">adm</span><span class="p">,</span> <span class="n">acf</span><span class="p">,</span> <span class="n">cmd</span> <span class="o">=</span> <span class="n">build</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">string_filename</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">solver_settings</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">)</span>  
 
         <span class="c1"># store the new filenames as attributes</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">adm_filename</span> <span class="o">=</span> <span class="n">adm</span>
@@ -196,7 +237,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Event_Name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analysis_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">)</span>
         
-        <span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Event_Property_File&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">filename</span>        
+        <span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Event_Property_File&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">filename</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;ModelName&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analysis_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;OutputName&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analysis_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">string_filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">,</span> <span class="n">publish</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>   </div>
