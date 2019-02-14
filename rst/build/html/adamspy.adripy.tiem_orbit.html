@@ -343,15 +343,16 @@
 <em class="property">class </em><code class="descclassname">adamspy.adripy.tiem_orbit.event.</code><code class="descname">DrillEvent</code><span class="sig-paren">(</span><em>event_name</em>, <em>start_depth</em>, <em>off_bottom</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/tiem_orbit/event.html#DrillEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.tiem_orbit.event.DrillEvent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Creates an object with all data necessary to write a drill event.  Once the DrillEvent is instanced ramp parameters must be defined before the DrillEvent is written to an event file.</p>
-<p class="rubric">Notes</p>
-<p>After instancing the class, at least one simulation step must be added using the <cite>add_simulation_step()</cite> method. Also, at least one ramp must be added for each of the four drilling parameters (i.e. wob, rpm, gpm, rop) using the <cite>add_ramp()</cite> method.</p>
-<dl class="docutils">
-<dt>All other parameters in the event file can be specified when the DrillEvent is instanced using kwargs or they can be set later using:</dt>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<dl class="last docutils">
+<dt>After instancing the class, at least one simulation step must be added using the <cite>add_simulation_step()</cite> method. Also, at least one ramp must be added for each of the four drilling parameters (i.e. wob, rpm, gpm, rop) using the <cite>add_ramp()</cite> method.  All other parameters in the event file can be specified when the DrillEvent is instanced using kwargs or they can be set later using:</dt>
 <dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">drill_event</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">parameter</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 </pre></div>
 </div>
 </dd>
 </dl>
+</div>
 <dl class="attribute">
 <dt id="adamspy.adripy.tiem_orbit.event.DrillEvent.parameters">
 <code class="descname">parameters</code><a class="headerlink" href="#adamspy.adripy.tiem_orbit.event.DrillEvent.parameters" title="Permalink to this definition">¶</a></dt>

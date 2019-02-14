@@ -149,13 +149,11 @@
 <div class="viewcode-block" id="DrillEvent"><a class="viewcode-back" href="../../../../adamspy.adripy.tiem_orbit.html#adamspy.adripy.tiem_orbit.event.DrillEvent">[docs]</a><span class="k">class</span> <span class="nc">DrillEvent</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates an object with all data necessary to write a drill event.  Once the DrillEvent is instanced ramp parameters must be defined before the DrillEvent is written to an event file.  </span>
-<span class="sd">    </span>
-<span class="sd">    Notes</span>
-<span class="sd">    -----</span>
-<span class="sd">        After instancing the class, at least one simulation step must be added using the `add_simulation_step()` method. Also, at least one ramp must be added for each of the four drilling parameters (i.e. wob, rpm, gpm, rop) using the `add_ramp()` method.</span>
 
-<span class="sd">        All other parameters in the event file can be specified when the DrillEvent is instanced using kwargs or they can be set later using:             </span>
-<span class="sd">            &gt;&gt;&gt; drill_event.parameters[parameter] = value </span>
+<span class="sd">    Note</span>
+<span class="sd">    ----</span>
+<span class="sd">    After instancing the class, at least one simulation step must be added using the `add_simulation_step()` method. Also, at least one ramp must be added for each of the four drilling parameters (i.e. wob, rpm, gpm, rop) using the `add_ramp()` method.  All other parameters in the event file can be specified when the DrillEvent is instanced using kwargs or they can be set later using:</span>
+<span class="sd">        &gt;&gt;&gt; drill_event.parameters[parameter] = value </span>
 <span class="sd">    </span>
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
