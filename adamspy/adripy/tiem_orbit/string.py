@@ -309,12 +309,13 @@ class DrillString():
         ------
         ValueError
             Raised if neither directory nor cdb are given.
-        ValueError
+        RuntimeError
             Raised if not all parameters have been defined.
         """
         # Raise an error if the parameters can't be validated
-        if not self.validate():
-            raise ValueError('The parameters could not be validated.')
+        validation = self.validate()
+        if not validation['valid']:
+            raise RuntimeError('The parameters could not be validated because {}.'.format(validation['reason']))
 
         if directory is not None:
             # If the write_directory argument is passed
@@ -421,17 +422,19 @@ class DrillString():
         Determines if all parameters have been set
         
         Returns:
-            Bool -- True if all parameters have been set. Otherwise False
+            dict -- dicationary with a `valid` key with a boolean value indicating whether the string was successfully validated and a `reason` key with a str value indicating the reason (if any) that the string was not successfully validated.
         """
-        validated = True        
+        validation = {'valid': True, 'reason': ''}
         # Check that all parameters exist in the self.parameters dictionary
         for param_name in self.SCALAR_PARAMETERS:
             if param_name not in self.parameters:
-                validated = False        
+                validation['valid'] = False
+                validation['reason'] = 'Not all string parameters have been defined'
         
         # Test that the DrillString has a top_drive defined
         if not self.top_drive:
-            validated = False
+            validation['valid'] = False
+            validation['reason'] = 'The string doesn\'t have a Top Drive'
 
         # Check that the DrillString has ps, eus, and a pdc
         eus_found = False
@@ -444,10 +447,18 @@ class DrillString():
                 ps_found = True
             elif tool['Type'].lower() == 'pdc_bit':
                 pdc_found = True
-        if not all([eus_found, ps_found, pdc_found]):
-            validated = False        
-            
-        return validated            
+
+        if not eus_found:
+            validation['valid'] = False
+            validation['reason'] = 'The string doesn\'t have equivalent upper string'     
+        if not ps_found:
+            validation['valid'] = False
+            validation['reason'] = 'The string doesn\'t have physical string'                 
+        if not pdc_found:
+            validation['valid'] = False
+            validation['reason'] = 'The string doesn\'t have a bit'     
+
+        return validation   
     
     @classmethod
     def read_from_file(cls, filename):
