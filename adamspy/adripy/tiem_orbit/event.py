@@ -8,13 +8,11 @@ from ..adripy import get_cdb_location, get_cdb_path, get_full_path
 class DrillEvent():
     """
     Creates an object with all data necessary to write a drill event.  Once the DrillEvent is instanced ramp parameters must be defined before the DrillEvent is written to an event file.  
-    
-    Notes
-    -----
-        After instancing the class, at least one simulation step must be added using the `add_simulation_step()` method. Also, at least one ramp must be added for each of the four drilling parameters (i.e. wob, rpm, gpm, rop) using the `add_ramp()` method.
 
-        All other parameters in the event file can be specified when the DrillEvent is instanced using kwargs or they can be set later using:             
-            >>> drill_event.parameters[parameter] = value 
+    Note
+    ----
+    After instancing the class, at least one simulation step must be added using the `add_simulation_step()` method. Also, at least one ramp must be added for each of the four drilling parameters (i.e. wob, rpm, gpm, rop) using the `add_ramp()` method.  All other parameters in the event file can be specified when the DrillEvent is instanced using kwargs or they can be set later using:
+        >>> drill_event.parameters[parameter] = value 
     
     Attributes
     ----------
