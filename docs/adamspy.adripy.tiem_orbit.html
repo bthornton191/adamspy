@@ -830,7 +830,7 @@ string file.</dd>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Once the DrillString is instanced tools within the string must be defined as DrillTool objects before the string is written to an string file.</p>
+<p class="last">Once the DrillString is instanced tools within the string must be defined as DrillTool objects before the string is written to a string file.  Use the <cite>add_tool()</cite> method to add DrillTool objects to the string.</p>
 </div>
 <dl class="attribute">
 <dt id="adamspy.adripy.tiem_orbit.string.DrillString.parameters">
@@ -1048,15 +1048,12 @@ string file.</dd>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>{DrillTool} -- An adripy DrillTool object.</strong> (<em>tool</em>) – </p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first last simple">
-<li><strong>{int} -- Number of Joints</strong> (<em>joints</em>) – {1})</li>
-<li><strong>{str} -- 'on'</strong><strong> or </strong><strong>'off'</strong><strong> (</strong><strong>default</strong> (<em>measure</em>) – {‘no’})</li>
-<li><strong>{int} -- If an integer is given the tool will be inserted into the string at that point.  Otherwise it will be appended</strong><strong> (</strong><strong>default</strong> (<em>stack_order</em>) – {None})</li>
-<li><strong>{str} -- The color used to render the tool in an Adams Drill animation.</strong><strong> (</strong><strong>default</strong> (<em>color</em>) – {‘Default’})</li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>tool</strong> (<a class="reference internal" href="#adamspy.adripy.tiem_orbit.tool.DrillTool" title="adamspy.adripy.tiem_orbit.tool.DrillTool"><em>DrillTool</em></a>) – DrillTool object representing the tool to be added</li>
+<li><strong>joints</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Number of Joints. Note that this only applies for certain tool types. (default is 1)</li>
+<li><strong>measure</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – If TRUE indicates that output requests should be generated for this tool.  (default is FALSE)</li>
+<li><strong>stack_order</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – If an integer is given the tool will be inserted into the string at that point. (default is None and the tool will be appended to the end)</li>
+<li><strong>color</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The color used to render the tool in an Adams Drill animation. (default is ‘Default’)</li>
 </ul>
 </td>
 </tr>
