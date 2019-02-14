@@ -19,7 +19,7 @@ class DrillString():
 
     Note
     ----
-    Once the DrillString is instanced tools within the string must be defined as DrillTool objects before the string is written to an string file.  
+    Once the DrillString is instanced tools within the string must be defined as DrillTool objects before the string is written to a string file.  Use the `add_tool()` method to add DrillTool objects to the string.
 
     Attributes
     ----------
@@ -105,14 +105,18 @@ class DrillString():
         """
         Adds a DrillTool object to the DrillString.
         
-        Arguments:
-            tool {DrillTool} -- An adripy DrillTool object.
-        
-        Keyword Arguments:
-            joints {int} -- Number of Joints (only applies for certain tool types) (default: {1})
-            measure {str} -- 'on' or 'off' (default: {'no'})
-            stack_order {int} -- If an integer is given the tool will be inserted into the string at that point.  Otherwise it will be appended (default: {None})
-            color {str} -- The color used to render the tool in an Adams Drill animation. (default: {'Default'})
+        Parameters
+        ----------
+        tool : DrillTool
+            DrillTool object representing the tool to be added        
+        joints : int
+            Number of Joints. Note that this only applies for certain tool types. (default is 1)
+        measure : bool
+            If TRUE indicates that output requests should be generated for this tool.  (default is FALSE)
+        stack_order : int
+            If an integer is given the tool will be inserted into the string at that point. (default is None and the tool will be appended to the end)
+        color : str
+            The color used to render the tool in an Adams Drill animation. (default is 'Default')
         """
         # Check that the group_name argument is givn
         if drill_tool.tool_type.lower() in self.MULTI_JOINT_TOOLS and group_name is None:
@@ -126,7 +130,7 @@ class DrillString():
                 'DrillTool': drill_tool,
                 'Name': None,
                 'Property_File': drill_tool.property_file,
-                'Measure': measure,
+                'Measure': 'yes' if measure else 'no',
                 'Color': color,
                 'Number_of_Joints': joints,
                 'Stack_Order': None
