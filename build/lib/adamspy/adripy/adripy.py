@@ -10,7 +10,7 @@ import thornpy
 import jinja2
 
 # Define regular expressions
-TO_PARAMETER_PATTERN = re.compile('^ [_0-9a-zA-Z]+\\s+=\\s+((\'[-_0-9a-zA-Z<>\\\\/\\.]+\')|(-?[\\+-\\.e0-9]+))\\s*$')
+TO_PARAMETER_PATTERN = re.compile('^ [_0-9a-zA-Z]+\\s+=\\s+((\'[-:_0-9a-zA-Z<>\\\\/\\.]+\')|(-?[\\+-\\.e0-9]+))\\s*$')
 
 env = jinja2.Environment(
     loader=jinja2.PackageLoader('adamspy.adripy', 'templates'),
