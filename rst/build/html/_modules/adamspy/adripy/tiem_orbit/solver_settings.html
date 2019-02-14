@@ -148,6 +148,30 @@
 <span class="kn">from</span> <span class="nn">..adripy</span> <span class="k">import</span> <span class="n">get_cdb_location</span><span class="p">,</span> <span class="n">get_cdb_path</span><span class="p">,</span> <span class="n">get_full_path</span>
 
 <div class="viewcode-block" id="DrillSolverSettings"><a class="viewcode-back" href="../../../../adamspy.adripy.tiem_orbit.html#adamspy.adripy.tiem_orbit.solver_settings.DrillSolverSettings">[docs]</a><span class="k">class</span> <span class="nc">DrillSolverSettings</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Creates an object with all data necessary to write an Adams Drill solver settings (.ssf) file. </span>
+<span class="sd">    </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : str</span>
+<span class="sd">        Name of the solver settings object</span>
+<span class="sd">    parameters : dict</span>
+<span class="sd">        Dictionary of parameters that make up an Adams Drill solver settings and would be found in an Adams Drill solver settings file (.ssf).  The keys of the dictionary are the parameter names that would be seen in the string file and the values of the dictionary are the values that would be seen in the string file.</span>
+<span class="sd">    filename : str</span>
+<span class="sd">        Name of the solver settings file (.ssf) in which these solver settings are stored.  This attribute is initially empty and is populated by the `write_to_file()` method.</span>
+<span class="sd">    SCALAR_PARAMETERS : list</span>
+<span class="sd">        A class attribute listing the names of all scalar parameters found in an Adams Drill solver settings file.</span>
+<span class="sd">    DEFAULT_PARAMETER_SCALARS : dict</span>
+<span class="sd">        A class attribute defining defaults for some of the string parameters.</span>
+<span class="sd">    ARRAY_PARAMETERS : list </span>
+<span class="sd">        A class attribute listing the names of all array parameters found in an Adams Drill solver settings file.</span>
+<span class="sd">    DEFAULT_PARAMETER_ARRAYS : dict</span>
+<span class="sd">        A class attribute defining defaults for some of the string parameters.</span>
+<span class="sd">    CDB_TABLE : str</span>
+<span class="sd">        A class attribute defining the cdb table to be used for Adams Drill solver settings files (.ssf)</span>
+<span class="sd">    EXT : str</span>
+<span class="sd">        A class attribute defining the extension of the Adams Drill string files.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
 
     <span class="n">SCALAR_PARAMETERS</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;Integrator&#39;</span><span class="p">,</span>

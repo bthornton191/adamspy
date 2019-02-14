@@ -7,6 +7,30 @@ from .utilities import read_TO_file
 from ..adripy import get_cdb_location, get_cdb_path, get_full_path
 
 class DrillSolverSettings():
+    """Creates an object with all data necessary to write an Adams Drill solver settings (.ssf) file. 
+    
+    Attributes
+    ----------
+    name : str
+        Name of the solver settings object
+    parameters : dict
+        Dictionary of parameters that make up an Adams Drill solver settings and would be found in an Adams Drill solver settings file (.ssf).  The keys of the dictionary are the parameter names that would be seen in the string file and the values of the dictionary are the values that would be seen in the string file.
+    filename : str
+        Name of the solver settings file (.ssf) in which these solver settings are stored.  This attribute is initially empty and is populated by the `write_to_file()` method.
+    SCALAR_PARAMETERS : list
+        A class attribute listing the names of all scalar parameters found in an Adams Drill solver settings file.
+    DEFAULT_PARAMETER_SCALARS : dict
+        A class attribute defining defaults for some of the string parameters.
+    ARRAY_PARAMETERS : list 
+        A class attribute listing the names of all array parameters found in an Adams Drill solver settings file.
+    DEFAULT_PARAMETER_ARRAYS : dict
+        A class attribute defining defaults for some of the string parameters.
+    CDB_TABLE : str
+        A class attribute defining the cdb table to be used for Adams Drill solver settings files (.ssf)
+    EXT : str
+        A class attribute defining the extension of the Adams Drill string files.
+    """
+    
 
     SCALAR_PARAMETERS = [
         'Integrator',

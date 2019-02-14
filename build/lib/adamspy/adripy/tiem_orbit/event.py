@@ -128,9 +128,12 @@ class DrillEvent():
         """
         Adds a dynamic simulation step.
         
-        Arguments:
-            end_time {float} -- End time of the step.
-            output_step_size {foat} -- Output step size of the step. Defaults to 0.05.
+        Parameters
+        ----------
+        end_time : float
+            End time of the step in seconds.
+        output_step_size : foat
+            Output step size of the step in seconds. (defaults is 0.05)
         """
         if clear_existing:
             self.parameters['DYNAMICS'] = [[],[]]
@@ -141,12 +144,18 @@ class DrillEvent():
     def add_ramp(self, parameter, start_time, ramp_duration, delta, clear_existing=False):
         """Adds a ramp to the specified ramp parameter
         
-        Arguments:
-            parameter {string} -- ramp parameter, options are 'TOP_DRIVE', 'WOB', 'PUMP_FLOW', of 'ROP'
-            start_time {float} -- Start time of the ramp.
-            ramp_duration {float} -- Duration of the ramp.
-            delta {float} -- Delta of the ramp.
-            clear_existing {bool} -- If true, existing ramps for the specified parameter will be deleted.
+        Paramters
+        ---------
+        parameter : string
+            ramp parameter, options are 'TOP_DRIVE', 'WOB', 'PUMP_FLOW', of 'ROP'
+        start_time : float
+            Start time of the ramp.
+        ramp_duration : float
+            Duration of the ramp.
+        delta : float
+            Delta of the ramp.
+        clear_existing : bool
+            If true, existing ramps for the specified parameter will be deleted.
         """
         if clear_existing:
             self.parameters[parameter] = [[],[],[]]
@@ -158,13 +167,19 @@ class DrillEvent():
     def write_to_file(self, directory=None, filename=None, cdb=None):
         """Creates an event file from the DrillEvent object.
         
-        Keyword Arguments:
-            write_directory {string} -- (OPTIONAL) Directory in which to write the file. Defaults to current working directory.
-            filename {string} -- (OPTIONAL) Name of the file to write.  Defaults to self.parameters['EVENT_NAME']
-            cdb {string} -- (OPTIONAL) Name of the cdb in which to write the file.  This argument overrides the write_directory.
+        Parameters
+        ----------
+        write_directory : str
+            Directory in which to write the file. Defaults to current working directory.
+        filename : str
+            Name of the file to write.  Defaults to self.parameters['EVENT_NAME']
+        cdb : str
+            Name of the cdb in which to write the file.  This argument overrides the write_directory.
         
-        Raises:
-            ValueError -- Raised if not all parameters have been defined.
+        Raises
+        ------
+        ValueError
+            Raised if not all parameters have been defined.
         """
         # Raise an error if the parameters can't be validated
         if not self.validate():
