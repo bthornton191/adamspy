@@ -1,6 +1,5 @@
 import unittest
 import os
-import re
 from test import *
 
 # Set the ADRILL_USER_CFG and ADRILL_SHARED_CFG environment variables

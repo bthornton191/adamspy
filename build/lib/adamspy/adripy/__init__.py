@@ -1,14 +1,19 @@
 """adripy is a set of python tools for manipulating MSC Adams Drill files and data.
-
-Available subpackages
----------------------
-tiem_orbit
-    Classes representing adams drill objects. (Events, Strings, Stabilizers, ect.)
-
-Available modules
------------------
-adripy
-    Functions for manipulating MSC Adams Drill files
 """
-from .adripy import *
-from . import tiem_orbit
+from .utilities import * 
+
+import jinja2
+
+TMPLT_ENV = jinja2.Environment(
+    loader=jinja2.PackageLoader('adamspy.adripy', 'templates'),
+    autoescape=False,
+    keep_trailing_newline=True,
+    trim_blocks=True,
+    lstrip_blocks=True
+)
+
+from .tool import DrillTool
+from .event import DrillEvent
+from .string import DrillString
+from .solver_settings import DrillSolverSettings
+from .drillsim import DrillSim

@@ -17,14 +17,14 @@ class Test_Build(unittest.TestCase):
             pass
         
         # Create DrillString object
-        string = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, hole_file=TEST_HOLE_FILE, event_file=TEST_EVENT_FILE)
+        string = adripy.DrillString(TEST_STRING_NAME, hole_file=TEST_HOLE_FILE, event_file=TEST_EVENT_FILE)
         
         # Create DrillTools objects
-        pdc_bit = adripy.tiem_orbit.DrillTool(TEST_PDC_FILE)
-        stabilizer = adripy.tiem_orbit.DrillTool(TEST_STABILIZER_FILE)
-        drill_pipe = adripy.tiem_orbit.DrillTool(TEST_DRILLPIPE_FILE)
-        eus = adripy.tiem_orbit.DrillTool(TEST_EUS_FILE)
-        top_drive = adripy.tiem_orbit.DrillTool(TEST_TOP_DRIVE_FILE)
+        pdc_bit = adripy.DrillTool(TEST_PDC_FILE)
+        stabilizer = adripy.DrillTool(TEST_STABILIZER_FILE)
+        drill_pipe = adripy.DrillTool(TEST_DRILLPIPE_FILE)
+        eus = adripy.DrillTool(TEST_EUS_FILE)
+        top_drive = adripy.DrillTool(TEST_TOP_DRIVE_FILE)
         
         # Add DrillTools to string
         string.add_tool(pdc_bit)
@@ -37,7 +37,7 @@ class Test_Build(unittest.TestCase):
         string_file = string.write_to_file(TEST_WORKING_DIRECTORY)
         
         # Create DrillSolverSettings object
-        solver_settings = adripy.tiem_orbit.DrillSolverSettings('baseline_settings')
+        solver_settings = adripy.DrillSolverSettings('baseline_settings')
 
         # Write the solver settings file
         solver_settings_file = solver_settings.write_to_file(TEST_SOLVER_SETTINGS_NAME, directory=TEST_WORKING_DIRECTORY)

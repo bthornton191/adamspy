@@ -19,25 +19,25 @@ class Test_DrillString(unittest.TestCase):
         adripy.create_cfg_file(TEST_CONFIG_FILENAME, [TEST_DATABASE_PATH, TEST_NEW_DATABASE_PATH])
         
         # Create a DrillTool object representing a stabilizer
-        self.pdc_bit = adripy.tiem_orbit.DrillTool(TEST_PDC_FILE)
+        self.pdc_bit = adripy.DrillTool(TEST_PDC_FILE)
 
         # Create a DrillTool object representing a stabilizer
-        self.stabilizer = adripy.tiem_orbit.DrillTool(TEST_STABILIZER_FILE)
+        self.stabilizer = adripy.DrillTool(TEST_STABILIZER_FILE)
 
         # Create a DrillTool object representing a drill pipe
-        self.drill_pipe = adripy.tiem_orbit.DrillTool(TEST_DRILLPIPE_FILE)
+        self.drill_pipe = adripy.DrillTool(TEST_DRILLPIPE_FILE)
 
         # Create a DrillTool object representing EUS
-        self.eus = adripy.tiem_orbit.DrillTool(TEST_EUS_FILE)
+        self.eus = adripy.DrillTool(TEST_EUS_FILE)
         
         # Create a DrillTool object representing a top drive
-        self.top_drive = adripy.tiem_orbit.DrillTool(TEST_TOP_DRIVE_FILE)
+        self.top_drive = adripy.DrillTool(TEST_TOP_DRIVE_FILE)
 
     def test_add_tool(self):
         """Test the DrillString.add_tool() method.
         """
         # Create a DrillString object
-        drill_string = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
 
         # Add the DrillTool object to the DrillString object
         drill_string.add_tool(self.stabilizer)
@@ -60,7 +60,7 @@ class Test_DrillString(unittest.TestCase):
         """Test the DrillString.write_to_file() method.
         """
         # Create a DrillString object
-        drill_string = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
 
         # Add the DrillTool objects to the DrillString object
         drill_string.add_tool(self.pdc_bit, measure='yes')
@@ -82,7 +82,7 @@ class Test_DrillString(unittest.TestCase):
         """Test the DrillString.write_to_file() method with publish=True
         """
         # Create a DrillString object
-        drill_string = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
 
         # Add the DrillTool objects to the DrillString object
         drill_string.add_tool(self.pdc_bit, measure='yes')
@@ -124,7 +124,7 @@ class Test_DrillString(unittest.TestCase):
 
         # Read new parameters into the drill string object from a file
         string_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str')
-        drill_string_from_file = adripy.tiem_orbit.DrillString.read_from_file(string_file)
+        drill_string_from_file = adripy.DrillString.read_from_file(string_file)
         
         # Remove some keys from the parameters dictionary
         drill_string_from_file.parameters.pop('_Distance_from_Bit')
@@ -146,7 +146,7 @@ class Test_DrillString(unittest.TestCase):
 
         # Read new parameters into the drill string object from a file
         string_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str')
-        drill_string_from_file = adripy.tiem_orbit.DrillString.read_from_file(string_file)
+        drill_string_from_file = adripy.DrillString.read_from_file(string_file)
         
         # Get the first tool
         actual_tool = drill_string_from_file.tools[0]
@@ -171,7 +171,7 @@ class Test_DrillString(unittest.TestCase):
 
         # Read new parameters into the drill string object from a file
         string_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str')
-        drill_string_from_file = adripy.tiem_orbit.DrillString.read_from_file(string_file)
+        drill_string_from_file = adripy.DrillString.read_from_file(string_file)
 
         # Get the first tool
         actual_tool = drill_string_from_file.tools[0]
@@ -196,7 +196,7 @@ class Test_DrillString(unittest.TestCase):
 
         # Read new parameters into the drill string object from a file
         string_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str')
-        drill_string_from_file = adripy.tiem_orbit.DrillString.read_from_file(string_file)
+        drill_string_from_file = adripy.DrillString.read_from_file(string_file)
         
         # Get the first tool
         actual_tool = drill_string_from_file.tools[-1]
@@ -217,7 +217,7 @@ class Test_DrillString(unittest.TestCase):
 
         # Read new parameters into the drill string object from a file
         string_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str')
-        drill_string_from_file = adripy.tiem_orbit.DrillString.read_from_file(string_file)
+        drill_string_from_file = adripy.DrillString.read_from_file(string_file)
         
         # Get the first tool
         bit = drill_string_from_file.tools[0]['DrillTool']
@@ -243,7 +243,7 @@ class Test_DrillString(unittest.TestCase):
 
         # Read new parameters into the drill string object from a file
         string_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str')
-        drill_string_from_file = adripy.tiem_orbit.DrillString.read_from_file(string_file)
+        drill_string_from_file = adripy.DrillString.read_from_file(string_file)
         
         # Get the first tool
         bit = drill_string_from_file.tools[-1]['DrillTool']
@@ -266,7 +266,7 @@ class Test_DrillString(unittest.TestCase):
 
         # Read new parameters into the drill string object from a file
         string_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str')
-        drill_string_from_file = adripy.tiem_orbit.DrillString.read_from_file(string_file)
+        drill_string_from_file = adripy.DrillString.read_from_file(string_file)
         
         actual_n_tools = len(drill_string_from_file.tools)
 
@@ -277,10 +277,10 @@ class Test_DrillString(unittest.TestCase):
         """Tests that DrillString.get_tool() returns the correct value.
         """
         # Create a DrillString object
-        drill_string = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
 
         # Define a new stabilizer object
-        different_stabilizer  = adripy.tiem_orbit.DrillTool(TEST_STABILIZER_FILE)
+        different_stabilizer  = adripy.DrillTool(TEST_STABILIZER_FILE)
 
         # Add the DrillTool objects to the DrillString object
         drill_string.add_tool(self.pdc_bit, measure='yes')
@@ -298,10 +298,10 @@ class Test_DrillString(unittest.TestCase):
         """Tests that DrillString.get_tool() returns the correct value.
         """
         # Create a DrillString object
-        drill_string = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
         
         # Define a new stabilizer object
-        different_stabilizer  = adripy.tiem_orbit.DrillTool(TEST_STABILIZER_FILE)
+        different_stabilizer  = adripy.DrillTool(TEST_STABILIZER_FILE)
         
         # Add the DrillTool objects to the DrillString object
         drill_string.add_tool(self.pdc_bit, measure='yes')
@@ -319,10 +319,10 @@ class Test_DrillString(unittest.TestCase):
         """Tests that DrillString.get_tool() returns the correct value.
         """
         # Create a DrillString object
-        drill_string = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
         
         # Define a new stabilizer object
-        different_stabilizer  = adripy.tiem_orbit.DrillTool(TEST_STABILIZER_FILE)
+        different_stabilizer  = adripy.DrillTool(TEST_STABILIZER_FILE)
         
         # Add the DrillTool objects to the DrillString object
         drill_string.add_tool(self.pdc_bit, measure='yes')
@@ -340,10 +340,10 @@ class Test_DrillString(unittest.TestCase):
         """Tests that DrillString.get_tool() returns the correct value.
         """
         # Create a DrillString object
-        drill_string = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
         
         # Define a new stabilizer object
-        different_stabilizer  = adripy.tiem_orbit.DrillTool(TEST_STABILIZER_FILE)
+        different_stabilizer  = adripy.DrillTool(TEST_STABILIZER_FILE)
         
         # Add the DrillTool objects to the DrillString object
         drill_string.add_tool(self.pdc_bit, measure='yes')
@@ -363,7 +363,7 @@ class Test_DrillString(unittest.TestCase):
         """
         expected_joints = 100
         # Create a DrillString object
-        drill_string = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
 
         # Add the DrillTool objects to the DrillString object
         drill_string.add_tool(self.pdc_bit, measure='yes')
@@ -385,7 +385,7 @@ class Test_DrillString(unittest.TestCase):
         """
         expected_joints = 100
         # Create a DrillString object
-        drill_string = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
 
         # Add the DrillTool objects to the DrillString object
         drill_string.add_tool(self.pdc_bit, measure='yes')
@@ -405,7 +405,7 @@ class Test_DrillString(unittest.TestCase):
         """Tests that DrillString.get_bha_length() returns the correct length.
         """
         # Create a DrillString object
-        drill_string = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
 
         # Add the DrillTool objects to the DrillString object
         drill_string.add_tool(self.pdc_bit, measure='yes')

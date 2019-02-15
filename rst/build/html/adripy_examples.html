@@ -1,0 +1,274 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Examples &mdash; adamspy 0.6.5 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> adamspy
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Examples</a></li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">adamspy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Examples</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/adripy_examples.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
+<p>This example shows how to create an adams drill input deck (acf, adm, and cmd files).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADRILL_USER_CFG&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;C:</span><span class="se">\\</span><span class="s1">users</span><span class="se">\\</span><span class="s1">bthornt</span><span class="se">\\</span><span class="s1">.adrill.cfg&#39;</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADRILL_SHARED_CFG&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;C:</span><span class="se">\\</span><span class="s1">MSC.Software</span><span class="se">\\</span><span class="s1">Adams</span><span class="se">\\</span><span class="s1">2018</span><span class="se">\\</span><span class="s1">adrill</span><span class="se">\\</span><span class="s1">adrill.cfg&#39;</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADAMS_LAUNCH_COMMAND&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;C:</span><span class="se">\\</span><span class="s1">MSC.Software</span><span class="se">\\</span><span class="s1">Adams</span><span class="se">\\</span><span class="s1">2018</span><span class="se">\\</span><span class="s1">common</span><span class="se">\\</span><span class="s1">mdi.bat&#39;</span>
+
+<span class="c1"># Import the adripy module from the adamspy package</span>
+<span class="kn">from</span> <span class="nn">adamspy</span> <span class="kn">import</span> <span class="n">adripy</span>
+
+<span class="c1"># --------------------------</span>
+<span class="c1"># Create a DrillEvent object</span>
+<span class="c1"># --------------------------</span>
+<span class="c1"># Instance the DrillEvent class</span>
+<span class="n">my_event</span> <span class="o">=</span> <span class="n">adripy</span><span class="o">.</span><span class="n">DrillEvent</span><span class="p">(</span><span class="s1">&#39;My_Event&#39;</span><span class="p">,</span> <span class="mi">1300</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># Add simulations steps to the event file</span>
+<span class="n">my_event</span><span class="o">.</span><span class="n">add_simulation_step</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">my_event</span><span class="o">.</span><span class="n">add_simulation_step</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="n">output_step_size</span><span class="o">=.</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Add drilling parameter ramps to the event file</span>
+<span class="n">my_event</span><span class="o">.</span><span class="n">add_ramp</span><span class="p">(</span><span class="s1">&#39;PUMP_FLOW&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="n">clear_existing</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">my_event</span><span class="o">.</span><span class="n">add_ramp</span><span class="p">(</span><span class="s1">&#39;TOP_DRIVE&#39;</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">clear_existing</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">my_event</span><span class="o">.</span><span class="n">add_ramp</span><span class="p">(</span><span class="s1">&#39;WOB&#39;</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">clear_existing</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">my_event</span><span class="o">.</span><span class="n">add_ramp</span><span class="p">(</span><span class="s1">&#39;ROP&#39;</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">clear_existing</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="c1"># Write event to an event file (.evt)</span>
+<span class="n">my_event</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+
+<span class="c1"># --------------------------</span>
+<span class="c1"># Build a DrillString object</span>
+<span class="c1"># --------------------------</span>
+<span class="c1"># Set the path to a hole file</span>
+<span class="n">hole_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;&lt;adrill_shared&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;holes.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;SmoothCurve_hole.hol&#39;</span><span class="p">)</span>
+
+<span class="c1"># Instance the DrillString class</span>
+<span class="n">my_string</span> <span class="o">=</span> <span class="n">adripy</span><span class="o">.</span><span class="n">DrillString</span><span class="p">(</span><span class="s1">&#39;MyString&#39;</span><span class="p">,</span> <span class="n">hole_file</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+<span class="c1"># Create some tools and add them to the drill string</span>
+<span class="n">pdc</span> <span class="o">=</span> <span class="n">adripy</span><span class="o">.</span><span class="n">DrillTool</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;&lt;adrill_shared&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;pdc_bits.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;SC_Acme_Co_695b.pdc&#39;</span><span class="p">))</span>
+<span class="n">my_string</span><span class="o">.</span><span class="n">add_tool</span><span class="p">(</span><span class="n">pdc</span><span class="p">)</span>
+
+<span class="n">motor</span> <span class="o">=</span> <span class="n">adripy</span><span class="o">.</span><span class="n">DrillTool</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;&lt;adrill_shared&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;motors.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;SS_M567833.mot&#39;</span><span class="p">))</span>
+<span class="n">my_string</span><span class="o">.</span><span class="n">add_tool</span><span class="p">(</span><span class="n">motor</span><span class="p">,</span> <span class="n">measure</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">stab</span> <span class="o">=</span> <span class="n">adripy</span><span class="o">.</span><span class="n">DrillTool</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;&lt;adrill_shared&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;stabilizers.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;SC_lower_stab.sta&#39;</span><span class="p">))</span>
+<span class="n">my_string</span><span class="o">.</span><span class="n">add_tool</span><span class="p">(</span><span class="n">stab</span><span class="p">,</span> <span class="n">measure</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">drillpipe</span> <span class="o">=</span> <span class="n">adripy</span><span class="o">.</span><span class="n">DrillTool</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;&lt;adrill_shared&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;drill_pipes.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;SC_drillpipe17.pip&#39;</span><span class="p">))</span>
+<span class="n">my_string</span><span class="o">.</span><span class="n">add_tool</span><span class="p">(</span><span class="n">drillpipe</span><span class="p">,</span> <span class="n">measure</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">joints</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">group_name</span><span class="o">=</span><span class="s1">&#39;physical_drillpipe&#39;</span><span class="p">)</span>
+
+<span class="n">eus</span> <span class="o">=</span> <span class="n">adripy</span><span class="o">.</span><span class="n">DrillTool</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;&lt;adrill_shared&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;drill_pipes.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;SC_NC50_5in.pip&#39;</span><span class="p">))</span>
+<span class="n">my_string</span><span class="o">.</span><span class="n">add_tool</span><span class="p">(</span><span class="n">eus</span><span class="p">,</span> <span class="n">measure</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">joints</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">group_name</span><span class="o">=</span><span class="s1">&#39;equivalent_drillpipe&#39;</span> <span class="p">,</span><span class="n">equivalent</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">top_drive</span> <span class="o">=</span> <span class="n">adripy</span><span class="o">.</span><span class="n">DrillTool</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;&lt;adrill_shared&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;top_drives.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;SmoothCurve_TopDrive.tdr&#39;</span><span class="p">))</span>
+<span class="n">my_string</span><span class="o">.</span><span class="n">add_tool</span><span class="p">(</span><span class="n">top_drive</span><span class="p">)</span>
+
+<span class="c1"># ----------------------------------</span>
+<span class="c1"># Build a DrillSolverSettings object</span>
+<span class="c1"># ----------------------------------</span>
+<span class="c1"># Instance the DrillSolverSettings class</span>
+<span class="n">my_solversettings</span> <span class="o">=</span> <span class="n">adripy</span><span class="o">.</span><span class="n">DrillSolverSettings</span><span class="p">(</span><span class="s1">&#39;MySolverSettings&#39;</span><span class="p">)</span>
+
+<span class="c1"># ------------------------------------------</span>
+<span class="c1"># Create a DrillSim object and build a model</span>
+<span class="c1"># ------------------------------------------</span>
+<span class="c1"># Instance the DrillSim class</span>
+<span class="n">sim_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s1">&#39;drillsim&#39;</span><span class="p">)</span>
+
+<span class="n">my_drillsim</span> <span class="o">=</span> <span class="n">adripy</span><span class="o">.</span><span class="n">DrillSim</span><span class="p">(</span><span class="n">my_string</span><span class="p">,</span> <span class="n">my_event</span><span class="p">,</span> <span class="n">my_solversettings</span><span class="p">,</span> <span class="n">sim_directory</span><span class="p">,</span> <span class="s1">&#39;MyAnalysis&#39;</span><span class="p">)</span>
+
+<span class="c1"># Build Input Deck (adm, acf, cmd files)</span>
+<span class="n">my_drillsim</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Ben Thornton
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

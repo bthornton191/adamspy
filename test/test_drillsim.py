@@ -1,4 +1,4 @@
-"""Tests related to the tiem_orbit.DrillSim class
+"""Tests related to the DrillSim class
 """
 
 import unittest
@@ -10,10 +10,10 @@ os.environ['ADRILL_USER_CFG'] = os.path.join(os.environ['USERPROFILE'], '.adrill
 os.environ['ADAMS_LAUNCH_COMMAND'] = os.path.join('C:\\', 'MSC.Software', 'Adams', '2018', 'common', 'mdi.bat')
     
 from adamspy import adripy #pylint: disable=wrong-import-position
-from adamspy.adripy.tiem_orbit import DrillSim #pylint: disable=wrong-import-position
+from adamspy.adripy import DrillSim #pylint: disable=wrong-import-position
 
 class Test_DrillSim(unittest.TestCase):
-    """Tests related to the tiem_orbit.DrillSim class
+    """Tests related to the DrillSim class
     """
     maxDiff = None
 
@@ -22,22 +22,22 @@ class Test_DrillSim(unittest.TestCase):
         adripy.create_cfg_file(TEST_CONFIG_FILENAME, [TEST_DATABASE_PATH, TEST_NEW_DATABASE_PATH])
         
         # Create a DrillTool object representing a stabilizer
-        self.pdc_bit = adripy.tiem_orbit.DrillTool(TEST_PDC_FILE)
+        self.pdc_bit = adripy.DrillTool(TEST_PDC_FILE)
 
         # Create a DrillTool object representing a stabilizer
-        self.stabilizer = adripy.tiem_orbit.DrillTool(TEST_STABILIZER_FILE)
+        self.stabilizer = adripy.DrillTool(TEST_STABILIZER_FILE)
 
         # Create a DrillTool object representing a drill pipe
-        self.drill_pipe = adripy.tiem_orbit.DrillTool(TEST_DRILLPIPE_FILE)
+        self.drill_pipe = adripy.DrillTool(TEST_DRILLPIPE_FILE)
 
         # Create a DrillTool object representing EUS
-        self.eus = adripy.tiem_orbit.DrillTool(TEST_EUS_FILE)
+        self.eus = adripy.DrillTool(TEST_EUS_FILE)
         
         # Create a DrillTool object representing a top drive
-        self.top_drive = adripy.tiem_orbit.DrillTool(TEST_TOP_DRIVE_FILE)
+        self.top_drive = adripy.DrillTool(TEST_TOP_DRIVE_FILE)
 
         # Create a DrillString object
-        self.drill_string = adripy.tiem_orbit.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        self.drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
 
         # Add the DrillTool objects to the DrillString object
         self.drill_string.add_tool(self.pdc_bit, measure='yes')
@@ -47,10 +47,16 @@ class Test_DrillSim(unittest.TestCase):
         self.drill_string.add_tool(self.top_drive)
 
         # Create an event object
-        self.event = adripy.tiem_orbit.DrillEvent(TEST_EVENT_NAME,2000, 3)
+        self.event = adripy.DrillEvent(TEST_EVENT_NAME,2000, 3)
+        self.event.add_simulation_step(10)
+        self.event.add_simulation_step(100)
+        self.event.add_ramp('PUMP_FLOW', 0, 15, 500)
+        self.event.add_ramp('TOP_DRIVE', 15, 15, 60)
+        self.event.add_ramp('WOB', 30, 15, 50)
+        self.event.add_ramp('ROP', 30, 15, 100)
 
         # Create a solver settings object
-        self.solver_settings = adripy.tiem_orbit.DrillSolverSettings(TEST_SOLVER_SETTINGS_NAME)
+        self.solver_settings = adripy.DrillSolverSettings(TEST_SOLVER_SETTINGS_NAME)
 
     def test_write_tiem_orbit_files_event_filename(self):
         """Tests that DrillSim.event has the correct event filename 
@@ -166,6 +172,19 @@ class Test_DrillSim(unittest.TestCase):
             actual_contents.remove(os.path.join(drill_sim.directory, 'aview.loq'))
 
         self.assertListEqual(sorted(actual_contents), sorted(expected_contents))    
+
+    def test_build_evt_contents(self):
+        """Tests that the event file created in the DrillSim directory has the correct contents.        
+        """
+
+        drill_sim = DrillSim(self.drill_string, self.event, self.solver_settings, TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME)
+        
+        drill_sim.build()
+
+        evt_file = os.path.join(TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME + '.evt')
+        failures = check_file_contents(evt_file, EXPECTED_DRILLSIM_EVENT_FILE_TEXT)
+
+        self.assertListEqual([], failures)
 
     def tearDown(self):
         # Remove the test cfg file if it exists

@@ -1,0 +1,827 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>adamspy.adripy.string &mdash; adamspy 0.6.5 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> adamspy
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">adamspy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>adamspy.adripy.string</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for adamspy.adripy.string</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Contains the DrillString class</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">TMPLT_ENV</span>
+<span class="kn">from</span> <span class="nn">.tool</span> <span class="k">import</span> <span class="n">DrillTool</span>
+<span class="kn">from</span> <span class="nn">.utilities</span> <span class="k">import</span> <span class="n">read_TO_file</span><span class="p">,</span> <span class="n">get_cdb_location</span><span class="p">,</span> <span class="n">get_cdb_path</span><span class="p">,</span> <span class="n">get_full_path</span><span class="p">,</span> <span class="n">TO_LENGTH_PARAM</span>
+
+<div class="viewcode-block" id="DrillString"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString">[docs]</a><span class="k">class</span> <span class="nc">DrillString</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates an object with all data necessary to write a drill string.      </span>
+<span class="sd">    </span>
+<span class="sd">    Parameters in the string file can be specified when the DrillString is instanced using kwargs or they can be set later using: </span>
+<span class="sd">        </span>
+<span class="sd">        &gt;&gt;&gt; drill_string.parameters[parameter] = value    </span>
+
+<span class="sd">    Note</span>
+<span class="sd">    ----</span>
+<span class="sd">    Once the DrillString is instanced tools within the string must be defined as DrillTool objects before the string is written to a string file.  Use the `add_tool()` method to add DrillTool objects to the string.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    parameters : dict</span>
+<span class="sd">        Dictionary of parameters that make up an Adams Drill string and would be found in an Adams Drill string file (.str).  The keys of the dictionary are the parameter names that would be seen in the string file and the values of the dictionary are the values that would be seen in the string file.</span>
+<span class="sd">    tools : list</span>
+<span class="sd">        List of tools in the drill string.  Each element of the list is a dictionary with the keys &#39;DrillTool&#39;, &#39;Name&#39;, &#39;Property_File&#39;, &#39;Measure&#39;, &#39;Color&#39;, &#39;Number_of_Joints&#39;, and &#39;Stack_Order&#39;.</span>
+<span class="sd">    top_drive : dict</span>
+<span class="sd">        Describes the top drive.  The keys are &#39;DrillTool&#39;, &#39;Type&#39;, &#39;Name&#39;, and &#39;Property_File&#39;.</span>
+<span class="sd">    SCALAR_PARAMETERS : list</span>
+<span class="sd">        A class attribute listing the names of all scalar parameters found in an Adams Drill string file.</span>
+<span class="sd">    DEFAULT_PARAMETER_SCALARS : dict</span>
+<span class="sd">        A class attribute defining defaults for some of the string parameters.</span>
+<span class="sd">    ARRAY_PARAMETERS : list </span>
+<span class="sd">        A class attribute listing the names of all array parameters found in an Adams Drill string file.</span>
+<span class="sd">    DEFAULT_PARAMETER_ARRAYS : dict</span>
+<span class="sd">        A class attribute defining defaults for some of the string parameters.</span>
+<span class="sd">    CDB_TABLE : str</span>
+<span class="sd">        A class attribute defining the cdb table to be used for Adams Drill string files (.str)</span>
+<span class="sd">    EXT : str</span>
+<span class="sd">        A class attribute defining the extension of the Adams Drill string files.</span>
+<span class="sd">    MULTI_JOINT_TOOLS : list</span>
+<span class="sd">        A class attribute listing all the tool types that need to have `Number_of_Joints` defined in the Adams Drill string file.</span>
+<span class="sd">    DRILL_TOOL_PATTERN : SRE_Pattern</span>
+<span class="sd">        A :class:`_sre.SRE_Pattern` object defining the pattern of the Drill Tool block header in the string file.    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">SCALAR_PARAMETERS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;Units&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;ModelName&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;OutputName&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Gravity&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Deviation_Deg&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Adams_Results&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Adams_Requests&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;SolverDLL&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Hole_Property_File&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Contact_Method&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Cyl_Drag_Coeff&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Hole_Color&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Event_Property_File&#39;</span>
+    <span class="p">]</span>
+    <span class="n">DEFAULT_PARAMETER_SCALARS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;Units&#39;</span><span class="p">:</span> <span class="s1">&#39;Imperial&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Gravity&#39;</span><span class="p">:</span> <span class="mf">32.187</span><span class="p">,</span>
+        <span class="s1">&#39;Deviation_Deg&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+        <span class="s1">&#39;Adams_Results&#39;</span><span class="p">:</span> <span class="s1">&#39;animation&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Adams_Requests&#39;</span><span class="p">:</span> <span class="s1">&#39;on&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Adams_Graphics&#39;</span><span class="p">:</span> <span class="s1">&#39;off&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;SolverDLL&#39;</span><span class="p">:</span> <span class="s1">&#39;adrill_solver&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Contact_Method&#39;</span><span class="p">:</span> <span class="s1">&#39;Subroutine&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Cyl_Drag_Coeff&#39;</span><span class="p">:</span> <span class="mf">1.2</span><span class="p">,</span>
+        <span class="s1">&#39;Hole_Color&#39;</span><span class="p">:</span> <span class="s1">&#39;LtGray&#39;</span>
+    <span class="p">}</span>
+
+    <span class="n">ARRAY_PARAMETERS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;Distance_from_Bit&#39;</span>
+    <span class="p">]</span>
+
+    <span class="n">DEFAULT_PARAMETER_ARRAYS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;Distance_from_Bit&#39;</span><span class="p">:</span> <span class="p">[]</span>
+    <span class="p">}</span>
+
+    <span class="n">CDB_TABLE</span> <span class="o">=</span> <span class="s1">&#39;drill_strings.tbl&#39;</span>
+    <span class="n">EXT</span> <span class="o">=</span> <span class="s1">&#39;str&#39;</span>
+    <span class="n">MULTI_JOINT_TOOLS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;hw_pipe&#39;</span><span class="p">,</span> <span class="s1">&#39;drillpipe&#39;</span><span class="p">,</span> <span class="s1">&#39;equivalent_upper_string&#39;</span><span class="p">]</span>
+    
+    <span class="n">DRILL_TOOL_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;^DRILL_TOOL_[0-9]</span><span class="si">{2}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string_name</span><span class="p">,</span> <span class="n">hole_file</span><span class="p">,</span> <span class="n">event_file</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="n">kwargs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;ModelName&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">string_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;OutputName&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">string_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Hole_Property_File&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_cdb_path</span><span class="p">(</span><span class="n">hole_file</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Event_Property_File&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_cdb_path</span><span class="p">(</span><span class="n">event_file</span><span class="p">)</span>
+                        
+        <span class="bp">self</span><span class="o">.</span><span class="n">_apply_defaults</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">tools</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">top_drive</span> <span class="o">=</span> <span class="p">{}</span>
+
+<div class="viewcode-block" id="DrillString.add_tool"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.add_tool">[docs]</a>    <span class="k">def</span> <span class="nf">add_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">drill_tool</span><span class="p">,</span> <span class="n">joints</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">measure</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">stack_order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Default&#39;</span><span class="p">,</span> <span class="n">group_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">equivalent</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds a DrillTool object to the DrillString.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        tool : DrillTool</span>
+<span class="sd">            DrillTool object representing the tool to be added        </span>
+<span class="sd">        joints : int</span>
+<span class="sd">            Number of Joints. Note that this only applies for certain tool types. (default is 1)</span>
+<span class="sd">        measure : bool</span>
+<span class="sd">            If TRUE indicates that output requests should be generated for this tool.  (default is FALSE)</span>
+<span class="sd">        stack_order : int</span>
+<span class="sd">            If an integer is given the tool will be inserted into the string at that point. (default is None and the tool will be appended to the end)</span>
+<span class="sd">        color : str</span>
+<span class="sd">            The color used to render the tool in an Adams Drill animation. (default is &#39;Default&#39;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Check that the group_name argument is givn</span>
+        <span class="k">if</span> <span class="n">drill_tool</span><span class="o">.</span><span class="n">tool_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">MULTI_JOINT_TOOLS</span> <span class="ow">and</span> <span class="n">group_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;group_name is required for tools of type </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MULTI_JOINT_TOOLS</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)))</span>
+        
+        <span class="k">if</span> <span class="n">drill_tool</span><span class="o">.</span><span class="n">tool_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">&#39;top_drive&#39;</span><span class="p">:</span>
+            <span class="c1"># If the tool added IS NOT a top_drive</span>
+
+            <span class="c1"># Create a dictionary describing the tool</span>
+            <span class="n">tool</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;DrillTool&#39;</span><span class="p">:</span> <span class="n">drill_tool</span><span class="p">,</span>
+                <span class="s1">&#39;Name&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="s1">&#39;Property_File&#39;</span><span class="p">:</span> <span class="n">drill_tool</span><span class="o">.</span><span class="n">property_file</span><span class="p">,</span>
+                <span class="s1">&#39;Measure&#39;</span><span class="p">:</span> <span class="s1">&#39;yes&#39;</span> <span class="k">if</span> <span class="n">measure</span> <span class="k">else</span> <span class="s1">&#39;no&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Color&#39;</span><span class="p">:</span> <span class="n">color</span><span class="p">,</span>
+                <span class="s1">&#39;Number_of_Joints&#39;</span><span class="p">:</span> <span class="n">joints</span><span class="p">,</span>
+                <span class="s1">&#39;Stack_Order&#39;</span><span class="p">:</span> <span class="kc">None</span>
+            <span class="p">}</span>
+            
+            <span class="c1"># set tool[&#39;Name&#39;] to equivalent_upper_string if equivalent=True</span>
+            <span class="k">if</span> <span class="n">drill_tool</span><span class="o">.</span><span class="n">tool_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;drillpipe&#39;</span> <span class="ow">and</span> <span class="n">equivalent</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>                
+                <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;Type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;equivalent_upper_string&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;Type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">drill_tool</span><span class="o">.</span><span class="n">tool_type</span>
+
+            <span class="c1"># Set tool[&#39;Name&#39;] equal to the group name if this is a multi joint tool</span>
+            <span class="k">if</span> <span class="n">drill_tool</span><span class="o">.</span><span class="n">tool_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">MULTI_JOINT_TOOLS</span><span class="p">:</span>
+                <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">group_name</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">drill_tool</span><span class="o">.</span><span class="n">name</span>
+
+            <span class="c1"># If the stack order is not given append to the end otherwise insert accordingly</span>
+            <span class="k">if</span> <span class="n">stack_order</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tool</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">stack_order</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">tool</span><span class="p">)</span>
+            
+            <span class="c1"># Set Stack Orders equal to place in list</span>
+            <span class="k">for</span> <span class="n">order</span><span class="p">,</span> <span class="n">tool</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tools</span><span class="p">):</span>
+                <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;Stack_Order&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">order</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># If the tool added IS a top_drive</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top_drive</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;DrillTool&#39;</span><span class="p">:</span> <span class="n">drill_tool</span><span class="p">,</span>
+                <span class="s1">&#39;Type&#39;</span><span class="p">:</span> <span class="n">drill_tool</span><span class="o">.</span><span class="n">tool_type</span><span class="p">,</span>
+                <span class="s1">&#39;Name&#39;</span><span class="p">:</span> <span class="n">drill_tool</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="s1">&#39;Property_File&#39;</span><span class="p">:</span> <span class="n">drill_tool</span><span class="o">.</span><span class="n">property_file</span>
+            <span class="p">}</span></div>
+    
+<div class="viewcode-block" id="DrillString.set_pipe_joints"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.set_pipe_joints">[docs]</a>    <span class="k">def</span> <span class="nf">set_pipe_joints</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">joints</span><span class="p">,</span> <span class="n">equivalent</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets the number of joints in the upper most section of</span>
+<span class="sd">        drill pipe. Set pipe_type=&#39;equivalent&#39; to adjust equivalent</span>
+<span class="sd">        upper string joints&#39;</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">            joints {int}           -- Number of physical drill </span>
+<span class="sd">                                      pipe joints.</span>
+<span class="sd">            equivalent {str}       -- False for physical</span>
+<span class="sd">                                      string. True for </span>
+<span class="sd">                                      equivalent upper string.</span>
+<span class="sd">                                      Default=False</span>
+<span class="sd">        </span>
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">            DrillStringError       -- Raised if the drill string</span>
+<span class="sd">                                      doesn&#39;t have drill pipe </span>
+<span class="sd">                                      of the specified type.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Check that the pipe type argument was passed correctly</span>
+
+        <span class="n">tool_type</span> <span class="o">=</span> <span class="s1">&#39;equivalent_upper_string&#39;</span> <span class="k">if</span> <span class="n">equivalent</span> <span class="k">else</span> <span class="s1">&#39;drillpipe&#39;</span>
+
+        <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tools</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;Type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">tool_type</span><span class="p">:</span>
+                <span class="c1"># set the number of joints</span>
+                <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;Number_of_Joints&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">joints</span>
+                <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">break</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>          
+            <span class="k">raise</span> <span class="n">DrillStringError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;There is no </span><span class="si">{tool_type}</span><span class="s1"> in this string!&#39;</span><span class="p">)</span>        </div>
+    
+<div class="viewcode-block" id="DrillString.get_tool"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.get_tool">[docs]</a>    <span class="k">def</span> <span class="nf">get_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tool_type</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a DrillTool object of type tool_type in the </span>
+<span class="sd">        DrillString object&#39;s tools list.  </span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        tool_type : str</span>
+<span class="sd">            Desired tool type.       </span>
+<span class="sd">        </span>
+<span class="sd">        instance : str or int</span>
+<span class="sd">            If &#39;first&#39;, will take the first instance.  If &#39;last&#39;, will take the last instance. If an integer N is given, will take the Nth instance. (the default is &#39;first&#39;)</span>
+<span class="sd">        </span>
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        DrillStringError</span>
+<span class="sd">            Raised if a tools of the specified type does not exist in the drill string.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        DrillTool</span>
+<span class="sd">            DrillTool object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tools_found</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tools</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;Type&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">tool_type</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span><span class="nb">str</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">instance</span><span class="o">==</span><span class="s1">&#39;first&#39;</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;DrillTool&#39;</span><span class="p">]</span>
+                    <span class="k">elif</span> <span class="n">instance</span><span class="o">==</span><span class="s1">&#39;last&#39;</span><span class="p">:</span>
+                        <span class="n">tools_found</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tool</span><span class="p">[</span><span class="s1">&#39;DrillTool&#39;</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tools_found</span><span class="p">)</span><span class="o">==</span><span class="n">instance</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;DrillTool&#39;</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">tools_found</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tool</span><span class="p">[</span><span class="s1">&#39;DrillTool&#39;</span><span class="p">])</span>
+
+        
+        <span class="c1"># Raise an error if no tools were found</span>
+        <span class="k">if</span> <span class="n">tools_found</span> <span class="o">==</span> <span class="p">[]:</span>
+            <span class="k">raise</span> <span class="n">DrillStringError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;No tool of type </span><span class="si">{tool_type}</span><span class="s1"> was found!&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">instance</span><span class="o">==</span><span class="s1">&#39;last&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">tools_found</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
+        
+<div class="viewcode-block" id="DrillString.get_bha_length"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.get_bha_length">[docs]</a>    <span class="k">def</span> <span class="nf">get_bha_length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the total length of the drill string defined in </span>
+<span class="sd">        string_file NOT including the equivalent upper string and </span>
+<span class="sd">        highest most physical string.</span>
+<span class="sd">        </span>
+<span class="sd">                        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float : Cumulative length of the bha    </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Get a list of the drill pipe tools in the string</span>
+        <span class="n">drill_pipe_tools</span> <span class="o">=</span> <span class="p">[</span><span class="n">tool</span> <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tools</span> <span class="k">if</span> <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;Type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;drillpipe&#39;</span><span class="p">]</span>
+
+        <span class="c1"># Initialize a list of tool lengths</span>
+        <span class="n">tool_lengths</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tools</span><span class="p">:</span>        
+            <span class="c1"># for each tool in the tools list</span>
+            <span class="k">if</span> <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;Type&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;equivalent_upper_string&#39;</span> <span class="ow">and</span> <span class="n">tool</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">drill_pipe_tools</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="c1"># If this isn&#39;t equivalent upper string or the last drill pipe tool</span>
+                <span class="n">lnth_params</span> <span class="o">=</span> <span class="n">TO_LENGTH_PARAM</span><span class="p">[</span><span class="n">tool</span><span class="p">[</span><span class="s1">&#39;Type&#39;</span><span class="p">]]</span>
+                <span class="n">lengths</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">lnth_param</span> <span class="ow">in</span> <span class="n">lnth_params</span><span class="p">:</span>
+                    <span class="n">length</span> <span class="o">=</span> <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;DrillTool&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get_parameter_value</span><span class="p">(</span><span class="n">lnth_param</span><span class="p">)</span>
+                    <span class="n">lengths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
+                <span class="n">tool_length</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">lengths</span><span class="p">)</span>
+                <span class="n">joints</span> <span class="o">=</span> <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;Number_of_Joints&#39;</span><span class="p">]</span>
+                <span class="n">tool_lengths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tool_length</span><span class="o">*</span><span class="n">joints</span><span class="p">)</span>        
+        
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">tool_lengths</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="DrillString.add_measurement_point"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.add_measurement_point">[docs]</a>    <span class="k">def</span> <span class="nf">add_measurement_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">distance</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds a measurement point at the given distance from the bit in feet.</span>
+<span class="sd">        </span>
+<span class="sd">        Arguments:</span>
+<span class="sd">            distance {float} -- Distance from the bit (in feet) at which to place a measurement point.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Distance_from_Bit&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">distance</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Distance_from_Bit&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span></div>
+        
+<div class="viewcode-block" id="DrillString.write_to_file"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.write_to_file">[docs]</a>    <span class="k">def</span> <span class="nf">write_to_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cdb</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">publish</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">publish_event</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Writes a string file from the DrillString object.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">            There are no required parameters.  However, either `directory` or `cdb` must be defined.  Otherwise `write_to_file()` raises a ValueError.</span>
+
+<span class="sd">            When publishing to a directory, relative paths will be used for all filenames in the string file.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        write_directory : str</span>
+<span class="sd">            Directory in which to write the file. (default is None which means the string will be written to the cdb given in `cdb`.)</span>
+<span class="sd">        cdb : str</span>
+<span class="sd">            Name of the cdb in which to write the file.  This argument is overridden by `directory`. (default is None which means the string will be written to the directory in `directory` and will use the filename in `filename`.)  </span>
+<span class="sd">        publish : bool</span>
+<span class="sd">            If true, writes all the supporting files to the same cdb. (default is False.)</span>
+<span class="sd">        </span>
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            Raised if neither directory nor cdb are given.</span>
+<span class="sd">        RuntimeError</span>
+<span class="sd">            Raised if not all parameters have been defined.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Raise an error if the parameters can&#39;t be validated</span>
+        <span class="n">validation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;valid&#39;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;The parameters could not be validated because </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">validation</span><span class="p">[</span><span class="s1">&#39;reason&#39;</span><span class="p">]))</span>
+
+        <span class="k">if</span> <span class="n">directory</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># If the write_directory argument is passed</span>
+            <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># If the filename argument is not passed, set the filename</span>
+                <span class="c1"># as the Event_Name in the file</span>
+                <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;ModelName&#39;</span><span class="p">]</span>
+                
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># If the filename argument is passed, strip the path and the </span>
+                <span class="c1"># extension</span>
+                <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;.</span><span class="si">{self.EXT}</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            
+            <span class="c1"># Set the filepath to the filename in the given directory</span>
+            <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{filename}</span><span class="s1">.</span><span class="si">{self.EXT}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+            <span class="c1"># Set cdb to None to ensure that the directory argument overwrites it</span>
+            <span class="n">cdb</span> <span class="o">=</span> <span class="kc">None</span>
+        
+        <span class="k">elif</span> <span class="n">cdb</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># If the write_directory argument is not passed, but the cdb</span>
+            <span class="c1"># argument is</span>
+
+            <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># If the filename argument is not passed, set the filename</span>
+                <span class="c1"># as the Event_Name in the file</span>
+                <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;ModelName&#39;</span><span class="p">]</span>
+            
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># If the filename argument is passed, strip the path and the </span>
+                <span class="c1"># extension</span>
+                <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;.</span><span class="si">{self.EXT}</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            
+            <span class="c1"># Set the filepath to the file in the cdb</span>
+            <span class="n">filepath</span> <span class="o">=</span> <span class="n">get_full_path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;&lt;</span><span class="si">{cdb}</span><span class="s1">&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">CDB_TABLE</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{filename}</span><span class="s1">.</span><span class="si">{self.EXT}</span><span class="s1">&#39;</span><span class="p">))</span>        
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># If neither directory nor cdb is given, raise an error</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Ether directory or cdb must be passed.&#39;</span><span class="p">)</span>
+                      
+        <span class="c1"># Define templates</span>
+        <span class="n">string_template_1</span> <span class="o">=</span> <span class="n">TMPLT_ENV</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;template_1.</span><span class="si">{self.EXT}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">string_template_2</span> <span class="o">=</span> <span class="n">TMPLT_ENV</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;template_2.</span><span class="si">{self.EXT}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">string_template_3</span> <span class="o">=</span> <span class="n">TMPLT_ENV</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;template_3.</span><span class="si">{self.EXT}</span><span class="s1">&#39;</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">publish</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="c1"># If the string is being published, copy all the tools to the new </span>
+            <span class="c1"># cdb or directory</span>
+            <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tools</span><span class="p">:</span>      
+                <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;DrillTool&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy_file</span><span class="p">(</span><span class="n">cdb</span><span class="o">=</span><span class="n">cdb</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="n">directory</span><span class="p">)</span>
+
+                <span class="c1"># Update the tool file paths in the drill_string.tools list</span>
+                <span class="k">if</span> <span class="n">directory</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="c1"># If publishing to a directory, use relative paths</span>
+                    <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;Property_File&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">tool</span><span class="p">[</span><span class="s1">&#39;DrillTool&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">property_file</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># If publsihing to a cdb, use the cdb path</span>
+                    <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;Property_File&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;DrillTool&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">property_file</span>
+            
+            <span class="c1"># Copy the topdrive file</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top_drive</span><span class="p">[</span><span class="s1">&#39;DrillTool&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy_file</span><span class="p">(</span><span class="n">cdb</span><span class="o">=</span><span class="n">cdb</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="n">directory</span><span class="p">)</span>
+
+            <span class="c1"># Update the top drive path in the drill_string.tools list</span>
+            <span class="k">if</span> <span class="n">directory</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># If publishing to a directory, use relative path</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">top_drive</span><span class="p">[</span><span class="s1">&#39;Property_File&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top_drive</span><span class="p">[</span><span class="s1">&#39;DrillTool&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">property_file</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># If publsihing to a cdb, use the cdb path</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">top_drive</span><span class="p">[</span><span class="s1">&#39;Property_File&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_drive</span><span class="p">[</span><span class="s1">&#39;DrillTool&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">property_file</span>
+
+            <span class="c1"># Copy the hole file to the new location</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_copy_hole_file</span><span class="p">(</span><span class="n">cdb</span><span class="o">=</span><span class="n">cdb</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="n">directory</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">directory</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># If publishing to a direcotry, use relative path                </span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Hole_Property_File&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Hole_Property_File&#39;</span><span class="p">])[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">publish_event</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="c1"># If the string is being published with the event file, copy the</span>
+            <span class="c1"># event file to the new location</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_copy_event_file</span><span class="p">(</span><span class="n">cdb</span><span class="o">=</span><span class="n">cdb</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="n">directory</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">directory</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># If publishing to a direcotry, use relative path                </span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Event_Property_File&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Event_Property_File&#39;</span><span class="p">])[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+            <span class="c1"># Write the top of the file</span>
+            <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">string_template_1</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">))</span>
+            
+            <span class="c1"># Write the tool blocks</span>
+            <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tools</span><span class="p">:</span>
+                <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">string_template_2</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">tool</span><span class="p">,</span> <span class="n">Multi_Joint_Tools</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">MULTI_JOINT_TOOLS</span><span class="p">))</span>
+
+            <span class="c1"># Write the top_of_string block</span>
+            <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">string_template_3</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top_drive</span><span class="p">))</span>
+        
+        <span class="k">return</span> <span class="n">get_cdb_path</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="DrillString.validate"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Determines if all parameters have been set</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            dict -- dicationary with a `valid` key with a boolean value indicating whether the string was successfully validated and a `reason` key with a str value indicating the reason (if any) that the string was not successfully validated.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">validation</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;valid&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;reason&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">}</span>
+        <span class="c1"># Check that all parameters exist in the self.parameters dictionary</span>
+        <span class="k">for</span> <span class="n">param_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">SCALAR_PARAMETERS</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">param_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
+                <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;valid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;reason&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;not all string parameters have been defined&#39;</span>
+        
+        <span class="c1"># Test that the DrillString has a top_drive defined</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_drive</span><span class="p">:</span>
+            <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;valid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;reason&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;the string doesn</span><span class="se">\&#39;</span><span class="s1">t have a Top Drive&#39;</span>
+
+        <span class="c1"># Check that the DrillString has ps, eus, and a pdc</span>
+        <span class="n">eus_found</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">ps_found</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">pdc_found</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tools</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;Type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;equivalent_upper_string&#39;</span><span class="p">:</span>
+                <span class="n">eus_found</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">elif</span> <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;Type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;drillpipe&#39;</span><span class="p">:</span>
+                <span class="n">ps_found</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">elif</span> <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;Type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;pdc_bit&#39;</span><span class="p">:</span>
+                <span class="n">pdc_found</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">eus_found</span><span class="p">:</span>
+            <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;valid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;reason&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;the string doesn</span><span class="se">\&#39;</span><span class="s1">t have equivalent upper string&#39;</span>     
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">ps_found</span><span class="p">:</span>
+            <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;valid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;reason&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;the string doesn</span><span class="se">\&#39;</span><span class="s1">t have physical string&#39;</span>                 
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">pdc_found</span><span class="p">:</span>
+            <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;valid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;reason&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;the string doesn</span><span class="se">\&#39;</span><span class="s1">t have a bit&#39;</span>     
+
+        <span class="k">return</span> <span class="n">validation</span>   </div>
+    
+<div class="viewcode-block" id="DrillString.read_from_file"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.read_from_file">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">read_from_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Reads a string file and returns a DrillString object</span>
+<span class="sd">        with DrillString.parameters based on data in the string </span>
+<span class="sd">        file.</span>
+<span class="sd">        </span>
+<span class="sd">        Arguments:</span>
+<span class="sd">            filename {str} -- Filename of a .str file.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            {DrillString} -- DrillString object with parameters</span>
+<span class="sd">                             from the passed string file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Read the TO data into a dictionary</span>
+        <span class="n">tiem_orbit_data</span> <span class="o">=</span> <span class="n">read_TO_file</span><span class="p">(</span><span class="n">get_full_path</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+
+        <span class="n">drill_string</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        
+        <span class="c1"># Extract the DrillString parameters from the TO dictionary        </span>
+        <span class="n">drill_string</span><span class="o">.</span><span class="n">_get_params_from_TO_data</span><span class="p">(</span><span class="n">tiem_orbit_data</span><span class="p">)</span> <span class="c1">#pylint: disable=protected-access</span>
+
+        <span class="c1"># Extract the DrillTools from the TO dictionary</span>
+        <span class="n">drill_string</span><span class="o">.</span><span class="n">_get_tools_from_TO_data</span><span class="p">(</span><span class="n">tiem_orbit_data</span><span class="p">)</span> <span class="c1">#pylint: disable=protected-access</span>
+
+        <span class="k">return</span> <span class="n">drill_string</span></div>
+
+    <span class="k">def</span> <span class="nf">_apply_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Applies defaults from class variables</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Applies normal parameter defaults</span>
+        <span class="k">for</span> <span class="n">scalar_parameter</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_PARAMETER_SCALARS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">scalar_parameter</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">scalar_parameter</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+        <span class="c1"># Applies defaults to all ramp parameters</span>
+        <span class="k">for</span> <span class="n">array_parameter</span><span class="p">,</span> <span class="n">array</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_PARAMETER_ARRAYS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">array_parameter</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">array_parameter</span><span class="p">]</span> <span class="o">=</span> <span class="n">array</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">array_parameter</span><span class="p">]</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">array_parameter</span><span class="p">])</span>
+    
+    <span class="k">def</span> <span class="nf">_copy_hole_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cdb</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Copys the hole file to a new locations.  Must give directory OR cdb.</span>
+<span class="sd">        </span>
+<span class="sd">        Keyword Arguments:</span>
+<span class="sd">            directory {string} -- Directory to put the copied hole file (default: {None})</span>
+<span class="sd">            cdb {string} -- Name of cdb to put the copied hole file (default: {None})</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Check that directory or cdb was given.</span>
+        <span class="k">if</span> <span class="n">cdb</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">directory</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Either directory or cdb is required!&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Get the hole name from the current file</span>
+        <span class="n">hole_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Hole_Property_File&#39;</span><span class="p">])[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">DrillTool</span><span class="o">.</span><span class="n">DATABASE_INFO</span><span class="p">[</span><span class="s1">&#39;hole&#39;</span><span class="p">][</span><span class="s1">&#39;extension&#39;</span><span class="p">],</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">DrillTool</span><span class="o">.</span><span class="n">DATABASE_INFO</span><span class="p">[</span><span class="s1">&#39;hole&#39;</span><span class="p">][</span><span class="s1">&#39;extension&#39;</span><span class="p">]</span>
+
+        <span class="c1"># Set the new filename</span>
+        <span class="k">if</span> <span class="n">cdb</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">new_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_cdb_location</span><span class="p">(</span><span class="n">cdb</span><span class="p">),</span> <span class="n">DrillTool</span><span class="o">.</span><span class="n">DATABASE_INFO</span><span class="p">[</span><span class="s1">&#39;hole&#39;</span><span class="p">][</span><span class="s1">&#39;table&#39;</span><span class="p">],</span> <span class="n">hole_name</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">new_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">hole_name</span><span class="p">)</span>
+
+        <span class="c1"># Copy the file</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="n">get_full_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Hole_Property_File&#39;</span><span class="p">]),</span> <span class="n">new_filename</span><span class="p">)</span>
+
+        <span class="c1"># Change the hole filename in the self.parameters dictionary</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Hole_Property_File&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_cdb_path</span><span class="p">(</span><span class="n">new_filename</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">_copy_event_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cdb</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Copys the event file to a new locations.  Must give directory OR cdb.</span>
+<span class="sd">        </span>
+<span class="sd">        Keyword Arguments:</span>
+<span class="sd">            directory {string} -- Directory to put the copied event file (default: {None})</span>
+<span class="sd">            cdb {string} -- Name of cdb to put the copied event file (default: {None})</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Check that directory or cdb was given.</span>
+        <span class="k">if</span> <span class="n">cdb</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">directory</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Either directory or cdb is required!&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Get the event name from the current file</span>
+        <span class="n">event_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Event_Property_File&#39;</span><span class="p">])[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">DrillTool</span><span class="o">.</span><span class="n">DATABASE_INFO</span><span class="p">[</span><span class="s1">&#39;event&#39;</span><span class="p">][</span><span class="s1">&#39;extension&#39;</span><span class="p">],</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">DrillTool</span><span class="o">.</span><span class="n">DATABASE_INFO</span><span class="p">[</span><span class="s1">&#39;event&#39;</span><span class="p">][</span><span class="s1">&#39;extension&#39;</span><span class="p">]</span>
+
+        <span class="c1"># Set the new filename</span>
+        <span class="k">if</span> <span class="n">cdb</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">new_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_cdb_location</span><span class="p">(</span><span class="n">cdb</span><span class="p">),</span> <span class="n">DrillTool</span><span class="o">.</span><span class="n">DATABASE_INFO</span><span class="p">[</span><span class="s1">&#39;event&#39;</span><span class="p">][</span><span class="s1">&#39;table&#39;</span><span class="p">],</span> <span class="n">event_name</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">new_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">event_name</span><span class="p">)</span>
+
+        <span class="c1"># Copy the file</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="n">get_full_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Event_Property_File&#39;</span><span class="p">]),</span> <span class="n">new_filename</span><span class="p">)</span>
+
+        <span class="c1"># Change the event filename in the self.parameters dictionary</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Event_Property_File&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_cdb_path</span><span class="p">(</span><span class="n">new_filename</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">_get_tools_from_TO_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tiem_orbit_data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Reads the tools in the string out of a dictoinary of Tiem Orbit</span>
+<span class="sd">        data generated by adripy.utilities.read_TO_file()</span>
+<span class="sd">        </span>
+<span class="sd">        Arguments:</span>
+<span class="sd">            tiem_orbit_data {dict} -- Dictionary of Tiem Orbit data</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Add the tools</span>
+        <span class="n">drill_tool_blocks</span> <span class="o">=</span> <span class="p">[</span><span class="n">block</span> <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">tiem_orbit_data</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">DRILL_TOOL_PATTERN</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">block</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">drill_tool_blocks</span><span class="p">:</span>
+            <span class="c1"># For each drill tool block, create a DrillTool object</span>
+            <span class="n">tool</span> <span class="o">=</span> <span class="n">DrillTool</span><span class="p">(</span><span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="s1">&#39;property_file&#39;</span><span class="p">])</span>
+
+            <span class="c1"># Check if the tool as a number_of_joints parameter</span>
+            <span class="k">if</span> <span class="s1">&#39;number_of_joints&#39;</span> <span class="ow">in</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">]:</span>
+                <span class="n">joints</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="s1">&#39;number_of_joints&#39;</span><span class="p">]</span>
+                <span class="n">group_name</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+                
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">joints</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">group_name</span> <span class="o">=</span> <span class="kc">None</span>
+            
+            <span class="c1"># Check if the tool is equivalent upper string</span>
+            <span class="n">equivalent</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="s1">&#39;equivalent&#39;</span> <span class="ow">in</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="s1">&#39;type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">else</span> <span class="kc">False</span>
+
+            <span class="c1"># Add the tool to the tools list</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_tool</span><span class="p">(</span><span class="n">tool</span><span class="p">,</span> <span class="n">joints</span><span class="o">=</span><span class="n">joints</span><span class="p">,</span> <span class="n">measure</span><span class="o">=</span><span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="s1">&#39;measure&#39;</span><span class="p">],</span> <span class="n">group_name</span><span class="o">=</span><span class="n">group_name</span><span class="p">,</span> <span class="n">stack_order</span><span class="o">=</span><span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="s1">&#39;stack_order&#39;</span><span class="p">],</span> <span class="n">equivalent</span><span class="o">=</span><span class="n">equivalent</span><span class="p">)</span>
+        
+        <span class="c1"># Add the top drive</span>
+        <span class="n">top_drive</span> <span class="o">=</span> <span class="n">DrillTool</span><span class="p">(</span><span class="n">tiem_orbit_data</span><span class="p">[</span><span class="s1">&#39;TOP_DRIVE&#39;</span><span class="p">][</span><span class="s1">&#39;property_file&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_tool</span><span class="p">(</span><span class="n">top_drive</span><span class="p">)</span>
+
+    
+    <span class="k">def</span> <span class="nf">_get_params_from_TO_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tiem_orbit_data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Reads the string parameters out of a dictoinary of Tiem Orbit</span>
+<span class="sd">        data generated by adripy.utilities.read_TO_file()</span>
+<span class="sd">        </span>
+<span class="sd">        Arguments:</span>
+<span class="sd">            tiem_orbit_data {dict} -- Dictionary of Tiem Orbit data</span>
+<span class="sd">        </span>
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError -- A string parameter could not be found</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">SCALAR_PARAMETERS</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ARRAY_PARAMETERS</span><span class="p">:</span>
+            <span class="c1"># For each string parameter initialize a found flag</span>
+            <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+        
+            <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">tiem_orbit_data</span><span class="p">:</span>
+                <span class="c1"># For each block in the TO file</span>
+
+                <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">]:</span>
+                    <span class="c1"># If the parameter is in this block, set the parameter and break the loop</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="n">param</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+                    <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="k">break</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># If the parameter is not in this block, find all the sub blocks </span>
+                    <span class="c1"># and look for the parameter inside each sub block</span>
+                    <span class="n">sub_blocks</span> <span class="o">=</span> <span class="p">[</span><span class="n">header</span> <span class="k">for</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="n">header</span><span class="p">],</span> <span class="nb">dict</span><span class="p">)]</span>
+                    
+                    <span class="k">for</span> <span class="n">sub_block</span> <span class="ow">in</span> <span class="n">sub_blocks</span><span class="p">:</span>
+                        <span class="c1"># For each sub_block in the block</span>
+
+                        <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="n">sub_block</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                            <span class="c1"># If the parameter is in the sub block, set the parameter and break the loop</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="n">sub_block</span><span class="p">][</span><span class="n">param</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+                            <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+                            <span class="k">break</span>
+                    
+                    <span class="k">if</span> <span class="n">found</span><span class="p">:</span>
+                        <span class="k">break</span>
+            
+            <span class="c1"># Raise a value error if the parameter isn&#39;t found.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{param}</span><span class="s1"> not found!&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DrillStringError"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillStringError">[docs]</a><span class="k">class</span> <span class="nc">DrillStringError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Ben Thornton
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

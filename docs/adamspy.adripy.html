@@ -79,14 +79,14 @@
               <!-- Local TOC -->
               <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">adamspy.adripy package</a><ul>
-<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-adamspy.adripy.adripy">adamspy.adripy.adripy module</a></li>
-<li><a class="reference internal" href="#module-adamspy.adripy">Module contents</a><ul>
-<li><a class="reference internal" href="#available-subpackages">Available subpackages</a></li>
-<li><a class="reference internal" href="#available-modules">Available modules</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#module-adamspy.adripy.drillsim">adamspy.adripy.drillsim module</a></li>
+<li><a class="reference internal" href="#module-adamspy.adripy.event">adamspy.adripy.event module</a></li>
+<li><a class="reference internal" href="#module-adamspy.adripy.solver_settings">adamspy.adripy.solver_settings module</a></li>
+<li><a class="reference internal" href="#module-adamspy.adripy.string">adamspy.adripy.string module</a></li>
+<li><a class="reference internal" href="#module-adamspy.adripy.tool">adamspy.adripy.tool module</a></li>
+<li><a class="reference internal" href="#module-adamspy.adripy.utilities">adamspy.adripy.utilities module</a></li>
+<li><a class="reference internal" href="#module-adamspy.adripy">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -155,33 +155,1179 @@
             
   <div class="section" id="adamspy-adripy-package">
 <h1>adamspy.adripy package<a class="headerlink" href="#adamspy-adripy-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="subpackages">
-<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="adamspy.adripy.tiem_orbit.html">adamspy.adripy.tiem_orbit package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="adamspy.adripy.tiem_orbit.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="adamspy.adripy.tiem_orbit.html#module-adamspy.adripy.tiem_orbit.drillsim">adamspy.adripy.tiem_orbit.drillsim module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="adamspy.adripy.tiem_orbit.html#module-adamspy.adripy.tiem_orbit.event">adamspy.adripy.tiem_orbit.event module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="adamspy.adripy.tiem_orbit.html#module-adamspy.adripy.tiem_orbit.solver_settings">adamspy.adripy.tiem_orbit.solver_settings module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="adamspy.adripy.tiem_orbit.html#module-adamspy.adripy.tiem_orbit.string">adamspy.adripy.tiem_orbit.string module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="adamspy.adripy.tiem_orbit.html#module-adamspy.adripy.tiem_orbit.tool">adamspy.adripy.tiem_orbit.tool module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="adamspy.adripy.tiem_orbit.html#module-adamspy.adripy.tiem_orbit.utilities">adamspy.adripy.tiem_orbit.utilities module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="adamspy.adripy.tiem_orbit.html#module-adamspy.adripy.tiem_orbit">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-adamspy.adripy.adripy">
-<span id="adamspy-adripy-adripy-module"></span><h2>adamspy.adripy.adripy module<a class="headerlink" href="#module-adamspy.adripy.adripy" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-adamspy.adripy.drillsim">
+<span id="adamspy-adripy-drillsim-module"></span><h2>adamspy.adripy.drillsim module<a class="headerlink" href="#module-adamspy.adripy.drillsim" title="Permalink to this headline">¶</a></h2>
+<p>Module for the DrillSim class</p>
+<dl class="class">
+<dt id="adamspy.adripy.drillsim.DrillSim">
+<em class="property">class </em><code class="descclassname">adamspy.adripy.drillsim.</code><code class="descname">DrillSim</code><span class="sig-paren">(</span><em>string</em>, <em>event</em>, <em>solver_settings</em>, <em>directory</em>, <em>analysis_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/drillsim.html#DrillSim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Contains data defining the files that make up an Adams Drill input deck.</p>
+<dl class="attribute">
+<dt id="adamspy.adripy.drillsim.DrillSim.string">
+<code class="descname">string</code><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim.string" title="Permalink to this definition">¶</a></dt>
+<dd><p>DrillString object representing the string to be used in the simulation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference internal" href="#adamspy.adripy.string.DrillString" title="adamspy.adripy.string.DrillString">DrillString</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.drillsim.DrillSim.event">
+<code class="descname">event</code><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim.event" title="Permalink to this definition">¶</a></dt>
+<dd><p>DrillEvent object representing the string to be used in the simulation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference internal" href="#adamspy.adripy.event.DrillEvent" title="adamspy.adripy.event.DrillEvent">DrillEvent</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.drillsim.DrillSim.solver_settings">
+<code class="descname">solver_settings</code><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim.solver_settings" title="Permalink to this definition">¶</a></dt>
+<dd><p>DrillSolverSettings object representing the string to be used in the simulation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference internal" href="#adamspy.adripy.solver_settings.DrillSolverSettings" title="adamspy.adripy.solver_settings.DrillSolverSettings">DrillSolverSettings</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.drillsim.DrillSim.directory">
+<code class="descname">directory</code><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim.directory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to the directory in which to put the simulation files</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.drillsim.DrillSim.analysis_name">
+<code class="descname">analysis_name</code><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim.analysis_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of the analysis.  Used for all file prefixes</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.drillsim.DrillSim.string_filename">
+<code class="descname">string_filename</code><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim.string_filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filename of the analysis’ string file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.drillsim.DrillSim.adm_filename">
+<code class="descname">adm_filename</code><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim.adm_filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filename of the analysis’ adm file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.drillsim.DrillSim.acf_filename">
+<code class="descname">acf_filename</code><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim.acf_filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filename of the analysis’ acf file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.drillsim.DrillSim.cmd_filename">
+<code class="descname">cmd_filename</code><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim.cmd_filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filename of the analysis’ cmd file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.drillsim.DrillSim.res_filename">
+<code class="descname">res_filename</code><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim.res_filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filename of the analysis’ res file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.drillsim.DrillSim.built">
+<code class="descname">built</code><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim.built" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicates whether the input deck (adm, acf, and cmd files) has been built yet for this DrillSim</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)">bool</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_drillsim</span> <span class="o">=</span> <span class="n">adripy</span><span class="o">.</span><span class="n">DrillSim</span><span class="p">(</span><span class="n">my_string</span><span class="p">,</span> <span class="n">my_event</span><span class="p">,</span> <span class="n">my_solversettings</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s1">&#39;MyAnalysis&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="adamspy.adripy.drillsim.DrillSim.build">
+<code class="descname">build</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/drillsim.html#DrillSim.build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim.build" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method builds the input deck.  It launches Adams View in batch, and imports <cite>self.string.filename</cite> and <cite>self.solver_settings.fileame</cite> and runs the Adams Drill macro <cite>ds tostart</cite> to build a drill string model.  Then it exports that model to <cite>self.directory</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adamspy.adripy.drillsim.DrillSim.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/drillsim.html#DrillSim.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the simulation</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-adamspy.adripy.event">
+<span id="adamspy-adripy-event-module"></span><h2>adamspy.adripy.event module<a class="headerlink" href="#module-adamspy.adripy.event" title="Permalink to this headline">¶</a></h2>
+<p>Contains the DrillEvent class</p>
+<dl class="class">
+<dt id="adamspy.adripy.event.DrillEvent">
+<em class="property">class </em><code class="descclassname">adamspy.adripy.event.</code><code class="descname">DrillEvent</code><span class="sig-paren">(</span><em>event_name</em>, <em>start_depth</em>, <em>off_bottom</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/event.html#DrillEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.event.DrillEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Creates an object with all data necessary to write a drill event.  Once the DrillEvent is instanced ramp parameters must be defined before the DrillEvent is written to an event file.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<dl class="last docutils">
+<dt>After instancing the class, at least one simulation step must be added using the <cite>add_simulation_step()</cite> method. Also, at least one ramp must be added for each of the four drilling parameters (i.e. wob, rpm, gpm, rop) using the <cite>add_ramp()</cite> method.  All other parameters in the event file can be specified when the DrillEvent is instanced using kwargs or they can be set later using:</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">drill_event</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">parameter</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<dl class="attribute">
+<dt id="adamspy.adripy.event.DrillEvent.parameters">
+<code class="descname">parameters</code><a class="headerlink" href="#adamspy.adripy.event.DrillEvent.parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary of parameters that make up an Adams Drill string and would be found in an Adams Drill String file (.str).  The keys of the dictionary are the parameter names that would be seen in the string file and the values of the dictionary are the values that would be seen in the string file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.event.DrillEvent.filename">
+<code class="descname">filename</code><a class="headerlink" href="#adamspy.adripy.event.DrillEvent.filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of the event file (.evt) in which this event is stored.  This attribute is initially empty and is populated by the <cite>write_to_file()</cite> method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.event.DrillEvent.SCALAR_PARAMETERS">
+<code class="descname">SCALAR_PARAMETERS</code><a class="headerlink" href="#adamspy.adripy.event.DrillEvent.SCALAR_PARAMETERS" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class attribute listing the names of all scalar parameters found in an Adams Drill event file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.event.DrillEvent.DEFAULT_PARAMETER_SCALARS">
+<code class="descname">DEFAULT_PARAMETER_SCALARS</code><a class="headerlink" href="#adamspy.adripy.event.DrillEvent.DEFAULT_PARAMETER_SCALARS" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class attribute defining defaults for some of the event parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.event.DrillEvent.ARRAY_PARAMETERS">
+<code class="descname">ARRAY_PARAMETERS</code><a class="headerlink" href="#adamspy.adripy.event.DrillEvent.ARRAY_PARAMETERS" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class attribute listing the names of all array parameters found in an Adams Drill event file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)">list</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.event.DrillEvent.DEFAULT_PARAMETER_ARRAYS">
+<code class="descname">DEFAULT_PARAMETER_ARRAYS</code><a class="headerlink" href="#adamspy.adripy.event.DrillEvent.DEFAULT_PARAMETER_ARRAYS" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class attribute defining defaults for some of the event parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.event.DrillEvent.CDB_TABLE">
+<code class="descname">CDB_TABLE</code><a class="headerlink" href="#adamspy.adripy.event.DrillEvent.CDB_TABLE" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class attribute defining the cdb table to be used for Adams Drill event files (.str)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.event.DrillEvent.EXT">
+<code class="descname">EXT</code><a class="headerlink" href="#adamspy.adripy.event.DrillEvent.EXT" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class attribute defining the extension of the Adams Drill event files.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">ARRAY_PARAMETERS</code><em class="property"> = ['TOP_DRIVE', 'MOTOR', 'PUMP_FLOW', 'WOB', 'ROP', 'NPERREV', 'DYNAMICS']</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">CDB_TABLE</code><em class="property"> = 'events.tbl'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">DEFAULT_PARAMETER_ARRAYS</code><em class="property"> = {'DYNAMICS': [[], []], 'MOTOR': [[0], [1], [1]], 'NPERREV': [[0], [1]], 'PUMP_FLOW': [[], [], []], 'ROP': [[], [], []], 'TOP_DRIVE': [[], [], []], 'WOB': [[], [], []]}</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">DEFAULT_PARAMETER_SCALARS</code><em class="property"> = {'C_hi': 1.05, 'Drive_Type': 'WITH_MOTOR', 'End_Distance': 100.0, 'End_Time': 200, 'File_Type': 'event', 'File_Version': 1.0, 'Filter_Time_Constant': 0.05, 'Impact_Damping_Penetration': 0.005, 'Impact_Exponent': 1.05, 'Initial_Drive_Torque': 0, 'MWD_Pulsing': 'On', 'Measurement_Tool': 'TOS', 'Motor_Bend_Ramp': 9.0, 'Motor_Bend_Start': 1.0, 'Motor_Type': '3D', 'Mud_Density': 75, 'N': 1, 'NperRev': 'off', 'Plotting_4D': 'off', 'Plotting_Interval': 0.1, 'S_threshold': 0.55, 'Start_Distance': 2.0, 'Start_Time': 160, 'Units': 'Imperial'}</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">EXT</code><em class="property"> = 'evt'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">SCALAR_PARAMETERS</code><em class="property"> = ['File_Type', 'Units', 'File_Version', 'Event_Name', 'Drive_Type', 'Measurement_Tool', 'Start_Depth', 'Off_Bottom', 'Initial_Drive_Torque', 'Motor_Type', 'Filter_Time_Constant', 'Motor_Bend_Start', 'Motor_Bend_Ramp', 'Mud_Density', 'Impact_Damping_Penetration', 'Impact_Exponent', 'MWD_Pulsing', 'NperRev', 'N', 'S_threshold', 'C_hi', 'Plotting_4D', 'Start_Time', 'End_Time', 'Plotting_Interval', 'Start_Distance', 'End_Distance']</em></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adamspy.adripy.event.DrillEvent.add_ramp">
+<code class="descname">add_ramp</code><span class="sig-paren">(</span><em>parameter</em>, <em>start_time</em>, <em>ramp_duration</em>, <em>delta</em>, <em>clear_existing=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/event.html#DrillEvent.add_ramp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.event.DrillEvent.add_ramp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a ramp to the specified ramp parameter</p>
+<dl class="docutils">
+<dt>parameter <span class="classifier-delimiter">:</span> <span class="classifier">string</span></dt>
+<dd>ramp parameter, options are ‘TOP_DRIVE’, ‘WOB’, ‘PUMP_FLOW’, of ‘ROP’</dd>
+<dt>start_time <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd>Start time of the ramp.</dd>
+<dt>ramp_duration <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd>Duration of the ramp.</dd>
+<dt>delta <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd>Delta of the ramp.</dd>
+<dt>clear_existing <span class="classifier-delimiter">:</span> <span class="classifier">bool</span></dt>
+<dd>If true, existing ramps for the specified parameter will be deleted.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adamspy.adripy.event.DrillEvent.add_simulation_step">
+<code class="descname">add_simulation_step</code><span class="sig-paren">(</span><em>end_time</em>, <em>output_step_size=0.05</em>, <em>clear_existing=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/event.html#DrillEvent.add_simulation_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.event.DrillEvent.add_simulation_step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a dynamic simulation step.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>end_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – End time of the step in seconds.</li>
+<li><strong>output_step_size</strong> (<em>foat</em>) – Output step size of the step in seconds. (defaults is 0.05)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="adamspy.adripy.event.DrillEvent.read_from_file">
+<em class="property">classmethod </em><code class="descname">read_from_file</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/event.html#DrillEvent.read_from_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.event.DrillEvent.read_from_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads an event file and sets self.parameters based on data in the event file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>{str} -- Filename of a .evt file.</strong> (<em>filename</em>) – </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="adamspy.adripy.event.DrillEvent.validate">
+<code class="descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/event.html#DrillEvent.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.event.DrillEvent.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines if all parameters have been set</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Bool – True if all parameters have been set. Otherwise False</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="adamspy.adripy.event.DrillEvent.write_to_file">
+<code class="descname">write_to_file</code><span class="sig-paren">(</span><em>directory=None</em>, <em>filename=None</em>, <em>cdb=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/event.html#DrillEvent.write_to_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.event.DrillEvent.write_to_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an event file from the DrillEvent object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>write_directory</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Directory in which to write the file. Defaults to current working directory.</li>
+<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Name of the file to write.  Defaults to self.parameters[‘EVENT_NAME’]</li>
+<li><strong>cdb</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Name of the cdb in which to write the file.  This argument overrides the write_directory.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code></a> – Raised if not all parameters have been defined.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-adamspy.adripy.solver_settings">
+<span id="adamspy-adripy-solver-settings-module"></span><h2>adamspy.adripy.solver_settings module<a class="headerlink" href="#module-adamspy.adripy.solver_settings" title="Permalink to this headline">¶</a></h2>
+<p>Contains the DrillSolverSettings class</p>
+<dl class="class">
+<dt id="adamspy.adripy.solver_settings.DrillSolverSettings">
+<em class="property">class </em><code class="descclassname">adamspy.adripy.solver_settings.</code><code class="descname">DrillSolverSettings</code><span class="sig-paren">(</span><em>name</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/solver_settings.html#DrillSolverSettings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.solver_settings.DrillSolverSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Creates an object with all data necessary to write an Adams Drill solver settings (.ssf) file.</p>
+<dl class="attribute">
+<dt id="adamspy.adripy.solver_settings.DrillSolverSettings.name">
+<code class="descname">name</code><a class="headerlink" href="#adamspy.adripy.solver_settings.DrillSolverSettings.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of the solver settings object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.solver_settings.DrillSolverSettings.parameters">
+<code class="descname">parameters</code><a class="headerlink" href="#adamspy.adripy.solver_settings.DrillSolverSettings.parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary of parameters that make up an Adams Drill solver settings and would be found in an Adams Drill solver settings file (.ssf).  The keys of the dictionary are the parameter names that would be seen in the string file and the values of the dictionary are the values that would be seen in the string file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.solver_settings.DrillSolverSettings.filename">
+<code class="descname">filename</code><a class="headerlink" href="#adamspy.adripy.solver_settings.DrillSolverSettings.filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of the solver settings file (.ssf) in which these solver settings are stored.  This attribute is initially empty and is populated by the <cite>write_to_file()</cite> method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.solver_settings.DrillSolverSettings.SCALAR_PARAMETERS">
+<code class="descname">SCALAR_PARAMETERS</code><a class="headerlink" href="#adamspy.adripy.solver_settings.DrillSolverSettings.SCALAR_PARAMETERS" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class attribute listing the names of all scalar parameters found in an Adams Drill solver settings file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)">list</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.solver_settings.DrillSolverSettings.DEFAULT_PARAMETER_SCALARS">
+<code class="descname">DEFAULT_PARAMETER_SCALARS</code><a class="headerlink" href="#adamspy.adripy.solver_settings.DrillSolverSettings.DEFAULT_PARAMETER_SCALARS" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class attribute defining defaults for some of the string parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.solver_settings.DrillSolverSettings.ARRAY_PARAMETERS">
+<code class="descname">ARRAY_PARAMETERS</code><a class="headerlink" href="#adamspy.adripy.solver_settings.DrillSolverSettings.ARRAY_PARAMETERS" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class attribute listing the names of all array parameters found in an Adams Drill solver settings file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)">list</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.solver_settings.DrillSolverSettings.DEFAULT_PARAMETER_ARRAYS">
+<code class="descname">DEFAULT_PARAMETER_ARRAYS</code><a class="headerlink" href="#adamspy.adripy.solver_settings.DrillSolverSettings.DEFAULT_PARAMETER_ARRAYS" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class attribute defining defaults for some of the string parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.solver_settings.DrillSolverSettings.CDB_TABLE">
+<code class="descname">CDB_TABLE</code><a class="headerlink" href="#adamspy.adripy.solver_settings.DrillSolverSettings.CDB_TABLE" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class attribute defining the cdb table to be used for Adams Drill solver settings files (.ssf)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.solver_settings.DrillSolverSettings.EXT">
+<code class="descname">EXT</code><a class="headerlink" href="#adamspy.adripy.solver_settings.DrillSolverSettings.EXT" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class attribute defining the extension of the Adams Drill string files.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">ARRAY_PARAMETERS</code><em class="property"> = ['Funnel']</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">CDB_TABLE</code><em class="property"> = 'solver_settings.tbl'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">DEFAULT_PARAMETER_ARRAYS</code><em class="property"> = {'Funnel': [[500, 500, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 100], [0.1, 5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5], [0.1, 1, 0.3, 0.3, 0.2, 0.2, 0.1, 0.1, 0.05, 0.05, 0.01, 0.01, 0.005, 0.005, 0.005, 0.005], [0.1, 1, 0.3, 0.2, 0.2, 0.1, 0.1, 0.05, 0.05, 0.01, 0.01, 0.005, 0.005, 0.001, 0.0005, 0.005], [1, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5], [2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]}</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">DEFAULT_PARAMETER_SCALARS</code><em class="property"> = {'Alpha': -0.25, 'Corrector': 'Modified', 'Error': 1e-05, 'Formulation': 'I3', 'HMax': 0.005, 'Integrator': 'HHT', 'Thread_Count': 4}</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">EXT</code><em class="property"> = 'ssf'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">SCALAR_PARAMETERS</code><em class="property"> = ['Integrator', 'Formulation', 'Corrector', 'Error', 'HMax', 'Alpha', 'Thread_Count']</em></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="adamspy.adripy.solver_settings.DrillSolverSettings.read_from_file">
+<em class="property">classmethod </em><code class="descname">read_from_file</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/solver_settings.html#DrillSolverSettings.read_from_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.solver_settings.DrillSolverSettings.read_from_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads a string file and returns a DrillString object
+with DrillString.parameters based on data in the string
+file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>{str} -- Filename of a .str file.</strong> (<em>filename</em>) – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>{DrillSolverSettings} – DrillString object with</dt>
+<dd>parameters from the passed
+string file.</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="adamspy.adripy.solver_settings.DrillSolverSettings.validate">
+<code class="descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/solver_settings.html#DrillSolverSettings.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.solver_settings.DrillSolverSettings.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines if all parameters have been set</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Bool – True if all parameters have been set. Otherwise False</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="adamspy.adripy.solver_settings.DrillSolverSettings.write_to_file">
+<code class="descname">write_to_file</code><span class="sig-paren">(</span><em>filename</em>, <em>directory=None</em>, <em>cdb=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/solver_settings.html#DrillSolverSettings.write_to_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.solver_settings.DrillSolverSettings.write_to_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a solver settings file from the DrillSolverSettings object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>{string} --</strong> (<em>cdb</em>) – </li>
+<li><strong>{string} --</strong> – </li>
+<li><strong>{string} --</strong> – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last">ValueError – Raised if not all parameters have been defined.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-adamspy.adripy.string">
+<span id="adamspy-adripy-string-module"></span><h2>adamspy.adripy.string module<a class="headerlink" href="#module-adamspy.adripy.string" title="Permalink to this headline">¶</a></h2>
+<p>Contains the DrillString class</p>
+<dl class="class">
+<dt id="adamspy.adripy.string.DrillString">
+<em class="property">class </em><code class="descclassname">adamspy.adripy.string.</code><code class="descname">DrillString</code><span class="sig-paren">(</span><em>string_name</em>, <em>hole_file</em>, <em>event_file</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/string.html#DrillString"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.string.DrillString" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Creates an object with all data necessary to write a drill string.</p>
+<p>Parameters in the string file can be specified when the DrillString is instanced using kwargs or they can be set later using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">drill_string</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">parameter</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Once the DrillString is instanced tools within the string must be defined as DrillTool objects before the string is written to a string file.  Use the <cite>add_tool()</cite> method to add DrillTool objects to the string.</p>
+</div>
+<dl class="attribute">
+<dt id="adamspy.adripy.string.DrillString.parameters">
+<code class="descname">parameters</code><a class="headerlink" href="#adamspy.adripy.string.DrillString.parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary of parameters that make up an Adams Drill string and would be found in an Adams Drill string file (.str).  The keys of the dictionary are the parameter names that would be seen in the string file and the values of the dictionary are the values that would be seen in the string file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.string.DrillString.tools">
+<code class="descname">tools</code><a class="headerlink" href="#adamspy.adripy.string.DrillString.tools" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of tools in the drill string.  Each element of the list is a dictionary with the keys ‘DrillTool’, ‘Name’, ‘Property_File’, ‘Measure’, ‘Color’, ‘Number_of_Joints’, and ‘Stack_Order’.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)">list</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.string.DrillString.top_drive">
+<code class="descname">top_drive</code><a class="headerlink" href="#adamspy.adripy.string.DrillString.top_drive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Describes the top drive.  The keys are ‘DrillTool’, ‘Type’, ‘Name’, and ‘Property_File’.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.string.DrillString.SCALAR_PARAMETERS">
+<code class="descname">SCALAR_PARAMETERS</code><a class="headerlink" href="#adamspy.adripy.string.DrillString.SCALAR_PARAMETERS" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class attribute listing the names of all scalar parameters found in an Adams Drill string file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)">list</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.string.DrillString.DEFAULT_PARAMETER_SCALARS">
+<code class="descname">DEFAULT_PARAMETER_SCALARS</code><a class="headerlink" href="#adamspy.adripy.string.DrillString.DEFAULT_PARAMETER_SCALARS" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class attribute defining defaults for some of the string parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.string.DrillString.ARRAY_PARAMETERS">
+<code class="descname">ARRAY_PARAMETERS</code><a class="headerlink" href="#adamspy.adripy.string.DrillString.ARRAY_PARAMETERS" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class attribute listing the names of all array parameters found in an Adams Drill string file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)">list</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.string.DrillString.DEFAULT_PARAMETER_ARRAYS">
+<code class="descname">DEFAULT_PARAMETER_ARRAYS</code><a class="headerlink" href="#adamspy.adripy.string.DrillString.DEFAULT_PARAMETER_ARRAYS" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class attribute defining defaults for some of the string parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.string.DrillString.CDB_TABLE">
+<code class="descname">CDB_TABLE</code><a class="headerlink" href="#adamspy.adripy.string.DrillString.CDB_TABLE" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class attribute defining the cdb table to be used for Adams Drill string files (.str)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.string.DrillString.EXT">
+<code class="descname">EXT</code><a class="headerlink" href="#adamspy.adripy.string.DrillString.EXT" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class attribute defining the extension of the Adams Drill string files.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.string.DrillString.MULTI_JOINT_TOOLS">
+<code class="descname">MULTI_JOINT_TOOLS</code><a class="headerlink" href="#adamspy.adripy.string.DrillString.MULTI_JOINT_TOOLS" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class attribute listing all the tool types that need to have <cite>Number_of_Joints</cite> defined in the Adams Drill string file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)">list</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.string.DrillString.DRILL_TOOL_PATTERN">
+<code class="descname">DRILL_TOOL_PATTERN</code><a class="headerlink" href="#adamspy.adripy.string.DrillString.DRILL_TOOL_PATTERN" title="Permalink to this definition">¶</a></dt>
+<dd><p>A <code class="xref py py-class docutils literal notranslate"><span class="pre">_sre.SRE_Pattern</span></code> object defining the pattern of the Drill Tool block header in the string file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">SRE_Pattern</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">ARRAY_PARAMETERS</code><em class="property"> = ['Distance_from_Bit']</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">CDB_TABLE</code><em class="property"> = 'drill_strings.tbl'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">DEFAULT_PARAMETER_ARRAYS</code><em class="property"> = {'Distance_from_Bit': []}</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">DEFAULT_PARAMETER_SCALARS</code><em class="property"> = {'Adams_Graphics': 'off', 'Adams_Requests': 'on', 'Adams_Results': 'animation', 'Contact_Method': 'Subroutine', 'Cyl_Drag_Coeff': 1.2, 'Deviation_Deg': 0.0, 'Gravity': 32.187, 'Hole_Color': 'LtGray', 'SolverDLL': 'adrill_solver', 'Units': 'Imperial'}</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">DRILL_TOOL_PATTERN</code><em class="property"> = re.compile('^DRILL_TOOL_[0-9]{2}$')</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">EXT</code><em class="property"> = 'str'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">MULTI_JOINT_TOOLS</code><em class="property"> = ['hw_pipe', 'drillpipe', 'equivalent_upper_string']</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">SCALAR_PARAMETERS</code><em class="property"> = ['Units', 'ModelName', 'OutputName', 'Gravity', 'Deviation_Deg', 'Adams_Results', 'Adams_Requests', 'SolverDLL', 'Hole_Property_File', 'Contact_Method', 'Cyl_Drag_Coeff', 'Hole_Color', 'Event_Property_File']</em></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adamspy.adripy.string.DrillString.add_measurement_point">
+<code class="descname">add_measurement_point</code><span class="sig-paren">(</span><em>distance</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/string.html#DrillString.add_measurement_point"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.string.DrillString.add_measurement_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a measurement point at the given distance from the bit in feet.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>{float} -- Distance from the bit</strong> (<em>distance</em>) – </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="adamspy.adripy.string.DrillString.add_tool">
+<code class="descname">add_tool</code><span class="sig-paren">(</span><em>drill_tool</em>, <em>joints=1</em>, <em>measure=False</em>, <em>stack_order=None</em>, <em>color='Default'</em>, <em>group_name=None</em>, <em>equivalent=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/string.html#DrillString.add_tool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.string.DrillString.add_tool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a DrillTool object to the DrillString.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>tool</strong> (<a class="reference internal" href="#adamspy.adripy.tool.DrillTool" title="adamspy.adripy.tool.DrillTool"><em>DrillTool</em></a>) – DrillTool object representing the tool to be added</li>
+<li><strong>joints</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Number of Joints. Note that this only applies for certain tool types. (default is 1)</li>
+<li><strong>measure</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – If TRUE indicates that output requests should be generated for this tool.  (default is FALSE)</li>
+<li><strong>stack_order</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – If an integer is given the tool will be inserted into the string at that point. (default is None and the tool will be appended to the end)</li>
+<li><strong>color</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The color used to render the tool in an Adams Drill animation. (default is ‘Default’)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="adamspy.adripy.string.DrillString.get_bha_length">
+<code class="descname">get_bha_length</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/string.html#DrillString.get_bha_length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.string.DrillString.get_bha_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the total length of the drill string defined in
+string_file NOT including the equivalent upper string and
+highest most physical string.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>float</strong></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Cumulative length of the bha</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="adamspy.adripy.string.DrillString.get_tool">
+<code class="descname">get_tool</code><span class="sig-paren">(</span><em>tool_type</em>, <em>instance='first'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/string.html#DrillString.get_tool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.string.DrillString.get_tool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a DrillTool object of type tool_type in the
+DrillString object’s tools list.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>tool_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Desired tool type.</li>
+<li><strong>instance</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – If ‘first’, will take the first instance.  If ‘last’, will take the last instance. If an integer N is given, will take the Nth instance. (the default is ‘first’)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first"><a class="reference internal" href="#adamspy.adripy.string.DrillStringError" title="adamspy.adripy.string.DrillStringError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">DrillStringError</span></code></a> – Raised if a tools of the specified type does not exist in the drill string.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">DrillTool object</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#adamspy.adripy.tool.DrillTool" title="adamspy.adripy.tool.DrillTool">DrillTool</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="adamspy.adripy.string.DrillString.read_from_file">
+<em class="property">classmethod </em><code class="descname">read_from_file</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/string.html#DrillString.read_from_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.string.DrillString.read_from_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads a string file and returns a DrillString object
+with DrillString.parameters based on data in the string
+file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>{str} -- Filename of a .str file.</strong> (<em>filename</em>) – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>{DrillString} – DrillString object with parameters</dt>
+<dd>from the passed string file.</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="adamspy.adripy.string.DrillString.set_pipe_joints">
+<code class="descname">set_pipe_joints</code><span class="sig-paren">(</span><em>joints</em>, <em>equivalent=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/string.html#DrillString.set_pipe_joints"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.string.DrillString.set_pipe_joints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the number of joints in the upper most section of
+drill pipe. Set pipe_type=’equivalent’ to adjust equivalent
+upper string joints’</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>{int}           -- Number of physical drill</strong> (<em>joints</em>) – pipe joints.</li>
+<li><strong>{str}       -- False for physical</strong> (<em>equivalent</em>) – string. True for
+equivalent upper string.
+Default=False</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><em>DrillStringError       – Raised if the drill string</em> – doesn’t have drill pipe
+of the specified type.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="adamspy.adripy.string.DrillString.validate">
+<code class="descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/string.html#DrillString.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.string.DrillString.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines if all parameters have been set</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dict – dicationary with a <cite>valid</cite> key with a boolean value indicating whether the string was successfully validated and a <cite>reason</cite> key with a str value indicating the reason (if any) that the string was not successfully validated.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="adamspy.adripy.string.DrillString.write_to_file">
+<code class="descname">write_to_file</code><span class="sig-paren">(</span><em>directory=None</em>, <em>filename=None</em>, <em>cdb=None</em>, <em>publish=False</em>, <em>publish_event=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/string.html#DrillString.write_to_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.string.DrillString.write_to_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a string file from the DrillString object.</p>
+<p class="rubric">Notes</p>
+<p>There are no required parameters.  However, either <cite>directory</cite> or <cite>cdb</cite> must be defined.  Otherwise <cite>write_to_file()</cite> raises a ValueError.</p>
+<p>When publishing to a directory, relative paths will be used for all filenames in the string file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>write_directory</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Directory in which to write the file. (default is None which means the string will be written to the cdb given in <cite>cdb</cite>.)</li>
+<li><strong>cdb</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Name of the cdb in which to write the file.  This argument is overridden by <cite>directory</cite>. (default is None which means the string will be written to the directory in <cite>directory</cite> and will use the filename in <cite>filename</cite>.)</li>
+<li><strong>publish</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – If true, writes all the supporting files to the same cdb. (default is False.)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code></a> – Raised if neither directory nor cdb are given.</li>
+<li><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">RuntimeError</span></code></a> – Raised if not all parameters have been defined.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="adamspy.adripy.string.DrillStringError">
+<em class="property">exception </em><code class="descclassname">adamspy.adripy.string.</code><code class="descname">DrillStringError</code><a class="reference internal" href="_modules/adamspy/adripy/string.html#DrillStringError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.string.DrillStringError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-adamspy.adripy.tool">
+<span id="adamspy-adripy-tool-module"></span><h2>adamspy.adripy.tool module<a class="headerlink" href="#module-adamspy.adripy.tool" title="Permalink to this headline">¶</a></h2>
+<p>Contains the DrillTool class</p>
+<dl class="class">
+<dt id="adamspy.adripy.tool.DrillTool">
+<em class="property">class </em><code class="descclassname">adamspy.adripy.tool.</code><code class="descname">DrillTool</code><span class="sig-paren">(</span><em>property_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/tool.html#DrillTool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.tool.DrillTool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Object representing an Adams Drill tool.  Instances must be generated from a tool property file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>-- Filepath to an Adams Drill Tool property file.</strong> (<em>{string}</em>) – </td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="adamspy.adripy.tool.DrillTool.DATABASE_INFO">
+<code class="descname">DATABASE_INFO</code><em class="property"> = {'accelerator': {'extension': 'acc', 'table': 'accelerators.tbl'}, 'agitator': {'extension': 'agi', 'table': 'agitators.tbl'}, 'assembly': {'extension': 'str', 'table': 'drill_strings.tbl'}, 'blade_reamer': {'extension': 'bre', 'table': 'blade_reamers.tbl'}, 'crossover': {'extension': 'crs', 'table': 'crossovers.tbl'}, 'dart': {'extension': 'drt', 'table': 'darts.tbl'}, 'darts': {'extension': 'drt', 'table': 'darts.tbl'}, 'drill_collar': {'extension': 'col', 'table': 'drill_collars.tbl'}, 'drillpipe': {'extension': 'pip', 'table': 'drill_pipes.tbl'}, 'equivalent_upper_string': {'extension': 'pip', 'table': 'drill_pipes.tbl'}, 'event': {'extension': 'evt', 'table': 'events.tbl'}, 'flex_pipe': {'extension': 'flp', 'table': 'flex_pipes.tbl'}, 'generic_long': {'extension': 'gnl', 'table': 'generic_longs.tbl'}, 'generic_short': {'extension': 'gns', 'table': 'generic_shorts.tbl'}, 'hole': {'extension': 'hol', 'table': 'holes.tbl'}, 'hw_pipe': {'extension': 'hwp', 'table': 'hw_pipes.tbl'}, 'instrumentation_sub': {'extension': 'ins', 'table': 'instrumentation_subs.tbl'}, 'jar': {'extension': 'djr', 'table': 'jars.tbl'}, 'lwd_tool': {'extension': 'lwd', 'table': 'lwd_tools.tbl'}, 'mfr_tool': {'extension': 'mfr', 'table': 'mfr_tools.tbl'}, 'motor': {'extension': 'mot', 'table': 'motors.tbl'}, 'mwd_tool': {'extension': 'mwd', 'table': 'mwd_tools.tbl'}, 'pdc_bit': {'extension': 'pdc', 'table': 'pdc_bits.tbl'}, 'plot_config': {'extension': 'plt', 'table': 'plot_configs.tbl'}, 'roller_cone_bit': {'extension': 'rcb', 'table': 'roller_cone_bits.tbl'}, 'rss': {'extension': 'rsd', 'table': 'rss.tbl'}, 'shock_sub': {'extension': 'shk', 'table': 'shock_subs.tbl'}, 'short_collar': {'extension': 'sco', 'table': 'short_collars.tbl'}, 'solver_setting': {'extension': 'ssf', 'table': 'solver_settings.tbl'}, 'stabilizer': {'extension': 'sta', 'table': 'stabilizers.tbl'}, 'top_drive': {'extension': 'tdr', 'table': 'top_drives.tbl'}}</em><a class="headerlink" href="#adamspy.adripy.tool.DrillTool.DATABASE_INFO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adamspy.adripy.tool.DrillTool.copy_file">
+<code class="descname">copy_file</code><span class="sig-paren">(</span><em>directory=None</em>, <em>cdb=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/tool.html#DrillTool.copy_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.tool.DrillTool.copy_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates string file from the DrillString object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>{string} --</strong> (<em>cdb</em>) – </li>
+<li><strong>{string} --</strong> – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li>ValueError – Raised if neither directory nor cdb are given.</li>
+<li>ValueError – Raised if not all parameters have been defined.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="adamspy.adripy.tool.DrillTool.get_parameter_value">
+<code class="descname">get_parameter_value</code><span class="sig-paren">(</span><em>parameter_to_get</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/tool.html#DrillTool.get_parameter_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.tool.DrillTool.get_parameter_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the value of the specified parameter from the property file.  NOTE: get_parameter_value cannot get parameters from the UNITS block.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>{string} -- Name of the parameter to get from the property file.</strong> (<em>parameter_to_get</em>) – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">{string or float} – Value of the specified parameter from the property file.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="adamspy.adripy.tool.DrillTool.modify_parameter_value">
+<code class="descname">modify_parameter_value</code><span class="sig-paren">(</span><em>parameter_to_change</em>, <em>new_value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/tool.html#DrillTool.modify_parameter_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.tool.DrillTool.modify_parameter_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modifies a parameter in a DrillTool property file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>{string} -- Name of the parameter to modify.  Must match the name in the property file.</strong> (<em>parameter_to_change</em>) – </li>
+<li><strong>{float</strong><strong> or </strong><strong>string} -- New value of the parameter to change</strong> (<em>new_value</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first last"><strong>{string} -- Filename of new property file.  If None the original property file will be overwritten</strong><strong> (</strong><strong>default</strong> (<em>new_filename</em>) – {None})</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="adamspy.adripy.tool.DrillTool.rename">
+<code class="descname">rename</code><span class="sig-paren">(</span><em>new_name</em>, <em>remove_original=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/tool.html#DrillTool.rename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.tool.DrillTool.rename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rename the tool</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>{string} -- New name for the tool.</strong> (<em>new_name</em>) – </li>
+<li><strong>{bool} -- If True will rename the property file.  If False will create a new one.</strong> (<em>in_place</em>) – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="adamspy.adripy.tool.DrillToolError">
+<em class="property">exception </em><code class="descclassname">adamspy.adripy.tool.</code><code class="descname">DrillToolError</code><a class="reference internal" href="_modules/adamspy/adripy/tool.html#DrillToolError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.tool.DrillToolError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-adamspy.adripy.utilities">
+<span id="adamspy-adripy-utilities-module"></span><h2>adamspy.adripy.utilities module<a class="headerlink" href="#module-adamspy.adripy.utilities" title="Permalink to this headline">¶</a></h2>
 <p>adripy contains functions for manipulating MSC Adams Drill files</p>
+<dl class="exception">
+<dt id="adamspy.adripy.utilities.TiemOrbitSyntaxError">
+<em class="property">exception </em><code class="descclassname">adamspy.adripy.utilities.</code><code class="descname">TiemOrbitSyntaxError</code><a class="reference internal" href="_modules/adamspy/adripy/utilities.html#TiemOrbitSyntaxError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.utilities.TiemOrbitSyntaxError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+</dd></dl>
+
 <dl class="function">
-<dt id="adamspy.adripy.adripy.add_cdb_to_cfg">
-<code class="descclassname">adamspy.adripy.adripy.</code><code class="descname">add_cdb_to_cfg</code><span class="sig-paren">(</span><em>name</em>, <em>loc</em>, <em>cfg_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/adripy.html#add_cdb_to_cfg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.adripy.add_cdb_to_cfg" title="Permalink to this definition">¶</a></dt>
+<dt id="adamspy.adripy.utilities.add_cdb_to_cfg">
+<code class="descclassname">adamspy.adripy.utilities.</code><code class="descname">add_cdb_to_cfg</code><span class="sig-paren">(</span><em>name</em>, <em>loc</em>, <em>cfg_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/utilities.html#add_cdb_to_cfg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.utilities.add_cdb_to_cfg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds cdb of name <cite>name</cite> and path <cite>loc</cite> to <cite>cfg_file</cite></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -205,8 +1351,8 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="adamspy.adripy.adripy.build">
-<code class="descclassname">adamspy.adripy.adripy.</code><code class="descname">build</code><span class="sig-paren">(</span><em>string_file</em>, <em>solver_settings_file</em>, <em>working_directory</em>, <em>output_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/adripy.html#build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.adripy.build" title="Permalink to this definition">¶</a></dt>
+<dt id="adamspy.adripy.utilities.build">
+<code class="descclassname">adamspy.adripy.utilities.</code><code class="descname">build</code><span class="sig-paren">(</span><em>string_file</em>, <em>solver_settings_file</em>, <em>working_directory</em>, <em>output_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/utilities.html#build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.utilities.build" title="Permalink to this definition">¶</a></dt>
 <dd><p>Builds adm, acf, and cmd files from string, event, and solver settings files.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -225,14 +1371,14 @@
 </dd></dl>
 
 <dl class="exception">
-<dt id="adamspy.adripy.adripy.cdbError">
-<em class="property">exception </em><code class="descclassname">adamspy.adripy.adripy.</code><code class="descname">cdbError</code><a class="reference internal" href="_modules/adamspy/adripy/adripy.html#cdbError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.adripy.cdbError" title="Permalink to this definition">¶</a></dt>
+<dt id="adamspy.adripy.utilities.cdbError">
+<em class="property">exception </em><code class="descclassname">adamspy.adripy.utilities.</code><code class="descname">cdbError</code><a class="reference internal" href="_modules/adamspy/adripy/utilities.html#cdbError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.utilities.cdbError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
 </dd></dl>
 
 <dl class="function">
-<dt id="adamspy.adripy.adripy.cdbNotation_to_fullNotation">
-<code class="descclassname">adamspy.adripy.adripy.</code><code class="descname">cdbNotation_to_fullNotation</code><span class="sig-paren">(</span><em>string_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/adripy.html#cdbNotation_to_fullNotation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.adripy.cdbNotation_to_fullNotation" title="Permalink to this definition">¶</a></dt>
+<dt id="adamspy.adripy.utilities.cdbNotation_to_fullNotation">
+<code class="descclassname">adamspy.adripy.utilities.</code><code class="descname">cdbNotation_to_fullNotation</code><span class="sig-paren">(</span><em>string_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/utilities.html#cdbNotation_to_fullNotation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.utilities.cdbNotation_to_fullNotation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Replaces all references in a string file that use CDB notation to use full path notation</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -249,8 +1395,8 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="adamspy.adripy.adripy.create_cfg_file">
-<code class="descclassname">adamspy.adripy.adripy.</code><code class="descname">create_cfg_file</code><span class="sig-paren">(</span><em>filename</em>, <em>database_paths</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/adripy.html#create_cfg_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.adripy.create_cfg_file" title="Permalink to this definition">¶</a></dt>
+<dt id="adamspy.adripy.utilities.create_cfg_file">
+<code class="descclassname">adamspy.adripy.utilities.</code><code class="descname">create_cfg_file</code><span class="sig-paren">(</span><em>filename</em>, <em>database_paths</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/utilities.html#create_cfg_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.utilities.create_cfg_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a cfg file with the databases whose paths are given in the database_paths list. Also sets the ADRILL_USER_CONFIG environment variable equal to filename.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -267,8 +1413,8 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="adamspy.adripy.adripy.fullNotation_to_cdbNotation">
-<code class="descclassname">adamspy.adripy.adripy.</code><code class="descname">fullNotation_to_cdbNotation</code><span class="sig-paren">(</span><em>string_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/adripy.html#fullNotation_to_cdbNotation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.adripy.fullNotation_to_cdbNotation" title="Permalink to this definition">¶</a></dt>
+<dt id="adamspy.adripy.utilities.fullNotation_to_cdbNotation">
+<code class="descclassname">adamspy.adripy.utilities.</code><code class="descname">fullNotation_to_cdbNotation</code><span class="sig-paren">(</span><em>string_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/utilities.html#fullNotation_to_cdbNotation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.utilities.fullNotation_to_cdbNotation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Replaces all references in a string file that use full path notation to use CDB notation</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -285,8 +1431,8 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="adamspy.adripy.adripy.get_TO_param">
-<code class="descclassname">adamspy.adripy.adripy.</code><code class="descname">get_TO_param</code><span class="sig-paren">(</span><em>filename</em>, <em>requested_parameter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/adripy.html#get_TO_param"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.adripy.get_TO_param" title="Permalink to this definition">¶</a></dt>
+<dt id="adamspy.adripy.utilities.get_TO_param">
+<code class="descclassname">adamspy.adripy.utilities.</code><code class="descname">get_TO_param</code><span class="sig-paren">(</span><em>filename</em>, <em>requested_parameter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/utilities.html#get_TO_param"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.utilities.get_TO_param" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the value of a parameter in a tiem orbit file</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -309,8 +1455,8 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="adamspy.adripy.adripy.get_adrill_cdbs">
-<code class="descclassname">adamspy.adripy.adripy.</code><code class="descname">get_adrill_cdbs</code><span class="sig-paren">(</span><em>adrill_user_cfg</em>, <em>adrill_shared_cfg=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/adripy.html#get_adrill_cdbs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.adripy.get_adrill_cdbs" title="Permalink to this definition">¶</a></dt>
+<dt id="adamspy.adripy.utilities.get_adrill_cdbs">
+<code class="descclassname">adamspy.adripy.utilities.</code><code class="descname">get_adrill_cdbs</code><span class="sig-paren">(</span><em>adrill_user_cfg</em>, <em>adrill_shared_cfg=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/utilities.html#get_adrill_cdbs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.utilities.get_adrill_cdbs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the names and locatinos of all user defined MSC Adams Drill databases (cdbs)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -333,8 +1479,8 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="adamspy.adripy.adripy.get_bha_length">
-<code class="descclassname">adamspy.adripy.adripy.</code><code class="descname">get_bha_length</code><span class="sig-paren">(</span><em>string_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/adripy.html#get_bha_length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.adripy.get_bha_length" title="Permalink to this definition">¶</a></dt>
+<dt id="adamspy.adripy.utilities.get_bha_length">
+<code class="descclassname">adamspy.adripy.utilities.</code><code class="descname">get_bha_length</code><span class="sig-paren">(</span><em>string_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/utilities.html#get_bha_length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.utilities.get_bha_length" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the total length of the drill string defined in string_file NOT including the equivalent upper string and highest most physical string</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -351,8 +1497,8 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="adamspy.adripy.adripy.get_cdb_location">
-<code class="descclassname">adamspy.adripy.adripy.</code><code class="descname">get_cdb_location</code><span class="sig-paren">(</span><em>cdb_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/adripy.html#get_cdb_location"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.adripy.get_cdb_location" title="Permalink to this definition">¶</a></dt>
+<dt id="adamspy.adripy.utilities.get_cdb_location">
+<code class="descclassname">adamspy.adripy.utilities.</code><code class="descname">get_cdb_location</code><span class="sig-paren">(</span><em>cdb_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/utilities.html#get_cdb_location"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.utilities.get_cdb_location" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the location of cdb ‘cdb_name’</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -369,8 +1515,8 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="adamspy.adripy.adripy.get_cdb_path">
-<code class="descclassname">adamspy.adripy.adripy.</code><code class="descname">get_cdb_path</code><span class="sig-paren">(</span><em>full_filepath</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/adripy.html#get_cdb_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.adripy.get_cdb_path" title="Permalink to this definition">¶</a></dt>
+<dt id="adamspy.adripy.utilities.get_cdb_path">
+<code class="descclassname">adamspy.adripy.utilities.</code><code class="descname">get_cdb_path</code><span class="sig-paren">(</span><em>full_filepath</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/utilities.html#get_cdb_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.utilities.get_cdb_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given the full path to a file located in a cdb, get_cdb_path returns the path to a
 file with the cdb path replaced by the cdb alias.  full_filepath will be returned if
 no cdb is found in the path.</p>
@@ -389,8 +1535,8 @@ no cdb is found in the path.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="adamspy.adripy.adripy.get_full_path">
-<code class="descclassname">adamspy.adripy.adripy.</code><code class="descname">get_full_path</code><span class="sig-paren">(</span><em>cdb_filepath</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/adripy.html#get_full_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.adripy.get_full_path" title="Permalink to this definition">¶</a></dt>
+<dt id="adamspy.adripy.utilities.get_full_path">
+<code class="descclassname">adamspy.adripy.utilities.</code><code class="descname">get_full_path</code><span class="sig-paren">(</span><em>cdb_filepath</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/utilities.html#get_full_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.utilities.get_full_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given the cdb path to a file located in a cdb, get_full_path returns the path to a
 file with the cdb alias replaced by the cdb location.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -408,8 +1554,8 @@ file with the cdb alias replaced by the cdb location.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="adamspy.adripy.adripy.get_number_of_tools">
-<code class="descclassname">adamspy.adripy.adripy.</code><code class="descname">get_number_of_tools</code><span class="sig-paren">(</span><em>string_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/adripy.html#get_number_of_tools"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.adripy.get_number_of_tools" title="Permalink to this definition">¶</a></dt>
+<dt id="adamspy.adripy.utilities.get_number_of_tools">
+<code class="descclassname">adamspy.adripy.utilities.</code><code class="descname">get_number_of_tools</code><span class="sig-paren">(</span><em>string_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/utilities.html#get_number_of_tools"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.utilities.get_number_of_tools" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the total number of tools in a string.  Tools for which quantitiiy can be defined are only counted once.  The top drive is not included</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -426,8 +1572,8 @@ file with the cdb alias replaced by the cdb location.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="adamspy.adripy.adripy.get_string_length">
-<code class="descclassname">adamspy.adripy.adripy.</code><code class="descname">get_string_length</code><span class="sig-paren">(</span><em>string_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/adripy.html#get_string_length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.adripy.get_string_length" title="Permalink to this definition">¶</a></dt>
+<dt id="adamspy.adripy.utilities.get_string_length">
+<code class="descclassname">adamspy.adripy.utilities.</code><code class="descname">get_string_length</code><span class="sig-paren">(</span><em>string_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/utilities.html#get_string_length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.utilities.get_string_length" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the total length of the drill string defined in <cite>string_file</cite></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -444,13 +1590,13 @@ file with the cdb alias replaced by the cdb location.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="adamspy.adripy.adripy.get_toolFilename_fullNotation">
-<code class="descclassname">adamspy.adripy.adripy.</code><code class="descname">get_toolFilename_fullNotation</code><span class="sig-paren">(</span><em>toolFilename_cdbNotation</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/adripy.html#get_toolFilename_fullNotation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.adripy.get_toolFilename_fullNotation" title="Permalink to this definition">¶</a></dt>
+<dt id="adamspy.adripy.utilities.get_toolFilename_fullNotation">
+<code class="descclassname">adamspy.adripy.utilities.</code><code class="descname">get_toolFilename_fullNotation</code><span class="sig-paren">(</span><em>toolFilename_cdbNotation</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/utilities.html#get_toolFilename_fullNotation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.utilities.get_toolFilename_fullNotation" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="adamspy.adripy.adripy.get_tool_name">
-<code class="descclassname">adamspy.adripy.adripy.</code><code class="descname">get_tool_name</code><span class="sig-paren">(</span><em>string_file</em>, <em>tool_type</em>, <em>n=1</em>, <em>return_full_path=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/adripy.html#get_tool_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.adripy.get_tool_name" title="Permalink to this definition">¶</a></dt>
+<dt id="adamspy.adripy.utilities.get_tool_name">
+<code class="descclassname">adamspy.adripy.utilities.</code><code class="descname">get_tool_name</code><span class="sig-paren">(</span><em>string_file</em>, <em>tool_type</em>, <em>n=1</em>, <em>return_full_path=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/utilities.html#get_tool_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.utilities.get_tool_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the name, filename, stack order, and group name of the <cite>n`th tool of type `tool_type</cite> in <cite>string_file</cite>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -481,8 +1627,8 @@ file with the cdb alias replaced by the cdb location.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="adamspy.adripy.adripy.has_tool">
-<code class="descclassname">adamspy.adripy.adripy.</code><code class="descname">has_tool</code><span class="sig-paren">(</span><em>string_file</em>, <em>tool_type</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/adripy.html#has_tool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.adripy.has_tool" title="Permalink to this definition">¶</a></dt>
+<dt id="adamspy.adripy.utilities.has_tool">
+<code class="descclassname">adamspy.adripy.utilities.</code><code class="descname">has_tool</code><span class="sig-paren">(</span><em>string_file</em>, <em>tool_type</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/utilities.html#has_tool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.utilities.has_tool" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns true if string_file has at least one tool of type tool_type</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -505,8 +1651,24 @@ file with the cdb alias replaced by the cdb location.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="adamspy.adripy.adripy.remove_cdb_from_cfg">
-<code class="descclassname">adamspy.adripy.adripy.</code><code class="descname">remove_cdb_from_cfg</code><span class="sig-paren">(</span><em>name</em>, <em>cfg_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/adripy.html#remove_cdb_from_cfg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.adripy.remove_cdb_from_cfg" title="Permalink to this definition">¶</a></dt>
+<dt id="adamspy.adripy.utilities.read_TO_file">
+<code class="descclassname">adamspy.adripy.utilities.</code><code class="descname">read_TO_file</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/utilities.html#read_TO_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.utilities.read_TO_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads a Tiem Orbit file into a dictionary of parameters</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>{string} -- Filename of the Tiem Orbit file</strong> (<em>filename</em>) – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body">TiemOrbitSyntaxError – Raised if the Tiem Orbit syntax is not recognized</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="adamspy.adripy.utilities.remove_cdb_from_cfg">
+<code class="descclassname">adamspy.adripy.utilities.</code><code class="descname">remove_cdb_from_cfg</code><span class="sig-paren">(</span><em>name</em>, <em>cfg_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/utilities.html#remove_cdb_from_cfg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.utilities.remove_cdb_from_cfg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Removes cdb of name <cite>name</cite> from <cite>cfg_file</cite></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -529,8 +1691,8 @@ file with the cdb alias replaced by the cdb location.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="adamspy.adripy.adripy.replace_tool">
-<code class="descclassname">adamspy.adripy.adripy.</code><code class="descname">replace_tool</code><span class="sig-paren">(</span><em>string_file</em>, <em>old_tool_file</em>, <em>new_tool_file</em>, <em>old_tool_name=''</em>, <em>new_tool_name=''</em>, <em>N=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/adripy.html#replace_tool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.adripy.replace_tool" title="Permalink to this definition">¶</a></dt>
+<dt id="adamspy.adripy.utilities.replace_tool">
+<code class="descclassname">adamspy.adripy.utilities.</code><code class="descname">replace_tool</code><span class="sig-paren">(</span><em>string_file</em>, <em>old_tool_file</em>, <em>new_tool_file</em>, <em>old_tool_name=''</em>, <em>new_tool_name=''</em>, <em>N=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/utilities.html#replace_tool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.utilities.replace_tool" title="Permalink to this definition">¶</a></dt>
 <dd><p>Swaps old_tool_file for new_tool_file in string_file.  Also replaces the tools Name field.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -557,8 +1719,8 @@ file with the cdb alias replaced by the cdb location.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="adamspy.adripy.adripy.turn_measure_on">
-<code class="descclassname">adamspy.adripy.adripy.</code><code class="descname">turn_measure_on</code><span class="sig-paren">(</span><em>string_file</em>, <em>tool_types=[]</em>, <em>tool_numbers=[]</em>, <em>tool_names=[]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/adripy.html#turn_measure_on"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.adripy.turn_measure_on" title="Permalink to this definition">¶</a></dt>
+<dt id="adamspy.adripy.utilities.turn_measure_on">
+<code class="descclassname">adamspy.adripy.utilities.</code><code class="descname">turn_measure_on</code><span class="sig-paren">(</span><em>string_file</em>, <em>tool_types=[]</em>, <em>tool_numbers=[]</em>, <em>tool_names=[]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/utilities.html#turn_measure_on"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.utilities.turn_measure_on" title="Permalink to this definition">¶</a></dt>
 <dd><p>Modify a string file to turn measure on for teh designated tools.  Tools may be designated by type, number (stack order), or name.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -586,20 +1748,6 @@ file with the cdb alias replaced by the cdb location.</p>
 <div class="section" id="module-adamspy.adripy">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-adamspy.adripy" title="Permalink to this headline">¶</a></h2>
 <p>adripy is a set of python tools for manipulating MSC Adams Drill files and data.</p>
-<div class="section" id="available-subpackages">
-<h3>Available subpackages<a class="headerlink" href="#available-subpackages" title="Permalink to this headline">¶</a></h3>
-<dl class="docutils">
-<dt>tiem_orbit</dt>
-<dd>Classes representing adams drill objects. (Events, Strings, Stabilizers, ect.)</dd>
-</dl>
-</div>
-<div class="section" id="available-modules">
-<h3>Available modules<a class="headerlink" href="#available-modules" title="Permalink to this headline">¶</a></h3>
-<dl class="docutils">
-<dt>adripy</dt>
-<dd>Functions for manipulating MSC Adams Drill files</dd>
-</dl>
-</div>
 </div>
 </div>
 

@@ -6,8 +6,7 @@ import shutil
 import re
 from . import TMPLT_ENV
 from .tool import DrillTool
-from .utilities import read_TO_file
-from ..adripy import get_cdb_location, get_cdb_path, get_full_path, TO_LENGTH_PARAM
+from .utilities import read_TO_file, get_cdb_location, get_cdb_path, get_full_path, TO_LENGTH_PARAM
 
 class DrillString():
     """
@@ -429,12 +428,12 @@ class DrillString():
         for param_name in self.SCALAR_PARAMETERS:
             if param_name not in self.parameters:
                 validation['valid'] = False
-                validation['reason'] = 'Not all string parameters have been defined'
+                validation['reason'] = 'not all string parameters have been defined'
         
         # Test that the DrillString has a top_drive defined
         if not self.top_drive:
             validation['valid'] = False
-            validation['reason'] = 'The string doesn\'t have a Top Drive'
+            validation['reason'] = 'the string doesn\'t have a Top Drive'
 
         # Check that the DrillString has ps, eus, and a pdc
         eus_found = False
@@ -450,13 +449,13 @@ class DrillString():
 
         if not eus_found:
             validation['valid'] = False
-            validation['reason'] = 'The string doesn\'t have equivalent upper string'     
+            validation['reason'] = 'the string doesn\'t have equivalent upper string'     
         if not ps_found:
             validation['valid'] = False
-            validation['reason'] = 'The string doesn\'t have physical string'                 
+            validation['reason'] = 'the string doesn\'t have physical string'                 
         if not pdc_found:
             validation['valid'] = False
-            validation['reason'] = 'The string doesn\'t have a bit'     
+            validation['reason'] = 'the string doesn\'t have a bit'     
 
         return validation   
     

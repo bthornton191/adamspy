@@ -1,15 +1,10 @@
 """Module for the DrillSim class
 """
 import os
-from ..adripy import build
+from .utilities import build
 
 class DrillSim(): #pylint: disable=too-many-instance-attributes
     """Contains data defining the files that make up an Adams Drill input deck.
-
-    Example
-    -------
-    >>> my_drillsim = adripy.tiem_orbit.DrillSim(my_string, my_event, my_solversettings, os.getcwd(), 'MyAnalysis')
-    >>> 
 
     Attributes
     ----------
@@ -35,6 +30,10 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         Filename of the analysis' res file
     built : bool
         Indicates whether the input deck (adm, acf, and cmd files) has been built yet for this DrillSim
+        
+    Example
+    -------
+    >>> my_drillsim = adripy.DrillSim(my_string, my_event, my_solversettings, os.getcwd(), 'MyAnalysis')
     """
     def __init__(self, string, event, solver_settings, directory, analysis_name): #pylint: disable=too-many-arguments
         """Sets instance attributes and writes the string, event, and solver settings files to `directory`.
