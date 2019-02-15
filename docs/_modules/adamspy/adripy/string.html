@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.tiem_orbit.string &mdash; adamspy 0.6.5 documentation</title>
+  <title>adamspy.adripy.string &mdash; adamspy 0.6.5 documentation</title>
   
 
   
@@ -24,13 +24,13 @@
 
   
 
-  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-    <link rel="index" title="Index" href="../../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../../search.html" /> 
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
 
   
-  <script src="../../../../_static/js/modernizr.min.js"></script>
+  <script src="../../../_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -46,7 +46,7 @@
           
 
           
-            <a href="../../../../index.html" class="icon icon-home"> adamspy
+            <a href="../../../index.html" class="icon icon-home"> adamspy
           
 
           
@@ -59,7 +59,7 @@
 
           
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -90,7 +90,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">adamspy</a>
+          <a href="../../../index.html">adamspy</a>
         
       </nav>
 
@@ -119,11 +119,11 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
         
-      <li>adamspy.adripy.tiem_orbit.string</li>
+      <li>adamspy.adripy.string</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -138,7 +138,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for adamspy.adripy.tiem_orbit.string</h1><div class="highlight"><pre>
+  <h1>Source code for adamspy.adripy.string</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Contains the DrillString class</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -147,10 +147,9 @@
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">TMPLT_ENV</span>
 <span class="kn">from</span> <span class="nn">.tool</span> <span class="k">import</span> <span class="n">DrillTool</span>
-<span class="kn">from</span> <span class="nn">.utilities</span> <span class="k">import</span> <span class="n">read_TO_file</span>
-<span class="kn">from</span> <span class="nn">..adripy</span> <span class="k">import</span> <span class="n">get_cdb_location</span><span class="p">,</span> <span class="n">get_cdb_path</span><span class="p">,</span> <span class="n">get_full_path</span><span class="p">,</span> <span class="n">TO_LENGTH_PARAM</span>
+<span class="kn">from</span> <span class="nn">.utilities</span> <span class="k">import</span> <span class="n">read_TO_file</span><span class="p">,</span> <span class="n">get_cdb_location</span><span class="p">,</span> <span class="n">get_cdb_path</span><span class="p">,</span> <span class="n">get_full_path</span><span class="p">,</span> <span class="n">TO_LENGTH_PARAM</span>
 
-<div class="viewcode-block" id="DrillString"><a class="viewcode-back" href="../../../../adamspy.adripy.tiem_orbit.html#adamspy.adripy.tiem_orbit.string.DrillString">[docs]</a><span class="k">class</span> <span class="nc">DrillString</span><span class="p">():</span>
+<div class="viewcode-block" id="DrillString"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString">[docs]</a><span class="k">class</span> <span class="nc">DrillString</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates an object with all data necessary to write a drill string.      </span>
 <span class="sd">    </span>
@@ -242,7 +241,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">tools</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">top_drive</span> <span class="o">=</span> <span class="p">{}</span>
 
-<div class="viewcode-block" id="DrillString.add_tool"><a class="viewcode-back" href="../../../../adamspy.adripy.tiem_orbit.html#adamspy.adripy.tiem_orbit.string.DrillString.add_tool">[docs]</a>    <span class="k">def</span> <span class="nf">add_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">drill_tool</span><span class="p">,</span> <span class="n">joints</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">measure</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">stack_order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Default&#39;</span><span class="p">,</span> <span class="n">group_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">equivalent</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="DrillString.add_tool"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.add_tool">[docs]</a>    <span class="k">def</span> <span class="nf">add_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">drill_tool</span><span class="p">,</span> <span class="n">joints</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">measure</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">stack_order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Default&#39;</span><span class="p">,</span> <span class="n">group_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">equivalent</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds a DrillTool object to the DrillString.</span>
 <span class="sd">        </span>
@@ -308,7 +307,7 @@
                 <span class="s1">&#39;Property_File&#39;</span><span class="p">:</span> <span class="n">drill_tool</span><span class="o">.</span><span class="n">property_file</span>
             <span class="p">}</span></div>
     
-<div class="viewcode-block" id="DrillString.set_pipe_joints"><a class="viewcode-back" href="../../../../adamspy.adripy.tiem_orbit.html#adamspy.adripy.tiem_orbit.string.DrillString.set_pipe_joints">[docs]</a>    <span class="k">def</span> <span class="nf">set_pipe_joints</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">joints</span><span class="p">,</span> <span class="n">equivalent</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="DrillString.set_pipe_joints"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.set_pipe_joints">[docs]</a>    <span class="k">def</span> <span class="nf">set_pipe_joints</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">joints</span><span class="p">,</span> <span class="n">equivalent</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Sets the number of joints in the upper most section of</span>
 <span class="sd">        drill pipe. Set pipe_type=&#39;equivalent&#39; to adjust equivalent</span>
 <span class="sd">        upper string joints&#39;</span>
@@ -343,7 +342,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>          
             <span class="k">raise</span> <span class="n">DrillStringError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;There is no </span><span class="si">{tool_type}</span><span class="s1"> in this string!&#39;</span><span class="p">)</span>        </div>
     
-<div class="viewcode-block" id="DrillString.get_tool"><a class="viewcode-back" href="../../../../adamspy.adripy.tiem_orbit.html#adamspy.adripy.tiem_orbit.string.DrillString.get_tool">[docs]</a>    <span class="k">def</span> <span class="nf">get_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tool_type</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="DrillString.get_tool"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.get_tool">[docs]</a>    <span class="k">def</span> <span class="nf">get_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tool_type</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns a DrillTool object of type tool_type in the </span>
 <span class="sd">        DrillString object&#39;s tools list.  </span>
 <span class="sd">        </span>
@@ -387,7 +386,7 @@
         <span class="k">if</span> <span class="n">instance</span><span class="o">==</span><span class="s1">&#39;last&#39;</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">tools_found</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
         
-<div class="viewcode-block" id="DrillString.get_bha_length"><a class="viewcode-back" href="../../../../adamspy.adripy.tiem_orbit.html#adamspy.adripy.tiem_orbit.string.DrillString.get_bha_length">[docs]</a>    <span class="k">def</span> <span class="nf">get_bha_length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DrillString.get_bha_length"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.get_bha_length">[docs]</a>    <span class="k">def</span> <span class="nf">get_bha_length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the total length of the drill string defined in </span>
 <span class="sd">        string_file NOT including the equivalent upper string and </span>
@@ -418,7 +417,7 @@
         
         <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">tool_lengths</span><span class="p">)</span></div>
     
-<div class="viewcode-block" id="DrillString.add_measurement_point"><a class="viewcode-back" href="../../../../adamspy.adripy.tiem_orbit.html#adamspy.adripy.tiem_orbit.string.DrillString.add_measurement_point">[docs]</a>    <span class="k">def</span> <span class="nf">add_measurement_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">distance</span><span class="p">):</span>
+<div class="viewcode-block" id="DrillString.add_measurement_point"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.add_measurement_point">[docs]</a>    <span class="k">def</span> <span class="nf">add_measurement_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">distance</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds a measurement point at the given distance from the bit in feet.</span>
 <span class="sd">        </span>
@@ -428,7 +427,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Distance_from_Bit&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">distance</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Distance_from_Bit&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span></div>
         
-<div class="viewcode-block" id="DrillString.write_to_file"><a class="viewcode-back" href="../../../../adamspy.adripy.tiem_orbit.html#adamspy.adripy.tiem_orbit.string.DrillString.write_to_file">[docs]</a>    <span class="k">def</span> <span class="nf">write_to_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cdb</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">publish</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">publish_event</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="DrillString.write_to_file"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.write_to_file">[docs]</a>    <span class="k">def</span> <span class="nf">write_to_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cdb</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">publish</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">publish_event</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Writes a string file from the DrillString object.</span>
 
 <span class="sd">        Notes</span>
@@ -558,7 +557,7 @@
         
         <span class="k">return</span> <span class="n">get_cdb_path</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span></div>
     
-<div class="viewcode-block" id="DrillString.validate"><a class="viewcode-back" href="../../../../adamspy.adripy.tiem_orbit.html#adamspy.adripy.tiem_orbit.string.DrillString.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DrillString.validate"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Determines if all parameters have been set</span>
 <span class="sd">        </span>
@@ -601,7 +600,7 @@
 
         <span class="k">return</span> <span class="n">validation</span>   </div>
     
-<div class="viewcode-block" id="DrillString.read_from_file"><a class="viewcode-back" href="../../../../adamspy.adripy.tiem_orbit.html#adamspy.adripy.tiem_orbit.string.DrillString.read_from_file">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="DrillString.read_from_file"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.read_from_file">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">read_from_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Reads a string file and returns a DrillString object</span>
 <span class="sd">        with DrillString.parameters based on data in the string </span>
@@ -772,7 +771,7 @@
             <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{param}</span><span class="s1"> not found!&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="DrillStringError"><a class="viewcode-back" href="../../../../adamspy.adripy.tiem_orbit.html#adamspy.adripy.tiem_orbit.string.DrillStringError">[docs]</a><span class="k">class</span> <span class="nc">DrillStringError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="DrillStringError"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillStringError">[docs]</a><span class="k">class</span> <span class="nc">DrillStringError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 </pre></div>
 
@@ -807,16 +806,16 @@
 
     
     
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
     
 
   
 
-  <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
   <script type="text/javascript">
       jQuery(function () {
