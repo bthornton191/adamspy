@@ -4,8 +4,7 @@
 import os
 import shutil
 from thornpy import numtype
-from .utilities import TO_BLOCK_HEADER_PATTERN, TO_PARAMETER_PATTERN
-from ..adripy import get_cdb_location, get_cdb_path, get_full_path
+from .utilities import TO_BLOCK_HEADER_PATTERN, TO_PARAMETER_PATTERN, get_cdb_location, get_cdb_path, get_full_path
 
 class DrillTool():
     """

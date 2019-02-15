@@ -570,12 +570,12 @@
         <span class="k">for</span> <span class="n">param_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">SCALAR_PARAMETERS</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">param_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
                 <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;valid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-                <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;reason&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Not all string parameters have been defined&#39;</span>
+                <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;reason&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;not all string parameters have been defined&#39;</span>
         
         <span class="c1"># Test that the DrillString has a top_drive defined</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_drive</span><span class="p">:</span>
             <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;valid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;reason&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;The string doesn</span><span class="se">\&#39;</span><span class="s1">t have a Top Drive&#39;</span>
+            <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;reason&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;the string doesn</span><span class="se">\&#39;</span><span class="s1">t have a Top Drive&#39;</span>
 
         <span class="c1"># Check that the DrillString has ps, eus, and a pdc</span>
         <span class="n">eus_found</span> <span class="o">=</span> <span class="kc">False</span>
@@ -591,13 +591,13 @@
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">eus_found</span><span class="p">:</span>
             <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;valid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;reason&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;The string doesn</span><span class="se">\&#39;</span><span class="s1">t have equivalent upper string&#39;</span>     
+            <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;reason&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;the string doesn</span><span class="se">\&#39;</span><span class="s1">t have equivalent upper string&#39;</span>     
         <span class="k">if</span> <span class="ow">not</span> <span class="n">ps_found</span><span class="p">:</span>
             <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;valid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;reason&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;The string doesn</span><span class="se">\&#39;</span><span class="s1">t have physical string&#39;</span>                 
+            <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;reason&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;the string doesn</span><span class="se">\&#39;</span><span class="s1">t have physical string&#39;</span>                 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">pdc_found</span><span class="p">:</span>
             <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;valid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;reason&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;The string doesn</span><span class="se">\&#39;</span><span class="s1">t have a bit&#39;</span>     
+            <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;reason&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;the string doesn</span><span class="se">\&#39;</span><span class="s1">t have a bit&#39;</span>     
 
         <span class="k">return</span> <span class="n">validation</span>   </div>
     

@@ -22,7 +22,7 @@ Getting Started
 ================
 
 Requirements
------------------------------
+------------
 * Python 3
 * Adams View *(2018 or later)*
 * Adams Drill *(required to use the adamspy.adripy module)*
@@ -104,12 +104,16 @@ The above script would output:
 Next Steps
 ==================
 If you aren't sure how to use this package, you can start by 
-examining the functions in the
-:doc:`adamspy.adripy.adripy module <adamspy.adripy>`.  These are 
+examining the :doc:`adripy examples <adripy_examples>`.
+
+You can also examine the functions in the
+:mod:`~adamspy.adripy.utilities`.  These are 
 basic functions for working with Adams Drill data.
 
-From there you should explore the classes in the 
-:doc:`adripy.tiem_orbit module <adamspy.adripy.tiem_orbit>`.  
+From there you should explore the :class:`~adamspy.adripy.string.DrillString` class
+, the :class:`~adamspy.adripy.event.DrillEvent` class, the :class:`~adamspy.adripy.solver_settings.DrillSolverSettings` 
+class, and the :class:`~adamspy.adripy.tool.DrillTool` class.
+
 These classes represent Adams Drill objects (e.g. drill strings, 
 events, pdc bits) and have methods for building and running 
 drill models.
