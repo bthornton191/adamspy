@@ -715,12 +715,17 @@ TEST_EXPECTED_SOLVER_SETTINGS_TO_PARAMETERS['_Funnel'] = zip(*TEST_EXPECTED_SOLV
 def check_file_contents(filename, expected_text):
     """Checks that the given file contains the expected text.
     
-    Arguments:
-        filename {string} -- Name of file to check
-        expected_text {string} -- Expected contents of file
+    Parameters
+    ----------
+    filename : str
+        Name of file to check
+    expected_text : str
+        Expected contents of file
     
-    Returns:
-        list -- list of unexpected lines
+    Returns
+    -------
+    list
+        `list` of unexpected lines
     """
 
     # Read the file
