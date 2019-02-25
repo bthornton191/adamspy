@@ -1080,7 +1080,7 @@ highest most physical string.</p>
 
 <dl class="method">
 <dt id="adamspy.adripy.string.DrillString.get_tool">
-<code class="descname">get_tool</code><span class="sig-paren">(</span><em>tool_type</em>, <em>instance='first'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/string.html#DrillString.get_tool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.string.DrillString.get_tool" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_tool</code><span class="sig-paren">(</span><em>tool_type</em>, <em>index=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/string.html#DrillString.get_tool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.string.DrillString.get_tool" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a DrillTool object of type tool_type in the
 DrillString object’s tools list.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1089,7 +1089,7 @@ DrillString object’s tools list.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>tool_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Desired tool type.</li>
-<li><strong>instance</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – If ‘first’, will take the first instance.  If ‘last’, will take the last instance. If an integer N is given, will take the Nth instance. (the default is ‘first’)</li>
+<li><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Index of the tool to return (the default is 0)</li>
 </ul>
 </td>
 </tr>
@@ -1295,8 +1295,8 @@ of the specified type.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>{string} -- New name for the tool.</strong> (<em>new_name</em>) – </li>
-<li><strong>{bool} -- If True will rename the property file.  If False will create a new one.</strong> (<em>in_place</em>) – </li>
+<li><strong>new_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – New name for the tool.</li>
+<li><strong>remove_original</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – If <cite>True</cite> will rename the property file.  If <cite>False</cite> will create a new one.</li>
 </ul>
 </td>
 </tr>

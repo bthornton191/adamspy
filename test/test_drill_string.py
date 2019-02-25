@@ -340,7 +340,7 @@ class Test_DrillString(unittest.TestCase):
         drill_string.add_tool(self.eus, joints=20, group_name='equivalent_pipe', equivalent=True)
         drill_string.add_tool(self.top_drive)
 
-        got_tool = drill_string.get_tool('stabilizer', instance='last')
+        got_tool = drill_string.get_tool('stabilizer', index=-1)
 
         self.assertEqual(got_tool, different_stabilizer)  
 
@@ -361,7 +361,7 @@ class Test_DrillString(unittest.TestCase):
         drill_string.add_tool(self.eus, joints=20, group_name='equivalent_pipe', equivalent=True)
         drill_string.add_tool(self.top_drive)
 
-        got_tool = drill_string.get_tool('stabilizer', instance=1)
+        got_tool = drill_string.get_tool('stabilizer', index=0)
 
         self.assertEqual(got_tool, self.stabilizer)  
 
@@ -382,7 +382,7 @@ class Test_DrillString(unittest.TestCase):
         drill_string.add_tool(self.eus, joints=20, group_name='equivalent_pipe', equivalent=True)
         drill_string.add_tool(self.top_drive)
 
-        got_tool = drill_string.get_tool('stabilizer', instance=2)
+        got_tool = drill_string.get_tool('stabilizer', index=1)
 
         self.assertEqual(got_tool, different_stabilizer)  
 

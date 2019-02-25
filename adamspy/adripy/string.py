@@ -201,7 +201,7 @@ class DrillString():
         if not found:          
             raise DrillStringError(f'There is no {tool_type} in this string!')        
     
-    def get_tool(self, tool_type, instance='first'):
+    def get_tool(self, tool_type, index=0):
         """Returns a DrillTool object of type tool_type in the 
         DrillString object's tools list.  
         
@@ -210,8 +210,8 @@ class DrillString():
         tool_type : str
             Desired tool type.       
         
-        instance : str or int
-            If 'first', will take the first instance.  If 'last', will take the last instance. If an integer N is given, will take the Nth instance. (the default is 'first')
+        index : int
+            Index of the tool to return (the default is 0)
         
         Raises
         ------
@@ -225,25 +225,23 @@ class DrillString():
         """
         tools_found = []
         for tool in self.tools:
+            # For each tool in self.tools if this tool matches the requested tool type
             if tool['Type']==tool_type:
-                if isinstance(instance,str):
-                    if instance=='first':
-                        return tool['DrillTool']
-                    elif instance=='last':
-                        tools_found.append(tool['DrillTool'])
-                else:
-                    if len(tools_found)==instance-1:
-                        return tool['DrillTool']
-                    else:
-                        tools_found.append(tool['DrillTool'])
+                tools_found.append(tool['DrillTool'])
 
-        
+                # If the requested instance is positive and we've found enough tools to stop
+                if index >= 0 and len(tools_found) == index+1:
+                    break
+
         # Raise an error if no tools were found
         if tools_found == []:
             raise DrillStringError(f'No tool of type {tool_type} was found!')
 
-        if instance=='last':
-            return tools_found[-1]
+        if index >= len(tools_found):
+            n_tools_found = len(tools_found)
+            raise DrillStringError(f'Not enough tools of type {tool_type} were found.  Number of tools found was {n_tools_found}.  Requested index was {index}.')
+
+        return tools_found[index]
         
     def get_bha_length(self):
         """
