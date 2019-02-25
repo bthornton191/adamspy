@@ -1603,7 +1603,7 @@ file with the cdb alias replaced by the cdb location.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>string_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Full path to an Adams drill string file (include the .str extension)</li>
+<li><strong>string_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Path to an Adams drill string file.  Accepts full path or cdb alias.</li>
 <li><strong>tool_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Tool type as seen in the string file (e.g. pdc_bit, motor, stabilizer)</li>
 <li><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – If the string file has multiple tools of type <cite>tool_type</cite> , returns the <cite>n</cite> th tool of that type. (the default is 1)</li>
 <li><strong>return_full_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – If true, returns the full path to the tool file instead of using the Adams Drill database (cdb). (the default is True)</li>
