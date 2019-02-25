@@ -68,9 +68,12 @@ class DrillTool():
         """
         Rename the tool
         
-        Arguments:
-            new_name {string} -- New name for the tool.
-            in_place {bool} -- If True will rename the property file.  If False will create a new one.
+        Parameters
+        ----------
+        new_name : str
+            New name for the tool.
+        remove_original : bool
+            If `True` will rename the property file.  If `False` will create a new one.
         """
         # Determine the new filename
         current_filename = get_full_path(self.property_file)
