@@ -250,7 +250,8 @@ class Test_RexExPatterns(unittest.TestCase):
             ' Plotting_4D		= \'on\'',
             ' Hmax =   5.0e-3',
             ' PP =   5.0e+3',
-            '  Pipe_Length         = 31'
+            '  Pipe_Length         = 31',
+            " Event_Property_File  =  ''"
         ]
         strings_to_not_match = [
             'lkjfds  =  2\n',
@@ -265,13 +266,19 @@ class Test_RexExPatterns(unittest.TestCase):
         """Test that strings_to_match matches pattern and strings_to_not_match 
         does not match pattern.
         
-        Arguments:
-            strings_to_match {str} -- Strings that should match pattern
-            strings_to_not_match {str} -- Strings that should not match pattern
-            pattern {re.match} -- Match object
+        Parameters
+        ----------
+        strings_to_match : str
+            Strings that should match pattern
+        strings_to_not_match : str
+            Strings that should not match pattern
+        pattern : re.match
+            Match object
         
-        Returns:
-            [list] -- List of failures
+        Returns
+        -------
+        list
+            List of failures
         """
 
         failures = []
