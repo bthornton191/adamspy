@@ -215,7 +215,7 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    string_file : str</span>
-<span class="sd">        Full path to an MSC Adams Drill string file (include the .str extension)</span>
+<span class="sd">        Path to an MSC Adams Drill string file. Accepts full path or cdb alias.</span>
 <span class="sd">    tool_types : list, optional</span>
 <span class="sd">        List of tool types as seen in the string file (e.g. pdc_bit, motor, stabilizer)</span>
 <span class="sd">    tool_numbers : list, optional</span>
@@ -230,6 +230,10 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">mark</span> <span class="o">=</span> <span class="kc">False</span>
+    
+    <span class="c1"># Convert to full path if cdb alias was used</span>
+    <span class="n">string_file</span> <span class="o">=</span> <span class="n">get_full_path</span><span class="p">(</span><span class="n">string_file</span><span class="p">)</span>
+    
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">string_file</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid_str</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">string_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.str&#39;</span><span class="p">,</span><span class="s1">&#39;.tmp&#39;</span><span class="p">),</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid_str_tmp</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid_str</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;$&#39;</span><span class="p">):</span>
@@ -306,7 +310,7 @@
                     <span class="n">tool_name</span> <span class="o">=</span> <span class="n">tool_file</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
                     <span class="n">group_name</span> <span class="o">=</span> <span class="n">tool_name</span>
                     <span class="k">if</span> <span class="n">return_full_path</span><span class="p">:</span>
-                        <span class="n">tool_file</span> <span class="o">=</span> <span class="n">get_toolFilename_fullNotation</span><span class="p">(</span><span class="n">tool_file</span><span class="p">)</span>
+                        <span class="n">tool_file</span> <span class="o">=</span> <span class="n">get_full_path</span><span class="p">(</span><span class="n">tool_file</span><span class="p">)</span>
                     <span class="n">tool_found</span> <span class="o">=</span> <span class="kc">True</span>
                     <span class="n">stack_order</span> <span class="o">=</span> <span class="mi">0</span>
                     <span class="k">break</span>
@@ -321,7 +325,7 @@
                     <span class="n">tool_file</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">)</span>
                     <span class="n">tool_name</span> <span class="o">=</span> <span class="n">tool_file</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
                     <span class="k">if</span> <span class="n">return_full_path</span><span class="p">:</span>
-                        <span class="n">tool_file</span> <span class="o">=</span> <span class="n">get_toolFilename_fullNotation</span><span class="p">(</span><span class="n">tool_file</span><span class="p">)</span>
+                        <span class="n">tool_file</span> <span class="o">=</span> <span class="n">get_full_path</span><span class="p">(</span><span class="n">tool_file</span><span class="p">)</span>
                     <span class="n">tool_found</span> <span class="o">=</span> <span class="kc">True</span>
                     <span class="k">break</span>
                 <span class="k">elif</span> <span class="s1">&#39; type &#39;</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">and</span> <span class="n">tool_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
@@ -332,19 +336,6 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Tool of type </span><span class="si">{}</span><span class="s1"> not found in </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tool_type</span><span class="p">,</span> <span class="n">string_file</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="get_toolFilename_fullNotation"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.utilities.get_toolFilename_fullNotation">[docs]</a><span class="k">def</span> <span class="nf">get_toolFilename_fullNotation</span><span class="p">(</span><span class="n">toolFilename_cdbNotation</span><span class="p">):</span>
-    <span class="k">if</span> <span class="s1">&#39;&lt;&#39;</span> <span class="ow">in</span> <span class="n">toolFilename_cdbNotation</span><span class="p">:</span>
-        <span class="n">cdb_name</span> <span class="o">=</span> <span class="n">toolFilename_cdbNotation</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&gt;&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&lt;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-        <span class="n">cdbs</span> <span class="o">=</span> <span class="n">get_adrill_cdbs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADRILL_USER_CFG&#39;</span><span class="p">],</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADRILL_SHARED_CFG&#39;</span><span class="p">])</span>
-        <span class="k">if</span> <span class="n">cdb_name</span> <span class="ow">in</span> <span class="n">cdbs</span><span class="p">:</span>
-            <span class="n">cdb_path</span> <span class="o">=</span> <span class="n">cdbs</span><span class="p">[</span><span class="n">cdb_name</span><span class="p">]</span>   
-            <span class="n">toolFilename_fullNotation</span> <span class="o">=</span> <span class="n">cdb_path</span> <span class="o">+</span> <span class="n">toolFilename_cdbNotation</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&gt;&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>                 
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">cdbError</span><span class="p">(</span><span class="s1">&#39;ADrill Database </span><span class="si">{}</span><span class="s1"> not defined.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cdb_name</span><span class="p">))</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">toolFilename_fullNotation</span> <span class="o">=</span> <span class="n">toolFilename_cdbNotation</span>
-    <span class="k">return</span> <span class="n">toolFilename_fullNotation</span></div>
-
 <div class="viewcode-block" id="get_adrill_cdbs"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.utilities.get_adrill_cdbs">[docs]</a><span class="k">def</span> <span class="nf">get_adrill_cdbs</span><span class="p">(</span><span class="n">adrill_user_cfg</span><span class="p">,</span> <span class="n">adrill_shared_cfg</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Return the names and locatinos of all user defined MSC Adams Drill databases (cdbs)</span>
 <span class="sd">    </span>
@@ -352,7 +343,7 @@
 <span class="sd">    ----------</span>
 <span class="sd">    adrill_user_cfg : str</span>
 <span class="sd">        Full path to an Adams Drill user configuration file.  This hould be in the users HOME directory.</span>
-<span class="sd">    adrill_shared_cfg : str, optional</span>
+<span class="sd">    adrill_shared_cfg : :obj:`str`, optional</span>
 <span class="sd">        Full path to an Adams Drill shared configuration file.  This should be in the Adams Drill installation directory.  (the default is None, which means that only user cdbs will be returned.)</span>
 <span class="sd">        </span>
 <span class="sd">    Returns</span>
@@ -390,7 +381,7 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    filename : str</span>
-<span class="sd">        Full path to a tiem orbit file</span>
+<span class="sd">        Path to a tiem orbit file. Accepts full path or cdb alias.</span>
 <span class="sd">    requested_parameter : str</span>
 <span class="sd">        Name of a parameter in TO_file  </span>
 <span class="sd">                  </span>
@@ -400,7 +391,7 @@
 <span class="sd">        The value assigned to TO_param in TO_file</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Check if CDB notation used and Convert</span>
-    <span class="n">filename</span> <span class="o">=</span> <span class="n">get_toolFilename_fullNotation</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">get_full_path</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 
     <span class="c1"># Initialize a flag indicating that the parameter has not yet</span>
     <span class="c1"># been found</span>
@@ -456,12 +447,15 @@
 <span class="sd">        True if string_file contains at least one tool of type tool_type</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">tool_type_found</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="n">fid</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">string_file</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid</span><span class="p">:</span>
-        <span class="k">if</span> <span class="s1">&#39; Type  =  &#39;</span> <span class="ow">in</span> <span class="n">line</span> <span class="ow">and</span> <span class="n">tool_type</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
-            <span class="n">tool_type_found</span> <span class="o">=</span> <span class="kc">True</span>
-            <span class="k">break</span>
-    <span class="n">fid</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="c1"># Convert to full filepath if cdb alias used</span>
+    <span class="n">string_file</span> <span class="o">=</span> <span class="n">get_full_path</span><span class="p">(</span><span class="n">string_file</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">string_file</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">&#39; Type  =  &#39;</span> <span class="ow">in</span> <span class="n">line</span> <span class="ow">and</span> <span class="n">tool_type</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                <span class="n">tool_type_found</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">break</span>
     <span class="k">return</span> <span class="n">tool_type_found</span></div>
 
 <div class="viewcode-block" id="fullNotation_to_cdbNotation"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.utilities.fullNotation_to_cdbNotation">[docs]</a><span class="k">def</span> <span class="nf">fullNotation_to_cdbNotation</span><span class="p">(</span><span class="n">string_file</span><span class="p">):</span>
@@ -527,6 +521,9 @@
 
     <span class="n">cdbs</span> <span class="o">=</span> <span class="n">get_adrill_cdbs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADRILL_USER_CFG&#39;</span><span class="p">],</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADRILL_SHARED_CFG&#39;</span><span class="p">])</span>
     <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span> 
+
+    <span class="c1"># Convert to full filepath if cdb alias used</span>
+    <span class="n">string_file</span> <span class="o">=</span> <span class="n">get_full_path</span><span class="p">(</span><span class="n">string_file</span><span class="p">)</span>
 
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">string_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid_str</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">string_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.str&#39;</span><span class="p">,</span><span class="s1">&#39;.tmp&#39;</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid_str_tmp</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid_str</span><span class="p">:</span>
@@ -631,11 +628,11 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    string_file : str</span>
-<span class="sd">        Full path to an Adams Drill string file</span>
+<span class="sd">        Path to an Adams Drill string file.  Accepts full path or cdb aliases.</span>
 <span class="sd">    old_tool_file : str</span>
-<span class="sd">        Path to an Adams Drill tool property file that exists in string_file. May use full path or Adrill CDB notation.</span>
+<span class="sd">        Path to an Adams Drill tool property file that exists in string_file. Accepts full path or cdb aliases.</span>
 <span class="sd">    new_tool_file : str</span>
-<span class="sd">        Path to an Adams Drill tool property file to replace old_tool_file. May use full path or Adrill CDB notation.</span>
+<span class="sd">        Path to an Adams Drill tool property file to replace old_tool_file.   Accepts full path or cdb aliases.</span>
 <span class="sd">    N : int</span>
 <span class="sd">        Number of replacements to make. Default is 0 which will replace all instances.</span>
 <span class="sd">    old_tool_name : str</span>
@@ -650,7 +647,10 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">old_tool_file</span> <span class="o">=</span> <span class="n">old_tool_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
     <span class="n">new_tool_file</span> <span class="o">=</span> <span class="n">new_tool_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
-    
+        
+    <span class="c1"># Convert to full filepath if cdb alias used</span>
+    <span class="n">string_file</span> <span class="o">=</span> <span class="n">get_full_path</span><span class="p">(</span><span class="n">string_file</span><span class="p">)</span>
+
     <span class="n">cdbs</span> <span class="o">=</span> <span class="n">get_adrill_cdbs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADRILL_USER_CFG&#39;</span><span class="p">],</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADRILL_SHARED_CFG&#39;</span><span class="p">])</span>
     
     <span class="c1"># Get cdb associated with old_tool_file</span>
@@ -768,40 +768,43 @@
 <span class="sd">        Cumulative length of the string    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">cdbs</span> <span class="o">=</span> <span class="n">get_adrill_cdbs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADRILL_USER_CFG&#39;</span><span class="p">],</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADRILL_SHARED_CFG&#39;</span><span class="p">])</span>
-    <span class="c1"># print(cdbs)</span>
+    
+    <span class="c1"># Convert to full filepath if cdb alias used</span>
+    <span class="n">string_file</span> <span class="o">=</span> <span class="n">get_full_path</span><span class="p">(</span><span class="n">string_file</span><span class="p">)</span>
+
     <span class="n">tool_lengths</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">fid_string</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">string_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid_string</span><span class="p">:</span>
-        <span class="k">if</span> <span class="s1">&#39; property_file&#39;</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;$&#39;</span><span class="p">):</span>
-            <span class="n">tool_file</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="s1">&#39;&lt;&#39;</span> <span class="ow">in</span> <span class="n">tool_file</span><span class="p">:</span>
-                <span class="c1"># Get cdb associated with tool_file</span>
-                <span class="n">tool_has_cdb</span> <span class="o">=</span> <span class="kc">False</span>
-                <span class="k">for</span> <span class="n">cdb_name</span> <span class="ow">in</span> <span class="n">cdbs</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="s1">&#39;&lt;</span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cdb_name</span><span class="p">)</span> <span class="ow">in</span> <span class="n">tool_file</span><span class="p">:</span>
-                        <span class="n">tool_cdb_name</span> <span class="o">=</span> <span class="n">cdb_name</span>
-                        <span class="n">cdb_loc</span> <span class="o">=</span> <span class="n">cdbs</span><span class="p">[</span><span class="n">cdb_name</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">)</span>
-                        <span class="n">tool_has_cdb</span> <span class="o">=</span> <span class="kc">True</span>
-                        <span class="k">break</span>  
-                <span class="c1"># Change cdb notation to full path notation</span>
-                <span class="k">if</span> <span class="n">tool_has_cdb</span><span class="p">:</span>
-                    <span class="n">tool_file</span> <span class="o">=</span> <span class="n">tool_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&lt;</span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tool_cdb_name</span><span class="p">),</span> <span class="n">cdb_loc</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="k">raise</span> <span class="n">cdbError</span><span class="p">(</span><span class="s1">&#39;ADrill Database </span><span class="si">{}</span><span class="s1"> not defined.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cdb_name</span><span class="p">))</span>
-            <span class="n">fid_tool</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">tool_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
-            <span class="n">file_type</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid_tool</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">file_type</span> <span class="ow">and</span> <span class="s1">&#39;top_drive&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">file_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">and</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">TO_LENGTH_PARAM</span><span class="p">[</span><span class="n">file_type</span><span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;$&#39;</span><span class="p">):</span>
-                    <span class="n">tool_length</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
-                    <span class="n">tool_lengths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tool_length</span><span class="p">)</span>
-                    <span class="k">break</span>
-                <span class="k">elif</span> <span class="s1">&#39; file_type&#39;</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;$&#39;</span><span class="p">):</span>
-                    <span class="n">file_type</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
-            <span class="n">fid_tool</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="k">if</span> <span class="s1">&#39; number_of_joints&#39;</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
-            <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
-            <span class="n">tool_lengths</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">tool_lengths</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">n</span>
-    <span class="n">fid_string</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">string_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">&#39; property_file&#39;</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;$&#39;</span><span class="p">):</span>
+                <span class="n">tool_file</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="s1">&#39;&lt;&#39;</span> <span class="ow">in</span> <span class="n">tool_file</span><span class="p">:</span>
+                    <span class="c1"># Get cdb associated with tool_file</span>
+                    <span class="n">tool_has_cdb</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">for</span> <span class="n">cdb_name</span> <span class="ow">in</span> <span class="n">cdbs</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="s1">&#39;&lt;</span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cdb_name</span><span class="p">)</span> <span class="ow">in</span> <span class="n">tool_file</span><span class="p">:</span>
+                            <span class="n">tool_cdb_name</span> <span class="o">=</span> <span class="n">cdb_name</span>
+                            <span class="n">cdb_loc</span> <span class="o">=</span> <span class="n">cdbs</span><span class="p">[</span><span class="n">cdb_name</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">)</span>
+                            <span class="n">tool_has_cdb</span> <span class="o">=</span> <span class="kc">True</span>
+                            <span class="k">break</span>  
+                    <span class="c1"># Change cdb notation to full path notation</span>
+                    <span class="k">if</span> <span class="n">tool_has_cdb</span><span class="p">:</span>
+                        <span class="n">tool_file</span> <span class="o">=</span> <span class="n">tool_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&lt;</span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tool_cdb_name</span><span class="p">),</span> <span class="n">cdb_loc</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="n">cdbError</span><span class="p">(</span><span class="s1">&#39;ADrill Database </span><span class="si">{}</span><span class="s1"> not defined.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cdb_name</span><span class="p">))</span>
+                <span class="n">fid_tool</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">tool_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+                <span class="n">file_type</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid_tool</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">file_type</span> <span class="ow">and</span> <span class="s1">&#39;top_drive&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">file_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">and</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">TO_LENGTH_PARAM</span><span class="p">[</span><span class="n">file_type</span><span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;$&#39;</span><span class="p">):</span>
+                        <span class="n">tool_length</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+                        <span class="n">tool_lengths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tool_length</span><span class="p">)</span>
+                        <span class="k">break</span>
+                    <span class="k">elif</span> <span class="s1">&#39; file_type&#39;</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;$&#39;</span><span class="p">):</span>
+                        <span class="n">file_type</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">fid_tool</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">if</span> <span class="s1">&#39; number_of_joints&#39;</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="n">tool_lengths</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">tool_lengths</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">n</span>
+    
     <span class="n">string_length</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">tool_lengths</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">string_length</span></div>
 
@@ -839,7 +842,10 @@
 <span class="sd">        Cumulative length of the string    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">cdbs</span> <span class="o">=</span> <span class="n">get_adrill_cdbs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADRILL_USER_CFG&#39;</span><span class="p">],</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADRILL_SHARED_CFG&#39;</span><span class="p">])</span>
-    <span class="c1"># print(cdbs)</span>
+    
+    <span class="c1"># Convert to full filepath if cdb alias used</span>
+    <span class="n">string_file</span> <span class="o">=</span> <span class="n">get_full_path</span><span class="p">(</span><span class="n">string_file</span><span class="p">)</span>
+
     <span class="n">tool_lengths</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">string_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid_string</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid_string</span><span class="p">:</span>

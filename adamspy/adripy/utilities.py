@@ -74,7 +74,7 @@ def turn_measure_on(string_file, tool_types=[], tool_numbers=[], tool_names=[]):
     Parameters
     ----------
     string_file : str
-        Full path to an MSC Adams Drill string file (include the .str extension)
+        Path to an MSC Adams Drill string file. Accepts full path or cdb alias.
     tool_types : list, optional
         List of tool types as seen in the string file (e.g. pdc_bit, motor, stabilizer)
     tool_numbers : list, optional
@@ -89,6 +89,10 @@ def turn_measure_on(string_file, tool_types=[], tool_numbers=[], tool_names=[]):
     """
     n = 0
     mark = False
+    
+    # Convert to full path if cdb alias was used
+    string_file = get_full_path(string_file)
+    
     with open(string_file,'r') as fid_str, open(string_file.replace('.str','.tmp'),'w') as fid_str_tmp:
         for line in fid_str:
             if line.startswith('$'):
@@ -165,7 +169,7 @@ def get_tool_name(string_file, tool_type, n=1, return_full_path=True):
                     tool_name = tool_file.split('\\')[-1].split('.')[0]
                     group_name = tool_name
                     if return_full_path:
-                        tool_file = get_toolFilename_fullNotation(tool_file)
+                        tool_file = get_full_path(tool_file)
                     tool_found = True
                     stack_order = 0
                     break
@@ -180,7 +184,7 @@ def get_tool_name(string_file, tool_type, n=1, return_full_path=True):
                     tool_file = line.split("'")[1].replace('/','\\')
                     tool_name = tool_file.split('\\')[-1].split('.')[0]
                     if return_full_path:
-                        tool_file = get_toolFilename_fullNotation(tool_file)
+                        tool_file = get_full_path(tool_file)
                     tool_found = True
                     break
                 elif ' type ' in line.lower() and tool_type.lower() in line.lower():
@@ -191,19 +195,6 @@ def get_tool_name(string_file, tool_type, n=1, return_full_path=True):
     else:
         raise ValueError('Tool of type {} not found in {}'.format(tool_type, string_file))
 
-def get_toolFilename_fullNotation(toolFilename_cdbNotation):
-    if '<' in toolFilename_cdbNotation:
-        cdb_name = toolFilename_cdbNotation.split('>')[0].replace('<','')
-        cdbs = get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
-        if cdb_name in cdbs:
-            cdb_path = cdbs[cdb_name]   
-            toolFilename_fullNotation = cdb_path + toolFilename_cdbNotation.split('>')[1]                 
-        else:
-            raise cdbError('ADrill Database {} not defined.'.format(cdb_name))
-    else:
-        toolFilename_fullNotation = toolFilename_cdbNotation
-    return toolFilename_fullNotation
-
 def get_adrill_cdbs(adrill_user_cfg, adrill_shared_cfg=None):
     """Return the names and locatinos of all user defined MSC Adams Drill databases (cdbs)
     
@@ -211,7 +202,7 @@ def get_adrill_cdbs(adrill_user_cfg, adrill_shared_cfg=None):
     ----------
     adrill_user_cfg : str
         Full path to an Adams Drill user configuration file.  This hould be in the users HOME directory.
-    adrill_shared_cfg : str, optional
+    adrill_shared_cfg : :obj:`str`, optional
         Full path to an Adams Drill shared configuration file.  This should be in the Adams Drill installation directory.  (the default is None, which means that only user cdbs will be returned.)
         
     Returns
@@ -249,7 +240,7 @@ def get_TO_param(filename, requested_parameter):
     Parameters
     ----------
     filename : str
-        Full path to a tiem orbit file
+        Path to a tiem orbit file. Accepts full path or cdb alias.
     requested_parameter : str
         Name of a parameter in TO_file  
                   
@@ -259,7 +250,7 @@ def get_TO_param(filename, requested_parameter):
         The value assigned to TO_param in TO_file
     """
     # Check if CDB notation used and Convert
-    filename = get_toolFilename_fullNotation(filename)
+    filename = get_full_path(filename)
 
     # Initialize a flag indicating that the parameter has not yet
     # been found
@@ -315,12 +306,15 @@ def has_tool(string_file, tool_type):
         True if string_file contains at least one tool of type tool_type
     """
     tool_type_found = False
-    fid = open(string_file,'r')
-    for line in fid:
-        if ' Type  =  ' in line and tool_type in line:
-            tool_type_found = True
-            break
-    fid.close()
+
+    # Convert to full filepath if cdb alias used
+    string_file = get_full_path(string_file)
+
+    with open(string_file,'r') as fid:
+        for line in fid:
+            if ' Type  =  ' in line and tool_type in line:
+                tool_type_found = True
+                break
     return tool_type_found
 
 def fullNotation_to_cdbNotation(string_file):
@@ -386,6 +380,9 @@ def cdbNotation_to_fullNotation(string_file):
 
     cdbs = get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
     n = 0 
+
+    # Convert to full filepath if cdb alias used
+    string_file = get_full_path(string_file)
 
     with open(string_file, 'r') as fid_str, open(string_file.replace('.str','.tmp'), 'w') as fid_str_tmp:
         for line in fid_str:
@@ -490,11 +487,11 @@ def replace_tool(string_file, old_tool_file, new_tool_file, old_tool_name='', ne
     Parameters
     ----------
     string_file : str
-        Full path to an Adams Drill string file
+        Path to an Adams Drill string file.  Accepts full path or cdb aliases.
     old_tool_file : str
-        Path to an Adams Drill tool property file that exists in string_file. May use full path or Adrill CDB notation.
+        Path to an Adams Drill tool property file that exists in string_file. Accepts full path or cdb aliases.
     new_tool_file : str
-        Path to an Adams Drill tool property file to replace old_tool_file. May use full path or Adrill CDB notation.
+        Path to an Adams Drill tool property file to replace old_tool_file.   Accepts full path or cdb aliases.
     N : int
         Number of replacements to make. Default is 0 which will replace all instances.
     old_tool_name : str
@@ -509,7 +506,10 @@ def replace_tool(string_file, old_tool_file, new_tool_file, old_tool_name='', ne
     """
     old_tool_file = old_tool_file.replace('\\','/')
     new_tool_file = new_tool_file.replace('\\','/')
-    
+        
+    # Convert to full filepath if cdb alias used
+    string_file = get_full_path(string_file)
+
     cdbs = get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
     
     # Get cdb associated with old_tool_file
@@ -627,40 +627,43 @@ def get_string_length(string_file):
         Cumulative length of the string    
     """
     cdbs = get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
-    # print(cdbs)
+    
+    # Convert to full filepath if cdb alias used
+    string_file = get_full_path(string_file)
+
     tool_lengths = []
-    fid_string = open(string_file, 'r')
-    for line in fid_string:
-        if ' property_file' in line.lower() and not line.startswith('$'):
-            tool_file = line.split("'")[1].replace('/', '\\')
-            if '<' in tool_file:
-                # Get cdb associated with tool_file
-                tool_has_cdb = False
-                for cdb_name in cdbs:
-                    if '<{}>'.format(cdb_name) in tool_file:
-                        tool_cdb_name = cdb_name
-                        cdb_loc = cdbs[cdb_name].replace('/','\\')
-                        tool_has_cdb = True
-                        break  
-                # Change cdb notation to full path notation
-                if tool_has_cdb:
-                    tool_file = tool_file.replace('<{}>'.format(tool_cdb_name), cdb_loc)
-                else:
-                    raise cdbError('ADrill Database {} not defined.'.format(cdb_name))
-            fid_tool = open(tool_file, 'r')
-            file_type = ''
-            for line in fid_tool:
-                if file_type and 'top_drive' not in file_type.lower() and line.replace(' ', '').split('=')[0] in TO_LENGTH_PARAM[file_type] and not line.startswith('$'):
-                    tool_length = float(line.replace(' ', '').split('=')[1])
-                    tool_lengths.append(tool_length)
-                    break
-                elif ' file_type' in line.lower() and not line.startswith('$'):
-                    file_type = line.replace(' ', '').replace("'",'').replace('\n','').split('=')[1]
-            fid_tool.close()
-        if ' number_of_joints' in line.lower():
-            n = int(line.replace(' ','').split('=')[1])
-            tool_lengths[-1] = tool_lengths[-1]*n
-    fid_string.close()
+    with open(string_file, 'r') as fid:
+        for line in fid:
+            if ' property_file' in line.lower() and not line.startswith('$'):
+                tool_file = line.split("'")[1].replace('/', '\\')
+                if '<' in tool_file:
+                    # Get cdb associated with tool_file
+                    tool_has_cdb = False
+                    for cdb_name in cdbs:
+                        if '<{}>'.format(cdb_name) in tool_file:
+                            tool_cdb_name = cdb_name
+                            cdb_loc = cdbs[cdb_name].replace('/','\\')
+                            tool_has_cdb = True
+                            break  
+                    # Change cdb notation to full path notation
+                    if tool_has_cdb:
+                        tool_file = tool_file.replace('<{}>'.format(tool_cdb_name), cdb_loc)
+                    else:
+                        raise cdbError('ADrill Database {} not defined.'.format(cdb_name))
+                fid_tool = open(tool_file, 'r')
+                file_type = ''
+                for line in fid_tool:
+                    if file_type and 'top_drive' not in file_type.lower() and line.replace(' ', '').split('=')[0] in TO_LENGTH_PARAM[file_type] and not line.startswith('$'):
+                        tool_length = float(line.replace(' ', '').split('=')[1])
+                        tool_lengths.append(tool_length)
+                        break
+                    elif ' file_type' in line.lower() and not line.startswith('$'):
+                        file_type = line.replace(' ', '').replace("'",'').replace('\n','').split('=')[1]
+                fid_tool.close()
+            if ' number_of_joints' in line.lower():
+                n = int(line.replace(' ','').split('=')[1])
+                tool_lengths[-1] = tool_lengths[-1]*n
+    
     string_length = sum(tool_lengths)
     return string_length
 
@@ -698,7 +701,10 @@ def get_bha_length(string_file):
         Cumulative length of the string    
     """
     cdbs = get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
-    # print(cdbs)
+    
+    # Convert to full filepath if cdb alias used
+    string_file = get_full_path(string_file)
+
     tool_lengths = []
     with open(string_file, 'r') as fid_string:
         for line in fid_string:
