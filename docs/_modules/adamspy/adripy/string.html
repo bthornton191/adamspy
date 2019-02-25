@@ -342,7 +342,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>          
             <span class="k">raise</span> <span class="n">DrillStringError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;There is no </span><span class="si">{tool_type}</span><span class="s1"> in this string!&#39;</span><span class="p">)</span>        </div>
     
-<div class="viewcode-block" id="DrillString.get_tool"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.get_tool">[docs]</a>    <span class="k">def</span> <span class="nf">get_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tool_type</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="DrillString.get_tool"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.get_tool">[docs]</a>    <span class="k">def</span> <span class="nf">get_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tool_type</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns a DrillTool object of type tool_type in the </span>
 <span class="sd">        DrillString object&#39;s tools list.  </span>
 <span class="sd">        </span>
@@ -351,8 +351,8 @@
 <span class="sd">        tool_type : str</span>
 <span class="sd">            Desired tool type.       </span>
 <span class="sd">        </span>
-<span class="sd">        instance : str or int</span>
-<span class="sd">            If &#39;first&#39;, will take the first instance.  If &#39;last&#39;, will take the last instance. If an integer N is given, will take the Nth instance. (the default is &#39;first&#39;)</span>
+<span class="sd">        index : int</span>
+<span class="sd">            Index of the tool to return (the default is 0)</span>
 <span class="sd">        </span>
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
@@ -366,25 +366,23 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">tools_found</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tools</span><span class="p">:</span>
+            <span class="c1"># For each tool in self.tools if this tool matches the requested tool type</span>
             <span class="k">if</span> <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;Type&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">tool_type</span><span class="p">:</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span><span class="nb">str</span><span class="p">):</span>
-                    <span class="k">if</span> <span class="n">instance</span><span class="o">==</span><span class="s1">&#39;first&#39;</span><span class="p">:</span>
-                        <span class="k">return</span> <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;DrillTool&#39;</span><span class="p">]</span>
-                    <span class="k">elif</span> <span class="n">instance</span><span class="o">==</span><span class="s1">&#39;last&#39;</span><span class="p">:</span>
-                        <span class="n">tools_found</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tool</span><span class="p">[</span><span class="s1">&#39;DrillTool&#39;</span><span class="p">])</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tools_found</span><span class="p">)</span><span class="o">==</span><span class="n">instance</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-                        <span class="k">return</span> <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;DrillTool&#39;</span><span class="p">]</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="n">tools_found</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tool</span><span class="p">[</span><span class="s1">&#39;DrillTool&#39;</span><span class="p">])</span>
+                <span class="n">tools_found</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tool</span><span class="p">[</span><span class="s1">&#39;DrillTool&#39;</span><span class="p">])</span>
 
-        
+                <span class="c1"># If the requested instance is positive and we&#39;ve found enough tools to stop</span>
+                <span class="k">if</span> <span class="n">index</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">tools_found</span><span class="p">)</span> <span class="o">==</span> <span class="n">index</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span>
+                    <span class="k">break</span>
+
         <span class="c1"># Raise an error if no tools were found</span>
         <span class="k">if</span> <span class="n">tools_found</span> <span class="o">==</span> <span class="p">[]:</span>
             <span class="k">raise</span> <span class="n">DrillStringError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;No tool of type </span><span class="si">{tool_type}</span><span class="s1"> was found!&#39;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">instance</span><span class="o">==</span><span class="s1">&#39;last&#39;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">tools_found</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
+        <span class="k">if</span> <span class="n">index</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tools_found</span><span class="p">):</span>
+            <span class="n">n_tools_found</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tools_found</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">DrillStringError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Not enough tools of type </span><span class="si">{tool_type}</span><span class="s1"> were found.  Number of tools found was </span><span class="si">{n_tools_found}</span><span class="s1">.  Requested index was </span><span class="si">{index}</span><span class="s1">.&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">tools_found</span><span class="p">[</span><span class="n">index</span><span class="p">]</span></div>
         
 <div class="viewcode-block" id="DrillString.get_bha_length"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.get_bha_length">[docs]</a>    <span class="k">def</span> <span class="nf">get_bha_length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>

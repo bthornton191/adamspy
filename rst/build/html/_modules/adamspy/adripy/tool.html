@@ -209,9 +209,12 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Rename the tool</span>
 <span class="sd">        </span>
-<span class="sd">        Arguments:</span>
-<span class="sd">            new_name {string} -- New name for the tool.</span>
-<span class="sd">            in_place {bool} -- If True will rename the property file.  If False will create a new one.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        new_name : str</span>
+<span class="sd">            New name for the tool.</span>
+<span class="sd">        remove_original : bool</span>
+<span class="sd">            If `True` will rename the property file.  If `False` will create a new one.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Determine the new filename</span>
         <span class="n">current_filename</span> <span class="o">=</span> <span class="n">get_full_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">property_file</span><span class="p">)</span>
