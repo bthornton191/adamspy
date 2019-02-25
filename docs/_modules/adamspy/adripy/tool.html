@@ -151,7 +151,8 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Object representing an Adams Drill tool.  Instances must be generated from a tool property file.</span>
 <span class="sd">    </span>
-<span class="sd">    Arguments:</span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
 <span class="sd">        {string} -- Filepath to an Adams Drill Tool property file.</span>
 <span class="sd">    &quot;&quot;&quot;</span>  
 
@@ -190,6 +191,14 @@
     <span class="p">}</span>
     
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">property_file</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initializes the `DrillTool` object.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        property_file : str</span>
+<span class="sd">            Tiem Orbit file representing the drill tool.        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">property_file</span> <span class="o">=</span> <span class="n">get_cdb_path</span><span class="p">(</span><span class="n">property_file</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_name</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tool_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_type</span><span class="p">()</span>    

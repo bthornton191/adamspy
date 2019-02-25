@@ -249,7 +249,8 @@ class Test_RexExPatterns(unittest.TestCase):
             ' DSFdffdsf  =  100\n',
             ' Plotting_4D		= \'on\'',
             ' Hmax =   5.0e-3',
-            ' PP =   5.0e+3'
+            ' PP =   5.0e+3',
+            '  Pipe_Length         = 31'
         ]
         strings_to_not_match = [
             'lkjfds  =  2\n',
