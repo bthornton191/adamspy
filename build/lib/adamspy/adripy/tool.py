@@ -10,7 +10,8 @@ class DrillTool():
     """
     Object representing an Adams Drill tool.  Instances must be generated from a tool property file.
     
-    Arguments:
+    Attributes
+    ----------
         {string} -- Filepath to an Adams Drill Tool property file.
     """  
 
@@ -49,6 +50,14 @@ class DrillTool():
     }
     
     def __init__(self, property_file):
+        """Initializes the `DrillTool` object.
+        
+        Parameters
+        ----------
+        property_file : str
+            Tiem Orbit file representing the drill tool.        
+        """
+
         self.property_file = get_cdb_path(property_file)
         self.name = self._get_name()
         self.tool_type = self._get_type()    
