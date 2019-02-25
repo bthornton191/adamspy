@@ -28,6 +28,8 @@ TEST_SOLVER_SETTINGS_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'solver_sett
 TEST_EXISTING_STRING_NAME = 'test_string'
 TEST_EXISTING_STRING_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str')
 
+TEST_EXISTING_STRING_NAME_NO_DFB = 'test_string_no_dfb'
+
 TEST_STRING_NAME = 'test_string_1'
 TEST_HOLE_NAME = 'test_hole'
 TEST_HOLE_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'holes.tbl', TEST_HOLE_NAME + '.hol')
