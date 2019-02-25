@@ -131,7 +131,7 @@ def get_tool_name(string_file, tool_type, n=1, return_full_path=True):
     Parameters
     ----------
     string_file : str
-        Full path to an Adams drill string file (include the .str extension)
+        Path to an Adams drill string file.  Accepts full path or cdb alias.
     tool_type : str
         Tool type as seen in the string file (e.g. pdc_bit, motor, stabilizer)
     n : int
@@ -156,34 +156,35 @@ def get_tool_name(string_file, tool_type, n=1, return_full_path=True):
         Tool\'s group name if it has one
     """
     tool_found = False
-    fid = open(string_file,'r')
-    if tool_type == 'hole':
-        for line in fid:
-            if ' Hole_Property_File  =  ' in line:
-                tool_file = line.split("'")[1].replace('/','\\')
-                tool_name = tool_file.split('\\')[-1].split('.')[0]
-                group_name = tool_name
-                if return_full_path:
-                    tool_file = get_toolFilename_fullNotation(tool_file)
-                tool_found = True
-                stack_order = 0
-                break
-    else:
-        count = 0
-        for line in fid:
-            if ' stack_order' in line.lower():
-                stack_order = int(line.replace(' ','').replace('\n','').split('=')[-1])
-            elif count == n and ' name ' in line.lower():
-                group_name = line.split("'")[1]
-            elif count == n and ' property_file' in line.lower():
-                tool_file = line.split("'")[1].replace('/','\\')
-                tool_name = tool_file.split('\\')[-1].split('.')[0]
-                if return_full_path:
-                    tool_file = get_toolFilename_fullNotation(tool_file)
-                tool_found = True
-                break
-            elif ' type ' in line.lower() and tool_type.lower() in line.lower():
-                count += 1
+    
+    with open(get_full_path(string_file),'r') as fid:
+        if tool_type == 'hole':
+            for line in fid:
+                if ' Hole_Property_File  =  ' in line:
+                    tool_file = line.split("'")[1].replace('/','\\')
+                    tool_name = tool_file.split('\\')[-1].split('.')[0]
+                    group_name = tool_name
+                    if return_full_path:
+                        tool_file = get_toolFilename_fullNotation(tool_file)
+                    tool_found = True
+                    stack_order = 0
+                    break
+        else:
+            count = 0
+            for line in fid:
+                if ' stack_order' in line.lower():
+                    stack_order = int(line.replace(' ','').replace('\n','').split('=')[-1])
+                elif count == n and ' name ' in line.lower():
+                    group_name = line.split("'")[1]
+                elif count == n and ' property_file' in line.lower():
+                    tool_file = line.split("'")[1].replace('/','\\')
+                    tool_name = tool_file.split('\\')[-1].split('.')[0]
+                    if return_full_path:
+                        tool_file = get_toolFilename_fullNotation(tool_file)
+                    tool_found = True
+                    break
+                elif ' type ' in line.lower() and tool_type.lower() in line.lower():
+                    count += 1
     
     if tool_found:
         return tool_name, tool_file, stack_order, group_name
