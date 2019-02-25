@@ -1436,7 +1436,7 @@ of the specified type.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Full path to a tiem orbit file</li>
+<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Path to a tiem orbit file. Accepts full path or cdb alias.</li>
 <li><strong>requested_parameter</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Name of a parameter in TO_file</li>
 </ul>
 </td>
@@ -1461,7 +1461,7 @@ of the specified type.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>adrill_user_cfg</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Full path to an Adams Drill user configuration file.  This hould be in the users HOME directory.</li>
-<li><strong>adrill_shared_cfg</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Full path to an Adams Drill shared configuration file.  This should be in the Adams Drill installation directory.  (the default is None, which means that only user cdbs will be returned.)</li>
+<li><strong>adrill_shared_cfg</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>, optional) – Full path to an Adams Drill shared configuration file.  This should be in the Adams Drill installation directory.  (the default is None, which means that only user cdbs will be returned.)</li>
 </ul>
 </td>
 </tr>
@@ -1587,11 +1587,6 @@ file with the cdb alias replaced by the cdb location.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="adamspy.adripy.utilities.get_toolFilename_fullNotation">
-<code class="descclassname">adamspy.adripy.utilities.</code><code class="descname">get_toolFilename_fullNotation</code><span class="sig-paren">(</span><em>toolFilename_cdbNotation</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/utilities.html#get_toolFilename_fullNotation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.utilities.get_toolFilename_fullNotation" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
 <dt id="adamspy.adripy.utilities.get_tool_name">
 <code class="descclassname">adamspy.adripy.utilities.</code><code class="descname">get_tool_name</code><span class="sig-paren">(</span><em>string_file</em>, <em>tool_type</em>, <em>n=1</em>, <em>return_full_path=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/utilities.html#get_tool_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.utilities.get_tool_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the name, filename, stack order, and group name of the <cite>n`th tool of type `tool_type</cite> in <cite>string_file</cite>.</p>
@@ -1696,9 +1691,9 @@ file with the cdb alias replaced by the cdb location.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>string_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Full path to an Adams Drill string file</li>
-<li><strong>old_tool_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Path to an Adams Drill tool property file that exists in string_file. May use full path or Adrill CDB notation.</li>
-<li><strong>new_tool_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Path to an Adams Drill tool property file to replace old_tool_file. May use full path or Adrill CDB notation.</li>
+<li><strong>string_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Path to an Adams Drill string file.  Accepts full path or cdb aliases.</li>
+<li><strong>old_tool_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Path to an Adams Drill tool property file that exists in string_file. Accepts full path or cdb aliases.</li>
+<li><strong>new_tool_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Path to an Adams Drill tool property file to replace old_tool_file.   Accepts full path or cdb aliases.</li>
 <li><strong>N</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Number of replacements to make. Default is 0 which will replace all instances.</li>
 <li><strong>old_tool_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Name of the tool to replace. Default is the filename.</li>
 <li><strong>new_tool_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Name of the new tool.  Default is the filename.</li>
@@ -1724,7 +1719,7 @@ file with the cdb alias replaced by the cdb location.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>string_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Full path to an MSC Adams Drill string file (include the .str extension)</li>
+<li><strong>string_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Path to an MSC Adams Drill string file. Accepts full path or cdb alias.</li>
 <li><strong>tool_types</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a><em>, </em><em>optional</em>) – List of tool types as seen in the string file (e.g. pdc_bit, motor, stabilizer)</li>
 <li><strong>tool_numbers</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a><em>, </em><em>optional</em>) – List of stack orders corresponding to tools in the string</li>
 <li><strong>tool_names</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a><em>, </em><em>optional</em>) – List of tool names</li>
