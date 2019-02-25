@@ -130,6 +130,35 @@ class Test_DrillString(unittest.TestCase):
         drill_string_from_file.parameters.pop('_Distance_from_Bit')
 
         self.assertDictEqual(drill_string_from_file.parameters, expected_parameters)
+    
+    def test_read_string_from_file_no_dfb(self):
+        
+        expected_parameters = {
+            'Units': 'Imperial',
+            'ModelName': 'test_string',
+            'OutputName': 'test_string',
+            'Gravity': 32.187,
+            'Deviation_Deg': 0.0,
+            'Adams_Results': 'animation',
+            'Adams_Graphics': 'off',
+            'Adams_Requests': 'on',
+            'Distance_from_Bit': [],
+            'SolverDLL': 'adrill_solver',
+            'Hole_Property_File': '<example_database>\\holes.tbl\\test_hole.hol',
+            'Contact_Method': 'Subroutine',
+            'Cyl_Drag_Coeff': 1.0,
+            'Hole_Color': 'LtGray',
+            'Event_Property_File': '<example_database>\\events.tbl\\test_event.evt'
+        }
+
+        # Read new parameters into the drill string object from a file
+        string_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME_NO_DFB + '.str')
+        drill_string_from_file = adripy.DrillString.read_from_file(string_file)
+        
+        # Remove some keys from the parameters dictionary
+        drill_string_from_file.parameters.pop('_Distance_from_Bit')
+
+        self.assertDictEqual(drill_string_from_file.parameters, expected_parameters)
 
     def test_read_string_from_file_first_tool(self):
         """Tests that the first few tools are correct after the string is read from a file
