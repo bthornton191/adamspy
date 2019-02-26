@@ -12,7 +12,16 @@ class DrillTool():
     
     Attributes
     ----------
-        {string} -- Filepath to an Adams Drill Tool property file.
+    property_file : str
+        Tiem Orbit file representing the drill tool.
+    name : str
+        Name of the tools
+    tool_type : str
+        Type of the tool.
+    extension : str
+        Extension used for tiem orbit file
+    table : str
+        Name of the cdb table used for the particular tool type
     """  
 
     DATABASE_INFO = {
@@ -98,13 +107,23 @@ class DrillTool():
     def copy_file(self, directory=None, cdb=None):
         """Creates string file from the DrillString object.
         
-        Keyword Arguments:
-            write_directory {string} -- (OPTIONAL) Directory in which to write the file.            
-            cdb {string} -- (OPTIONAL) Name of the cdb in which to write the file.  This argument overrides the directory.
+        Parameters
+        ----------
+        write_directory : str
+            Directory in which to write the file. (default is None.)            
+        cdb : str
+            Name of the cdb in which to write the file.  This argument overrides the directory. (default is None.)
+                    
+        Raises
+        ------
+        ValueError
+            Raised if neither directory nor cdb are given.
+        ValueError
+            Raised if not all parameters have been defined.
         
-        Raises:
-            ValueError -- Raised if neither directory nor cdb are given.
-            ValueError -- Raised if not all parameters have been defined.
+        Note
+        ----
+        Either `directory` or `cdb` must be given. 
         """
         # Check that directory or cdb was given.
         if directory is None and cdb is None:
