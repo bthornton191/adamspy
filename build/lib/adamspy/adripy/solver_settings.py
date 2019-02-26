@@ -81,13 +81,19 @@ class DrillSolverSettings():
     def write_to_file(self, filename, directory=None, cdb=None):
         """Creates a solver settings file from the DrillSolverSettings object.
         
-        Keyword Arguments:
-            write_directory {string} -- (OPTIONAL) Directory in which to write the file. Defaults to current working directory.
-            filename {string} -- (OPTIONAL) Name of the file to write.  Defaults to self.name
-            cdb {string} -- (OPTIONAL) Name of the cdb in which to write the file.  This argument overrides the write_directory.
+        Parameters
+        ----------
+        directory : str
+            Directory in which to write the file. Defaults to current working directory.
+        filename : str
+            Name of the file to write.  (defaults is `self.name`)
+        cdb : str
+            Name of the cdb in which to write the file.  This argument overrides `directory`.
         
-        Raises:
-            ValueError -- Raised if not all parameters have been defined.
+        Raises
+        ------
+        ValueError
+            Raised if not all parameters have been defined.
         """
         # Raise an error if the parameters can't be validated
         if not self.validate():
@@ -135,8 +141,10 @@ class DrillSolverSettings():
         """
         Determines if all parameters have been set
         
-        Returns:
-            Bool -- True if all parameters have been set. Otherwise False
+        Returns
+        -------
+        bool
+            True if all parameters have been set. Otherwise False.
         """
         validated = True        
         # Check that all parameters exist in the self.parameters dictionary
