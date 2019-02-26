@@ -829,7 +829,7 @@ string file.</dd>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Once the DrillString is instanced tools within the string must be defined as DrillTool objects before the string is written to a string file.  Use the <cite>add_tool()</cite> method to add DrillTool objects to the string.</p>
+<p class="last">Once the <a class="reference internal" href="#adamspy.adripy.string.DrillString" title="adamspy.adripy.string.DrillString"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DrillString</span></code></a> is instanced, tools within the string must be defined as <code class="xref py py-obj docutils literal notranslate"><span class="pre">DrillTool</span></code> objects before the string is written to a string file.  Use the <cite>add_tool()</cite> method to add <code class="xref py py-obj docutils literal notranslate"><span class="pre">DrillTool</span></code> objects to the string.</p>
 </div>
 <dl class="attribute">
 <dt id="adamspy.adripy.string.DrillString.parameters">
@@ -1042,16 +1042,20 @@ string file.</dd>
 <dl class="method">
 <dt id="adamspy.adripy.string.DrillString.add_tool">
 <code class="descname">add_tool</code><span class="sig-paren">(</span><em>drill_tool</em>, <em>joints=1</em>, <em>measure=False</em>, <em>stack_order=None</em>, <em>color='Default'</em>, <em>group_name=None</em>, <em>equivalent=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/string.html#DrillString.add_tool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.string.DrillString.add_tool" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds a DrillTool object to the DrillString.</p>
+<dd><p>Adds a <code class="xref py py-obj docutils literal notranslate"><span class="pre">DrillTool</span></code> object to the <a class="reference internal" href="#adamspy.adripy.string.DrillString" title="adamspy.adripy.string.DrillString"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DrillString</span></code></a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You cannot add the same <code class="xref py py-obj docutils literal notranslate"><span class="pre">DrillTool</span></code> object to the string multiple times.  If you want to add multiple instances of the same tool you must create two seperate <code class="xref py py-obj docutils literal notranslate"><span class="pre">DrillTool</span></code> objects from the same Tiem Orbit property file.</p>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>tool</strong> (<a class="reference internal" href="#adamspy.adripy.tool.DrillTool" title="adamspy.adripy.tool.DrillTool"><em>DrillTool</em></a>) – DrillTool object representing the tool to be added</li>
+<li><strong>tool</strong> (<a class="reference internal" href="#adamspy.adripy.tool.DrillTool" title="adamspy.adripy.tool.DrillTool"><em>DrillTool</em></a>) – <code class="xref py py-obj docutils literal notranslate"><span class="pre">DrillTool</span></code> object representing the tool to be added</li>
 <li><strong>joints</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Number of Joints. Note that this only applies for certain tool types. (default is 1)</li>
 <li><strong>measure</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – If TRUE indicates that output requests should be generated for this tool.  (default is FALSE)</li>
-<li><strong>stack_order</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – If an integer is given the tool will be inserted into the string at that point. (default is None and the tool will be appended to the end)</li>
+<li><strong>stack_order</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – If an integer is given the tool will be inserted into the string at that point. (default is None which means the tool will be appended to the end)</li>
 <li><strong>color</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The color used to render the tool in an Adams Drill animation. (default is ‘Default’)</li>
 </ul>
 </td>
@@ -1131,23 +1135,18 @@ file.</p>
 <dl class="method">
 <dt id="adamspy.adripy.string.DrillString.set_pipe_joints">
 <code class="descname">set_pipe_joints</code><span class="sig-paren">(</span><em>joints</em>, <em>equivalent=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/string.html#DrillString.set_pipe_joints"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.string.DrillString.set_pipe_joints" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the number of joints in the upper most section of
-drill pipe. Set pipe_type=’equivalent’ to adjust equivalent
-upper string joints’</p>
+<dd><p>Sets the number of joints in the upper most section of drill pipe. Set <cite>equivalent=True</cite> to adjust equivalent upper string joints.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>{int}           -- Number of physical drill</strong> (<em>joints</em>) – pipe joints.</li>
-<li><strong>{str}       -- False for physical</strong> (<em>equivalent</em>) – string. True for
-equivalent upper string.
-Default=False</li>
+<li><strong>joints</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Number of physical drill pipe joints.</li>
+<li><strong>equivalent</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – False for physical string. True for equivalent upper string. (Default is False.)</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><em>DrillStringError       – Raised if the drill string</em> – doesn’t have drill pipe
-of the specified type.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#adamspy.adripy.string.DrillStringError" title="adamspy.adripy.string.DrillStringError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">DrillStringError</span></code></a> – Raised if the drill string doesn’t have drill pipe of the specified type.</p>
 </td>
 </tr>
 </tbody>
@@ -1183,6 +1182,7 @@ of the specified type.</p>
 <li><strong>write_directory</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Directory in which to write the file. (default is None which means the string will be written to the cdb given in <cite>cdb</cite>.)</li>
 <li><strong>cdb</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Name of the cdb in which to write the file.  This argument is overridden by <cite>directory</cite>. (default is None which means the string will be written to the directory in <cite>directory</cite> and will use the filename in <cite>filename</cite>.)</li>
 <li><strong>publish</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – If true, writes all the supporting files to the same cdb. (default is False.)</li>
+<li><strong>publish_event</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – </li>
 </ul>
 </td>
 </tr>
@@ -1214,9 +1214,74 @@ of the specified type.</p>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Object representing an Adams Drill tool.  Instances must be generated from a tool property file.</p>
 <dl class="attribute">
-<dt>
-<code class="descname">{string} -- Filepath to an Adams Drill Tool property file.</code></dt>
-<dd></dd></dl>
+<dt id="adamspy.adripy.tool.DrillTool.property_file">
+<code class="descname">property_file</code><a class="headerlink" href="#adamspy.adripy.tool.DrillTool.property_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tiem Orbit file representing the drill tool.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.tool.DrillTool.name">
+<code class="descname">name</code><a class="headerlink" href="#adamspy.adripy.tool.DrillTool.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of the tools</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.tool.DrillTool.tool_type">
+<code class="descname">tool_type</code><a class="headerlink" href="#adamspy.adripy.tool.DrillTool.tool_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type of the tool.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.tool.DrillTool.extension">
+<code class="descname">extension</code><a class="headerlink" href="#adamspy.adripy.tool.DrillTool.extension" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extension used for tiem orbit file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.tool.DrillTool.table">
+<code class="descname">table</code><a class="headerlink" href="#adamspy.adripy.tool.DrillTool.table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of the cdb table used for the particular tool type</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="adamspy.adripy.tool.DrillTool.DATABASE_INFO">
@@ -1231,21 +1296,24 @@ of the specified type.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
-<li><strong>{string} --</strong> (<em>cdb</em>) – </li>
-<li><strong>{string} --</strong> – </li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>write_directory</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Directory in which to write the file. (default is None.)</li>
+<li><strong>cdb</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Name of the cdb in which to write the file.  This argument overrides the directory. (default is None.)</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
-<li>ValueError – Raised if neither directory nor cdb are given.</li>
-<li>ValueError – Raised if not all parameters have been defined.</li>
+<li><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code></a> – Raised if neither directory nor cdb are given.</li>
+<li><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code></a> – Raised if not all parameters have been defined.</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Either <cite>directory</cite> or <cite>cdb</cite> must be given.</p>
+</div>
 </dd></dl>
 
 <dl class="method">

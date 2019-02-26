@@ -11,7 +11,7 @@ os.environ['ADAMS_LAUNCH_COMMAND'] = os.path.join('C:\\', 'MSC.Software', 'Adams
 from adamspy import adripy #pylint: disable=wrong-import-position
 
 class Test_DrillString(unittest.TestCase):
-    """Tests the DrillString class.
+    """Tests the `DrillString` class.
     """
     maxDiff = None
     def setUp(self):
@@ -21,8 +21,17 @@ class Test_DrillString(unittest.TestCase):
         # Create a DrillTool object representing a stabilizer
         self.pdc_bit = adripy.DrillTool(TEST_PDC_FILE)
 
+        # Create a DrillTool object representing a motor
+        self.motor = adripy.DrillTool(TEST_MOTOR_FILE)
+
         # Create a DrillTool object representing a stabilizer
         self.stabilizer = adripy.DrillTool(TEST_STABILIZER_FILE)
+
+        # Create a DrillTool object representing an mwd
+        self.mwd = adripy.DrillTool(TEST_MWD_FILE)
+
+        # Create a DrillTool object representing a stabilizer
+        self.upper_stabilizer = adripy.DrillTool(TEST_STABILIZER_FILE)
 
         # Create a DrillTool object representing a drill pipe
         self.drill_pipe = adripy.DrillTool(TEST_DRILLPIPE_FILE)
@@ -34,7 +43,7 @@ class Test_DrillString(unittest.TestCase):
         self.top_drive = adripy.DrillTool(TEST_TOP_DRIVE_FILE)
 
     def test_add_tool(self):
-        """Test the DrillString.add_tool() method.
+        """Test the `DrillString.add_tool()` method.
         """
         # Create a DrillString object
         drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
@@ -57,7 +66,7 @@ class Test_DrillString(unittest.TestCase):
         self.assertEqual(drill_string.tools, [expected_tool_dictionary])  
 
     def test_write_string_to_database(self): 
-        """Test the DrillString.write_to_file() method.
+        """Test the `DrillString.write_to_file()` method.
         """
         # Create a DrillString object
         drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
@@ -79,7 +88,7 @@ class Test_DrillString(unittest.TestCase):
         self.assertListEqual(failures, [])
 
     def test_publish_string_to_new_database(self):
-        """Test the DrillString.write_to_file() method with publish=True
+        """Test the `DrillString.write_to_file()` method with publish=True
         """
         # Create a DrillString object
         drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
@@ -101,6 +110,60 @@ class Test_DrillString(unittest.TestCase):
 
         self.assertListEqual(failures, [])
     
+    def test_publish_string_with_duplicate_tools_to_new_database_1(self):
+        """Test the `DrillString.write_to_file()` method with publish=True when the string contains two of the same stabilizer.  The criteria for this test is that only a single tool file is published to the database even though the tool is used twice.
+
+        Notes
+        -----
+            This test intentionally uses a string that uses the same tool twice.            
+        """
+        # Create a DrillString object
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+
+        # Add the DrillTool objects to the DrillString object
+        drill_string.add_tool(self.pdc_bit, measure='yes')
+        drill_string.add_tool(self.stabilizer, measure='yes')
+        drill_string.add_tool(self.mwd, measure='yes')
+        drill_string.add_tool(self.upper_stabilizer, measure='yes')
+        drill_string.add_tool(self.drill_pipe, joints=20, group_name='Upper_DP_Group')
+        drill_string.add_tool(self.eus, joints=20, group_name='equivalent_pipe', equivalent=True)
+        drill_string.add_tool(self.top_drive)
+
+        # Publish drill string to new database
+        drill_string.write_to_file(cdb=TEST_NEW_DATABASE_NAME, publish=True, publish_event=True)
+
+        expected_files = [adripy.get_full_path(drill_string.tools[1]['Property_File'])]
+        actual_files = glob.glob(os.path.join(TEST_NEW_DATABASE_PATH, 'stabilizers.tbl', '*'))
+
+        self.assertListEqual(actual_files, expected_files)    
+    
+    def test_publish_string_with_duplicate_tools_to_new_database_2(self):
+        """Test the `DrillString.write_to_file()` method with `publish=True` when the string contains two of the same stabilizer.  The criteria for this test is that the `DrillTool` that is used twice has the same property file and it is correct.
+
+        Note
+        ----
+        This test intentionally uses a string that uses the same tool twice.            
+        """
+        # Create a DrillString object
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+
+        # Add the DrillTool objects to the DrillString object
+        drill_string.add_tool(self.pdc_bit, measure='yes')
+        drill_string.add_tool(self.stabilizer, measure='yes')
+        drill_string.add_tool(self.mwd, measure='yes')
+        drill_string.add_tool(self.upper_stabilizer, measure='yes')
+        drill_string.add_tool(self.drill_pipe, joints=20, group_name='Upper_DP_Group')
+        drill_string.add_tool(self.eus, joints=20, group_name='equivalent_pipe', equivalent=True)
+        drill_string.add_tool(self.top_drive)
+
+        # Publish drill string to new database
+        drill_string.write_to_file(cdb=TEST_NEW_DATABASE_NAME, publish=True, publish_event=True)
+
+        actual_files = [drill_string.tools[i]['Property_File'] for i in [1,3]]
+        expected_files = [os.path.join(f'<{TEST_NEW_DATABASE_NAME}>', 'stabilizers.tbl', 'example_stabilizer.sta')]*2
+
+        self.assertListEqual(actual_files, expected_files)    
+
     def test_read_string_from_file_parameters(self):
         """Tests that the parameters in the string are correct after a string is read from a file.
         """
