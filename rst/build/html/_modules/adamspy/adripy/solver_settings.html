@@ -222,13 +222,19 @@
 <div class="viewcode-block" id="DrillSolverSettings.write_to_file"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.solver_settings.DrillSolverSettings.write_to_file">[docs]</a>    <span class="k">def</span> <span class="nf">write_to_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cdb</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Creates a solver settings file from the DrillSolverSettings object.</span>
 <span class="sd">        </span>
-<span class="sd">        Keyword Arguments:</span>
-<span class="sd">            write_directory {string} -- (OPTIONAL) Directory in which to write the file. Defaults to current working directory.</span>
-<span class="sd">            filename {string} -- (OPTIONAL) Name of the file to write.  Defaults to self.name</span>
-<span class="sd">            cdb {string} -- (OPTIONAL) Name of the cdb in which to write the file.  This argument overrides the write_directory.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        directory : str</span>
+<span class="sd">            Directory in which to write the file. Defaults to current working directory.</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            Name of the file to write.  (defaults is `self.name`)</span>
+<span class="sd">        cdb : str</span>
+<span class="sd">            Name of the cdb in which to write the file.  This argument overrides `directory`.</span>
 <span class="sd">        </span>
-<span class="sd">        Raises:</span>
-<span class="sd">            ValueError -- Raised if not all parameters have been defined.</span>
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            Raised if not all parameters have been defined.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Raise an error if the parameters can&#39;t be validated</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">():</span>
@@ -276,8 +282,10 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Determines if all parameters have been set</span>
 <span class="sd">        </span>
-<span class="sd">        Returns:</span>
-<span class="sd">            Bool -- True if all parameters have been set. Otherwise False</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            True if all parameters have been set. Otherwise False.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">validated</span> <span class="o">=</span> <span class="kc">True</span>        
         <span class="c1"># Check that all parameters exist in the self.parameters dictionary</span>

@@ -893,6 +893,15 @@ def build(string_file, solver_settings_file, working_directory, output_name=None
         Path to the directory to put the adm, acf, and cmd
     output_name : str
         Base name of the adm, acf, and cmd files. (the default is none, which redefines the `ouput_name` to be the same as the 'OutputName' parameter in the string file)
+
+    Returns
+    -------
+    str
+        Filename of the adams dataset (.adm) file.
+    str
+        Filename of the adams command (.acf) file.
+    str
+        Filename of the adams view command (.cmd) file.
     """    
     # Set the output name  
     if output_name is None:  
@@ -936,6 +945,10 @@ def build(string_file, solver_settings_file, working_directory, output_name=None
     startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
     process = subprocess.Popen('{} aview ru-s b build.cmd'.format(os.environ['ADAMS_LAUNCH_COMMAND']), cwd=working_directory, startupinfo=startupinfo)
     process.wait()    
+
+    adm_file = os.path.join(working_directory, adm_file)
+    acf_file = os.path.join(working_directory, acf_file)
+    cmd_file = os.path.join(working_directory, cmd_file)
 
     return adm_file, acf_file, cmd_file
 
