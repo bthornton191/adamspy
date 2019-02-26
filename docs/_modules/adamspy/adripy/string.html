@@ -159,7 +159,7 @@
 
 <span class="sd">    Note</span>
 <span class="sd">    ----</span>
-<span class="sd">    Once the DrillString is instanced tools within the string must be defined as DrillTool objects before the string is written to a string file.  Use the `add_tool()` method to add DrillTool objects to the string.</span>
+<span class="sd">    Once the :obj:`DrillString` is instanced, tools within the string must be defined as :obj:`DrillTool` objects before the string is written to a string file.  Use the `add_tool()` method to add :obj:`DrillTool` objects to the string.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -243,18 +243,22 @@
 
 <div class="viewcode-block" id="DrillString.add_tool"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.add_tool">[docs]</a>    <span class="k">def</span> <span class="nf">add_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">drill_tool</span><span class="p">,</span> <span class="n">joints</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">measure</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">stack_order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Default&#39;</span><span class="p">,</span> <span class="n">group_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">equivalent</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Adds a DrillTool object to the DrillString.</span>
+<span class="sd">        Adds a :obj:`DrillTool` object to the :obj:`DrillString`.</span>
+
+<span class="sd">        Note</span>
+<span class="sd">        ----</span>
+<span class="sd">        You cannot add the same :obj:`DrillTool` object to the string multiple times.  If you want to add multiple instances of the same tool you must create two seperate :obj:`DrillTool` objects from the same Tiem Orbit property file.</span>
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        tool : DrillTool</span>
-<span class="sd">            DrillTool object representing the tool to be added        </span>
+<span class="sd">            :obj:`DrillTool` object representing the tool to be added        </span>
 <span class="sd">        joints : int</span>
 <span class="sd">            Number of Joints. Note that this only applies for certain tool types. (default is 1)</span>
 <span class="sd">        measure : bool</span>
 <span class="sd">            If TRUE indicates that output requests should be generated for this tool.  (default is FALSE)</span>
 <span class="sd">        stack_order : int</span>
-<span class="sd">            If an integer is given the tool will be inserted into the string at that point. (default is None and the tool will be appended to the end)</span>
+<span class="sd">            If an integer is given the tool will be inserted into the string at that point. (default is None which means the tool will be appended to the end)</span>
 <span class="sd">        color : str</span>
 <span class="sd">            The color used to render the tool in an Adams Drill animation. (default is &#39;Default&#39;)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -308,24 +312,19 @@
             <span class="p">}</span></div>
     
 <div class="viewcode-block" id="DrillString.set_pipe_joints"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.set_pipe_joints">[docs]</a>    <span class="k">def</span> <span class="nf">set_pipe_joints</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">joints</span><span class="p">,</span> <span class="n">equivalent</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Sets the number of joints in the upper most section of</span>
-<span class="sd">        drill pipe. Set pipe_type=&#39;equivalent&#39; to adjust equivalent</span>
-<span class="sd">        upper string joints&#39;</span>
+        <span class="sd">&quot;&quot;&quot;Sets the number of joints in the upper most section of drill pipe. Set `equivalent=True` to adjust equivalent upper string joints.</span>
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">            joints {int}           -- Number of physical drill </span>
-<span class="sd">                                      pipe joints.</span>
-<span class="sd">            equivalent {str}       -- False for physical</span>
-<span class="sd">                                      string. True for </span>
-<span class="sd">                                      equivalent upper string.</span>
-<span class="sd">                                      Default=False</span>
+<span class="sd">        joints : int</span>
+<span class="sd">            Number of physical drill pipe joints.</span>
+<span class="sd">        equivalent : str</span>
+<span class="sd">            False for physical string. True for equivalent upper string. (Default is False.)</span>
 <span class="sd">        </span>
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
-<span class="sd">            DrillStringError       -- Raised if the drill string</span>
-<span class="sd">                                      doesn&#39;t have drill pipe </span>
-<span class="sd">                                      of the specified type.</span>
+<span class="sd">        DrillStringError</span>
+<span class="sd">            Raised if the drill string doesn&#39;t have drill pipe of the specified type.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Check that the pipe type argument was passed correctly</span>
 
@@ -442,6 +441,8 @@
 <span class="sd">            Name of the cdb in which to write the file.  This argument is overridden by `directory`. (default is None which means the string will be written to the directory in `directory` and will use the filename in `filename`.)  </span>
 <span class="sd">        publish : bool</span>
 <span class="sd">            If true, writes all the supporting files to the same cdb. (default is False.)</span>
+<span class="sd">        publish_event : bool</span>
+
 <span class="sd">        </span>
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
@@ -502,7 +503,9 @@
         <span class="k">if</span> <span class="n">publish</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
             <span class="c1"># If the string is being published, copy all the tools to the new </span>
             <span class="c1"># cdb or directory</span>
-            <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tools</span><span class="p">:</span>      
+            <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tools</span><span class="p">:</span>   
+
+                <span class="c1"># Copy the DrillTool object   </span>
                 <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;DrillTool&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy_file</span><span class="p">(</span><span class="n">cdb</span><span class="o">=</span><span class="n">cdb</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="n">directory</span><span class="p">)</span>
 
                 <span class="c1"># Update the tool file paths in the drill_string.tools list</span>
@@ -666,11 +669,18 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Hole_Property_File&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_cdb_path</span><span class="p">(</span><span class="n">new_filename</span><span class="p">)</span>
     
     <span class="k">def</span> <span class="nf">_copy_event_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cdb</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Copys the event file to a new locations.  Must give directory OR cdb.</span>
+        <span class="sd">&quot;&quot;&quot;Copys the event file to a new locations.</span>
 <span class="sd">        </span>
-<span class="sd">        Keyword Arguments:</span>
-<span class="sd">            directory {string} -- Directory to put the copied event file (default: {None})</span>
-<span class="sd">            cdb {string} -- Name of cdb to put the copied event file (default: {None})</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        directory : str</span>
+<span class="sd">            Directory to put the copied event file (default is None)</span>
+<span class="sd">        cdb : str</span>
+<span class="sd">            Name of cdb to put the copied event file (default is None)</span>
+<span class="sd">        </span>
+<span class="sd">        Note</span>
+<span class="sd">        ----</span>
+<span class="sd">        Either directory or cdb must be given.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Check that directory or cdb was given.</span>
         <span class="k">if</span> <span class="n">cdb</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">directory</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>

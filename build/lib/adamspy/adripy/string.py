@@ -18,7 +18,7 @@ class DrillString():
 
     Note
     ----
-    Once the DrillString is instanced tools within the string must be defined as DrillTool objects before the string is written to a string file.  Use the `add_tool()` method to add DrillTool objects to the string.
+    Once the :obj:`DrillString` is instanced, tools within the string must be defined as :obj:`DrillTool` objects before the string is written to a string file.  Use the `add_tool()` method to add :obj:`DrillTool` objects to the string.
 
     Attributes
     ----------
@@ -102,18 +102,22 @@ class DrillString():
 
     def add_tool(self, drill_tool, joints=1, measure=False, stack_order=None, color='Default', group_name=None, equivalent=False):
         """
-        Adds a DrillTool object to the DrillString.
+        Adds a :obj:`DrillTool` object to the :obj:`DrillString`.
+
+        Note
+        ----
+        You cannot add the same :obj:`DrillTool` object to the string multiple times.  If you want to add multiple instances of the same tool you must create two seperate :obj:`DrillTool` objects from the same Tiem Orbit property file.
         
         Parameters
         ----------
         tool : DrillTool
-            DrillTool object representing the tool to be added        
+            :obj:`DrillTool` object representing the tool to be added        
         joints : int
             Number of Joints. Note that this only applies for certain tool types. (default is 1)
         measure : bool
             If TRUE indicates that output requests should be generated for this tool.  (default is FALSE)
         stack_order : int
-            If an integer is given the tool will be inserted into the string at that point. (default is None and the tool will be appended to the end)
+            If an integer is given the tool will be inserted into the string at that point. (default is None which means the tool will be appended to the end)
         color : str
             The color used to render the tool in an Adams Drill animation. (default is 'Default')
         """
@@ -167,24 +171,19 @@ class DrillString():
             }
     
     def set_pipe_joints(self, joints, equivalent=False):
-        """Sets the number of joints in the upper most section of
-        drill pipe. Set pipe_type='equivalent' to adjust equivalent
-        upper string joints'
+        """Sets the number of joints in the upper most section of drill pipe. Set `equivalent=True` to adjust equivalent upper string joints.
         
         Parameters
         ----------
-            joints {int}           -- Number of physical drill 
-                                      pipe joints.
-            equivalent {str}       -- False for physical
-                                      string. True for 
-                                      equivalent upper string.
-                                      Default=False
+        joints : int
+            Number of physical drill pipe joints.
+        equivalent : str
+            False for physical string. True for equivalent upper string. (Default is False.)
         
         Raises
         ------
-            DrillStringError       -- Raised if the drill string
-                                      doesn't have drill pipe 
-                                      of the specified type.
+        DrillStringError
+            Raised if the drill string doesn't have drill pipe of the specified type.
         """
         # Check that the pipe type argument was passed correctly
 
@@ -301,6 +300,8 @@ class DrillString():
             Name of the cdb in which to write the file.  This argument is overridden by `directory`. (default is None which means the string will be written to the directory in `directory` and will use the filename in `filename`.)  
         publish : bool
             If true, writes all the supporting files to the same cdb. (default is False.)
+        publish_event : bool
+
         
         Raises
         ------
@@ -361,7 +362,9 @@ class DrillString():
         if publish is True:
             # If the string is being published, copy all the tools to the new 
             # cdb or directory
-            for tool in self.tools:      
+            for tool in self.tools:   
+
+                # Copy the DrillTool object   
                 tool['DrillTool'].copy_file(cdb=cdb, directory=directory)
 
                 # Update the tool file paths in the drill_string.tools list
@@ -525,11 +528,18 @@ class DrillString():
         self.parameters['Hole_Property_File'] = get_cdb_path(new_filename)
     
     def _copy_event_file(self, directory=None, cdb=None):
-        """Copys the event file to a new locations.  Must give directory OR cdb.
+        """Copys the event file to a new locations.
         
-        Keyword Arguments:
-            directory {string} -- Directory to put the copied event file (default: {None})
-            cdb {string} -- Name of cdb to put the copied event file (default: {None})
+        Parameters
+        ----------
+        directory : str
+            Directory to put the copied event file (default is None)
+        cdb : str
+            Name of cdb to put the copied event file (default is None)
+        
+        Note
+        ----
+        Either directory or cdb must be given.
         """
         # Check that directory or cdb was given.
         if cdb is None and directory is None:

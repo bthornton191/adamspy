@@ -37,6 +37,11 @@ TEST_PDC_NAME = 'test_pdc'
 TEST_PDC_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'pdc_bits.tbl', TEST_PDC_NAME + '.pdc')
 TEST_STABILIZER_NAME = 'example_stabilizer'
 TEST_STABILIZER_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'stabilizers.tbl', TEST_STABILIZER_NAME + '.sta')
+TEST_MOTOR_NAME = 'example_motor'
+TEST_MOTOR_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'motors.tbl', TEST_MOTOR_NAME + '.mot')
+TEST_MWD_NAME = 'test_mwd'
+TEST_MWD_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'mwd_tools.tbl', TEST_MWD_NAME + '.mwd')
+
 
 TEST_DRILLPIPE_NAME = 'test_drillpipe'
 TEST_DRILLPIPE_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_pipes.tbl', TEST_DRILLPIPE_NAME + '.pip')

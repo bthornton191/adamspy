@@ -1,0 +1,52 @@
+$ NOTE: Block and subblock titles MUST begin in column 1
+$       Comment lines MUST also begin in column 1
+$------------------------------------------------------------ADAMS_DRILL_HEADER
+[ADAMS_DRILL_HEADER]
+ File_Type     =  'motor'
+ File_Version  =  1.0
+ Name  =  'example_motor'
+ Tool_Name     =  'example_motor'
+ Manufacturer  =  'Gyrodata'
+$-------------------------------------------------------------------------UNITS
+[UNITS]
+ Length  =  'foot'
+ Mass    =  'pound_mass'
+ Force   =  'pound_force'
+ Angle   =  'degree'
+$----------------------------------------------------------------------GEOMETRY
+[GEOMETRY]      
+ Motor_Length       =  28.92
+ Motor_OD           =  0.6667
+ Motor_ID           =  0.0833
+ Bit_to_Bend        =  6.11
+ Bend_Angle  =  1.5
+ Bit_to_Stabilizer  =  1.5
+ Stabilizer_Length  =  .4583
+ Stabilizer_OD  =  10
+ Number_of_Blades   =  5
+ Blade_Angle        =  0.0
+ Blade_Width        =  0.15625
+$----------------------------------------------------------------------------3D
+[3D]
+$ flow units are GPM
+ MaxFlow          = 900.0
+ MinFlow          = 400.0
+$ These are the slopes and intercepts of linear functions that
+$ describe the variation of the named parameters vs. flow rate.
+$ They are used to create the functional map.
+ NOR_max_RPM_A       = 0.16
+ NOR_max_RPM_B       = 0.0
+ NOR_min_RPM_A       = 0.165
+ NOR_min_RPM_B       = -20.667
+ NOR_max_Torque    = 14930
+ Stall_Torque      = 22400
+ $---------------------------------------------------------------MASS_PROPERTIES
+[MASS_PROPERTIES]
+$ If known, specify Mass to define the actual component mass, otherwise set=0
+$ and either let Adams compute it based on the density (units: slug/ft^3), or
+$ let Adams compute it based on a selected material from the Adams database.
+$ Young's Modulus is also defined by the material if a material is specified. 
+  Mass            = 3600.0
+  Density         = 0.0
+  Youngs_Modulus  = 4.32E9
+  Material        = '.materials.steel'

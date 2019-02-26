@@ -146,6 +146,7 @@
 
 <div class="viewcode-block" id="DrillSim"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim">[docs]</a><span class="k">class</span> <span class="nc">DrillSim</span><span class="p">():</span> <span class="c1">#pylint: disable=too-many-instance-attributes</span>
     <span class="sd">&quot;&quot;&quot;Contains data defining the files that make up an Adams Drill input deck.</span>
+<span class="sd">    </span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -233,8 +234,12 @@
         <span class="k">return</span></div>
     
     <span class="k">def</span> <span class="nf">_write_tiem_orbit_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Writes the three Tiem Orbit files (str, evt, ssf) to</span>
-<span class="sd">        the simulation directory.</span>
+        <span class="sd">&quot;&quot;&quot;Writes the solver settings and event files and publishes the string file to the simulation directory.</span>
+
+<span class="sd">        Note</span>
+<span class="sd">        ----</span>
+<span class="sd">        When the string file is published, all the supporting tool files and the hole file are copied to the simulation directory.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>     
         <span class="bp">self</span><span class="o">.</span><span class="n">solver_settings</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">analysis_name</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">)</span>        
 

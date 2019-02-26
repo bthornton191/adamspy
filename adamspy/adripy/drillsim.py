@@ -5,6 +5,7 @@ from .utilities import build
 
 class DrillSim(): #pylint: disable=too-many-instance-attributes
     """Contains data defining the files that make up an Adams Drill input deck.
+    
 
     Attributes
     ----------
@@ -92,8 +93,12 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         return
     
     def _write_tiem_orbit_files(self):
-        """Writes the three Tiem Orbit files (str, evt, ssf) to
-        the simulation directory.
+        """Writes the solver settings and event files and publishes the string file to the simulation directory.
+
+        Note
+        ----
+        When the string file is published, all the supporting tool files and the hole file are copied to the simulation directory.
+
         """     
         self.solver_settings.write_to_file(self.analysis_name, directory=self.directory)        
 

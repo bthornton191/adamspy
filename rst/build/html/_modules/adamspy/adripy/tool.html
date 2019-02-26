@@ -153,7 +153,16 @@
 <span class="sd">    </span>
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
-<span class="sd">        {string} -- Filepath to an Adams Drill Tool property file.</span>
+<span class="sd">    property_file : str</span>
+<span class="sd">        Tiem Orbit file representing the drill tool.</span>
+<span class="sd">    name : str</span>
+<span class="sd">        Name of the tools</span>
+<span class="sd">    tool_type : str</span>
+<span class="sd">        Type of the tool.</span>
+<span class="sd">    extension : str</span>
+<span class="sd">        Extension used for tiem orbit file</span>
+<span class="sd">    table : str</span>
+<span class="sd">        Name of the cdb table used for the particular tool type</span>
 <span class="sd">    &quot;&quot;&quot;</span>  
 
     <span class="n">DATABASE_INFO</span> <span class="o">=</span> <span class="p">{</span>
@@ -239,13 +248,23 @@
 <div class="viewcode-block" id="DrillTool.copy_file"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.tool.DrillTool.copy_file">[docs]</a>    <span class="k">def</span> <span class="nf">copy_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cdb</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Creates string file from the DrillString object.</span>
 <span class="sd">        </span>
-<span class="sd">        Keyword Arguments:</span>
-<span class="sd">            write_directory {string} -- (OPTIONAL) Directory in which to write the file.            </span>
-<span class="sd">            cdb {string} -- (OPTIONAL) Name of the cdb in which to write the file.  This argument overrides the directory.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        write_directory : str</span>
+<span class="sd">            Directory in which to write the file. (default is None.)            </span>
+<span class="sd">        cdb : str</span>
+<span class="sd">            Name of the cdb in which to write the file.  This argument overrides the directory. (default is None.)</span>
+<span class="sd">                    </span>
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            Raised if neither directory nor cdb are given.</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            Raised if not all parameters have been defined.</span>
 <span class="sd">        </span>
-<span class="sd">        Raises:</span>
-<span class="sd">            ValueError -- Raised if neither directory nor cdb are given.</span>
-<span class="sd">            ValueError -- Raised if not all parameters have been defined.</span>
+<span class="sd">        Note</span>
+<span class="sd">        ----</span>
+<span class="sd">        Either `directory` or `cdb` must be given. </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Check that directory or cdb was given.</span>
         <span class="k">if</span> <span class="n">directory</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">cdb</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
