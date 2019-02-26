@@ -1034,6 +1034,15 @@
 <span class="sd">        Path to the directory to put the adm, acf, and cmd</span>
 <span class="sd">    output_name : str</span>
 <span class="sd">        Base name of the adm, acf, and cmd files. (the default is none, which redefines the `ouput_name` to be the same as the &#39;OutputName&#39; parameter in the string file)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
+<span class="sd">        Filename of the adams dataset (.adm) file.</span>
+<span class="sd">    str</span>
+<span class="sd">        Filename of the adams command (.acf) file.</span>
+<span class="sd">    str</span>
+<span class="sd">        Filename of the adams view command (.cmd) file.</span>
 <span class="sd">    &quot;&quot;&quot;</span>    
     <span class="c1"># Set the output name  </span>
     <span class="k">if</span> <span class="n">output_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  
@@ -1077,6 +1086,10 @@
     <span class="n">startupinfo</span><span class="o">.</span><span class="n">dwFlags</span> <span class="o">|=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">STARTF_USESHOWWINDOW</span>
     <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> aview ru-s b build.cmd&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADAMS_LAUNCH_COMMAND&#39;</span><span class="p">]),</span> <span class="n">cwd</span><span class="o">=</span><span class="n">working_directory</span><span class="p">,</span> <span class="n">startupinfo</span><span class="o">=</span><span class="n">startupinfo</span><span class="p">)</span>
     <span class="n">process</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>    
+
+    <span class="n">adm_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">working_directory</span><span class="p">,</span> <span class="n">adm_file</span><span class="p">)</span>
+    <span class="n">acf_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">working_directory</span><span class="p">,</span> <span class="n">acf_file</span><span class="p">)</span>
+    <span class="n">cmd_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">working_directory</span><span class="p">,</span> <span class="n">cmd_file</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">adm_file</span><span class="p">,</span> <span class="n">acf_file</span><span class="p">,</span> <span class="n">cmd_file</span></div>
 

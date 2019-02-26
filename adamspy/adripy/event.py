@@ -2,7 +2,7 @@
 """
 import os
 from . import TMPLT_ENV
-from .utilities import read_TO_file, get_cdb_location, get_cdb_path, get_full_path
+from .utilities import read_TO_file, get_cdb_path, get_full_path
 
 class DrillEvent():
     """
