@@ -72,11 +72,28 @@ class DrillTool():
         self.tool_type = self._get_type()    
         self.extension = self._get_extension()
         self.table = self._get_table()
+        
+        self._name_receivers = []
+    
+    def bind_name_to(self, name_receiver):
+        """Appends :arg:`name_receiver` to :attr:`_name_receivers`.
+        
+        All the methods in the :arg:`name_receiver` :obj:list will be called anytime the :meth:`rename()` method is called
+
+        Parameters
+        ----------
+        name_receiver : func
+            Any method that takes a :class:`DrillTool`.
+        """
+        self._name_receivers.append(name_receiver)
     
     def rename(self, new_name, remove_original=False):
-        """
-        Rename the tool
+        """Renames the tool
         
+        Note
+        ----
+        If this tool is part of a :class:`DrillString` object, the :class:`DrillString` object will be updated with the new name and property file.
+
         Parameters
         ----------
         new_name : str
@@ -100,10 +117,14 @@ class DrillTool():
         self.name = new_name     
         
         if remove_original is True:
-
             # Delete the old property file
-            os.remove(current_filename)
-    
+            os.remove(current_filename)    
+                
+        # NOTE: The for loop below updates the name and property file in the DrillString object
+        # Run all the name receivers 
+        for name_receiver in self._name_receivers:
+            name_receiver(self)
+
     def copy_file(self, directory=None, cdb=None):
         """Creates string file from the DrillString object.
         

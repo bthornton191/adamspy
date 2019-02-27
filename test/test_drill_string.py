@@ -536,6 +536,65 @@ class Test_DrillString(unittest.TestCase):
         actual_length = drill_string.get_bha_length()
 
         self.assertEqual(actual_length, expected_length)
+    
+    def test_change_tool_name(self):
+        """Tests that changing the name of a :class:`DrillTool` object causes the 'Name' and 'Property_File' values in :attr:`DrillString.tools` to change as well.
+        """
+        # Create a DrillString object
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+
+        # Add the DrillTool objects to the DrillString object
+        drill_string.add_tool(self.pdc_bit, measure='yes')
+        drill_string.add_tool(self.motor, measure='yes')
+        drill_string.add_tool(self.stabilizer, measure='yes')
+        drill_string.add_tool(self.drill_pipe, joints=20, group_name='Upper_DP_Group')
+        drill_string.add_tool(self.eus, joints=20, group_name='equivalent_pipe', equivalent=True)
+        drill_string.add_tool(self.top_drive)
+
+        # Get the motor
+        motor = drill_string.get_tool('motor')
+
+        # Rename the motor
+        expected_tool_name = 'new_motor_name'        
+        motor.rename(expected_tool_name)        
+
+        # Get the motor as recorded in the drill_string.tools list
+        actual_tool_name = drill_string.tools[1]['Name']
+        
+        # Delete the tool file that was created
+        os.remove(os.path.join(TEST_DATABASE_PATH, 'motors.tbl', f'{expected_tool_name}.mot'))
+
+        self.assertEqual(actual_tool_name, expected_tool_name)
+    
+    def test_change_tool_property_file(self):
+        """Tests that changing the name of a :class:`DrillTool` object causes the 'Name' and 'Property_File' values in :attr:`DrillString.tools` to change as well.
+        """
+        # Create a DrillString object
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+
+        # Add the DrillTool objects to the DrillString object
+        drill_string.add_tool(self.pdc_bit, measure='yes')
+        drill_string.add_tool(self.motor, measure='yes')
+        drill_string.add_tool(self.stabilizer, measure='yes')
+        drill_string.add_tool(self.drill_pipe, joints=20, group_name='Upper_DP_Group')
+        drill_string.add_tool(self.eus, joints=20, group_name='equivalent_pipe', equivalent=True)
+        drill_string.add_tool(self.top_drive)
+
+        # Get the motor
+        motor = drill_string.get_tool('motor')
+
+        # Rename the motor
+        expected_tool_name = 'new_motor_name'        
+        expected_tool_propertyfile = os.path.join(f'<{TEST_DATABASE_NAME}>', 'motors.tbl', f'{expected_tool_name}.mot')
+        motor.rename(expected_tool_name)        
+
+        # Get the motor as recorded in the drill_string.tools list
+        actual_tool_propertyfile = drill_string.tools[1]['Property_File']
+
+        # Delete the tool file that was created
+        os.remove(os.path.join(TEST_DATABASE_PATH, 'motors.tbl', f'{expected_tool_name}.mot'))
+
+        self.assertEqual(actual_tool_propertyfile, expected_tool_propertyfile)
         
     def tearDown(self):
         # Delete test config file
