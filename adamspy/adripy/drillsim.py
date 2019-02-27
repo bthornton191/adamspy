@@ -36,7 +36,7 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
     -------
     >>> my_drillsim = adripy.DrillSim(my_string, my_event, my_solversettings, os.getcwd(), 'MyAnalysis')
     """
-    def __init__(self, string, event, solver_settings, directory, analysis_name): #pylint: disable=too-many-arguments
+    def __init__(self, string, event, solver_settings, directory, analysis_name, write_TO_files=True): #pylint: disable=too-many-arguments
         """Sets instance attributes and writes the string, event, and solver settings files to `directory`.
 
         Parameters
@@ -66,7 +66,8 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         self.res_filename = ''        
         
         # Write the TO files to the working directory
-        self._write_tiem_orbit_files()
+        if write_TO_files:
+            self.write_tiem_orbit_files()
         
         self.built = False
 
@@ -92,7 +93,7 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         # -------------------
         return
     
-    def _write_tiem_orbit_files(self):
+    def write_tiem_orbit_files(self):
         """Writes the solver settings and event files and publishes the string file to the simulation directory.
 
         Note

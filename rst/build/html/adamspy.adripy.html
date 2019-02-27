@@ -163,7 +163,7 @@
 <p>Module for the DrillSim class</p>
 <dl class="class">
 <dt id="adamspy.adripy.drillsim.DrillSim">
-<em class="property">class </em><code class="descclassname">adamspy.adripy.drillsim.</code><code class="descname">DrillSim</code><span class="sig-paren">(</span><em>string</em>, <em>event</em>, <em>solver_settings</em>, <em>directory</em>, <em>analysis_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/drillsim.html#DrillSim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">adamspy.adripy.drillsim.</code><code class="descname">DrillSim</code><span class="sig-paren">(</span><em>string</em>, <em>event</em>, <em>solver_settings</em>, <em>directory</em>, <em>analysis_name</em>, <em>write_TO_files=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/drillsim.html#DrillSim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Contains data defining the files that make up an Adams Drill input deck.</p>
 <dl class="attribute">
@@ -334,6 +334,16 @@
 <dt id="adamspy.adripy.drillsim.DrillSim.run">
 <code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/drillsim.html#DrillSim.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run the simulation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adamspy.adripy.drillsim.DrillSim.write_tiem_orbit_files">
+<code class="descname">write_tiem_orbit_files</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/drillsim.html#DrillSim.write_tiem_orbit_files"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim.write_tiem_orbit_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes the solver settings and event files and publishes the string file to the simulation directory.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When the string file gets published, all the supporting tool files and the hole file are copied to the simulation directory.</p>
+</div>
 </dd></dl>
 
 </dd></dl>
@@ -818,7 +828,7 @@ string file.</dd>
 </div>
 <div class="section" id="module-adamspy.adripy.string">
 <span id="adamspy-adripy-string-module"></span><h2>adamspy.adripy.string module<a class="headerlink" href="#module-adamspy.adripy.string" title="Permalink to this headline">¶</a></h2>
-<p>A module that contains the :DrillString class</p>
+<p>A module that contains the <a class="reference internal" href="#adamspy.adripy.string.DrillString" title="adamspy.adripy.string.DrillString"><code class="xref py py-class docutils literal notranslate"><span class="pre">DrillString</span></code></a> class</p>
 <dl class="class">
 <dt id="adamspy.adripy.string.DrillString">
 <em class="property">class </em><code class="descclassname">adamspy.adripy.string.</code><code class="descname">DrillString</code><span class="sig-paren">(</span><em>string_name</em>, <em>hole_file</em>, <em>event_file</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/string.html#DrillString"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.string.DrillString" title="Permalink to this definition">¶</a></dt>
@@ -1535,7 +1545,7 @@ string file.</dd>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>adrill_user_cfg</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Full path to an Adams Drill user configuration file.  This hould be in the users HOME directory.</li>
-<li><strong>adrill_shared_cfg</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>, optional) – Full path to an Adams Drill shared configuration file.  This should be in the Adams Drill installation directory.  (the default is None, which means that only user cdbs will be returned.)</li>
+<li><strong>adrill_shared_cfg</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Full path to an Adams Drill shared configuration file.  This should be in the Adams Drill installation directory.  (the default is None, which means that only user cdbs will be returned.)</li>
 </ul>
 </td>
 </tr>
