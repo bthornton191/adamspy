@@ -1,4 +1,4 @@
-"""A module that contains the :DrillString class
+"""A module that contains the :class:`DrillString` class
 """
 
 import os

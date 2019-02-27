@@ -177,7 +177,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    &gt;&gt;&gt; my_drillsim = adripy.DrillSim(my_string, my_event, my_solversettings, os.getcwd(), &#39;MyAnalysis&#39;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">solver_settings</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">analysis_name</span><span class="p">):</span> <span class="c1">#pylint: disable=too-many-arguments</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">solver_settings</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">analysis_name</span><span class="p">,</span> <span class="n">write_TO_files</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span> <span class="c1">#pylint: disable=too-many-arguments</span>
         <span class="sd">&quot;&quot;&quot;Sets instance attributes and writes the string, event, and solver settings files to `directory`.</span>
 
 <span class="sd">        Parameters</span>
@@ -207,7 +207,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">res_filename</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>        
         
         <span class="c1"># Write the TO files to the working directory</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_write_tiem_orbit_files</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">write_TO_files</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">write_tiem_orbit_files</span><span class="p">()</span>
         
         <span class="bp">self</span><span class="o">.</span><span class="n">built</span> <span class="o">=</span> <span class="kc">False</span>
 
@@ -233,7 +234,7 @@
         <span class="c1"># -------------------</span>
         <span class="k">return</span></div>
     
-    <span class="k">def</span> <span class="nf">_write_tiem_orbit_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DrillSim.write_tiem_orbit_files"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim.write_tiem_orbit_files">[docs]</a>    <span class="k">def</span> <span class="nf">write_tiem_orbit_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Writes the solver settings and event files and publishes the string file to the simulation directory.</span>
 
 <span class="sd">        Note</span>
@@ -251,7 +252,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Event_Property_File&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">filename</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;ModelName&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analysis_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;OutputName&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analysis_name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">string_filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">,</span> <span class="n">publish</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>   </div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">string_filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">,</span> <span class="n">publish</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>   </div></div>
 </pre></div>
 
            </div>
