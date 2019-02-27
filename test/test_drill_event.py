@@ -74,3 +74,6 @@ class Test_EventFile(unittest.TestCase):
 
         # Delete the test event file
         os.remove(TEST_CREATED_EVENT_FILENAME)
+
+if __name__ == '__main__':
+    unittest.main()

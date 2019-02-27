@@ -764,7 +764,7 @@
 <span class="sd">                      </span>
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    string_length : str</span>
+<span class="sd">    float</span>
 <span class="sd">        Cumulative length of the string    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">cdbs</span> <span class="o">=</span> <span class="n">get_adrill_cdbs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADRILL_USER_CFG&#39;</span><span class="p">],</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADRILL_SHARED_CFG&#39;</span><span class="p">])</span>
@@ -1102,11 +1102,15 @@
 <div class="viewcode-block" id="read_TO_file"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.utilities.read_TO_file">[docs]</a><span class="k">def</span> <span class="nf">read_TO_file</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Reads a Tiem Orbit file into a dictionary of parameters</span>
 <span class="sd">    </span>
-<span class="sd">    Arguments:</span>
-<span class="sd">        filename {string} -- Filename of the Tiem Orbit file</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filename : str</span>
+<span class="sd">        Filename of the Tiem Orbit file</span>
 <span class="sd">    </span>
-<span class="sd">    Raises:</span>
-<span class="sd">        TiemOrbitSyntaxError -- Raised if the Tiem Orbit syntax is not recognized</span>
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    TiemOrbitSyntaxError</span>
+<span class="sd">        Raised if the Tiem Orbit syntax is not recognized</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="n">get_full_path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
     
