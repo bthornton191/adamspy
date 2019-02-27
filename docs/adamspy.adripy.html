@@ -1078,10 +1078,10 @@ string file.</dd>
 <dl class="method">
 <dt id="adamspy.adripy.string.DrillString.get_bha_length">
 <code class="descname">get_bha_length</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/string.html#DrillString.get_bha_length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.string.DrillString.get_bha_length" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the total length of the drill BHA defined in string_file</p>
+<dd><p>Gets the total length of the BHA defined in string_file</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The BHA does not include the equivalent upper string and highest most physical string.</p>
+<p class="last">The BHA is all the tools EXCEPT the equivalent upper string and highest most physical string.</p>
 </div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1156,6 +1156,20 @@ string file.</dd>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#adamspy.adripy.string.DrillStringError" title="adamspy.adripy.string.DrillStringError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">DrillStringError</span></code></a> – Raised if the drill string doesn’t have drill pipe of the specified type.</p>
 </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="adamspy.adripy.string.DrillString.tool_renamed">
+<code class="descname">tool_renamed</code><span class="sig-paren">(</span><em>renamed_tool</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/string.html#DrillString.tool_renamed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.string.DrillString.tool_renamed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the ‘name’ and ‘Property_File’ entries in the <a class="reference internal" href="#adamspy.adripy.string.DrillString.tools" title="adamspy.adripy.string.DrillString.tools"><code class="xref py py-attr docutils literal notranslate"><span class="pre">tools</span></code></a> to match <a href="#id3"><span class="problematic" id="id4">:arg:`renamed_tool`</span></a>.name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>renamed_tool</strong> (<a class="reference internal" href="#adamspy.adripy.tool.DrillTool" title="adamspy.adripy.tool.DrillTool"><em>DrillTool</em></a>) – <code class="xref py py-class docutils literal notranslate"><span class="pre">DrillTool</span></code> object that has been renamed and needs to have its ‘Name’ and ‘Property_File’ entries updates.</td>
 </tr>
 </tbody>
 </table>
@@ -1297,6 +1311,21 @@ string file.</dd>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="adamspy.adripy.tool.DrillTool.bind_name_to">
+<code class="descname">bind_name_to</code><span class="sig-paren">(</span><em>name_receiver</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/tool.html#DrillTool.bind_name_to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.tool.DrillTool.bind_name_to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Appends <a href="#id5"><span class="problematic" id="id6">:arg:`name_receiver`</span></a> to <code class="xref py py-attr docutils literal notranslate"><span class="pre">_name_receivers</span></code>.</p>
+<p>All the methods in the <a href="#id7"><span class="problematic" id="id8">:arg:`name_receiver`</span></a> :obj:list will be called anytime the <a class="reference internal" href="#adamspy.adripy.tool.DrillTool.rename" title="adamspy.adripy.tool.DrillTool.rename"><code class="xref py py-meth docutils literal notranslate"><span class="pre">rename()</span></code></a> method is called</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name_receiver</strong> (<em>func</em>) – Any method that takes a <a class="reference internal" href="#adamspy.adripy.tool.DrillTool" title="adamspy.adripy.tool.DrillTool"><code class="xref py py-class docutils literal notranslate"><span class="pre">DrillTool</span></code></a>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="adamspy.adripy.tool.DrillTool.copy_file">
 <code class="descname">copy_file</code><span class="sig-paren">(</span><em>directory=None</em>, <em>cdb=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/tool.html#DrillTool.copy_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.tool.DrillTool.copy_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates string file from the DrillString object.</p>
@@ -1365,7 +1394,11 @@ string file.</dd>
 <dl class="method">
 <dt id="adamspy.adripy.tool.DrillTool.rename">
 <code class="descname">rename</code><span class="sig-paren">(</span><em>new_name</em>, <em>remove_original=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/tool.html#DrillTool.rename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.tool.DrillTool.rename" title="Permalink to this definition">¶</a></dt>
-<dd><p>Rename the tool</p>
+<dd><p>Renames the tool</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If this tool is part of a <code class="xref py py-class docutils literal notranslate"><span class="pre">DrillString</span></code> object, the <code class="xref py py-class docutils literal notranslate"><span class="pre">DrillString</span></code> object will be updated with the new name and property file.</p>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

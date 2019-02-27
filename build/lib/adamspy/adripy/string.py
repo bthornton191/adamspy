@@ -124,9 +124,12 @@ class DrillString():
         # Check that the group_name argument is givn
         if drill_tool.tool_type.lower() in self.MULTI_JOINT_TOOLS and group_name is None:
             raise ValueError('group_name is required for tools of type {}.'.format('{}'.format(self.MULTI_JOINT_TOOLS)[1:-1].replace("'",'')))
-        
+                
         if drill_tool.tool_type.lower() != 'top_drive':
-            # If the tool added IS NOT a top_drive
+            # If the tool added IS NOT a top_drive, check that the tool is not already in the tools list
+            for existing_tool in self.tools:
+                if drill_tool is existing_tool:
+                    raise DrillStringError('You cannot add the same DrillTool object to a DrillString multiple times!')
 
             # Create a dictionary describing the tool
             tool = {
@@ -169,6 +172,10 @@ class DrillString():
                 'Name': drill_tool.name,
                 'Property_File': drill_tool.property_file
             }
+        
+        # This binds drill_tool.name to tool['Name'] and tool['Property_File]
+        # Now if drill_tool is renamed by another processes, the tools list won't need to be updated.
+        drill_tool.bind_name_to(self.tool_renamed)
     
     def set_pipe_joints(self, joints, equivalent=False):
         """Sets the number of joints in the upper most section of drill pipe. Set `equivalent=True` to adjust equivalent upper string joints.
@@ -241,12 +248,28 @@ class DrillString():
 
         return tools_found[index]
         
+    def tool_renamed(self, renamed_tool):
+        """Updates the 'name' and 'Property_File' entries in the :attr:`tools` to match :arg:`renamed_tool`.name.        
+
+        Parameters
+        ----------
+        renamed_tool : DrillTool
+            :class:`DrillTool` object that has been renamed and needs to have its 'Name' and 'Property_File' entries updates.
+        """
+
+        for tool in self.tools:
+            if tool['DrillTool'] is renamed_tool:
+                tool['Name'] = renamed_tool.name
+                ext = tool['DrillTool'].extension
+                tool['Property_File'] = os.path.join(os.path.split(tool['Property_File'])[0], f'{renamed_tool.name}.{ext}')
+                break
+
     def get_bha_length(self):
-        """Gets the total length of the drill BHA defined in string_file 
+        """Gets the total length of the BHA defined in string_file 
         
         Note
         ----
-        The BHA does not include the equivalent upper string and highest most physical string.
+        The BHA is all the tools EXCEPT the equivalent upper string and highest most physical string.
                                 
         Returns
         -------
@@ -418,6 +441,33 @@ class DrillString():
         
         return get_cdb_path(filepath)
     
+    @classmethod
+    def read_from_file(cls, filename):
+        """Reads a string file and returns a :class:`DrillString` object with `DrillString.parameters` based on data in the string file.
+        
+        Parameters
+        ----------
+        filename : str
+            Filename of a string file.
+            
+        Returns
+        -------
+        DrillString
+            :class:`DrillString` object with parameters from the passed string file.
+        """
+        # Read the TO data into a dictionary
+        tiem_orbit_data = read_TO_file(get_full_path(filename))
+
+        drill_string = cls('','','')
+        
+        # Extract the DrillString parameters from the TO dictionary        
+        drill_string._get_params_from_TO_data(tiem_orbit_data) #pylint: disable=protected-access
+
+        # Extract the DrillTools from the TO dictionary
+        drill_string._get_tools_from_TO_data(tiem_orbit_data) #pylint: disable=protected-access
+
+        return drill_string
+    
     def validate(self):
         """
         Determines if all parameters have been set
@@ -460,33 +510,6 @@ class DrillString():
             validation['reason'] = 'the string doesn\'t have a bit'     
 
         return validation   
-    
-    @classmethod
-    def read_from_file(cls, filename):
-        """Reads a string file and returns a :class:`DrillString` object with `DrillString.parameters` based on data in the string file.
-        
-        Parameters
-        ----------
-        filename : str
-            Filename of a string file.
-            
-        Returns
-        -------
-        DrillString
-            :class:`DrillString` object with parameters from the passed string file.
-        """
-        # Read the TO data into a dictionary
-        tiem_orbit_data = read_TO_file(get_full_path(filename))
-
-        drill_string = cls('','','')
-        
-        # Extract the DrillString parameters from the TO dictionary        
-        drill_string._get_params_from_TO_data(tiem_orbit_data) #pylint: disable=protected-access
-
-        # Extract the DrillTools from the TO dictionary
-        drill_string._get_tools_from_TO_data(tiem_orbit_data) #pylint: disable=protected-access
-
-        return drill_string
 
     def _apply_defaults(self):
         """
