@@ -139,7 +139,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for adamspy.adripy.string</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Contains the DrillString class</span>
+<span></span><span class="sd">&quot;&quot;&quot;A module that contains the :DrillString class</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
@@ -159,7 +159,7 @@
 
 <span class="sd">    Note</span>
 <span class="sd">    ----</span>
-<span class="sd">    Once the :obj:`DrillString` is instanced, tools within the string must be defined as :obj:`DrillTool` objects before the string is written to a string file.  Use the `add_tool()` method to add :obj:`DrillTool` objects to the string.</span>
+<span class="sd">    Once the :class:`DrillString` is instanced, tools within the string must be defined as :class:`DrillTool` objects before the string is written to a string file.  Use the :meth:`add_tool()` method to add :class:`DrillTool` objects to the string.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -184,7 +184,7 @@
 <span class="sd">    MULTI_JOINT_TOOLS : list</span>
 <span class="sd">        A class attribute listing all the tool types that need to have `Number_of_Joints` defined in the Adams Drill string file.</span>
 <span class="sd">    DRILL_TOOL_PATTERN : SRE_Pattern</span>
-<span class="sd">        A :class:`_sre.SRE_Pattern` object defining the pattern of the Drill Tool block header in the string file.    </span>
+<span class="sd">        A :obj:`_sre.SRE_Pattern` object defining the pattern of the Drill Tool block header in the string file.    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">SCALAR_PARAMETERS</span> <span class="o">=</span> <span class="p">[</span>
@@ -243,16 +243,16 @@
 
 <div class="viewcode-block" id="DrillString.add_tool"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.add_tool">[docs]</a>    <span class="k">def</span> <span class="nf">add_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">drill_tool</span><span class="p">,</span> <span class="n">joints</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">measure</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">stack_order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Default&#39;</span><span class="p">,</span> <span class="n">group_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">equivalent</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Adds a :obj:`DrillTool` object to the :obj:`DrillString`.</span>
+<span class="sd">        Adds a :class:`DrillTool` object to the :class:`DrillString`.</span>
 
 <span class="sd">        Note</span>
 <span class="sd">        ----</span>
-<span class="sd">        You cannot add the same :obj:`DrillTool` object to the string multiple times.  If you want to add multiple instances of the same tool you must create two seperate :obj:`DrillTool` objects from the same Tiem Orbit property file.</span>
+<span class="sd">        You cannot add the same :class:`DrillTool` object to the string multiple times.  If you want to add multiple instances of the same tool you must create two seperate :class:`DrillTool` objects from the same Tiem Orbit property file.</span>
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        tool : DrillTool</span>
-<span class="sd">            :obj:`DrillTool` object representing the tool to be added        </span>
+<span class="sd">            :class:`DrillTool` object representing the tool to be added        </span>
 <span class="sd">        joints : int</span>
 <span class="sd">            Number of Joints. Note that this only applies for certain tool types. (default is 1)</span>
 <span class="sd">        measure : bool</span>
@@ -342,8 +342,7 @@
             <span class="k">raise</span> <span class="n">DrillStringError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;There is no </span><span class="si">{tool_type}</span><span class="s1"> in this string!&#39;</span><span class="p">)</span>        </div>
     
 <div class="viewcode-block" id="DrillString.get_tool"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.get_tool">[docs]</a>    <span class="k">def</span> <span class="nf">get_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tool_type</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Returns a DrillTool object of type tool_type in the </span>
-<span class="sd">        DrillString object&#39;s tools list.  </span>
+        <span class="sd">&quot;&quot;&quot;Returns a DrillTool object of type :arg:`tool_type` in the :class:`DrillString` object&#39;s tools list.  </span>
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -356,12 +355,12 @@
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
 <span class="sd">        DrillStringError</span>
-<span class="sd">            Raised if a tools of the specified type does not exist in the drill string.</span>
+<span class="sd">            Raised if a tool of the specified type does not exist in the drill string.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        DrillTool</span>
-<span class="sd">            DrillTool object</span>
+<span class="sd">            :class:`DrillTool` object</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">tools_found</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tools</span><span class="p">:</span>
@@ -384,12 +383,12 @@
         <span class="k">return</span> <span class="n">tools_found</span><span class="p">[</span><span class="n">index</span><span class="p">]</span></div>
         
 <div class="viewcode-block" id="DrillString.get_bha_length"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.get_bha_length">[docs]</a>    <span class="k">def</span> <span class="nf">get_bha_length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Gets the total length of the drill string defined in </span>
-<span class="sd">        string_file NOT including the equivalent upper string and </span>
-<span class="sd">        highest most physical string.</span>
+        <span class="sd">&quot;&quot;&quot;Gets the total length of the drill BHA defined in string_file </span>
 <span class="sd">        </span>
-<span class="sd">                        </span>
+<span class="sd">        Note</span>
+<span class="sd">        ----</span>
+<span class="sd">        The BHA does not include the equivalent upper string and highest most physical string.</span>
+<span class="sd">                                </span>
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        float : Cumulative length of the bha    </span>
@@ -418,8 +417,10 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds a measurement point at the given distance from the bit in feet.</span>
 <span class="sd">        </span>
-<span class="sd">        Arguments:</span>
-<span class="sd">            distance {float} -- Distance from the bit (in feet) at which to place a measurement point.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        distance : float</span>
+<span class="sd">            Distance from the bit (in feet) at which to place a measurement point.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Distance_from_Bit&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">distance</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Distance_from_Bit&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span></div>
@@ -603,16 +604,17 @@
     
 <div class="viewcode-block" id="DrillString.read_from_file"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.read_from_file">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">read_from_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Reads a string file and returns a :obj:`DrillString` object with `DrillString.parameters` based on data in the string file.</span>
+        <span class="sd">&quot;&quot;&quot;Reads a string file and returns a :class:`DrillString` object with `DrillString.parameters` based on data in the string file.</span>
 <span class="sd">        </span>
-<span class="sd">        Parameters:</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
 <span class="sd">        filename : str</span>
 <span class="sd">            Filename of a string file.</span>
 <span class="sd">            </span>
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        DrillString</span>
-<span class="sd">            :obj:`DrillString` object with parameters from the passed string file.</span>
+<span class="sd">            :class:`DrillString` object with parameters from the passed string file.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Read the TO data into a dictionary</span>
         <span class="n">tiem_orbit_data</span> <span class="o">=</span> <span class="n">read_TO_file</span><span class="p">(</span><span class="n">get_full_path</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
@@ -645,9 +647,12 @@
     <span class="k">def</span> <span class="nf">_copy_hole_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cdb</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Copys the hole file to a new locations.  Must give directory OR cdb.</span>
 <span class="sd">        </span>
-<span class="sd">        Keyword Arguments:</span>
-<span class="sd">            directory {string} -- Directory to put the copied hole file (default: {None})</span>
-<span class="sd">            cdb {string} -- Name of cdb to put the copied hole file (default: {None})</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        directory : str</span>
+<span class="sd">            Directory to put the copied hole file (default is None)</span>
+<span class="sd">        cdb : str</span>
+<span class="sd">            Name of cdb to put the copied hole file (default is None)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Check that directory or cdb was given.</span>
         <span class="k">if</span> <span class="n">cdb</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">directory</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -748,7 +753,6 @@
 <span class="sd">        ValueError</span>
 <span class="sd">            A string parameter could not be found</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">SCALAR_PARAMETERS</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ARRAY_PARAMETERS</span><span class="p">:</span>
             <span class="c1"># For each string parameter initialize a found flag</span>
             <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
@@ -780,7 +784,7 @@
                         <span class="k">break</span>
             
             <span class="c1"># Raise a value error if the parameter isn&#39;t found.</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span> <span class="ow">and</span> <span class="n">param</span> <span class="ow">is</span> <span class="ow">not</span> <span class="s1">&#39;Distance_from_Bit&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span> <span class="ow">and</span> <span class="n">param</span> <span class="o">!=</span> <span class="s1">&#39;Distance_from_Bit&#39;</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{param}</span><span class="s1"> not found!&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="DrillStringError"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillStringError">[docs]</a><span class="k">class</span> <span class="nc">DrillStringError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>

@@ -47,17 +47,23 @@ $--------------------------------------------------------------------------DRIVE
 [DRIVE]
  Event_Property_File  =  '{{ Event_Property_File }}'
 $-------------------------------------------------------------MEASUREMENT_POINTS
+{% if Distance_from_Bit %}
 [MEASUREMENT_POINTS]
+{% else %}
+$ [MEASUREMENT_POINTS]
+{% endif %}
 $ These are auxialliary measurement points in addition to any  measurement
 $ requests made directly on tools or pipes in the DRILL_TOOL blocks.
 $ These are locations in the design position of the model at which
 $ output will be generated.  The output will be generated at the nearest
 $ tool or pipe wall contact point in the string.
-{{ '{Distance_from_Bit}' }}
 {% if Distance_from_Bit %}
+{{ '{Distance_from_Bit}' }}
 {% for distance in Distance_from_Bit %}
 {{ distance }}
 {% endfor %}
+{% else %}
+{{ '$ {Distance_from_Bit}' }}
 {% endif %}
 $ ------------------------------------------------------------------------------
 $ 

@@ -42,11 +42,11 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         Parameters
         ----------
         string : DrillString
-            DrillString object representing the string to be used in the simulation
+            :obj:`DrillString` object representing the string to be used in the simulation
         event : DrillEvent
-            DrillEvent object representing the string to be used in the simulation
+            :obj:`DrillEvent` object representing the string to be used in the simulation
         solver_settings : DrillSolverSettings
-            DrillSolverSettings object representing the string to be used in the simulation
+            :obj:`DrillSolverSettings` object representing the string to be used in the simulation
         directory : str
             Path to the directory in which to put the simulation files
         analysis_name : str
@@ -71,7 +71,7 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         self.built = False
 
     def build(self):
-        """This method builds the input deck.  It launches Adams View in batch, and imports `self.string.filename` and `self.solver_settings.fileame` and runs the Adams Drill macro `ds tostart` to build a drill string model.  Then it exports that model to `self.directory`.
+        """This method builds the input deck.  It launches Adams View in batch, reads in the `self.string.filename` and `self.solver_settings.filename` files, and runs the Adams Drill macro ``ds tostart`` to build a drill string model.  Then it saves the model files (.acf, .adm, and .cmd) to the `self.directory` directory.
         """
         # Build the model
         adm, acf, cmd = build(self.string_filename, self.solver_settings.filename, self.directory)  
@@ -97,8 +97,7 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
 
         Note
         ----
-        When the string file is published, all the supporting tool files and the hole file are copied to the simulation directory.
-
+        When the string file gets published, all the supporting tool files and the hole file are copied to the simulation directory.
         """     
         # solver settings file
         self.solver_settings.write_to_file(self.analysis_name, directory=self.directory)        

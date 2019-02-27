@@ -183,11 +183,11 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        string : DrillString</span>
-<span class="sd">            DrillString object representing the string to be used in the simulation</span>
+<span class="sd">            :obj:`DrillString` object representing the string to be used in the simulation</span>
 <span class="sd">        event : DrillEvent</span>
-<span class="sd">            DrillEvent object representing the string to be used in the simulation</span>
+<span class="sd">            :obj:`DrillEvent` object representing the string to be used in the simulation</span>
 <span class="sd">        solver_settings : DrillSolverSettings</span>
-<span class="sd">            DrillSolverSettings object representing the string to be used in the simulation</span>
+<span class="sd">            :obj:`DrillSolverSettings` object representing the string to be used in the simulation</span>
 <span class="sd">        directory : str</span>
 <span class="sd">            Path to the directory in which to put the simulation files</span>
 <span class="sd">        analysis_name : str</span>
@@ -212,7 +212,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">built</span> <span class="o">=</span> <span class="kc">False</span>
 
 <div class="viewcode-block" id="DrillSim.build"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim.build">[docs]</a>    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;This method builds the input deck.  It launches Adams View in batch, and imports `self.string.filename` and `self.solver_settings.fileame` and runs the Adams Drill macro `ds tostart` to build a drill string model.  Then it exports that model to `self.directory`.</span>
+        <span class="sd">&quot;&quot;&quot;This method builds the input deck.  It launches Adams View in batch, reads in the `self.string.filename` and `self.solver_settings.filename` files, and runs the Adams Drill macro ``ds tostart`` to build a drill string model.  Then it saves the model files (.acf, .adm, and .cmd) to the `self.directory` directory.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Build the model</span>
         <span class="n">adm</span><span class="p">,</span> <span class="n">acf</span><span class="p">,</span> <span class="n">cmd</span> <span class="o">=</span> <span class="n">build</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">string_filename</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">solver_settings</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">)</span>  
@@ -238,8 +238,7 @@
 
 <span class="sd">        Note</span>
 <span class="sd">        ----</span>
-<span class="sd">        When the string file is published, all the supporting tool files and the hole file are copied to the simulation directory.</span>
-
+<span class="sd">        When the string file gets published, all the supporting tool files and the hole file are copied to the simulation directory.</span>
 <span class="sd">        &quot;&quot;&quot;</span>     
         <span class="c1"># solver settings file</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">solver_settings</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">analysis_name</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">)</span>        
