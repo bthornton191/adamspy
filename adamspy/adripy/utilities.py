@@ -202,7 +202,7 @@ def get_adrill_cdbs(adrill_user_cfg, adrill_shared_cfg=None):
     ----------
     adrill_user_cfg : str
         Full path to an Adams Drill user configuration file.  This hould be in the users HOME directory.
-    adrill_shared_cfg : :obj:`str`, optional
+    adrill_shared_cfg : str
         Full path to an Adams Drill shared configuration file.  This should be in the Adams Drill installation directory.  (the default is None, which means that only user cdbs will be returned.)
         
     Returns
