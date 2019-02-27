@@ -265,9 +265,12 @@
         <span class="c1"># Check that the group_name argument is givn</span>
         <span class="k">if</span> <span class="n">drill_tool</span><span class="o">.</span><span class="n">tool_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">MULTI_JOINT_TOOLS</span> <span class="ow">and</span> <span class="n">group_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;group_name is required for tools of type </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MULTI_JOINT_TOOLS</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)))</span>
-        
+                
         <span class="k">if</span> <span class="n">drill_tool</span><span class="o">.</span><span class="n">tool_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">&#39;top_drive&#39;</span><span class="p">:</span>
-            <span class="c1"># If the tool added IS NOT a top_drive</span>
+            <span class="c1"># If the tool added IS NOT a top_drive, check that the tool is not already in the tools list</span>
+            <span class="k">for</span> <span class="n">existing_tool</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tools</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">drill_tool</span> <span class="ow">is</span> <span class="n">existing_tool</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">DrillStringError</span><span class="p">(</span><span class="s1">&#39;You cannot add the same DrillTool object to a DrillString multiple times!&#39;</span><span class="p">)</span>
 
             <span class="c1"># Create a dictionary describing the tool</span>
             <span class="n">tool</span> <span class="o">=</span> <span class="p">{</span>
@@ -309,7 +312,11 @@
                 <span class="s1">&#39;Type&#39;</span><span class="p">:</span> <span class="n">drill_tool</span><span class="o">.</span><span class="n">tool_type</span><span class="p">,</span>
                 <span class="s1">&#39;Name&#39;</span><span class="p">:</span> <span class="n">drill_tool</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
                 <span class="s1">&#39;Property_File&#39;</span><span class="p">:</span> <span class="n">drill_tool</span><span class="o">.</span><span class="n">property_file</span>
-            <span class="p">}</span></div>
+            <span class="p">}</span>
+        
+        <span class="c1"># This binds drill_tool.name to tool[&#39;Name&#39;] and tool[&#39;Property_File]</span>
+        <span class="c1"># Now if drill_tool is renamed by another processes, the tools list won&#39;t need to be updated.</span>
+        <span class="n">drill_tool</span><span class="o">.</span><span class="n">bind_name_to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tool_renamed</span><span class="p">)</span></div>
     
 <div class="viewcode-block" id="DrillString.set_pipe_joints"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.set_pipe_joints">[docs]</a>    <span class="k">def</span> <span class="nf">set_pipe_joints</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">joints</span><span class="p">,</span> <span class="n">equivalent</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Sets the number of joints in the upper most section of drill pipe. Set `equivalent=True` to adjust equivalent upper string joints.</span>
@@ -382,12 +389,28 @@
 
         <span class="k">return</span> <span class="n">tools_found</span><span class="p">[</span><span class="n">index</span><span class="p">]</span></div>
         
+<div class="viewcode-block" id="DrillString.tool_renamed"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.tool_renamed">[docs]</a>    <span class="k">def</span> <span class="nf">tool_renamed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">renamed_tool</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Updates the &#39;name&#39; and &#39;Property_File&#39; entries in the :attr:`tools` to match :arg:`renamed_tool`.name.        </span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        renamed_tool : DrillTool</span>
+<span class="sd">            :class:`DrillTool` object that has been renamed and needs to have its &#39;Name&#39; and &#39;Property_File&#39; entries updates.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tools</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;DrillTool&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="n">renamed_tool</span><span class="p">:</span>
+                <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">renamed_tool</span><span class="o">.</span><span class="n">name</span>
+                <span class="n">ext</span> <span class="o">=</span> <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;DrillTool&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">extension</span>
+                <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;Property_File&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">tool</span><span class="p">[</span><span class="s1">&#39;Property_File&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">],</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{renamed_tool.name}</span><span class="s1">.</span><span class="si">{ext}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="k">break</span></div>
+
 <div class="viewcode-block" id="DrillString.get_bha_length"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.get_bha_length">[docs]</a>    <span class="k">def</span> <span class="nf">get_bha_length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Gets the total length of the drill BHA defined in string_file </span>
+        <span class="sd">&quot;&quot;&quot;Gets the total length of the BHA defined in string_file </span>
 <span class="sd">        </span>
 <span class="sd">        Note</span>
 <span class="sd">        ----</span>
-<span class="sd">        The BHA does not include the equivalent upper string and highest most physical string.</span>
+<span class="sd">        The BHA is all the tools EXCEPT the equivalent upper string and highest most physical string.</span>
 <span class="sd">                                </span>
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -559,6 +582,33 @@
         
         <span class="k">return</span> <span class="n">get_cdb_path</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span></div>
     
+<div class="viewcode-block" id="DrillString.read_from_file"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.read_from_file">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">read_from_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Reads a string file and returns a :class:`DrillString` object with `DrillString.parameters` based on data in the string file.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            Filename of a string file.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        DrillString</span>
+<span class="sd">            :class:`DrillString` object with parameters from the passed string file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Read the TO data into a dictionary</span>
+        <span class="n">tiem_orbit_data</span> <span class="o">=</span> <span class="n">read_TO_file</span><span class="p">(</span><span class="n">get_full_path</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+
+        <span class="n">drill_string</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        
+        <span class="c1"># Extract the DrillString parameters from the TO dictionary        </span>
+        <span class="n">drill_string</span><span class="o">.</span><span class="n">_get_params_from_TO_data</span><span class="p">(</span><span class="n">tiem_orbit_data</span><span class="p">)</span> <span class="c1">#pylint: disable=protected-access</span>
+
+        <span class="c1"># Extract the DrillTools from the TO dictionary</span>
+        <span class="n">drill_string</span><span class="o">.</span><span class="n">_get_tools_from_TO_data</span><span class="p">(</span><span class="n">tiem_orbit_data</span><span class="p">)</span> <span class="c1">#pylint: disable=protected-access</span>
+
+        <span class="k">return</span> <span class="n">drill_string</span></div>
+    
 <div class="viewcode-block" id="DrillString.validate"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Determines if all parameters have been set</span>
@@ -601,33 +651,6 @@
             <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;reason&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;the string doesn</span><span class="se">\&#39;</span><span class="s1">t have a bit&#39;</span>     
 
         <span class="k">return</span> <span class="n">validation</span>   </div>
-    
-<div class="viewcode-block" id="DrillString.read_from_file"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.read_from_file">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">read_from_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Reads a string file and returns a :class:`DrillString` object with `DrillString.parameters` based on data in the string file.</span>
-<span class="sd">        </span>
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        filename : str</span>
-<span class="sd">            Filename of a string file.</span>
-<span class="sd">            </span>
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        DrillString</span>
-<span class="sd">            :class:`DrillString` object with parameters from the passed string file.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Read the TO data into a dictionary</span>
-        <span class="n">tiem_orbit_data</span> <span class="o">=</span> <span class="n">read_TO_file</span><span class="p">(</span><span class="n">get_full_path</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
-
-        <span class="n">drill_string</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-        
-        <span class="c1"># Extract the DrillString parameters from the TO dictionary        </span>
-        <span class="n">drill_string</span><span class="o">.</span><span class="n">_get_params_from_TO_data</span><span class="p">(</span><span class="n">tiem_orbit_data</span><span class="p">)</span> <span class="c1">#pylint: disable=protected-access</span>
-
-        <span class="c1"># Extract the DrillTools from the TO dictionary</span>
-        <span class="n">drill_string</span><span class="o">.</span><span class="n">_get_tools_from_TO_data</span><span class="p">(</span><span class="n">tiem_orbit_data</span><span class="p">)</span> <span class="c1">#pylint: disable=protected-access</span>
-
-        <span class="k">return</span> <span class="n">drill_string</span></div>
 
     <span class="k">def</span> <span class="nf">_apply_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>

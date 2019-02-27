@@ -213,11 +213,28 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">tool_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_type</span><span class="p">()</span>    
         <span class="bp">self</span><span class="o">.</span><span class="n">extension</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_extension</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_table</span><span class="p">()</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name_receivers</span> <span class="o">=</span> <span class="p">[]</span>
+    
+<div class="viewcode-block" id="DrillTool.bind_name_to"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.tool.DrillTool.bind_name_to">[docs]</a>    <span class="k">def</span> <span class="nf">bind_name_to</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_receiver</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Appends :arg:`name_receiver` to :attr:`_name_receivers`.</span>
+<span class="sd">        </span>
+<span class="sd">        All the methods in the :arg:`name_receiver` :obj:list will be called anytime the :meth:`rename()` method is called</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name_receiver : func</span>
+<span class="sd">            Any method that takes a :class:`DrillTool`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name_receivers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name_receiver</span><span class="p">)</span></div>
     
 <div class="viewcode-block" id="DrillTool.rename"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.tool.DrillTool.rename">[docs]</a>    <span class="k">def</span> <span class="nf">rename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_name</span><span class="p">,</span> <span class="n">remove_original</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Rename the tool</span>
+        <span class="sd">&quot;&quot;&quot;Renames the tool</span>
 <span class="sd">        </span>
+<span class="sd">        Note</span>
+<span class="sd">        ----</span>
+<span class="sd">        If this tool is part of a :class:`DrillString` object, the :class:`DrillString` object will be updated with the new name and property file.</span>
+
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        new_name : str</span>
@@ -241,10 +258,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">new_name</span>     
         
         <span class="k">if</span> <span class="n">remove_original</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-
             <span class="c1"># Delete the old property file</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">current_filename</span><span class="p">)</span></div>
-    
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">current_filename</span><span class="p">)</span>    
+                
+        <span class="c1"># NOTE: The for loop below updates the name and property file in the DrillString object</span>
+        <span class="c1"># Run all the name receivers </span>
+        <span class="k">for</span> <span class="n">name_receiver</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name_receivers</span><span class="p">:</span>
+            <span class="n">name_receiver</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="DrillTool.copy_file"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.tool.DrillTool.copy_file">[docs]</a>    <span class="k">def</span> <span class="nf">copy_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cdb</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Creates string file from the DrillString object.</span>
 <span class="sd">        </span>
