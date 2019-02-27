@@ -1,6 +1,7 @@
 import unittest
 import os
 import glob
+import re
 from test import *
 # Set the ADRILL_USER_CFG and ADRILL_SHARED_CFG environment variables
 os.environ['ADRILL_USER_CFG'] = os.path.join('C:\\', 'Users', 'bthornt', '.adrill.cfg')
@@ -10,7 +11,8 @@ from adamspy import adripy
 
 class Test_Build(unittest.TestCase):
 
-    def setUp(self):
+    @classmethod
+    def setUpClass(cls):
         try:
             adripy.add_cdb_to_cfg(TEST_DATABASE_NAME, TEST_DATABASE_PATH, os.environ['ADRILL_USER_CFG'])
         except ValueError:
@@ -54,9 +56,22 @@ class Test_Build(unittest.TestCase):
         """Tests that the acf was created
         """
         self.assertTrue(os.path.exists(os.path.join(TEST_WORKING_DIRECTORY, TEST_STRING_NAME + '.acf')))
-
-    def tearDown(self):
+    
+    def test_errors_in_log(self):
+        """Tests that no errors are found in the aview.log file
+        """        
+        with open(os.path.join(TEST_WORKING_DIRECTORY, 'aview.log'), 'r') as fid:
+            text = fid.read()
+        errors = re.findall('ERROR:  ', text)
+        
+        self.assertEqual(len(errors), 0)
+        
+    @classmethod
+    def tearDownClass(cls):
         adripy.remove_cdb_from_cfg(TEST_DATABASE_NAME, os.environ['ADRILL_USER_CFG'])
         # Remove all the files in the working directory
-        for file in glob.glob(os.path.join(TEST_WORKING_DIRECTORY, '*')):
-            os.remove(file)
+        # for file in glob.glob(os.path.join(TEST_WORKING_DIRECTORY, '*')):
+        #     os.remove(file)
+
+if __name__ == '__main__':
+    unittest.main()

@@ -377,7 +377,7 @@ $ of the physically modeled string. (Equivalent Upper String not allowed.)
 """
 
 
-EXPECTED_STRING_WRITE_TEXT = f"""$ ==================================================================
+EXPECTED_STRING_WRITE_TEXT_WITH_DFB = f"""$ ==================================================================
 $ This is the master drill string assmembly file which contains
 $ the following data blocks:
 $  [UNITS]
@@ -433,6 +433,114 @@ $ These are locations in the design position of the model at which
 $ output will be generated.  The output will be generated at the nearest
 $ tool or pipe wall contact point in the string.
 {{Distance_from_Bit}}
+100
+200
+$ ------------------------------------------------------------------------------
+$ 
+$  The DRILL_TOOL blocks below form a descriptive list of tools from bottom to top
+$  NOTA BENE: The tools or sections must be numbered from 1 consecutively
+$  and the last tool or section must be 'TopOfString'.  Remember that a
+$  section  of pipes can include many elements.
+$------------------------------------------------------------------DRILL_TOOL_01
+[DRILL_TOOL_01]
+ Stack_Order  =  1
+ Type  =  'pdc_bit'
+ Name  =  '{TEST_PDC_NAME}_01'
+ Property_File  =  '<{TEST_DATABASE_NAME}>\\pdc_bits.tbl\\{TEST_PDC_NAME}.pdc'
+ Measure  =  'yes'
+ Color  =  'Default'
+$------------------------------------------------------------------DRILL_TOOL_02
+[DRILL_TOOL_02]
+ Stack_Order  =  2
+ Type  =  'stabilizer'
+ Name  =  '{TEST_STABILIZER_NAME}_02'
+ Property_File  =  '<{TEST_DATABASE_NAME}>\\stabilizers.tbl\\{TEST_STABILIZER_NAME}.sta'
+ Measure  =  'yes'
+ Color  =  'Default'
+$------------------------------------------------------------------DRILL_TOOL_03
+[DRILL_TOOL_03]
+ Stack_Order  =  3
+ Type  =  'drillpipe'
+ Name  =  '{TEST_DRILLPIPE_GROUPNAME}'
+ Property_File  =  '<{TEST_DATABASE_NAME}>\\drill_pipes.tbl\\{TEST_DRILLPIPE_NAME}.pip'
+ Measure  =  'no'
+ Color  =  'Default'
+ Number_of_Joints  =  {TEST_NUMBER_OF_DRILLPIPES}
+$------------------------------------------------------------------DRILL_TOOL_04
+[DRILL_TOOL_04]
+ Stack_Order  =  4
+ Type  =  'equivalent_upper_string'
+ Name  =  '{TEST_EUS_GROUPNAME}'
+ Property_File  =  '<{TEST_DATABASE_NAME}>\\drill_pipes.tbl\\{TEST_EUS_NAME}.pip'
+ Measure  =  'no'
+ Color  =  'Default'
+ Number_of_Joints  =  {TEST_NUMBER_OF_EUSPIPES}
+$------------------------------------------------------------------TOP_OF_STRING
+[TOP_OF_STRING]
+$----------------------------------------------------------------------TOP_DRIVE
+[TOP_DRIVE]
+ Type  =  'top_drive'
+ Name  =  '{TEST_TOP_DRIVE_NAME}'
+ Property_File  =  '<{TEST_DATABASE_NAME}>\\top_drives.tbl\\{TEST_TOP_DRIVE_NAME}.tdr'
+
+"""
+
+EXPECTED_STRING_WRITE_TEXT = f"""$ ==================================================================
+$ This is the master drill string assmembly file which contains
+$ the following data blocks:
+$  [UNITS]
+$  [MODEL]
+$  [CONTACT]
+$  [DRIVE]
+$  [MEASUREMENT_POINTS]
+$  [DRILL_TOOL_n]
+$  [TOP_OF_STRING]
+$  [TOP_DRIVE]
+$ 
+$ NOTA BENE: block and subblock titles MUST begin in column 1.
+$ Comments also must begin in column 1.
+$ ==================================================================
+$ 
+$--------------------------------------------------------------------------UNITS
+[UNITS]
+$ Adams Drill supports two units sets:
+$ 'Imperial' (foot, degree, pound force, pound mass, second)
+$ 'Metric' (meter, degree, Newton, kilogram, second)
+ Units  =  'Imperial'
+$--------------------------------------------------------------------------MODEL
+[MODEL]
+$ general model set-up parameters
+ ModelName  =  'test_string_1'
+ OutputName  =  'test_string_1'
+ Gravity  =  32.187
+ Deviation_Deg  =  0.0
+$ Used to rotate gravity direction relative to string
+$ Adams_Results must equal 'standard' 'animation' or 'diagnostics'
+$ Note that 'diagnostics' produces VERY large files sizes
+ Adams_Results  =  'animation'
+ Adams_Requests  =  'on'
+ Adams_Graphics  =  'off'
+ SolverDLL  =  'adrill_solver'
+$ Do not include the '.dll' extension here
+$------------------------------------------------------------------------CONTACT
+[CONTACT]
+$ ContactMethod options are 'Subroutine' and 'ImpactFunction'
+$ ** but only 'Subroutine' is valid at present **
+ Hole_Property_File  =  '<{TEST_DATABASE_NAME}>\\holes.tbl\\{TEST_HOLE_NAME}.hol'
+ Contact_Method  =  'Subroutine'
+ Cyl_Drag_Coeff  =  1.2
+ Hole_Color  =  'LtGray'
+$--------------------------------------------------------------------------DRIVE
+[DRIVE]
+ Event_Property_File  =  '<{TEST_DATABASE_NAME}>\\events.tbl\\{TEST_EVENT_NAME}.evt'
+$-------------------------------------------------------------MEASUREMENT_POINTS
+$ [MEASUREMENT_POINTS]
+$ These are auxialliary measurement points in addition to any  measurement
+$ requests made directly on tools or pipes in the DRILL_TOOL blocks.
+$ These are locations in the design position of the model at which
+$ output will be generated.  The output will be generated at the nearest
+$ tool or pipe wall contact point in the string.
+$ {{Distance_from_Bit}}
 $ ------------------------------------------------------------------------------
 $ 
 $  The DRILL_TOOL blocks below form a descriptive list of tools from bottom to top
@@ -732,7 +840,7 @@ def check_file_contents(filename, expected_text):
     Returns
     -------
     list
-        `list` of unexpected lines
+        :obj:`list` of unexpected lines
     """
 
     # Read the file
@@ -752,12 +860,13 @@ def check_file_contents(filename, expected_text):
     
     return failures
 
-
 def clear_database(database_path):
     """Deletes all the property files in the given database
     
-    Arguments:
-        database_path {string} -- Path to the database to be cleared
+    Parameters
+    ----------
+    database_path : str
+        Path to the database to be cleared
     """
     for table in glob.glob(os.path.join(database_path,'*')):
         for file in glob.glob(os.path.join(table,'*')):
@@ -765,7 +874,6 @@ def clear_database(database_path):
 
 if not os.path.exists(TEST_WORKING_DIRECTORY):
     os.mkdir(TEST_WORKING_DIRECTORY)
-
 
 # Make a new database if it doesn't exist already
 if not os.path.exists(TEST_NEW_DATABASE_PATH):

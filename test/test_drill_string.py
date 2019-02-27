@@ -11,7 +11,7 @@ os.environ['ADAMS_LAUNCH_COMMAND'] = os.path.join('C:\\', 'MSC.Software', 'Adams
 from adamspy import adripy #pylint: disable=wrong-import-position
 
 class Test_DrillString(unittest.TestCase):
-    """Tests the `DrillString` class.
+    """Tests the :obj:`DrillString` class.
     """
     maxDiff = None
     def setUp(self):
@@ -84,6 +84,31 @@ class Test_DrillString(unittest.TestCase):
         expected_string_filename = os.path.join(TEST_DATABASE_PATH, 'drill_strings.tbl', TEST_STRING_NAME + '.str')
         
         failures = check_file_contents(expected_string_filename, EXPECTED_STRING_WRITE_TEXT)
+
+        self.assertListEqual(failures, [])
+
+    def test_write_string_to_database_with_dfb(self): 
+        """Test the `DrillString.write_to_file()` method.
+        """
+        # Create a DrillString object
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+
+        # Add DFBs to the drill string
+        drill_string.parameters['Distance_from_Bit'] = [100, 200]
+
+        # Add the DrillTool objects to the DrillString object
+        drill_string.add_tool(self.pdc_bit, measure='yes')
+        drill_string.add_tool(self.stabilizer, measure='yes')
+        drill_string.add_tool(self.drill_pipe, joints=20, group_name='Upper_DP_Group')
+        drill_string.add_tool(self.eus, joints=20, group_name='equivalent_pipe', equivalent=True)
+        drill_string.add_tool(self.top_drive)
+
+        # Write drill string to file
+        drill_string.write_to_file(cdb=TEST_DATABASE_NAME)
+
+        expected_string_filename = os.path.join(TEST_DATABASE_PATH, 'drill_strings.tbl', TEST_STRING_NAME + '.str')
+        
+        failures = check_file_contents(expected_string_filename, EXPECTED_STRING_WRITE_TEXT_WITH_DFB)
 
         self.assertListEqual(failures, [])
 

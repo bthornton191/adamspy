@@ -623,7 +623,7 @@ def get_string_length(string_file):
                       
     Returns
     -------
-    string_length : str
+    float
         Cumulative length of the string    
     """
     cdbs = get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
@@ -961,11 +961,15 @@ TO_TABLE_LINE_PATTERN = re.compile("^((\\s*\\'[_0-9a-zA-Z]+\\')+)|((\\s*-?[\\+-\
 def read_TO_file(filename):
     """Reads a Tiem Orbit file into a dictionary of parameters
     
-    Arguments:
-        filename {string} -- Filename of the Tiem Orbit file
+    Parameters
+    ----------
+    filename : str
+        Filename of the Tiem Orbit file
     
-    Raises:
-        TiemOrbitSyntaxError -- Raised if the Tiem Orbit syntax is not recognized
+    Raises
+    ------
+    TiemOrbitSyntaxError
+        Raised if the Tiem Orbit syntax is not recognized
     """
     filename = get_full_path(os.path.normpath(filename))
     

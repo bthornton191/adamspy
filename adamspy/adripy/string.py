@@ -1,4 +1,4 @@
-"""Contains the DrillString class
+"""A module that contains the :DrillString class
 """
 
 import os
@@ -18,7 +18,7 @@ class DrillString():
 
     Note
     ----
-    Once the :obj:`DrillString` is instanced, tools within the string must be defined as :obj:`DrillTool` objects before the string is written to a string file.  Use the `add_tool()` method to add :obj:`DrillTool` objects to the string.
+    Once the :class:`DrillString` is instanced, tools within the string must be defined as :class:`DrillTool` objects before the string is written to a string file.  Use the :meth:`add_tool()` method to add :class:`DrillTool` objects to the string.
 
     Attributes
     ----------
@@ -43,7 +43,7 @@ class DrillString():
     MULTI_JOINT_TOOLS : list
         A class attribute listing all the tool types that need to have `Number_of_Joints` defined in the Adams Drill string file.
     DRILL_TOOL_PATTERN : SRE_Pattern
-        A :class:`_sre.SRE_Pattern` object defining the pattern of the Drill Tool block header in the string file.    
+        A :obj:`_sre.SRE_Pattern` object defining the pattern of the Drill Tool block header in the string file.    
     """
 
     SCALAR_PARAMETERS = [
@@ -102,16 +102,16 @@ class DrillString():
 
     def add_tool(self, drill_tool, joints=1, measure=False, stack_order=None, color='Default', group_name=None, equivalent=False):
         """
-        Adds a :obj:`DrillTool` object to the :obj:`DrillString`.
+        Adds a :class:`DrillTool` object to the :class:`DrillString`.
 
         Note
         ----
-        You cannot add the same :obj:`DrillTool` object to the string multiple times.  If you want to add multiple instances of the same tool you must create two seperate :obj:`DrillTool` objects from the same Tiem Orbit property file.
+        You cannot add the same :class:`DrillTool` object to the string multiple times.  If you want to add multiple instances of the same tool you must create two seperate :class:`DrillTool` objects from the same Tiem Orbit property file.
         
         Parameters
         ----------
         tool : DrillTool
-            :obj:`DrillTool` object representing the tool to be added        
+            :class:`DrillTool` object representing the tool to be added        
         joints : int
             Number of Joints. Note that this only applies for certain tool types. (default is 1)
         measure : bool
@@ -201,8 +201,7 @@ class DrillString():
             raise DrillStringError(f'There is no {tool_type} in this string!')        
     
     def get_tool(self, tool_type, index=0):
-        """Returns a DrillTool object of type tool_type in the 
-        DrillString object's tools list.  
+        """Returns a DrillTool object of type :arg:`tool_type` in the :class:`DrillString` object's tools list.  
         
         Parameters
         ----------
@@ -215,12 +214,12 @@ class DrillString():
         Raises
         ------
         DrillStringError
-            Raised if a tools of the specified type does not exist in the drill string.
+            Raised if a tool of the specified type does not exist in the drill string.
         
         Returns
         -------
         DrillTool
-            DrillTool object
+            :class:`DrillTool` object
         """
         tools_found = []
         for tool in self.tools:
@@ -243,12 +242,12 @@ class DrillString():
         return tools_found[index]
         
     def get_bha_length(self):
-        """
-        Gets the total length of the drill string defined in 
-        string_file NOT including the equivalent upper string and 
-        highest most physical string.
+        """Gets the total length of the drill BHA defined in string_file 
         
-                        
+        Note
+        ----
+        The BHA does not include the equivalent upper string and highest most physical string.
+                                
         Returns
         -------
         float : Cumulative length of the bha    
@@ -277,8 +276,10 @@ class DrillString():
         """
         Adds a measurement point at the given distance from the bit in feet.
         
-        Arguments:
-            distance {float} -- Distance from the bit (in feet) at which to place a measurement point.
+        Parameters
+        ----------
+        distance : float
+            Distance from the bit (in feet) at which to place a measurement point.
         """
         self.parameters['Distance_from_Bit'].append(distance)
         self.parameters['Distance_from_Bit'].sort()
@@ -462,16 +463,17 @@ class DrillString():
     
     @classmethod
     def read_from_file(cls, filename):
-        """Reads a string file and returns a :obj:`DrillString` object with `DrillString.parameters` based on data in the string file.
+        """Reads a string file and returns a :class:`DrillString` object with `DrillString.parameters` based on data in the string file.
         
-        Parameters:
+        Parameters
+        ----------
         filename : str
             Filename of a string file.
             
         Returns
         -------
         DrillString
-            :obj:`DrillString` object with parameters from the passed string file.
+            :class:`DrillString` object with parameters from the passed string file.
         """
         # Read the TO data into a dictionary
         tiem_orbit_data = read_TO_file(get_full_path(filename))
@@ -504,9 +506,12 @@ class DrillString():
     def _copy_hole_file(self, directory=None, cdb=None):
         """Copys the hole file to a new locations.  Must give directory OR cdb.
         
-        Keyword Arguments:
-            directory {string} -- Directory to put the copied hole file (default: {None})
-            cdb {string} -- Name of cdb to put the copied hole file (default: {None})
+        Parameters
+        ----------
+        directory : str
+            Directory to put the copied hole file (default is None)
+        cdb : str
+            Name of cdb to put the copied hole file (default is None)
         """
         # Check that directory or cdb was given.
         if cdb is None and directory is None:
@@ -607,7 +612,6 @@ class DrillString():
         ValueError
             A string parameter could not be found
         """
-
         for param in self.SCALAR_PARAMETERS + self.ARRAY_PARAMETERS:
             # For each string parameter initialize a found flag
             found = False
@@ -639,7 +643,7 @@ class DrillString():
                         break
             
             # Raise a value error if the parameter isn't found.
-            if not found and param is not 'Distance_from_Bit':
+            if not found and param != 'Distance_from_Bit':
                 raise ValueError(f'{param} not found!')
 
 class DrillStringError(Exception):

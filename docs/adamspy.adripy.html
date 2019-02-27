@@ -327,7 +327,7 @@
 <dl class="method">
 <dt id="adamspy.adripy.drillsim.DrillSim.build">
 <code class="descname">build</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/drillsim.html#DrillSim.build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim.build" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method builds the input deck.  It launches Adams View in batch, and imports <cite>self.string.filename</cite> and <cite>self.solver_settings.fileame</cite> and runs the Adams Drill macro <cite>ds tostart</cite> to build a drill string model.  Then it exports that model to <cite>self.directory</cite>.</p>
+<dd><p>This method builds the input deck.  It launches Adams View in batch, reads in the <cite>self.string.filename</cite> and <cite>self.solver_settings.filename</cite> files, and runs the Adams Drill macro <code class="docutils literal notranslate"><span class="pre">ds</span> <span class="pre">tostart</span></code> to build a drill string model.  Then it saves the model files (.acf, .adm, and .cmd) to the <cite>self.directory</cite> directory.</p>
 </dd></dl>
 
 <dl class="method">
@@ -818,7 +818,7 @@ string file.</dd>
 </div>
 <div class="section" id="module-adamspy.adripy.string">
 <span id="adamspy-adripy-string-module"></span><h2>adamspy.adripy.string module<a class="headerlink" href="#module-adamspy.adripy.string" title="Permalink to this headline">¶</a></h2>
-<p>Contains the DrillString class</p>
+<p>A module that contains the :DrillString class</p>
 <dl class="class">
 <dt id="adamspy.adripy.string.DrillString">
 <em class="property">class </em><code class="descclassname">adamspy.adripy.string.</code><code class="descname">DrillString</code><span class="sig-paren">(</span><em>string_name</em>, <em>hole_file</em>, <em>event_file</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/string.html#DrillString"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.string.DrillString" title="Permalink to this definition">¶</a></dt>
@@ -830,7 +830,7 @@ string file.</dd>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Once the <a class="reference internal" href="#adamspy.adripy.string.DrillString" title="adamspy.adripy.string.DrillString"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DrillString</span></code></a> is instanced, tools within the string must be defined as <code class="xref py py-obj docutils literal notranslate"><span class="pre">DrillTool</span></code> objects before the string is written to a string file.  Use the <cite>add_tool()</cite> method to add <code class="xref py py-obj docutils literal notranslate"><span class="pre">DrillTool</span></code> objects to the string.</p>
+<p class="last">Once the <a class="reference internal" href="#adamspy.adripy.string.DrillString" title="adamspy.adripy.string.DrillString"><code class="xref py py-class docutils literal notranslate"><span class="pre">DrillString</span></code></a> is instanced, tools within the string must be defined as <code class="xref py py-class docutils literal notranslate"><span class="pre">DrillTool</span></code> objects before the string is written to a string file.  Use the <a class="reference internal" href="#adamspy.adripy.string.DrillString.add_tool" title="adamspy.adripy.string.DrillString.add_tool"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_tool()</span></code></a> method to add <code class="xref py py-class docutils literal notranslate"><span class="pre">DrillTool</span></code> objects to the string.</p>
 </div>
 <dl class="attribute">
 <dt id="adamspy.adripy.string.DrillString.parameters">
@@ -975,7 +975,7 @@ string file.</dd>
 <dl class="attribute">
 <dt id="adamspy.adripy.string.DrillString.DRILL_TOOL_PATTERN">
 <code class="descname">DRILL_TOOL_PATTERN</code><a class="headerlink" href="#adamspy.adripy.string.DrillString.DRILL_TOOL_PATTERN" title="Permalink to this definition">¶</a></dt>
-<dd><p>A <code class="xref py py-class docutils literal notranslate"><span class="pre">_sre.SRE_Pattern</span></code> object defining the pattern of the Drill Tool block header in the string file.</p>
+<dd><p>A <code class="xref py py-obj docutils literal notranslate"><span class="pre">_sre.SRE_Pattern</span></code> object defining the pattern of the Drill Tool block header in the string file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1034,7 +1034,7 @@ string file.</dd>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>{float} -- Distance from the bit</strong> (<em>distance</em>) – </td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>distance</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Distance from the bit (in feet) at which to place a measurement point.</td>
 </tr>
 </tbody>
 </table>
@@ -1043,17 +1043,17 @@ string file.</dd>
 <dl class="method">
 <dt id="adamspy.adripy.string.DrillString.add_tool">
 <code class="descname">add_tool</code><span class="sig-paren">(</span><em>drill_tool</em>, <em>joints=1</em>, <em>measure=False</em>, <em>stack_order=None</em>, <em>color='Default'</em>, <em>group_name=None</em>, <em>equivalent=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/string.html#DrillString.add_tool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.string.DrillString.add_tool" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds a <code class="xref py py-obj docutils literal notranslate"><span class="pre">DrillTool</span></code> object to the <a class="reference internal" href="#adamspy.adripy.string.DrillString" title="adamspy.adripy.string.DrillString"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DrillString</span></code></a>.</p>
+<dd><p>Adds a <code class="xref py py-class docutils literal notranslate"><span class="pre">DrillTool</span></code> object to the <a class="reference internal" href="#adamspy.adripy.string.DrillString" title="adamspy.adripy.string.DrillString"><code class="xref py py-class docutils literal notranslate"><span class="pre">DrillString</span></code></a>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">You cannot add the same <code class="xref py py-obj docutils literal notranslate"><span class="pre">DrillTool</span></code> object to the string multiple times.  If you want to add multiple instances of the same tool you must create two seperate <code class="xref py py-obj docutils literal notranslate"><span class="pre">DrillTool</span></code> objects from the same Tiem Orbit property file.</p>
+<p class="last">You cannot add the same <code class="xref py py-class docutils literal notranslate"><span class="pre">DrillTool</span></code> object to the string multiple times.  If you want to add multiple instances of the same tool you must create two seperate <code class="xref py py-class docutils literal notranslate"><span class="pre">DrillTool</span></code> objects from the same Tiem Orbit property file.</p>
 </div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>tool</strong> (<a class="reference internal" href="#adamspy.adripy.tool.DrillTool" title="adamspy.adripy.tool.DrillTool"><em>DrillTool</em></a>) – <code class="xref py py-obj docutils literal notranslate"><span class="pre">DrillTool</span></code> object representing the tool to be added</li>
+<li><strong>tool</strong> (<a class="reference internal" href="#adamspy.adripy.tool.DrillTool" title="adamspy.adripy.tool.DrillTool"><em>DrillTool</em></a>) – <code class="xref py py-class docutils literal notranslate"><span class="pre">DrillTool</span></code> object representing the tool to be added</li>
 <li><strong>joints</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Number of Joints. Note that this only applies for certain tool types. (default is 1)</li>
 <li><strong>measure</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – If TRUE indicates that output requests should be generated for this tool.  (default is FALSE)</li>
 <li><strong>stack_order</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – If an integer is given the tool will be inserted into the string at that point. (default is None which means the tool will be appended to the end)</li>
@@ -1068,9 +1068,11 @@ string file.</dd>
 <dl class="method">
 <dt id="adamspy.adripy.string.DrillString.get_bha_length">
 <code class="descname">get_bha_length</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/string.html#DrillString.get_bha_length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.string.DrillString.get_bha_length" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the total length of the drill string defined in
-string_file NOT including the equivalent upper string and
-highest most physical string.</p>
+<dd><p>Gets the total length of the drill BHA defined in string_file</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The BHA does not include the equivalent upper string and highest most physical string.</p>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1086,8 +1088,7 @@ highest most physical string.</p>
 <dl class="method">
 <dt id="adamspy.adripy.string.DrillString.get_tool">
 <code class="descname">get_tool</code><span class="sig-paren">(</span><em>tool_type</em>, <em>index=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/string.html#DrillString.get_tool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.string.DrillString.get_tool" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a DrillTool object of type tool_type in the
-DrillString object’s tools list.</p>
+<dd><p>Returns a DrillTool object of type <a href="#id1"><span class="problematic" id="id2">:arg:`tool_type`</span></a> in the <a class="reference internal" href="#adamspy.adripy.string.DrillString" title="adamspy.adripy.string.DrillString"><code class="xref py py-class docutils literal notranslate"><span class="pre">DrillString</span></code></a> object’s tools list.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1098,10 +1099,10 @@ DrillString object’s tools list.</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first"><a class="reference internal" href="#adamspy.adripy.string.DrillStringError" title="adamspy.adripy.string.DrillStringError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">DrillStringError</span></code></a> – Raised if a tools of the specified type does not exist in the drill string.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first"><a class="reference internal" href="#adamspy.adripy.string.DrillStringError" title="adamspy.adripy.string.DrillStringError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">DrillStringError</span></code></a> – Raised if a tool of the specified type does not exist in the drill string.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">DrillTool object</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><code class="xref py py-class docutils literal notranslate"><span class="pre">DrillTool</span></code> object</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#adamspy.adripy.tool.DrillTool" title="adamspy.adripy.tool.DrillTool">DrillTool</a></p>
@@ -1114,18 +1115,16 @@ DrillString object’s tools list.</p>
 <dl class="classmethod">
 <dt id="adamspy.adripy.string.DrillString.read_from_file">
 <em class="property">classmethod </em><code class="descname">read_from_file</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/string.html#DrillString.read_from_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.string.DrillString.read_from_file" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads a string file and returns a <a class="reference internal" href="#adamspy.adripy.string.DrillString" title="adamspy.adripy.string.DrillString"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DrillString</span></code></a> object with <cite>DrillString.parameters</cite> based on data in the string file.</p>
-<p>Parameters:
-filename : str</p>
-<blockquote>
-<div>Filename of a string file.</div></blockquote>
+<dd><p>Reads a string file and returns a <a class="reference internal" href="#adamspy.adripy.string.DrillString" title="adamspy.adripy.string.DrillString"><code class="xref py py-class docutils literal notranslate"><span class="pre">DrillString</span></code></a> object with <cite>DrillString.parameters</cite> based on data in the string file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="#adamspy.adripy.string.DrillString" title="adamspy.adripy.string.DrillString"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DrillString</span></code></a> object with parameters from the passed string file.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Filename of a string file.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#adamspy.adripy.string.DrillString" title="adamspy.adripy.string.DrillString">DrillString</a></td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="#adamspy.adripy.string.DrillString" title="adamspy.adripy.string.DrillString"><code class="xref py py-class docutils literal notranslate"><span class="pre">DrillString</span></code></a> object with parameters from the passed string file.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#adamspy.adripy.string.DrillString" title="adamspy.adripy.string.DrillString">DrillString</a></td>
 </tr>
 </tbody>
 </table>
@@ -1653,9 +1652,9 @@ file with the cdb alias replaced by the cdb location.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Full path to an Adams Drill string file</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>string_length</strong> – Cumulative length of the string</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Cumulative length of the string</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a></td>
 </tr>
 </tbody>
 </table>
@@ -1725,9 +1724,9 @@ file with the cdb alias replaced by the cdb location.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>{string} -- Filename of the Tiem Orbit file</strong> (<em>filename</em>) – </td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Filename of the Tiem Orbit file</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body">TiemOrbitSyntaxError – Raised if the Tiem Orbit syntax is not recognized</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#adamspy.adripy.utilities.TiemOrbitSyntaxError" title="adamspy.adripy.utilities.TiemOrbitSyntaxError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">TiemOrbitSyntaxError</span></code></a> – Raised if the Tiem Orbit syntax is not recognized</td>
 </tr>
 </tbody>
 </table>
