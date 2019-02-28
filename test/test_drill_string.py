@@ -3,6 +3,7 @@
 
 import unittest
 import os
+import traceback
 from test import *
 os.environ['ADRILL_SHARED_CFG'] = os.path.join('C:\\', 'MSC.Software', 'Adams', '2018', 'adrill', 'adrill.cfg')
 os.environ['ADRILL_USER_CFG'] = os.path.join(os.environ['USERPROFILE'], '.adrill.cfg')
@@ -428,6 +429,40 @@ class Test_DrillString(unittest.TestCase):
         expected_n_joints = 2
 
         self.assertEqual(actual_n_joints, expected_n_joints)
+
+    def test_read_string_from_file_relative_references(self):
+        """Tests that the string is read correctly when the file uses relative references.
+        """
+        
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+
+        # Add the DrillTool objects to the DrillString object
+        drill_string.add_tool(self.pdc_bit, measure='yes')
+        drill_string.add_tool(self.stabilizer, measure='yes')
+        drill_string.add_tool(self.drill_pipe, joints=20, group_name='Upper_DP_Group')
+        drill_string.add_tool(self.eus, joints=20, group_name='equivalent_pipe', equivalent=True)
+        drill_string.add_tool(self.top_drive)
+
+        # Create an event object
+        event = adripy.DrillEvent(TEST_EVENT_NAME,2000, 3)
+        event.add_simulation_step(10)
+        event.add_simulation_step(100)
+        event.add_ramp('PUMP_FLOW', 0, 15, 500)
+        event.add_ramp('TOP_DRIVE', 15, 15, 60)
+        event.add_ramp('WOB', 30, 15, 50)
+        event.add_ramp('ROP', 30, 15, 100)
+
+        # Create a solver settings object
+        solver_settings = adripy.DrillSolverSettings(TEST_SOLVER_SETTINGS_NAME)
+        
+        # Create a DrillSim object
+        drill_sim = adripy.DrillSim(drill_string, event, solver_settings, TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME)
+
+        try:
+            _drill_string = adripy.DrillString.read_from_file(drill_sim.string_filename)
+        except FileNotFoundError as err:
+            self.fail('Failed to read the drill string: ' + traceback.format_exc())
+
 
     def test_get_tool_first(self):
         """Tests that DrillString.get_tool() returns the correct value.

@@ -166,13 +166,21 @@ class DrillTool():
     
     def get_parameter_value(self, parameter_to_get):
         """
-        Returns the value of the specified parameter from the property file.  NOTE: get_parameter_value cannot get parameters from the UNITS block.
+        Returns the value of the specified parameter from the property file.  
         
-        Arguments:
-            parameter_to_get {string} -- Name of the parameter to get from the property file.
+        Note
+        ----
+        This method cannot get parameters from the UNITS block.
         
-        Returns:
-            {string or float} -- Value of the specified parameter from the property file.
+        Parameters
+        ----------
+        parameter_to_get : str
+            Name of the parameter to get from the property file.
+        
+        Returns
+        -------
+        :obj:`string` or :obj:`float`
+            Value of the specified parameter from the property file.
         """
         # Initilize return variable as None
         found = False
