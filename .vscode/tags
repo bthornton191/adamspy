@@ -1,0 +1,451 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+CDB_TO_REMOVE_NAME	../test\__init__.py	/^CDB_TO_REMOVE_NAME = '_EXISTING_DATABASE_2'$/;"	kind:variable	line:13
+CDB_TO_REMOVE_PATH	../test\__init__.py	/^CDB_TO_REMOVE_PATH = os.path.join('C:\\\\', CDB_TO_REMOVE_NAME + '.cdb')$/;"	kind:variable	line:14
+DrillEvent	../adamspy\adripy\__init__.py	/^from .event import DrillEvent$/;"	kind:namespace	line:16
+DrillEvent	../adamspy\adripy\event.py	/^class DrillEvent():$/;"	kind:class	line:7
+DrillSim	../adamspy\adripy\__init__.py	/^from .drillsim import DrillSim/;"	kind:namespace	line:19
+DrillSim	../adamspy\adripy\drillsim.py	/^class DrillSim(): #pylint: disable=too-many-instance-attributes$/;"	kind:class	line:6
+DrillSim	../test\test_drillsim.py	/^from adamspy.adripy import DrillSim #pylint: disable=wrong-import-position$/;"	kind:namespace	line:13
+DrillSolverSettings	../adamspy\adripy\__init__.py	/^from .solver_settings import DrillSolverSettings$/;"	kind:namespace	line:18
+DrillSolverSettings	../adamspy\adripy\solver_settings.py	/^class DrillSolverSettings():$/;"	kind:class	line:8
+DrillString	../adamspy\adripy\__init__.py	/^from .string import DrillString$/;"	kind:namespace	line:17
+DrillString	../adamspy\adripy\string.py	/^class DrillString():$/;"	kind:class	line:11
+DrillStringError	../adamspy\adripy\string.py	/^class DrillStringError(Exception):$/;"	kind:class	line:669
+DrillTool	../adamspy\adripy\__init__.py	/^from .tool import DrillTool$/;"	kind:namespace	line:15
+DrillTool	../adamspy\adripy\string.py	/^from .tool import DrillTool$/;"	kind:namespace	line:8
+DrillTool	../adamspy\adripy\tool.py	/^class DrillTool():$/;"	kind:class	line:9
+DrillToolError	../adamspy\adripy\tool.py	/^class DrillToolError(Exception):$/;"	kind:class	line:278
+EXAMPLE_STABILIZER_NAME	../test\__init__.py	/^EXAMPLE_STABILIZER_NAME = 'example_stabilizer'$/;"	kind:variable	line:15
+EXISTING_CDB_NAME	../test\__init__.py	/^EXISTING_CDB_NAME = '_EXISTING_DATABASE_1'$/;"	kind:variable	line:7
+EXISTING_CDB_PATH	../test\__init__.py	/^EXISTING_CDB_PATH = os.path.join('C:\\\\', EXISTING_CDB_NAME + '.cdb')$/;"	kind:variable	line:8
+EXPECTED_STRING_TO_PARAMETERS	../test\__init__.py	/^EXPECTED_STRING_TO_PARAMETERS = {$/;"	kind:variable	line:594
+NEW_CDB_NAME	../test\__init__.py	/^NEW_CDB_NAME = '_NEW_DATABASE'$/;"	kind:variable	line:9
+NEW_CDB_PATH	../test\__init__.py	/^NEW_CDB_PATH = os.path.join('C:\\\\', NEW_CDB_NAME + '.cdb')$/;"	kind:variable	line:10
+NEW_STABILIZER_NAME	../test\test_drill_tool.py	/^    NEW_STABILIZER_NAME = 'modified_stabilizer'$/;"	kind:variable	line:17
+STABILIZER_NEW_PARAM_VALUE	../test\test_drill_tool.py	/^    STABILIZER_NEW_PARAM_VALUE = 0.3$/;"	kind:variable	line:19
+STABILIZER_PARAM_TO_MODIFY	../test\test_drill_tool.py	/^    STABILIZER_PARAM_TO_MODIFY = 'Stabilizer_ID'$/;"	kind:variable	line:18
+TEST_ANALYSIS_NAME	../test\__init__.py	/^TEST_ANALYSIS_NAME = 'test_analysis_1'$/;"	kind:variable	line:63
+TEST_CONFIG_FILENAME	../test\__init__.py	/^TEST_CONFIG_FILENAME = '_test_drill.cfg'    $/;"	kind:variable	line:11
+TEST_CONFIG_FILEPATH	../test\__init__.py	/^TEST_CONFIG_FILEPATH = os.path.join(os.getcwd(), 'test', TEST_CONFIG_FILENAME)$/;"	kind:variable	line:12
+TEST_CREATED_EVENT_FILENAME	../test\__init__.py	/^TEST_CREATED_EVENT_FILENAME = os.path.join(TEST_DATABASE_PATH,'events.tbl', f'{TEST_CREATED_EVENT_NAME}.evt')$/;"	kind:variable	line:20
+TEST_CREATED_EVENT_NAME	../test\__init__.py	/^TEST_CREATED_EVENT_NAME = '_test_event_'$/;"	kind:variable	line:19
+TEST_DATABASE_NAME	../test\__init__.py	/^TEST_DATABASE_NAME = 'example_database'$/;"	kind:variable	line:16
+TEST_DATABASE_PATH	../test\__init__.py	/^TEST_DATABASE_PATH = os.path.join(os.getcwd(), 'test', TEST_DATABASE_NAME + '.cdb')$/;"	kind:variable	line:17
+TEST_DRILLPIPE_FILE	../test\__init__.py	/^TEST_DRILLPIPE_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_pipes.tbl', TEST_DRILLPIPE_NAME + '.pip')$/;"	kind:variable	line:47
+TEST_DRILLPIPE_GROUPNAME	../test\__init__.py	/^TEST_DRILLPIPE_GROUPNAME = 'Upper_DP_Group'$/;"	kind:variable	line:48
+TEST_DRILLPIPE_NAME	../test\__init__.py	/^TEST_DRILLPIPE_NAME = 'test_drillpipe'$/;"	kind:variable	line:46
+TEST_EUS_FILE	../test\__init__.py	/^TEST_EUS_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_pipes.tbl', TEST_EUS_NAME + '.pip')$/;"	kind:variable	line:52
+TEST_EUS_GROUPNAME	../test\__init__.py	/^TEST_EUS_GROUPNAME = 'equivalent_pipe'$/;"	kind:variable	line:53
+TEST_EUS_NAME	../test\__init__.py	/^TEST_EUS_NAME = 'test_eus'$/;"	kind:variable	line:51
+TEST_EVENT_FILE	../test\__init__.py	/^TEST_EVENT_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'events.tbl', TEST_EVENT_NAME + '.evt')$/;"	kind:variable	line:23
+TEST_EVENT_NAME	../test\__init__.py	/^TEST_EVENT_NAME = 'test_event'$/;"	kind:variable	line:22
+TEST_EXISTING_STRING_FILE	../test\__init__.py	/^TEST_EXISTING_STRING_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str')$/;"	kind:variable	line:29
+TEST_EXISTING_STRING_NAME	../test\__init__.py	/^TEST_EXISTING_STRING_NAME = 'test_string'$/;"	kind:variable	line:28
+TEST_EXISTING_STRING_NAME_NO_DFB	../test\__init__.py	/^TEST_EXISTING_STRING_NAME_NO_DFB = 'test_string_no_dfb'$/;"	kind:variable	line:31
+TEST_EXPECTED_EVENT_TO_PARAMETERS	../test\__init__.py	/^TEST_EXPECTED_EVENT_TO_PARAMETERS = {$/;"	kind:variable	line:771
+TEST_EXPECTED_SOLVER_SETTINGS_TO_PARAMETERS	../test\__init__.py	/^TEST_EXPECTED_SOLVER_SETTINGS_TO_PARAMETERS = {$/;"	kind:variable	line:811
+TEST_HOLE_FILE	../test\__init__.py	/^TEST_HOLE_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'holes.tbl', TEST_HOLE_NAME + '.hol')$/;"	kind:variable	line:35
+TEST_HOLE_NAME	../test\__init__.py	/^TEST_HOLE_NAME = 'test_hole'$/;"	kind:variable	line:34
+TEST_MOTOR_FILE	../test\__init__.py	/^TEST_MOTOR_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'motors.tbl', TEST_MOTOR_NAME + '.mot')$/;"	kind:variable	line:41
+TEST_MOTOR_NAME	../test\__init__.py	/^TEST_MOTOR_NAME = 'example_motor'$/;"	kind:variable	line:40
+TEST_MWD_FILE	../test\__init__.py	/^TEST_MWD_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'mwd_tools.tbl', TEST_MWD_NAME + '.mwd')$/;"	kind:variable	line:43
+TEST_MWD_NAME	../test\__init__.py	/^TEST_MWD_NAME = 'test_mwd'$/;"	kind:variable	line:42
+TEST_NEW_DATABASE_NAME	../test\__init__.py	/^TEST_NEW_DATABASE_NAME = 'new_database'$/;"	kind:variable	line:59
+TEST_NEW_DATABASE_PATH	../test\__init__.py	/^TEST_NEW_DATABASE_PATH = os.path.join(os.getcwd(), 'test', TEST_NEW_DATABASE_NAME + '.cdb')$/;"	kind:variable	line:60
+TEST_NUMBER_OF_DRILLPIPES	../test\__init__.py	/^TEST_NUMBER_OF_DRILLPIPES = 20$/;"	kind:variable	line:49
+TEST_NUMBER_OF_EUSPIPES	../test\__init__.py	/^TEST_NUMBER_OF_EUSPIPES = 20$/;"	kind:variable	line:54
+TEST_PDC_FILE	../test\__init__.py	/^TEST_PDC_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'pdc_bits.tbl', TEST_PDC_NAME + '.pdc')$/;"	kind:variable	line:37
+TEST_PDC_NAME	../test\__init__.py	/^TEST_PDC_NAME = 'test_pdc'$/;"	kind:variable	line:36
+TEST_SOLVER_SETTINGS_FILE	../test\__init__.py	/^TEST_SOLVER_SETTINGS_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'solver_settings.tbl', TEST_SOLVER_SETTINGS_NAME + '.ssf')$/;"	kind:variable	line:26
+TEST_SOLVER_SETTINGS_NAME	../test\__init__.py	/^TEST_SOLVER_SETTINGS_NAME = 'test_solver_settings'$/;"	kind:variable	line:25
+TEST_STABILIZER_FILE	../test\__init__.py	/^TEST_STABILIZER_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'stabilizers.tbl', TEST_STABILIZER_NAME + '.sta')$/;"	kind:variable	line:39
+TEST_STABILIZER_NAME	../test\__init__.py	/^TEST_STABILIZER_NAME = 'example_stabilizer'$/;"	kind:variable	line:38
+TEST_STABILZIER_NAME	../test\test_drill_tool.py	/^    TEST_STABILZIER_NAME = 'example_stabilizer'$/;"	kind:variable	line:16
+TEST_STRING_NAME	../test\__init__.py	/^TEST_STRING_NAME = 'test_string_1'$/;"	kind:variable	line:33
+TEST_TOP_DRIVE_FILE	../test\__init__.py	/^TEST_TOP_DRIVE_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'top_drives.tbl', TEST_TOP_DRIVE_NAME + '.tdr')    $/;"	kind:variable	line:57
+TEST_TOP_DRIVE_NAME	../test\__init__.py	/^TEST_TOP_DRIVE_NAME = 'test_top_drive'$/;"	kind:variable	line:56
+TEST_WORKING_DIRECTORY	../test\__init__.py	/^TEST_WORKING_DIRECTORY = os.path.join(os.getcwd(), 'test', 'example_working_directory')$/;"	kind:variable	line:62
+TMPLT_ENV	../adamspy\adripy\__init__.py	/^TMPLT_ENV = jinja2.Environment($/;"	kind:variable	line:7
+TMPLT_ENV	../adamspy\adripy\event.py	/^from . import TMPLT_ENV$/;"	kind:namespace	line:4
+TMPLT_ENV	../adamspy\adripy\solver_settings.py	/^from . import TMPLT_ENV$/;"	kind:namespace	line:5
+TMPLT_ENV	../adamspy\adripy\string.py	/^from . import TMPLT_ENV$/;"	kind:namespace	line:7
+TO_BLOCK_HEADER_PATTERN	../adamspy\adripy\tool.py	/^from .utilities import TO_BLOCK_HEADER_PATTERN, TO_PARAMETER_PATTERN, get_cdb_location, get_cdb_path, get_full_path$/;"	kind:namespace	line:7
+TO_BLOCK_HEADER_PATTERN	../adamspy\adripy\utilities.py	/^TO_BLOCK_HEADER_PATTERN = re.compile('^\\\\[[_0-9a-zA-Z]+\\\\]\\\\s*$') $/;"	kind:variable	line:956
+TO_LENGTH_PARAM	../adamspy\adripy\string.py	/^from .utilities import read_TO_file, get_cdb_location, get_cdb_path, get_full_path, TO_LENGTH_PARAM$/;"	kind:namespace	line:9
+TO_LENGTH_PARAM	../adamspy\adripy\utilities.py	/^TO_LENGTH_PARAM = {}$/;"	kind:variable	line:47
+TO_PARAMETER_PATTERN	../adamspy\adripy\tool.py	/^from .utilities import TO_BLOCK_HEADER_PATTERN, TO_PARAMETER_PATTERN, get_cdb_location, get_cdb_path, get_full_path$/;"	kind:namespace	line:7
+TO_PARAMETER_PATTERN	../adamspy\adripy\utilities.py	/^TO_PARAMETER_PATTERN = re.compile('^ +[_0-9a-zA-Z]+\\\\s+=\\\\s+((\\'[-:_0-9a-zA-Z<>\\\\\\\\\/\\\\.]*\\')|(-?[\\\\+-\\\\.e0-9]+))\\\\s*$')$/;"	kind:variable	line:955
+TO_PARAMETER_PATTERN	../adamspy\adripy\utilities.py	/^TO_PARAMETER_PATTERN = re.compile('^ [_0-9a-zA-Z]+\\\\s+=\\\\s+((\\'[-:_0-9a-zA-Z<>\\\\\\\\\/\\\\.]+\\')|(-?[\\\\+-\\\\.e0-9]+))\\\\s*$')$/;"	kind:variable	line:13
+TO_SUBBLOCK_HEADER_PATTERN	../adamspy\adripy\utilities.py	/^TO_SUBBLOCK_HEADER_PATTERN = re.compile('^\\\\([_0-9a-zA-Z]+\\\\)\\\\s*$') $/;"	kind:variable	line:957
+TO_TABLE_HEADER_PATTERN	../adamspy\adripy\utilities.py	/^TO_TABLE_HEADER_PATTERN = re.compile('^\\\\{(\\\\s*[_0-9a-zA-Z])+\\\\s*\\\\}\\\\s*$')$/;"	kind:variable	line:958
+TO_TABLE_LINE_PATTERN	../adamspy\adripy\utilities.py	/^TO_TABLE_LINE_PATTERN = re.compile("^((\\\\s*\\\\'[_0-9a-zA-Z]+\\\\')+)|((\\\\s*-?[\\\\+-\\\\.e0-9]+)+)\\\\s*$")$/;"	kind:variable	line:959
+Test_AdripyFunctions	../test\test_adripy_utilities.py	/^class Test_AdripyFunctions(unittest.TestCase):    $/;"	kind:class	line:25
+Test_Build	../test\test_build.py	/^class Test_Build(unittest.TestCase):$/;"	kind:class	line:12
+Test_DrillSim	../test\test_drillsim.py	/^class Test_DrillSim(unittest.TestCase):$/;"	kind:class	line:15
+Test_DrillSolverSettings	../test\test_drill_solver_settings.py	/^class Test_DrillSolverSettings(unittest.TestCase):$/;"	kind:class	line:14
+Test_DrillString	../test\test_drill_string.py	/^class Test_DrillString(unittest.TestCase):$/;"	kind:class	line:13
+Test_DrillTool	../test\test_drill_tool.py	/^class Test_DrillTool(unittest.TestCase):$/;"	kind:class	line:13
+Test_EventFile	../test\test_drill_event.py	/^class Test_EventFile(unittest.TestCase):$/;"	kind:class	line:13
+Test_ReadTOFile	../test\test_tiem_orbit.py	/^class Test_ReadTOFile(unittest.TestCase):$/;"	kind:class	line:14
+Test_RexExPatterns	../test\test_tiem_orbit.py	/^class Test_RexExPatterns(unittest.TestCase):$/;"	kind:class	line:48
+Test_TOParameterPattern	../test\test_adripy_utilities.py	/^class Test_TOParameterPattern(unittest.TestCase):$/;"	kind:class	line:11
+TiemOrbitSyntaxError	../adamspy\adripy\utilities.py	/^class TiemOrbitSyntaxError(Exception):$/;"	kind:class	line:1091
+_ARRAY_PARAMETERS	../adamspy\adripy\event.py	/^    _ARRAY_PARAMETERS = [$/;"	kind:variable	line:81
+_ARRAY_PARAMETERS	../adamspy\adripy\solver_settings.py	/^    _ARRAY_PARAMETERS = [$/;"	kind:variable	line:54
+_ARRAY_PARAMETERS	../adamspy\adripy\string.py	/^    _ARRAY_PARAMETERS = [$/;"	kind:variable	line:62
+_CDB_TABLE	../adamspy\adripy\event.py	/^    _CDB_TABLE = 'events.tbl'$/;"	kind:variable	line:101
+_CDB_TABLE	../adamspy\adripy\solver_settings.py	/^    _CDB_TABLE = 'solver_settings.tbl'$/;"	kind:variable	line:69
+_CDB_TABLE	../adamspy\adripy\string.py	/^    _CDB_TABLE = 'drill_strings.tbl'$/;"	kind:variable	line:70
+_DATABASE_INFO	../adamspy\adripy\tool.py	/^    _DATABASE_INFO = {$/;"	kind:variable	line:27
+_DEFAULT_PARAMETER_ARRAYS	../adamspy\adripy\event.py	/^    _DEFAULT_PARAMETER_ARRAYS = {$/;"	kind:variable	line:91
+_DEFAULT_PARAMETER_ARRAYS	../adamspy\adripy\solver_settings.py	/^    _DEFAULT_PARAMETER_ARRAYS = {$/;"	kind:variable	line:58
+_DEFAULT_PARAMETER_ARRAYS	../adamspy\adripy\string.py	/^    _DEFAULT_PARAMETER_ARRAYS = {$/;"	kind:variable	line:66
+_DEFAULT_PARAMETER_SCALARS	../adamspy\adripy\event.py	/^    _DEFAULT_PARAMETER_SCALARS = {$/;"	kind:variable	line:54
+_DEFAULT_PARAMETER_SCALARS	../adamspy\adripy\solver_settings.py	/^    _DEFAULT_PARAMETER_SCALARS = {$/;"	kind:variable	line:44
+_DEFAULT_PARAMETER_SCALARS	../adamspy\adripy\string.py	/^    _DEFAULT_PARAMETER_SCALARS = {$/;"	kind:variable	line:49
+_DRILL_TOOL_PATTERN	../adamspy\adripy\string.py	/^    _DRILL_TOOL_PATTERN = re.compile('^DRILL_TOOL_[0-9]{2}$')$/;"	kind:variable	line:74
+_EXT	../adamspy\adripy\event.py	/^    _EXT = 'evt'$/;"	kind:variable	line:102
+_EXT	../adamspy\adripy\solver_settings.py	/^    _EXT = 'ssf'$/;"	kind:variable	line:70
+_EXT	../adamspy\adripy\string.py	/^    _EXT = 'str'$/;"	kind:variable	line:71
+_MULTI_JOINT_TOOLS	../adamspy\adripy\string.py	/^    _MULTI_JOINT_TOOLS = ['hw_pipe', 'drillpipe', 'equivalent_upper_string', 'drill_collar']$/;"	kind:variable	line:72
+_SCALAR_PARAMETERS	../adamspy\adripy\event.py	/^    _SCALAR_PARAMETERS = [$/;"	kind:variable	line:24
+_SCALAR_PARAMETERS	../adamspy\adripy\solver_settings.py	/^    _SCALAR_PARAMETERS = [$/;"	kind:variable	line:35
+_SCALAR_PARAMETERS	../adamspy\adripy\string.py	/^    _SCALAR_PARAMETERS = [$/;"	kind:variable	line:34
+__init__	../adamspy\adripy\drillsim.py	/^    def __init__(self, string, event, solver_settings, directory, analysis_name, write_TO_files=True): #pylint: disable=too-many-arguments$/;"	kind:member	line:39
+__init__	../adamspy\adripy\event.py	/^    def __init__(self, event_name, start_depth, off_bottom, **kwargs):$/;"	kind:member	line:104
+__init__	../adamspy\adripy\solver_settings.py	/^    def __init__(self, name, **kwargs):$/;"	kind:member	line:72
+__init__	../adamspy\adripy\string.py	/^    def __init__(self, string_name, hole_file, event_file, **kwargs):$/;"	kind:member	line:76
+__init__	../adamspy\adripy\tool.py	/^    def __init__(self, property_file):$/;"	kind:member	line:61
+__init__.py	../adamspy\__init__.py	1;"	kind:file	line:1
+__init__.py	../adamspy\adripy\__init__.py	1;"	kind:file	line:1
+__init__.py	../test\__init__.py	1;"	kind:file	line:1
+_apply_defaults	../adamspy\adripy\event.py	/^    def _apply_defaults(self):$/;"	kind:member	line:267
+_apply_defaults	../adamspy\adripy\solver_settings.py	/^    def _apply_defaults(self):$/;"	kind:member	line:196
+_apply_defaults	../adamspy\adripy\string.py	/^    def _apply_defaults(self):$/;"	kind:member	line:512
+_copy_event_file	../adamspy\adripy\string.py	/^    def _copy_event_file(self, directory=None, cdb=None):$/;"	kind:member	line:556
+_copy_hole_file	../adamspy\adripy\string.py	/^    def _copy_hole_file(self, directory=None, cdb=None):$/;"	kind:member	line:527
+_dt	../test\__init__.py	/^from adamspy.adripy import tool as _dt$/;"	kind:namespace	line:4
+_find_match_failures	../test\test_tiem_orbit.py	/^    def _find_match_failures(self, strings_to_match, strings_to_not_match, pattern):$/;"	kind:member	line:145
+_get_extension	../adamspy\adripy\tool.py	/^    def _get_extension(self):$/;"	kind:member	line:270
+_get_name	../adamspy\adripy\tool.py	/^    def _get_name(self):$/;"	kind:member	line:264
+_get_params_from_TO_data	../adamspy\adripy\event.py	/^    def _get_params_from_TO_data(self, tiem_orbit_data):$/;"	kind:member	line:282
+_get_params_from_TO_data	../adamspy\adripy\solver_settings.py	/^    def _get_params_from_TO_data(self, tiem_orbit_data): #pylint: disable=invalid-name$/;"	kind:member	line:212
+_get_params_from_TO_data	../adamspy\adripy\string.py	/^    def _get_params_from_TO_data(self, tiem_orbit_data):$/;"	kind:member	line:622
+_get_table	../adamspy\adripy\tool.py	/^    def _get_table(self):$/;"	kind:member	line:274
+_get_tools_from_TO_data	../adamspy\adripy\string.py	/^    def _get_tools_from_TO_data(self, tiem_orbit_data):$/;"	kind:member	line:589
+_get_type	../adamspy\adripy\tool.py	/^    def _get_type(self):$/;"	kind:member	line:267
+adamspy.py	../adamspy\adamspy.py	1;"	kind:file	line:1
+add_cdb_to_cfg	../adamspy\adripy\utilities.py	/^def add_cdb_to_cfg(name, loc, cfg_file):$/;"	kind:function	line:743
+add_measurement_point	../adamspy\adripy\string.py	/^    def add_measurement_point(self, distance):$/;"	kind:member	line:296
+add_ramp	../adamspy\adripy\event.py	/^    def add_ramp(self, parameter, start_time, ramp_duration, delta, clear_existing=False):$/;"	kind:member	line:145
+add_simulation_step	../adamspy\adripy\event.py	/^    def add_simulation_step(self, end_time, output_step_size=0.05, clear_existing=False):$/;"	kind:member	line:128
+add_tool	../adamspy\adripy\string.py	/^    def add_tool(self, drill_tool, joints=1, measure=False, stack_order=None, color='Default', group_name=None, equivalent=False):$/;"	kind:member	line:101
+adripy	../adamspy\__init__.py	/^from . import adripy$/;"	kind:namespace	line:14
+adripy	../test\test_adripy_utilities.py	/^from adamspy import adripy$/;"	kind:namespace	line:9
+adripy	../test\test_build.py	/^from adamspy import adripy$/;"	kind:namespace	line:10
+adripy	../test\test_drill_event.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:11
+adripy	../test\test_drill_solver_settings.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:12
+adripy	../test\test_drill_string.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:11
+adripy	../test\test_drill_tool.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:11
+adripy	../test\test_drillsim.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:12
+adripy	../test\test_tiem_orbit.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:11
+author	../rst\source\conf.py	/^author = 'Ben Thornton'$/;"	kind:variable	line:24
+author	../setup.py	/^    author="Ben Thornton",$/;"	kind:variable	line:9
+author_email	../setup.py	/^    author_email="ben.thornton@mscsoftware.com",$/;"	kind:variable	line:10
+autoescape	../adamspy\adripy\__init__.py	/^    autoescape=False,$/;"	kind:variable	line:9
+autoescape	../adamspy\adripy\utilities.py	/^    autoescape=jinja2.select_autoescape(['evt','str']),$/;"	kind:variable	line:17
+bind_name_to	../adamspy\adripy\tool.py	/^    def bind_name_to(self, name_receiver):$/;"	kind:member	line:78
+build	../adamspy\adripy\drillsim.py	/^    def build(self):$/;"	kind:member	line:74
+build	../adamspy\adripy\drillsim.py	/^from .utilities import build$/;"	kind:namespace	line:4
+build	../adamspy\adripy\utilities.py	/^def build(string_file, solver_settings_file, working_directory, output_name=None):    $/;"	kind:function	line:883
+cdbError	../adamspy\adripy\utilities.py	/^class cdbError(Exception):$/;"	kind:class	line:1094
+cdbNotation_to_fullNotation	../adamspy\adripy\utilities.py	/^def cdbNotation_to_fullNotation(string_file):$/;"	kind:function	line:367
+check_file_contents	../test\__init__.py	/^def check_file_contents(filename, expected_text):$/;"	kind:function	line:890
+classifiers	../setup.py	/^    classifiers=[$/;"	kind:variable	line:17
+clear_database	../test\__init__.py	/^def clear_database(database_path):$/;"	kind:function	line:923
+conf.py	../rst\source\conf.py	1;"	kind:file	line:1
+copy_file	../adamspy\adripy\tool.py	/^    def copy_file(self, directory=None, cdb=None):$/;"	kind:member	line:128
+copyright	../rst\source\conf.py	/^copyright = '2019, Ben Thornton'$/;"	kind:variable	line:23
+create_cfg_file	../adamspy\adripy\utilities.py	/^def create_cfg_file(filename, database_paths):$/;"	kind:function	line:856
+description	../setup.py	/^    description="Python tools for working with Adams data",$/;"	kind:variable	line:11
+disable	../test\test_drill_event.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:11
+disable	../test\test_drill_solver_settings.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:12
+disable	../test\test_drill_string.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:11
+disable	../test\test_drill_tool.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:11
+disable	../test\test_drillsim.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:12
+disable	../test\test_drillsim.py	/^from adamspy.adripy import DrillSim #pylint: disable=wrong-import-position$/;"	kind:namespace	line:13
+disable	../test\test_tiem_orbit.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:11
+disable	../test\test_tiem_orbit.py	/^from adamspy.adripy import utilities #pylint: disable=wrong-import-position$/;"	kind:namespace	line:12
+drillsim.py	../adamspy\adripy\drillsim.py	1;"	kind:file	line:1
+env	../adamspy\adripy\utilities.py	/^env = jinja2.Environment($/;"	kind:variable	line:15
+environ	../adamspy\adripy\utilities.py	/^from os import environ$/;"	kind:namespace	line:3
+epub_exclude_files	../rst\source\conf.py	/^epub_exclude_files = ['search.html']$/;"	kind:variable	line:181
+epub_title	../rst\source\conf.py	/^epub_title = project$/;"	kind:variable	line:169
+event.py	../adamspy\adripy\event.py	1;"	kind:file	line:1
+exclude_patterns	../rst\source\conf.py	/^exclude_patterns = []$/;"	kind:variable	line:74
+extensions	../rst\source\conf.py	/^extensions = [$/;"	kind:variable	line:41
+fullNotation_to_cdbNotation	../adamspy\adripy\utilities.py	/^def fullNotation_to_cdbNotation(string_file):$/;"	kind:function	line:320
+get_TO_param	../adamspy\adripy\utilities.py	/^def get_TO_param(filename, requested_parameter):$/;"	kind:function	line:237
+get_adrill_cdbs	../adamspy\adripy\utilities.py	/^def get_adrill_cdbs(adrill_user_cfg, adrill_shared_cfg=None):$/;"	kind:function	line:198
+get_bha_length	../adamspy\adripy\string.py	/^    def get_bha_length(self):$/;"	kind:member	line:265
+get_bha_length	../adamspy\adripy\utilities.py	/^def get_bha_length(string_file):$/;"	kind:function	line:690
+get_cdb_location	../adamspy\adripy\string.py	/^from .utilities import read_TO_file, get_cdb_location, get_cdb_path, get_full_path, TO_LENGTH_PARAM$/;"	kind:namespace	line:9
+get_cdb_location	../adamspy\adripy\tool.py	/^from .utilities import TO_BLOCK_HEADER_PATTERN, TO_PARAMETER_PATTERN, get_cdb_location, get_cdb_path, get_full_path$/;"	kind:namespace	line:7
+get_cdb_location	../adamspy\adripy\utilities.py	/^def get_cdb_location(cdb_name):$/;"	kind:function	line:468
+get_cdb_path	../adamspy\adripy\event.py	/^from .utilities import read_TO_file, get_cdb_path, get_full_path$/;"	kind:namespace	line:5
+get_cdb_path	../adamspy\adripy\solver_settings.py	/^from .utilities import read_TO_file, get_cdb_path, get_full_path$/;"	kind:namespace	line:6
+get_cdb_path	../adamspy\adripy\string.py	/^from .utilities import read_TO_file, get_cdb_location, get_cdb_path, get_full_path, TO_LENGTH_PARAM$/;"	kind:namespace	line:9
+get_cdb_path	../adamspy\adripy\tool.py	/^from .utilities import TO_BLOCK_HEADER_PATTERN, TO_PARAMETER_PATTERN, get_cdb_location, get_cdb_path, get_full_path$/;"	kind:namespace	line:7
+get_cdb_path	../adamspy\adripy\utilities.py	/^def get_cdb_path(full_filepath):    $/;"	kind:function	line:407
+get_full_path	../adamspy\adripy\event.py	/^from .utilities import read_TO_file, get_cdb_path, get_full_path$/;"	kind:namespace	line:5
+get_full_path	../adamspy\adripy\solver_settings.py	/^from .utilities import read_TO_file, get_cdb_path, get_full_path$/;"	kind:namespace	line:6
+get_full_path	../adamspy\adripy\string.py	/^from .utilities import read_TO_file, get_cdb_location, get_cdb_path, get_full_path, TO_LENGTH_PARAM$/;"	kind:namespace	line:9
+get_full_path	../adamspy\adripy\tool.py	/^from .utilities import TO_BLOCK_HEADER_PATTERN, TO_PARAMETER_PATTERN, get_cdb_location, get_cdb_path, get_full_path$/;"	kind:namespace	line:7
+get_full_path	../adamspy\adripy\utilities.py	/^def get_full_path(cdb_filepath):    $/;"	kind:function	line:433
+get_number_of_tools	../adamspy\adripy\utilities.py	/^def get_number_of_tools(string_file):$/;"	kind:function	line:670
+get_parameter_value	../adamspy\adripy\tool.py	/^    def get_parameter_value(self, parameter_to_get):$/;"	kind:member	line:167
+get_simdur_from_msg	../adamspy\adamspy.py	/^def get_simdur_from_msg(msg_file):$/;"	kind:function	line:5
+get_string_length	../adamspy\adripy\utilities.py	/^def get_string_length(string_file):$/;"	kind:function	line:616
+get_tool	../adamspy\adripy\string.py	/^    def get_tool(self, tool_type, index=0):$/;"	kind:member	line:208
+get_tool_name	../adamspy\adripy\utilities.py	/^def get_tool_name(string_file, tool_type, n=1, return_full_path=True):$/;"	kind:function	line:132
+glob	../test\__init__.py	/^import glob$/;"	kind:namespace	line:2
+glob	../test\test_build.py	/^import glob$/;"	kind:namespace	line:3
+glob	../test\test_drillsim.py	/^import glob$/;"	kind:namespace	line:6
+has_tool	../adamspy\adripy\utilities.py	/^def has_tool(string_file, tool_type):$/;"	kind:function	line:293
+html_static_path	../rst\source\conf.py	/^html_static_path = ['_static']$/;"	kind:variable	line:96
+html_theme	../rst\source\conf.py	/^html_theme = 'sphinx_rtd_theme'$/;"	kind:variable	line:85
+htmlhelp_basename	../rst\source\conf.py	/^htmlhelp_basename = 'adamspydoc'$/;"	kind:variable	line:112
+import	../test\test_drill_event.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:11
+import	../test\test_drill_solver_settings.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:12
+import	../test\test_drill_string.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:11
+import	../test\test_drill_tool.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:11
+import	../test\test_drillsim.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:12
+import	../test\test_drillsim.py	/^from adamspy.adripy import DrillSim #pylint: disable=wrong-import-position$/;"	kind:namespace	line:13
+import	../test\test_tiem_orbit.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:11
+import	../test\test_tiem_orbit.py	/^from adamspy.adripy import utilities #pylint: disable=wrong-import-position$/;"	kind:namespace	line:12
+intersphinx_mapping	../rst\source\conf.py	/^intersphinx_mapping = {'https:\/\/docs.python.org\/': None}$/;"	kind:variable	line:189
+jinja2	../adamspy\adripy\__init__.py	/^import jinja2$/;"	kind:namespace	line:5
+jinja2	../adamspy\adripy\utilities.py	/^import jinja2$/;"	kind:namespace	line:10
+keep_trailing_newline	../adamspy\adripy\__init__.py	/^    keep_trailing_newline=True,$/;"	kind:variable	line:10
+keep_trailing_newline	../adamspy\adripy\utilities.py	/^    keep_trailing_newline=True,$/;"	kind:variable	line:18
+language	../rst\source\conf.py	/^language = None$/;"	kind:variable	line:69
+latex_documents	../rst\source\conf.py	/^latex_documents = [$/;"	kind:variable	line:138
+latex_elements	../rst\source\conf.py	/^latex_elements = {$/;"	kind:variable	line:117
+loader	../adamspy\adripy\__init__.py	/^    loader=jinja2.PackageLoader('adamspy.adripy', 'templates'),$/;"	kind:variable	line:8
+loader	../adamspy\adripy\utilities.py	/^    loader=jinja2.PackageLoader('adamspy.adripy', 'templates'),$/;"	kind:variable	line:16
+long_description	../setup.py	/^    long_description = fh.read()$/;"	kind:variable	line:4
+long_description	../setup.py	/^    long_description=long_description,$/;"	kind:variable	line:12
+long_description_content_type	../setup.py	/^    long_description_content_type="text\/markdown",$/;"	kind:variable	line:13
+lstrip_blocks	../adamspy\adripy\__init__.py	/^    lstrip_blocks=True$/;"	kind:variable	line:12
+lstrip_blocks	../adamspy\adripy\utilities.py	/^    lstrip_blocks=True$/;"	kind:variable	line:20
+man_pages	../rst\source\conf.py	/^man_pages = [$/;"	kind:variable	line:148
+master_doc	../rst\source\conf.py	/^master_doc = 'index'$/;"	kind:variable	line:62
+maxDiff	../test\test_drill_event.py	/^    maxDiff = None$/;"	kind:variable	line:17
+maxDiff	../test\test_drill_solver_settings.py	/^    maxDiff = None$/;"	kind:variable	line:16
+maxDiff	../test\test_drill_string.py	/^    maxDiff = None$/;"	kind:variable	line:16
+maxDiff	../test\test_drillsim.py	/^    maxDiff = None$/;"	kind:variable	line:18
+maxDiff	../test\test_tiem_orbit.py	/^    maxDiff = None$/;"	kind:variable	line:17
+modify_parameter_value	../adamspy\adripy\tool.py	/^    def modify_parameter_value(self, parameter_to_change, new_value):$/;"	kind:member	line:224
+name	../adamspy\__init__.py	/^name = 'adamspy'$/;"	kind:variable	line:15
+name	../setup.py	/^    name="adamspy",$/;"	kind:variable	line:7
+numtype	../adamspy\adripy\tool.py	/^from thornpy import numtype$/;"	kind:namespace	line:6
+os	../adamspy\adripy\drillsim.py	/^import os$/;"	kind:namespace	line:3
+os	../adamspy\adripy\event.py	/^import os$/;"	kind:namespace	line:3
+os	../adamspy\adripy\solver_settings.py	/^import os$/;"	kind:namespace	line:4
+os	../adamspy\adripy\string.py	/^import os$/;"	kind:namespace	line:4
+os	../adamspy\adripy\tool.py	/^import os$/;"	kind:namespace	line:4
+os	../adamspy\adripy\utilities.py	/^import os.path$/;"	kind:namespace	line:6
+os	../rst\source\conf.py	/^import os$/;"	kind:namespace	line:15
+os	../test\__init__.py	/^import os$/;"	kind:namespace	line:1
+os	../test\test_adripy_utilities.py	/^import os$/;"	kind:namespace	line:2
+os	../test\test_build.py	/^import os$/;"	kind:namespace	line:2
+os	../test\test_drill_event.py	/^import os$/;"	kind:namespace	line:5
+os	../test\test_drill_solver_settings.py	/^import os$/;"	kind:namespace	line:5
+os	../test\test_drill_string.py	/^import os$/;"	kind:namespace	line:5
+os	../test\test_drill_tool.py	/^import os$/;"	kind:namespace	line:5
+os	../test\test_drillsim.py	/^import os$/;"	kind:namespace	line:5
+os	../test\test_tiem_orbit.py	/^import os$/;"	kind:namespace	line:5
+package_data	../setup.py	/^    package_data={'adamspy.adripy': ['templates\/*']},$/;"	kind:variable	line:16
+packages	../setup.py	/^    packages=setuptools.find_packages(exclude=['test']),$/;"	kind:variable	line:15
+path	../adamspy\adripy\utilities.py	/^import os.path$/;"	kind:namespace	line:6
+position	../test\test_drill_event.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:11
+position	../test\test_drill_solver_settings.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:12
+position	../test\test_drill_string.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:11
+position	../test\test_drill_tool.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:11
+position	../test\test_drillsim.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:12
+position	../test\test_drillsim.py	/^from adamspy.adripy import DrillSim #pylint: disable=wrong-import-position$/;"	kind:namespace	line:13
+position	../test\test_tiem_orbit.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:11
+position	../test\test_tiem_orbit.py	/^from adamspy.adripy import utilities #pylint: disable=wrong-import-position$/;"	kind:namespace	line:12
+project	../rst\source\conf.py	/^project = 'adamspy'$/;"	kind:variable	line:22
+pygments_style	../rst\source\conf.py	/^pygments_style = None$/;"	kind:variable	line:77
+pylint	../test\test_drill_event.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:11
+pylint	../test\test_drill_solver_settings.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:12
+pylint	../test\test_drill_string.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:11
+pylint	../test\test_drill_tool.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:11
+pylint	../test\test_drillsim.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:12
+pylint	../test\test_drillsim.py	/^from adamspy.adripy import DrillSim #pylint: disable=wrong-import-position$/;"	kind:namespace	line:13
+pylint	../test\test_tiem_orbit.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:11
+pylint	../test\test_tiem_orbit.py	/^from adamspy.adripy import utilities #pylint: disable=wrong-import-position$/;"	kind:namespace	line:12
+re	../adamspy\adamspy.py	/^import re$/;"	kind:namespace	line:3
+re	../adamspy\adripy\string.py	/^import re$/;"	kind:namespace	line:6
+re	../adamspy\adripy\utilities.py	/^import re$/;"	kind:namespace	line:7
+re	../test\test_build.py	/^import re$/;"	kind:namespace	line:4
+read_TO_file	../adamspy\adripy\event.py	/^from .utilities import read_TO_file, get_cdb_path, get_full_path$/;"	kind:namespace	line:5
+read_TO_file	../adamspy\adripy\solver_settings.py	/^from .utilities import read_TO_file, get_cdb_path, get_full_path$/;"	kind:namespace	line:6
+read_TO_file	../adamspy\adripy\string.py	/^from .utilities import read_TO_file, get_cdb_location, get_cdb_path, get_full_path, TO_LENGTH_PARAM$/;"	kind:namespace	line:9
+read_TO_file	../adamspy\adripy\utilities.py	/^def read_TO_file(filename):$/;"	kind:function	line:961
+read_from_file	../adamspy\adripy\event.py	/^    def read_from_file(cls, filename):$/;"	kind:member	line:251
+read_from_file	../adamspy\adripy\solver_settings.py	/^    def read_from_file(cls, filename):$/;"	kind:member	line:172
+read_from_file	../adamspy\adripy\string.py	/^    def read_from_file(cls, filename):$/;"	kind:member	line:443
+release	../rst\source\conf.py	/^release = '0.6.5'$/;"	kind:variable	line:29
+remove	../adamspy\adripy\utilities.py	/^from os import remove$/;"	kind:namespace	line:4
+remove_cdb_from_cfg	../adamspy\adripy\utilities.py	/^def remove_cdb_from_cfg(name, cfg_file):$/;"	kind:function	line:803
+rename	../adamspy\adripy\tool.py	/^    def rename(self, new_name, remove_original=False):$/;"	kind:member	line:90
+rename	../adamspy\adripy\utilities.py	/^from os import rename$/;"	kind:namespace	line:5
+replace_tool	../adamspy\adripy\utilities.py	/^def replace_tool(string_file, old_tool_file, new_tool_file, old_tool_name='', new_tool_name='', N=0):$/;"	kind:function	line:484
+run	../adamspy\adripy\drillsim.py	/^    def run(self): #pylint: disable=no-self-use$/;"	kind:member	line:88
+setUp	../test\test_adripy_utilities.py	/^    def setUp(self):$/;"	kind:member	line:27
+setUp	../test\test_drill_event.py	/^    def setUp(self):$/;"	kind:member	line:18
+setUp	../test\test_drill_string.py	/^    def setUp(self):$/;"	kind:member	line:17
+setUp	../test\test_drill_tool.py	/^    def setUp(self):$/;"	kind:member	line:21
+setUp	../test\test_drillsim.py	/^    def setUp(self):$/;"	kind:member	line:20
+setUp	../test\test_tiem_orbit.py	/^    def setUp(self):$/;"	kind:member	line:18
+setUp	../test\test_tiem_orbit.py	/^    def setUp(self):$/;"	kind:member	line:51
+setUpClass	../test\test_build.py	/^    def setUpClass(cls):$/;"	kind:member	line:15
+setUpClass	../test\test_drill_solver_settings.py	/^    def setUpClass(cls):        $/;"	kind:member	line:19
+set_pipe_joints	../adamspy\adripy\string.py	/^    def set_pipe_joints(self, joints, equivalent=False):$/;"	kind:member	line:178
+setup.py	../setup.py	1;"	kind:file	line:1
+setuptools	../setup.py	/^import setuptools$/;"	kind:namespace	line:1
+shutil	../adamspy\adripy\string.py	/^import shutil$/;"	kind:namespace	line:5
+shutil	../adamspy\adripy\tool.py	/^import shutil$/;"	kind:namespace	line:5
+solver_settings.py	../adamspy\adripy\solver_settings.py	1;"	kind:file	line:1
+source_suffix	../rst\source\conf.py	/^source_suffix = '.rst'$/;"	kind:variable	line:59
+string.py	../adamspy\adripy\string.py	1;"	kind:file	line:1
+subprocess	../adamspy\adripy\utilities.py	/^import subprocess$/;"	kind:namespace	line:8
+sys	../rst\source\conf.py	/^import sys$/;"	kind:namespace	line:16
+tearDown	../test\test_adripy_utilities.py	/^    def tearDown(self):$/;"	kind:member	line:114
+tearDown	../test\test_drill_event.py	/^    def tearDown(self):$/;"	kind:member	line:69
+tearDown	../test\test_drill_string.py	/^    def tearDown(self):$/;"	kind:member	line:599
+tearDown	../test\test_drill_tool.py	/^    def tearDown(self):$/;"	kind:member	line:95
+tearDown	../test\test_drillsim.py	/^    def tearDown(self):$/;"	kind:member	line:189
+tearDown	../test\test_tiem_orbit.py	/^    def tearDown(self):$/;"	kind:member	line:177
+tearDown	../test\test_tiem_orbit.py	/^    def tearDown(self):$/;"	kind:member	line:41
+tearDownClass	../test\test_build.py	/^    def tearDownClass(cls):$/;"	kind:member	line:70
+tearDownClass	../test\test_drill_solver_settings.py	/^    def tearDownClass(cls):$/;"	kind:member	line:60
+templates_path	../rst\source\conf.py	/^templates_path = ['_templates']$/;"	kind:variable	line:53
+test_acf	../test\test_build.py	/^    def test_acf(self):$/;"	kind:member	line:55
+test_add_cdb_to_cfg	../test\test_adripy_utilities.py	/^    def test_add_cdb_to_cfg(self):$/;"	kind:member	line:40
+test_add_tool	../test\test_drill_string.py	/^    def test_add_tool(self):$/;"	kind:member	line:45
+test_adm	../test\test_build.py	/^    def test_adm(self):$/;"	kind:member	line:50
+test_adripy_utilities.py	../test\test_adripy_utilities.py	1;"	kind:file	line:1
+test_block_header_pattern	../test\test_tiem_orbit.py	/^    def test_block_header_pattern(self):$/;"	kind:member	line:54
+test_build.py	../test\test_build.py	1;"	kind:file	line:1
+test_build_evt_contents	../test\test_drillsim.py	/^    def test_build_evt_contents(self):$/;"	kind:member	line:176
+test_cdb_alias_works	../test\test_tiem_orbit.py	/^    def test_cdb_alias_works(self):$/;"	kind:member	line:21
+test_change_tool_name	../test\test_drill_string.py	/^    def test_change_tool_name(self):$/;"	kind:member	line:540
+test_change_tool_property_file	../test\test_drill_string.py	/^    def test_change_tool_property_file(self):$/;"	kind:member	line:569
+test_correct_values	../test\test_tiem_orbit.py	/^    def test_correct_values(self):$/;"	kind:member	line:33
+test_create_cfg_file	../test\test_adripy_utilities.py	/^    def test_create_cfg_file(self):$/;"	kind:member	line:32
+test_drill_event.py	../test\test_drill_event.py	1;"	kind:file	line:1
+test_drill_solver_settings.py	../test\test_drill_solver_settings.py	1;"	kind:file	line:1
+test_drill_string.py	../test\test_drill_string.py	1;"	kind:file	line:1
+test_drill_tool.py	../test\test_drill_tool.py	1;"	kind:file	line:1
+test_drillsim.py	../test\test_drillsim.py	1;"	kind:file	line:1
+test_errors_in_log	../test\test_build.py	/^    def test_errors_in_log(self):$/;"	kind:member	line:60
+test_full_path_works	../test\test_tiem_orbit.py	/^    def test_full_path_works(self):$/;"	kind:member	line:27
+test_get_bha_length	../test\test_drill_string.py	/^    def test_get_bha_length(self):$/;"	kind:member	line:521
+test_get_full_path	../test\test_adripy_utilities.py	/^    def test_get_full_path(self):$/;"	kind:member	line:64
+test_get_mass_value	../test\test_drill_tool.py	/^    def test_get_mass_value(self):$/;"	kind:member	line:55
+test_get_parameter_value_bit_length	../test\test_drill_tool.py	/^    def test_get_parameter_value_bit_length(self):$/;"	kind:member	line:78
+test_get_string_parameter	../test\test_drill_tool.py	/^    def test_get_string_parameter(self):$/;"	kind:member	line:61
+test_get_to_param_event_file	../test\test_adripy_utilities.py	/^    def test_get_to_param_event_file(self):$/;"	kind:member	line:83
+test_get_to_param_float_value	../test\test_adripy_utilities.py	/^    def test_get_to_param_float_value(self):$/;"	kind:member	line:93
+test_get_to_param_int_value	../test\test_adripy_utilities.py	/^    def test_get_to_param_int_value(self):$/;"	kind:member	line:103
+test_get_to_param_string_value	../test\test_adripy_utilities.py	/^    def test_get_to_param_string_value(self):$/;"	kind:member	line:73
+test_get_tool_1	../test\test_drill_string.py	/^    def test_get_tool_1(self):$/;"	kind:member	line:435
+test_get_tool_2	../test\test_drill_string.py	/^    def test_get_tool_2(self):$/;"	kind:member	line:456
+test_get_tool_first	../test\test_drill_string.py	/^    def test_get_tool_first(self):$/;"	kind:member	line:393
+test_get_tool_last	../test\test_drill_string.py	/^    def test_get_tool_last(self):$/;"	kind:member	line:414
+test_input_deck_directory_contents	../test\test_drillsim.py	/^    def test_input_deck_directory_contents(self):$/;"	kind:member	line:140
+test_modify_parameter_value	../test\test_drill_tool.py	/^    def test_modify_parameter_value(self):$/;"	kind:member	line:88
+test_parameter_pattern	../test\test_tiem_orbit.py	/^    def test_parameter_pattern(self):$/;"	kind:member	line:120
+test_publish_string_to_new_database	../test\test_drill_string.py	/^    def test_publish_string_to_new_database(self):$/;"	kind:member	line:115
+test_publish_string_with_duplicate_tools_to_new_database_1	../test\test_drill_string.py	/^    def test_publish_string_with_duplicate_tools_to_new_database_1(self):$/;"	kind:member	line:138
+test_publish_string_with_duplicate_tools_to_new_database_2	../test\test_drill_string.py	/^    def test_publish_string_with_duplicate_tools_to_new_database_2(self):$/;"	kind:member	line:165
+test_read_from_file	../test\test_drill_event.py	/^    def test_read_from_file(self):$/;"	kind:member	line:39
+test_read_from_file	../test\test_drill_solver_settings.py	/^    def test_read_from_file(self):        $/;"	kind:member	line:44
+test_read_string_from_file_bit_object	../test\test_drill_string.py	/^    def test_read_string_from_file_bit_object(self):$/;"	kind:member	line:326
+test_read_string_from_file_drillpipe	../test\test_drill_string.py	/^    def test_read_string_from_file_drillpipe(self):$/;"	kind:member	line:276
+test_read_string_from_file_drillpipe_object	../test\test_drill_string.py	/^    def test_read_string_from_file_drillpipe_object(self):$/;"	kind:member	line:352
+test_read_string_from_file_first_tool	../test\test_drill_string.py	/^    def test_read_string_from_file_first_tool(self):$/;"	kind:member	line:251
+test_read_string_from_file_last_tool	../test\test_drill_string.py	/^    def test_read_string_from_file_last_tool(self):$/;"	kind:member	line:301
+test_read_string_from_file_no_dfb	../test\test_drill_string.py	/^    def test_read_string_from_file_no_dfb(self):$/;"	kind:member	line:222
+test_read_string_from_file_ntools	../test\test_drill_string.py	/^    def test_read_string_from_file_ntools(self):$/;"	kind:member	line:378
+test_read_string_from_file_parameters	../test\test_drill_string.py	/^    def test_read_string_from_file_parameters(self):$/;"	kind:member	line:192
+test_relativity_in_string_event_reference	../test\test_drillsim.py	/^    def test_relativity_in_string_event_reference(self):$/;"	kind:member	line:123
+test_relativity_in_string_hole_reference	../test\test_drillsim.py	/^    def test_relativity_in_string_hole_reference(self):$/;"	kind:member	line:115
+test_relativity_in_string_pdc_reference	../test\test_drillsim.py	/^    def test_relativity_in_string_pdc_reference(self):$/;"	kind:member	line:131
+test_remove_cdb_from_cfg	../test\test_adripy_utilities.py	/^    def test_remove_cdb_from_cfg(self):$/;"	kind:member	line:52
+test_rename_name	../test\test_drill_tool.py	/^    def test_rename_name(self):$/;"	kind:member	line:67
+test_rename_property_file	../test\test_drill_tool.py	/^    def test_rename_property_file(self):$/;"	kind:member	line:72
+test_set_pipe_joints_equivalent	../test\test_drill_string.py	/^    def test_set_pipe_joints_equivalent(self):$/;"	kind:member	line:499
+test_set_pipe_joints_physical	../test\test_drill_string.py	/^    def test_set_pipe_joints_physical(self):$/;"	kind:member	line:477
+test_stabilizer_extension	../test\test_drill_tool.py	/^    def test_stabilizer_extension(self):$/;"	kind:member	line:44
+test_stabilizer_filename	../test\test_drill_tool.py	/^    def test_stabilizer_filename(self):$/;"	kind:member	line:49
+test_stabilizer_name	../test\test_drill_tool.py	/^    def test_stabilizer_name(self):$/;"	kind:member	line:34
+test_stabilizer_type	../test\test_drill_tool.py	/^    def test_stabilizer_type(self):$/;"	kind:member	line:39
+test_string_file_event_property_file	../test\test_adripy_utilities.py	/^    def test_string_file_event_property_file(self):$/;"	kind:member	line:15
+test_string_file_units	../test\test_adripy_utilities.py	/^    def test_string_file_units(self):$/;"	kind:member	line:20
+test_subblock_header_pattern	../test\test_tiem_orbit.py	/^    def test_subblock_header_pattern(self):$/;"	kind:member	line:69
+test_table_header_pattern	../test\test_tiem_orbit.py	/^    def test_table_header_pattern(self):$/;"	kind:member	line:84
+test_table_line_pattern	../test\test_tiem_orbit.py	/^    def test_table_line_pattern(self):$/;"	kind:member	line:100
+test_tiem_orbit.py	../test\test_tiem_orbit.py	1;"	kind:file	line:1
+test_write_event_file	../test\test_drill_event.py	/^    def test_write_event_file(self):$/;"	kind:member	line:60
+test_write_string_to_database	../test\test_drill_string.py	/^    def test_write_string_to_database(self): $/;"	kind:member	line:68
+test_write_string_to_database_with_dfb	../test\test_drill_string.py	/^    def test_write_string_to_database_with_dfb(self): $/;"	kind:member	line:90
+test_write_tiem_orbit_files_directory_contents	../test\test_drillsim.py	/^    def test_write_tiem_orbit_files_directory_contents(self):$/;"	kind:member	line:94
+test_write_tiem_orbit_files_event_filename	../test\test_drillsim.py	/^    def test_write_tiem_orbit_files_event_filename(self):$/;"	kind:member	line:61
+test_write_tiem_orbit_files_ssf_filename	../test\test_drillsim.py	/^    def test_write_tiem_orbit_files_ssf_filename(self):$/;"	kind:member	line:83
+test_write_tiem_orbit_files_string_filename	../test\test_drillsim.py	/^    def test_write_tiem_orbit_files_string_filename(self):$/;"	kind:member	line:72
+test_write_to_file	../test\test_drill_solver_settings.py	/^    def test_write_to_file(self):$/;"	kind:member	line:27
+texinfo_documents	../rst\source\conf.py	/^texinfo_documents = [$/;"	kind:variable	line:159
+thornpy	../adamspy\adripy\utilities.py	/^import thornpy$/;"	kind:namespace	line:9
+todo_include_todos	../rst\source\conf.py	/^todo_include_todos = True$/;"	kind:variable	line:194
+tool.py	../adamspy\adripy\tool.py	1;"	kind:file	line:1
+tool_renamed	../adamspy\adripy\string.py	/^    def tool_renamed(self, renamed_tool):$/;"	kind:member	line:249
+trim_blocks	../adamspy\adripy\__init__.py	/^    trim_blocks=True,$/;"	kind:variable	line:11
+trim_blocks	../adamspy\adripy\utilities.py	/^    trim_blocks=True,$/;"	kind:variable	line:19
+turn_measure_on	../adamspy\adripy\utilities.py	/^def turn_measure_on(string_file, tool_types=[], tool_numbers=[], tool_names=[]):$/;"	kind:function	line:71
+unittest	../test\test_adripy_utilities.py	/^import unittest$/;"	kind:namespace	line:1
+unittest	../test\test_build.py	/^import unittest$/;"	kind:namespace	line:1
+unittest	../test\test_drill_event.py	/^import unittest$/;"	kind:namespace	line:4
+unittest	../test\test_drill_solver_settings.py	/^import unittest$/;"	kind:namespace	line:4
+unittest	../test\test_drill_string.py	/^import unittest$/;"	kind:namespace	line:4
+unittest	../test\test_drill_tool.py	/^import unittest$/;"	kind:namespace	line:4
+unittest	../test\test_drillsim.py	/^import unittest$/;"	kind:namespace	line:4
+unittest	../test\test_tiem_orbit.py	/^import unittest$/;"	kind:namespace	line:4
+url	../setup.py	/^    url="https:\/\/github.com\/bthornton191\/Adams_Modules",$/;"	kind:variable	line:14
+utilities	../test\test_tiem_orbit.py	/^from adamspy.adripy import utilities #pylint: disable=wrong-import-position$/;"	kind:namespace	line:12
+utilities.py	../adamspy\adripy\utilities.py	1;"	kind:file	line:1
+validate	../adamspy\adripy\event.py	/^    def validate(self):$/;"	kind:member	line:231
+validate	../adamspy\adripy\solver_settings.py	/^    def validate(self):$/;"	kind:member	line:150
+validate	../adamspy\adripy\string.py	/^    def validate(self):$/;"	kind:member	line:469
+version	../rst\source\conf.py	/^version = ''$/;"	kind:variable	line:27
+version	../setup.py	/^    version="0.7.16",$/;"	kind:variable	line:8
+write_tiem_orbit_files	../adamspy\adripy\drillsim.py	/^    def write_tiem_orbit_files(self):$/;"	kind:member	line:96
+write_to_file	../adamspy\adripy\event.py	/^    def write_to_file(self, directory=None, filename=None, cdb=None):$/;"	kind:member	line:168
+write_to_file	../adamspy\adripy\solver_settings.py	/^    def write_to_file(self, filename, directory=None, cdb=None):$/;"	kind:member	line:91
+write_to_file	../adamspy\adripy\string.py	/^    def write_to_file(self, directory=None, filename=None, cdb=None, publish=False, publish_event=False):$/;"	kind:member	line:308
+wrong	../test\test_drill_event.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:11
+wrong	../test\test_drill_solver_settings.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:12
+wrong	../test\test_drill_string.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:11
+wrong	../test\test_drill_tool.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:11
+wrong	../test\test_drillsim.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:12
+wrong	../test\test_drillsim.py	/^from adamspy.adripy import DrillSim #pylint: disable=wrong-import-position$/;"	kind:namespace	line:13
+wrong	../test\test_tiem_orbit.py	/^from adamspy import adripy #pylint: disable=wrong-import-position$/;"	kind:namespace	line:11
+wrong	../test\test_tiem_orbit.py	/^from adamspy.adripy import utilities #pylint: disable=wrong-import-position$/;"	kind:namespace	line:12
