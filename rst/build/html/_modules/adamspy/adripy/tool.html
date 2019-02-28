@@ -165,7 +165,7 @@
 <span class="sd">        Name of the cdb table used for the particular tool type</span>
 <span class="sd">    &quot;&quot;&quot;</span>  
 
-    <span class="n">DATABASE_INFO</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">_DATABASE_INFO</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s1">&#39;assembly&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;drill_strings.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">},</span>
         <span class="s1">&#39;drillpipe&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;drill_pipes.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;pip&#39;</span><span class="p">},</span>
         <span class="s1">&#39;drill_collar&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;drill_collars.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;col&#39;</span><span class="p">},</span>
@@ -409,11 +409,11 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_parameter_value</span><span class="p">(</span><span class="s1">&#39;File_Type&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
     
     <span class="k">def</span> <span class="nf">_get_extension</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">extension</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DATABASE_INFO</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">tool_type</span><span class="p">][</span><span class="s1">&#39;extension&#39;</span><span class="p">]</span>
+        <span class="n">extension</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_DATABASE_INFO</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">tool_type</span><span class="p">][</span><span class="s1">&#39;extension&#39;</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">extension</span>
 
     <span class="k">def</span> <span class="nf">_get_table</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DATABASE_INFO</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">tool_type</span><span class="p">][</span><span class="s1">&#39;table&#39;</span><span class="p">]</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_DATABASE_INFO</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">tool_type</span><span class="p">][</span><span class="s1">&#39;table&#39;</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">table</span></div>
 
 <div class="viewcode-block" id="DrillToolError"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.tool.DrillToolError">[docs]</a><span class="k">class</span> <span class="nc">DrillToolError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>

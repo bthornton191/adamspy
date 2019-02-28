@@ -24,7 +24,7 @@ class DrillTool():
         Name of the cdb table used for the particular tool type
     """  
 
-    DATABASE_INFO = {
+    _DATABASE_INFO = {
         'assembly': {'table': 'drill_strings.tbl', 'extension': 'str'},
         'drillpipe': {'table': 'drill_pipes.tbl', 'extension': 'pip'},
         'drill_collar': {'table': 'drill_collars.tbl', 'extension': 'col'},
@@ -268,11 +268,11 @@ class DrillTool():
         return self.get_parameter_value('File_Type').lower()
     
     def _get_extension(self):
-        extension = self.DATABASE_INFO[self.tool_type]['extension']
+        extension = self._DATABASE_INFO[self.tool_type]['extension']
         return extension
 
     def _get_table(self):
-        table = self.DATABASE_INFO[self.tool_type]['table']
+        table = self._DATABASE_INFO[self.tool_type]['table']
         return table
 
 class DrillToolError(Exception):

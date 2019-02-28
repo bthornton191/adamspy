@@ -940,6 +940,6 @@ if not os.path.exists(TEST_NEW_DATABASE_PATH):
     os.mkdir(TEST_NEW_DATABASE_PATH)
 
 # Populate the new database with tables
-for table in [_dt.DrillTool.DATABASE_INFO[tool]['table'] for tool in _dt.DrillTool.DATABASE_INFO]:
+for table in [_dt.DrillTool._DATABASE_INFO[tool]['table'] for tool in _dt.DrillTool._DATABASE_INFO]:
     if not os.path.exists(os.path.join(TEST_NEW_DATABASE_PATH, table)):
         os.mkdir(os.path.join(TEST_NEW_DATABASE_PATH, table))
