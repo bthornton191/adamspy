@@ -18,17 +18,21 @@ class Test_ReadTOFile(unittest.TestCase):
     def setUp(self):
         adripy.create_cfg_file(TEST_CONFIG_FILENAME, [TEST_DATABASE_PATH, TEST_NEW_DATABASE_PATH])
 
-    def test_cdb_alias_works(self):
-        try:
-            parameters = utilities.read_TO_file(adripy.get_full_path(os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str')))
-        except FileNotFoundError:
-            self.fail('File not found when cdb alias path used')
-    
     def test_full_path_works(self):
+        """Tests if :meth:`read_TO_file` works with a full path is passed.
+        """
         try:
-            parameters = utilities.read_TO_file(os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str'))
+            _parameters = utilities.read_TO_file(adripy.get_full_path(os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str')))
         except FileNotFoundError:
             self.fail('File not found when full path used')
+    
+    def test_cdb_alias_works(self):
+        """Tests if :meth:`read_TO_file` works with a cdb alias path is passed.
+        """
+        try:
+            _parameters = utilities.read_TO_file(os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str'))
+        except FileNotFoundError:
+            self.fail('File not found when cdb alias path used')
         
     def test_correct_values(self):
         """Tests that the parameters in the written TO file are as expected
@@ -41,7 +45,7 @@ class Test_ReadTOFile(unittest.TestCase):
     def tearDown(self):
         try:
             os.remove(TEST_CONFIG_FILENAME)
-        except:
+        except FileNotFoundError:
             pass
         os.environ['ADRILL_USER_CFG'] = os.path.join(os.environ['USERPROFILE'], '.adrill.cfg')
 
