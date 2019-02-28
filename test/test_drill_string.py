@@ -33,6 +33,9 @@ class Test_DrillString(unittest.TestCase):
         # Create a DrillTool object representing a stabilizer
         self.upper_stabilizer = adripy.DrillTool(TEST_STABILIZER_FILE)
 
+        # Create a DrillTool object representing a collar
+        self.collar = adripy.DrillTool(TEST_COLLAR_FILE)
+
         # Create a DrillTool object representing a drill pipe
         self.drill_pipe = adripy.DrillTool(TEST_DRILLPIPE_FILE)
 
@@ -64,6 +67,29 @@ class Test_DrillString(unittest.TestCase):
         }
 
         self.assertEqual(drill_string.tools, [expected_tool_dictionary])  
+
+    def test_write_string_to_database_with_collar(self):
+        """Tests if the string file is written correctly when the string has a collar in it.
+        """
+        # Create a DrillString object
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+
+        # Add the DrillTool objects to the DrillString object
+        drill_string.add_tool(self.pdc_bit, measure='yes')
+        drill_string.add_tool(self.stabilizer, measure='yes')
+        drill_string.add_tool(self.collar, measure='yes', joints=TEST_NUMBER_OF_COLLARS, group_name=TEST_COLLAR_GROUPNAME)
+        drill_string.add_tool(self.drill_pipe, joints=TEST_NUMBER_OF_DRILLPIPES, group_name=TEST_DRILLPIPE_GROUPNAME)
+        drill_string.add_tool(self.eus, joints=TEST_NUMBER_OF_EUSPIPES, group_name=TEST_EUS_GROUPNAME, equivalent=True)
+        drill_string.add_tool(self.top_drive)
+
+        # Write drill string to file
+        drill_string.write_to_file(cdb=TEST_DATABASE_NAME)
+
+        expected_string_filename = os.path.join(TEST_DATABASE_PATH, 'drill_strings.tbl', TEST_STRING_NAME + '.str')
+        
+        failures = check_file_contents(expected_string_filename, EXPECTED_STRING_WRITE_TEXT_COLLAR)
+
+        self.assertListEqual(failures, [])
 
     def test_write_string_to_database(self): 
         """Test the `DrillString.write_to_file()` method.
@@ -262,11 +288,10 @@ class Test_DrillString(unittest.TestCase):
         }
 
         # Read new parameters into the drill string object from a file
-        string_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str')
-        drill_string_from_file = adripy.DrillString.read_from_file(string_file)
+        drill_string = adripy.DrillString.read_from_file(TEST_EXISTING_STRING_FILE)
         
         # Get the first tool
-        actual_tool = drill_string_from_file.tools[0]
+        actual_tool = drill_string.tools[0]
         
         # Remove the DrillTool key from the dictionary (for testing purposes)
         actual_tool.pop('DrillTool')
@@ -287,11 +312,10 @@ class Test_DrillString(unittest.TestCase):
         }
 
         # Read new parameters into the drill string object from a file
-        string_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str')
-        drill_string_from_file = adripy.DrillString.read_from_file(string_file)
+        drill_string = adripy.DrillString.read_from_file(TEST_EXISTING_STRING_FILE)
 
         # Get the first tool
-        actual_tool = drill_string_from_file.tools[0]
+        actual_tool = drill_string.tools[0]
         
         # Remove the DrillTool key from the dictionary (for testing purposes)
         actual_tool.pop('DrillTool')
@@ -312,11 +336,10 @@ class Test_DrillString(unittest.TestCase):
         }
 
         # Read new parameters into the drill string object from a file
-        string_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str')
-        drill_string_from_file = adripy.DrillString.read_from_file(string_file)
+        drill_string = adripy.DrillString.read_from_file(TEST_EXISTING_STRING_FILE)
         
         # Get the first tool
-        actual_tool = drill_string_from_file.tools[-1]
+        actual_tool = drill_string.tools[-1]
         
         # Remove the DrillTool key from the dictionary (for testing purposes)
         actual_tool.pop('DrillTool')
@@ -332,12 +355,11 @@ class Test_DrillString(unittest.TestCase):
         expected_extension = 'pdc'
         expected_table = 'pdc_bits.tbl'
 
-        # Read new parameters into the drill string object from a file
-        string_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str')
-        drill_string_from_file = adripy.DrillString.read_from_file(string_file)
+        # Read new parameters into the drill string object from a file        
+        drill_string = adripy.DrillString.read_from_file(TEST_EXISTING_STRING_FILE)
         
         # Get the first tool
-        bit = drill_string_from_file.tools[0]['DrillTool']
+        bit = drill_string.tools[0]['DrillTool']
 
         failures = []
         
@@ -359,11 +381,10 @@ class Test_DrillString(unittest.TestCase):
         expected_table = 'drill_pipes.tbl'
 
         # Read new parameters into the drill string object from a file
-        string_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str')
-        drill_string_from_file = adripy.DrillString.read_from_file(string_file)
+        drill_string = adripy.DrillString.read_from_file(TEST_EXISTING_STRING_FILE)
         
         # Get the first tool
-        bit = drill_string_from_file.tools[-1]['DrillTool']
+        bit = drill_string.tools[-1]['DrillTool']
 
         failures = []
         
@@ -382,14 +403,32 @@ class Test_DrillString(unittest.TestCase):
         expected_n_tools = 18
 
         # Read new parameters into the drill string object from a file
-        string_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str')
-        drill_string_from_file = adripy.DrillString.read_from_file(string_file)
+        drill_string = adripy.DrillString.read_from_file(TEST_EXISTING_STRING_FILE)
         
-        actual_n_tools = len(drill_string_from_file.tools)
+        actual_n_tools = len(drill_string.tools)
 
         self.assertEqual(actual_n_tools, expected_n_tools)
-
     
+    def test_read_string_from_file_collar(self):
+        """Tests that a string file is read correctly when it has a collar in it.
+        """
+        # Read new parameters into the drill string object from a file
+        drill_string = adripy.DrillString.read_from_file(TEST_EXISTING_STRING_FILE_COLLAR)
+        
+        # Get the collar from the drill string
+        collar = drill_string.get_tool('drill_collar')
+        
+        # Messy way to find the collar in the strings tools list
+        # and get the number of joints
+        for tool in drill_string.tools:
+            if tool['DrillTool'] is collar:
+                actual_n_joints = tool['Number_of_Joints']
+        
+        # Set the expected number of joins
+        expected_n_joints = 2
+
+        self.assertEqual(actual_n_joints, expected_n_joints)
+
     def test_get_tool_first(self):
         """Tests that DrillString.get_tool() returns the correct value.
         """
