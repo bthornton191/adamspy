@@ -961,10 +961,31 @@ TO_TABLE_LINE_PATTERN = re.compile("^((\\s*\\'[_0-9a-zA-Z]+\\')+)|((\\s*-?[\\+-\
 def read_TO_file(filename):
     """Reads a Tiem Orbit file into a dictionary of parameters
     
+    Example
+    -------
+    This example prints the value of the `Integrator` parameter from the `DYNAMICS` block of a solver settings file.
+
+    >>> ssf = read_TO_file('example.ssf')
+    >>> integ = ssf['DYNAMICS']['Integrator']
+    >>> print(integ)
+    HHT
+
+    This example prints `Maxit` from the `FUNNEL` subblock of the `STATICS` block of a solver settings file.
+    
+    >>> ssf = adripy.read_TO_file('example.ssf')
+    >>> maxit = ssf['STATICS']['FUNNEL']['maxit']
+    >>> print(maxit)
+    [100, 50, 50, 50]
+
     Parameters
     ----------
     filename : str
         Filename of the Tiem Orbit file
+
+    Returns
+    -------
+    dict
+        Nested :obj:`dict` of the blocks, subblocks, and parameters.  
     
     Raises
     ------
@@ -1013,6 +1034,13 @@ def read_TO_file(filename):
             
             # Make a dictionary of empty lists to put the table data in
             current_table_data = {header: [] for header in current_table_headers}
+
+            # Add empty table data to parameters dictionary
+            for header in current_table_headers:
+                if current_subblock is not None:
+                    parameters[current_block][current_subblock][header.lower()] = []
+                else:
+                    parameters[current_block][header.lower()] = []
         
         elif TO_PARAMETER_PATTERN.match(line):            
             [parameter, value] = re.sub('[\\s\\n]','',line).split('=')
