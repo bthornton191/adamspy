@@ -307,13 +307,21 @@
     
 <div class="viewcode-block" id="DrillTool.get_parameter_value"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.tool.DrillTool.get_parameter_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_parameter_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter_to_get</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the value of the specified parameter from the property file.  NOTE: get_parameter_value cannot get parameters from the UNITS block.</span>
+<span class="sd">        Returns the value of the specified parameter from the property file.  </span>
 <span class="sd">        </span>
-<span class="sd">        Arguments:</span>
-<span class="sd">            parameter_to_get {string} -- Name of the parameter to get from the property file.</span>
+<span class="sd">        Note</span>
+<span class="sd">        ----</span>
+<span class="sd">        This method cannot get parameters from the UNITS block.</span>
 <span class="sd">        </span>
-<span class="sd">        Returns:</span>
-<span class="sd">            {string or float} -- Value of the specified parameter from the property file.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        parameter_to_get : str</span>
+<span class="sd">            Name of the parameter to get from the property file.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        :obj:`string` or :obj:`float`</span>
+<span class="sd">            Value of the specified parameter from the property file.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Initilize return variable as None</span>
         <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>

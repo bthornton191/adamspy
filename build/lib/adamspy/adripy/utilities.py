@@ -1087,6 +1087,42 @@ def read_TO_file(filename):
 
     return parameters
 
+def isabs(filename):
+    """Checks if a filepath is absolute.
+
+    Note
+    ----
+    This function is derived from :meth:`os.path.isabs`.  The only difference is that it returns `True` if the filepth uses cdb alias names.
+    
+    Parameters
+    ----------
+    filename : str
+        Path to a file.  Can be relateive, absolute, or use cdb aliases. 
+    
+    Returns
+    -------
+    bool
+        True if path is absolute or uses cdb aliases.
+
+    """    
+    if not isinstance(filename, str):
+        # If filname is not a string
+        is_abs = False
+
+    elif filename != get_full_path(filename):
+        # If filename uses cdb alias notation
+        is_abs = True
+
+    elif os.path.isabs(filename):
+        # If filename is an absolute path
+        is_abs = True
+
+    else:
+        # If filename is a relative
+        is_abs = False
+    
+    return is_abs
+
 class TiemOrbitSyntaxError(Exception):
     pass
 
