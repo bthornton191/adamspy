@@ -1102,10 +1102,31 @@
 <div class="viewcode-block" id="read_TO_file"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.utilities.read_TO_file">[docs]</a><span class="k">def</span> <span class="nf">read_TO_file</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Reads a Tiem Orbit file into a dictionary of parameters</span>
 <span class="sd">    </span>
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    This example prints the value of the `Integrator` parameter from the `DYNAMICS` block of a solver settings file.</span>
+
+<span class="sd">    &gt;&gt;&gt; ssf = read_TO_file(&#39;example.ssf&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; integ = ssf[&#39;DYNAMICS&#39;][&#39;Integrator&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; print(integ)</span>
+<span class="sd">    HHT</span>
+
+<span class="sd">    This example prints `Maxit` from the `FUNNEL` subblock of the `STATICS` block of a solver settings file.</span>
+<span class="sd">    </span>
+<span class="sd">    &gt;&gt;&gt; ssf = adripy.read_TO_file(&#39;example.ssf&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; maxit = ssf[&#39;STATICS&#39;][&#39;FUNNEL&#39;][&#39;maxit&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; print(maxit)</span>
+<span class="sd">    [100, 50, 50, 50]</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    filename : str</span>
 <span class="sd">        Filename of the Tiem Orbit file</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Nested :obj:`dict` of the blocks, subblocks, and parameters.  </span>
 <span class="sd">    </span>
 <span class="sd">    Raises</span>
 <span class="sd">    ------</span>
@@ -1154,6 +1175,13 @@
             
             <span class="c1"># Make a dictionary of empty lists to put the table data in</span>
             <span class="n">current_table_data</span> <span class="o">=</span> <span class="p">{</span><span class="n">header</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">current_table_headers</span><span class="p">}</span>
+
+            <span class="c1"># Add empty table data to parameters dictionary</span>
+            <span class="k">for</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">current_table_headers</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">current_subblock</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">parameters</span><span class="p">[</span><span class="n">current_block</span><span class="p">][</span><span class="n">current_subblock</span><span class="p">][</span><span class="n">header</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">parameters</span><span class="p">[</span><span class="n">current_block</span><span class="p">][</span><span class="n">header</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span> <span class="o">=</span> <span class="p">[]</span>
         
         <span class="k">elif</span> <span class="n">TO_PARAMETER_PATTERN</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>            
             <span class="p">[</span><span class="n">parameter</span><span class="p">,</span> <span class="n">value</span><span class="p">]</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;[</span><span class="se">\\</span><span class="s1">s</span><span class="se">\\</span><span class="s1">n]&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">line</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
