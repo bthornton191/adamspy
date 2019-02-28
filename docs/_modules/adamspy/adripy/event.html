@@ -159,22 +159,10 @@
 <span class="sd">    parameters : dict</span>
 <span class="sd">        Dictionary of parameters that make up an Adams Drill string and would be found in an Adams Drill String file (.str).  The keys of the dictionary are the parameter names that would be seen in the string file and the values of the dictionary are the values that would be seen in the string file.</span>
 <span class="sd">    filename : str</span>
-<span class="sd">        Name of the event file (.evt) in which this event is stored.  This attribute is initially empty and is populated by the `write_to_file()` method.</span>
-<span class="sd">    SCALAR_PARAMETERS : dict</span>
-<span class="sd">        A class attribute listing the names of all scalar parameters found in an Adams Drill event file.</span>
-<span class="sd">    DEFAULT_PARAMETER_SCALARS: dict</span>
-<span class="sd">        A class attribute defining defaults for some of the event parameters.</span>
-<span class="sd">    ARRAY_PARAMETERS : list </span>
-<span class="sd">        A class attribute listing the names of all array parameters found in an Adams Drill event file.</span>
-<span class="sd">    DEFAULT_PARAMETER_ARRAYS : dict</span>
-<span class="sd">        A class attribute defining defaults for some of the event parameters.</span>
-<span class="sd">    CDB_TABLE : str</span>
-<span class="sd">        A class attribute defining the cdb table to be used for Adams Drill event files (.str)</span>
-<span class="sd">    EXT : str</span>
-<span class="sd">        A class attribute defining the extension of the Adams Drill event files.   </span>
+<span class="sd">        Name of the event file (.evt) in which this event is stored.  This attribute is initially empty and is populated by the `write_to_file()` method. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">SCALAR_PARAMETERS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">_SCALAR_PARAMETERS</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;File_Type&#39;</span><span class="p">,</span>
         <span class="s1">&#39;Units&#39;</span><span class="p">,</span>
         <span class="s1">&#39;File_Version&#39;</span><span class="p">,</span>
@@ -203,7 +191,8 @@
         <span class="s1">&#39;Start_Distance&#39;</span><span class="p">,</span>
         <span class="s1">&#39;End_Distance&#39;</span>
     <span class="p">]</span>
-    <span class="n">DEFAULT_PARAMETER_SCALARS</span> <span class="o">=</span> <span class="p">{</span>
+    
+    <span class="n">_DEFAULT_PARAMETER_SCALARS</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s1">&#39;File_Type&#39;</span><span class="p">:</span> <span class="s1">&#39;event&#39;</span><span class="p">,</span>
         <span class="s1">&#39;File_Version&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
         <span class="s1">&#39;Units&#39;</span><span class="p">:</span> <span class="s1">&#39;Imperial&#39;</span><span class="p">,</span>
@@ -230,7 +219,7 @@
         <span class="s1">&#39;End_Distance&#39;</span><span class="p">:</span> <span class="mf">100.0</span>
     <span class="p">}</span>
 
-    <span class="n">ARRAY_PARAMETERS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">_ARRAY_PARAMETERS</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;TOP_DRIVE&#39;</span><span class="p">,</span>
         <span class="s1">&#39;MOTOR&#39;</span><span class="p">,</span>
         <span class="s1">&#39;PUMP_FLOW&#39;</span><span class="p">,</span>
@@ -240,7 +229,7 @@
         <span class="s1">&#39;DYNAMICS&#39;</span>
     <span class="p">]</span>
 
-    <span class="n">DEFAULT_PARAMETER_ARRAYS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">_DEFAULT_PARAMETER_ARRAYS</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s1">&#39;TOP_DRIVE&#39;</span><span class="p">:</span> <span class="p">[[],[],[]],</span>
         <span class="s1">&#39;MOTOR&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
         <span class="s1">&#39;PUMP_FLOW&#39;</span><span class="p">:</span> <span class="p">[[],[],[]],</span>
@@ -250,10 +239,23 @@
         <span class="s1">&#39;DYNAMICS&#39;</span><span class="p">:</span> <span class="p">[[],</span> <span class="p">[]]</span>
     <span class="p">}</span>
 
-    <span class="n">CDB_TABLE</span> <span class="o">=</span> <span class="s1">&#39;events.tbl&#39;</span>
-    <span class="n">EXT</span> <span class="o">=</span> <span class="s1">&#39;evt&#39;</span>
+    <span class="n">_CDB_TABLE</span> <span class="o">=</span> <span class="s1">&#39;events.tbl&#39;</span>
+    <span class="n">_EXT</span> <span class="o">=</span> <span class="s1">&#39;evt&#39;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event_name</span><span class="p">,</span> <span class="n">start_depth</span><span class="p">,</span> <span class="n">off_bottom</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initializes the :class:`DrillEvent` class.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        event_name : str</span>
+<span class="sd">            Name of the event.</span>
+<span class="sd">        start_depth : float</span>
+<span class="sd">            Start depth of the event in feet.</span>
+<span class="sd">        off_bottom : float</span>
+<span class="sd">            Starting distance from bottom.</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="n">kwargs</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Event_Name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">event_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Start_Depth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">start_depth</span>
@@ -335,10 +337,10 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># If the filename argument is passed, strip the path and the </span>
                 <span class="c1"># extension</span>
-                <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;.</span><span class="si">{self.EXT}</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;.</span><span class="si">{self._EXT}</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
             
             <span class="c1"># Set the filepath to the filename in the given directory</span>
-            <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{filename}</span><span class="s1">.</span><span class="si">{self.EXT}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{filename}</span><span class="s1">.</span><span class="si">{self._EXT}</span><span class="s1">&#39;</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">cdb</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># If the write_directory argument is not passed, but the cdb</span>
@@ -352,12 +354,12 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># If the filename argument is passed, strip the path and the </span>
                 <span class="c1"># extension</span>
-                <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;.</span><span class="si">{self.EXT}</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;.</span><span class="si">{self._EXT}</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
             
             <span class="c1"># Set the filepath to the file in the cdb</span>
-            <span class="n">filepath</span> <span class="o">=</span> <span class="n">get_full_path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;&lt;</span><span class="si">{cdb}</span><span class="s1">&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">CDB_TABLE</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{filename}</span><span class="s1">.</span><span class="si">{self.EXT}</span><span class="s1">&#39;</span><span class="p">))</span>
+            <span class="n">filepath</span> <span class="o">=</span> <span class="n">get_full_path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;&lt;</span><span class="si">{cdb}</span><span class="s1">&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_CDB_TABLE</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{filename}</span><span class="s1">.</span><span class="si">{self._EXT}</span><span class="s1">&#39;</span><span class="p">))</span>
                       
-        <span class="n">event_template</span> <span class="o">=</span> <span class="n">TMPLT_ENV</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;template.</span><span class="si">{self.EXT}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">event_template</span> <span class="o">=</span> <span class="n">TMPLT_ENV</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;template.</span><span class="si">{self._EXT}</span><span class="s1">&#39;</span><span class="p">)</span>
         
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
             <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">event_template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">))</span>
@@ -376,11 +378,11 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">validated</span> <span class="o">=</span> <span class="kc">True</span>        
         <span class="c1"># Check that all parameters exist in the self.parameters dictionary</span>
-        <span class="k">for</span> <span class="n">param_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">SCALAR_PARAMETERS</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">param_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_SCALAR_PARAMETERS</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">param_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
                 <span class="n">validated</span> <span class="o">=</span> <span class="kc">False</span>        
         
-        <span class="k">for</span> <span class="n">param_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ARRAY_PARAMETERS</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">param_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ARRAY_PARAMETERS</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param_name</span><span class="p">]:</span>
                 <span class="n">validated</span> <span class="o">=</span> <span class="kc">False</span>
             
@@ -408,12 +410,12 @@
 <span class="sd">        Applies defaults from class variables</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Applies normal parameter defaults</span>
-        <span class="k">for</span> <span class="n">scalar_parameter</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_PARAMETER_SCALARS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">scalar_parameter</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_DEFAULT_PARAMETER_SCALARS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">scalar_parameter</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">scalar_parameter</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
         <span class="c1"># Applies defaults to all ramp parameters</span>
-        <span class="k">for</span> <span class="n">array_parameter</span><span class="p">,</span> <span class="n">array</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_PARAMETER_ARRAYS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">array_parameter</span><span class="p">,</span> <span class="n">array</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_DEFAULT_PARAMETER_ARRAYS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="c1"># self.parameters[array_parameter] = {}</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">array_parameter</span><span class="p">]</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">array_parameter</span><span class="p">]</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">array_parameter</span><span class="p">])</span>
@@ -429,7 +431,7 @@
 <span class="sd">            ValueError -- An event parameter could not be found</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">SCALAR_PARAMETERS</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_SCALAR_PARAMETERS</span><span class="p">:</span>
             <span class="c1"># For each event parameter initialize a found flag</span>
             <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
         
@@ -463,7 +465,7 @@
             <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{param}</span><span class="s1"> not found!&#39;</span><span class="p">)</span>
         
-        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ARRAY_PARAMETERS</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ARRAY_PARAMETERS</span><span class="p">:</span>
             <span class="c1"># For each event parameter initialize a found flag</span>
             <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
 

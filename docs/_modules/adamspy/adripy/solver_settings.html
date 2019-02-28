@@ -170,22 +170,10 @@
 <span class="sd">        Dictionary of parameters that make up an Adams Drill solver settings and would be found in an Adams Drill solver settings file (.ssf).  The keys of the dictionary are the parameter names that would be seen in the string file and the values of the dictionary are the values that would be seen in the string file.</span>
 <span class="sd">    filename : str</span>
 <span class="sd">        Name of the solver settings file (.ssf) in which these solver settings are stored.  This attribute is initially empty and is populated by the `write_to_file()` method.</span>
-<span class="sd">    SCALAR_PARAMETERS : list</span>
-<span class="sd">        A class attribute listing the names of all scalar parameters found in an Adams Drill solver settings file.</span>
-<span class="sd">    DEFAULT_PARAMETER_SCALARS : dict</span>
-<span class="sd">        A class attribute defining defaults for some of the string parameters.</span>
-<span class="sd">    ARRAY_PARAMETERS : list </span>
-<span class="sd">        A class attribute listing the names of all array parameters found in an Adams Drill solver settings file.</span>
-<span class="sd">    DEFAULT_PARAMETER_ARRAYS : dict</span>
-<span class="sd">        A class attribute defining defaults for some of the string parameters.</span>
-<span class="sd">    CDB_TABLE : str</span>
-<span class="sd">        A class attribute defining the cdb table to be used for Adams Drill solver settings files (.ssf)</span>
-<span class="sd">    EXT : str</span>
-<span class="sd">        A class attribute defining the extension of the Adams Drill string files.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
 
-    <span class="n">SCALAR_PARAMETERS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">_SCALAR_PARAMETERS</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;Integrator&#39;</span><span class="p">,</span>
         <span class="s1">&#39;Formulation&#39;</span><span class="p">,</span>
         <span class="s1">&#39;Corrector&#39;</span><span class="p">,</span>
@@ -194,7 +182,7 @@
         <span class="s1">&#39;Alpha&#39;</span><span class="p">,</span>
         <span class="s1">&#39;Thread_Count&#39;</span>
     <span class="p">]</span>
-    <span class="n">DEFAULT_PARAMETER_SCALARS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">_DEFAULT_PARAMETER_SCALARS</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s1">&#39;Integrator&#39;</span><span class="p">:</span> <span class="s1">&#39;HHT&#39;</span><span class="p">,</span>
         <span class="s1">&#39;Formulation&#39;</span><span class="p">:</span> <span class="s1">&#39;I3&#39;</span><span class="p">,</span>
         <span class="s1">&#39;Corrector&#39;</span><span class="p">:</span> <span class="s1">&#39;Modified&#39;</span><span class="p">,</span>
@@ -204,11 +192,11 @@
         <span class="s1">&#39;Thread_Count&#39;</span><span class="p">:</span> <span class="mi">4</span>
     <span class="p">}</span>
 
-    <span class="n">ARRAY_PARAMETERS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">_ARRAY_PARAMETERS</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;Funnel&#39;</span>
     <span class="p">]</span>
 
-    <span class="n">DEFAULT_PARAMETER_ARRAYS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">_DEFAULT_PARAMETER_ARRAYS</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s1">&#39;Funnel&#39;</span><span class="p">:</span> <span class="p">[</span>
             <span class="p">[</span><span class="mi">500</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">53</span><span class="p">,</span> <span class="mi">54</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">58</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">62</span><span class="p">,</span> <span class="mi">63</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span>
             <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span>
@@ -219,10 +207,19 @@
         <span class="p">]</span>
     <span class="p">}</span>
 
-    <span class="n">CDB_TABLE</span> <span class="o">=</span> <span class="s1">&#39;solver_settings.tbl&#39;</span>
-    <span class="n">EXT</span> <span class="o">=</span> <span class="s1">&#39;ssf&#39;</span>
+    <span class="n">_CDB_TABLE</span> <span class="o">=</span> <span class="s1">&#39;solver_settings.tbl&#39;</span>
+    <span class="n">_EXT</span> <span class="o">=</span> <span class="s1">&#39;ssf&#39;</span>
     
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initializes the :class:`DrillSolverSettings` object.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name : str</span>
+<span class="sd">            Name of the solver settings.</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="n">kwargs</span>
         
@@ -256,29 +253,29 @@
         <span class="k">if</span> <span class="n">directory</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># If the write_directory argument is passed, strip the filename of</span>
             <span class="c1"># it&#39;s path and extension</span>
-            <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;.</span><span class="si">{self.EXT}</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;.</span><span class="si">{self._EXT}</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
             
             <span class="c1"># Set the filepath to the filename in the given directory</span>
-            <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">filename</span> <span class="o">+</span> <span class="n">f</span><span class="s1">&#39;.</span><span class="si">{self.EXT}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">filename</span> <span class="o">+</span> <span class="n">f</span><span class="s1">&#39;.</span><span class="si">{self._EXT}</span><span class="s1">&#39;</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">cdb</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># If the write_directory argument is not passed, but the cdb</span>
             <span class="c1"># argument is, strip the filename of it&#39;s path and extension</span>
-            <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;.</span><span class="si">{self.EXT}</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;.</span><span class="si">{self._EXT}</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
             
             <span class="c1"># Set the filepath to the file in the cdb</span>
-            <span class="n">filepath</span> <span class="o">=</span> <span class="n">get_full_path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cdb</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">CDB_TABLE</span><span class="p">,</span> <span class="n">filename</span> <span class="o">+</span> <span class="n">f</span><span class="s1">&#39;.</span><span class="si">{self.EXT}</span><span class="s1">&#39;</span><span class="p">))</span>
+            <span class="n">filepath</span> <span class="o">=</span> <span class="n">get_full_path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cdb</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_CDB_TABLE</span><span class="p">,</span> <span class="n">filename</span> <span class="o">+</span> <span class="n">f</span><span class="s1">&#39;.</span><span class="si">{self._EXT}</span><span class="s1">&#39;</span><span class="p">))</span>
 
         <span class="k">elif</span> <span class="n">filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># If Nothing but a filename is given, set that as the full path</span>
-            <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">filename</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;.</span><span class="si">{self.EXT}</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))</span>            
+            <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">filename</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;.</span><span class="si">{self._EXT}</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))</span>            
 
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># If nothing is given, raise an error</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;One of the following must key work arguments must be defined: write_directory, filename, cdb&#39;</span><span class="p">)</span>
                       
         <span class="c1"># Get the jinja2 template for a solver settings file</span>
-        <span class="n">ssf_template</span> <span class="o">=</span> <span class="n">TMPLT_ENV</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;template.</span><span class="si">{self.EXT}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">ssf_template</span> <span class="o">=</span> <span class="n">TMPLT_ENV</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;template.</span><span class="si">{self._EXT}</span><span class="s1">&#39;</span><span class="p">)</span>
 
         <span class="c1"># Write the solver settings file</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
@@ -302,11 +299,11 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">validated</span> <span class="o">=</span> <span class="kc">True</span>        
         <span class="c1"># Check that all parameters exist in the self.parameters dictionary</span>
-        <span class="k">for</span> <span class="n">param_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">SCALAR_PARAMETERS</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">param_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_SCALAR_PARAMETERS</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">param_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
                 <span class="n">validated</span> <span class="o">=</span> <span class="kc">False</span>        
         
-        <span class="k">for</span> <span class="n">param_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ARRAY_PARAMETERS</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">param_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ARRAY_PARAMETERS</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param_name</span><span class="p">]:</span>
                 <span class="n">validated</span> <span class="o">=</span> <span class="kc">False</span>
             
@@ -315,10 +312,6 @@
 <div class="viewcode-block" id="DrillSolverSettings.read_from_file"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.solver_settings.DrillSolverSettings.read_from_file">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">read_from_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Reads a string file and returns a DrillString object with DrillString.parameters based on data in the string file.</span>
-<span class="sd">        </span>
-<span class="sd">        Note</span>
-<span class="sd">        ----</span>
-
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -346,12 +339,12 @@
 <span class="sd">        Applies defaults from class variables</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Applies normal parameter defaults</span>
-        <span class="k">for</span> <span class="n">scalar_parameter</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_PARAMETER_SCALARS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">scalar_parameter</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_DEFAULT_PARAMETER_SCALARS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">scalar_parameter</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">scalar_parameter</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
         <span class="c1"># Applies defaults to all ramp parameters</span>
-        <span class="k">for</span> <span class="n">array_parameter</span><span class="p">,</span> <span class="n">array</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_PARAMETER_ARRAYS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">array_parameter</span><span class="p">,</span> <span class="n">array</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_DEFAULT_PARAMETER_ARRAYS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">array_parameter</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">array_parameter</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">array_parameter</span><span class="p">]</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">array_parameter</span><span class="p">])</span>
@@ -371,7 +364,7 @@
 <span class="sd">            A solver settings parameter could not be found</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ARRAY_PARAMETERS</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ARRAY_PARAMETERS</span><span class="p">:</span>
             <span class="c1"># For each string parameter initialize a found flag</span>
             <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
             
@@ -385,7 +378,7 @@
             <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{param}</span><span class="s1"> not found!&#39;</span><span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">SCALAR_PARAMETERS</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_SCALAR_PARAMETERS</span><span class="p">:</span>
             <span class="c1"># For each string parameter initialize a found flag</span>
             <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
 

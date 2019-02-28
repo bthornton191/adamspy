@@ -18,22 +18,10 @@ class DrillEvent():
     parameters : dict
         Dictionary of parameters that make up an Adams Drill string and would be found in an Adams Drill String file (.str).  The keys of the dictionary are the parameter names that would be seen in the string file and the values of the dictionary are the values that would be seen in the string file.
     filename : str
-        Name of the event file (.evt) in which this event is stored.  This attribute is initially empty and is populated by the `write_to_file()` method.
-    SCALAR_PARAMETERS : dict
-        A class attribute listing the names of all scalar parameters found in an Adams Drill event file.
-    DEFAULT_PARAMETER_SCALARS: dict
-        A class attribute defining defaults for some of the event parameters.
-    ARRAY_PARAMETERS : list 
-        A class attribute listing the names of all array parameters found in an Adams Drill event file.
-    DEFAULT_PARAMETER_ARRAYS : dict
-        A class attribute defining defaults for some of the event parameters.
-    CDB_TABLE : str
-        A class attribute defining the cdb table to be used for Adams Drill event files (.str)
-    EXT : str
-        A class attribute defining the extension of the Adams Drill event files.   
+        Name of the event file (.evt) in which this event is stored.  This attribute is initially empty and is populated by the `write_to_file()` method. 
     """
 
-    SCALAR_PARAMETERS = [
+    _SCALAR_PARAMETERS = [
         'File_Type',
         'Units',
         'File_Version',
@@ -62,7 +50,8 @@ class DrillEvent():
         'Start_Distance',
         'End_Distance'
     ]
-    DEFAULT_PARAMETER_SCALARS = {
+    
+    _DEFAULT_PARAMETER_SCALARS = {
         'File_Type': 'event',
         'File_Version': 1.0,
         'Units': 'Imperial',
@@ -89,7 +78,7 @@ class DrillEvent():
         'End_Distance': 100.0
     }
 
-    ARRAY_PARAMETERS = [
+    _ARRAY_PARAMETERS = [
         'TOP_DRIVE',
         'MOTOR',
         'PUMP_FLOW',
@@ -99,7 +88,7 @@ class DrillEvent():
         'DYNAMICS'
     ]
 
-    DEFAULT_PARAMETER_ARRAYS = {
+    _DEFAULT_PARAMETER_ARRAYS = {
         'TOP_DRIVE': [[],[],[]],
         'MOTOR': [[0], [1], [1]],
         'PUMP_FLOW': [[],[],[]],
@@ -109,10 +98,23 @@ class DrillEvent():
         'DYNAMICS': [[], []]
     }
 
-    CDB_TABLE = 'events.tbl'
-    EXT = 'evt'
+    _CDB_TABLE = 'events.tbl'
+    _EXT = 'evt'
 
     def __init__(self, event_name, start_depth, off_bottom, **kwargs):
+        """Initializes the :class:`DrillEvent` class.
+        
+        Parameters
+        ----------
+        event_name : str
+            Name of the event.
+        start_depth : float
+            Start depth of the event in feet.
+        off_bottom : float
+            Starting distance from bottom.
+        
+        """
+
         self.parameters = kwargs
         self.parameters['Event_Name'] = event_name
         self.parameters['Start_Depth'] = start_depth
@@ -194,10 +196,10 @@ class DrillEvent():
             else:
                 # If the filename argument is passed, strip the path and the 
                 # extension
-                filename = os.path.split(filename)[-1].replace(f'.{self.EXT}','')
+                filename = os.path.split(filename)[-1].replace(f'.{self._EXT}','')
             
             # Set the filepath to the filename in the given directory
-            filepath = os.path.join(directory, f'{filename}.{self.EXT}')
+            filepath = os.path.join(directory, f'{filename}.{self._EXT}')
 
         elif cdb is not None:
             # If the write_directory argument is not passed, but the cdb
@@ -211,12 +213,12 @@ class DrillEvent():
             else:
                 # If the filename argument is passed, strip the path and the 
                 # extension
-                filename = os.path.split(filename)[-1].replace(f'.{self.EXT}','')
+                filename = os.path.split(filename)[-1].replace(f'.{self._EXT}','')
             
             # Set the filepath to the file in the cdb
-            filepath = get_full_path(os.path.join(f'<{cdb}>', self.CDB_TABLE, f'{filename}.{self.EXT}'))
+            filepath = get_full_path(os.path.join(f'<{cdb}>', self._CDB_TABLE, f'{filename}.{self._EXT}'))
                       
-        event_template = TMPLT_ENV.get_template(f'template.{self.EXT}')
+        event_template = TMPLT_ENV.get_template(f'template.{self._EXT}')
         
         with open(filepath, 'w') as fid:
             fid.write(event_template.render(self.parameters))
@@ -235,11 +237,11 @@ class DrillEvent():
         """
         validated = True        
         # Check that all parameters exist in the self.parameters dictionary
-        for param_name in self.SCALAR_PARAMETERS:
+        for param_name in self._SCALAR_PARAMETERS:
             if param_name not in self.parameters:
                 validated = False        
         
-        for param_name in self.ARRAY_PARAMETERS:
+        for param_name in self._ARRAY_PARAMETERS:
             if not self.parameters[param_name]:
                 validated = False
             
@@ -267,12 +269,12 @@ class DrillEvent():
         Applies defaults from class variables
         """
         # Applies normal parameter defaults
-        for scalar_parameter, value in self.DEFAULT_PARAMETER_SCALARS.items():
+        for scalar_parameter, value in self._DEFAULT_PARAMETER_SCALARS.items():
             if scalar_parameter not in self.parameters:
                 self.parameters[scalar_parameter] = value
 
         # Applies defaults to all ramp parameters
-        for array_parameter, array in self.DEFAULT_PARAMETER_ARRAYS.items():
+        for array_parameter, array in self._DEFAULT_PARAMETER_ARRAYS.items():
             # self.parameters[array_parameter] = {}
             self.parameters[array_parameter] = array.copy()
             self.parameters['_' + array_parameter] = zip(*self.parameters[array_parameter])
@@ -288,7 +290,7 @@ class DrillEvent():
             ValueError -- An event parameter could not be found
         """
 
-        for param in self.SCALAR_PARAMETERS:
+        for param in self._SCALAR_PARAMETERS:
             # For each event parameter initialize a found flag
             found = False
         
@@ -322,7 +324,7 @@ class DrillEvent():
             if not found:
                 raise ValueError(f'{param} not found!')
         
-        for param in self.ARRAY_PARAMETERS:
+        for param in self._ARRAY_PARAMETERS:
             # For each event parameter initialize a found flag
             found = False
 
