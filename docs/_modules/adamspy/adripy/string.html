@@ -181,10 +181,13 @@
         <span class="s1">&#39;Adams_Results&#39;</span><span class="p">,</span>
         <span class="s1">&#39;Adams_Requests&#39;</span><span class="p">,</span>
         <span class="s1">&#39;SolverDLL&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;Hole_Property_File&#39;</span><span class="p">,</span>
         <span class="s1">&#39;Contact_Method&#39;</span><span class="p">,</span>
         <span class="s1">&#39;Cyl_Drag_Coeff&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;Hole_Color&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Hole_Color&#39;</span>
+    <span class="p">]</span>
+
+    <span class="n">_FILENAME_PARAMETERS</span> <span class="o">=</span> <span class="p">[</span>        
+        <span class="s1">&#39;Hole_Property_File&#39;</span><span class="p">,</span>
         <span class="s1">&#39;Event_Property_File&#39;</span>
     <span class="p">]</span>
     <span class="n">_DEFAULT_PARAMETER_SCALARS</span> <span class="o">=</span> <span class="p">{</span>
@@ -595,12 +598,12 @@
 <span class="sd">            :class:`DrillString` object with parameters from the passed string file.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Read the TO data into a dictionary</span>
-        <span class="n">tiem_orbit_data</span> <span class="o">=</span> <span class="n">read_TO_file</span><span class="p">(</span><span class="n">get_full_path</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+        <span class="n">tiem_orbit_data</span> <span class="o">=</span> <span class="n">read_TO_file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 
         <span class="n">drill_string</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
         
         <span class="c1"># Extract the DrillString parameters from the TO dictionary        </span>
-        <span class="n">drill_string</span><span class="o">.</span><span class="n">_get_params_from_TO_data</span><span class="p">(</span><span class="n">tiem_orbit_data</span><span class="p">)</span> <span class="c1">#pylint: disable=protected-access</span>
+        <span class="n">drill_string</span><span class="o">.</span><span class="n">_get_params_from_TO_data</span><span class="p">(</span><span class="n">tiem_orbit_data</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span> <span class="c1">#pylint: disable=protected-access</span>
 
         <span class="c1"># Extract the DrillTools from the TO dictionary</span>
         <span class="n">drill_string</span><span class="o">.</span><span class="n">_get_tools_from_TO_data</span><span class="p">(</span><span class="n">tiem_orbit_data</span><span class="p">)</span> <span class="c1">#pylint: disable=protected-access</span>
@@ -609,14 +612,16 @@
     
 <div class="viewcode-block" id="DrillString.validate"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Determines if all parameters have been set</span>
+<span class="sd">        Determines if all parameters have been set.</span>
 <span class="sd">        </span>
-<span class="sd">        Returns:</span>
-<span class="sd">            dict -- dicationary with a `valid` key with a boolean value indicating whether the string was successfully validated and a `reason` key with a str value indicating the reason (if any) that the string was not successfully validated.</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            :obj:`dict` with a `valid` key with a boolean value indicating whether the string was successfully validated and a `reason` key with a str value indicating the reason (if any) that the string was not successfully validated.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">validation</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;valid&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;reason&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">}</span>
         <span class="c1"># Check that all parameters exist in the self.parameters dictionary</span>
-        <span class="k">for</span> <span class="n">param_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_SCALAR_PARAMETERS</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">param_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_SCALAR_PARAMETERS</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_FILENAME_PARAMETERS</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">param_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
                 <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;valid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
                 <span class="n">validation</span><span class="p">[</span><span class="s1">&#39;reason&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;not all string parameters have been defined&#39;</span>
@@ -760,7 +765,7 @@
         <span class="n">top_drive</span> <span class="o">=</span> <span class="n">DrillTool</span><span class="p">(</span><span class="n">tiem_orbit_data</span><span class="p">[</span><span class="s1">&#39;TOP_DRIVE&#39;</span><span class="p">][</span><span class="s1">&#39;property_file&#39;</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_tool</span><span class="p">(</span><span class="n">top_drive</span><span class="p">)</span>
     
-    <span class="k">def</span> <span class="nf">_get_params_from_TO_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tiem_orbit_data</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_get_params_from_TO_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tiem_orbit_data</span><span class="p">,</span> <span class="n">tiem_orbit_filename</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Reads the string parameters out of a dictoinary of Tiem Orbit data generated by `adripy.utilities.read_TO_file()`</span>
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
@@ -773,17 +778,16 @@
 <span class="sd">        ValueError</span>
 <span class="sd">            A string parameter could not be found</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_SCALAR_PARAMETERS</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ARRAY_PARAMETERS</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_SCALAR_PARAMETERS</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ARRAY_PARAMETERS</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_FILENAME_PARAMETERS</span><span class="p">:</span>
             <span class="c1"># For each string parameter initialize a found flag</span>
-            <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">param_value</span> <span class="o">=</span> <span class="kc">None</span>
         
             <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">tiem_orbit_data</span><span class="p">:</span>
                 <span class="c1"># For each block in the TO file</span>
 
                 <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">]:</span>
                     <span class="c1"># If the parameter is in this block, set the parameter and break the loop</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="n">param</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
-                    <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="n">param_value</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="n">param</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
                     <span class="k">break</span>
 
                 <span class="k">else</span><span class="p">:</span>
@@ -796,16 +800,29 @@
 
                         <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="n">sub_block</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
                             <span class="c1"># If the parameter is in the sub block, set the parameter and break the loop</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="n">sub_block</span><span class="p">][</span><span class="n">param</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
-                            <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+                            <span class="n">param_value</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="n">sub_block</span><span class="p">][</span><span class="n">param</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
                             <span class="k">break</span>
                     
-                    <span class="k">if</span> <span class="n">found</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">param_value</span><span class="p">:</span>
                         <span class="k">break</span>
             
             <span class="c1"># Raise a value error if the parameter isn&#39;t found.</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span> <span class="ow">and</span> <span class="n">param</span> <span class="o">!=</span> <span class="s1">&#39;Distance_from_Bit&#39;</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{param}</span><span class="s1"> not found!&#39;</span><span class="p">)</span></div>
+            <span class="c1"># Unless the parameter is Distance_from_Bit, then change it to []</span>
+            <span class="k">if</span> <span class="n">param_value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">param</span> <span class="o">==</span> <span class="s1">&#39;Distance_from_Bit&#39;</span><span class="p">:</span>
+                    <span class="n">param_value</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{param}</span><span class="s1"> not found!&#39;</span><span class="p">)</span>
+            
+            <span class="c1"># If the parameter is a relative filename, make it absolute</span>
+            <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_FILENAME_PARAMETERS</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="n">param_value</span><span class="p">)</span> <span class="ow">and</span> <span class="n">param_value</span> <span class="o">==</span> <span class="n">get_full_path</span><span class="p">(</span><span class="n">param_value</span><span class="p">):</span>
+                    <span class="n">param_value</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">get_cdb_path</span><span class="p">(</span><span class="n">tiem_orbit_filename</span><span class="p">))[</span><span class="mi">0</span><span class="p">],</span> <span class="n">param_value</span><span class="p">)</span>
+            
+            <span class="c1"># store the parameter in the self.parameters dict</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">param_value</span></div>
+
+                
 
 <div class="viewcode-block" id="DrillStringError"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillStringError">[docs]</a><span class="k">class</span> <span class="nc">DrillStringError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
