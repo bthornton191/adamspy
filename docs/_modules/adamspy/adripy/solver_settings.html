@@ -149,6 +149,19 @@
 <div class="viewcode-block" id="DrillSolverSettings"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.solver_settings.DrillSolverSettings">[docs]</a><span class="k">class</span> <span class="nc">DrillSolverSettings</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;Creates an object with all data necessary to write an Adams Drill solver settings (.ssf) file. </span>
 <span class="sd">    </span>
+<span class="sd">    Note</span>
+<span class="sd">    ----</span>
+<span class="sd">    The static funnel is stored as a :obj:`list` of :obj:`list`s in the &#39;Funnel&#39; entry of the :attr:`parameters` attribute.  </span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    This example reads a :class:`DrillSolverSettings` object from a file and prints `Maxit` from all the steps in the static funnel.</span>
+
+<span class="sd">    &gt;&gt;&gt; ssf = DrillSolverSettings.read_from_file(&#39;example.ssf&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; maxit = ssf.parameters[&#39;Funnel&#39;][0]</span>
+<span class="sd">    &gt;&gt;&gt; print(maxit)</span>
+<span class="sd">    [500, 500, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 100]</span>
+
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
 <span class="sd">    name : str</span>
@@ -224,12 +237,12 @@
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        directory : str</span>
-<span class="sd">            Directory in which to write the file. Defaults to current working directory.</span>
 <span class="sd">        filename : str</span>
-<span class="sd">            Name of the file to write.  (defaults is `self.name`)</span>
+<span class="sd">            Name of the file to write.</span>
+<span class="sd">        directory : str</span>
+<span class="sd">            Directory in which to write the file. (default is None which means it is written to the current working directory.</span>
 <span class="sd">        cdb : str</span>
-<span class="sd">            Name of the cdb in which to write the file.  This argument overrides `directory`.</span>
+<span class="sd">            Name of the cdb in which to write the file.  This argument overrides :arg:`directory`.</span>
 <span class="sd">        </span>
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
@@ -301,17 +314,22 @@
     
 <div class="viewcode-block" id="DrillSolverSettings.read_from_file"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.solver_settings.DrillSolverSettings.read_from_file">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">read_from_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Reads a string file and returns a DrillString object</span>
-<span class="sd">        with DrillString.parameters based on data in the string </span>
-<span class="sd">        file.</span>
+        <span class="sd">&quot;&quot;&quot;Reads a string file and returns a DrillString object with DrillString.parameters based on data in the string file.</span>
 <span class="sd">        </span>
-<span class="sd">        Arguments:</span>
-<span class="sd">            filename {str} -- Filename of a .str file.</span>
+<span class="sd">        Note</span>
+<span class="sd">        ----</span>
+
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            Filename of a drill string (.str) file.</span>
 <span class="sd">            </span>
-<span class="sd">        Returns:</span>
-<span class="sd">            {DrillSolverSettings} -- DrillString object with </span>
-<span class="sd">                                     parameters from the passed </span>
-<span class="sd">                                     string file.</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        DrillSolverSettings</span>
+<span class="sd">            :class:`DrillSolverSettings` object with parameters from the passed solver settings file.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Read the TO data into a dictionary</span>
         <span class="n">tiem_orbit_data</span> <span class="o">=</span> <span class="n">read_TO_file</span><span class="p">(</span><span class="n">get_full_path</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
@@ -335,22 +353,22 @@
         <span class="c1"># Applies defaults to all ramp parameters</span>
         <span class="k">for</span> <span class="n">array_parameter</span><span class="p">,</span> <span class="n">array</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_PARAMETER_ARRAYS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">array_parameter</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">array_parameter</span><span class="p">]</span> <span class="o">=</span> <span class="n">array</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">array_parameter</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">array_parameter</span><span class="p">]</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">array_parameter</span><span class="p">])</span>
 
     
     <span class="k">def</span> <span class="nf">_get_params_from_TO_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tiem_orbit_data</span><span class="p">):</span> <span class="c1">#pylint: disable=invalid-name</span>
-        <span class="sd">&quot;&quot;&quot;Reads the solver settings parameters out of a </span>
-<span class="sd">        dictoinary of Tiem Orbit data generated by </span>
-<span class="sd">        adripy.utilities.read_TO_file()</span>
+        <span class="sd">&quot;&quot;&quot;Reads the solver settings parameters out of a dictoinary of Tiem Orbit data generated by :meth:`adamspy.adripy.utilities.read_TO_file`.</span>
 <span class="sd">        </span>
-<span class="sd">        Arguments:</span>
-<span class="sd">            tiem_orbit_data {dict} -- Dictionary of Tiem Orbit </span>
-<span class="sd">                                      data</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        tiem_orbit_data : dict</span>
+<span class="sd">            :obj:`dict` of Tiem Orbit data</span>
 <span class="sd">        </span>
-<span class="sd">        Raises:</span>
-<span class="sd">            ValueError -- A solver settings parameter could not </span>
-<span class="sd">                          be found</span>
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            A solver settings parameter could not be found</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ARRAY_PARAMETERS</span><span class="p">:</span>
