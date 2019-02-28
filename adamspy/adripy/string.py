@@ -28,25 +28,10 @@ class DrillString():
         List of tools in the drill string.  Each element of the list is a dictionary with the keys 'DrillTool', 'Name', 'Property_File', 'Measure', 'Color', 'Number_of_Joints', and 'Stack_Order'.
     top_drive : dict
         Describes the top drive.  The keys are 'DrillTool', 'Type', 'Name', and 'Property_File'.
-    SCALAR_PARAMETERS : list
-        A class attribute listing the names of all scalar parameters found in an Adams Drill string file.
-    DEFAULT_PARAMETER_SCALARS : dict
-        A class attribute defining defaults for some of the string parameters.
-    ARRAY_PARAMETERS : list 
-        A class attribute listing the names of all array parameters found in an Adams Drill string file.
-    DEFAULT_PARAMETER_ARRAYS : dict
-        A class attribute defining defaults for some of the string parameters.
-    CDB_TABLE : str
-        A class attribute defining the cdb table to be used for Adams Drill string files (.str)
-    EXT : str
-        A class attribute defining the extension of the Adams Drill string files.
-    MULTI_JOINT_TOOLS : list
-        A class attribute listing all the tool types that need to have `Number_of_Joints` defined in the Adams Drill string file.
-    DRILL_TOOL_PATTERN : SRE_Pattern
-        A :obj:`_sre.SRE_Pattern` object defining the pattern of the Drill Tool block header in the string file.    
+        
     """
 
-    SCALAR_PARAMETERS = [
+    _SCALAR_PARAMETERS = [
         'Units',
         'ModelName',
         'OutputName',
@@ -61,7 +46,7 @@ class DrillString():
         'Hole_Color',
         'Event_Property_File'
     ]
-    DEFAULT_PARAMETER_SCALARS = {
+    _DEFAULT_PARAMETER_SCALARS = {
         'Units': 'Imperial',
         'Gravity': 32.187,
         'Deviation_Deg': 0.0,
@@ -74,21 +59,34 @@ class DrillString():
         'Hole_Color': 'LtGray'
     }
 
-    ARRAY_PARAMETERS = [
+    _ARRAY_PARAMETERS = [
         'Distance_from_Bit'
     ]
 
-    DEFAULT_PARAMETER_ARRAYS = {
+    _DEFAULT_PARAMETER_ARRAYS = {
         'Distance_from_Bit': []
     }
 
-    CDB_TABLE = 'drill_strings.tbl'
-    EXT = 'str'
-    MULTI_JOINT_TOOLS = ['hw_pipe', 'drillpipe', 'equivalent_upper_string']
+    _CDB_TABLE = 'drill_strings.tbl'
+    _EXT = 'str'
+    _MULTI_JOINT_TOOLS = ['hw_pipe', 'drillpipe', 'equivalent_upper_string']
     
-    DRILL_TOOL_PATTERN = re.compile('^DRILL_TOOL_[0-9]{2}$')
+    _DRILL_TOOL_PATTERN = re.compile('^DRILL_TOOL_[0-9]{2}$')
 
     def __init__(self, string_name, hole_file, event_file, **kwargs):
+        """Initializes the :class:`DrillString` object.
+        
+        Parameters
+        ----------
+        string_name : int
+            Name of the string.
+        hole_file : str
+            Filename of a hole file.
+        event_file : str
+            Filename of an event file.
+        
+        """
+
         self.parameters = kwargs
         self.parameters['ModelName'] = string_name
         self.parameters['OutputName'] = string_name
@@ -122,8 +120,8 @@ class DrillString():
             The color used to render the tool in an Adams Drill animation. (default is 'Default')
         """
         # Check that the group_name argument is givn
-        if drill_tool.tool_type.lower() in self.MULTI_JOINT_TOOLS and group_name is None:
-            raise ValueError('group_name is required for tools of type {}.'.format('{}'.format(self.MULTI_JOINT_TOOLS)[1:-1].replace("'",'')))
+        if drill_tool.tool_type.lower() in self._MULTI_JOINT_TOOLS and group_name is None:
+            raise ValueError('group_name is required for tools of type {}.'.format('{}'.format(self._MULTI_JOINT_TOOLS)[1:-1].replace("'",'')))
                 
         if drill_tool.tool_type.lower() != 'top_drive':
             # If the tool added IS NOT a top_drive, check that the tool is not already in the tools list
@@ -149,7 +147,7 @@ class DrillString():
                 tool['Type'] = drill_tool.tool_type
 
             # Set tool['Name'] equal to the group name if this is a multi joint tool
-            if drill_tool.tool_type.lower() in self.MULTI_JOINT_TOOLS:
+            if drill_tool.tool_type.lower() in self._MULTI_JOINT_TOOLS:
                 tool['Name'] = group_name
             else:
                 tool['Name'] = drill_tool.name
@@ -349,10 +347,10 @@ class DrillString():
             else:
                 # If the filename argument is passed, strip the path and the 
                 # extension
-                filename = os.path.split(filename)[-1].replace(f'.{self.EXT}','')
+                filename = os.path.split(filename)[-1].replace(f'.{self._EXT}','')
             
             # Set the filepath to the filename in the given directory
-            filepath = os.path.join(directory, f'{filename}.{self.EXT}')
+            filepath = os.path.join(directory, f'{filename}.{self._EXT}')
 
             # Set cdb to None to ensure that the directory argument overwrites it
             cdb = None
@@ -369,19 +367,19 @@ class DrillString():
             else:
                 # If the filename argument is passed, strip the path and the 
                 # extension
-                filename = os.path.split(filename)[-1].replace(f'.{self.EXT}','')
+                filename = os.path.split(filename)[-1].replace(f'.{self._EXT}','')
             
             # Set the filepath to the file in the cdb
-            filepath = get_full_path(os.path.join(f'<{cdb}>', self.CDB_TABLE, f'{filename}.{self.EXT}'))        
+            filepath = get_full_path(os.path.join(f'<{cdb}>', self._CDB_TABLE, f'{filename}.{self._EXT}'))        
 
         else:
             # If neither directory nor cdb is given, raise an error
             raise ValueError('Ether directory or cdb must be passed.')
                       
         # Define templates
-        string_template_1 = TMPLT_ENV.get_template(f'template_1.{self.EXT}')
-        string_template_2 = TMPLT_ENV.get_template(f'template_2.{self.EXT}')
-        string_template_3 = TMPLT_ENV.get_template(f'template_3.{self.EXT}')
+        string_template_1 = TMPLT_ENV.get_template(f'template_1.{self._EXT}')
+        string_template_2 = TMPLT_ENV.get_template(f'template_2.{self._EXT}')
+        string_template_3 = TMPLT_ENV.get_template(f'template_3.{self._EXT}')
         
         if publish is True:
             # If the string is being published, copy all the tools to the new 
@@ -434,7 +432,7 @@ class DrillString():
             
             # Write the tool blocks
             for tool in self.tools:
-                fid.write(string_template_2.render(tool, Multi_Joint_Tools=self.MULTI_JOINT_TOOLS))
+                fid.write(string_template_2.render(tool, Multi_Joint_Tools=self._MULTI_JOINT_TOOLS))
 
             # Write the top_of_string block
             fid.write(string_template_3.render(self.top_drive))
@@ -477,7 +475,7 @@ class DrillString():
         """
         validation = {'valid': True, 'reason': ''}
         # Check that all parameters exist in the self.parameters dictionary
-        for param_name in self.SCALAR_PARAMETERS:
+        for param_name in self._SCALAR_PARAMETERS:
             if param_name not in self.parameters:
                 validation['valid'] = False
                 validation['reason'] = 'not all string parameters have been defined'
@@ -516,12 +514,12 @@ class DrillString():
         Applies defaults from class variables
         """
         # Applies normal parameter defaults
-        for scalar_parameter, value in self.DEFAULT_PARAMETER_SCALARS.items():
+        for scalar_parameter, value in self._DEFAULT_PARAMETER_SCALARS.items():
             if scalar_parameter not in self.parameters:
                 self.parameters[scalar_parameter] = value
 
         # Applies defaults to all ramp parameters
-        for array_parameter, array in self.DEFAULT_PARAMETER_ARRAYS.items():
+        for array_parameter, array in self._DEFAULT_PARAMETER_ARRAYS.items():
             self.parameters[array_parameter] = {}
             self.parameters[array_parameter] = array
             self.parameters['_' + array_parameter] = zip(*self.parameters[array_parameter])
@@ -541,11 +539,11 @@ class DrillString():
             raise ValueError('Either directory or cdb is required!')
 
         # Get the hole name from the current file
-        hole_name = os.path.split(self.parameters['Hole_Property_File'])[-1].replace('.' + DrillTool.DATABASE_INFO['hole']['extension'], '') + '.' + DrillTool.DATABASE_INFO['hole']['extension']
+        hole_name = os.path.split(self.parameters['Hole_Property_File'])[-1].replace('.' + DrillTool._DATABASE_INFO['hole']['extension'], '') + '.' + DrillTool._DATABASE_INFO['hole']['extension']
 
         # Set the new filename
         if cdb is not None:
-            new_filename = os.path.join(get_cdb_location(cdb), DrillTool.DATABASE_INFO['hole']['table'], hole_name)
+            new_filename = os.path.join(get_cdb_location(cdb), DrillTool._DATABASE_INFO['hole']['table'], hole_name)
         else:
             new_filename = os.path.join(directory, hole_name)
 
@@ -574,11 +572,11 @@ class DrillString():
             raise ValueError('Either directory or cdb is required!')
 
         # Get the event name from the current file
-        event_name = os.path.split(self.parameters['Event_Property_File'])[-1].replace('.' + DrillTool.DATABASE_INFO['event']['extension'], '') + '.' + DrillTool.DATABASE_INFO['event']['extension']
+        event_name = os.path.split(self.parameters['Event_Property_File'])[-1].replace('.' + DrillTool._DATABASE_INFO['event']['extension'], '') + '.' + DrillTool._DATABASE_INFO['event']['extension']
 
         # Set the new filename
         if cdb is not None:
-            new_filename = os.path.join(get_cdb_location(cdb), DrillTool.DATABASE_INFO['event']['table'], event_name)
+            new_filename = os.path.join(get_cdb_location(cdb), DrillTool._DATABASE_INFO['event']['table'], event_name)
         else:
             new_filename = os.path.join(directory, event_name)
 
@@ -597,7 +595,7 @@ class DrillString():
             Dictionary of Tiem Orbit data
         """
         # Add the tools
-        drill_tool_blocks = [block for block in tiem_orbit_data if self.DRILL_TOOL_PATTERN.match(block)]
+        drill_tool_blocks = [block for block in tiem_orbit_data if self._DRILL_TOOL_PATTERN.match(block)]
         for block in drill_tool_blocks:
             # For each drill tool block, create a DrillTool object
             tool = DrillTool(tiem_orbit_data[block]['property_file'])
@@ -635,7 +633,7 @@ class DrillString():
         ValueError
             A string parameter could not be found
         """
-        for param in self.SCALAR_PARAMETERS + self.ARRAY_PARAMETERS:
+        for param in self._SCALAR_PARAMETERS + self._ARRAY_PARAMETERS:
             # For each string parameter initialize a found flag
             found = False
         

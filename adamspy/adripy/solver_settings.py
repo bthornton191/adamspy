@@ -29,22 +29,10 @@ class DrillSolverSettings():
         Dictionary of parameters that make up an Adams Drill solver settings and would be found in an Adams Drill solver settings file (.ssf).  The keys of the dictionary are the parameter names that would be seen in the string file and the values of the dictionary are the values that would be seen in the string file.
     filename : str
         Name of the solver settings file (.ssf) in which these solver settings are stored.  This attribute is initially empty and is populated by the `write_to_file()` method.
-    SCALAR_PARAMETERS : list
-        A class attribute listing the names of all scalar parameters found in an Adams Drill solver settings file.
-    DEFAULT_PARAMETER_SCALARS : dict
-        A class attribute defining defaults for some of the string parameters.
-    ARRAY_PARAMETERS : list 
-        A class attribute listing the names of all array parameters found in an Adams Drill solver settings file.
-    DEFAULT_PARAMETER_ARRAYS : dict
-        A class attribute defining defaults for some of the string parameters.
-    CDB_TABLE : str
-        A class attribute defining the cdb table to be used for Adams Drill solver settings files (.ssf)
-    EXT : str
-        A class attribute defining the extension of the Adams Drill string files.
     """
     
 
-    SCALAR_PARAMETERS = [
+    _SCALAR_PARAMETERS = [
         'Integrator',
         'Formulation',
         'Corrector',
@@ -53,7 +41,7 @@ class DrillSolverSettings():
         'Alpha',
         'Thread_Count'
     ]
-    DEFAULT_PARAMETER_SCALARS = {
+    _DEFAULT_PARAMETER_SCALARS = {
         'Integrator': 'HHT',
         'Formulation': 'I3',
         'Corrector': 'Modified',
@@ -63,11 +51,11 @@ class DrillSolverSettings():
         'Thread_Count': 4
     }
 
-    ARRAY_PARAMETERS = [
+    _ARRAY_PARAMETERS = [
         'Funnel'
     ]
 
-    DEFAULT_PARAMETER_ARRAYS = {
+    _DEFAULT_PARAMETER_ARRAYS = {
         'Funnel': [
             [500, 500, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 100],
             [0.1, 5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
@@ -78,10 +66,19 @@ class DrillSolverSettings():
         ]
     }
 
-    CDB_TABLE = 'solver_settings.tbl'
-    EXT = 'ssf'
+    _CDB_TABLE = 'solver_settings.tbl'
+    _EXT = 'ssf'
     
     def __init__(self, name, **kwargs):
+        """Initializes the :class:`DrillSolverSettings` object.
+        
+        Parameters
+        ----------
+        name : str
+            Name of the solver settings.
+        
+        """
+
         self.name = name
         self.parameters = kwargs
         
@@ -115,29 +112,29 @@ class DrillSolverSettings():
         if directory is not None:
             # If the write_directory argument is passed, strip the filename of
             # it's path and extension
-            filename = os.path.split(filename)[-1].replace(f'.{self.EXT}','')
+            filename = os.path.split(filename)[-1].replace(f'.{self._EXT}','')
             
             # Set the filepath to the filename in the given directory
-            filepath = os.path.join(directory, filename + f'.{self.EXT}')
+            filepath = os.path.join(directory, filename + f'.{self._EXT}')
 
         elif cdb is not None:
             # If the write_directory argument is not passed, but the cdb
             # argument is, strip the filename of it's path and extension
-            filename = os.path.split(filename)[-1].replace(f'.{self.EXT}','')
+            filename = os.path.split(filename)[-1].replace(f'.{self._EXT}','')
             
             # Set the filepath to the file in the cdb
-            filepath = get_full_path(os.path.join(cdb, self.CDB_TABLE, filename + f'.{self.EXT}'))
+            filepath = get_full_path(os.path.join(cdb, self._CDB_TABLE, filename + f'.{self._EXT}'))
 
         elif filename is not None:
             # If Nothing but a filename is given, set that as the full path
-            filepath = os.path.normpath(filename.replace(f'.{self.EXT}',''))            
+            filepath = os.path.normpath(filename.replace(f'.{self._EXT}',''))            
 
         else:
             # If nothing is given, raise an error
             raise ValueError('One of the following must key work arguments must be defined: write_directory, filename, cdb')
                       
         # Get the jinja2 template for a solver settings file
-        ssf_template = TMPLT_ENV.get_template(f'template.{self.EXT}')
+        ssf_template = TMPLT_ENV.get_template(f'template.{self._EXT}')
 
         # Write the solver settings file
         with open(filepath, 'w') as fid:
@@ -161,11 +158,11 @@ class DrillSolverSettings():
         """
         validated = True        
         # Check that all parameters exist in the self.parameters dictionary
-        for param_name in self.SCALAR_PARAMETERS:
+        for param_name in self._SCALAR_PARAMETERS:
             if param_name not in self.parameters:
                 validated = False        
         
-        for param_name in self.ARRAY_PARAMETERS:
+        for param_name in self._ARRAY_PARAMETERS:
             if not self.parameters[param_name]:
                 validated = False
             
@@ -201,12 +198,12 @@ class DrillSolverSettings():
         Applies defaults from class variables
         """
         # Applies normal parameter defaults
-        for scalar_parameter, value in self.DEFAULT_PARAMETER_SCALARS.items():
+        for scalar_parameter, value in self._DEFAULT_PARAMETER_SCALARS.items():
             if scalar_parameter not in self.parameters:
                 self.parameters[scalar_parameter] = value
 
         # Applies defaults to all ramp parameters
-        for array_parameter, array in self.DEFAULT_PARAMETER_ARRAYS.items():
+        for array_parameter, array in self._DEFAULT_PARAMETER_ARRAYS.items():
             self.parameters[array_parameter] = {}
             self.parameters[array_parameter] = list(array)
             self.parameters['_' + array_parameter] = zip(*self.parameters[array_parameter])
@@ -226,7 +223,7 @@ class DrillSolverSettings():
             A solver settings parameter could not be found
         """
 
-        for param in self.ARRAY_PARAMETERS:
+        for param in self._ARRAY_PARAMETERS:
             # For each string parameter initialize a found flag
             found = False
             
@@ -240,7 +237,7 @@ class DrillSolverSettings():
             if not found:
                 raise ValueError(f'{param} not found!')
 
-        for param in self.SCALAR_PARAMETERS:
+        for param in self._SCALAR_PARAMETERS:
             # For each string parameter initialize a found flag
             found = False
 
