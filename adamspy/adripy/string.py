@@ -318,7 +318,7 @@ class DrillString():
         
         Parameters
         ----------
-        write_directory : str
+        directory : str
             Directory in which to write the file. (default is None which means the string will be written to the cdb given in `cdb`.)
         cdb : str
             Name of the cdb in which to write the file.  This argument is overridden by `directory`. (default is None which means the string will be written to the directory in `directory` and will use the filename in `filename`.)  

@@ -26,6 +26,8 @@ adamspy/adripy/templates/template_build.cmd
 test/test_adripy_utilities.py
 test/test_build.py
 test/test_drill_event.py
+test/test_drill_solver_settings.py
 test/test_drill_string.py
+test/test_drill_tool.py
 test/test_drillsim.py
 test/test_tiem_orbit.py
