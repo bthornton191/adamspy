@@ -109,7 +109,34 @@ class Test_AdripyFunctions(unittest.TestCase):
         actual_value = adripy.get_TO_param(TEST_SOLVER_SETTINGS_FILE, 'Thread_Count')
 
         self.assertEqual(actual_value, expected_value)
-
+    
+    def test_isabs_cdb(self):
+        """Tests that :meth:`adripy.isabs` returns True when a cdb path is passed.
+        """
+        test_path = os.path.join(f'<{EXISTING_CDB_NAME}>', 'drill_string.tbl', 'fake_filename.str')
+        path_is_abs = adripy.isabs(test_path)
+        self.assertTrue(path_is_abs)
+    
+    def test_isabs_abs(self):
+        """Tests that :meth:`adripy.isabs` returns True when an absolute path is passed.
+        """
+        test_path = os.path.join('c:\\', 'fake_cdb.cdb', 'drill_string.tbl', 'fake_filename.str')
+        path_is_abs = adripy.isabs(test_path)
+        self.assertTrue(path_is_abs)
+    
+    def test_isabs_rel(self):
+        """Tests that :meth:`adripy.isabs` returns True when just a filename is passed.
+        """
+        test_path = os.path.join('fake_filename.str')
+        path_is_abs = adripy.isabs(test_path)
+        self.assertFalse(path_is_abs)
+    
+    def test_isabs_rel_dir(self):
+        """Tests that :meth:`adripy.isabs` returns True when a relative path starting from a parent directory is passed.
+        """
+        test_path = os.path.join('fake_dir', 'fake_filename.str')
+        path_is_abs = adripy.isabs(test_path)
+        self.assertFalse(path_is_abs)
         
     def tearDown(self):
         os.remove(TEST_CONFIG_FILENAME)
