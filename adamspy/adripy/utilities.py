@@ -991,14 +991,12 @@ def read_TO_file(filename):
     ------
     TiemOrbitSyntaxError
         Raised if the Tiem Orbit syntax is not recognized
-    """
-    filename = get_full_path(os.path.normpath(filename))
-    
-    if not os.path.exists(filename):
+    """    
+    if not os.path.exists(get_full_path(os.path.normpath(filename))):
         raise FileNotFoundError(f'{filename} does not exist!')
     
     # Read in the TO file
-    with open(filename, 'r') as fid:
+    with open(get_full_path(filename), 'r') as fid:
         lines = fid.readlines()    
 
     current_block = None
@@ -1006,6 +1004,7 @@ def read_TO_file(filename):
     current_table_headers = []
     current_table_data = {}
     parameters = {}
+
     for line in lines:
         # For each line determine if we are at a new Block, new SubBlock, or Table
         
