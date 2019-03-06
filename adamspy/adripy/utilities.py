@@ -652,13 +652,13 @@ def get_string_length(string_file):
                         raise cdbError('ADrill Database {} not defined.'.format(cdb_name))
                 fid_tool = open(tool_file, 'r')
                 file_type = ''
-                for line in fid_tool:
-                    if file_type and 'top_drive' not in file_type.lower() and line.replace(' ', '').split('=')[0] in TO_LENGTH_PARAM[file_type] and not line.startswith('$'):
-                        tool_length = float(line.replace(' ', '').split('=')[1])
+                for tool_line in fid_tool:
+                    if file_type and 'top_drive' not in file_type.lower() and tool_line.replace(' ', '').split('=')[0] in TO_LENGTH_PARAM[file_type.lower()] and not tool_line.startswith('$'):
+                        tool_length = float(tool_line.replace(' ', '').split('=')[1])
                         tool_lengths.append(tool_length)
                         break
-                    elif ' file_type' in line.lower() and not line.startswith('$'):
-                        file_type = line.replace(' ', '').replace("'",'').replace('\n','').split('=')[1]
+                    elif ' file_type' in tool_line.lower() and not tool_line.startswith('$'):
+                        file_type = tool_line.replace(' ', '').replace("'",'').replace('\n','').split('=')[1]
                 fid_tool.close()
             if ' number_of_joints' in line.lower():
                 n = int(line.replace(' ','').split('=')[1])
