@@ -1,0 +1,6 @@
+thorpy
+numpy
+pandas
+Jinja2
+dripy
+scipy
