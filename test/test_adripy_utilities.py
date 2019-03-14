@@ -1,5 +1,7 @@
 import unittest
 import os
+import shutil
+import difflib
 from test import *
 
 # Set the ADRILL_USER_CFG and ADRILL_SHARED_CFG environment variables
@@ -141,6 +143,46 @@ class Test_AdripyFunctions(unittest.TestCase):
     def tearDown(self):
         os.remove(TEST_CONFIG_FILENAME)
         os.environ['ADRILL_USER_CFG'] = os.path.join(os.environ['USERPROFILE'], '.adrill.cfg')
+
+class Test_AddSplines(unittest.TestCase):
+
+    def setUp(self):
+        return
+
+    def test_add_splines_to_adm(self):
+        shutil.copyfile(TEST_ADM_FILE, TEST_ADM_FILENAME_WITH_SPLINES)
+        adripy.add_splines_to_adm(TEST_ADM_FILENAME_WITH_SPLINES, TEST_SPLINES_TO_ADD)
+        file_diff = compare_files(TEST_ADM_FILE, TEST_ADM_FILENAME_WITH_SPLINES)
+        self.assertEqual(file_diff, TEST_EXPECTED_ADM_FILE_DIFF)
+
+    def test_add_splines_to_acf(self):
+        shutil.copyfile(TEST_ACF_FILE, TEST_ACF_FILENAME_WITH_SPLINES)
+        adripy.add_splines_to_acf(TEST_ACF_FILENAME_WITH_SPLINES)
+        file_diff = compare_files(TEST_ACF_FILE, TEST_ACF_FILENAME_WITH_SPLINES)
+        self.assertEqual(file_diff, TEST_EXPECTED_ACF_FILE_DIFF)
+
+    def tearDown(self):
+        # Remove the new adm file that has splines
+        if os.path.exists(TEST_ADM_FILENAME_WITH_SPLINES):
+            os.remove(TEST_ADM_FILENAME_WITH_SPLINES)
+
+        # Remove the new acf file that has splines
+        if os.path.exists(TEST_ACF_FILENAME_WITH_SPLINES):
+            os.remove(TEST_ACF_FILENAME_WITH_SPLINES)
+
+def compare_files(file_1, file_2):
+    text_1 = open(file_1).readlines()
+    text_2 = open(file_2).readlines()
+
+    file_diff = ''
+    # Remove + from beginning of lines
+    for line in difflib.unified_diff(text_1, text_2, n=0):
+        if line.startswith('+') and not line.startswith('+++'):
+            file_diff += line[1:]
+    
+    return file_diff
+
+    
 
 if __name__ == '__main__':
     unittest.main()

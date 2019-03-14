@@ -1,0 +1,69 @@
+
+file/model=test_analysis_1
+!
+! Integrator Settings:
+INTEGRATOR/ &
+, HHT &
+, ERROR = 1.0E-05
+!
+! Command String Speed:
+! Note: Factors of PI/30 used to convert from RPM 
+! commands to internal modeling units of rad/sec
+VARIABLE/9105 &
+, FUNCTION=STEP(TIME,15.0,0.0,15.0+15.0,60.0*PI/30)
+!
+! Motor GPM:
+VARIABLE/1102 &
+, FUNCTION=VARVAL(11021) * &
+, (STEP(TIME,0.0,0.0,0.0+15.0,500.0))
+!
+! Command WOB:
+! Note: Unit of weight is lbf 
+VARIABLE/9106 &
+, FUNCTION=STEP(TIME,30.0,0,30.0+15.0,50.0)
+!
+! Command ROP:
+! Note: Factors of 1/3600 used to convert from ft/hr 
+! commands to internal modeling units of ft/sec
+VARIABLE/9104 &
+, FUNCTION=STEP(TIME,30.0,0,30.0+15.0,100.0/3600)
+!
+!
+equil/maxit=500, stab=0.1, error=0.1, imbal=0.1, tlim=1.0, alim=2.0D
+sim/stat
+equil/maxit=500, stab=5.0, error=1.0, imbal=1.0, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=51, stab=0.5, error=0.3, imbal=0.3, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=52, stab=0.5, error=0.3, imbal=0.2, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=53, stab=0.5, error=0.2, imbal=0.2, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=54, stab=0.5, error=0.2, imbal=0.1, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=55, stab=0.5, error=0.1, imbal=0.1, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=56, stab=0.5, error=0.1, imbal=5.0E-02, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=57, stab=0.5, error=5.0E-02, imbal=5.0E-02, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=58, stab=0.5, error=5.0E-02, imbal=1.0E-02, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=59, stab=0.5, error=1.0E-02, imbal=1.0E-02, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=60, stab=0.5, error=1.0E-02, imbal=5.0E-03, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=61, stab=0.5, error=5.0E-03, imbal=5.0E-03, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=62, stab=0.5, error=5.0E-03, imbal=1.0E-03, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=63, stab=0.5, error=5.0E-03, imbal=5.0E-04, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=100, stab=0.5, error=5.0E-03, imbal=5.0E-03, tlim=0.5, alim=1.0D
+sim/stat
+!
+sim/dyn, end=10.0, dtout=5.0E-02
+sim/dyn, end=100.0, dtout=5.0E-02
+!
+
+stop

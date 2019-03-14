@@ -68,6 +68,19 @@ class Test_DrillSim(unittest.TestCase):
         drill_sim.build()
         evt_file = os.path.join(TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME + '.evt')
         failures = check_file_contents(evt_file, EXPECTED_DRILLSIM_EVENT_FILE_TEXT)
+        self.assertListEqual(failures, [])
+
+    def test_build_adm_contents(self):
+        """Tests that the event file created in the DrillSim directory has the correct contents.        
+        
+        """
+        drill_sim = DrillSim(self.drill_string, self.event, self.solver_settings, TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME)        
+        pason_data = dripy.PasonData(TEST_PASON_DATA)
+        drill_sim.get_pason_inputs(pason_data, show_plots=False)
+        drill_sim.build()
+        adm_file = os.path.join(TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME + '.adm')
+        failures = check_file_contents(adm_file, EXPECTED_DRILLSIM_ADM_FILE_TEXT)
+        self.assertListEqual(failures, [])
 
     def test_write_tiem_orbit_files_event_filename(self):
         """Tests that DrillSim.event has the correct event filename 

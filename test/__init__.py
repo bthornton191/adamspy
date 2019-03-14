@@ -121,6 +121,53 @@ TEST_EXPECTED_CLEANED_GPM = [775.3327365045429, 775.3327365045429, 775.332736504
 TEST_EXPECTED_CLEANED_WOB = [58.736188968630344, 58.70212581252066, 58.66982295651355, 58.64386364566833, 58.62615942128198, 58.61539260972009, 58.608106536393144, 58.601407783211805, 58.59572175695047, 58.595395233734656]
 TEST_EXPECTED_CLEANED_ROP = [85.31195257697232, 84.72910983931986, 84.10590633094469, 83.42023583924377, 82.6482627368351, 81.7764528963229, 80.81070725651136, 79.77935457592197, 78.72849366658764, 77.71094436308452]
 
+TEST_SPLINES_TO_ADD = {
+    'gpm': [[0, 78.125, 250.0, 421.875, 500, 500, 500, 500, 500, 500, 500], [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0]],
+    'rpm': [[0, 0, 0, 0, 12, 37, 50, 50, 50, 50, 50], [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0]],
+    'wob': [[0, 0, 0, 0, 0, 0, 0, 10, 29, 40, 40], [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0]],
+    'rop': [[0, 0, 0, 0, 0, 0, 0, 25, 74, 100, 100], [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0]]
+}
+
+TEST_ADM_FILE = os.path.join(os.getcwd(), 'test', 'files', 'test.adm')
+TEST_ADM_FILENAME_WITH_SPLINES = TEST_ADM_FILE.replace('.adm','') + '_with_splines.adm'
+
+TEST_ACF_FILE = os.path.join(os.getcwd(), 'test', 'files', 'test.acf')
+TEST_ACF_FILENAME_WITH_SPLINES = TEST_ADM_FILE.replace('.acf','') + '_with_splines.acf'
+
+TEST_EXPECTED_ADM_FILE_DIFF = '''!----------------------------------- SPLINES ------------------------------------
+!
+!                          adams_view_name='ROP_Spline'
+SPLINE/10000
+, LINEAR_EXTRAPOLATE
+, X=0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0
+, Y=0.00,0.00,0.00,0.00,0.00,0.00,0.00,25.00,74.00,100.00,100.00
+!
+!                          adams_view_name='WOB_Spline'
+SPLINE/10001
+, LINEAR_EXTRAPOLATE
+, X=0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0
+, Y=0.00,0.00,0.00,0.00,0.00,0.00,0.00,10.00,29.00,40.00,40.00
+!
+!                          adams_view_name='RPM_Spline'
+SPLINE/10002
+, LINEAR_EXTRAPOLATE
+, X=0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0
+, Y=0.00,0.00,0.00,0.00,12.00,37.00,50.00,50.00,50.00,50.00,50.00
+!
+!                          adams_view_name='GPM_Spline'
+SPLINE/10003
+, LINEAR_EXTRAPOLATE
+, X=0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0
+, Y=0.00,78.12,250.00,421.88,500.00,500.00,500.00,500.00,500.00,500.00,500.00
+!
+'''
+
+TEST_EXPECTED_ACF_FILE_DIFF = ''', FUNCTION = STEP(TIME, 0,0,1,1)*(AKISPL(TIME,0,10002, 0))*(PI/30)
+, FUNCTION = STEP(TIME, 0,0,1,1)*VARVAL(11021)*ABS(AKISPL(TIME,0,10003, 0))
+, FUNCTION = STEP(TIME, 0,0,1,1)*(AKISPL(TIME,0,10001, 0))*1000
+, FUNCTION = STEP(TIME, 0,0,1,1)*(AKISPL(TIME,0,10000, 0))/3600
+'''
+
 TEST_ORIG_CONFIG_FILE_TEXT = f'''!----------------------------------------------------------------------!
 ! ************  Adams Drill Private Configuration File  ************
 !----------------------------------------------------------------------!
@@ -328,6 +375,9 @@ $ of the physically modeled string. (Equivalent Upper String not allowed.)
  Start_Distance  =  2.0
  End_Distance  =  100.0
 """
+
+EXPECTED_DRILLSIM_ADM_FILE_TEXT = '''
+'''
 
 EXPECTED_DRILLSIM_EVENT_FILE_TEXT = f"""$ ==================================================================
 $ This is the Adams Drill Event file which contains
