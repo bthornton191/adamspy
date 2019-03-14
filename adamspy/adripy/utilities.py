@@ -1122,6 +1122,111 @@ def isabs(filename):
         is_abs = False
     
     return is_abs
+            
+def add_splines_to_adm(adm_file, splines):
+    """Adds splines inputs to an Adams Drill dataset (.adm) file.
+    
+    Adds a block titled SPLINES above the OUTPUT block of the ADM file.  The SPLINES block contains a SPLINE statement for each of the four drilling parameters.
+
+    Example
+    -------
+    >>> time = [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0]
+    >>> gpm = [0, 78.125, 250.0, 421.875, 500, 500, 500, 500, 500, 500, 500]
+    >>> rpm = [0, 0, 0, 0, 12, 37, 50, 50, 50, 50, 50]
+    >>> wob = [0, 0, 0, 0, 0, 0, 0, 10, 29, 40, 40]
+    >>> rop = [0, 0, 0, 0, 0, 0, 0, 25, 74, 100, 100]
+    >>> splines = {}
+    >>> splines['gpm'] = [time, gpm]
+    >>> splines['rpm'] = [time, rpm]
+    >>> splines['wob'] = [time, wob]
+    >>> splines['rop'] = [time, rop]
+    >>> adm_file = 'demo.adm'
+    >>> add_splines_to_adm(adm_file, splines)    
+
+    Parameters
+    ----------
+    adm_file : str
+        Filename of Adams Drill dataset (.adm) file
+    splines : dict
+        Dictionary containing the spline data for the four drilling parameters.  See Example for dictionary makeup.
+    
+    """
+    code_block = {}
+    input_params = ['ROP','WOB','RPM','GPM']
+    for i, param in enumerate(input_params):
+        code_block[param] = "!\n"
+        code_block[param] += "!                          adams_view_name='{}_Spline'\n".format(param)
+        code_block[param] += "SPLINE/1000{}\n".format(i)
+        code_block[param] += ", LINEAR_EXTRAPOLATE\n"
+        code_block[param] += ", X={}\n".format(str(splines[param.lower()][1]).replace('[','').replace(']',''))
+        
+        val_string = ''
+        for val in splines[param.lower()][0]:
+            val_string += '{:1.2f},'.format(val)
+        val_string = val_string[:-1]
+        code_block[param] += ", Y={}\n".format(val_string)
+        
+    
+    with open(adm_file, 'r') as fid, open(adm_file.replace('.adm','.tmp'),'w') as fid_new:
+        insert_splines_here = False
+        for line in fid:
+            if insert_splines_here:
+                fid_new.write('!----------------------------------- SPLINES ------------------------------------\n')
+                for param in code_block:
+                    fid_new.write(code_block[param])
+                fid_new.write("!\n")
+                fid_new.write("!----------------------------------- OUTPUT ------------------------------------\n")
+                fid_new.write("!\n")
+                insert_splines_here = False
+            elif '!----------------------------------- OUTPUT ------------------------------------' in line:
+                insert_splines_here = True
+            else:
+                fid_new.write(line)        
+    os.remove(adm_file)
+    os.rename(adm_file.replace('.adm','.tmp'), adm_file)
+
+def add_splines_to_acf(acf_file):   
+
+    # go through original acf and create a new acf
+    with open(acf_file,'r') as fid, open(acf_file.replace('.acf','.tmp'),'w') as fid_new:
+        
+        modify = False
+        skip = False
+        variable_id = 0
+
+        for line in fid:
+            # For each line in the original acf file
+
+            if modify:
+                # If this is a line defining a drilling parameter
+                if variable_id == 1102:
+                    new_line = ', FUNCTION = STEP(TIME, 0,0,1,1)*VARVAL(11021)*ABS(AKISPL(TIME,0,10003, 0))\n'
+                    skip = True
+                elif variable_id == 9104:
+                    new_line = ', FUNCTION = STEP(TIME, 0,0,1,1)*(AKISPL(TIME,0,10000, 0))/3600\n'
+                elif variable_id == 9105:
+                    new_line = ', FUNCTION = STEP(TIME, 0,0,1,1)*(AKISPL(TIME,0,10002, 0))*(PI/30)\n'
+                elif variable_id == 9106:
+                    new_line = ', FUNCTION = STEP(TIME, 0,0,1,1)*(AKISPL(TIME,0,10001, 0))*1000\n'
+                fid_new.write(new_line)
+                modify = False
+            
+            elif skip:
+                # If this is a line that should be skipped
+                skip = False
+                if line.startswith('!'):
+                    fid_new.write(line)                        
+            
+            else:
+                # If this is a normal line
+                fid_new.write(line)
+                if 'VARIABLE' in line:
+                    variable_id = int(line.split('/')[1].replace('&','').replace(' ',''))
+                    modify = True
+    
+    # Replace original acf file
+    os.remove(acf_file)
+    os.rename(acf_file.replace('.acf','.tmp'), acf_file)
 
 class TiemOrbitSyntaxError(Exception):
     pass

@@ -5,7 +5,7 @@ import subprocess
 from thornpy.signal import step_function, low_pass
 from numpy import linspace, argmax, array
 from ..postprocess.xml import get_results
-from .utilities import build
+from .utilities import build, add_splines_to_acf, add_splines_to_adm
 
 class DrillSim(): #pylint: disable=too-many-instance-attributes
     """Contains data defining the files that make up an Adams Drill input deck.
@@ -112,7 +112,6 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
             t_min = pason_data.time[0]
         if t_max is None:
             t_max = pason_data.time[-1]
-
 
         # loop through the requested signal types
         for sig_type in sig_types:
@@ -382,11 +381,11 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         """Adds splines to the adm file
         
         """
-        return
-    
+        add_splines_to_adm(self.adm_filename, self.pason_inputs)
+            
     def _add_acf_splines(self):
         """Adds splines to the acf file
         
         """
-        return
+        add_splines_to_acf(self.acf_filename)
     
