@@ -7,6 +7,7 @@ Subpackages
 .. toctree::
 
     adamspy.adripy
+    adamspy.postprocess
 
 Submodules
 ----------
