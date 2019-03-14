@@ -10,3 +10,10 @@ adamspy/MANIFEST.in
 adamspy/README.md
 adamspy/build/
 adamspy/dist/
+
+/env
+demo_tune.py
+test/files/aview.loq
+test/files/aview.log
+test/files/SW_TEST_20181207_1_out.res
+.vscode/launch.json
