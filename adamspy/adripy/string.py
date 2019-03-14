@@ -1,13 +1,11 @@
 """A module that contains the :class:`DrillString` class
 """
-
 import os
 import shutil
 import re
 from . import TMPLT_ENV
 from .tool import DrillTool
 from .utilities import read_TO_file, get_cdb_location, get_cdb_path, get_full_path, TO_LENGTH_PARAM, isabs
-
 
 class DrillString():
     """

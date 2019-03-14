@@ -10,3 +10,19 @@ adamspy/MANIFEST.in
 adamspy/README.md
 adamspy/build/
 adamspy/dist/
+
+# vs code folder
+/.vscode
+/.vscode/*
+/.vscode/**
+
+# Virtual Environment
+/env
+
+# Test files
+/test/files/aview.*
+/test/files/*.res
+
+demo_tune.py
+.vscode/.ropeproject/objectdb
+/test/files/Adams View.lnk

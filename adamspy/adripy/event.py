@@ -89,13 +89,13 @@ class DrillEvent():
     ]
 
     _DEFAULT_PARAMETER_ARRAYS = {
-        'TOP_DRIVE': [[],[],[]],
-        'MOTOR': [[0], [1], [1]],
-        'PUMP_FLOW': [[],[],[]],
-        'WOB': [[],[],[]],
-        'ROP': [[],[],[]],
-        'NPERREV': [[0],[1]],
-        'DYNAMICS': [[], []]
+        'TOP_DRIVE': ((),(),()),
+        'MOTOR': ((0,), (1,), (1,)),
+        'PUMP_FLOW': ((),(),()),
+        'WOB': ((),(),()),
+        'ROP': ((),(),()),
+        'NPERREV': ((0,),(1,)),
+        'DYNAMICS': ((), ())
     }
 
     _CDB_TABLE = 'events.tbl'
@@ -275,8 +275,7 @@ class DrillEvent():
 
         # Applies defaults to all ramp parameters
         for array_parameter, array in self._DEFAULT_PARAMETER_ARRAYS.items():
-            # self.parameters[array_parameter] = {}
-            self.parameters[array_parameter] = array.copy()
+            self.parameters[array_parameter] = [list(tup) for tup in array]
             self.parameters['_' + array_parameter] = zip(*self.parameters[array_parameter])
     
     def _get_params_from_TO_data(self, tiem_orbit_data):
