@@ -323,9 +323,9 @@ class DrillString():
         cdb : str
             Name of the cdb in which to write the file.  This argument is overridden by `directory`. (default is None which means the string will be written to the directory in `directory` and will use the filename in `filename`.)  
         publish : bool
-            If true, writes all the supporting files to the same cdb. (default is False.)
+            If True, writes all the supporting files except the event file to the same cdb or directory. (default is False.)
         publish_event : bool
-
+            If True, writes the event file to the same cdb or directory. (default is False.)
         
         Raises
         ------
