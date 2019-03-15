@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="adamspy",
-    version="0.7.23",
+    version="0.7.24",
     author="Ben Thornton",
     author_email="ben.thornton@mscsoftware.com",
     description="Python tools for working with Adams data",
@@ -19,5 +19,5 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: Microsoft :: Windows",
     ],
-    install_requires = ['thorpy', 'numpy', 'pandas', 'Jinja2', 'dripy', 'scipy']
+    install_requires = ['thornpy', 'numpy', 'pandas', 'Jinja2', 'dripy', 'scipy']
 )
