@@ -18,6 +18,11 @@ class Test_TOParameterPattern(unittest.TestCase):
         line_text = ' Event_Property_File  =  \'c:\\Users\\bthornt\\GUI\\adamspy\\test\example_working_directory\\test_analysis_1.evt\''
         match = adripy.TO_PARAMETER_PATTERN.match(line_text)
         self.assertTrue(bool(match))
+
+    def test_string_file_unc_hole_property_file(self):
+        line_text = ' Hole_Property_File  =  \'//us/corpdir/LCO/OpenInternal/Adams/PXD_Shared.cdb/holes.tbl/0_Baselines/Wolfcamp B/4-String/Hole_WCB3_4S_Int1_02.hol\''
+        match = adripy.TO_PARAMETER_PATTERN.match(line_text)
+        self.assertTrue(bool(match))
     
     def test_string_file_units(self):
         line_text = ' Units  =  \'Imperial\''
