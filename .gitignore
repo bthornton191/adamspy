@@ -1,28 +1,6 @@
-adamspy/dist/
-adamspy/adamspy.egg-info/PKG-INFO
-adamspy/adamspy.egg-info/SOURCES.txt
-adamspy/adamspy.egg-info/dependency_links.txt
-adamspy/adamspy.egg-info/top_level.txt
-adamspy/.vscode/
-__pycache__/
-adamspy/LICENSE
-adamspy/MANIFEST.in
-adamspy/README.md
-adamspy/build/
-adamspy/dist/
-
-# vs code folder
-/.vscode
-/.vscode/*
-/.vscode/**
-
-# Virtual Environment
 /env
-
-# Test files
-/test/files/aview.*
-/test/files/*.res
-
-demo_tune.py
-.vscode/.ropeproject/objectdb
-/test/files/Adams View.lnk
+**/__pycache__
+/.vscode
+*.res
+*aview.lo?
+/demo*.py
