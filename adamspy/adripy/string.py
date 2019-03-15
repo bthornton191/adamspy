@@ -6,6 +6,7 @@ import re
 from . import TMPLT_ENV
 from .tool import DrillTool
 from .utilities import read_TO_file, get_cdb_location, get_cdb_path, get_full_path, TO_LENGTH_PARAM, isabs
+from .constants import DATABASE_INFO
 
 class DrillString():
     """
@@ -540,11 +541,11 @@ class DrillString():
             raise ValueError('Either directory or cdb is required!')
 
         # Get the hole name from the current file
-        hole_name = os.path.split(self.parameters['Hole_Property_File'])[-1].replace('.' + DrillTool._DATABASE_INFO['hole']['extension'], '') + '.' + DrillTool._DATABASE_INFO['hole']['extension']
+        hole_name = os.path.split(self.parameters['Hole_Property_File'])[-1].replace('.' + DATABASE_INFO['hole']['extension'], '') + '.' + DATABASE_INFO['hole']['extension']
 
         # Set the new filename
         if cdb is not None:
-            new_filename = os.path.join(get_cdb_location(cdb), DrillTool._DATABASE_INFO['hole']['table'], hole_name)
+            new_filename = os.path.join(get_cdb_location(cdb), DATABASE_INFO['hole']['table'], hole_name)
         else:
             new_filename = os.path.join(directory, hole_name)
 
@@ -573,11 +574,11 @@ class DrillString():
             raise ValueError('Either directory or cdb is required!')
 
         # Get the event name from the current file
-        event_name = os.path.split(self.parameters['Event_Property_File'])[-1].replace('.' + DrillTool._DATABASE_INFO['event']['extension'], '') + '.' + DrillTool._DATABASE_INFO['event']['extension']
+        event_name = os.path.split(self.parameters['Event_Property_File'])[-1].replace('.' + DATABASE_INFO['event']['extension'], '') + '.' + DATABASE_INFO['event']['extension']
 
         # Set the new filename
         if cdb is not None:
-            new_filename = os.path.join(get_cdb_location(cdb), DrillTool._DATABASE_INFO['event']['table'], event_name)
+            new_filename = os.path.join(get_cdb_location(cdb), DATABASE_INFO['event']['table'], event_name)
         else:
             new_filename = os.path.join(directory, event_name)
 

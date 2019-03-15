@@ -1026,7 +1026,7 @@ def read_TO_file(filename):
                     parameters[current_block][header.lower()] = []
         
         elif TO_PARAMETER_PATTERN.match(line):            
-            [parameter, value] = re.sub('[\\s\\n]','',line).split('=')
+            [parameter, value] = re.split('\\s*=\\s*', line.strip())
 
             # Format the value 
             if "'" in value:

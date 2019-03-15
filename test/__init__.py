@@ -1,7 +1,7 @@
 import os
 import glob
 
-from adamspy.adripy import tool as _dt
+from adamspy.adripy.constants import DATABASE_INFO
 
 # Set the ADRILL_USER_CFG and ADRILL_SHARED_CFG environment variables
 os.environ['ADRILL_USER_CFG'] = os.path.join('C:\\', 'Users', 'bthornt', '.adrill.cfg')
@@ -33,6 +33,9 @@ TEST_SOLVER_SETTINGS_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'solver_sett
 TEST_EXISTING_STRING_NAME = 'test_string'
 TEST_EXISTING_STRING_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str')
 
+TEST_EXISTING_STRING_NAME_WITH_SPACES_IN_HOLE_REF = 'test_string_with_spaces_in_hole_ref'
+TEST_EXISTING_STRING_FILE_WITH_SPACES_IN_HOLE_REF = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME_WITH_SPACES_IN_HOLE_REF + '.str')
+
 TEST_EXISTING_STRING_NAME_COLLAR = 'test_string_collar'
 TEST_EXISTING_STRING_FILE_COLLAR = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME_COLLAR + '.str')
 
@@ -41,6 +44,7 @@ TEST_EXISTING_STRING_NAME_NO_DFB = 'test_string_no_dfb'
 TEST_STRING_NAME = 'test_string_1'
 TEST_HOLE_NAME = 'test_hole'
 TEST_HOLE_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'holes.tbl', TEST_HOLE_NAME + '.hol')
+TEST_HOLE_FILE_WITH_SPACES = os.path.join(f'<{TEST_DATABASE_NAME}>', 'holes.tbl', 'subdir with spaces', TEST_HOLE_NAME + '.hol')
 TEST_PDC_NAME = 'test_pdc'
 TEST_PDC_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'pdc_bits.tbl', TEST_PDC_NAME + '.pdc')
 TEST_STABILIZER_NAME = 'example_stabilizer'
@@ -1164,6 +1168,6 @@ if not os.path.exists(TEST_NEW_DATABASE_PATH):
     os.mkdir(TEST_NEW_DATABASE_PATH)
 
 # Populate the new database with tables
-for table in [_dt.DrillTool._DATABASE_INFO[tool]['table'] for tool in _dt.DrillTool._DATABASE_INFO]:
+for table in [DATABASE_INFO[tool]['table'] for tool in DATABASE_INFO]:
     if not os.path.exists(os.path.join(TEST_NEW_DATABASE_PATH, table)):
         os.mkdir(os.path.join(TEST_NEW_DATABASE_PATH, table))

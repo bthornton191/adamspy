@@ -46,6 +46,7 @@ class Test_DrillString(unittest.TestCase):
         # Create a DrillTool object representing a top drive
         self.top_drive = adripy.DrillTool(TEST_TOP_DRIVE_FILE)
 
+
     def test_add_tool(self):
         """Test the `DrillString.add_tool()` method.
         """
@@ -138,6 +139,27 @@ class Test_DrillString(unittest.TestCase):
         failures = check_file_contents(expected_string_filename, EXPECTED_STRING_WRITE_TEXT_WITH_DFB)
 
         self.assertListEqual(failures, [])
+    
+    def test_publish_string_with_spaces_in_hole_path(self):
+        """Tests if publish works when the hole path has spaces        
+        """
+        # Create a DrillString object
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE_WITH_SPACES, TEST_EVENT_FILE)
+
+        # Add the DrillTool objects to the DrillString object
+        drill_string.add_tool(self.pdc_bit, measure='yes')
+        drill_string.add_tool(self.stabilizer, measure='yes')
+        drill_string.add_tool(self.collar, measure='yes', joints=TEST_NUMBER_OF_COLLARS, group_name=TEST_COLLAR_GROUPNAME)
+        drill_string.add_tool(self.drill_pipe, joints=TEST_NUMBER_OF_DRILLPIPES, group_name=TEST_DRILLPIPE_GROUPNAME)
+        drill_string.add_tool(self.eus, joints=TEST_NUMBER_OF_EUSPIPES, group_name=TEST_EUS_GROUPNAME, equivalent=True)
+        drill_string.add_tool(self.top_drive)
+
+        # Write drill string to file
+        try:
+            drill_string.write_to_file(cdb=TEST_NEW_DATABASE_NAME, publish=True)
+            pass
+        except FileNotFoundError:
+            self.fail()
 
     def test_publish_string_to_new_database(self):
         """Test the `DrillString.write_to_file()` method with publish=True
@@ -215,6 +237,18 @@ class Test_DrillString(unittest.TestCase):
         expected_files = [os.path.join(f'<{TEST_NEW_DATABASE_NAME}>', 'stabilizers.tbl', 'example_stabilizer.sta')]*2
 
         self.assertListEqual(actual_files, expected_files)    
+
+    def test_read_string_from_file_with_spaces_in_hole_ref(self):
+        """Tests that the parameters in the string are correct after a string is read from a file.
+        """
+        # Read new parameters into the drill string object from a file
+        string_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME_WITH_SPACES_IN_HOLE_REF + '.str')
+        drill_string_from_file = adripy.DrillString.read_from_file(string_file)
+        
+        # Remove some keys from the parameters dictionary
+        hole_filename = drill_string_from_file.parameters['Hole_Property_File']
+        
+        self.assertEqual(hole_filename, TEST_HOLE_FILE_WITH_SPACES)
 
     def test_read_string_from_file_parameters(self):
         """Tests that the parameters in the string are correct after a string is read from a file.

@@ -5,6 +5,7 @@ import os
 import shutil
 from thornpy import numtype
 from .utilities import TO_BLOCK_HEADER_PATTERN, TO_PARAMETER_PATTERN, get_cdb_location, get_cdb_path, get_full_path
+from .constants import DATABASE_INFO
 
 class DrillTool():
     """
@@ -23,33 +24,33 @@ class DrillTool():
     table : str
         Name of the cdb table used for the particular tool type
 
-    """ 
-    _DATABASE_INFO = {
-        'drillpipe': {'table': 'drill_pipes.tbl', 'extension': 'pip'},
-        'drill_collar': {'table': 'drill_collars.tbl', 'extension': 'col'},
-        'accelerator': {'table': 'accelerators.tbl', 'extension': 'acc'},
-        'stabilizer': {'table': 'stabilizers.tbl', 'extension': 'sta'},
-        'short_collar': {'table': 'short_collars.tbl', 'extension': 'sco'},
-        'dart': {'table': 'darts.tbl', 'extension': 'drt'},
-        'jar': {'table': 'jars.tbl', 'extension': 'djr'},
-        'agitator': {'table': 'agitators.tbl', 'extension': 'agi'},
-        'blade_reamer': {'table': 'blade_reamers.tbl', 'extension': 'bre'},
-        'crossover': {'table': 'crossovers.tbl', 'extension': 'crs'},
-        'darts': {'table': 'darts.tbl', 'extension': 'drt'},
-        'flex_pipe': {'table': 'flex_pipes.tbl', 'extension': 'flp'},
-        'hw_pipe': {'table': 'hw_pipes.tbl', 'extension': 'hwp'},
-        'pdc_bit': {'table': 'pdc_bits.tbl', 'extension': 'pdc'},
-        'motor': {'table': 'motors.tbl', 'extension': 'mot'},
-        'shock_sub': {'table': 'shock_subs.tbl', 'extension': 'shk'},
-        'lwd_tool': {'table': 'lwd_tools.tbl', 'extension': 'lwd'},
-        'mfr_tool': {'table': 'mfr_tools.tbl', 'extension': 'mfr'},
-        'mwd_tool': {'table': 'mwd_tools.tbl', 'extension': 'mwd'},
-        'instrumentation_sub': {'table': 'instrumentation_subs.tbl', 'extension': 'ins'},
-        'generic_long': {'table': 'generic_longs.tbl', 'extension': 'gnl'},
-        'generic_short': {'table': 'generic_shorts.tbl', 'extension': 'gns'},
-        'top_drive': {'table': 'top_drives.tbl', 'extension': 'tdr'},
-        'equivalent_upper_string': {'table': 'drill_pipes.tbl', 'extension': 'pip'}
-    }
+    """     
+    _ACCEPTED_TYPES = [
+        'drillpipe',
+        'drill_collar',
+        'accelerator',
+        'stabilizer',
+        'short_collar',
+        'dart',
+        'jar',
+        'agitator',
+        'blade_reamer',
+        'crossover',
+        'darts',
+        'flex_pipe',
+        'hw_pipe',
+        'pdc_bit',
+        'motor',
+        'shock_sub',
+        'lwd_tool',
+        'mfr_tool',
+        'mwd_tool',
+        'instrumentation_sub',
+        'generic_long',
+        'generic_short',
+        'top_drive',
+        'equivalent_upper_string'
+    ]
 
     def __init__(self, property_file):
         """Initializes the `DrillTool` object.
@@ -276,11 +277,11 @@ class DrillTool():
         return self.get_parameter_value('File_Type').lower()
     
     def _get_extension(self):
-        extension = self._DATABASE_INFO[self.tool_type]['extension']
+        extension = DATABASE_INFO[self.tool_type]['extension']
         return extension
 
     def _get_table(self):
-        table = self._DATABASE_INFO[self.tool_type]['table']
+        table = DATABASE_INFO[self.tool_type]['table']
         return table
 
     @classmethod
@@ -299,7 +300,7 @@ class DrillTool():
         
         """
         ext = os.path.splitext(property_file)[1]
-        if ext not in ['.' + tool['extension'] for tool in cls._DATABASE_INFO.values()]:
+        if ext not in ['.' + info['extension'] for name, info in DATABASE_INFO.items() if name in cls._ACCEPTED_TYPES]:
             raise DrillToolError(f'The extension {ext} is not supported by the DrillTool class.')
 
 class DrillToolError(Exception):

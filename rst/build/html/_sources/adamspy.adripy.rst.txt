@@ -4,6 +4,14 @@ adamspy.adripy package
 Submodules
 ----------
 
+adamspy.adripy.constants module
+-------------------------------
+
+.. automodule:: adamspy.adripy.constants
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 adamspy.adripy.drillsim module
 ------------------------------
 

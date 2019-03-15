@@ -48,3 +48,38 @@ ADRILL_IDS = {
         'variable': 1102
     }
 }
+
+
+DATABASE_INFO = {
+    'assembly': {'table': 'drill_strings.tbl', 'extension': 'str'},
+    'hole': {'table': 'holes.tbl', 'extension': 'hol'},
+    'drillpipe': {'table': 'drill_pipes.tbl', 'extension': 'pip'},
+    'drill_collar': {'table': 'drill_collars.tbl', 'extension': 'col'},
+    'accelerator': {'table': 'accelerators.tbl', 'extension': 'acc'},
+    'stabilizer': {'table': 'stabilizers.tbl', 'extension': 'sta'},
+    'short_collar': {'table': 'short_collars.tbl', 'extension': 'sco'},
+    'dart': {'table': 'darts.tbl', 'extension': 'drt'},
+    'jar': {'table': 'jars.tbl', 'extension': 'djr'},
+    'agitator': {'table': 'agitators.tbl', 'extension': 'agi'},
+    'blade_reamer': {'table': 'blade_reamers.tbl', 'extension': 'bre'},
+    'crossover': {'table': 'crossovers.tbl', 'extension': 'crs'},
+    'darts': {'table': 'darts.tbl', 'extension': 'drt'},
+    'event': {'table': 'events.tbl', 'extension': 'evt'},
+    'flex_pipe': {'table': 'flex_pipes.tbl', 'extension': 'flp'},
+    'hw_pipe': {'table': 'hw_pipes.tbl', 'extension': 'hwp'},
+    'pdc_bit': {'table': 'pdc_bits.tbl', 'extension': 'pdc'},
+    'motor': {'table': 'motors.tbl', 'extension': 'mot'},
+    'shock_sub': {'table': 'shock_subs.tbl', 'extension': 'shk'},
+    'lwd_tool': {'table': 'lwd_tools.tbl', 'extension': 'lwd'},
+    'mfr_tool': {'table': 'mfr_tools.tbl', 'extension': 'mfr'},
+    'mwd_tool': {'table': 'mwd_tools.tbl', 'extension': 'mwd'},
+    'rss': {'table': 'rss.tbl', 'extension': 'rsd'},
+    'instrumentation_sub': {'table': 'instrumentation_subs.tbl', 'extension': 'ins'},
+    'generic_long': {'table': 'generic_longs.tbl', 'extension': 'gnl'},
+    'generic_short': {'table': 'generic_shorts.tbl', 'extension': 'gns'},
+    'roller_cone_bit': {'table': 'roller_cone_bits.tbl', 'extension': 'rcb'},
+    'solver_settings': {'table': 'solver_settings.tbl', 'extension': 'ssf'},
+    'plot_config': {'table': 'plot_configs.tbl', 'extension': 'plt'},
+    'top_drive': {'table': 'top_drives.tbl', 'extension': 'tdr'},
+    'equivalent_upper_string': {'table': 'drill_pipes.tbl', 'extension': 'pip'}
+}
