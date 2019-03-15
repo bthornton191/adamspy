@@ -22,13 +22,11 @@ class DrillTool():
         Extension used for tiem orbit file
     table : str
         Name of the cdb table used for the particular tool type
-    """  
 
+    """ 
     _DATABASE_INFO = {
-        'assembly': {'table': 'drill_strings.tbl', 'extension': 'str'},
         'drillpipe': {'table': 'drill_pipes.tbl', 'extension': 'pip'},
         'drill_collar': {'table': 'drill_collars.tbl', 'extension': 'col'},
-        'hole': {'table': 'holes.tbl', 'extension': 'hol'},
         'accelerator': {'table': 'accelerators.tbl', 'extension': 'acc'},
         'stabilizer': {'table': 'stabilizers.tbl', 'extension': 'sta'},
         'short_collar': {'table': 'short_collars.tbl', 'extension': 'sco'},
@@ -38,7 +36,6 @@ class DrillTool():
         'blade_reamer': {'table': 'blade_reamers.tbl', 'extension': 'bre'},
         'crossover': {'table': 'crossovers.tbl', 'extension': 'crs'},
         'darts': {'table': 'darts.tbl', 'extension': 'drt'},
-        'event': {'table': 'events.tbl', 'extension': 'evt'},
         'flex_pipe': {'table': 'flex_pipes.tbl', 'extension': 'flp'},
         'hw_pipe': {'table': 'hw_pipes.tbl', 'extension': 'hwp'},
         'pdc_bit': {'table': 'pdc_bits.tbl', 'extension': 'pdc'},
@@ -47,33 +44,31 @@ class DrillTool():
         'lwd_tool': {'table': 'lwd_tools.tbl', 'extension': 'lwd'},
         'mfr_tool': {'table': 'mfr_tools.tbl', 'extension': 'mfr'},
         'mwd_tool': {'table': 'mwd_tools.tbl', 'extension': 'mwd'},
-        'rss': {'table': 'rss.tbl', 'extension': 'rsd'},
         'instrumentation_sub': {'table': 'instrumentation_subs.tbl', 'extension': 'ins'},
         'generic_long': {'table': 'generic_longs.tbl', 'extension': 'gnl'},
         'generic_short': {'table': 'generic_shorts.tbl', 'extension': 'gns'},
-        'roller_cone_bit': {'table': 'roller_cone_bits.tbl', 'extension': 'rcb'},
-        'solver_setting': {'table': 'solver_settings.tbl', 'extension': 'ssf'},
-        'plot_config': {'table': 'plot_configs.tbl', 'extension': 'plt'},
         'top_drive': {'table': 'top_drives.tbl', 'extension': 'tdr'},
         'equivalent_upper_string': {'table': 'drill_pipes.tbl', 'extension': 'pip'}
     }
-    
+
     def __init__(self, property_file):
         """Initializes the `DrillTool` object.
         
         Parameters
         ----------
         property_file : str
-            Tiem Orbit file representing the drill tool.        
-        """
+            Tiem Orbit file representing the drill tool.
 
+        """ 
+        self._check_extension(property_file)
         self.property_file = get_cdb_path(property_file)
         self.name = self._get_name()
         self.tool_type = self._get_type()    
         self.extension = self._get_extension()
-        self.table = self._get_table()
-        
+        self.table = self._get_table()        
         self._name_receivers = []
+
+        
     
     def bind_name_to(self, name_receiver):
         """Appends :arg:`name_receiver` to :attr:`_name_receivers`.
@@ -84,6 +79,7 @@ class DrillTool():
         ----------
         name_receiver : func
             Any method that takes a :class:`DrillTool`.
+
         """
         self._name_receivers.append(name_receiver)
     
@@ -100,6 +96,7 @@ class DrillTool():
             New name for the tool.
         remove_original : bool
             If `True` will rename the property file.  If `False` will create a new one.
+
         """
         # Determine the new filename
         current_filename = get_full_path(self.property_file)
@@ -126,7 +123,7 @@ class DrillTool():
             name_receiver(self)
 
     def copy_file(self, directory=None, cdb=None):
-        """Creates string file from the DrillString object.
+        """Copies the file to `directory` or to the appropriate table in `cdb`.
         
         Parameters
         ----------
@@ -145,6 +142,7 @@ class DrillTool():
         Note
         ----
         Either `directory` or `cdb` must be given. 
+
         """
         # Check that directory or cdb was given.
         if directory is None and cdb is None:
@@ -181,6 +179,7 @@ class DrillTool():
         -------
         :obj:`string` or :obj:`float`
             Value of the specified parameter from the property file.
+
         """
         # Initilize return variable as None
         found = False
@@ -230,16 +229,18 @@ class DrillTool():
         return value
 
     def modify_parameter_value(self, parameter_to_change, new_value):
-        """Modifies a parameter in a DrillTool property file
+        """Modifies a parameter in a :class:`DrillTool` property file.
         
-        Arguments:
-            parameter_to_change {string} -- Name of the parameter to modify.  Must match the name in the property file. (Not case sensitive). 
-            new_value {float or string} -- New value of the parameter to change
-        
-        Keyword Arguments:
-            new_filename {string} -- Filename of new property file.  If None the original property file will be overwritten (default: {None})
-        """
+        Parameters
+        ----------
+        parameter_to_change : str
+            Name of the parameter to modify.  Must match the name in the property file. (Not case sensitive). 
+        new_value : :obj:`float` or :obj:`str`
+            New value of the parameter to change
+        new_filename : str
+            Filename of new property file.  If None the original property file will be overwritten (the default is None.)
 
+        """
         filename = get_full_path(self.property_file)        
             
         # Read the lines in the original file into a list
@@ -248,20 +249,19 @@ class DrillTool():
 
         # Write a new list with the correct line modified
         new_lines = []
-        for line in original_lines:
-                
-            # For each line in the original file
+        for line in original_lines:                
+            # For each line in the original file, append to new_lines
             new_lines.append(line)
-            if TO_PARAMETER_PATTERN.match(line):
-                
+
+            if TO_PARAMETER_PATTERN.match(line):                
                 # If the line matches the pattern of a parameter definition
                 [current_parameter, value] = line.replace('\n','').replace(' ','').split('=')
+
                 if current_parameter.lower() == parameter_to_change.lower():
-
                     # If the parameter is the parameter to be changed
-                    if "'" in value:
 
-                        # If the value is a string
+                    if "'" in value:
+                        # If the value is a string, add quotes
                         new_value = "'{}'".format(new_value)
                     
                     new_lines[-1] = ' {}  =  {}\n'.format(current_parameter, new_value)
@@ -282,6 +282,25 @@ class DrillTool():
     def _get_table(self):
         table = self._DATABASE_INFO[self.tool_type]['table']
         return table
+
+    @classmethod
+    def _check_extension(cls, property_file):      
+        """Checks if the extension on `property_file` is in the list of supported tool file types.
+        
+        Parameters
+        ----------
+        property_file : str
+            Filename of an Adams Drill property file.
+        
+        Raises
+        ------
+        DrillToolError
+            Raised if the extension on `property_file` is not in the list of supported tool file types.
+        
+        """
+        ext = os.path.splitext(property_file)[1]
+        if ext not in ['.' + tool['extension'] for tool in cls._DATABASE_INFO.values()]:
+            raise DrillToolError(f'The extension {ext} is not supported by the DrillTool class.')
 
 class DrillToolError(Exception):
     pass

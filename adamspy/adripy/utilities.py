@@ -8,9 +8,7 @@ import re
 import subprocess
 import thornpy
 import jinja2
-
-# Define regular expressions
-TO_PARAMETER_PATTERN = re.compile('^ [_0-9a-zA-Z]+\\s+=\\s+((\'[-:_0-9a-zA-Z<>\\\\/\\.]+\')|(-?[\\+-\\.e0-9]+))\\s*$')
+from .constants import TO_PARAMETER_PATTERN, TO_LENGTH_PARAM, ADRILL_IDS
 
 env = jinja2.Environment(
     loader=jinja2.PackageLoader('adamspy.adripy', 'templates'),
@@ -43,31 +41,6 @@ if 'ADAMS_LAUNCH_COMMAND' not in os.environ:
 elif not os.path.exists(os.environ['ADAMS_LAUNCH_COMMAND']):
     raise FileExistsError('The adams launch file {} does not exist!  You must set the ADRILL_SHARED_CFG environment variable to an existing cfg file before importing adripy.'.format(os.environ['ADAMS_LAUNCH_COMMAND']))
 
-# Dictionary of TO tool length parameters
-TO_LENGTH_PARAM = {}
-TO_LENGTH_PARAM['accelerator'] = ['Accelerator_Length']
-TO_LENGTH_PARAM['agitator'] = ['Power_Body_Length', 'Shock_Stub_Length']
-TO_LENGTH_PARAM['blade_reamer'] = ['Reamer_Length']
-TO_LENGTH_PARAM['crossover'] = ['Crossover_Length']
-TO_LENGTH_PARAM['dart'] = ['Dart_Length']
-TO_LENGTH_PARAM['drill_collar'] = ['Drillcollar_Length']
-TO_LENGTH_PARAM['drillpipe'] = ['Pipe_Length']
-TO_LENGTH_PARAM['flex_pipe'] = ['Flex_Length']
-TO_LENGTH_PARAM['generic_long'] = ['Tool_Length']
-TO_LENGTH_PARAM['generic_short'] = ['GenericShort_Length']
-TO_LENGTH_PARAM['hw_pipe'] = ['Pipe_Length']
-TO_LENGTH_PARAM['instrumentation_sub'] = ['ISUB_Length']
-TO_LENGTH_PARAM['jar'] = ['Body_Length', 'Stub_Length']
-TO_LENGTH_PARAM['mfr_tool'] = ['Tool_Length']
-TO_LENGTH_PARAM['motor'] = ['Motor_Length']
-TO_LENGTH_PARAM['mwd_tool'] = ['Tool_Length']
-TO_LENGTH_PARAM['pdc_bit'] = ['Bit_Length']
-TO_LENGTH_PARAM['single_point'] = ['Bit_Length']
-TO_LENGTH_PARAM['roller_cone_bit'] = ['Bit_Length']
-TO_LENGTH_PARAM['shock_sub'] = ['Installed_Length']
-TO_LENGTH_PARAM['short_collar'] = ['Collar_Length']
-TO_LENGTH_PARAM['stabilizer'] = ['Stabilizer_Length']
-
 def turn_measure_on(string_file, tool_types=[], tool_numbers=[], tool_names=[]):
     """Modify a string file to turn measure on for teh designated tools.  Tools may be designated by type, number (stack order), or name.
     
@@ -86,6 +59,7 @@ def turn_measure_on(string_file, tool_types=[], tool_numbers=[], tool_names=[]):
     -------
     int
         number of tools measured
+
     """
     n = 0
     mark = False
@@ -158,6 +132,7 @@ def get_tool_name(string_file, tool_type, n=1, return_full_path=True):
         Stack order of tool
     str
         Tool\'s group name if it has one
+
     """
     tool_found = False
     
@@ -209,8 +184,8 @@ def get_adrill_cdbs(adrill_user_cfg, adrill_shared_cfg=None):
     -------
     dict
         A dictionary in which the cdb names are keys and the cdb locations are values.
-    """
 
+    """
     cdbs = {}
     with open(adrill_user_cfg,'r') as fid:
         for line in fid:
@@ -246,8 +221,9 @@ def get_TO_param(filename, requested_parameter):
                   
     Returns
     -------
-    str or int or float
+    :obj:`str` or :obj:`int` or :obj:`float`
         The value assigned to TO_param in TO_file
+
     """
     # Check if CDB notation used and Convert
     filename = get_full_path(filename)
@@ -304,6 +280,7 @@ def has_tool(string_file, tool_type):
     -------
     bool
         True if string_file contains at least one tool of type tool_type
+
     """
     tool_type_found = False
 
@@ -330,6 +307,7 @@ def fullNotation_to_cdbNotation(string_file):
     -------
     int
         Number of replacements made
+
     """
     cdbs = get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
     n = 0 
@@ -376,8 +354,8 @@ def cdbNotation_to_fullNotation(string_file):
     -------
     int
         Number of replacements made
-    """
 
+    """
     cdbs = get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
     n = 0 
 
@@ -418,6 +396,7 @@ def get_cdb_path(full_filepath):
     -------
     str
         Path to a file with the cdb path replaced by the cdb alias.
+
     """
     cdb_filepath = full_filepath
     cdbs = get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
@@ -443,6 +422,7 @@ def get_full_path(cdb_filepath):
     -------
     str
         Path to a file with the cdb path replaced by the cdb alias.
+
     """    
     # Find a string that looks like a database alias
     match = re.search('^<.+>', cdb_filepath)
@@ -477,6 +457,7 @@ def get_cdb_location(cdb_name):
     -------
     str
         Location of cdb
+
     """
     cdbs = get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
     return cdbs[cdb_name]
@@ -503,6 +484,7 @@ def replace_tool(string_file, old_tool_file, new_tool_file, old_tool_name='', ne
     -------
     int
         Number of replacements that were made
+
     """
     old_tool_file = old_tool_file.replace('\\','/')
     new_tool_file = new_tool_file.replace('\\','/')
@@ -624,7 +606,8 @@ def get_string_length(string_file):
     Returns
     -------
     float
-        Cumulative length of the string    
+        Cumulative length of the string
+
     """
     cdbs = get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
     
@@ -699,6 +682,7 @@ def get_bha_length(string_file):
     -------
     float
         Cumulative length of the string    
+
     """
     cdbs = get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
     
@@ -758,8 +742,8 @@ def add_cdb_to_cfg(name, loc, cfg_file):
         Raised if a cdb of the given name or path already exists in the given config file
     PermissionError
         Raised if the user does not have permissiosn to edit the given config file
-    """
 
+    """
     loc = os.path.normpath(loc)
     cdbs = {}
 
@@ -816,8 +800,8 @@ def remove_cdb_from_cfg(name, cfg_file):
         Raised if a cdb of the given name or path already exists in the given config file
     PermissionError
         Raised if the user does not have permissiosn to edit the given config file
-    """
 
+    """
     # Initialize cdbs dictionary
     cdbs = {}
 
@@ -862,9 +846,8 @@ def create_cfg_file(filename, database_paths):
         Filename for the new configuration file.
     database_paths : list
         List of database paths to include in the configuration file. 
+
     """
-
-
     # Create a databases dictionary
     databases = []    
     for path in database_paths:
@@ -902,6 +885,7 @@ def build(string_file, solver_settings_file, working_directory, output_name=None
         Filename of the adams command (.acf) file.
     str
         Filename of the adams view command (.cmd) file.
+
     """    
     # Set the output name  
     if output_name is None:  
@@ -1151,22 +1135,22 @@ def add_splines_to_adm(adm_file, splines):
         Dictionary containing the spline data for the four drilling parameters.  See Example for dictionary makeup.
     
     """
+    # Create a block of code to add to the adm file
     code_block = {}
-    input_params = ['ROP','WOB','RPM','GPM']
-    for i, param in enumerate(input_params):
+    for param in ADRILL_IDS:
         code_block[param] = "!\n"
-        code_block[param] += "!                          adams_view_name='{}_Spline'\n".format(param)
-        code_block[param] += "SPLINE/1000{}\n".format(i)
+        code_block[param] += "!                          adams_view_name='{}_Spline'\n".format(param.upper())
+        code_block[param] += "SPLINE/{:d}\n".format(ADRILL_IDS[param]['spline'])
         code_block[param] += ", LINEAR_EXTRAPOLATE\n"
-        code_block[param] += ", X={}\n".format(str(splines[param.lower()][1]).replace('[','').replace(']',''))
+        code_block[param] += ", X={}\n".format(str(splines[param][1]).replace('[','').replace(']',''))
         
         val_string = ''
-        for val in splines[param.lower()][0]:
+        for val in splines[param][0]:
             val_string += '{:1.2f},'.format(val)
         val_string = val_string[:-1]
         code_block[param] += ", Y={}\n".format(val_string)
         
-    
+    # Add the block of code to a temporary adm file
     with open(adm_file, 'r') as fid, open(adm_file.replace('.adm','.tmp'),'w') as fid_new:
         insert_splines_here = False
         for line in fid:
@@ -1181,12 +1165,21 @@ def add_splines_to_adm(adm_file, splines):
             elif '!----------------------------------- OUTPUT ------------------------------------' in line:
                 insert_splines_here = True
             else:
-                fid_new.write(line)        
+                fid_new.write(line)
+    
+    # Replace the adm file with the temporary adm file 
     os.remove(adm_file)
     os.rename(adm_file.replace('.adm','.tmp'), adm_file)
 
 def add_splines_to_acf(acf_file):   
-
+    """Adds spline references to the input variable function statements in an Adams Drill Command (.acf) file.
+    
+    Parameters
+    ----------
+    acf_file : str
+        File name of an Adams Drill Command (.acf) file.
+    
+    """
     # go through original acf and create a new acf
     with open(acf_file,'r') as fid, open(acf_file.replace('.acf','.tmp'),'w') as fid_new:
         
@@ -1199,15 +1192,24 @@ def add_splines_to_acf(acf_file):
 
             if modify:
                 # If this is a line defining a drilling parameter
-                if variable_id == 1102:
-                    new_line = ', FUNCTION = STEP(TIME, 0,0,1,1)*VARVAL(11021)*ABS(AKISPL(TIME,0,10003, 0))\n'
+
+                if variable_id == ADRILL_IDS['gpm']['variable']:
+                    # If the variable id is the gpm id
+                    new_line = ', FUNCTION = STEP(TIME, 0,0,1,1)*VARVAL(11021)*ABS(AKISPL(TIME,0,{:d}, 0))\n'.format(ADRILL_IDS['gpm']['spline'])
                     skip = True
-                elif variable_id == 9104:
-                    new_line = ', FUNCTION = STEP(TIME, 0,0,1,1)*(AKISPL(TIME,0,10000, 0))/3600\n'
-                elif variable_id == 9105:
-                    new_line = ', FUNCTION = STEP(TIME, 0,0,1,1)*(AKISPL(TIME,0,10002, 0))*(PI/30)\n'
-                elif variable_id == 9106:
-                    new_line = ', FUNCTION = STEP(TIME, 0,0,1,1)*(AKISPL(TIME,0,10001, 0))*1000\n'
+
+                elif variable_id == ADRILL_IDS['rop']['variable']:
+                    # If the variable id is the rop id
+                    new_line = ', FUNCTION = STEP(TIME, 0,0,1,1)*(AKISPL(TIME,0,{:d}, 0))/3600\n'.format(ADRILL_IDS['rop']['spline'])
+
+                elif variable_id == ADRILL_IDS['rpm']['variable']:
+                    # If the variable id is the rpm id
+                    new_line = ', FUNCTION = STEP(TIME, 0,0,1,1)*(AKISPL(TIME,0,{:d}, 0))*(PI/30)\n'.format(ADRILL_IDS['rpm']['spline'])
+
+                elif variable_id == ADRILL_IDS['wob']['variable']:
+                    # If the variable id is the wob id
+                    new_line = ', FUNCTION = STEP(TIME, 0,0,1,1)*(AKISPL(TIME,0,{:d}, 0))*1000\n'.format(ADRILL_IDS['wob']['spline'])
+
                 fid_new.write(new_line)
                 modify = False
             

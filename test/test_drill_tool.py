@@ -30,6 +30,13 @@ class Test_DrillTool(unittest.TestCase):
         # Create an identical DrillTool object that will be modified later
         self.stabilizer_to_modify = adripy.DrillTool(os.path.join(f'<{TEST_DATABASE_NAME}>', 'stabilizers.tbl', self.TEST_STABILZIER_NAME + '.sta'))
         self.stabilizer_to_modify.rename(self.NEW_STABILIZER_NAME)
+    
+    def test_check_extension(self):
+        """Tests that DrillTool throws an error if you give it a string file.
+        
+        """
+        with self.assertRaises(adripy.tool.DrillToolError):
+            _bad_tool = adripy.DrillTool('dummy.str')
 
     def test_stabilizer_name(self):
         """Test that DrillTool.name is correct.
