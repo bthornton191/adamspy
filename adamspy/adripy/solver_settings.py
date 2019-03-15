@@ -134,7 +134,7 @@ class DrillSolverSettings():
             raise ValueError('One of the following must key work arguments must be defined: write_directory, filename, cdb')
                       
         # Get the jinja2 template for a solver settings file
-        ssf_template = TMPLT_ENV.get_template(f'template.{self._EXT}')
+        ssf_template = TMPLT_ENV.from_string(open(os.path.join(os.path.dirname(__file__), 'templates', f'template.{self._EXT}')).read())
 
         # Write the solver settings file
         with open(filepath, 'w') as fid:

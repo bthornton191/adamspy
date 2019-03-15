@@ -379,9 +379,9 @@ class DrillString():
             raise ValueError('Ether directory or cdb must be passed.')
                       
         # Define templates
-        string_template_1 = TMPLT_ENV.get_template(f'template_1.{self._EXT}')
-        string_template_2 = TMPLT_ENV.get_template(f'template_2.{self._EXT}')
-        string_template_3 = TMPLT_ENV.get_template(f'template_3.{self._EXT}')
+        string_template_1 = TMPLT_ENV.from_string(open(os.path.join(os.path.dirname(__file__), 'templates', f'template_1.{self._EXT}')).read())
+        string_template_2 = TMPLT_ENV.from_string(open(os.path.join(os.path.dirname(__file__), 'templates', f'template_2.{self._EXT}')).read())
+        string_template_3 = TMPLT_ENV.from_string(open(os.path.join(os.path.dirname(__file__), 'templates', f'template_3.{self._EXT}')).read())
         
         if publish is True:
             # If the string is being published, copy all the tools to the new 

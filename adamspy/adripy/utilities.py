@@ -872,7 +872,7 @@ def create_cfg_file(filename, database_paths):
         databases.append({'name': name, 'path': path})
 
     # Get the cfg template
-    cfg_template = env.get_template('template.cfg')
+    cfg_template = env.from_string(open(os.path.join(os.path.dirname(__file__), 'templates', 'template.cfg')).read())
     
     # Write the new cfg file
     with open(filename ,'w') as fid:

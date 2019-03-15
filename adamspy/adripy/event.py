@@ -218,7 +218,7 @@ class DrillEvent():
             # Set the filepath to the file in the cdb
             filepath = get_full_path(os.path.join(f'<{cdb}>', self._CDB_TABLE, f'{filename}.{self._EXT}'))
                       
-        event_template = TMPLT_ENV.get_template(f'template.{self._EXT}')
+        event_template = TMPLT_ENV.from_string(open(os.path.join(os.path.dirname(__file__), 'templates', f'template.{self._EXT}')).read())
         
         with open(filepath, 'w') as fid:
             fid.write(event_template.render(self.parameters))

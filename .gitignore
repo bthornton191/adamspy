@@ -8,3 +8,5 @@
 *aview.lo?
 demo*.py
 /.vscode
+/_test_drill.cfg
+/test/example_working_directory/**
