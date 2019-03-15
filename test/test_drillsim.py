@@ -1,9 +1,11 @@
 """Tests related to the DrillSim class
 """
-
 import unittest
 import os
 import glob
+
+import dripy
+
 from test import *
 os.environ['ADRILL_SHARED_CFG'] = os.path.join('C:\\', 'MSC.Software', 'Adams', '2018', 'adrill', 'adrill.cfg')
 os.environ['ADRILL_USER_CFG'] = os.path.join(os.environ['USERPROFILE'], '.adrill.cfg')
@@ -57,6 +59,28 @@ class Test_DrillSim(unittest.TestCase):
 
         # Create a solver settings object
         self.solver_settings = adripy.DrillSolverSettings(TEST_SOLVER_SETTINGS_NAME)
+
+    def test_build_evt_contents(self):
+        """Tests that the event file created in the DrillSim directory has the correct contents.        
+        
+        """
+        drill_sim = DrillSim(self.drill_string, self.event, self.solver_settings, TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME)        
+        drill_sim.build()
+        evt_file = os.path.join(TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME + '.evt')
+        failures = check_file_contents(evt_file, EXPECTED_DRILLSIM_EVENT_FILE_TEXT)
+        self.assertListEqual(failures, [])
+
+    def test_build_adm_contents(self):
+        """Tests that the event file created in the DrillSim directory has the correct contents.        
+        
+        """
+        drill_sim = DrillSim(self.drill_string, self.event, self.solver_settings, TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME)        
+        pason_data = dripy.PasonData(TEST_PASON_DATA)
+        drill_sim.get_pason_inputs(pason_data, show_plots=False)
+        drill_sim.build()
+        adm_file = os.path.join(TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME + '.adm')
+        failures = check_file_contents(adm_file, EXPECTED_DRILLSIM_ADM_FILE_TEXT)
+        self.assertListEqual(failures, [])
 
     def test_write_tiem_orbit_files_event_filename(self):
         """Tests that DrillSim.event has the correct event filename 
@@ -173,18 +197,101 @@ class Test_DrillSim(unittest.TestCase):
 
         self.assertListEqual(sorted(actual_contents), sorted(expected_contents))    
 
-    def test_build_evt_contents(self):
-        """Tests that the event file created in the DrillSim directory has the correct contents.        
-        """
-
-        drill_sim = DrillSim(self.drill_string, self.event, self.solver_settings, TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME)
+    def test_get_inputs_from_pason_gpm(self):
+        """Tests that setting the inputs from a :class:`PasonData` object works.
         
-        drill_sim.build()
+        """        
+        pason_data = dripy.PasonData(TEST_PASON_DATA)
+        drill_sim = DrillSim(self.drill_string, self.event, self.solver_settings, TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME)
+        drill_sim.get_pason_inputs(pason_data, show_plots=False)
+        
+        self.assertListEqual(drill_sim.pason_inputs['gpm'][0][1000:1010], TEST_EXPECTED_CLEANED_GPM)
 
-        evt_file = os.path.join(TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME + '.evt')
-        failures = check_file_contents(evt_file, EXPECTED_DRILLSIM_EVENT_FILE_TEXT)
+    def test_get_inputs_from_pason_rpm(self):
+        """Tests that setting the inputs from a :class:`PasonData` object works.
+        
+        """        
+        pason_data = dripy.PasonData(TEST_PASON_DATA)
+        drill_sim = DrillSim(self.drill_string, self.event, self.solver_settings, TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME)
+        drill_sim.get_pason_inputs(pason_data, show_plots=False)
+        
+        self.assertListEqual(drill_sim.pason_inputs['rpm'][0][1000:1010], TEST_EXPECTED_CLEANED_RPM)
 
-        self.assertListEqual([], failures)
+    def test_get_inputs_from_pason_wob(self):
+        """Tests that setting the inputs from a :class:`PasonData` object works.
+        
+        """        
+        pason_data = dripy.PasonData(TEST_PASON_DATA)
+        drill_sim = DrillSim(self.drill_string, self.event, self.solver_settings, TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME)
+        drill_sim.get_pason_inputs(pason_data, show_plots=False)
+        
+        self.assertListEqual(drill_sim.pason_inputs['wob'][0][1000:1010], TEST_EXPECTED_CLEANED_WOB)
+
+    def test_get_inputs_from_pason_rop(self):
+        """Tests that setting the inputs from a :class:`PasonData` object works.
+        
+        """        
+        pason_data = dripy.PasonData(TEST_PASON_DATA)
+        drill_sim = DrillSim(self.drill_string, self.event, self.solver_settings, TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME)
+        drill_sim.get_pason_inputs(pason_data, show_plots=False)
+        
+        self.assertListEqual(drill_sim.pason_inputs['rop'][0][1000:1010], TEST_EXPECTED_CLEANED_ROP)
+    
+    def test_clean_pason_data_gpm(self):
+        """Tests that :meth:`clean_pason` returns the expected values for the gpm signal
+        
+        """
+        pason_data = dripy.PasonData(TEST_PASON_DATA)
+        signal, _time = DrillSim.clean_pason(pason_data, 'gpm', show_plot=False)
+        
+        # # Plot for confirmation
+        # pason_data.plt.plot(pason_data.time, pason_data.gpm)
+        # pason_data.plt.plot(_time, signal)
+        # pason_data.plt.show()
+
+        self.assertListEqual(signal[1000:1010], TEST_EXPECTED_CLEANED_GPM)
+    
+    def test_clean_pason_data_rpm(self):
+        """Tests that :meth:`clean_pason` returns the expected values for the rpm signal
+        
+        """
+        pason_data = dripy.PasonData(TEST_PASON_DATA)
+        signal, _time = DrillSim.clean_pason(pason_data, 'rpm', show_plot=False)
+        
+        # # Plot for confirmation
+        # pason_data.plt.plot(pason_data.time, pason_data.rpm)
+        # pason_data.plt.plot(_time, signal)
+        # pason_data.plt.show()
+
+        self.assertListEqual(signal[1000:1010], TEST_EXPECTED_CLEANED_RPM)
+    
+    def test_clean_pason_data_wob(self):
+        """Tests that :meth:`clean_pason` returns the expected values for the wob signal
+        
+        """
+        pason_data = dripy.PasonData(TEST_PASON_DATA)
+        signal, _time = DrillSim.clean_pason(pason_data, 'wob', show_plot=False)
+        
+        # # Plot for confirmation
+        # pason_data.plt.plot(pason_data.time, pason_data.wob)
+        # pason_data.plt.plot(_time, signal)
+        # pason_data.plt.show()
+
+        self.assertListEqual(signal[1000:1010], TEST_EXPECTED_CLEANED_WOB)
+    
+    def test_clean_pason_data_rop(self):
+        """Tests that :meth:`clean_pason` returns the expected values for the rop signal
+        
+        """
+        pason_data = dripy.PasonData(TEST_PASON_DATA)
+        signal, _time = DrillSim.clean_pason(pason_data, 'rop', show_plot=False)
+        
+        # # Plot for confirmation
+        # pason_data.plt.plot(pason_data.time, pason_data.rop)
+        # pason_data.plt.plot(_time, signal)
+        # pason_data.plt.show()
+
+        self.assertListEqual(signal[1000:1010], TEST_EXPECTED_CLEANED_ROP)
 
     def tearDown(self):
         # Remove the test cfg file if it exists
@@ -198,4 +305,7 @@ class Test_DrillSim(unittest.TestCase):
 
         # Remove all the files in the working directory
         for file in glob.glob(os.path.join(TEST_WORKING_DIRECTORY, '*')):
-            os.remove(file)
+            os.remove(file)       
+            
+if __name__ == '__main__':
+    unittest.main()

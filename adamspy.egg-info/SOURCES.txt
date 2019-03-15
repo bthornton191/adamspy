@@ -1,12 +1,14 @@
 LICENSE
 MANIFEST.in
 README.md
+requirements.txt
 setup.py
 adamspy/__init__.py
 adamspy/adamspy.py
 adamspy.egg-info/PKG-INFO
 adamspy.egg-info/SOURCES.txt
 adamspy.egg-info/dependency_links.txt
+adamspy.egg-info/requires.txt
 adamspy.egg-info/top_level.txt
 adamspy/adripy/__init__.py
 adamspy/adripy/drillsim.py
@@ -23,6 +25,8 @@ adamspy/adripy/templates/template_1.str
 adamspy/adripy/templates/template_2.str
 adamspy/adripy/templates/template_3.str
 adamspy/adripy/templates/template_build.cmd
+adamspy/postprocess/__init__.py
+adamspy/postprocess/xml.py
 test/test_adripy_utilities.py
 test/test_build.py
 test/test_drill_event.py
@@ -30,4 +34,5 @@ test/test_drill_solver_settings.py
 test/test_drill_string.py
 test/test_drill_tool.py
 test/test_drillsim.py
+test/test_results.py
 test/test_tiem_orbit.py
