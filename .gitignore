@@ -7,3 +7,4 @@
 *.res
 *aview.lo?
 demo*.py
+/.vscode
