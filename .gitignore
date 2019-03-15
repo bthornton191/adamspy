@@ -4,3 +4,6 @@
 *.res
 *aview.lo?
 /demo*.py
+/build
+/dist
+/adamspy.egg-info
