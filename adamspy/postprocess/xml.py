@@ -48,8 +48,7 @@ def get_results(result_file, reqs_to_get=None, t_min=None, t_max=None, return_un
 	
 	# Loop over all the *Entity* nodes in the input tree, pick out the ones requested
 	# in `reqs_to_keep` and put their units and original ids into dictionaries
-	if return_units:
-		units, req_ids, reqs_to_get = _get_units_and_ids(res_tree, reqs_to_get)
+	units, req_ids, reqs_to_get = _get_units_and_ids(res_tree, reqs_to_get)
 
 	# Initialize the output requests dictionary
 	reqs_to_return = {req : {req_comp : [] for req_comp in reqs_to_get[req]} for req in reqs_to_get}

@@ -33,7 +33,7 @@ class Test_GetResults(unittest.TestCase):
 
     def setUp(self):
         # Get results from a results file
-        self.requests, self.units = xml.get_results(TEST_EXISTING_RES_FILE, TEST_REQUESTS_TO_GET, TEST_REQUEST_TIME_MIN, TEST_REQUEST_TIME_MAX)
+        self.requests, self.units = xml.get_results(TEST_EXISTING_RES_FILE, TEST_REQUESTS_TO_GET, TEST_REQUEST_TIME_MIN, TEST_REQUEST_TIME_MAX, return_units=True)
 
     def test_get_results_requests(self):       
         """Tests if `requests` returned by :meth:`xml.get_results` is as expected.
@@ -48,7 +48,7 @@ class Test_GetResults(unittest.TestCase):
         self.assertDictEqual(self.units, TEST_EXPECTED_REQUEST_UNITS)
     
     def test_get_results_all(self):    
-        _requests, _units = xml.get_results(TEST_EXISTING_RES_FILE, t_min=TEST_REQUEST_TIME_MIN, t_max=TEST_REQUEST_TIME_MAX)
+        _requests, _units = xml.get_results(TEST_EXISTING_RES_FILE, t_min=TEST_REQUEST_TIME_MIN, t_max=TEST_REQUEST_TIME_MAX, return_units=True)
         
     def tearDown(self):
         return
