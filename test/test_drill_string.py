@@ -46,7 +46,11 @@ class Test_DrillString(unittest.TestCase):
         # Create a DrillTool object representing a top drive
         self.top_drive = adripy.DrillTool(TEST_TOP_DRIVE_FILE)
 
-
+    def test_validate_with_an_empty_array(self):
+        """Tests if :meth:`DrillString.validate` returns false when one of the array parameters is not set.        
+        """
+        self.assertTrue(False)
+        
     def test_add_tool(self):
         """Test the `DrillString.add_tool()` method.
         """

@@ -1,0 +1,50 @@
+$ NOTE: Block and subblock titles MUST begin in column 1
+$ Comment lines MUST also begin in column 1
+$-------------------------------------------------------------ADAMS_DRILL_HEADER
+[ADAMS_DRILL_HEADER]
+ File_Type  =  'Hole'
+ File_Version  =  1.0
+ Hole_Name  =  '{{ Hole_Name }}'
+$--------------------------------------------------------------------------UNITS
+[UNITS]
+ Length  =  '{{ Length }}'
+ Mass  =  '{{ Mass }}'
+ Angle  =  '{{ Angle }}'
+ Time  =  '{{ Time }}'
+$---------------------------------------------------------------------CENTERLINE
+[CENTERLINE]
+$ 
+$ In the Excel Hole workbook this data can be entered either as
+$ North-East-Depth or Depth-Inclination-Azimuth.  When entered
+$ in the Hole Workbook as Depth-Inclination-Azimuth, Adams Drill
+$ converts to North-East-Depth format for the .hol file.
+$ 
+{North   East   True_Depth}
+{% for _north, _east, _tvd in _Centerline %}
+{{ _north }}   {{ _east }}   {{ _tvd }}
+{% endfor %}
+$ 
+$ In the tables below, *if* there is only one line, and
+$  *if* the measured depth is -1.0, then the respective values
+$  are considered constant, i.e. they do not change with depth.
+$  If you put in tabular data, be sure that the depth covers the
+$  range of the true depth!  (ADAMS *will* extrapolate.)
+$-----------------------------------------------------------------------DIAMETER
+[DIAMETER]
+{Measured_depth   Diameter}
+{% for _md, _od in _Diameter %}
+{{ _md }}   {{ _od }}
+{% endfor %}
+$-------------------------------------------------------------------WALL_CONTACT
+[WALL_CONTACT]
+{Measured_Depth    K      C}
+{% for _md, _k, _c in _Wall_Contact %}
+{{ _md }}   {{ _k }}   {{ _c }}
+{% endfor %}
+$------------------------------------------------------------------WALL_FRICTION
+[WALL_FRICTION]
+{Measured_Depth   StaticMu   StaticV   DynamicMu   DynamicV}
+{% for _md, _mu_s, _v_s, _mu_d, _v_d in _Wall_Friction %}
+{{ _md }}   {{ _mu_s }}   {{ _v_s }}   {{ _mu_d }}   {{ _v_d }}
+{% endfor %}
+$ 

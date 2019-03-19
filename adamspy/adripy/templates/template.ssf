@@ -24,7 +24,7 @@ $ Alimit is in degrees
 (FUNNEL)
 {Maxit  Stability  Error  Imbalance  Tlimit  Alimit}
 {% for _Maxit, _Stability, _Error, _Imbalance, _Tlimit, _Alimit in _Funnel %}
-{{ _Maxit}}   {{ _Stability }}   {{ _Error }}   {{ _Imbalance }}   {{ _Tlimit }}   {{ _Alimit}}
+{{ _Maxit }}   {{ _Stability }}   {{ _Error }}   {{ _Imbalance }}   {{ _Tlimit }}   {{ _Alimit}}
 {% endfor %}
 $ 
 $-----------------------------------------------------------------------DYNAMICS

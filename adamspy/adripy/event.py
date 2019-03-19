@@ -232,8 +232,11 @@ class DrillEvent():
         """
         Determines if all parameters have been set
         
-        Returns:
-            Bool -- True if all parameters have been set. Otherwise False
+        Returns
+        -------
+        bool
+            `True` if all parameters have been set. Otherwise `False`.
+
         """
         validated = True        
         # Check that all parameters exist in the self.parameters dictionary
