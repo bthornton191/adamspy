@@ -28,6 +28,14 @@ adamspy.adripy.event module
     :undoc-members:
     :show-inheritance:
 
+adamspy.adripy.hole module
+--------------------------
+
+.. automodule:: adamspy.adripy.hole
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 adamspy.adripy.solver\_settings module
 --------------------------------------
 
