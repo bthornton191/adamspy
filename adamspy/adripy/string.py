@@ -1,8 +1,8 @@
 """A module that contains the :class:`DrillString` class
 """
 import os
-import shutil
 import re
+import shutil
 from . import TMPLT_ENV
 from .tool import DrillTool
 from .utilities import read_TO_file, get_cdb_location, get_cdb_path, get_full_path, TO_LENGTH_PARAM, isabs
@@ -30,7 +30,6 @@ class DrillString():
         Describes the top drive.  The keys are 'DrillTool', 'Type', 'Name', and 'Property_File'.
         
     """
-
     _SCALAR_PARAMETERS = [
         'Units',
         'ModelName',
@@ -67,7 +66,7 @@ class DrillString():
     ]
 
     _DEFAULT_PARAMETER_ARRAYS = {
-        'Distance_from_Bit': []
+        'Distance_from_Bit': ()
     }
 
     _CDB_TABLE = 'drill_strings.tbl'
@@ -523,7 +522,7 @@ class DrillString():
         # Applies defaults to all ramp parameters
         for array_parameter, array in self._DEFAULT_PARAMETER_ARRAYS.items():
             self.parameters[array_parameter] = {}
-            self.parameters[array_parameter] = array
+            self.parameters[array_parameter] = [list(tup) for tup in array]
             self.parameters['_' + array_parameter] = zip(*self.parameters[array_parameter])
     
     def _copy_hole_file(self, directory=None, cdb=None):

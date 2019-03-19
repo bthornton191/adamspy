@@ -863,7 +863,7 @@ def create_cfg_file(filename, database_paths):
     
     os.environ['ADRILL_USER_CFG'] = os.path.join(os.getcwd(), filename)
 
-def build(string_file, solver_settings_file, working_directory, output_name=None):    
+def build(string_file, solver_settings_file, working_directory, output_name=None, wait=True):    
     """Builds adm, acf, and cmd files from string, event, and solver settings files.
     
     Parameters
@@ -876,6 +876,8 @@ def build(string_file, solver_settings_file, working_directory, output_name=None
         Path to the directory to put the adm, acf, and cmd
     output_name : str
         Base name of the adm, acf, and cmd files. (the default is none, which redefines the `ouput_name` to be the same as the 'OutputName' parameter in the string file)
+    wait : bool
+        If True, code execution waits until the build process terminates before moving on. (default is True)
 
     Returns
     -------
@@ -928,7 +930,8 @@ def build(string_file, solver_settings_file, working_directory, output_name=None
     startupinfo = subprocess.STARTUPINFO()
     startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
     process = subprocess.Popen('{} aview ru-s b build.cmd'.format(os.environ['ADAMS_LAUNCH_COMMAND']), cwd=working_directory, startupinfo=startupinfo)
-    process.wait()    
+    if wait:
+        process.wait()    
 
     adm_file = os.path.join(working_directory, adm_file)
     acf_file = os.path.join(working_directory, acf_file)
