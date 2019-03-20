@@ -26,10 +26,6 @@ Requirements
 * Python 3
 * Adams View *(2018 or later)*
 * Adams Drill *(required to use the adamspy.adripy module)*
-* Third party packages and modules
-
-.. todo::
-    Make a list of required third-party packages.
 
 Installation
 -------------

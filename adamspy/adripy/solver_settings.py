@@ -98,7 +98,7 @@ class DrillSolverSettings():
         directory : str
             Directory in which to write the file. (default is None which means it is written to the current working directory.
         cdb : str
-            Name of the cdb in which to write the file.  This argument overrides :arg:`directory`.
+            Name of the cdb in which to write the file.  This argument overrides `directory`.
         
         Raises
         ------

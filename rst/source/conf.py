@@ -15,19 +15,19 @@
 import os
 import sys
 sys.path.insert(0, os.path.abspath('..\..'))
-
+import pkg
 
 # -- Project information -----------------------------------------------------
 
-project = 'adamspy'
+project = pkg.name
 copyright = '2019, Ben Thornton'
-author = 'Ben Thornton'
+author = pkg.author
 
 # The short X.Y version
-version = ''
+version = pkg.version
+tag = ''
 # The full version, including alpha/beta/rc tags
-release = '0.6.5'
-
+release = version + tag
 
 # -- General configuration ---------------------------------------------------
 

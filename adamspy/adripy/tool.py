@@ -72,9 +72,9 @@ class DrillTool():
         
     
     def bind_name_to(self, name_receiver):
-        """Appends :arg:`name_receiver` to :attr:`_name_receivers`.
+        """Appends `name_receiver` to :attr:`_name_receivers`.
         
-        All the methods in the :arg:`name_receiver` :obj:list will be called anytime the :meth:`rename()` method is called
+        All the methods in the `name_receiver` :obj:list will be called anytime the :meth:`rename()` method is called
 
         Parameters
         ----------
