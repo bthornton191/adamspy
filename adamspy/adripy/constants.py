@@ -1,11 +1,21 @@
 """Contains some constant values used through out the adripy package.
+
+Attributes
+----------
+TO_PARAMETER_PATTERN : :obj:`SRE_Pattern`
+    Regular expression used to find a parameter definition line in a tiem orbit file
+TO_LENGTH_PARAM : dict
+    Defines for each type of Adams Drill tool what tiem orbit parameter to use to get the length of the tool.
+ADRILL_IDS : :obj:`dict` of :obj:`dict`
+    Defines the spline id and the variable id for wob, rpm, rop, and gpm in an Adams Drill dataset (.adm) file.
+DATABASE_INFO : :obj:`dict` of :obj:`dict`
+    Defines the structure of an Adams Drill database (.cdb).
+
 """
 import re
 
-# Define regular expressions
 TO_PARAMETER_PATTERN = re.compile('^ [_0-9a-zA-Z]+\\s+=\\s+((\'[-:_0-9a-zA-Z<>\\\\/\\.]+\')|(-?[\\+-\\.e0-9]+))\\s*$')
 
-# Dictionary of TO tool length parameters
 TO_LENGTH_PARAM = {}
 TO_LENGTH_PARAM['accelerator'] = ['Accelerator_Length']
 TO_LENGTH_PARAM['agitator'] = ['Power_Body_Length', 'Shock_Stub_Length']

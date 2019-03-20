@@ -8,17 +8,29 @@ from ..postprocess.xml import get_results
 from .utilities import build, add_splines_to_acf, add_splines_to_adm
 
 class DrillSim(): #pylint: disable=too-many-instance-attributes
-    """Contains data defining the files that make up an Adams Drill input deck.
-    
+    """Contains data defining the files that make up an Adams Drill input deck.    
+
+    Parameters
+    ----------
+    string : DrillString
+        :class:`DrillString` object representing the string to be used in the simulation
+    event : DrillEvent
+        :class:`DrillEvent` object representing the string to be used in the simulation
+    solver_settings : DrillSolverSettings
+        :class:`DrillSolverSettings` object representing the string to be used in the simulation
+    directory : str
+        Path to the directory in which to put the simulation files
+    analysis_name : str
+        Name of the analysis.  Used for all file prefixes
 
     Attributes
     ----------
     string : DrillString
-        DrillString object representing the string to be used in the simulation
+        :class:`DrillString` object representing the string to be used in the simulation
     event : DrillEvent
-        DrillEvent object representing the string to be used in the simulation
+        :class:`DrillEvent` object representing the string to be used in the simulation
     solver_settings : DrillSolverSettings
-        DrillSolverSettings object representing the string to be used in the simulation
+        :class:`DrillSolverSettings` object representing the string to be used in the simulation
     directory : str
         Path to the directory in which to put the simulation files
     analysis_name : str
@@ -37,6 +49,8 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         Indicates whether the input deck (adm, acf, and cmd files) has been built yet for this DrillSim
     RAMP_TIME : dict
         Class attribute containing standard ramp times for rpm, gpm, wob, and rop
+    CUTOFF_FREQ : dict
+        Class attribute containing default cutoff frequencies for smoothing pason inputs.
         
     Example
     -------
@@ -54,19 +68,6 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
 
     def __init__(self, string, event, solver_settings, directory, analysis_name, write_TO_files=True): #pylint: disable=too-many-arguments
         """Sets instance attributes and writes the string, event, and solver settings files to `directory`.
-
-        Parameters
-        ----------
-        string : DrillString
-            :obj:`DrillString` object representing the string to be used in the simulation
-        event : DrillEvent
-            :obj:`DrillEvent` object representing the string to be used in the simulation
-        solver_settings : DrillSolverSettings
-            :obj:`DrillSolverSettings` object representing the string to be used in the simulation
-        directory : str
-            Path to the directory in which to put the simulation files
-        analysis_name : str
-            Name of the analysis.  Used for all file prefixes
         
         """
         self.string = string

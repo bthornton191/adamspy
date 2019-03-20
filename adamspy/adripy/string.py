@@ -110,7 +110,7 @@ class DrillString():
         
         Parameters
         ----------
-        tool : DrillTool
+        drill_tool : DrillTool
             :class:`DrillTool` object representing the tool to be added        
         joints : int
             Number of Joints. Note that this only applies for certain tool types. (default is 1)
@@ -120,6 +120,11 @@ class DrillString():
             If an integer is given the tool will be inserted into the string at that point. (default is None which means the tool will be appended to the end)
         color : str
             The color used to render the tool in an Adams Drill animation. (default is 'Default')
+        group_name : str
+            This argument is required if the tool being added is a tool that comes in multiple joints (e.g. drill_pipe).  NOTE: Tools that come in multiple joints are listed in :attr:`DrillTool._MULTI_JOINT_TOOLS`.
+        eqivalent : bool
+            Set this to `True` if the tool being added is drill_pipe and you want to use the equivalent upper string formulation.
+            
         """
         # Check that the group_name argument is givn
         if drill_tool.tool_type.lower() in self._MULTI_JOINT_TOOLS and group_name is None:
@@ -208,7 +213,7 @@ class DrillString():
             raise DrillStringError(f'There is no {tool_type} in this string!')        
     
     def get_tool(self, tool_type, index=0):
-        """Returns a DrillTool object of type :arg:`tool_type` in the :class:`DrillString` object's tools list.  
+        """Returns a DrillTool object of type `tool_type` in the :class:`DrillString` object's tools list.  
         
         Parameters
         ----------
@@ -249,7 +254,7 @@ class DrillString():
         return tools_found[index]
         
     def tool_renamed(self, renamed_tool):
-        """Updates the 'name' and 'Property_File' entries in the :attr:`tools` to match :arg:`renamed_tool`.name.        
+        """Updates the 'name' and 'Property_File' entries in the :attr:`tools` to match `renamed_tool`.name.        
 
         Parameters
         ----------
