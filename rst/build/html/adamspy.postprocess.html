@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.postprocess package &mdash; adamspy 0.7.30 documentation</title>
+  <title>adamspy.postprocess package &mdash; adamspy 0.7.31 documentation</title>
   
 
   
@@ -17,32 +17,34 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -56,7 +58,7 @@
             
             
               <div class="version">
-                0.7.30
+                0.7.31
               </div>
             
           
@@ -84,8 +86,8 @@
               <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">adamspy.postprocess package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#adamspy-postprocess-xml-module">adamspy.postprocess.xml module</a></li>
-<li><a class="reference internal" href="#module-contents">Module contents</a></li>
+<li><a class="reference internal" href="#module-adamspy.postprocess.xml">adamspy.postprocess.xml module</a></li>
+<li><a class="reference internal" href="#module-adamspy.postprocess">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -157,11 +159,92 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="adamspy-postprocess-xml-module">
-<h2>adamspy.postprocess.xml module<a class="headerlink" href="#adamspy-postprocess-xml-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-adamspy.postprocess.xml">
+<span id="adamspy-postprocess-xml-module"></span><h2>adamspy.postprocess.xml module<a class="headerlink" href="#module-adamspy.postprocess.xml" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="adamspy.postprocess.xml.get_results">
+<code class="descclassname">adamspy.postprocess.xml.</code><code class="descname">get_results</code><span class="sig-paren">(</span><em>result_file</em>, <em>reqs_to_get=None</em>, <em>t_min=None</em>, <em>t_max=None</em>, <em>return_units=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/xml.html#get_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.xml.get_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets results from an Adams results (.res) file.</p>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">result_file</span> <span class="o">=</span> <span class="s1">&#39;example.res&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t_min</span> <span class="o">=</span> <span class="mi">70</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t_max</span> <span class="o">=</span> <span class="mi">80</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reqs_to_get</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reqs_to_get</span><span class="p">[</span><span class="s1">&#39;MSE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Instantaneous_Bottom_MSE&#39;</span><span class="p">,</span> <span class="s1">&#39;Filtered_Surface_MSE&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reqs_to_get</span><span class="p">[</span><span class="s1">&#39;ROP_controls&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Command_ROP&#39;</span><span class="p">,</span> <span class="s1">&#39;True_WOB&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">requests</span><span class="p">,</span> <span class="n">units</span> <span class="o">=</span> <span class="n">get_results</span><span class="p">(</span><span class="n">result_file</span><span class="p">,</span> <span class="n">reqs_to_get</span><span class="p">,</span> <span class="n">t_min</span><span class="p">,</span> <span class="n">t_max</span><span class="p">)</span>
+</pre></div>
 </div>
-<div class="section" id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This funciton only works with Requests.  It does not work with Result Sets.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This function only works with xml results files.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>result_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Filename of an Adams results (.res) file</li>
+<li><strong>reqs_to_get</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Dictionary of requests to extract (the default is None, which gets all results)</li>
+<li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>optional</em>) – Minimum time for which to extract results (the default is None)</li>
+<li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>optional</em>) – Maximum time for which to extract results (the default is None)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><em>dict</em> – Dictionary of request data</li>
+<li><em>dict</em> – Dictionary defining units for each request. NOTE: This is only returned if <cite>return_units=False</cite></li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="adamspy.postprocess.xml.shrink_results">
+<code class="descclassname">adamspy.postprocess.xml.</code><code class="descname">shrink_results</code><span class="sig-paren">(</span><em>result_file</em>, <em>reqs_to_keep</em>, <em>t_min=None</em>, <em>t_max=None</em>, <em>new_result_file=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/xml.html#shrink_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.xml.shrink_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shrinks a results file by eliminating unwanted data.</p>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">result_file</span> <span class="o">=</span> <span class="s1">&#39;example.res&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t_min</span> <span class="o">=</span> <span class="mi">70</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t_max</span> <span class="o">=</span> <span class="mi">80</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reqs_to_keep</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reqs_to_keep</span><span class="p">[</span><span class="s1">&#39;MSE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Instantaneous_Bottom_MSE&#39;</span><span class="p">,</span> <span class="s1">&#39;Filtered_Surface_MSE&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reqs_to_keep</span><span class="p">[</span><span class="s1">&#39;ROP_controls&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Command_ROP&#39;</span><span class="p">,</span> <span class="s1">&#39;True_WOB&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shrink_results</span><span class="p">(</span><span class="n">result_file</span><span class="p">,</span> <span class="n">reqs_to_keep</span><span class="p">,</span> <span class="n">t_min</span><span class="p">,</span> <span class="n">t_max</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This funciton only works with Requests.  It does not work with Result Sets.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>result_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Filename of the results file</li>
+<li><strong>reqs_to_keep</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Dictionary of requests and request components that should be saved.</li>
+<li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Start time of period of interest</li>
+<li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – End time of period of interest</li>
+<li><strong>new_result_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Name that will be given to the new results file. (Default is None which adds a ‘_shrunk’ suffix to <cite>result_file</cite>.)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-adamspy.postprocess">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-adamspy.postprocess" title="Permalink to this headline">¶</a></h2>
+<p>Package for working with Adams Results</p>
 </div>
 </div>
 
@@ -193,26 +276,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

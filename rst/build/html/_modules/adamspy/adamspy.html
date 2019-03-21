@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adamspy &mdash; adamspy 0.7.30 documentation</title>
+  <title>adamspy.adamspy &mdash; adamspy 0.7.31 documentation</title>
   
 
   
@@ -17,32 +17,34 @@
   
 
   
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
-
-  
-  <script src="../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -56,7 +58,7 @@
             
             
               <div class="version">
-                0.7.30
+                0.7.31
               </div>
             
           
@@ -148,68 +150,68 @@
 <span class="kn">import</span> <span class="nn">re</span>
 
 <div class="viewcode-block" id="get_simdur_from_msg"><a class="viewcode-back" href="../../adamspy.html#adamspy.adamspy.get_simdur_from_msg">[docs]</a><span class="k">def</span> <span class="nf">get_simdur_from_msg</span><span class="p">(</span><span class="n">msg_file</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Reads an Adams message file (.msg) and returns the total duration of the simulation.</span>
-<span class="sd">    </span>
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    msg_file : str</span>
-<span class="sd">        Filepath to an Adams message file (.msg)</span>
-<span class="sd">    </span>
-<span class="sd">    Raises</span>
-<span class="sd">    ------</span>
-<span class="sd">    RuntimeError</span>
-<span class="sd">        Returned if no simulation end time was found in the specified message file</span>
-<span class="sd">    </span>
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    float</span>
-<span class="sd">        Total duration of the simulation</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+	<span class="sd">&quot;&quot;&quot;Reads an Adams message file (.msg) and returns the total duration of the simulation.</span>
+<span class="sd">	</span>
+<span class="sd">	Parameters</span>
+<span class="sd">	----------</span>
+<span class="sd">	msg_file : str</span>
+<span class="sd">		Filepath to an Adams message file (.msg)</span>
+<span class="sd">	</span>
+<span class="sd">	Raises</span>
+<span class="sd">	------</span>
+<span class="sd">	RuntimeError</span>
+<span class="sd">		Returned if no simulation end time was found in the specified message file</span>
+<span class="sd">	</span>
+<span class="sd">	Returns</span>
+<span class="sd">	-------</span>
+<span class="sd">	float</span>
+<span class="sd">		Total duration of the simulation</span>
+<span class="sd">	&quot;&quot;&quot;</span>
 
-    <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">msg_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39; *command: sim(ulate)?/dyn(anmic)?.*, *end *=.*&#39;</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()):</span>
-                <span class="n">duration</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;end *=&#39;</span><span class="p">,</span><span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
-                <span class="n">found</span><span class="o">=</span><span class="kc">True</span>
-    
-    <span class="c1"># Raise an error if no duration found</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;No simulation end time was found in the specified message file!&#39;</span><span class="p">)</span>
-        
-    <span class="k">return</span> <span class="n">duration</span></div>
+	<span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+	<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">msg_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+		<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39; *command: sim(ulate)?/dyn(anmic)?.*, *end *=.*&#39;</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()):</span>
+				<span class="n">duration</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;end *=&#39;</span><span class="p">,</span><span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+				<span class="n">found</span><span class="o">=</span><span class="kc">True</span>
+	
+	<span class="c1"># Raise an error if no duration found</span>
+	<span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
+		<span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;No simulation end time was found in the specified message file!&#39;</span><span class="p">)</span>
+		
+	<span class="k">return</span> <span class="n">duration</span></div>
 
 <div class="viewcode-block" id="get_simdur_from_acf"><a class="viewcode-back" href="../../adamspy.html#adamspy.adamspy.get_simdur_from_acf">[docs]</a><span class="k">def</span> <span class="nf">get_simdur_from_acf</span><span class="p">(</span><span class="n">acf_file</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Reads an Adams command file (.acf) and returns the total duration of the simulation.</span>
-<span class="sd">    </span>
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    acf_file : str</span>
-<span class="sd">        Filepath to an Adams message file (.msg)</span>
-<span class="sd">    </span>
-<span class="sd">    Raises</span>
-<span class="sd">    ------</span>
-<span class="sd">    RuntimeError</span>
-<span class="sd">        Returned if no simulation end time was found in the specified message file</span>
-<span class="sd">    </span>
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    float</span>
-<span class="sd">        Total duration of the simulation</span>
+	<span class="sd">&quot;&quot;&quot;Reads an Adams command file (.acf) and returns the total duration of the simulation.</span>
+<span class="sd">	</span>
+<span class="sd">	Parameters</span>
+<span class="sd">	----------</span>
+<span class="sd">	acf_file : str</span>
+<span class="sd">		Filepath to an Adams message file (.msg)</span>
+<span class="sd">	</span>
+<span class="sd">	Raises</span>
+<span class="sd">	------</span>
+<span class="sd">	RuntimeError</span>
+<span class="sd">		Returned if no simulation end time was found in the specified message file</span>
+<span class="sd">	</span>
+<span class="sd">	Returns</span>
+<span class="sd">	-------</span>
+<span class="sd">	float</span>
+<span class="sd">		Total duration of the simulation</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">acf_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;sim(ulate)?/dyn(anmic)?.*, *end *=.*&#39;</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()):</span>
-                <span class="n">duration</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;end *=&#39;</span><span class="p">,</span><span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
-                <span class="n">found</span><span class="o">=</span><span class="kc">True</span>
-    
-    <span class="c1"># Raise an error if no duration found</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;No simulation end time was found in the specified message file!&#39;</span><span class="p">)</span>
-        
-    <span class="k">return</span> <span class="n">duration</span></div>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+	<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">acf_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+		<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;sim(ulate)?/dyn(anmic)?.*, *end *=.*&#39;</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()):</span>
+				<span class="n">duration</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;end *=&#39;</span><span class="p">,</span><span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+				<span class="n">found</span><span class="o">=</span><span class="kc">True</span>
+	
+	<span class="c1"># Raise an error if no duration found</span>
+	<span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
+		<span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;No simulation end time was found in the specified message file!&#39;</span><span class="p">)</span>
+		
+	<span class="k">return</span> <span class="n">duration</span></div>
 </pre></div>
 
            </div>
@@ -239,26 +241,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.7.30'
-version_notes = 'Documentation fixes/updates.'
+version = '0.7.31'
+version_notes = 'Fixed DrillSim.clean_pason'
 date = 'March 21, 2019'
 # ---------------------
 author = 'Ben Thornton'

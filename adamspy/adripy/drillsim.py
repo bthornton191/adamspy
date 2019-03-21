@@ -249,7 +249,7 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
             i_min = argmax(array(time)>=t_min)
             i_max = argmax(array(time)>=t_max)
             signal = signal[i_min:i_max]
-            time = time[i_min:i_max]            
+            time = time[i_min:i_max] - time[i_min]
             return signal, time   
 
         if sig_type in ['rpm', 'gpm']:
@@ -279,7 +279,7 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
             pason_data.plt.title(sig_type.upper())
             pason_data.plt.show()
 
-        return signal, time
+        return list(signal), list(time)
     
     @classmethod
     def get_filtered_signal(cls, pason_data, sig_type, cutoff_freq=None):

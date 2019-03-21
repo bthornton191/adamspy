@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.tool &mdash; adamspy 0.7.30 documentation</title>
+  <title>adamspy.adripy.tool &mdash; adamspy 0.7.31 documentation</title>
   
 
   
@@ -17,32 +17,34 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -56,7 +58,7 @@
             
             
               <div class="version">
-                0.7.30
+                0.7.31
               </div>
             
           
@@ -150,6 +152,7 @@
 <span class="kn">import</span> <span class="nn">shutil</span>
 <span class="kn">from</span> <span class="nn">thornpy</span> <span class="k">import</span> <span class="n">numtype</span>
 <span class="kn">from</span> <span class="nn">.utilities</span> <span class="k">import</span> <span class="n">TO_BLOCK_HEADER_PATTERN</span><span class="p">,</span> <span class="n">TO_PARAMETER_PATTERN</span><span class="p">,</span> <span class="n">get_cdb_location</span><span class="p">,</span> <span class="n">get_cdb_path</span><span class="p">,</span> <span class="n">get_full_path</span>
+<span class="kn">from</span> <span class="nn">.constants</span> <span class="k">import</span> <span class="n">DATABASE_INFO</span>
 
 <div class="viewcode-block" id="DrillTool"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.tool.DrillTool">[docs]</a><span class="k">class</span> <span class="nc">DrillTool</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -167,68 +170,64 @@
 <span class="sd">        Extension used for tiem orbit file</span>
 <span class="sd">    table : str</span>
 <span class="sd">        Name of the cdb table used for the particular tool type</span>
-<span class="sd">    &quot;&quot;&quot;</span>  
 
-    <span class="n">_DATABASE_INFO</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;assembly&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;drill_strings.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;drillpipe&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;drill_pipes.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;pip&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;drill_collar&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;drill_collars.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;col&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;hole&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;holes.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;hol&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;accelerator&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;accelerators.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;acc&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;stabilizer&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;stabilizers.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;sta&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;short_collar&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;short_collars.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;sco&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;dart&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;darts.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;drt&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;jar&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;jars.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;djr&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;agitator&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;agitators.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;agi&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;blade_reamer&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;blade_reamers.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;bre&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;crossover&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;crossovers.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;crs&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;darts&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;darts.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;drt&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;event&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;events.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;evt&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;flex_pipe&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;flex_pipes.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;flp&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;hw_pipe&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;hw_pipes.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;hwp&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;pdc_bit&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;pdc_bits.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;pdc&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;motor&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;motors.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;mot&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;shock_sub&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;shock_subs.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;shk&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;lwd_tool&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;lwd_tools.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;lwd&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;mfr_tool&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;mfr_tools.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;mfr&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;mwd_tool&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;mwd_tools.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;mwd&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;rss&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;rss.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;rsd&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;instrumentation_sub&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;instrumentation_subs.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;ins&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;generic_long&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;generic_longs.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;gnl&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;generic_short&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;generic_shorts.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;gns&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;roller_cone_bit&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;roller_cone_bits.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;rcb&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;solver_setting&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;solver_settings.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;ssf&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;plot_config&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;plot_configs.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;plt&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;top_drive&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;top_drives.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;tdr&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;equivalent_upper_string&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="s1">&#39;drill_pipes.tbl&#39;</span><span class="p">,</span> <span class="s1">&#39;extension&#39;</span><span class="p">:</span> <span class="s1">&#39;pip&#39;</span><span class="p">}</span>
-    <span class="p">}</span>
-    
+<span class="sd">    &quot;&quot;&quot;</span>     
+    <span class="n">_ACCEPTED_TYPES</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;drillpipe&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;drill_collar&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;accelerator&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;stabilizer&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;short_collar&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;dart&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;jar&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;agitator&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;blade_reamer&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;crossover&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;darts&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;flex_pipe&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;hw_pipe&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;pdc_bit&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;motor&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;shock_sub&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;lwd_tool&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;mfr_tool&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;mwd_tool&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;instrumentation_sub&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;generic_long&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;generic_short&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;top_drive&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;equivalent_upper_string&#39;</span>
+    <span class="p">]</span>
+
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">property_file</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initializes the `DrillTool` object.</span>
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        property_file : str</span>
-<span class="sd">            Tiem Orbit file representing the drill tool.        </span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">            Tiem Orbit file representing the drill tool.</span>
 
+<span class="sd">        &quot;&quot;&quot;</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_extension</span><span class="p">(</span><span class="n">property_file</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">property_file</span> <span class="o">=</span> <span class="n">get_cdb_path</span><span class="p">(</span><span class="n">property_file</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_name</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tool_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_type</span><span class="p">()</span>    
         <span class="bp">self</span><span class="o">.</span><span class="n">extension</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_extension</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_table</span><span class="p">()</span>
-        
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_table</span><span class="p">()</span>        
         <span class="bp">self</span><span class="o">.</span><span class="n">_name_receivers</span> <span class="o">=</span> <span class="p">[]</span>
+
+        
     
 <div class="viewcode-block" id="DrillTool.bind_name_to"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.tool.DrillTool.bind_name_to">[docs]</a>    <span class="k">def</span> <span class="nf">bind_name_to</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_receiver</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Appends :arg:`name_receiver` to :attr:`_name_receivers`.</span>
+        <span class="sd">&quot;&quot;&quot;Appends `name_receiver` to :attr:`_name_receivers`.</span>
 <span class="sd">        </span>
-<span class="sd">        All the methods in the :arg:`name_receiver` :obj:list will be called anytime the :meth:`rename()` method is called</span>
+<span class="sd">        All the methods in the `name_receiver` :obj:list will be called anytime the :meth:`rename()` method is called</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        name_receiver : func</span>
 <span class="sd">            Any method that takes a :class:`DrillTool`.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_name_receivers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name_receiver</span><span class="p">)</span></div>
     
@@ -245,6 +244,7 @@
 <span class="sd">            New name for the tool.</span>
 <span class="sd">        remove_original : bool</span>
 <span class="sd">            If `True` will rename the property file.  If `False` will create a new one.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Determine the new filename</span>
         <span class="n">current_filename</span> <span class="o">=</span> <span class="n">get_full_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">property_file</span><span class="p">)</span>
@@ -271,7 +271,7 @@
             <span class="n">name_receiver</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="DrillTool.copy_file"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.tool.DrillTool.copy_file">[docs]</a>    <span class="k">def</span> <span class="nf">copy_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cdb</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Creates string file from the DrillString object.</span>
+        <span class="sd">&quot;&quot;&quot;Copies the file to `directory` or to the appropriate table in `cdb`.</span>
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -290,6 +290,7 @@
 <span class="sd">        Note</span>
 <span class="sd">        ----</span>
 <span class="sd">        Either `directory` or `cdb` must be given. </span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Check that directory or cdb was given.</span>
         <span class="k">if</span> <span class="n">directory</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">cdb</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -326,6 +327,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        :obj:`string` or :obj:`float`</span>
 <span class="sd">            Value of the specified parameter from the property file.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Initilize return variable as None</span>
         <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
@@ -375,16 +377,18 @@
         <span class="k">return</span> <span class="n">value</span></div>
 
 <div class="viewcode-block" id="DrillTool.modify_parameter_value"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.tool.DrillTool.modify_parameter_value">[docs]</a>    <span class="k">def</span> <span class="nf">modify_parameter_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter_to_change</span><span class="p">,</span> <span class="n">new_value</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Modifies a parameter in a DrillTool property file</span>
+        <span class="sd">&quot;&quot;&quot;Modifies a parameter in a :class:`DrillTool` property file.</span>
 <span class="sd">        </span>
-<span class="sd">        Arguments:</span>
-<span class="sd">            parameter_to_change {string} -- Name of the parameter to modify.  Must match the name in the property file. (Not case sensitive). </span>
-<span class="sd">            new_value {float or string} -- New value of the parameter to change</span>
-<span class="sd">        </span>
-<span class="sd">        Keyword Arguments:</span>
-<span class="sd">            new_filename {string} -- Filename of new property file.  If None the original property file will be overwritten (default: {None})</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        parameter_to_change : str</span>
+<span class="sd">            Name of the parameter to modify.  Must match the name in the property file. (Not case sensitive). </span>
+<span class="sd">        new_value : :obj:`float` or :obj:`str`</span>
+<span class="sd">            New value of the parameter to change</span>
+<span class="sd">        new_filename : str</span>
+<span class="sd">            Filename of new property file.  If None the original property file will be overwritten (the default is None.)</span>
 
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">filename</span> <span class="o">=</span> <span class="n">get_full_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">property_file</span><span class="p">)</span>        
             
         <span class="c1"># Read the lines in the original file into a list</span>
@@ -393,20 +397,19 @@
 
         <span class="c1"># Write a new list with the correct line modified</span>
         <span class="n">new_lines</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">original_lines</span><span class="p">:</span>
-                
-            <span class="c1"># For each line in the original file</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">original_lines</span><span class="p">:</span>                
+            <span class="c1"># For each line in the original file, append to new_lines</span>
             <span class="n">new_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">TO_PARAMETER_PATTERN</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
-                
+
+            <span class="k">if</span> <span class="n">TO_PARAMETER_PATTERN</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>                
                 <span class="c1"># If the line matches the pattern of a parameter definition</span>
                 <span class="p">[</span><span class="n">current_parameter</span><span class="p">,</span> <span class="n">value</span><span class="p">]</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
+
                 <span class="k">if</span> <span class="n">current_parameter</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">parameter_to_change</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
-
                     <span class="c1"># If the parameter is the parameter to be changed</span>
-                    <span class="k">if</span> <span class="s2">&quot;&#39;&quot;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
 
-                        <span class="c1"># If the value is a string</span>
+                    <span class="k">if</span> <span class="s2">&quot;&#39;&quot;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+                        <span class="c1"># If the value is a string, add quotes</span>
                         <span class="n">new_value</span> <span class="o">=</span> <span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">new_value</span><span class="p">)</span>
                     
                     <span class="n">new_lines</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39; </span><span class="si">{}</span><span class="s1">  =  </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">current_parameter</span><span class="p">,</span> <span class="n">new_value</span><span class="p">)</span>
@@ -421,12 +424,31 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_parameter_value</span><span class="p">(</span><span class="s1">&#39;File_Type&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
     
     <span class="k">def</span> <span class="nf">_get_extension</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">extension</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_DATABASE_INFO</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">tool_type</span><span class="p">][</span><span class="s1">&#39;extension&#39;</span><span class="p">]</span>
+        <span class="n">extension</span> <span class="o">=</span> <span class="n">DATABASE_INFO</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">tool_type</span><span class="p">][</span><span class="s1">&#39;extension&#39;</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">extension</span>
 
     <span class="k">def</span> <span class="nf">_get_table</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_DATABASE_INFO</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">tool_type</span><span class="p">][</span><span class="s1">&#39;table&#39;</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">table</span></div>
+        <span class="n">table</span> <span class="o">=</span> <span class="n">DATABASE_INFO</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">tool_type</span><span class="p">][</span><span class="s1">&#39;table&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">table</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_check_extension</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">property_file</span><span class="p">):</span>      
+        <span class="sd">&quot;&quot;&quot;Checks if the extension on `property_file` is in the list of supported tool file types.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        property_file : str</span>
+<span class="sd">            Filename of an Adams Drill property file.</span>
+<span class="sd">        </span>
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        DrillToolError</span>
+<span class="sd">            Raised if the extension on `property_file` is not in the list of supported tool file types.</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">property_file</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">ext</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">info</span><span class="p">[</span><span class="s1">&#39;extension&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">DATABASE_INFO</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_ACCEPTED_TYPES</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="n">DrillToolError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;The extension </span><span class="si">{ext}</span><span class="s1"> is not supported by the DrillTool class.&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="DrillToolError"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.tool.DrillToolError">[docs]</a><span class="k">class</span> <span class="nc">DrillToolError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
@@ -459,26 +481,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>
