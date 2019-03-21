@@ -1,6 +1,7 @@
 """A module that contains the :class:`DrillString` class
 """
 import os
+import copy
 import re
 import shutil
 from . import TMPLT_ENV
@@ -10,7 +11,7 @@ from .constants import DATABASE_INFO
 
 class DrillString():
     """
-    Creates an object with all data necessary to write a drill string.      
+    An object with all data necessary to write a drill string.      
     
     Parameters in the string file can be specified when the DrillString is instanced using kwargs or they can be set later using: 
         
@@ -61,11 +62,11 @@ class DrillString():
         'Hole_Color': 'LtGray'
     }
 
-    _ARRAY_PARAMETERS = [
+    _TABLE_PARAMETERS = [
         'Distance_from_Bit'
     ]
 
-    _DEFAULT_PARAMETER_ARRAYS = {
+    _DEFAULT_PARAMETER_TABLES = {
         'Distance_from_Bit': ()
     }
 
@@ -522,13 +523,13 @@ class DrillString():
         # Applies normal parameter defaults
         for scalar_parameter, value in self._DEFAULT_PARAMETER_SCALARS.items():
             if scalar_parameter not in self.parameters:
-                self.parameters[scalar_parameter] = value
+                self.parameters[scalar_parameter] = copy.copy(value)
 
         # Applies defaults to all ramp parameters
-        for array_parameter, array in self._DEFAULT_PARAMETER_ARRAYS.items():
-            self.parameters[array_parameter] = {}
-            self.parameters[array_parameter] = [list(tup) for tup in array]
-            self.parameters['_' + array_parameter] = zip(*self.parameters[array_parameter])
+        for table_parameter, table in self._DEFAULT_PARAMETER_TABLES.items():
+            self.parameters[table_parameter] = {}
+            self.parameters[table_parameter] = [list(tup) for tup in table]
+            self.parameters['_' + table_parameter] = zip(*self.parameters[table_parameter])
     
     def _copy_hole_file(self, directory=None, cdb=None):
         """Copys the hole file to a new locations.  Must give directory OR cdb.
@@ -665,7 +666,7 @@ class DrillString():
         # Read the tiem orbit data into a dictionary
         tiem_orbit_data = read_TO_file(tiem_orbit_file)
         
-        for param in self._SCALAR_PARAMETERS + self._ARRAY_PARAMETERS + self._FILENAME_PARAMETERS:
+        for param in self._SCALAR_PARAMETERS + self._TABLE_PARAMETERS + self._FILENAME_PARAMETERS:
             # For each string parameter initialize a found flag
             param_value = None
         

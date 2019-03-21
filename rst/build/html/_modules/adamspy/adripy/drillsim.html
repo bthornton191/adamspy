@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.drillsim &mdash; adamspy 0.7.29 documentation</title>
+  <title>adamspy.adripy.drillsim &mdash; adamspy 0.7.30 documentation</title>
   
 
   
@@ -17,34 +17,32 @@
   
 
   
-  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
+  
+  
     
 
   
+
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
+
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+        <div class="wy-side-nav-search">
           
 
           
@@ -58,7 +56,7 @@
             
             
               <div class="version">
-                0.7.29
+                0.7.30
               </div>
             
           
@@ -148,36 +146,20 @@
 <span></span><span class="sd">&quot;&quot;&quot;Module for the DrillSim class</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">subprocess</span>
-<span class="kn">from</span> <span class="nn">thornpy.signal</span> <span class="k">import</span> <span class="n">step_function</span><span class="p">,</span> <span class="n">low_pass</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">linspace</span><span class="p">,</span> <span class="n">argmax</span><span class="p">,</span> <span class="n">array</span>
-<span class="kn">from</span> <span class="nn">..postprocess.xml</span> <span class="k">import</span> <span class="n">get_results</span>
-<span class="kn">from</span> <span class="nn">.utilities</span> <span class="k">import</span> <span class="n">build</span><span class="p">,</span> <span class="n">add_splines_to_acf</span><span class="p">,</span> <span class="n">add_splines_to_adm</span>
+<span class="kn">from</span> <span class="nn">.utilities</span> <span class="k">import</span> <span class="n">build</span>
 
 <div class="viewcode-block" id="DrillSim"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim">[docs]</a><span class="k">class</span> <span class="nc">DrillSim</span><span class="p">():</span> <span class="c1">#pylint: disable=too-many-instance-attributes</span>
-    <span class="sd">&quot;&quot;&quot;Contains data defining the files that make up an Adams Drill input deck.    </span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    string : DrillString</span>
-<span class="sd">        :class:`DrillString` object representing the string to be used in the simulation</span>
-<span class="sd">    event : DrillEvent</span>
-<span class="sd">        :class:`DrillEvent` object representing the string to be used in the simulation</span>
-<span class="sd">    solver_settings : DrillSolverSettings</span>
-<span class="sd">        :class:`DrillSolverSettings` object representing the string to be used in the simulation</span>
-<span class="sd">    directory : str</span>
-<span class="sd">        Path to the directory in which to put the simulation files</span>
-<span class="sd">    analysis_name : str</span>
-<span class="sd">        Name of the analysis.  Used for all file prefixes</span>
+    <span class="sd">&quot;&quot;&quot;Contains data defining the files that make up an Adams Drill input deck.</span>
+<span class="sd">    </span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
 <span class="sd">    string : DrillString</span>
-<span class="sd">        :class:`DrillString` object representing the string to be used in the simulation</span>
+<span class="sd">        DrillString object representing the string to be used in the simulation</span>
 <span class="sd">    event : DrillEvent</span>
-<span class="sd">        :class:`DrillEvent` object representing the string to be used in the simulation</span>
+<span class="sd">        DrillEvent object representing the string to be used in the simulation</span>
 <span class="sd">    solver_settings : DrillSolverSettings</span>
-<span class="sd">        :class:`DrillSolverSettings` object representing the string to be used in the simulation</span>
+<span class="sd">        DrillSolverSettings object representing the string to be used in the simulation</span>
 <span class="sd">    directory : str</span>
 <span class="sd">        Path to the directory in which to put the simulation files</span>
 <span class="sd">    analysis_name : str</span>
@@ -194,29 +176,29 @@
 <span class="sd">        Filename of the analysis&#39; res file</span>
 <span class="sd">    built : bool</span>
 <span class="sd">        Indicates whether the input deck (adm, acf, and cmd files) has been built yet for this DrillSim</span>
-<span class="sd">    RAMP_TIME : dict</span>
-<span class="sd">        Class attribute containing standard ramp times for rpm, gpm, wob, and rop</span>
-<span class="sd">    CUTOFF_FREQ : dict</span>
-<span class="sd">        Class attribute containing default cutoff frequencies for smoothing pason inputs.</span>
 <span class="sd">        </span>
 <span class="sd">    Example</span>
 <span class="sd">    -------</span>
 <span class="sd">    &gt;&gt;&gt; my_drillsim = adripy.DrillSim(my_string, my_event, my_solversettings, os.getcwd(), &#39;MyAnalysis&#39;)</span>
-<span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">RAMP_TIME</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;rpm&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-        <span class="s1">&#39;gpm&#39;</span><span class="p">:</span> <span class="mi">20</span>
-    <span class="p">}</span>
-    <span class="n">CUTOFF_FREQ</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;wob&#39;</span><span class="p">:</span> <span class="o">.</span><span class="mi">1</span><span class="p">,</span>
-        <span class="s1">&#39;rop&#39;</span><span class="p">:</span> <span class="o">.</span><span class="mi">1</span>
-    <span class="p">}</span>
-
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">solver_settings</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">analysis_name</span><span class="p">,</span> <span class="n">write_TO_files</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span> <span class="c1">#pylint: disable=too-many-arguments</span>
         <span class="sd">&quot;&quot;&quot;Sets instance attributes and writes the string, event, and solver settings files to `directory`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        string : DrillString</span>
+<span class="sd">            :obj:`DrillString` object representing the string to be used in the simulation</span>
+<span class="sd">        event : DrillEvent</span>
+<span class="sd">            :obj:`DrillEvent` object representing the string to be used in the simulation</span>
+<span class="sd">        solver_settings : DrillSolverSettings</span>
+<span class="sd">            :obj:`DrillSolverSettings` object representing the string to be used in the simulation</span>
+<span class="sd">        directory : str</span>
+<span class="sd">            Path to the directory in which to put the simulation files</span>
+<span class="sd">        analysis_name : str</span>
+<span class="sd">            Name of the analysis.  Used for all file prefixes</span>
 <span class="sd">        </span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="n">string</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">event</span> <span class="o">=</span> <span class="n">event</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">solver_settings</span> <span class="o">=</span> <span class="n">solver_settings</span>
@@ -226,50 +208,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">adm_filename</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">acf_filename</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cmd_filename</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">res_filename</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>  
-        <span class="bp">self</span><span class="o">.</span><span class="n">msg_filename</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>      
-        <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">res_filename</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>        
         
         <span class="c1"># Write the TO files to the working directory</span>
         <span class="k">if</span> <span class="n">write_TO_files</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">write_tiem_orbit_files</span><span class="p">()</span>
         
-        <span class="bp">self</span><span class="o">.</span><span class="n">run_proc</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pason_inputs</span> <span class="o">=</span> <span class="p">{}</span>
-
-        <span class="c1"># Flags</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">built</span> <span class="o">=</span> <span class="kc">False</span>
-
-<div class="viewcode-block" id="DrillSim.get_pason_inputs"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim.get_pason_inputs">[docs]</a>    <span class="k">def</span> <span class="nf">get_pason_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pason_data</span><span class="p">,</span> <span class="n">t_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sig_types</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;wob&#39;</span><span class="p">,</span> <span class="s1">&#39;rpm&#39;</span><span class="p">,</span> <span class="s1">&#39;gpm&#39;</span><span class="p">,</span> <span class="s1">&#39;rop&#39;</span><span class="p">],</span> <span class="n">show_plots</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Extracts the wob, rpm, gpm, and/or rop from a :class:`PasonData` object.  If this is run before :meth:`build` the pason data will be added to the adm file as model input splines.</span>
-<span class="sd">        </span>
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        pason_data : PasonData</span>
-<span class="sd">            A :class:`PasonData` object from which input splines will be extracted.</span>
-<span class="sd">        t_min : float, optional</span>
-<span class="sd">            Minimum time to extract. (the default is None, which starts at the beginning of the dataset)</span>
-<span class="sd">        t_max : float, optional</span>
-<span class="sd">            Maximum time to extract (the default is None, which goes to the end of the dataset)</span>
-<span class="sd">        sig_types : list, optional</span>
-<span class="sd">            Signal types to extract.  Options are &#39;wob&#39;, &#39;rpm&#39;, &#39;gpm&#39;, &#39;rop&#39;.  (the default is [&#39;wob&#39;, &#39;rpm&#39;, &#39;gpm&#39;, &#39;rop&#39;])</span>
-<span class="sd">        </span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Set t_min and t_max if they weren&#39;t supplied</span>
-        <span class="k">if</span> <span class="n">t_min</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">t_min</span> <span class="o">=</span> <span class="n">pason_data</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">t_max</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">t_max</span> <span class="o">=</span> <span class="n">pason_data</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-
-        <span class="c1"># loop through the requested signal types</span>
-        <span class="k">for</span> <span class="n">sig_type</span> <span class="ow">in</span> <span class="n">sig_types</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">pason_inputs</span><span class="p">[</span><span class="n">sig_type</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">clean_pason</span><span class="p">(</span><span class="n">pason_data</span><span class="p">,</span> <span class="n">sig_type</span><span class="p">,</span> <span class="n">t_min</span><span class="p">,</span> <span class="n">t_max</span><span class="p">,</span> <span class="n">show_plot</span><span class="o">=</span><span class="n">show_plots</span><span class="p">)</span>
-        
-        <span class="c1"># Get the index for the start of the requested time range</span>
-        <span class="n">i_min</span> <span class="o">=</span> <span class="n">argmax</span><span class="p">(</span><span class="n">pason_data</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="o">&gt;=</span><span class="n">t_min</span><span class="p">)</span>
-
-        <span class="c1"># Add the time signal</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pason_inputs</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pason_data</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span> <span class="o">-</span> <span class="n">pason_data</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">i_min</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="DrillSim.build"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim.build">[docs]</a>    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;This method builds the input deck.  It launches Adams View in batch, reads in the `self.string.filename` and `self.solver_settings.filename` files, and runs the Adams Drill macro ``ds tostart`` to build a drill string model.  Then it saves the model files (.acf, .adm, and .cmd) to the `self.directory` directory.</span>
@@ -282,32 +227,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">acf_filename</span> <span class="o">=</span> <span class="n">acf</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cmd_filename</span> <span class="o">=</span> <span class="n">cmd</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pason_inputs</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_add_adm_splines</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_add_acf_splines</span><span class="p">()</span>
-
         <span class="c1"># Flag this simulation as built</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">built</span> <span class="o">=</span> <span class="kc">True</span></div>
 
-<div class="viewcode-block" id="DrillSim.run"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span> <span class="c1">#pylint: disable=no-self-use</span>
+<div class="viewcode-block" id="DrillSim.run"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1">#pylint: disable=no-self-use</span>
         <span class="sd">&quot;&quot;&quot;Run the simulation</span>
-<span class="sd">        </span>
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        wait : bool</span>
-<span class="sd">            If True the application will wait for the process to complete before continuing.</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>                
-        <span class="n">startupinfo</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">STARTUPINFO</span><span class="p">()</span>
-        <span class="n">startupinfo</span><span class="o">.</span><span class="n">dwFlags</span> <span class="o">|=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">STARTF_USESHOWWINDOW</span>        
-        <span class="bp">self</span><span class="o">.</span><span class="n">run_proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> ru-s </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADAMS_LAUNCH_COMMAND&#39;</span><span class="p">],</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">acf_filename</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">cwd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">,</span> <span class="n">startupinfo</span><span class="o">=</span><span class="n">startupinfo</span><span class="p">)</span>
-        
-        <span class="c1"># Wait for the process to complete before moving on.</span>
-        <span class="k">if</span> <span class="n">wait</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">run_proc</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">msg_filename</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{self.analysis_name}</span><span class="s1">.msg&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">res_filename</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{self.analysis_name}</span><span class="s1">.res&#39;</span></div>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># -------------------</span>
+        <span class="c1"># Run Logic</span>
+        <span class="c1"># -------------------</span>
+        <span class="k">return</span></div>
     
 <div class="viewcode-block" id="DrillSim.write_tiem_orbit_files"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim.write_tiem_orbit_files">[docs]</a>    <span class="k">def</span> <span class="nf">write_tiem_orbit_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Writes the solver settings and event files and publishes the string file to the simulation directory.</span>
@@ -327,216 +256,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Event_Property_File&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">filename</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;ModelName&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analysis_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;OutputName&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analysis_name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">string_filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">,</span> <span class="n">publish</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>   </div>
-    
-<div class="viewcode-block" id="DrillSim.read_results"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim.read_results">[docs]</a>    <span class="k">def</span> <span class="nf">read_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reqs_to_read</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Reads results from the results file.</span>
-<span class="sd">        </span>
-<span class="sd">        Example</span>
-<span class="sd">        -------</span>
-<span class="sd">        &gt;&gt;&gt; drillsim.run()</span>
-<span class="sd">        &gt;&gt;&gt; t_min = 70</span>
-<span class="sd">        &gt;&gt;&gt; t_max = 71</span>
-<span class="sd">        &gt;&gt;&gt; reqs_to_read = {}</span>
-<span class="sd">        &gt;&gt;&gt; reqs_to_read[&#39;MSE&#39;] = [&#39;Instantaneous_Bottom_MSE&#39;, &#39;Filtered_Surface_MSE&#39;]</span>
-<span class="sd">        &gt;&gt;&gt; reqs_to_read[&#39;ROP_controls&#39;] = [&#39;Command_ROP&#39;, &#39;True_WOB&#39;]</span>
-<span class="sd">        &gt;&gt;&gt; results, units = drillsim.get_results(result_file, reqs_to_get, t_min, t_max)</span>
-<span class="sd">        &gt;&gt;&gt; results[&#39;MSE&#39;][&#39;Instantaneous_Bottom_MSE&#39;]</span>
-<span class="sd">        [5000.5621, 5000.8913, ]</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        reqs_to_read : dict, optional</span>
-<span class="sd">            Dictionary of results data (the default is None, which gets all the results)</span>
-<span class="sd">        t_min : float, optional</span>
-<span class="sd">            Mininmum time for which to get results (the default is None, which gets results starting at the first time step)</span>
-<span class="sd">        t_max : float, optional</span>
-<span class="sd">            Maximum time for which to get results (the default is None, which gets results up to the last time step)</span>
-<span class="sd">        </span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="n">get_results</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">res_filename</span><span class="p">,</span> <span class="n">reqs_to_read</span><span class="p">,</span> <span class="n">t_min</span><span class="p">,</span> <span class="n">t_max</span><span class="p">)</span></div>
-    
-<div class="viewcode-block" id="DrillSim.clean_pason"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim.clean_pason">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">clean_pason</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">pason_data</span><span class="p">,</span> <span class="n">sig_type</span><span class="p">,</span> <span class="n">t_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">show_plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ramp_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cutoff_freq</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Returns a cleaned up pason signal to be used as input to an Adams Drill model.</span>
-<span class="sd">        </span>
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        pason_data : PasonData</span>
-<span class="sd">            Pason signal to be used as input.</span>
-<span class="sd">        sig_type : str</span>
-<span class="sd">            Type of signal. Options are &#39;wob&#39;, &#39;rpm&#39;, &#39;gpm&#39;, or &#39;rop&#39;.</span>
-<span class="sd">        t_min : float</span>
-<span class="sd">            Minimum time to crop to the dataset to. (default is None which uses the beginning of the dataset)</span>
-<span class="sd">        t_max : float</span>
-<span class="sd">            Maximum time to crop the dataset to. (default is None which uses the end of the dataset)</span>
-<span class="sd">        show_plot : bool, optional</span>
-<span class="sd">            If True, shows a plot of the resulting setpoints (the default is True)      </span>
-<span class="sd">        </span>
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        list</span>
-<span class="sd">            Cleaned signal</span>
-<span class="sd">        list</span>
-<span class="sd">            Associated time signal</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>      
-
-        <span class="k">def</span> <span class="nf">crop_signal</span><span class="p">(</span><span class="n">t_min</span><span class="p">,</span> <span class="n">t_max</span><span class="p">,</span> <span class="n">signal</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>            
-            <span class="k">if</span> <span class="n">t_min</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">t_min</span> <span class="o">=</span> <span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">t_max</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">t_max</span> <span class="o">=</span> <span class="n">time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-            <span class="n">i_min</span> <span class="o">=</span> <span class="n">argmax</span><span class="p">(</span><span class="n">array</span><span class="p">(</span><span class="n">time</span><span class="p">)</span><span class="o">&gt;=</span><span class="n">t_min</span><span class="p">)</span>
-            <span class="n">i_max</span> <span class="o">=</span> <span class="n">argmax</span><span class="p">(</span><span class="n">array</span><span class="p">(</span><span class="n">time</span><span class="p">)</span><span class="o">&gt;=</span><span class="n">t_max</span><span class="p">)</span>
-            <span class="n">signal</span> <span class="o">=</span> <span class="n">signal</span><span class="p">[</span><span class="n">i_min</span><span class="p">:</span><span class="n">i_max</span><span class="p">]</span>
-            <span class="n">time</span> <span class="o">=</span> <span class="n">time</span><span class="p">[</span><span class="n">i_min</span><span class="p">:</span><span class="n">i_max</span><span class="p">]</span>            
-            <span class="k">return</span> <span class="n">signal</span><span class="p">,</span> <span class="n">time</span>   
-
-        <span class="k">if</span> <span class="n">sig_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;rpm&#39;</span><span class="p">,</span> <span class="s1">&#39;gpm&#39;</span><span class="p">]:</span>
-            <span class="c1"># For rpm and gpm get a stepped signal</span>
-            <span class="k">if</span> <span class="n">ramp_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">ramp_time</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">RAMP_TIME</span><span class="p">[</span><span class="n">sig_type</span><span class="p">]</span>            
-            <span class="n">signal</span><span class="p">,</span> <span class="n">time</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_stepped_signal</span><span class="p">(</span><span class="n">pason_data</span><span class="p">,</span> <span class="n">ramp_time</span><span class="p">,</span> <span class="n">sig_type</span><span class="p">,</span> <span class="n">show_plot</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>        
-        
-        <span class="k">elif</span> <span class="n">sig_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;wob&#39;</span><span class="p">,</span> <span class="s1">&#39;rop&#39;</span><span class="p">]:</span>
-            <span class="c1"># For wob and rop get a filterd signal</span>
-            <span class="n">signal</span><span class="p">,</span> <span class="n">time</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_filtered_signal</span><span class="p">(</span><span class="n">pason_data</span><span class="p">,</span> <span class="n">sig_type</span><span class="p">,</span> <span class="n">cutoff_freq</span><span class="o">=</span><span class="n">cutoff_freq</span><span class="p">)</span>
-
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Value given for sig_type must be rpm, gpm, rop, or wob.&#39;</span><span class="p">)</span>
-
-        <span class="c1"># Crop the signals if t_min or t_max are given</span>
-        <span class="k">if</span> <span class="n">t_min</span> <span class="ow">or</span> <span class="n">t_max</span><span class="p">:</span>
-            <span class="n">signal</span><span class="p">,</span> <span class="n">time</span> <span class="o">=</span> <span class="n">crop_signal</span><span class="p">(</span><span class="n">t_min</span><span class="p">,</span> <span class="n">t_max</span><span class="p">,</span> <span class="n">signal</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
-
-        <span class="c1"># If show_plots is true</span>
-        <span class="k">if</span> <span class="n">show_plot</span><span class="p">:</span>
-            <span class="n">pason_data</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
-            <span class="n">pason_data</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pason_data</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">pason_data</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">sig_type</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-            <span class="n">pason_data</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">sig_type</span><span class="p">)</span>
-            <span class="n">pason_data</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">signal</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-            <span class="n">pason_data</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (sec)&#39;</span><span class="p">)</span>
-            <span class="n">pason_data</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">sig_type</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>
-            <span class="n">pason_data</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-        <span class="k">return</span> <span class="n">signal</span><span class="p">,</span> <span class="n">time</span></div>
-    
-<div class="viewcode-block" id="DrillSim.get_filtered_signal"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim.get_filtered_signal">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">get_filtered_signal</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">pason_data</span><span class="p">,</span> <span class="n">sig_type</span><span class="p">,</span> <span class="n">cutoff_freq</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Gets a filtered signal from the wob or rop data of a :class:`PasonData` object.</span>
-
-<span class="sd">        This method uses a digital zero-phase 5th order butterworth filter with a </span>
-<span class="sd">        </span>
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        pason_data : PasonData</span>
-<span class="sd">            A :class:`PasonData` object</span>
-<span class="sd">        sig_type : str</span>
-<span class="sd">            Type of signal. Options are &#39;wob&#39; or &#39;rop&#39;</span>
-<span class="sd">        show_plot : bool, optional</span>
-<span class="sd">            [description] (the default is True, which [default_description])</span>
-<span class="sd">        cutoff_freq : float, optional</span>
-<span class="sd">            Cutoff frequency to be used in the lowpass filter. (the default is None, which uses value from PasonData.CUTOFF_FREQ)</span>
-<span class="sd">        </span>
-<span class="sd">        Raises</span>
-<span class="sd">        ------</span>
-<span class="sd">        ValueError</span>
-<span class="sd">            Raised if `sig_type` isn&#39;t &#39;wob&#39; or &#39;rop&#39;</span>
-<span class="sd">        </span>
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        list</span>
-<span class="sd">            Filtered signal</span>
-<span class="sd">        list</span>
-<span class="sd">            Time associated with filterd signal</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>        
-        <span class="c1"># Check that the correct sig_type was passed.</span>
-        <span class="k">if</span> <span class="n">sig_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;wob&#39;</span><span class="p">,</span> <span class="s1">&#39;rop&#39;</span><span class="p">]:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;sig_type must be wob or rop&#39;</span><span class="p">)</span>
-        
-        <span class="c1"># Set the cutoff frequency if it wasn&#39;t given</span>
-        <span class="k">if</span> <span class="n">cutoff_freq</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">cutoff_freq</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">CUTOFF_FREQ</span><span class="p">[</span><span class="n">sig_type</span><span class="p">]</span>
-        
-        <span class="n">signal</span><span class="p">,</span> <span class="n">time</span> <span class="o">=</span> <span class="n">low_pass</span><span class="p">(</span><span class="n">pason_data</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">sig_type</span><span class="p">],</span> <span class="n">pason_data</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">cutoff_freq</span><span class="p">)</span>
-        
-        <span class="k">return</span> <span class="n">signal</span><span class="p">,</span> <span class="n">time</span></div>
-
-<div class="viewcode-block" id="DrillSim.get_stepped_signal"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim.get_stepped_signal">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">get_stepped_signal</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">pason_data</span><span class="p">,</span> <span class="n">ramp_time</span><span class="p">,</span> <span class="n">sig_type</span><span class="p">,</span> <span class="n">show_plot</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Gets the stepped signal from the rpm or gpm setpoints of a :class:`PasonData` object.</span>
-<span class="sd">        </span>
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        pason_data : PasonData</span>
-<span class="sd">            A :class:`PasonData` object.</span>
-<span class="sd">        ramp_time : float</span>
-<span class="sd">            Time it takes to ramp the signal</span>
-<span class="sd">        sig_type : str</span>
-<span class="sd">            Type of signal options are &#39;rpm&#39; or &#39;gpm&#39;</span>
-<span class="sd">        show_plot : bool</span>
-<span class="sd">            If True, shows a plot of the resulting setpoints (the default is True)</span>
-<span class="sd">        </span>
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        list</span>
-<span class="sd">            Stepped signal</span>
-<span class="sd">        list</span>
-<span class="sd">            Associated time signal</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>        
-        <span class="k">def</span> <span class="nf">make_index</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-            <span class="n">num</span> <span class="o">=</span> <span class="p">(</span><span class="n">stop</span><span class="o">-</span><span class="n">start</span><span class="p">)</span><span class="o">/</span><span class="n">step</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">num</span><span class="o">.</span><span class="n">is_integer</span><span class="p">():</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;(stop-start)/step must be a whole number.&#39;</span><span class="p">)</span>
-            <span class="n">index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">linspace</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">num</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">))</span>
-            <span class="k">return</span> <span class="n">index</span>  
-
-        <span class="c1"># Check that the correct sig_type was passed.</span>
-        <span class="k">if</span> <span class="n">sig_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;rpm&#39;</span><span class="p">,</span> <span class="s1">&#39;gpm&#39;</span><span class="p">]:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;sig_type must be rpm or gpm&#39;</span><span class="p">)</span>
-
-        <span class="c1"># Get the sample period</span>
-        <span class="n">samp_per</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">pason_data</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">pason_data</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>
-
-        <span class="c1"># Set the ramp time if it is given</span>
-
-        <span class="c1"># Determine the half ramp time rounded to the sample period</span>
-        <span class="n">half_ramp_time</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">ramp_time</span><span class="o">/</span><span class="n">samp_per</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">samp_per</span>
-
-        <span class="c1"># Get the setpoints from the pason data</span>
-        <span class="n">set_points</span> <span class="o">=</span> <span class="n">pason_data</span><span class="o">.</span><span class="n">get_setpoints</span><span class="p">(</span><span class="n">sig_type</span><span class="p">,</span> <span class="n">show_plot</span><span class="o">=</span><span class="n">show_plot</span><span class="p">)</span>
-
-        <span class="c1"># Initialize time and signal lists with the segment from the begining of the dataset to the beginning of the first ramp</span>
-        <span class="n">time</span> <span class="o">=</span> <span class="n">make_index</span><span class="p">(</span><span class="n">set_points</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">set_points</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">half_ramp_time</span><span class="p">,</span> <span class="n">samp_per</span><span class="p">)</span>
-        <span class="n">signal</span> <span class="o">=</span> <span class="p">[</span><span class="n">set_points</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">time</span><span class="p">]</span>
-
-        <span class="c1"># Add intermediate time segments</span>
-        <span class="k">for</span> <span class="p">(</span><span class="n">sp_time</span><span class="p">,</span> <span class="n">sp_val</span><span class="p">),</span> <span class="p">(</span><span class="n">nxt_sp_time</span><span class="p">,</span> <span class="n">nxt_sp_val</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">set_points</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">set_points</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
-            <span class="n">time_seg</span> <span class="o">=</span> <span class="n">make_index</span><span class="p">(</span><span class="n">sp_time</span> <span class="o">+</span> <span class="n">half_ramp_time</span><span class="p">,</span> <span class="n">nxt_sp_time</span> <span class="o">+</span> <span class="n">half_ramp_time</span><span class="p">,</span> <span class="n">samp_per</span><span class="p">)</span>                
-            <span class="n">signal</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">step_function</span><span class="p">(</span><span class="n">time_seg</span><span class="p">,</span> <span class="n">nxt_sp_time</span><span class="o">-</span><span class="n">half_ramp_time</span><span class="p">,</span> <span class="n">sp_val</span><span class="p">,</span> <span class="n">nxt_sp_time</span><span class="o">+</span><span class="n">half_ramp_time</span><span class="p">,</span> <span class="n">nxt_sp_val</span><span class="p">))</span>
-            <span class="n">time</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">time_seg</span><span class="p">)</span>
-
-        <span class="c1"># Add the segment from the end of the last ramp to the end of the dataset</span>
-        <span class="n">time_seg</span> <span class="o">=</span> <span class="n">make_index</span><span class="p">(</span><span class="n">set_points</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">half_ramp_time</span><span class="p">,</span> <span class="n">pason_data</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">samp_per</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">signal</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">set_points</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">time_seg</span><span class="p">])</span>
-        <span class="n">time</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">time_seg</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">signal</span><span class="p">,</span> <span class="n">time</span></div>
-
-    <span class="k">def</span> <span class="nf">_add_adm_splines</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Adds splines to the adm file</span>
-<span class="sd">        </span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">add_splines_to_adm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adm_filename</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pason_inputs</span><span class="p">)</span>
-            
-    <span class="k">def</span> <span class="nf">_add_acf_splines</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Adds splines to the acf file</span>
-<span class="sd">        </span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">add_splines_to_acf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">acf_filename</span><span class="p">)</span></div>
-    
+        <span class="bp">self</span><span class="o">.</span><span class="n">string_filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">,</span> <span class="n">publish</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>   </div></div>
 </pre></div>
 
            </div>
@@ -566,16 +286,26 @@
   
 
 
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

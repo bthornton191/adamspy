@@ -45,17 +45,12 @@ class Test_DrillString(unittest.TestCase):
         
         # Create a DrillTool object representing a top drive
         self.top_drive = adripy.DrillTool(TEST_TOP_DRIVE_FILE)
-
-    def test_validate_with_an_empty_array(self):
-        """Tests if :meth:`DrillString.validate` returns false when one of the array parameters is not set.        
-        """
-        self.assertTrue(False)
         
     def test_add_tool(self):
         """Test the `DrillString.add_tool()` method.
         """
         # Create a DrillString object
-        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_EXISTING_HOLE_FILE, TEST_EVENT_FILE)
 
         # Add the DrillTool object to the DrillString object
         drill_string.add_tool(self.stabilizer)
@@ -78,7 +73,7 @@ class Test_DrillString(unittest.TestCase):
         """Tests if the string file is written correctly when the string has a collar in it.
         """
         # Create a DrillString object
-        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_EXISTING_HOLE_FILE, TEST_EVENT_FILE)
 
         # Add the DrillTool objects to the DrillString object
         drill_string.add_tool(self.pdc_bit, measure='yes')
@@ -101,7 +96,7 @@ class Test_DrillString(unittest.TestCase):
         """Test the `DrillString.write_to_file()` method.
         """
         # Create a DrillString object
-        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_EXISTING_HOLE_FILE, TEST_EVENT_FILE)
 
         # Add the DrillTool objects to the DrillString object
         drill_string.add_tool(self.pdc_bit, measure='yes')
@@ -123,7 +118,7 @@ class Test_DrillString(unittest.TestCase):
         """Test the `DrillString.write_to_file()` method.
         """
         # Create a DrillString object
-        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_EXISTING_HOLE_FILE, TEST_EVENT_FILE)
 
         # Add DFBs to the drill string
         drill_string.parameters['Distance_from_Bit'] = [100, 200]
@@ -148,7 +143,7 @@ class Test_DrillString(unittest.TestCase):
         """Tests if publish works when the hole path has spaces        
         """
         # Create a DrillString object
-        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE_WITH_SPACES, TEST_EVENT_FILE)
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_EXISTING_HOLE_FILE_WITH_SPACES, TEST_EVENT_FILE)
 
         # Add the DrillTool objects to the DrillString object
         drill_string.add_tool(self.pdc_bit, measure='yes')
@@ -169,7 +164,7 @@ class Test_DrillString(unittest.TestCase):
         """Test the `DrillString.write_to_file()` method with publish=True
         """
         # Create a DrillString object
-        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_EXISTING_HOLE_FILE, TEST_EVENT_FILE)
 
         # Add the DrillTool objects to the DrillString object
         drill_string.add_tool(self.pdc_bit, measure='yes')
@@ -196,7 +191,7 @@ class Test_DrillString(unittest.TestCase):
             This test intentionally uses a string that uses the same tool twice.            
         """
         # Create a DrillString object
-        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_EXISTING_HOLE_FILE, TEST_EVENT_FILE)
 
         # Add the DrillTool objects to the DrillString object
         drill_string.add_tool(self.pdc_bit, measure='yes')
@@ -223,7 +218,7 @@ class Test_DrillString(unittest.TestCase):
         This test intentionally uses a string that uses the same tool twice.            
         """
         # Create a DrillString object
-        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_EXISTING_HOLE_FILE, TEST_EVENT_FILE)
 
         # Add the DrillTool objects to the DrillString object
         drill_string.add_tool(self.pdc_bit, measure='yes')
@@ -252,7 +247,7 @@ class Test_DrillString(unittest.TestCase):
         # Remove some keys from the parameters dictionary
         hole_filename = drill_string_from_file.parameters['Hole_Property_File']
         
-        self.assertEqual(hole_filename, TEST_HOLE_FILE_WITH_SPACES)
+        self.assertEqual(hole_filename, TEST_EXISTING_HOLE_FILE_WITH_SPACES)
 
     def test_read_string_from_file_parameters(self):
         """Tests that the parameters in the string are correct after a string is read from a file.
@@ -472,7 +467,7 @@ class Test_DrillString(unittest.TestCase):
         """Tests that the string is read correctly when the file uses relative references.
         """
         
-        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_EXISTING_HOLE_FILE, TEST_EVENT_FILE)
 
         # Add the DrillTool objects to the DrillString object
         drill_string.add_tool(self.pdc_bit, measure='yes')
@@ -506,7 +501,7 @@ class Test_DrillString(unittest.TestCase):
         """Tests that DrillString.get_tool() returns the correct value.
         """
         # Create a DrillString object
-        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_EXISTING_HOLE_FILE, TEST_EVENT_FILE)
 
         # Define a new stabilizer object
         different_stabilizer  = adripy.DrillTool(TEST_STABILIZER_FILE)
@@ -527,7 +522,7 @@ class Test_DrillString(unittest.TestCase):
         """Tests that DrillString.get_tool() returns the correct value.
         """
         # Create a DrillString object
-        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_EXISTING_HOLE_FILE, TEST_EVENT_FILE)
         
         # Define a new stabilizer object
         different_stabilizer  = adripy.DrillTool(TEST_STABILIZER_FILE)
@@ -548,7 +543,7 @@ class Test_DrillString(unittest.TestCase):
         """Tests that DrillString.get_tool() returns the correct value.
         """
         # Create a DrillString object
-        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_EXISTING_HOLE_FILE, TEST_EVENT_FILE)
         
         # Define a new stabilizer object
         different_stabilizer  = adripy.DrillTool(TEST_STABILIZER_FILE)
@@ -569,7 +564,7 @@ class Test_DrillString(unittest.TestCase):
         """Tests that DrillString.get_tool() returns the correct value.
         """
         # Create a DrillString object
-        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_EXISTING_HOLE_FILE, TEST_EVENT_FILE)
         
         # Define a new stabilizer object
         different_stabilizer  = adripy.DrillTool(TEST_STABILIZER_FILE)
@@ -592,7 +587,7 @@ class Test_DrillString(unittest.TestCase):
         """
         expected_joints = 100
         # Create a DrillString object
-        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_EXISTING_HOLE_FILE, TEST_EVENT_FILE)
 
         # Add the DrillTool objects to the DrillString object
         drill_string.add_tool(self.pdc_bit, measure='yes')
@@ -614,7 +609,7 @@ class Test_DrillString(unittest.TestCase):
         """
         expected_joints = 100
         # Create a DrillString object
-        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_EXISTING_HOLE_FILE, TEST_EVENT_FILE)
 
         # Add the DrillTool objects to the DrillString object
         drill_string.add_tool(self.pdc_bit, measure='yes')
@@ -634,7 +629,7 @@ class Test_DrillString(unittest.TestCase):
         """Tests that DrillString.get_bha_length() returns the correct length.
         """
         # Create a DrillString object
-        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_EXISTING_HOLE_FILE, TEST_EVENT_FILE)
 
         # Add the DrillTool objects to the DrillString object
         drill_string.add_tool(self.pdc_bit, measure='yes')
@@ -653,7 +648,7 @@ class Test_DrillString(unittest.TestCase):
         """Tests that changing the name of a :class:`DrillTool` object causes the 'Name' and 'Property_File' values in :attr:`DrillString.tools` to change as well.
         """
         # Create a DrillString object
-        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_EXISTING_HOLE_FILE, TEST_EVENT_FILE)
 
         # Add the DrillTool objects to the DrillString object
         drill_string.add_tool(self.pdc_bit, measure='yes')
@@ -682,7 +677,7 @@ class Test_DrillString(unittest.TestCase):
         """Tests that changing the name of a :class:`DrillTool` object causes the 'Name' and 'Property_File' values in :attr:`DrillString.tools` to change as well.
         """
         # Create a DrillString object
-        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_EXISTING_HOLE_FILE, TEST_EVENT_FILE)
 
         # Add the DrillTool objects to the DrillString object
         drill_string.add_tool(self.pdc_bit, measure='yes')

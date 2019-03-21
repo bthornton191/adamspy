@@ -148,7 +148,7 @@ $1250.0              1.0835
 $1500.0              1.0835
 $----------------------------------------------------------------- WALL_CONTACT
 [WALL_CONTACT]
-{ Measured_Depth    K      C}
+{ Measured_Depth    K      C }
 -1.0                5E5   5E2   <- use this format for constant values
 $0.0                5E5   5E2
 $250.0              5E5   5E2

@@ -42,9 +42,10 @@ TEST_EXISTING_STRING_FILE_COLLAR = os.path.join(f'<{TEST_DATABASE_NAME}>', 'dril
 TEST_EXISTING_STRING_NAME_NO_DFB = 'test_string_no_dfb'
 
 TEST_STRING_NAME = 'test_string_1'
-TEST_HOLE_NAME = 'test_hole'
-TEST_HOLE_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'holes.tbl', TEST_HOLE_NAME + '.hol')
-TEST_HOLE_FILE_WITH_SPACES = os.path.join(f'<{TEST_DATABASE_NAME}>', 'holes.tbl', 'subdir with spaces', TEST_HOLE_NAME + '.hol')
+TEST_HOLE_NAME = 'test'
+TEST_EXISTING_HOLE_NAME = 'test_hole'
+TEST_EXISTING_HOLE_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'holes.tbl', TEST_EXISTING_HOLE_NAME + '.hol')
+TEST_EXISTING_HOLE_FILE_WITH_SPACES = os.path.join(f'<{TEST_DATABASE_NAME}>', 'holes.tbl', 'subdir with spaces', TEST_EXISTING_HOLE_NAME + '.hol')
 TEST_PDC_NAME = 'test_pdc'
 TEST_PDC_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'pdc_bits.tbl', TEST_PDC_NAME + '.pdc')
 TEST_STABILIZER_NAME = 'example_stabilizer'
@@ -137,6 +138,107 @@ TEST_ADM_FILENAME_WITH_SPLINES = TEST_ADM_FILE.replace('.adm','') + '_with_splin
 
 TEST_ACF_FILE = os.path.join(os.getcwd(), 'test', 'files', 'test.acf')
 TEST_ACF_FILENAME_WITH_SPLINES = TEST_ADM_FILE.replace('.acf','') + '_with_splines.acf'
+
+TEST_HOLE_CENTERLINE_NORTH = [0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
+TEST_HOLE_CENTERLINE_EAST = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+TEST_HOLE_CENTERLINE_TVD = [0, 1300, 1400, 1460, 1491, 1502, 1502, 1502, 1502, 1502, 1502]
+TEST_HOLE_CENTERLINE = [TEST_HOLE_CENTERLINE_EAST, TEST_HOLE_CENTERLINE_NORTH, TEST_HOLE_CENTERLINE_TVD]
+
+TEST_HOLE_MD = [0, 250, 500, 750, 1000, 1250, 1500]
+TEST_HOLE_DIAMETER_D = [1.0835, 1.0835, 1.0835, 1.0835, 1.0835, 1.09, 1.09 ]
+TEST_HOLE_DIAMETER = [TEST_HOLE_MD, TEST_HOLE_DIAMETER_D]
+
+TEST_HOLE_CONTACT_K = [5e5, 5e5, 5e5, 5e5, 5e5, 6e5, 6e5]
+TEST_HOLE_CONTACT_C = [5e2, 5e2, 5e2, 5e2, 5e2, 6e2, 6e2]
+TEST_HOLE_CONTACT = [TEST_HOLE_MD, TEST_HOLE_CONTACT_K, TEST_HOLE_CONTACT_C]
+
+TEST_HOLE_FRICTION_MUS = [0.9, 0.9, 0.9, 0.9, 0.9, 0.95, 0.95]
+TEST_HOLE_FRICTION_VS = [0.15, 0.15, 0.15, 0.15, 0.15, 0.17, 0.17]
+TEST_HOLE_FRICTION_MUD = [0.3, 0.3, 0.3, 0.3, 0.3, 0.35, 0.35]
+TEST_HOLE_FRICTION_VD = [0.25, 0.25, 0.25, 0.25, 0.25, 0.26, 0.26]
+TEST_HOLE_FRICTION = [TEST_HOLE_MD, TEST_HOLE_FRICTION_MUS, TEST_HOLE_FRICTION_VS, TEST_HOLE_FRICTION_MUD, TEST_HOLE_FRICTION_VD]
+
+TEST_MODIFIED_HOLE_FRICTION = [0.95, 0.17, 0.5, 0.26]
+
+TEST_EXPECTED_MODIFIED_HOLE_FRICTION_MUS = [0.9, 0.9, 0.9, 0.9, TEST_MODIFIED_HOLE_FRICTION[0], TEST_MODIFIED_HOLE_FRICTION[0], TEST_MODIFIED_HOLE_FRICTION[0]]
+TEST_EXPECTED_MODIFIED_HOLE_FRICTION_VS = [0.15, 0.15, 0.15, 0.15, TEST_MODIFIED_HOLE_FRICTION[1], TEST_MODIFIED_HOLE_FRICTION[1], TEST_MODIFIED_HOLE_FRICTION[1]]
+TEST_EXPECTED_MODIFIED_HOLE_FRICTION_MUD = [0.3, 0.3, 0.3, 0.3, TEST_MODIFIED_HOLE_FRICTION[2], TEST_MODIFIED_HOLE_FRICTION[2], TEST_MODIFIED_HOLE_FRICTION[2]]
+TEST_EXPECTED_MODIFIED_HOLE_FRICTION_VD = [0.25, 0.25, 0.25, 0.25, TEST_MODIFIED_HOLE_FRICTION[3], TEST_MODIFIED_HOLE_FRICTION[3], TEST_MODIFIED_HOLE_FRICTION[3]]
+TEST_EXPECTED_MODIFIED_HOLE_FRICTION = [TEST_HOLE_MD, TEST_EXPECTED_MODIFIED_HOLE_FRICTION_MUS, TEST_EXPECTED_MODIFIED_HOLE_FRICTION_VS, TEST_EXPECTED_MODIFIED_HOLE_FRICTION_MUD, TEST_EXPECTED_MODIFIED_HOLE_FRICTION_VD]
+
+TEST_NEW_HOLE_FILE = os.path.join(os.getcwd(), 'test', 'files', TEST_HOLE_NAME + '.hol')
+
+TEST_EXPECTED_HOLE_FILE_TEXT = '''$ NOTE: Block and subblock titles MUST begin in column 1
+$ Comment lines MUST also begin in column 1
+$-------------------------------------------------------------ADAMS_DRILL_HEADER
+[ADAMS_DRILL_HEADER]
+ File_Type  =  'Hole'
+ File_Version  =  1.0
+ Hole_Name  =  'test'
+$--------------------------------------------------------------------------UNITS
+[UNITS]
+ Length  =  'foot'
+ Mass  =  'pound_mass'
+ Angle  =  'degrees'
+ Time  =  'seconds'
+$---------------------------------------------------------------------CENTERLINE
+[CENTERLINE]
+$ 
+$ In the Excel Hole workbook this data can be entered either as
+$ North-East-Depth or Depth-Inclination-Azimuth.  When entered
+$ in the Hole Workbook as Depth-Inclination-Azimuth, Adams Drill
+$ converts to North-East-Depth format for the .hol file.
+$ 
+{ North   East   True_Depth }
+0   0   0
+0   100   1300
+0   200   1400
+0   300   1460
+0   400   1491
+0   500   1502
+0   600   1502
+0   700   1502
+0   800   1502
+0   900   1502
+0   1000   1502
+$ 
+$ In the tables below, *if* there is only one line, and
+$  *if* the measured depth is -1.0, then the respective values
+$  are considered constant, i.e. they do not change with depth.
+$  If you put in tabular data, be sure that the depth covers the
+$  range of the true depth!  (ADAMS *will* extrapolate.)
+$-----------------------------------------------------------------------DIAMETER
+[DIAMETER]
+{ Measured_depth   Diameter }
+0   1.0835
+250   1.0835
+500   1.0835
+750   1.0835
+1000   1.0835
+1250   1.09
+1500   1.09
+$-------------------------------------------------------------------WALL_CONTACT
+[WALL_CONTACT]
+{ Measured_Depth    K      C }
+0   500000.0   500.0
+250   500000.0   500.0
+500   500000.0   500.0
+750   500000.0   500.0
+1000   500000.0   500.0
+1250   600000.0   600.0
+1500   600000.0   600.0
+$------------------------------------------------------------------WALL_FRICTION
+[WALL_FRICTION]
+{ Measured_Depth   StaticMu   StaticV   DynamicMu   DynamicV }
+0   0.9   0.15   0.3   0.25
+250   0.9   0.15   0.3   0.25
+500   0.9   0.15   0.3   0.25
+750   0.9   0.15   0.3   0.25
+1000   0.9   0.15   0.3   0.25
+1250   0.95   0.17   0.35   0.26
+1500   0.95   0.17   0.35   0.26
+$ '''
+
 
 TEST_EXPECTED_ADM_FILE_DIFF = '''!----------------------------------- SPLINES ------------------------------------
 !
@@ -531,7 +633,7 @@ $------------------------------------------------------------------------CONTACT
 [CONTACT]
 $ ContactMethod options are 'Subroutine' and 'ImpactFunction'
 $ ** but only 'Subroutine' is valid at present **
- Hole_Property_File  =  '<{TEST_DATABASE_NAME}>\\holes.tbl\\{TEST_HOLE_NAME}.hol'
+ Hole_Property_File  =  '<{TEST_DATABASE_NAME}>\\holes.tbl\\{TEST_EXISTING_HOLE_NAME}.hol'
  Contact_Method  =  'Subroutine'
  Cyl_Drag_Coeff  =  1.2
  Hole_Color  =  'LtGray'
@@ -639,7 +741,7 @@ $------------------------------------------------------------------------CONTACT
 [CONTACT]
 $ ContactMethod options are 'Subroutine' and 'ImpactFunction'
 $ ** but only 'Subroutine' is valid at present **
- Hole_Property_File  =  '<{TEST_DATABASE_NAME}>\\holes.tbl\\{TEST_HOLE_NAME}.hol'
+ Hole_Property_File  =  '<{TEST_DATABASE_NAME}>\\holes.tbl\\{TEST_EXISTING_HOLE_NAME}.hol'
  Contact_Method  =  'Subroutine'
  Cyl_Drag_Coeff  =  1.2
  Hole_Color  =  'LtGray'
@@ -745,7 +847,7 @@ $------------------------------------------------------------------------CONTACT
 [CONTACT]
 $ ContactMethod options are 'Subroutine' and 'ImpactFunction'
 $ ** but only 'Subroutine' is valid at present **
- Hole_Property_File  =  '<{TEST_DATABASE_NAME}>\\holes.tbl\\{TEST_HOLE_NAME}.hol'
+ Hole_Property_File  =  '<{TEST_DATABASE_NAME}>\\holes.tbl\\{TEST_EXISTING_HOLE_NAME}.hol'
  Contact_Method  =  'Subroutine'
  Cyl_Drag_Coeff  =  1.2
  Hole_Color  =  'LtGray'

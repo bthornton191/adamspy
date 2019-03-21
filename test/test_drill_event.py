@@ -21,20 +21,31 @@ class Test_EventFile(unittest.TestCase):
         adripy.create_cfg_file(TEST_CONFIG_FILENAME, [TEST_DATABASE_PATH])
 
         # Create event file object
-        self.event_file = adripy.DrillEvent(TEST_CREATED_EVENT_NAME, 4000, 4)
+        self.event = adripy.DrillEvent(TEST_CREATED_EVENT_NAME, 4000, 4)
         
         # Add ramp parameters to event file object
-        self.event_file.add_ramp('PUMP_FLOW', 1, 10, 500, clear_existing=True)
-        self.event_file.add_ramp('TOP_DRIVE', 10, 15, 60, clear_existing=True)
-        self.event_file.add_ramp('WOB', 30, 10, 50, clear_existing=True)
-        self.event_file.add_ramp('ROP', 35, 10, 100, clear_existing=True)   
+        self.event.add_ramp('PUMP_FLOW', 1, 10, 500, clear_existing=True)
+        self.event.add_ramp('TOP_DRIVE', 10, 15, 60, clear_existing=True)
+        self.event.add_ramp('WOB', 30, 10, 50, clear_existing=True)
+        self.event.add_ramp('ROP', 35, 10, 100, clear_existing=True)   
 
         # Add simulation steps to event file object
-        self.event_file.add_simulation_step(10, clear_existing=True)
-        self.event_file.add_simulation_step(100)     
+        self.event.add_simulation_step(10, clear_existing=True)
+        self.event.add_simulation_step(100)     
 
         # Write an event file from the event file object
-        self.event_file.write_to_file(cdb=TEST_DATABASE_NAME)
+        self.event.write_to_file(cdb=TEST_DATABASE_NAME)
+
+    def test_validate_with_an_empty_table(self):
+        """Tests if :meth:`DrillEvent.validate` returns False when one of the table parameters is not set.        
+        """
+        event = adripy.DrillEvent(TEST_CREATED_EVENT_NAME, 4000, 4)
+        event.add_ramp('PUMP_FLOW', 1, 10, 500, clear_existing=True)
+        event.add_ramp('TOP_DRIVE', 10, 15, 60, clear_existing=True)
+        event.add_ramp('WOB', 30, 10, 50, clear_existing=True)
+        
+        validated = event.validate()
+        self.assertFalse(validated)
 
     def test_read_from_file(self):
         """Tests that the parameters in the string are correct after a string is read from a file.

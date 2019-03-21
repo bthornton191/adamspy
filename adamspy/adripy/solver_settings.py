@@ -1,7 +1,7 @@
 """Contains the DrillSolverSettings class
 """
-
 import os
+import copy
 from . import TMPLT_ENV
 from .utilities import read_TO_file, get_cdb_path, get_full_path
 
@@ -51,11 +51,11 @@ class DrillSolverSettings():
         'Thread_Count': 4
     }
 
-    _ARRAY_PARAMETERS = [
+    _TABLE_PARAMETERS = [
         'Funnel'
     ]
 
-    _DEFAULT_PARAMETER_ARRAYS = {
+    _DEFAULT_PARAMETER_TABLES = {
         'Funnel': [
             [500, 500, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 100],
             [0.1, 5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
@@ -162,8 +162,8 @@ class DrillSolverSettings():
             if param_name not in self.parameters:
                 validated = False        
         
-        for param_name in self._ARRAY_PARAMETERS:
-            if not self.parameters[param_name]:
+        for param_name in self._TABLE_PARAMETERS:
+            if not all([elem for elem in self.parameters[param_name]]):
                 validated = False
             
         return validated     
@@ -200,13 +200,13 @@ class DrillSolverSettings():
         # Applies normal parameter defaults
         for scalar_parameter, value in self._DEFAULT_PARAMETER_SCALARS.items():
             if scalar_parameter not in self.parameters:
-                self.parameters[scalar_parameter] = value
+                self.parameters[scalar_parameter] = copy.copy(value)
 
         # Applies defaults to all ramp parameters
-        for array_parameter, array in self._DEFAULT_PARAMETER_ARRAYS.items():
-            self.parameters[array_parameter] = {}
-            self.parameters[array_parameter] = list(array)
-            self.parameters['_' + array_parameter] = zip(*self.parameters[array_parameter])
+        for table_parameter, table in self._DEFAULT_PARAMETER_TABLES.items():
+            self.parameters[table_parameter] = {}
+            self.parameters[table_parameter] = list(table)
+            self.parameters['_' + table_parameter] = zip(*self.parameters[table_parameter])
 
     
     def _get_params_from_TO_data(self, tiem_orbit_data): #pylint: disable=invalid-name
@@ -223,7 +223,7 @@ class DrillSolverSettings():
             A solver settings parameter could not be found
         """
 
-        for param in self._ARRAY_PARAMETERS:
+        for param in self._TABLE_PARAMETERS:
             # For each string parameter initialize a found flag
             found = False
             

@@ -19,7 +19,7 @@ class Test_Build(unittest.TestCase):
             pass
         
         # Create DrillString object
-        string = adripy.DrillString(TEST_STRING_NAME, hole_file=TEST_HOLE_FILE, event_file=TEST_EVENT_FILE)
+        string = adripy.DrillString(TEST_STRING_NAME, hole_file=TEST_EXISTING_HOLE_FILE, event_file=TEST_EVENT_FILE)
         
         # Create DrillTools objects
         pdc_bit = adripy.DrillTool(TEST_PDC_FILE)

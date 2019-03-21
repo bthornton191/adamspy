@@ -45,6 +45,10 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         Filename of the analysis' cmd file
     res_filename : str
         Filename of the analysis' res file
+    results : dict
+        Simulation results
+    results_units : dict
+        Units of simulation results
     built : bool
         Indicates whether the input deck (adm, acf, and cmd files) has been built yet for this DrillSim
     RAMP_TIME : dict
@@ -81,7 +85,8 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         self.cmd_filename = ''
         self.res_filename = ''  
         self.msg_filename = ''      
-        self.results = None
+        self.results = None     
+        self.results_units = None
         
         # Write the TO files to the working directory
         if write_TO_files:
@@ -207,7 +212,8 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
             Maximum time for which to get results (the default is None, which gets results up to the last time step)
         
         """
-        self.results = get_results(self.res_filename, reqs_to_read, t_min, t_max)
+        res_file = os.path.join(self.directory, self.res_filename)
+        self.results, self.results_units = get_results(res_file, reqs_to_read, t_min, t_max, return_units=True)
     
     @classmethod
     def clean_pason(cls, pason_data, sig_type, t_min=None, t_max=None, show_plot=True, ramp_time=None, cutoff_freq=None):

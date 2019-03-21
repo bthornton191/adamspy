@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.string &mdash; adamspy 0.7.29 documentation</title>
+  <title>adamspy.adripy.string &mdash; adamspy 0.7.30 documentation</title>
   
 
   
@@ -17,34 +17,32 @@
   
 
   
-  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
+  
+  
     
 
   
+
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
+
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+        <div class="wy-side-nav-search">
           
 
           
@@ -58,7 +56,7 @@
             
             
               <div class="version">
-                0.7.29
+                0.7.30
               </div>
             
           
@@ -147,13 +145,14 @@
   <h1>Source code for adamspy.adripy.string</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;A module that contains the :class:`DrillString` class</span>
 <span class="sd">&quot;&quot;&quot;</span>
+
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">TMPLT_ENV</span>
 <span class="kn">from</span> <span class="nn">.tool</span> <span class="k">import</span> <span class="n">DrillTool</span>
 <span class="kn">from</span> <span class="nn">.utilities</span> <span class="k">import</span> <span class="n">read_TO_file</span><span class="p">,</span> <span class="n">get_cdb_location</span><span class="p">,</span> <span class="n">get_cdb_path</span><span class="p">,</span> <span class="n">get_full_path</span><span class="p">,</span> <span class="n">TO_LENGTH_PARAM</span><span class="p">,</span> <span class="n">isabs</span>
-<span class="kn">from</span> <span class="nn">.constants</span> <span class="k">import</span> <span class="n">DATABASE_INFO</span>
+
 
 <div class="viewcode-block" id="DrillString"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString">[docs]</a><span class="k">class</span> <span class="nc">DrillString</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -177,6 +176,7 @@
 <span class="sd">        Describes the top drive.  The keys are &#39;DrillTool&#39;, &#39;Type&#39;, &#39;Name&#39;, and &#39;Property_File&#39;.</span>
 <span class="sd">        </span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">_SCALAR_PARAMETERS</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;Units&#39;</span><span class="p">,</span>
         <span class="s1">&#39;ModelName&#39;</span><span class="p">,</span>
@@ -213,7 +213,7 @@
     <span class="p">]</span>
 
     <span class="n">_DEFAULT_PARAMETER_ARRAYS</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;Distance_from_Bit&#39;</span><span class="p">:</span> <span class="p">()</span>
+        <span class="s1">&#39;Distance_from_Bit&#39;</span><span class="p">:</span> <span class="p">[]</span>
     <span class="p">}</span>
 
     <span class="n">_CDB_TABLE</span> <span class="o">=</span> <span class="s1">&#39;drill_strings.tbl&#39;</span>
@@ -257,7 +257,7 @@
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        drill_tool : DrillTool</span>
+<span class="sd">        tool : DrillTool</span>
 <span class="sd">            :class:`DrillTool` object representing the tool to be added        </span>
 <span class="sd">        joints : int</span>
 <span class="sd">            Number of Joints. Note that this only applies for certain tool types. (default is 1)</span>
@@ -267,11 +267,6 @@
 <span class="sd">            If an integer is given the tool will be inserted into the string at that point. (default is None which means the tool will be appended to the end)</span>
 <span class="sd">        color : str</span>
 <span class="sd">            The color used to render the tool in an Adams Drill animation. (default is &#39;Default&#39;)</span>
-<span class="sd">        group_name : str</span>
-<span class="sd">            This argument is required if the tool being added is a tool that comes in multiple joints (e.g. drill_pipe).  NOTE: Tools that come in multiple joints are listed in :attr:`DrillTool._MULTI_JOINT_TOOLS`.</span>
-<span class="sd">        eqivalent : bool</span>
-<span class="sd">            Set this to `True` if the tool being added is drill_pipe and you want to use the equivalent upper string formulation.</span>
-<span class="sd">            </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Check that the group_name argument is givn</span>
         <span class="k">if</span> <span class="n">drill_tool</span><span class="o">.</span><span class="n">tool_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_MULTI_JOINT_TOOLS</span> <span class="ow">and</span> <span class="n">group_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -360,7 +355,7 @@
             <span class="k">raise</span> <span class="n">DrillStringError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;There is no </span><span class="si">{tool_type}</span><span class="s1"> in this string!&#39;</span><span class="p">)</span>        </div>
     
 <div class="viewcode-block" id="DrillString.get_tool"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.get_tool">[docs]</a>    <span class="k">def</span> <span class="nf">get_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tool_type</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Returns a DrillTool object of type `tool_type` in the :class:`DrillString` object&#39;s tools list.  </span>
+        <span class="sd">&quot;&quot;&quot;Returns a DrillTool object of type :arg:`tool_type` in the :class:`DrillString` object&#39;s tools list.  </span>
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -401,7 +396,7 @@
         <span class="k">return</span> <span class="n">tools_found</span><span class="p">[</span><span class="n">index</span><span class="p">]</span></div>
         
 <div class="viewcode-block" id="DrillString.tool_renamed"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillString.tool_renamed">[docs]</a>    <span class="k">def</span> <span class="nf">tool_renamed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">renamed_tool</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Updates the &#39;name&#39; and &#39;Property_File&#39; entries in the :attr:`tools` to match `renamed_tool`.name.        </span>
+        <span class="sd">&quot;&quot;&quot;Updates the &#39;name&#39; and &#39;Property_File&#39; entries in the :attr:`tools` to match :arg:`renamed_tool`.name.        </span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -475,9 +470,9 @@
 <span class="sd">        cdb : str</span>
 <span class="sd">            Name of the cdb in which to write the file.  This argument is overridden by `directory`. (default is None which means the string will be written to the directory in `directory` and will use the filename in `filename`.)  </span>
 <span class="sd">        publish : bool</span>
-<span class="sd">            If True, writes all the supporting files except the event file to the same cdb or directory. (default is False.)</span>
+<span class="sd">            If true, writes all the supporting files to the same cdb. (default is False.)</span>
 <span class="sd">        publish_event : bool</span>
-<span class="sd">            If True, writes the event file to the same cdb or directory. (default is False.)</span>
+
 <span class="sd">        </span>
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
@@ -531,9 +526,9 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Ether directory or cdb must be passed.&#39;</span><span class="p">)</span>
                       
         <span class="c1"># Define templates</span>
-        <span class="n">string_template_1</span> <span class="o">=</span> <span class="n">TMPLT_ENV</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;templates&#39;</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;template_1.</span><span class="si">{self._EXT}</span><span class="s1">&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
-        <span class="n">string_template_2</span> <span class="o">=</span> <span class="n">TMPLT_ENV</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;templates&#39;</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;template_2.</span><span class="si">{self._EXT}</span><span class="s1">&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
-        <span class="n">string_template_3</span> <span class="o">=</span> <span class="n">TMPLT_ENV</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;templates&#39;</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;template_3.</span><span class="si">{self._EXT}</span><span class="s1">&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+        <span class="n">string_template_1</span> <span class="o">=</span> <span class="n">TMPLT_ENV</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;template_1.</span><span class="si">{self._EXT}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">string_template_2</span> <span class="o">=</span> <span class="n">TMPLT_ENV</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;template_2.</span><span class="si">{self._EXT}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">string_template_3</span> <span class="o">=</span> <span class="n">TMPLT_ENV</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;template_3.</span><span class="si">{self._EXT}</span><span class="s1">&#39;</span><span class="p">)</span>
         
         <span class="k">if</span> <span class="n">publish</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
             <span class="c1"># If the string is being published, copy all the tools to the new </span>
@@ -674,7 +669,7 @@
         <span class="c1"># Applies defaults to all ramp parameters</span>
         <span class="k">for</span> <span class="n">array_parameter</span><span class="p">,</span> <span class="n">array</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_DEFAULT_PARAMETER_ARRAYS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">array_parameter</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">array_parameter</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">tup</span><span class="p">)</span> <span class="k">for</span> <span class="n">tup</span> <span class="ow">in</span> <span class="n">array</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">array_parameter</span><span class="p">]</span> <span class="o">=</span> <span class="n">array</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">array_parameter</span><span class="p">]</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">array_parameter</span><span class="p">])</span>
     
     <span class="k">def</span> <span class="nf">_copy_hole_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cdb</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -692,11 +687,11 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Either directory or cdb is required!&#39;</span><span class="p">)</span>
 
         <span class="c1"># Get the hole name from the current file</span>
-        <span class="n">hole_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Hole_Property_File&#39;</span><span class="p">])[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">DATABASE_INFO</span><span class="p">[</span><span class="s1">&#39;hole&#39;</span><span class="p">][</span><span class="s1">&#39;extension&#39;</span><span class="p">],</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">DATABASE_INFO</span><span class="p">[</span><span class="s1">&#39;hole&#39;</span><span class="p">][</span><span class="s1">&#39;extension&#39;</span><span class="p">]</span>
+        <span class="n">hole_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Hole_Property_File&#39;</span><span class="p">])[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">DrillTool</span><span class="o">.</span><span class="n">_DATABASE_INFO</span><span class="p">[</span><span class="s1">&#39;hole&#39;</span><span class="p">][</span><span class="s1">&#39;extension&#39;</span><span class="p">],</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">DrillTool</span><span class="o">.</span><span class="n">_DATABASE_INFO</span><span class="p">[</span><span class="s1">&#39;hole&#39;</span><span class="p">][</span><span class="s1">&#39;extension&#39;</span><span class="p">]</span>
 
         <span class="c1"># Set the new filename</span>
         <span class="k">if</span> <span class="n">cdb</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">new_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_cdb_location</span><span class="p">(</span><span class="n">cdb</span><span class="p">),</span> <span class="n">DATABASE_INFO</span><span class="p">[</span><span class="s1">&#39;hole&#39;</span><span class="p">][</span><span class="s1">&#39;table&#39;</span><span class="p">],</span> <span class="n">hole_name</span><span class="p">)</span>
+            <span class="n">new_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_cdb_location</span><span class="p">(</span><span class="n">cdb</span><span class="p">),</span> <span class="n">DrillTool</span><span class="o">.</span><span class="n">_DATABASE_INFO</span><span class="p">[</span><span class="s1">&#39;hole&#39;</span><span class="p">][</span><span class="s1">&#39;table&#39;</span><span class="p">],</span> <span class="n">hole_name</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">new_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">hole_name</span><span class="p">)</span>
 
@@ -725,11 +720,11 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Either directory or cdb is required!&#39;</span><span class="p">)</span>
 
         <span class="c1"># Get the event name from the current file</span>
-        <span class="n">event_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Event_Property_File&#39;</span><span class="p">])[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">DATABASE_INFO</span><span class="p">[</span><span class="s1">&#39;event&#39;</span><span class="p">][</span><span class="s1">&#39;extension&#39;</span><span class="p">],</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">DATABASE_INFO</span><span class="p">[</span><span class="s1">&#39;event&#39;</span><span class="p">][</span><span class="s1">&#39;extension&#39;</span><span class="p">]</span>
+        <span class="n">event_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Event_Property_File&#39;</span><span class="p">])[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">DrillTool</span><span class="o">.</span><span class="n">_DATABASE_INFO</span><span class="p">[</span><span class="s1">&#39;event&#39;</span><span class="p">][</span><span class="s1">&#39;extension&#39;</span><span class="p">],</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">DrillTool</span><span class="o">.</span><span class="n">_DATABASE_INFO</span><span class="p">[</span><span class="s1">&#39;event&#39;</span><span class="p">][</span><span class="s1">&#39;extension&#39;</span><span class="p">]</span>
 
         <span class="c1"># Set the new filename</span>
         <span class="k">if</span> <span class="n">cdb</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">new_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_cdb_location</span><span class="p">(</span><span class="n">cdb</span><span class="p">),</span> <span class="n">DATABASE_INFO</span><span class="p">[</span><span class="s1">&#39;event&#39;</span><span class="p">][</span><span class="s1">&#39;table&#39;</span><span class="p">],</span> <span class="n">event_name</span><span class="p">)</span>
+            <span class="n">new_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_cdb_location</span><span class="p">(</span><span class="n">cdb</span><span class="p">),</span> <span class="n">DrillTool</span><span class="o">.</span><span class="n">_DATABASE_INFO</span><span class="p">[</span><span class="s1">&#39;event&#39;</span><span class="p">][</span><span class="s1">&#39;table&#39;</span><span class="p">],</span> <span class="n">event_name</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">new_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">event_name</span><span class="p">)</span>
 
@@ -888,16 +883,26 @@
   
 
 
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

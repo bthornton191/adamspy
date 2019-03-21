@@ -17,3 +17,4 @@ from .event import DrillEvent
 from .string import DrillString
 from .solver_settings import DrillSolverSettings
 from .drillsim import DrillSim
+from .hole import DrillHole

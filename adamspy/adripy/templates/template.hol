@@ -19,7 +19,7 @@ $ North-East-Depth or Depth-Inclination-Azimuth.  When entered
 $ in the Hole Workbook as Depth-Inclination-Azimuth, Adams Drill
 $ converts to North-East-Depth format for the .hol file.
 $ 
-{North   East   True_Depth}
+{ North   East   True_Depth }
 {% for _north, _east, _tvd in _Centerline %}
 {{ _north }}   {{ _east }}   {{ _tvd }}
 {% endfor %}
@@ -31,20 +31,19 @@ $  If you put in tabular data, be sure that the depth covers the
 $  range of the true depth!  (ADAMS *will* extrapolate.)
 $-----------------------------------------------------------------------DIAMETER
 [DIAMETER]
-{Measured_depth   Diameter}
+{ Measured_depth   Diameter }
 {% for _md, _od in _Diameter %}
 {{ _md }}   {{ _od }}
 {% endfor %}
 $-------------------------------------------------------------------WALL_CONTACT
 [WALL_CONTACT]
-{Measured_Depth    K      C}
+{ Measured_Depth    K      C }
 {% for _md, _k, _c in _Wall_Contact %}
 {{ _md }}   {{ _k }}   {{ _c }}
 {% endfor %}
 $------------------------------------------------------------------WALL_FRICTION
 [WALL_FRICTION]
-{Measured_Depth   StaticMu   StaticV   DynamicMu   DynamicV}
+{ Measured_Depth   StaticMu   StaticV   DynamicMu   DynamicV }
 {% for _md, _mu_s, _v_s, _mu_d, _v_d in _Wall_Friction %}
 {{ _md }}   {{ _mu_s }}   {{ _v_s }}   {{ _mu_d }}   {{ _v_d }}
 {% endfor %}
-$ 

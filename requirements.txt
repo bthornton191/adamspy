@@ -1,7 +1,7 @@
 astroid==2.2.5
 colorama==0.4.1
 cycler==0.10.0
-dripy==0.0.13
+dripy==0.0.14
 isort==4.3.15
 Jinja2==2.10
 kiwisolver==1.0.1

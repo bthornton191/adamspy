@@ -39,7 +39,7 @@ class Test_DrillSim(unittest.TestCase):
         self.top_drive = adripy.DrillTool(TEST_TOP_DRIVE_FILE)
 
         # Create a DrillString object
-        self.drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_HOLE_FILE, TEST_EVENT_FILE)
+        self.drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_EXISTING_HOLE_FILE, TEST_EVENT_FILE)
 
         # Add the DrillTool objects to the DrillString object
         self.drill_string.add_tool(self.pdc_bit, measure='yes')

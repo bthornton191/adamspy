@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.event &mdash; adamspy 0.7.29 documentation</title>
+  <title>adamspy.adripy.event &mdash; adamspy 0.7.30 documentation</title>
   
 
   
@@ -17,34 +17,32 @@
   
 
   
-  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
+  
+  
     
 
   
+
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
+
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+        <div class="wy-side-nav-search">
           
 
           
@@ -58,7 +56,7 @@
             
             
               <div class="version">
-                0.7.29
+                0.7.30
               </div>
             
           
@@ -236,13 +234,13 @@
     <span class="p">]</span>
 
     <span class="n">_DEFAULT_PARAMETER_ARRAYS</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;TOP_DRIVE&#39;</span><span class="p">:</span> <span class="p">((),(),()),</span>
-        <span class="s1">&#39;MOTOR&#39;</span><span class="p">:</span> <span class="p">((</span><span class="mi">0</span><span class="p">,),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)),</span>
-        <span class="s1">&#39;PUMP_FLOW&#39;</span><span class="p">:</span> <span class="p">((),(),()),</span>
-        <span class="s1">&#39;WOB&#39;</span><span class="p">:</span> <span class="p">((),(),()),</span>
-        <span class="s1">&#39;ROP&#39;</span><span class="p">:</span> <span class="p">((),(),()),</span>
-        <span class="s1">&#39;NPERREV&#39;</span><span class="p">:</span> <span class="p">((</span><span class="mi">0</span><span class="p">,),(</span><span class="mi">1</span><span class="p">,)),</span>
-        <span class="s1">&#39;DYNAMICS&#39;</span><span class="p">:</span> <span class="p">((),</span> <span class="p">())</span>
+        <span class="s1">&#39;TOP_DRIVE&#39;</span><span class="p">:</span> <span class="p">[[],[],[]],</span>
+        <span class="s1">&#39;MOTOR&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+        <span class="s1">&#39;PUMP_FLOW&#39;</span><span class="p">:</span> <span class="p">[[],[],[]],</span>
+        <span class="s1">&#39;WOB&#39;</span><span class="p">:</span> <span class="p">[[],[],[]],</span>
+        <span class="s1">&#39;ROP&#39;</span><span class="p">:</span> <span class="p">[[],[],[]],</span>
+        <span class="s1">&#39;NPERREV&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">]],</span>
+        <span class="s1">&#39;DYNAMICS&#39;</span><span class="p">:</span> <span class="p">[[],</span> <span class="p">[]]</span>
     <span class="p">}</span>
 
     <span class="n">_CDB_TABLE</span> <span class="o">=</span> <span class="s1">&#39;events.tbl&#39;</span>
@@ -261,6 +259,7 @@
 <span class="sd">            Starting distance from bottom.</span>
 <span class="sd">        </span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="n">kwargs</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Event_Name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">event_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Start_Depth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">start_depth</span>
@@ -279,9 +278,8 @@
 <span class="sd">        ----------</span>
 <span class="sd">        end_time : float</span>
 <span class="sd">            End time of the step in seconds.</span>
-<span class="sd">        output_step_size : float</span>
+<span class="sd">        output_step_size : foat</span>
 <span class="sd">            Output step size of the step in seconds. (defaults is 0.05)</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">clear_existing</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;DYNAMICS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[[],[]]</span>
@@ -292,9 +290,9 @@
 <div class="viewcode-block" id="DrillEvent.add_ramp"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.event.DrillEvent.add_ramp">[docs]</a>    <span class="k">def</span> <span class="nf">add_ramp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">ramp_duration</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">clear_existing</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Adds a ramp to the specified ramp parameter</span>
 <span class="sd">        </span>
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        parameter : str</span>
+<span class="sd">        Paramters</span>
+<span class="sd">        ---------</span>
+<span class="sd">        parameter : string</span>
 <span class="sd">            ramp parameter, options are &#39;TOP_DRIVE&#39;, &#39;WOB&#39;, &#39;PUMP_FLOW&#39;, of &#39;ROP&#39;</span>
 <span class="sd">        start_time : float</span>
 <span class="sd">            Start time of the ramp.</span>
@@ -304,7 +302,6 @@
 <span class="sd">            Delta of the ramp.</span>
 <span class="sd">        clear_existing : bool</span>
 <span class="sd">            If true, existing ramps for the specified parameter will be deleted.</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">clear_existing</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">parameter</span><span class="p">]</span> <span class="o">=</span> <span class="p">[[],[],[]]</span>
@@ -366,7 +363,7 @@
             <span class="c1"># Set the filepath to the file in the cdb</span>
             <span class="n">filepath</span> <span class="o">=</span> <span class="n">get_full_path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;&lt;</span><span class="si">{cdb}</span><span class="s1">&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_CDB_TABLE</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{filename}</span><span class="s1">.</span><span class="si">{self._EXT}</span><span class="s1">&#39;</span><span class="p">))</span>
                       
-        <span class="n">event_template</span> <span class="o">=</span> <span class="n">TMPLT_ENV</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;templates&#39;</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;template.</span><span class="si">{self._EXT}</span><span class="s1">&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+        <span class="n">event_template</span> <span class="o">=</span> <span class="n">TMPLT_ENV</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;template.</span><span class="si">{self._EXT}</span><span class="s1">&#39;</span><span class="p">)</span>
         
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
             <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">event_template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">))</span>
@@ -380,11 +377,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Determines if all parameters have been set</span>
 <span class="sd">        </span>
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        Bool</span>
-<span class="sd">            `True` if all parameters have been set. Otherwise `False`</span>
-
+<span class="sd">        Returns:</span>
+<span class="sd">            Bool -- True if all parameters have been set. Otherwise False</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">validated</span> <span class="o">=</span> <span class="kc">True</span>        
         <span class="c1"># Check that all parameters exist in the self.parameters dictionary</span>
@@ -402,11 +396,8 @@
     <span class="k">def</span> <span class="nf">read_from_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Reads an event file and sets self.parameters based on data in the event file.</span>
 <span class="sd">        </span>
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        filename : str</span>
-<span class="sd">            Filename of an event (.evt) file.</span>
-
+<span class="sd">        Arguments:</span>
+<span class="sd">            filename {str} -- Filename of a .evt file.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Read the TO data into a dictionary</span>
         <span class="n">tiem_orbit_data</span> <span class="o">=</span> <span class="n">read_TO_file</span><span class="p">(</span><span class="n">get_full_path</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
@@ -421,7 +412,6 @@
     <span class="k">def</span> <span class="nf">_apply_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Applies defaults from class variables</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Applies normal parameter defaults</span>
         <span class="k">for</span> <span class="n">scalar_parameter</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_DEFAULT_PARAMETER_SCALARS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -430,22 +420,19 @@
 
         <span class="c1"># Applies defaults to all ramp parameters</span>
         <span class="k">for</span> <span class="n">array_parameter</span><span class="p">,</span> <span class="n">array</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_DEFAULT_PARAMETER_ARRAYS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">array_parameter</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">tup</span><span class="p">)</span> <span class="k">for</span> <span class="n">tup</span> <span class="ow">in</span> <span class="n">array</span><span class="p">]</span>
+            <span class="c1"># self.parameters[array_parameter] = {}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">array_parameter</span><span class="p">]</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">array_parameter</span><span class="p">]</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">array_parameter</span><span class="p">])</span>
     
     <span class="k">def</span> <span class="nf">_get_params_from_TO_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tiem_orbit_data</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Reads the event parameters out of a dictoinary of Tiem Orbit</span>
 <span class="sd">        data generated by adripy.utilities.read_TO_file()</span>
 <span class="sd">        </span>
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        tiem_orbit_data : dict</span>
-<span class="sd">            Dictionary of Tiem Orbit data</span>
+<span class="sd">        Arguments:</span>
+<span class="sd">            tiem_orbit_data {dict} -- Dictionary of Tiem Orbit data</span>
 <span class="sd">        </span>
-<span class="sd">        Raises</span>
-<span class="sd">        ------</span>
-<span class="sd">        ValueError</span>
-<span class="sd">            An event parameter could not be found</span>
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError -- An event parameter could not be found</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_SCALAR_PARAMETERS</span><span class="p">:</span>
@@ -553,16 +540,26 @@
   
 
 
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

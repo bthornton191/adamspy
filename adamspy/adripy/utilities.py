@@ -943,7 +943,7 @@ TO_PARAMETER_PATTERN = re.compile('^ +[_0-9a-zA-Z]+\\s+=\\s+((\'[-:_0-9a-zA-Z<>\
 TO_BLOCK_HEADER_PATTERN = re.compile('^\\[[_0-9a-zA-Z]+\\]\\s*$') 
 TO_SUBBLOCK_HEADER_PATTERN = re.compile('^\\([_0-9a-zA-Z]+\\)\\s*$') 
 TO_TABLE_HEADER_PATTERN = re.compile('^\\{(\\s*[_0-9a-zA-Z])+\\s*\\}\\s*$')
-TO_TABLE_LINE_PATTERN = re.compile("^((\\s*\\'[_0-9a-zA-Z]+\\')+)|((\\s*-?[\\+-\\.e0-9]+)+)\\s*$")
+TO_TABLE_LINE_PATTERN = re.compile("^((\\s*\\'[_0-9a-zA-Z]+\\')+)|((\\s*-?[\\+-\\.eE0-9]+)+)\\s*(<- use this format for constant values)?\\s$")
 
 def read_TO_file(filename):
     """Reads a Tiem Orbit file into a dictionary of parameters
@@ -1050,7 +1050,7 @@ def read_TO_file(filename):
 
             if TO_TABLE_LINE_PATTERN.match(line):
                 # If the current line looks like a table entry
-                values = re.split(' +', line.strip())
+                values = re.split(' +', line.replace('<- use this format for constant values', '').strip())
                 
                 if len(values) != len(current_table_headers):
                     # If the number of values doesn't match the number of table headers raise an error
