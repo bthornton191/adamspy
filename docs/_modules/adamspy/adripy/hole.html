@@ -1,0 +1,570 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>adamspy.adripy.hole &mdash; adamspy 0.7.31 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> adamspy
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.7.31
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">adamspy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>adamspy.adripy.hole</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for adamspy.adripy.hole</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Module for working with Adams Drill Hole (.hol) files</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">TMPLT_ENV</span>
+<span class="kn">from</span> <span class="nn">.utilities</span> <span class="k">import</span> <span class="n">read_TO_file</span><span class="p">,</span> <span class="n">get_cdb_path</span><span class="p">,</span> <span class="n">get_full_path</span>
+<div class="viewcode-block" id="DrillHole"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.hole.DrillHole">[docs]</a><span class="k">class</span> <span class="nc">DrillHole</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;An object with all teh data necessary to write an Adams Drill hole (.hol) file.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    hole_name : str</span>
+<span class="sd">        Name of the hole object</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    parameters : dict</span>
+<span class="sd">        Dictionary of parameters that make up an Adams Drill hole and would be found in an Adams Drill hole (.str) file.  The keys of the dictionary are the parameter names that would be seen in the hole file and the values of the dictionary are the values that would be seen in the hole file.</span>
+<span class="sd">    filename : str</span>
+<span class="sd">        Name of the file that the hole object was read from or last written to.    </span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_SCALAR_PARAMETERS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;Hole_Name&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Length&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Mass&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Angle&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Time&#39;</span>
+    <span class="p">]</span>
+
+    <span class="n">_DEFAULT_PARAMETER_SCALARS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;File_Type&#39;</span><span class="p">:</span> <span class="s1">&#39;hole&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;File_Version&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="s1">&#39;Length&#39;</span><span class="p">:</span> <span class="s1">&#39;foot&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Mass&#39;</span><span class="p">:</span> <span class="s1">&#39;pound_mass&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Angle&#39;</span><span class="p">:</span> <span class="s1">&#39;degrees&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Time&#39;</span><span class="p">:</span> <span class="s1">&#39;seconds&#39;</span>
+    <span class="p">}</span>
+
+    <span class="n">_TABLE_PARAMETERS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;Centerline&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Diameter&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Wall_Contact&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Wall_Friction&#39;</span>
+    <span class="p">]</span>
+
+    <span class="n">_DEFAULT_PARAMETER_TABLES</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;Centerline&#39;</span><span class="p">:</span> <span class="p">((),</span> <span class="p">(),</span> <span class="p">()),</span>
+        <span class="s1">&#39;Diameter&#39;</span><span class="p">:</span> <span class="p">((),</span> <span class="p">()),</span>
+        <span class="s1">&#39;Wall_Contact&#39;</span><span class="p">:</span> <span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,),</span> <span class="p">(</span><span class="mf">1e6</span><span class="p">,),</span> <span class="p">(</span><span class="mf">1e3</span><span class="p">,)),</span>
+        <span class="s1">&#39;Wall_Friction&#39;</span><span class="p">:</span> <span class="p">((),</span> <span class="p">(),</span> <span class="p">(),</span> <span class="p">(),</span> <span class="p">())</span>
+    <span class="p">}</span>
+    
+    <span class="n">_CDB_TABLE</span> <span class="o">=</span> <span class="s1">&#39;holes.tbl&#39;</span>
+    <span class="n">_EXT</span> <span class="o">=</span> <span class="s1">&#39;hol&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hole_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="n">kwargs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Hole_Name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hole_name</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">_apply_defaults</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        
+    <span class="k">def</span> <span class="nf">_apply_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Applies defaults from class variables</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Applies normal parameter defaults</span>
+        <span class="k">for</span> <span class="n">scalar_parameter</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_DEFAULT_PARAMETER_SCALARS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">scalar_parameter</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">scalar_parameter</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+        <span class="c1"># Applies defaults to all ramp parameters</span>
+        <span class="k">for</span> <span class="n">table_parameter</span><span class="p">,</span> <span class="n">table</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_DEFAULT_PARAMETER_TABLES</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">table_parameter</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">tup</span><span class="p">)</span> <span class="k">for</span> <span class="n">tup</span> <span class="ow">in</span> <span class="n">table</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">table_parameter</span><span class="p">]</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">table_parameter</span><span class="p">])</span>
+    
+<div class="viewcode-block" id="DrillHole.read_from_file"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.hole.DrillHole.read_from_file">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">read_from_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>        
+        <span class="sd">&quot;&quot;&quot;Reads an Adams Drill hole (.hol) file and sets :attr:`DrillHole.parameters` based on data in the file.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            Filename of an Adams Drill hole (.hol) file.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Read the TO data into a dictionary</span>
+        <span class="n">tiem_orbit_data</span> <span class="o">=</span> <span class="n">read_TO_file</span><span class="p">(</span><span class="n">get_full_path</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+        
+        <span class="c1"># Create an empty hole object</span>
+        <span class="n">hole</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Extract the DrillHole parameters from the TO dictionary      </span>
+        <span class="n">hole</span><span class="o">.</span><span class="n">_get_params_from_TO_data</span><span class="p">(</span><span class="n">tiem_orbit_data</span><span class="p">)</span> <span class="c1">#pylint: disable=protected-access</span>
+        
+        <span class="k">return</span> <span class="n">hole</span></div>
+
+<div class="viewcode-block" id="DrillHole.write_to_file"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.hole.DrillHole.write_to_file">[docs]</a>    <span class="k">def</span> <span class="nf">write_to_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cdb</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Writes an Adams Drill hole (.hol) file from the object.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        write_directory : str</span>
+<span class="sd">            Directory in which to write the file. Defaults to current working directory.</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            Name of the file to write.  Defaults to self.parameters[&#39;Hole_Name&#39;]</span>
+<span class="sd">        cdb : str</span>
+<span class="sd">            Name of the cdb in which to write the file.  This argument overrides the write_directory.</span>
+<span class="sd">        </span>
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            Raised if not all parameters have been defined.</span>
+<span class="sd">            </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Raise an error if the parameters can&#39;t be validated</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The parameters could not be validated.&#39;</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">directory</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># If the write_directory argument is passed</span>
+            <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># If the filename argument is not passed, set the filename</span>
+                <span class="c1"># as the Hole_Name in the file</span>
+                <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Hole_Name&#39;</span><span class="p">]</span>
+                
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># If the filename argument is passed, strip the path and the </span>
+                <span class="c1"># extension</span>
+                <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;.</span><span class="si">{self._EXT}</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            
+            <span class="c1"># Set the filepath to the filename in the given directory</span>
+            <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{filename}</span><span class="s1">.</span><span class="si">{self._EXT}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">cdb</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># If the write_directory argument is not passed, but the cdb</span>
+            <span class="c1"># argument is</span>
+
+            <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># If the filename argument is not passed, set the filename</span>
+                <span class="c1"># as the Hole_Name in the file</span>
+                <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Hole_Name&#39;</span><span class="p">]</span>
+            
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># If the filename argument is passed, strip the path and the </span>
+                <span class="c1"># extension</span>
+                <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;.</span><span class="si">{self._EXT}</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            
+            <span class="c1"># Set the filepath to the file in the cdb</span>
+            <span class="n">filepath</span> <span class="o">=</span> <span class="n">get_full_path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;&lt;</span><span class="si">{cdb}</span><span class="s1">&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_CDB_TABLE</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{filename}</span><span class="s1">.</span><span class="si">{self._EXT}</span><span class="s1">&#39;</span><span class="p">))</span>
+        
+        <span class="k">elif</span> <span class="n">filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># If the filename argument is given</span>
+            <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Raise an error if none of the arguments are provided</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Ether directory, filename, or cdb must be passed.&#39;</span><span class="p">)</span>            
+
+        <span class="n">hole_template</span> <span class="o">=</span> <span class="n">TMPLT_ENV</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;templates&#39;</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;template.</span><span class="si">{self._EXT}</span><span class="s1">&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+        
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+            <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">hole_template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">get_cdb_path</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="DrillHole.validate"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.hole.DrillHole.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Determines if all parameters have been set</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            `True` if all parameters have been set. Otherwise `False`.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">validated</span> <span class="o">=</span> <span class="kc">True</span>        
+        <span class="c1"># Check that all parameters exist in the self.parameters dictionary</span>
+        <span class="k">for</span> <span class="n">param_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_SCALAR_PARAMETERS</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">param_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
+                <span class="n">validated</span> <span class="o">=</span> <span class="kc">False</span>        
+        
+        <span class="k">for</span> <span class="n">param_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_TABLE_PARAMETERS</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">([</span><span class="n">elem</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param_name</span><span class="p">]]):</span>
+                <span class="n">validated</span> <span class="o">=</span> <span class="kc">False</span>
+            
+        <span class="k">return</span> <span class="n">validated</span>    </div>
+
+<div class="viewcode-block" id="DrillHole.modify_table"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.hole.DrillHole.modify_table">[docs]</a>    <span class="k">def</span> <span class="nf">modify_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param_name</span><span class="p">,</span> <span class="n">md_start</span><span class="p">,</span> <span class="n">md_end</span><span class="p">,</span> <span class="n">new_values</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Modifies the table parameter with key `param_name` in the range defined by `md_start` and `md_end`.</span>
+<span class="sd">        </span>
+<span class="sd">        Note</span>
+<span class="sd">        ----</span>
+<span class="sd">        Use this method to modify the following items in :attr:`DrillHole.parameters`:</span>
+<span class="sd">        * Centerline</span>
+<span class="sd">        * Diameter</span>
+<span class="sd">        * Wall_Contact</span>
+<span class="sd">        * Wall_Friction</span>
+<span class="sd">        **DO NOT MODIFY OR SET THESE ITEMS DIRECTLY.** They will not write correctly when the :meth:`DrillHole.write_to_file` is called. </span>
+
+<span class="sd">        Example</span>
+<span class="sd">        -------</span>
+<span class="sd">        &gt;&gt;&gt; drill_hole.parameters[&#39;Wall_Contact&#39;]</span>
+<span class="sd">        [[0, 1000, 2000, 3000, 4000], [1.0e5, 1.0e5, 1.0e5, 1.0e6, 1.0e6], [1.0e3, 1.0e3, 1.0e3, 2.0e3, 2.0e3]]</span>
+<span class="sd">        &gt;&gt;&gt; md_start = 3000</span>
+<span class="sd">        &gt;&gt;&gt; md_end = 4000</span>
+<span class="sd">        &gt;&gt;&gt; k = 1.0e7</span>
+<span class="sd">        &gt;&gt;&gt; c = 3.0e3</span>
+<span class="sd">        &gt;&gt;&gt; contact = [k, c]</span>
+<span class="sd">        &gt;&gt;&gt; drill_hole.modify_table(&#39;Wall_Contact&#39;, md_start, md_end, contact)</span>
+<span class="sd">        &gt;&gt;&gt; drill_hole.parameters[&#39;Wall_Contact&#39;]</span>
+<span class="sd">        [[0, 1000, 2000, 3000, 4000], [1.0e5, 1.0e5, 1.0e5, 1.0e7, 1.0e7], [1.0e3, 1.0e3, 1.0e3, 3.0e3, 3.0e3]]</span>
+<span class="sd">        </span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        param_name : str</span>
+<span class="sd">            Name of the parameter to be modified.  Must match a key in `DrillHole._TABLE_PARAMETERS`</span>
+<span class="sd">        md_start : float</span>
+<span class="sd">            Start of measured depth range to be modified.</span>
+<span class="sd">        md_end : float</span>
+<span class="sd">            End of measured depth range to be modified.</span>
+<span class="sd">        new_values : :obj:`list` of :obj:`float`s</span>
+<span class="sd">            New parameter values.  The order of this list must match the order in which these parameters are listed in the table in the Adams Drill Hole (.hol) file. </span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Raise an error if this isn&#39;t an acceptable parameter</span>
+        <span class="k">if</span> <span class="n">param_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_TABLE_PARAMETERS</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{param_name}</span><span class="s1"> is not a DrillHole table.&#39;</span><span class="p">)</span>
+        
+        <span class="c1"># Loop through the rows of the parameter</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">f</span><span class="s1">&#39;_</span><span class="si">{param_name}</span><span class="s1">&#39;</span><span class="p">]):</span>
+            <span class="c1"># for each row</span>
+
+            <span class="k">if</span> <span class="n">md_start</span> <span class="o">&lt;=</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">md_end</span><span class="p">:</span>
+                <span class="c1"># if that md for that row is withing the specified range</span>
+
+                <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">new_value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">new_values</span><span class="p">):</span>
+                    <span class="c1"># For each parameter (e.g. mu_s, v_s, mu_d, v_d)</span>
+                    <span class="c1"># Modify the value in that line</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param_name</span><span class="p">][</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_value</span>
+            
+            <span class="k">elif</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">md_end</span><span class="p">:</span>
+                <span class="c1"># If passed the specified md range, break the loop</span>
+                <span class="k">break</span>
+        
+        <span class="c1"># Re-zip the parameter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">f</span><span class="s1">&#39;_</span><span class="si">{param_name}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param_name</span><span class="p">])</span></div>
+    
+<div class="viewcode-block" id="DrillHole.set_table"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.hole.DrillHole.set_table">[docs]</a>    <span class="k">def</span> <span class="nf">set_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param_name</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets the table parameter with the key `param_name`.</span>
+<span class="sd">        </span>
+<span class="sd">        Note</span>
+<span class="sd">        ----</span>
+<span class="sd">        Use this method to set the following items in :attr:`DrillHole.parameters`:</span>
+<span class="sd">        * Centerline</span>
+<span class="sd">        * Diameter</span>
+<span class="sd">        * Wall_Contact</span>
+<span class="sd">        * Wall_Friction</span>
+<span class="sd">        **DO NOT MODIFY OR SET THESE ITEMS DIRECTLY.** They will not write correctly when the :meth:`DrillHole.write_to_file` is called. </span>
+<span class="sd">        </span>
+<span class="sd">        Example</span>
+<span class="sd">        -------</span>
+<span class="sd">        &gt;&gt;&gt; md = [0, 1000, 2000, 3000, 4000]</span>
+<span class="sd">        &gt;&gt;&gt; mu_s = [0.7, 0.7, 0.7, 0.8, 0.8]</span>
+<span class="sd">        &gt;&gt;&gt; v_s = [0.1, 0.1, 0.1, 0.1, 0.1]</span>
+<span class="sd">        &gt;&gt;&gt; mu_d = [0.5, 0.5, 0.5, 0.6, 0.6]</span>
+<span class="sd">        &gt;&gt;&gt; v_d = [0.2, 0.2, 0.2, 0.2, 0.2]</span>
+<span class="sd">        &gt;&gt;&gt; friction = [md, mu_s, v_s, mu_d, v_d]</span>
+<span class="sd">        &gt;&gt;&gt; drill_hole.set_table(&#39;Wall_Friction&#39;, friction)</span>
+<span class="sd">        &gt;&gt;&gt; drill_hole.parameters[&#39;Wall_Friction&#39;]</span>
+<span class="sd">        [[0, 1000, 2000, 3000, 4000], [0.7, 0.7, 0.7, 0.8, 0.8], [0.1, 0.1, 0.1, 0.1, 0.1], [0.5, 0.5, 0.5, 0.6, 0.6], [0.2, 0.2, 0.2, 0.2, 0.2]]</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        param_name : str</span>
+<span class="sd">            Name of the parameter to be modified.  Must match a key in `DrillHole._TABLE_PARAMETERS`</span>
+<span class="sd">        values : :obj:`list` of :obj:`list`s</span>
+<span class="sd">            Parameter values.  The order of this list must match the order in which these parameters are listed in the table in the Adams Drill Hole (.hol) file.</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">f</span><span class="s1">&#39;_</span><span class="si">{param_name}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param_name</span><span class="p">])</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_params_from_TO_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tiem_orbit_data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Reads the hole parameters out of a dictoinary of Tiem Orbit data generated by :func:`adamspy.adripy.utilities.read_TO_file`</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        tiem_orbit_data : dict</span>
+<span class="sd">            Dictionary of Tiem Orbit data</span>
+<span class="sd">        </span>
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            An event parameter could not be found</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_SCALAR_PARAMETERS</span><span class="p">:</span>
+            <span class="c1"># For each event parameter initialize a found flag</span>
+            <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+        
+            <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">tiem_orbit_data</span><span class="p">:</span>
+                <span class="c1"># For each block in the TO file</span>
+
+                <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">]:</span>
+                    <span class="c1"># If the parameter is in this block, set the parameter and break the loop</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="n">param</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+                    <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="k">break</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># If the parameter is not in this block, find all the sub blocks </span>
+                    <span class="c1"># and look for the parameter inside each sub block</span>
+                    <span class="n">sub_blocks</span> <span class="o">=</span> <span class="p">[</span><span class="n">header</span> <span class="k">for</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="n">header</span><span class="p">],</span> <span class="nb">dict</span><span class="p">)]</span>
+                    
+                    <span class="k">for</span> <span class="n">sub_block</span> <span class="ow">in</span> <span class="n">sub_blocks</span><span class="p">:</span>
+                        <span class="c1"># For each sub_block in the block</span>
+
+                        <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="n">sub_block</span><span class="p">]:</span>
+                            <span class="c1"># If the parameter is in the sub block, set the parameter and break the loop</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="n">sub_block</span><span class="p">][</span><span class="n">param</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+                            <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+                            <span class="k">break</span>
+                    
+                    <span class="k">if</span> <span class="n">found</span><span class="p">:</span>
+                        <span class="k">break</span>
+            
+            <span class="c1"># Raise a value error if the parameter isn&#39;t found.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{param}</span><span class="s1"> not found!&#39;</span><span class="p">)</span>
+        
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_TABLE_PARAMETERS</span><span class="p">:</span>
+            <span class="c1"># For each event parameter initialize a found flag</span>
+            <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="n">blocks</span> <span class="o">=</span> <span class="p">[</span><span class="n">header</span> <span class="k">for</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">tiem_orbit_data</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">header</span><span class="p">],</span> <span class="nb">dict</span><span class="p">)]</span>
+        
+            <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">blocks</span><span class="p">:</span>
+                <span class="c1"># For each block in the TO file, get the sub blocks</span>
+                <span class="n">sub_blocks</span> <span class="o">=</span> <span class="p">[</span><span class="n">header</span> <span class="k">for</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="n">header</span><span class="p">],</span> <span class="nb">dict</span><span class="p">)]</span>
+
+                <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">==</span><span class="n">block</span> <span class="ow">and</span> <span class="n">block</span><span class="o">==</span><span class="s1">&#39;CENTERLINE&#39;</span><span class="p">:</span>
+                    <span class="c1"># If the parameter is CENTERLINE and so is the current block</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="s1">&#39;north&#39;</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="s1">&#39;east&#39;</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="s1">&#39;true_depth&#39;</span><span class="p">]</span>
+                    <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="k">break</span>
+
+                <span class="k">elif</span> <span class="n">param</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">==</span><span class="n">block</span> <span class="ow">and</span> <span class="n">block</span><span class="o">==</span><span class="s1">&#39;DIAMETER&#39;</span><span class="p">:</span>
+                    <span class="c1"># If the parameter is DIAMETER and so is the current block</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="s1">&#39;measured_depth&#39;</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="s1">&#39;diameter&#39;</span><span class="p">]</span>                    
+                    <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="k">break</span>
+
+                <span class="k">elif</span> <span class="n">param</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">==</span><span class="n">block</span> <span class="ow">and</span> <span class="n">block</span><span class="o">==</span><span class="s1">&#39;WALL_CONTACT&#39;</span><span class="p">:</span>
+                    <span class="c1"># If the parameter is WALL_CONTACT and so is the current block</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="s1">&#39;measured_depth&#39;</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="s1">&#39;k&#39;</span><span class="p">]</span>                    
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="s1">&#39;c&#39;</span><span class="p">]</span>                    
+                    <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="k">break</span>
+
+                <span class="k">elif</span> <span class="n">param</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">==</span><span class="n">block</span> <span class="ow">and</span> <span class="n">block</span><span class="o">==</span><span class="s1">&#39;WALL_FRICTION&#39;</span><span class="p">:</span>
+                    <span class="c1"># If the parameter is WALL_FRICTION and so is the current block</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="s1">&#39;measured_depth&#39;</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="s1">&#39;staticmu&#39;</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="s1">&#39;staticv&#39;</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="s1">&#39;dynamicmu&#39;</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="s1">&#39;dynamicv&#39;</span><span class="p">]</span>
+                    <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="k">break</span>
+                
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{param}</span><span class="s1"> not found!&#39;</span><span class="p">)</span>
+            
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">])</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Ben Thornton
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
