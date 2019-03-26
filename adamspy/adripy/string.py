@@ -89,7 +89,6 @@ class DrillString():
             Filename of an event file.
         
         """
-
         self.parameters = kwargs
         self.parameters['ModelName'] = string_name
         self.parameters['OutputName'] = string_name
@@ -540,6 +539,7 @@ class DrillString():
             Directory to put the copied hole file (default is None)
         cdb : str
             Name of cdb to put the copied hole file (default is None)
+
         """
         # Check that directory or cdb was given.
         if cdb is None and directory is None:
@@ -573,6 +573,7 @@ class DrillString():
         Note
         ----
         Either directory or cdb must be given.
+        
         """
         # Check that directory or cdb was given.
         if cdb is None and directory is None:

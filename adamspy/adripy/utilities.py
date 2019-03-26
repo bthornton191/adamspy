@@ -1,14 +1,11 @@
 """adripy contains functions for manipulating MSC Adams Drill files
 """
-from os import environ
-from os import remove
-from os import rename
-import os.path
+import os
 import re
 import subprocess
 import thornpy
 import jinja2
-from .constants import TO_PARAMETER_PATTERN, TO_LENGTH_PARAM, ADRILL_IDS
+from .constants import TO_PARAMETER_PATTERN, TO_LENGTH_PARAM, ADRILL_IDS, ADRILL_PLUGIN_VAR
 
 env = jinja2.Environment(
     loader=jinja2.PackageLoader('adamspy.adripy', 'templates'),
@@ -21,14 +18,14 @@ env = jinja2.Environment(
 # Test that the user config file exists
 if 'ADRILL_USER_CFG' not in os.environ:
     # raise EnvironmentError('ADRILL_USER_CFG environment variable is not set!')
-    environ['ADRILL_USER_CFG'] = os.path.join(os.environ['USERPROFILE'], '.adrill.cfg')
+    os.environ['ADRILL_USER_CFG'] = os.path.join(os.environ['USERPROFILE'], '.adrill.cfg')
 elif not os.path.exists(os.environ['ADRILL_USER_CFG']):
     raise FileExistsError('The configuration file {} does not exist!  You must set the ADRILL_USER_CFG environment variable to an existing cfg file before importing adripy.'.format(os.environ['ADRILL_USER_CFG']))
 
 # Test that the user shared file exists
 if 'ADRILL_SHARED_CFG' not in os.environ:    
     if 'XDG_CACHE_HOME' in os.environ:
-        environ['ADRILL_SHARED_CFG'] = os.path.join(os.environ['XDG_CACHE_HOME'], 'adrill', 'adrill.cfg')
+        os.environ['ADRILL_SHARED_CFG'] = os.path.join(os.environ['XDG_CACHE_HOME'], 'adrill', 'adrill.cfg')
     else:
         raise EnvironmentError('ADRILL_SHARED_CFG environment variable is not set!')
 elif not os.path.exists(os.environ['ADRILL_SHARED_CFG']):
@@ -37,7 +34,7 @@ elif not os.path.exists(os.environ['ADRILL_SHARED_CFG']):
 # Test that the adams launch file exists
 if 'ADAMS_LAUNCH_COMMAND' not in os.environ:
     # raise EnvironmentError('ADAMS_LAUNCH_COMMAND environment variable is not set!')
-    environ['ADAMS_LAUNCH_COMMAND'] = os.path.join(os.environ['XDG_CACHE_HOME'], 'common', 'mdi.bat')
+    os.environ['ADAMS_LAUNCH_COMMAND'] = os.path.join(os.environ['XDG_CACHE_HOME'], 'common', 'mdi.bat')
 elif not os.path.exists(os.environ['ADAMS_LAUNCH_COMMAND']):
     raise FileExistsError('The adams launch file {} does not exist!  You must set the ADRILL_SHARED_CFG environment variable to an existing cfg file before importing adripy.'.format(os.environ['ADAMS_LAUNCH_COMMAND']))
 
@@ -99,8 +96,8 @@ def turn_measure_on(string_file, tool_types=[], tool_numbers=[], tool_names=[]):
             else:
                 fid_str_tmp.write(line)
 
-    remove(string_file)
-    rename(string_file.replace('.str','.tmp'), string_file)
+    os.remove(string_file)
+    os.rename(string_file.replace('.str','.tmp'), string_file)
     return n
 
 def get_tool_name(string_file, tool_type, n=1, return_full_path=True):
@@ -192,7 +189,7 @@ def get_adrill_cdbs(adrill_user_cfg, adrill_shared_cfg=None):
             if line.startswith('DATABASE'):
                 # try:
                 cdb_name = re.split('[\t ]+',line.lstrip())[1]
-                cdb_loc = os.path.normpath(re.split('[\t ]+', line, maxsplit=2)[-1].replace('\n','').replace('$HOME',environ['USERPROFILE']))
+                cdb_loc = os.path.normpath(re.split('[\t ]+', line, maxsplit=2)[-1].replace('\n','').replace('$HOME',os.environ['USERPROFILE']))
                 cdbs[cdb_name] = cdb_loc
                 # except:
                 #     raise cdbError('The following line in {} could not be interpreted.\n\n{}'.format(adrill_user_cfg,line))
@@ -203,7 +200,7 @@ def get_adrill_cdbs(adrill_user_cfg, adrill_shared_cfg=None):
                 if line.startswith('DATABASE'):
                     # try:
                     cdb_name = re.split('[\t ]+', line, maxsplit=2)[1]
-                    cdb_loc = os.path.normpath(re.split('[\t ]+', line, maxsplit=2)[-1].replace('\n','').replace('$HOME',environ['USERPROFILE']).replace('$topdir',top_dir))                        
+                    cdb_loc = os.path.normpath(re.split('[\t ]+', line, maxsplit=2)[-1].replace('\n','').replace('$HOME',os.environ['USERPROFILE']).replace('$topdir',top_dir))                        
                     cdbs[cdb_name] = cdb_loc
                     # except:
                         # raise cdbError('The following line in {} could not be interpreted.\n\n{}'.format(adrill_shared_cfg,line))
@@ -337,8 +334,8 @@ def fullNotation_to_cdbNotation(string_file):
             else:
                 fid_str_tmp.write(line)
     
-    remove(string_file)
-    rename(string_file.replace('.str','.tmp'), string_file)
+    os.remove(string_file)
+    os.rename(string_file.replace('.str','.tmp'), string_file)
 
     return n
 
@@ -377,8 +374,8 @@ def cdbNotation_to_fullNotation(string_file):
             else:
                 fid_str_tmp.write(line)
     
-    remove(string_file)
-    rename(string_file.replace('.str','.tmp'), string_file)
+    os.remove(string_file)
+    os.rename(string_file.replace('.str','.tmp'), string_file)
     
     return n
 
@@ -590,8 +587,8 @@ def replace_tool(string_file, old_tool_file, new_tool_file, old_tool_name='', ne
     # Close the string files, delete the original one, and rename the new one
     fid_oldString.close()
     fid_newString.close()
-    remove(string_file)
-    rename(string_file.replace('.str','.tmp'), string_file)
+    os.remove(string_file)
+    os.rename(string_file.replace('.str','.tmp'), string_file)
 
     return n
 
@@ -917,6 +914,7 @@ def build(string_file, solver_settings_file, working_directory, output_name=None
 
     # Create aview script
     cmds = []    
+    cmds.append(f'plugin load plugin_name = {ADRILL_PLUGIN_VAR}\n')
     cmds.append(f'ds TOStart string_cfg_file = "{adams_formatted_str_filename}"\n')
     cmds.append(f'adrill build acf ssf="{ssf_name}" evt="{evt_name}"\n')
     cmds.append(f'file adams write file="{adm_file}"\n')

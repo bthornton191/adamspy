@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.7.31'
-version_notes = 'Fixed DrillSim.clean_pason'
-date = 'March 21, 2019'
+version = '0.7.32'
+version_notes = 'Can now modify a single column in a hole table.  adrill plugin is automatically loaded when aview is opened.'
+date = 'March 26, 2019'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'

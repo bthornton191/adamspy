@@ -93,3 +93,5 @@ DATABASE_INFO = {
     'top_drive': {'table': 'top_drives.tbl', 'extension': 'tdr'},
     'equivalent_upper_string': {'table': 'drill_pipes.tbl', 'extension': 'pip'}
 }
+
+ADRILL_PLUGIN_VAR = '.MDI.plugins.adrill'

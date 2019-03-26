@@ -1,6 +1,7 @@
 import unittest
 import os
 from adamspy.postprocess import xml
+from adamspy.postprocess import launch_ppt
 
 from test import *
 
@@ -50,5 +51,18 @@ class Test_GetResults(unittest.TestCase):
     def test_get_results_all(self):    
         _requests, _units = xml.get_results(TEST_EXISTING_RES_FILE, t_min=TEST_REQUEST_TIME_MIN, t_max=TEST_REQUEST_TIME_MAX, return_units=True)
         
+    def tearDown(self):
+        return
+
+class Test_LaunchPPT(unittest.TestCase):
+
+    def setUp(self):
+        return
+
+    def test_pptAS_exists(self):
+        directory = launch_ppt(TEST_EXISTING_RES_FILE)
+        expected_directory = os.path.split(TEST_EXISTING_RES_FILE)[0]
+        self.assertEqual(directory, expected_directory)
+
     def tearDown(self):
         return

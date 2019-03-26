@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.postprocess package &mdash; adamspy 0.7.31 documentation</title>
+  <title>adamspy.postprocess package &mdash; adamspy 0.7.32 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.7.31
+                0.7.32
               </div>
             
           
@@ -245,6 +245,26 @@
 <div class="section" id="module-adamspy.postprocess">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-adamspy.postprocess" title="Permalink to this headline">¶</a></h2>
 <p>Package for working with Adams Results</p>
+<dl class="function">
+<dt id="adamspy.postprocess.launch_ppt">
+<code class="descclassname">adamspy.postprocess.</code><code class="descname">launch_ppt</code><span class="sig-paren">(</span><em>res_file</em>, <em>wait=False</em>, <em>timeout=30</em>, <em>_terminate=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess.html#launch_ppt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.launch_ppt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Launches the Adams PostProcessor and reads in the specified results file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>res_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Filepath to an Adams Results file.</li>
+<li><strong>wait</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – If <cite>True</cite>, code execution will freeze until the postprocessor is closed. (the default is False)</li>
+<li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>optional</em>) – If <cite>wait`=`False</cite>, code execution will freeze until the postprocessor has started loading the results file or until <cite>timeout</cite> secodns have elapsed.</li>
+<li><strong>_terminate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – If <cite>True</cite>, the PostProcessor will close immediately.  This is for testing purposes.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 </div>
 

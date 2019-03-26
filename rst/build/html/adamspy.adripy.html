@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy package &mdash; adamspy 0.7.31 documentation</title>
+  <title>adamspy.adripy package &mdash; adamspy 0.7.32 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.7.31
+                0.7.32
               </div>
             
           
@@ -586,6 +586,22 @@
 </dd></dl>
 
 <dl class="method">
+<dt id="adamspy.adripy.drillsim.DrillSim.launch_ppt">
+<code class="descname">launch_ppt</code><span class="sig-paren">(</span><em>wait=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/drillsim.html#DrillSim.launch_ppt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim.launch_ppt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Launches the postprocessor and loads <a class="reference internal" href="#adamspy.adripy.drillsim.DrillSim.res_filename" title="adamspy.adripy.drillsim.DrillSim.res_filename"><code class="xref py py-attr docutils literal notranslate"><span class="pre">res_filename</span></code></a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>wait</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – If <cite>True</cite>, code execution will freeze until the postprocessor is closed. (the default is False)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#FileNotFoundError" title="(in Python v3.7)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">FileNotFoundError</span></code></a> – Raised if no results file exists in <a class="reference internal" href="#adamspy.adripy.drillsim.DrillSim.directory" title="adamspy.adripy.drillsim.DrillSim.directory"><code class="xref py py-attr docutils literal notranslate"><span class="pre">directory</span></code></a>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="adamspy.adripy.drillsim.DrillSim.read_results">
 <code class="descname">read_results</code><span class="sig-paren">(</span><em>reqs_to_read=None</em>, <em>t_min=None</em>, <em>t_max=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/drillsim.html#DrillSim.read_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim.read_results" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reads results from the results file.</p>
@@ -840,19 +856,27 @@
 * Wall_Friction
 <strong>DO NOT MODIFY OR SET THESE ITEMS DIRECTLY.</strong> They will not write correctly when the <a class="reference internal" href="#adamspy.adripy.hole.DrillHole.write_to_file" title="adamspy.adripy.hole.DrillHole.write_to_file"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DrillHole.write_to_file()</span></code></a> is called.</p>
 </div>
-<p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">drill_hole</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Wall_Contact&#39;</span><span class="p">]</span>
-<span class="go">[[0, 1000, 2000, 3000, 4000], [1.0e5, 1.0e5, 1.0e5, 1.0e6, 1.0e6], [1.0e3, 1.0e3, 1.0e3, 2.0e3, 2.0e3]]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">md_start</span> <span class="o">=</span> <span class="mi">3000</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">md_end</span> <span class="o">=</span> <span class="mi">4000</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">k</span> <span class="o">=</span> <span class="mf">1.0e7</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="mf">3.0e3</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">contact</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">drill_hole</span><span class="o">.</span><span class="n">modify_table</span><span class="p">(</span><span class="s1">&#39;Wall_Contact&#39;</span><span class="p">,</span> <span class="n">md_start</span><span class="p">,</span> <span class="n">md_end</span><span class="p">,</span> <span class="n">contact</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">drill_hole</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Wall_Contact&#39;</span><span class="p">]</span>
-<span class="go">[[0, 1000, 2000, 3000, 4000], [1.0e5, 1.0e5, 1.0e5, 1.0e7, 1.0e7], [1.0e3, 1.0e3, 1.0e3, 3.0e3, 3.0e3]]</span>
-</pre></div>
-</div>
+<p class="rubric">Examples</p>
+<p>Modifying the wall contact parameters between 3000 and 4000 feet.
+&gt;&gt;&gt; drill_hole.parameters[‘Wall_Contact’]
+[[0, 1000, 2000, 3000, 4000], [1.0e5, 1.0e5, 1.0e5, 1.0e6, 1.0e6], [1.0e3, 1.0e3, 1.0e3, 2.0e3, 2.0e3]]
+&gt;&gt;&gt; md_start = 3000
+&gt;&gt;&gt; md_end = 4000
+&gt;&gt;&gt; k = 1.0e7
+&gt;&gt;&gt; c = 3.0e3
+&gt;&gt;&gt; contact = [k, c]
+&gt;&gt;&gt; drill_hole.modify_table(‘Wall_Contact’, md_start, md_end, contact)
+&gt;&gt;&gt; drill_hole.parameters[‘Wall_Contact’]
+[[0, 1000, 2000, 3000, 4000], [1.0e5, 1.0e5, 1.0e5, 1.0e7, 1.0e7], [1.0e3, 1.0e3, 1.0e3, 3.0e3, 3.0e3]]</p>
+<p>Modifying the dynamic friction coefficient between 3000 and 4000 feet, but leaving the other friction parameters alone.
+&gt;&gt;&gt; drill_hole.parameters[‘Wall_Friction’]
+[[0, 1000, 2000, 3000, 4000], [0.9, 0.9, 0.9, 0.9, 0.9], [0.15, 0.15, 0.15, 0.15, 0.15], [0.3, 0.3, 0.3, 0.3, 0.3], [0.3, 0.3, 0.3, 0.3, 0.3]]
+&gt;&gt;&gt; md_start = 3000
+&gt;&gt;&gt; md_end = 4000
+&gt;&gt;&gt; mu_d = 0.6
+&gt;&gt;&gt; friction = [None, None, mu_d, None]
+&gt;&gt;&gt; drill_hole.modify_table(‘Wall_Friction’, md_start, md_end, friction)
+[[0, 1000, 2000, 3000, 4000], [0.9, 0.9, 0.9, 0.9, 0.9], [0.15, 0.15, 0.15, 0.15, 0.15], [0.6, 0.6, 0.6, 0.6, 0.6], [0.3, 0.3, 0.3, 0.3, 0.3]]</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

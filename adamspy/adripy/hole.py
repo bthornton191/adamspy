@@ -200,8 +200,9 @@ class DrillHole():
         * Wall_Friction
         **DO NOT MODIFY OR SET THESE ITEMS DIRECTLY.** They will not write correctly when the :meth:`DrillHole.write_to_file` is called. 
 
-        Example
-        -------
+        Examples
+        --------
+        Modifying the wall contact parameters between 3000 and 4000 feet.
         >>> drill_hole.parameters['Wall_Contact']
         [[0, 1000, 2000, 3000, 4000], [1.0e5, 1.0e5, 1.0e5, 1.0e6, 1.0e6], [1.0e3, 1.0e3, 1.0e3, 2.0e3, 2.0e3]]
         >>> md_start = 3000
@@ -213,6 +214,15 @@ class DrillHole():
         >>> drill_hole.parameters['Wall_Contact']
         [[0, 1000, 2000, 3000, 4000], [1.0e5, 1.0e5, 1.0e5, 1.0e7, 1.0e7], [1.0e3, 1.0e3, 1.0e3, 3.0e3, 3.0e3]]
         
+        Modifying the dynamic friction coefficient between 3000 and 4000 feet, but leaving the other friction parameters alone.
+        >>> drill_hole.parameters['Wall_Friction']
+        [[0, 1000, 2000, 3000, 4000], [0.9, 0.9, 0.9, 0.9, 0.9], [0.15, 0.15, 0.15, 0.15, 0.15], [0.3, 0.3, 0.3, 0.3, 0.3], [0.3, 0.3, 0.3, 0.3, 0.3]]
+        >>> md_start = 3000
+        >>> md_end = 4000
+        >>> mu_d = 0.6
+        >>> friction = [None, None, mu_d, None]
+        >>> drill_hole.modify_table('Wall_Friction', md_start, md_end, friction)
+        [[0, 1000, 2000, 3000, 4000], [0.9, 0.9, 0.9, 0.9, 0.9], [0.15, 0.15, 0.15, 0.15, 0.15], [0.6, 0.6, 0.6, 0.6, 0.6], [0.3, 0.3, 0.3, 0.3, 0.3]]
         
         Parameters
         ----------
@@ -239,8 +249,9 @@ class DrillHole():
 
                 for j, new_value in enumerate(new_values):
                     # For each parameter (e.g. mu_s, v_s, mu_d, v_d)
-                    # Modify the value in that line
-                    self.parameters[param_name][j+1][i] = new_value
+                    if new_value is not None:
+                        # If the new value is given, modify the value in that line
+                        self.parameters[param_name][j+1][i] = new_value
             
             elif line[0] > md_end:
                 # If passed the specified md range, break the loop

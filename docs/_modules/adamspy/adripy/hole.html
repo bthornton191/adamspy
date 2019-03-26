@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.hole &mdash; adamspy 0.7.31 documentation</title>
+  <title>adamspy.adripy.hole &mdash; adamspy 0.7.32 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.7.31
+                0.7.32
               </div>
             
           
@@ -347,8 +347,9 @@
 <span class="sd">        * Wall_Friction</span>
 <span class="sd">        **DO NOT MODIFY OR SET THESE ITEMS DIRECTLY.** They will not write correctly when the :meth:`DrillHole.write_to_file` is called. </span>
 
-<span class="sd">        Example</span>
-<span class="sd">        -------</span>
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        Modifying the wall contact parameters between 3000 and 4000 feet.</span>
 <span class="sd">        &gt;&gt;&gt; drill_hole.parameters[&#39;Wall_Contact&#39;]</span>
 <span class="sd">        [[0, 1000, 2000, 3000, 4000], [1.0e5, 1.0e5, 1.0e5, 1.0e6, 1.0e6], [1.0e3, 1.0e3, 1.0e3, 2.0e3, 2.0e3]]</span>
 <span class="sd">        &gt;&gt;&gt; md_start = 3000</span>
@@ -360,6 +361,15 @@
 <span class="sd">        &gt;&gt;&gt; drill_hole.parameters[&#39;Wall_Contact&#39;]</span>
 <span class="sd">        [[0, 1000, 2000, 3000, 4000], [1.0e5, 1.0e5, 1.0e5, 1.0e7, 1.0e7], [1.0e3, 1.0e3, 1.0e3, 3.0e3, 3.0e3]]</span>
 <span class="sd">        </span>
+<span class="sd">        Modifying the dynamic friction coefficient between 3000 and 4000 feet, but leaving the other friction parameters alone.</span>
+<span class="sd">        &gt;&gt;&gt; drill_hole.parameters[&#39;Wall_Friction&#39;]</span>
+<span class="sd">        [[0, 1000, 2000, 3000, 4000], [0.9, 0.9, 0.9, 0.9, 0.9], [0.15, 0.15, 0.15, 0.15, 0.15], [0.3, 0.3, 0.3, 0.3, 0.3], [0.3, 0.3, 0.3, 0.3, 0.3]]</span>
+<span class="sd">        &gt;&gt;&gt; md_start = 3000</span>
+<span class="sd">        &gt;&gt;&gt; md_end = 4000</span>
+<span class="sd">        &gt;&gt;&gt; mu_d = 0.6</span>
+<span class="sd">        &gt;&gt;&gt; friction = [None, None, mu_d, None]</span>
+<span class="sd">        &gt;&gt;&gt; drill_hole.modify_table(&#39;Wall_Friction&#39;, md_start, md_end, friction)</span>
+<span class="sd">        [[0, 1000, 2000, 3000, 4000], [0.9, 0.9, 0.9, 0.9, 0.9], [0.15, 0.15, 0.15, 0.15, 0.15], [0.6, 0.6, 0.6, 0.6, 0.6], [0.3, 0.3, 0.3, 0.3, 0.3]]</span>
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -386,8 +396,9 @@
 
                 <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">new_value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">new_values</span><span class="p">):</span>
                     <span class="c1"># For each parameter (e.g. mu_s, v_s, mu_d, v_d)</span>
-                    <span class="c1"># Modify the value in that line</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param_name</span><span class="p">][</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_value</span>
+                    <span class="k">if</span> <span class="n">new_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="c1"># If the new value is given, modify the value in that line</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param_name</span><span class="p">][</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_value</span>
             
             <span class="k">elif</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">md_end</span><span class="p">:</span>
                 <span class="c1"># If passed the specified md range, break the loop</span>

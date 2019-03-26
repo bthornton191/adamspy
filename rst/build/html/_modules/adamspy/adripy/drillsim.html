@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.drillsim &mdash; adamspy 0.7.31 documentation</title>
+  <title>adamspy.adripy.drillsim &mdash; adamspy 0.7.32 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.7.31
+                0.7.32
               </div>
             
           
@@ -149,10 +149,12 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">glob</span>
 <span class="kn">from</span> <span class="nn">thornpy.signal</span> <span class="k">import</span> <span class="n">step_function</span><span class="p">,</span> <span class="n">low_pass</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">linspace</span><span class="p">,</span> <span class="n">argmax</span><span class="p">,</span> <span class="n">array</span>
 <span class="kn">from</span> <span class="nn">..postprocess.xml</span> <span class="k">import</span> <span class="n">get_results</span>
 <span class="kn">from</span> <span class="nn">.utilities</span> <span class="k">import</span> <span class="n">build</span><span class="p">,</span> <span class="n">add_splines_to_acf</span><span class="p">,</span> <span class="n">add_splines_to_adm</span>
+<span class="kn">from</span> <span class="nn">..postprocess</span> <span class="k">import</span> <span class="n">launch_ppt</span>
 
 <div class="viewcode-block" id="DrillSim"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim">[docs]</a><span class="k">class</span> <span class="nc">DrillSim</span><span class="p">():</span> <span class="c1">#pylint: disable=too-many-instance-attributes</span>
     <span class="sd">&quot;&quot;&quot;Contains data defining the files that make up an Adams Drill input deck.    </span>
@@ -361,7 +363,31 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">res_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">res_filename</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">results_units</span> <span class="o">=</span> <span class="n">get_results</span><span class="p">(</span><span class="n">res_file</span><span class="p">,</span> <span class="n">reqs_to_read</span><span class="p">,</span> <span class="n">t_min</span><span class="p">,</span> <span class="n">t_max</span><span class="p">,</span> <span class="n">return_units</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
-    
+
+<div class="viewcode-block" id="DrillSim.launch_ppt"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim.launch_ppt">[docs]</a>    <span class="k">def</span> <span class="nf">launch_ppt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wait</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Launches the postprocessor and loads :attr:`res_filename`</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        wait : bool, optional</span>
+<span class="sd">            If `True`, code execution will freeze until the postprocessor is closed. (the default is False)</span>
+<span class="sd">        </span>
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        FileNotFoundError</span>
+<span class="sd">            Raised if no results file exists in :attr:`directory`.</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Check for results file</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">res_filename</span><span class="p">:</span>
+            <span class="n">res_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">,</span> <span class="s1">&#39;*.res&#39;</span><span class="p">))</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">res_files</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="s1">&#39;No results file found!  You must run the simultion using DrillSim.solve before you can launch the postprocessor to view the results.&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">res_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">res_files</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">1</span><span class="p">]</span>
+        
+        <span class="c1"># Launch the postprocessor</span>
+        <span class="n">launch_ppt</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">res_filename</span><span class="p">),</span> <span class="n">wait</span><span class="o">=</span><span class="n">wait</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="DrillSim.clean_pason"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim.clean_pason">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">clean_pason</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">pason_data</span><span class="p">,</span> <span class="n">sig_type</span><span class="p">,</span> <span class="n">t_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">show_plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ramp_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cutoff_freq</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns a cleaned up pason signal to be used as input to an Adams Drill model.</span>

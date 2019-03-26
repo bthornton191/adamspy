@@ -2,10 +2,12 @@
 """
 import os
 import subprocess
+import glob
 from thornpy.signal import step_function, low_pass
 from numpy import linspace, argmax, array
 from ..postprocess.xml import get_results
 from .utilities import build, add_splines_to_acf, add_splines_to_adm
+from ..postprocess import launch_ppt
 
 class DrillSim(): #pylint: disable=too-many-instance-attributes
     """Contains data defining the files that make up an Adams Drill input deck.    
@@ -214,7 +216,31 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         """
         res_file = os.path.join(self.directory, self.res_filename)
         self.results, self.results_units = get_results(res_file, reqs_to_read, t_min, t_max, return_units=True)
-    
+
+    def launch_ppt(self, wait=False):
+        """Launches the postprocessor and loads :attr:`res_filename`
+        
+        Parameters
+        ----------
+        wait : bool, optional
+            If `True`, code execution will freeze until the postprocessor is closed. (the default is False)
+        
+        Raises
+        ------
+        FileNotFoundError
+            Raised if no results file exists in :attr:`directory`.
+        
+        """
+        # Check for results file
+        if not self.res_filename:
+            res_files = glob.glob(os.path.join(self.directory, '*.res'))
+            if not res_files:
+                raise FileNotFoundError('No results file found!  You must run the simultion using DrillSim.solve before you can launch the postprocessor to view the results.')
+            self.res_filename = os.path.split(res_files[0])[1]
+        
+        # Launch the postprocessor
+        launch_ppt(os.path.join(self.directory, self.res_filename), wait=wait)
+
     @classmethod
     def clean_pason(cls, pason_data, sig_type, t_min=None, t_max=None, show_plot=True, ramp_time=None, cutoff_freq=None):
         """Returns a cleaned up pason signal to be used as input to an Adams Drill model.

@@ -46,6 +46,17 @@ class Test_DrillHole(unittest.TestCase):
         drill_hole = adripy.DrillHole(TEST_HOLE_NAME)
         drill_hole.set_table('Centerline', TEST_HOLE_CENTERLINE)
         self.assertListEqual(drill_hole.parameters['Centerline'], TEST_HOLE_CENTERLINE)
+
+    def test_modify_table_mud_only(self):
+        """Tests if drill_hole.modify_table modifies the table parameter correctly when only one of the table columns is modified.        
+        """
+        drill_hole = adripy.DrillHole(TEST_HOLE_NAME)
+        drill_hole.set_table('Centerline', TEST_HOLE_CENTERLINE)
+        drill_hole.set_table('Diameter', TEST_HOLE_DIAMETER)
+        drill_hole.set_table('Wall_Contact', TEST_HOLE_CONTACT)
+        drill_hole.set_table('Wall_Friction', TEST_HOLE_FRICTION)
+        drill_hole.modify_table('Wall_Friction', 1000, 10000, TEST_MODIFIED_HOLE_FRICTION_2)
+        self.assertListEqual(drill_hole.parameters['Wall_Friction'], TEST_EXPECTED_MODIFIED_HOLE_FRICTION_2)
     
     def test_modify_table(self):
         """Tests if drill_hole.modify_table modifies the table parameter correctly.        
@@ -55,8 +66,8 @@ class Test_DrillHole(unittest.TestCase):
         drill_hole.set_table('Diameter', TEST_HOLE_DIAMETER)
         drill_hole.set_table('Wall_Contact', TEST_HOLE_CONTACT)
         drill_hole.set_table('Wall_Friction', TEST_HOLE_FRICTION)
-        drill_hole.modify_table('Wall_Friction', 1000, 10000, TEST_MODIFIED_HOLE_FRICTION)
-        self.assertListEqual(drill_hole.parameters['Wall_Friction'], TEST_EXPECTED_MODIFIED_HOLE_FRICTION)
+        drill_hole.modify_table('Wall_Friction', 1000, 10000, TEST_MODIFIED_HOLE_FRICTION_1)
+        self.assertListEqual(drill_hole.parameters['Wall_Friction'], TEST_EXPECTED_MODIFIED_HOLE_FRICTION_1)
     
     def test_write_to_file(self):        
         """Tests that writing to file writes the expected text.        
