@@ -10,3 +10,6 @@ demo*.py
 /.vscode
 /_test_drill.cfg
 /test/example_working_directory/**
+test/files/adamsctl_272309.bat
+test/files/ppt.log
+test/files/ppt.loq
