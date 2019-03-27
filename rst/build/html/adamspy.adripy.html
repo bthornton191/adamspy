@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy package &mdash; adamspy 0.7.32 documentation</title>
+  <title>adamspy.adripy package &mdash; adamspy 0.7.33 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.7.32
+                0.7.33
               </div>
             
           
@@ -601,6 +601,28 @@
 </table>
 </dd></dl>
 
+<dl class="classmethod">
+<dt id="adamspy.adripy.drillsim.DrillSim.read_from_directory">
+<em class="property">classmethod </em><code class="descname">read_from_directory</code><span class="sig-paren">(</span><em>directory</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/drillsim.html#DrillSim.read_from_directory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim.read_from_directory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a <a class="reference internal" href="#adamspy.adripy.drillsim.DrillSim" title="adamspy.adripy.drillsim.DrillSim"><code class="xref py py-class docutils literal notranslate"><span class="pre">DrillSim</span></code></a> object from an existing directory that was previously created by a <a class="reference internal" href="#adamspy.adripy.drillsim.DrillSim" title="adamspy.adripy.drillsim.DrillSim"><code class="xref py py-class docutils literal notranslate"><span class="pre">DrillSim</span></code></a> object.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This method does not read the <cite>pason_inputs</cite> attribute</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>directory</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Path to a directory previously created by a <a class="reference internal" href="#adamspy.adripy.drillsim.DrillSim" title="adamspy.adripy.drillsim.DrillSim"><code class="xref py py-class docutils literal notranslate"><span class="pre">DrillSim</span></code></a> object.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="#adamspy.adripy.drillsim.DrillSim" title="adamspy.adripy.drillsim.DrillSim"><code class="xref py py-class docutils literal notranslate"><span class="pre">DrillSim</span></code></a> object created from an existing directory that was previously created by a <a class="reference internal" href="#adamspy.adripy.drillsim.DrillSim" title="adamspy.adripy.drillsim.DrillSim"><code class="xref py py-class docutils literal notranslate"><span class="pre">DrillSim</span></code></a> object.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#adamspy.adripy.drillsim.DrillSim" title="adamspy.adripy.drillsim.DrillSim">DrillSim</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="method">
 <dt id="adamspy.adripy.drillsim.DrillSim.read_results">
 <code class="descname">read_results</code><span class="sig-paren">(</span><em>reqs_to_read=None</em>, <em>t_min=None</em>, <em>t_max=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/drillsim.html#DrillSim.read_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim.read_results" title="Permalink to this definition">¶</a></dt>
@@ -855,6 +877,10 @@
 * Wall_Contact
 * Wall_Friction
 <strong>DO NOT MODIFY OR SET THESE ITEMS DIRECTLY.</strong> They will not write correctly when the <a class="reference internal" href="#adamspy.adripy.hole.DrillHole.write_to_file" title="adamspy.adripy.hole.DrillHole.write_to_file"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DrillHole.write_to_file()</span></code></a> is called.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This method does not work on hole tables that use constant property notation (i.e. single row with measured depth equal to -1)</p>
 </div>
 <p class="rubric">Examples</p>
 <p>Modifying the wall contact parameters between 3000 and 4000 feet.

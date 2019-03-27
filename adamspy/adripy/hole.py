@@ -94,6 +94,9 @@ class DrillHole():
 
         # Extract the DrillHole parameters from the TO dictionary      
         hole._get_params_from_TO_data(tiem_orbit_data) #pylint: disable=protected-access
+
+        # Set the filename attribute
+        hole.filename = get_cdb_path(filename)
         
         return hole
 
@@ -132,7 +135,7 @@ class DrillHole():
                 filename = os.path.split(filename)[-1].replace(f'.{self._EXT}','')
             
             # Set the filepath to the filename in the given directory
-            filepath = os.path.join(directory, f'{filename}.{self._EXT}')
+            filepath = get_full_path(os.path.join(directory, f'{filename}.{self._EXT}'))
 
         elif cdb is not None:
             # If the write_directory argument is not passed, but the cdb
@@ -153,7 +156,7 @@ class DrillHole():
         
         elif filename is not None:
             # If the filename argument is given
-            filepath = os.path.normpath(filename)
+            filepath = get_full_path(os.path.normpath(filename))
         
         else:
             # Raise an error if none of the arguments are provided
@@ -199,6 +202,10 @@ class DrillHole():
         * Wall_Contact
         * Wall_Friction
         **DO NOT MODIFY OR SET THESE ITEMS DIRECTLY.** They will not write correctly when the :meth:`DrillHole.write_to_file` is called. 
+
+        Note
+        ----
+        This method does not work on hole tables that use constant property notation (i.e. single row with measured depth equal to -1)
 
         Examples
         --------

@@ -190,7 +190,10 @@ class DrillSolverSettings():
         
         # Extract the DrillString parameters from the TO dictionary        
         drill_solver_settings._get_params_from_TO_data(tiem_orbit_data) #pylint: disable=protected-access
-
+        
+        # Set the filename attribute
+        drill_solver_settings.filename = filename
+        
         return drill_solver_settings
 
     def _apply_defaults(self):

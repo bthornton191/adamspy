@@ -8,6 +8,9 @@ from numpy import linspace, argmax, array
 from ..postprocess.xml import get_results
 from .utilities import build, add_splines_to_acf, add_splines_to_adm
 from ..postprocess import launch_ppt
+from .string import DrillString
+from .event import DrillEvent
+from .solver_settings import DrillSolverSettings
 
 class DrillSim(): #pylint: disable=too-many-instance-attributes
     """Contains data defining the files that make up an Adams Drill input deck.    
@@ -99,6 +102,69 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
 
         # Flags
         self.built = False
+
+    @classmethod
+    def read_from_directory(cls, directory):
+        """Returns a :class:`DrillSim` object from an existing directory that was previously created by a :class:`DrillSim` object.
+        
+        Note
+        ----
+        This method does not read the `pason_inputs` attribute
+
+        Parameters
+        ----------
+        directory : str
+            Path to a directory previously created by a :class:`DrillSim` object.
+        
+        Returns
+        -------
+        DrillSim
+            :class:`DrillSim` object created from an existing directory that was previously created by a :class:`DrillSim` object.
+
+        """
+        # If `directory` is not a directory, raise an error
+        if not os.path.isdir(directory):
+            raise OSError(f'No directory found with name {directory}!')
+
+        # Get string, event, ssf filenames
+        string_filename = glob.glob(os.path.join(directory, '*.' + DrillString._EXT))[0]
+        event_filename  = glob.glob(os.path.join(directory, '*.' + DrillEvent._EXT))[0]
+        solver_settings_filename = glob.glob(os.path.join(directory, '*.' + DrillSolverSettings._EXT))[0]
+
+        # Create string, event, ssf objects
+        string = DrillString.read_from_file(string_filename)
+        event = DrillEvent.read_from_file(event_filename)
+        solver_settings = DrillSolverSettings.read_from_file(solver_settings_filename)
+
+        # Get analysis name
+        analysis_name = string.parameters['ModelName']
+
+        # Create the DrillSim object
+        drill_sim = cls(string, event, solver_settings, directory, analysis_name, write_TO_files=False)
+
+        # Define file names
+        drill_sim.string_filename = os.path.split(string_filename)[1]   
+        
+        adm_files = glob.glob(os.path.join(directory, '*.adm'))
+        drill_sim.adm_filename = os.path.split(adm_files[0])[1] if adm_files else ''
+
+        acf_files = glob.glob(os.path.join(directory, '*.acf'))
+        drill_sim.acf_filename = os.path.split(acf_files[0])[1] if acf_files else ''
+
+        cmd_files = glob.glob(os.path.join(directory, '*.cmd'))
+        drill_sim.cmd_filename = os.path.split(cmd_files[0])[1] if cmd_files else ''
+
+        res_files = glob.glob(os.path.join(directory, '*.res'))
+        drill_sim.res_filename = os.path.split(res_files[0])[1] if res_files else ''
+
+        msg_files = glob.glob(os.path.join(directory, '*.msg'))
+        drill_sim.msg_filename = os.path.split(msg_files[0])[1] if msg_files else ''
+
+        # Set the `built` flag
+        if drill_sim.acf_filename and drill_sim.adm_filename:            
+            drill_sim.built = True
+
+        return drill_sim
 
     def get_pason_inputs(self, pason_data, t_min=None, t_max=None, sig_types=['wob', 'rpm', 'gpm', 'rop'], show_plots=True):
         """Extracts the wob, rpm, gpm, and/or rop from a :class:`PasonData` object.  If this is run before :meth:`build` the pason data will be added to the adm file as model input splines.

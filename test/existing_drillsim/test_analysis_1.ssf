@@ -1,0 +1,58 @@
+$ ==================================================================
+$ This is an Adams Drill solver settings file (.ssf)
+$ When this file is specified under 'Adams Solver Parameters' on the
+$ 'Run Simulation' tab of an Adams Drill Excel workbook, then the values
+$ specified here will override the Adams defaults.
+$------------------------------------------------------------------------STATICS
+[STATICS]
+$ Sometimes, a standard preliminary static simulation will not be possible,
+$ so we will need to do a static funnel which runs multiple static simulations
+$ with increasingly tighter settings.
+$ 'Equilibirum_Mehtod' options: 'Standard' or 'Static_Funnel'
+ Equilibrium_Method  =  'Static_Funnel'
+$ 
+$ Settings for 'Standard' equilibrium method:
+ Maxit  =  500.0
+ Stability  =  5.0
+ Error  =  1.0
+ Imbalance  =  1.0
+ Tlimit  =  0.5
+ Alimit  =  1.0
+$ 
+$ Settings for 'Static_Funnel' equilibrium method:
+$ Alimit is in degrees
+(FUNNEL)
+{Maxit  Stability  Error  Imbalance  Tlimit  Alimit}
+500   0.1   0.1   0.1   1   2
+500   5   1   1   0.5   1
+51   0.5   0.3   0.3   0.5   1
+52   0.5   0.3   0.2   0.5   1
+53   0.5   0.2   0.2   0.5   1
+54   0.5   0.2   0.1   0.5   1
+55   0.5   0.1   0.1   0.5   1
+56   0.5   0.1   0.05   0.5   1
+57   0.5   0.05   0.05   0.5   1
+58   0.5   0.05   0.01   0.5   1
+59   0.5   0.01   0.01   0.5   1
+60   0.5   0.01   0.005   0.5   1
+61   0.5   0.005   0.005   0.5   1
+62   0.5   0.005   0.001   0.5   1
+63   0.5   0.005   0.0005   0.5   1
+100   0.5   0.005   0.005   0.5   1
+$ 
+$-----------------------------------------------------------------------DYNAMICS
+[DYNAMICS]
+$ Integratror options: GSTIFF or HHT
+ Integrator  =  'HHT'
+$ 
+$ Formulation options: I3 or SI2 (I3 is only valid for HHT)
+ Formulation  =  'I3'
+$ 
+$ Corrector Options: Original or Modified
+ Corrector  =  'Modified'
+ Error  =  1e-05
+ HMax  =  0.005
+ Alpha  =  -0.25
+$---------------------------------------------------------------------EXECUTABLE
+[EXECUTABLE]
+ Thread_Count  =  4

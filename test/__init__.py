@@ -78,8 +78,12 @@ TEST_NEW_DATABASE_PATH = os.path.join(os.getcwd(), 'test', TEST_NEW_DATABASE_NAM
 TEST_WORKING_DIRECTORY = os.path.join(os.getcwd(), 'test', 'example_working_directory')
 TEST_ANALYSIS_NAME = 'test_analysis_1'
 
-TEST_EXISTING_RES_FILE = os.path.join(os.getcwd(), 'test', 'files', 'SW_TEST_20181207_1_out.res')
+TEST_EXISTING_DRILLSIM_DIRECTORY = os.path.join(os.getcwd(), 'test', 'existing_drillsim')
+TEST_EXISTING_DRILLSIM_ANALYSIS_NAME = 'test_analysis_1'
 
+TEST_EXISTING_RES_FILE = os.path.join(os.getcwd(), 'test', 'files', 'SW_TEST_20181207_1_out.res')
+TEST_EXISTING_CMD_FILE = os.path.join(os.getcwd(), 'test', 'files', 'test_analysis_1.cmd')
+TEST_EXPECTED_MODNAME_IN_CMD = 'test_analysis_1'
 
 TEST_REQUESTS_TO_GET = {}
 TEST_REQUESTS_TO_GET['MSE'] = ['Instantaneous_Bottom_MSE', 'Filtered_Surface_MSE']

@@ -59,6 +59,10 @@ class Test_DrillSim(unittest.TestCase):
 
         # Create a solver settings object
         self.solver_settings = adripy.DrillSolverSettings(TEST_SOLVER_SETTINGS_NAME)
+    
+    def test_read_from_file(self):
+        drill_sim = DrillSim.read_from_directory(TEST_EXISTING_DRILLSIM_DIRECTORY)
+        self.assertEqual(drill_sim.analysis_name, TEST_EXISTING_DRILLSIM_ANALYSIS_NAME)        
 
     def test_build_evt_contents(self):
         """Tests that the event file created in the DrillSim directory has the correct contents.        

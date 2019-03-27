@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.7.32'
-version_notes = 'Can now modify a single column in a hole table.  adrill plugin is automatically loaded when aview is opened.'
+version = '0.7.33'
+version_notes = 'Filename attributes set on DrillEvent.read_from_file and DrillSolverSettings.read_from_file. Added DrillSim.read_from_directory. launch_ppt can load a cmd file. '
 date = 'March 26, 2019'
 # ---------------------
 author = 'Ben Thornton'

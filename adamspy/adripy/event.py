@@ -279,6 +279,9 @@ class DrillEvent():
         
         # Extract the DrillEvent parameters from the TO dictionary        
         event._get_params_from_TO_data(tiem_orbit_data) #pylint: disable=protected-access
+        
+        # Set the filename attribute
+        event.filename = filename
 
         return event
 

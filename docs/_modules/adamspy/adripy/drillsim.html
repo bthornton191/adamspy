@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.drillsim &mdash; adamspy 0.7.32 documentation</title>
+  <title>adamspy.adripy.drillsim &mdash; adamspy 0.7.33 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.7.32
+                0.7.33
               </div>
             
           
@@ -155,6 +155,9 @@
 <span class="kn">from</span> <span class="nn">..postprocess.xml</span> <span class="k">import</span> <span class="n">get_results</span>
 <span class="kn">from</span> <span class="nn">.utilities</span> <span class="k">import</span> <span class="n">build</span><span class="p">,</span> <span class="n">add_splines_to_acf</span><span class="p">,</span> <span class="n">add_splines_to_adm</span>
 <span class="kn">from</span> <span class="nn">..postprocess</span> <span class="k">import</span> <span class="n">launch_ppt</span>
+<span class="kn">from</span> <span class="nn">.string</span> <span class="k">import</span> <span class="n">DrillString</span>
+<span class="kn">from</span> <span class="nn">.event</span> <span class="k">import</span> <span class="n">DrillEvent</span>
+<span class="kn">from</span> <span class="nn">.solver_settings</span> <span class="k">import</span> <span class="n">DrillSolverSettings</span>
 
 <div class="viewcode-block" id="DrillSim"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim">[docs]</a><span class="k">class</span> <span class="nc">DrillSim</span><span class="p">():</span> <span class="c1">#pylint: disable=too-many-instance-attributes</span>
     <span class="sd">&quot;&quot;&quot;Contains data defining the files that make up an Adams Drill input deck.    </span>
@@ -246,6 +249,69 @@
 
         <span class="c1"># Flags</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">built</span> <span class="o">=</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="DrillSim.read_from_directory"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim.read_from_directory">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">read_from_directory</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">directory</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a :class:`DrillSim` object from an existing directory that was previously created by a :class:`DrillSim` object.</span>
+<span class="sd">        </span>
+<span class="sd">        Note</span>
+<span class="sd">        ----</span>
+<span class="sd">        This method does not read the `pason_inputs` attribute</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        directory : str</span>
+<span class="sd">            Path to a directory previously created by a :class:`DrillSim` object.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        DrillSim</span>
+<span class="sd">            :class:`DrillSim` object created from an existing directory that was previously created by a :class:`DrillSim` object.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If `directory` is not a directory, raise an error</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;No directory found with name </span><span class="si">{directory}</span><span class="s1">!&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Get string, event, ssf filenames</span>
+        <span class="n">string_filename</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s1">&#39;*.&#39;</span> <span class="o">+</span> <span class="n">DrillString</span><span class="o">.</span><span class="n">_EXT</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">event_filename</span>  <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s1">&#39;*.&#39;</span> <span class="o">+</span> <span class="n">DrillEvent</span><span class="o">.</span><span class="n">_EXT</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">solver_settings_filename</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s1">&#39;*.&#39;</span> <span class="o">+</span> <span class="n">DrillSolverSettings</span><span class="o">.</span><span class="n">_EXT</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Create string, event, ssf objects</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">DrillString</span><span class="o">.</span><span class="n">read_from_file</span><span class="p">(</span><span class="n">string_filename</span><span class="p">)</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="n">DrillEvent</span><span class="o">.</span><span class="n">read_from_file</span><span class="p">(</span><span class="n">event_filename</span><span class="p">)</span>
+        <span class="n">solver_settings</span> <span class="o">=</span> <span class="n">DrillSolverSettings</span><span class="o">.</span><span class="n">read_from_file</span><span class="p">(</span><span class="n">solver_settings_filename</span><span class="p">)</span>
+
+        <span class="c1"># Get analysis name</span>
+        <span class="n">analysis_name</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;ModelName&#39;</span><span class="p">]</span>
+
+        <span class="c1"># Create the DrillSim object</span>
+        <span class="n">drill_sim</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">solver_settings</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">analysis_name</span><span class="p">,</span> <span class="n">write_TO_files</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1"># Define file names</span>
+        <span class="n">drill_sim</span><span class="o">.</span><span class="n">string_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">string_filename</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>   
+        
+        <span class="n">adm_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s1">&#39;*.adm&#39;</span><span class="p">))</span>
+        <span class="n">drill_sim</span><span class="o">.</span><span class="n">adm_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">adm_files</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">adm_files</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="n">acf_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s1">&#39;*.acf&#39;</span><span class="p">))</span>
+        <span class="n">drill_sim</span><span class="o">.</span><span class="n">acf_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">acf_files</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">acf_files</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="n">cmd_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s1">&#39;*.cmd&#39;</span><span class="p">))</span>
+        <span class="n">drill_sim</span><span class="o">.</span><span class="n">cmd_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">cmd_files</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">cmd_files</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="n">res_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s1">&#39;*.res&#39;</span><span class="p">))</span>
+        <span class="n">drill_sim</span><span class="o">.</span><span class="n">res_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">res_files</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">res_files</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="n">msg_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s1">&#39;*.msg&#39;</span><span class="p">))</span>
+        <span class="n">drill_sim</span><span class="o">.</span><span class="n">msg_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">msg_files</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">msg_files</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="c1"># Set the `built` flag</span>
+        <span class="k">if</span> <span class="n">drill_sim</span><span class="o">.</span><span class="n">acf_filename</span> <span class="ow">and</span> <span class="n">drill_sim</span><span class="o">.</span><span class="n">adm_filename</span><span class="p">:</span>            
+            <span class="n">drill_sim</span><span class="o">.</span><span class="n">built</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="n">drill_sim</span></div>
 
 <div class="viewcode-block" id="DrillSim.get_pason_inputs"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim.get_pason_inputs">[docs]</a>    <span class="k">def</span> <span class="nf">get_pason_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pason_data</span><span class="p">,</span> <span class="n">t_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sig_types</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;wob&#39;</span><span class="p">,</span> <span class="s1">&#39;rpm&#39;</span><span class="p">,</span> <span class="s1">&#39;gpm&#39;</span><span class="p">,</span> <span class="s1">&#39;rop&#39;</span><span class="p">],</span> <span class="n">show_plots</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Extracts the wob, rpm, gpm, and/or rop from a :class:`PasonData` object.  If this is run before :meth:`build` the pason data will be added to the adm file as model input splines.</span>

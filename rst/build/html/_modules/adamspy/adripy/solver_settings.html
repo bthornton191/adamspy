@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.solver_settings &mdash; adamspy 0.7.32 documentation</title>
+  <title>adamspy.adripy.solver_settings &mdash; adamspy 0.7.33 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.7.32
+                0.7.33
               </div>
             
           
@@ -337,7 +337,10 @@
         
         <span class="c1"># Extract the DrillString parameters from the TO dictionary        </span>
         <span class="n">drill_solver_settings</span><span class="o">.</span><span class="n">_get_params_from_TO_data</span><span class="p">(</span><span class="n">tiem_orbit_data</span><span class="p">)</span> <span class="c1">#pylint: disable=protected-access</span>
-
+        
+        <span class="c1"># Set the filename attribute</span>
+        <span class="n">drill_solver_settings</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span>
+        
         <span class="k">return</span> <span class="n">drill_solver_settings</span></div>
 
     <span class="k">def</span> <span class="nf">_apply_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

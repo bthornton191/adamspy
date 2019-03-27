@@ -2,6 +2,7 @@ import unittest
 import os
 from adamspy.postprocess import xml
 from adamspy.postprocess import launch_ppt
+from adamspy.postprocess import _get_model_name_from_cmd
 
 from test import *
 
@@ -58,6 +59,10 @@ class Test_LaunchPPT(unittest.TestCase):
 
     def setUp(self):
         return
+
+    def test_get_model_name_from_cmd(self):
+        mod_name = _get_model_name_from_cmd(TEST_EXISTING_CMD_FILE)
+        self.assertEqual(mod_name, TEST_EXPECTED_MODNAME_IN_CMD)
 
     def test_pptAS_exists(self):
         directory = launch_ppt(TEST_EXISTING_RES_FILE)

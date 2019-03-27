@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.hole &mdash; adamspy 0.7.32 documentation</title>
+  <title>adamspy.adripy.hole &mdash; adamspy 0.7.33 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.7.32
+                0.7.33
               </div>
             
           
@@ -241,6 +241,9 @@
 
         <span class="c1"># Extract the DrillHole parameters from the TO dictionary      </span>
         <span class="n">hole</span><span class="o">.</span><span class="n">_get_params_from_TO_data</span><span class="p">(</span><span class="n">tiem_orbit_data</span><span class="p">)</span> <span class="c1">#pylint: disable=protected-access</span>
+
+        <span class="c1"># Set the filename attribute</span>
+        <span class="n">hole</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">get_cdb_path</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
         
         <span class="k">return</span> <span class="n">hole</span></div>
 
@@ -279,7 +282,7 @@
                 <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;.</span><span class="si">{self._EXT}</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
             
             <span class="c1"># Set the filepath to the filename in the given directory</span>
-            <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{filename}</span><span class="s1">.</span><span class="si">{self._EXT}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">filepath</span> <span class="o">=</span> <span class="n">get_full_path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{filename}</span><span class="s1">.</span><span class="si">{self._EXT}</span><span class="s1">&#39;</span><span class="p">))</span>
 
         <span class="k">elif</span> <span class="n">cdb</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># If the write_directory argument is not passed, but the cdb</span>
@@ -300,7 +303,7 @@
         
         <span class="k">elif</span> <span class="n">filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># If the filename argument is given</span>
-            <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="n">filepath</span> <span class="o">=</span> <span class="n">get_full_path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
         
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># Raise an error if none of the arguments are provided</span>
@@ -346,6 +349,10 @@
 <span class="sd">        * Wall_Contact</span>
 <span class="sd">        * Wall_Friction</span>
 <span class="sd">        **DO NOT MODIFY OR SET THESE ITEMS DIRECTLY.** They will not write correctly when the :meth:`DrillHole.write_to_file` is called. </span>
+
+<span class="sd">        Note</span>
+<span class="sd">        ----</span>
+<span class="sd">        This method does not work on hole tables that use constant property notation (i.e. single row with measured depth equal to -1)</span>
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>

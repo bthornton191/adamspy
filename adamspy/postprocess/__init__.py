@@ -7,14 +7,17 @@ import time
 
 PPT_AFTERSTART_FILENAME = 'pptAS.cmd'
 RES_LOADED_PATTERN = '^! File Name:.*{}.*Time Steps:.*Start Time:.*Stop Time:.*(sec)$'
+CMD_MODNAME_PATTERN = r'model create[ \t]+&[ \t]*\n[ \t]*model_name[ \t]*=[ \t]*\w+[ \t]*'
 
-def launch_ppt(res_file, wait=False, timeout=30, _terminate=False):
+def launch_ppt(res_file, cmd_file=None, wait=False, timeout=30, _terminate=False):
     """Launches the Adams PostProcessor and reads in the specified results file.
     
     Parameters
     ----------
     res_file : str
         Filepath to an Adams Results file.
+    cmd_file : str, optional
+        Adams View command (.cmd) file.  This file will be loaded 
     wait : bool, optional
         If `True`, code execution will freeze until the postprocessor is closed. (the default is False)
     timeout : float, optional
@@ -28,10 +31,23 @@ def launch_ppt(res_file, wait=False, timeout=30, _terminate=False):
     if not directory:
         directory = os.getcwd()    
     ppt_as_filename = os.path.join(directory, PPT_AFTERSTART_FILENAME)
+
     
     # Write the pptAS file
-    with open(ppt_as_filename, 'w') as fid:
-        fid.write(f'file results read file_name="{res_file}"')    
+    with open(ppt_as_filename, 'w') as fid:        
+        if cmd_file is not None and os.path.isfile(os.path.join(directory, cmd_file)):
+            # if the .cmd file is specified, get the model name from the cmd file
+            model_name = _get_model_name_from_cmd(cmd_file)
+            
+            # Write the command to load the .cmd file
+            fid.write(f'file command read file_name="{cmd_file}"')
+
+            # Write the command to load the results file
+            fid.write(f'file results read model_name={model_name} file_name="{res_file}"')   
+        
+        else:
+            # if the .cmd file is not specified, write the command to load the results file
+            fid.write(f'file results read file_name="{res_file}"')    
         
     # Run the postprocessor
     startupinfo = subprocess.STARTUPINFO()
@@ -56,3 +72,25 @@ def launch_ppt(res_file, wait=False, timeout=30, _terminate=False):
     os.remove(ppt_as_filename)
 
     return directory
+
+def _get_model_name_from_cmd(filename):
+    """Gets the name of the model defined in the command file.
+    
+    Parameters
+    ----------
+    filename : str
+        Filename of Adams View command (.cmd) file
+    
+    Returns
+    -------
+    str
+        Name of model defined in the command file.
+
+    """
+    with open(filename, 'r') as fid:
+        text = fid.read()
+
+    mod_name_block = re.findall(CMD_MODNAME_PATTERN, text)[0]
+    mod_name = mod_name_block.split('=')[-1].strip()
+
+    return mod_name
