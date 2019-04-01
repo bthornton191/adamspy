@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy package &mdash; adamspy 0.7.33 documentation</title>
+  <title>adamspy.adripy package &mdash; adamspy 0.7.34 documentation</title>
   
 
   
@@ -17,34 +17,32 @@
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
 
+  
+  
     
 
   
+
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
+
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+        <div class="wy-side-nav-search">
           
 
           
@@ -58,7 +56,7 @@
             
             
               <div class="version">
-                0.7.33
+                0.7.34
               </div>
             
           
@@ -418,9 +416,37 @@
 </dd></dl>
 
 <dl class="attribute">
+<dt id="adamspy.adripy.drillsim.DrillSim.pason_inputs">
+<code class="descname">pason_inputs</code><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim.pason_inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Contains the cleaned pason signals that will be used as inputs to the Adams model. Keys are ‘time’, ‘rop’, ‘wob’, ‘rpm’, and ‘gpm’.  Each value is a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a> with two entries.  The first is the signal and the second is the associated time.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="adamspy.adripy.drillsim.DrillSim.built">
 <code class="descname">built</code><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim.built" title="Permalink to this definition">¶</a></dt>
 <dd><p>Indicates whether the input deck (adm, acf, and cmd files) has been built yet for this DrillSim</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)">bool</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="adamspy.adripy.drillsim.DrillSim.solved">
+<code class="descname">solved</code><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim.solved" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicates whether the <a class="reference internal" href="#adamspy.adripy.drillsim.DrillSim" title="adamspy.adripy.drillsim.DrillSim"><code class="xref py py-class docutils literal notranslate"><span class="pre">DrillSim</span></code></a> has been solved and results file (.res) has been generated.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -475,7 +501,7 @@
 
 <dl class="method">
 <dt id="adamspy.adripy.drillsim.DrillSim.build">
-<code class="descname">build</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/drillsim.html#DrillSim.build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim.build" title="Permalink to this definition">¶</a></dt>
+<code class="descname">build</code><span class="sig-paren">(</span><em>wait=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/drillsim.html#DrillSim.build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim.build" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method builds the input deck.  It launches Adams View in batch, reads in the <cite>self.string.filename</cite> and <cite>self.solver_settings.filename</cite> files, and runs the Adams Drill macro <code class="docutils literal notranslate"><span class="pre">ds</span> <span class="pre">tostart</span></code> to build a drill string model.  Then it saves the model files (.acf, .adm, and .cmd) to the <cite>self.directory</cite> directory.</p>
 </dd></dl>
 
@@ -507,6 +533,24 @@
 </table>
 </dd></dl>
 
+<dl class="method">
+<dt id="adamspy.adripy.drillsim.DrillSim.get_duration">
+<code class="descname">get_duration</code><span class="sig-paren">(</span><em>use_acf=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/drillsim.html#DrillSim.get_duration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim.get_duration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the duration of the <a class="reference internal" href="#adamspy.adripy.drillsim.DrillSim" title="adamspy.adripy.drillsim.DrillSim"><code class="xref py py-class docutils literal notranslate"><span class="pre">DrillSim</span></code></a> simulation based on contents of the acf file or the msg file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>use_acf</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em> (</em><em>optional</em><em>)</em>) – Set this to <cite>True</cite> if you want to use the acf file even if the <a class="reference internal" href="#adamspy.adripy.drillsim.DrillSim" title="adamspy.adripy.drillsim.DrillSim"><code class="xref py py-class docutils literal notranslate"><span class="pre">DrillSim</span></code></a> has been solved. (the default is <cite>False</cite>)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Duration of the simulation</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="classmethod">
 <dt id="adamspy.adripy.drillsim.DrillSim.get_filtered_signal">
 <em class="property">classmethod </em><code class="descname">get_filtered_signal</code><span class="sig-paren">(</span><em>pason_data</em>, <em>sig_type</em>, <em>cutoff_freq=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/drillsim.html#DrillSim.get_filtered_signal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim.get_filtered_signal" title="Permalink to this definition">¶</a></dt>
@@ -519,7 +563,6 @@
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>pason_data</strong> (<em>PasonData</em>) – A <code class="xref py py-class docutils literal notranslate"><span class="pre">PasonData</span></code> object</li>
 <li><strong>sig_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Type of signal. Options are ‘wob’ or ‘rop’</li>
-<li><strong>show_plot</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – [description] (the default is True, which [default_description])</li>
 <li><strong>cutoff_freq</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>optional</em>) – Cutoff frequency to be used in the lowpass filter. (the default is None, which uses value from PasonData.CUTOFF_FREQ)</li>
 </ul>
 </td>
@@ -2136,16 +2179,26 @@ file with the cdb alias replaced by the cdb location.</p>
   
 
 
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

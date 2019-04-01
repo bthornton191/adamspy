@@ -11,6 +11,7 @@ from ..postprocess import launch_ppt
 from .string import DrillString
 from .event import DrillEvent
 from .solver_settings import DrillSolverSettings
+from adamspy.adamspy import get_simdur_from_acf, get_simdur_from_msg
 
 class DrillSim(): #pylint: disable=too-many-instance-attributes
     """Contains data defining the files that make up an Adams Drill input deck.    
@@ -54,8 +55,12 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         Simulation results
     results_units : dict
         Units of simulation results
+    pason_inputs : dict
+        Contains the cleaned pason signals that will be used as inputs to the Adams model. Keys are 'time', 'rop', 'wob', 'rpm', and 'gpm'.  Each value is a :obj:`list` with two entries.  The first is the signal and the second is the associated time.
     built : bool
         Indicates whether the input deck (adm, acf, and cmd files) has been built yet for this DrillSim
+    solved : bool
+        Indicates whether the :class:`DrillSim` has been solved and results file (.res) has been generated.
     RAMP_TIME : dict
         Class attribute containing standard ramp times for rpm, gpm, wob, and rop
     CUTOFF_FREQ : dict
@@ -102,6 +107,7 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
 
         # Flags
         self.built = False
+        self.solved = False
 
     @classmethod
     def read_from_directory(cls, directory):
@@ -163,6 +169,10 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         # Set the `built` flag
         if drill_sim.acf_filename and drill_sim.adm_filename:            
             drill_sim.built = True
+        
+        # set the `solved` flag
+        if drill_sim.res_filename:
+            drill_sim.solved = True
 
         return drill_sim
 
@@ -197,11 +207,11 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         # Add the time signal
         self.pason_inputs['time'] = list(pason_data.data.index - pason_data.data.index[i_min])
 
-    def build(self):
+    def build(self, wait=True):
         """This method builds the input deck.  It launches Adams View in batch, reads in the `self.string.filename` and `self.solver_settings.filename` files, and runs the Adams Drill macro ``ds tostart`` to build a drill string model.  Then it saves the model files (.acf, .adm, and .cmd) to the `self.directory` directory.
         """
         # Build the model
-        adm, acf, cmd = build(self.string_filename, self.solver_settings.filename, self.directory)  
+        adm, acf, cmd = build(self.string_filename, self.solver_settings.filename, self.directory, wait=wait)  
 
         # store the new filenames as attributes
         self.adm_filename = adm
@@ -234,6 +244,9 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
 
         self.msg_filename = f'{self.analysis_name}.msg'
         self.res_filename = f'{self.analysis_name}.res'
+
+        # Flag this simulation as solved
+        self.solved = True
     
     def write_tiem_orbit_files(self):
         """Writes the solver settings and event files and publishes the string file to the simulation directory.
@@ -385,8 +398,6 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
             A :class:`PasonData` object
         sig_type : str
             Type of signal. Options are 'wob' or 'rop'
-        show_plot : bool, optional
-            [description] (the default is True, which [default_description])
         cutoff_freq : float, optional
             Cutoff frequency to be used in the lowpass filter. (the default is None, which uses value from PasonData.CUTOFF_FREQ)
         
@@ -475,6 +486,29 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         signal.extend([set_points[-1][1] for t in time_seg])
         time.extend(time_seg)
         return signal, time
+    
+    def get_duration(self, use_acf=False):
+        """Returns the duration of the :class:`DrillSim` simulation based on contents of the acf file or the msg file.
+        
+        Parameters
+        ----------
+        use_acf : bool (optional)
+            Set this to `True` if you want to use the acf file even if the :class:`DrillSim` has been solved. (the default is `False`)
+
+        Returns
+        -------
+        float
+            Duration of the simulation
+
+        """
+        if self.solved and not use_acf:
+            duration = get_simdur_from_msg(self.msg_filename)
+        elif self.built:
+            duration = get_simdur_from_acf(self.acf_filename)
+        else:
+            duration = None
+        
+        return duration        
 
     def _add_adm_splines(self):
         """Adds splines to the adm file

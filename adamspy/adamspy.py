@@ -19,8 +19,8 @@ def get_simdur_from_msg(msg_file):
 	-------
 	float
 		Total duration of the simulation
-	"""
 
+	"""
 	found = False
 	with open(msg_file, 'r') as fid:
 		for line in fid:

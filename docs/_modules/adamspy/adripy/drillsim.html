@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.drillsim &mdash; adamspy 0.7.33 documentation</title>
+  <title>adamspy.adripy.drillsim &mdash; adamspy 0.7.34 documentation</title>
   
 
   
@@ -17,34 +17,32 @@
   
 
   
-  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
+  
+  
     
 
   
+
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
+
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+        <div class="wy-side-nav-search">
           
 
           
@@ -58,7 +56,7 @@
             
             
               <div class="version">
-                0.7.33
+                0.7.34
               </div>
             
           
@@ -158,6 +156,7 @@
 <span class="kn">from</span> <span class="nn">.string</span> <span class="k">import</span> <span class="n">DrillString</span>
 <span class="kn">from</span> <span class="nn">.event</span> <span class="k">import</span> <span class="n">DrillEvent</span>
 <span class="kn">from</span> <span class="nn">.solver_settings</span> <span class="k">import</span> <span class="n">DrillSolverSettings</span>
+<span class="kn">from</span> <span class="nn">adamspy.adamspy</span> <span class="k">import</span> <span class="n">get_simdur_from_acf</span><span class="p">,</span> <span class="n">get_simdur_from_msg</span>
 
 <div class="viewcode-block" id="DrillSim"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim">[docs]</a><span class="k">class</span> <span class="nc">DrillSim</span><span class="p">():</span> <span class="c1">#pylint: disable=too-many-instance-attributes</span>
     <span class="sd">&quot;&quot;&quot;Contains data defining the files that make up an Adams Drill input deck.    </span>
@@ -201,8 +200,12 @@
 <span class="sd">        Simulation results</span>
 <span class="sd">    results_units : dict</span>
 <span class="sd">        Units of simulation results</span>
+<span class="sd">    pason_inputs : dict</span>
+<span class="sd">        Contains the cleaned pason signals that will be used as inputs to the Adams model. Keys are &#39;time&#39;, &#39;rop&#39;, &#39;wob&#39;, &#39;rpm&#39;, and &#39;gpm&#39;.  Each value is a :obj:`list` with two entries.  The first is the signal and the second is the associated time.</span>
 <span class="sd">    built : bool</span>
 <span class="sd">        Indicates whether the input deck (adm, acf, and cmd files) has been built yet for this DrillSim</span>
+<span class="sd">    solved : bool</span>
+<span class="sd">        Indicates whether the :class:`DrillSim` has been solved and results file (.res) has been generated.</span>
 <span class="sd">    RAMP_TIME : dict</span>
 <span class="sd">        Class attribute containing standard ramp times for rpm, gpm, wob, and rop</span>
 <span class="sd">    CUTOFF_FREQ : dict</span>
@@ -249,6 +252,7 @@
 
         <span class="c1"># Flags</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">built</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">solved</span> <span class="o">=</span> <span class="kc">False</span>
 
 <div class="viewcode-block" id="DrillSim.read_from_directory"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim.read_from_directory">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">read_from_directory</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">directory</span><span class="p">):</span>
@@ -310,6 +314,10 @@
         <span class="c1"># Set the `built` flag</span>
         <span class="k">if</span> <span class="n">drill_sim</span><span class="o">.</span><span class="n">acf_filename</span> <span class="ow">and</span> <span class="n">drill_sim</span><span class="o">.</span><span class="n">adm_filename</span><span class="p">:</span>            
             <span class="n">drill_sim</span><span class="o">.</span><span class="n">built</span> <span class="o">=</span> <span class="kc">True</span>
+        
+        <span class="c1"># set the `solved` flag</span>
+        <span class="k">if</span> <span class="n">drill_sim</span><span class="o">.</span><span class="n">res_filename</span><span class="p">:</span>
+            <span class="n">drill_sim</span><span class="o">.</span><span class="n">solved</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="k">return</span> <span class="n">drill_sim</span></div>
 
@@ -344,11 +352,11 @@
         <span class="c1"># Add the time signal</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pason_inputs</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pason_data</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span> <span class="o">-</span> <span class="n">pason_data</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">i_min</span><span class="p">])</span></div>
 
-<div class="viewcode-block" id="DrillSim.build"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim.build">[docs]</a>    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DrillSim.build"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim.build">[docs]</a>    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;This method builds the input deck.  It launches Adams View in batch, reads in the `self.string.filename` and `self.solver_settings.filename` files, and runs the Adams Drill macro ``ds tostart`` to build a drill string model.  Then it saves the model files (.acf, .adm, and .cmd) to the `self.directory` directory.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Build the model</span>
-        <span class="n">adm</span><span class="p">,</span> <span class="n">acf</span><span class="p">,</span> <span class="n">cmd</span> <span class="o">=</span> <span class="n">build</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">string_filename</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">solver_settings</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">)</span>  
+        <span class="n">adm</span><span class="p">,</span> <span class="n">acf</span><span class="p">,</span> <span class="n">cmd</span> <span class="o">=</span> <span class="n">build</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">string_filename</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">solver_settings</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">,</span> <span class="n">wait</span><span class="o">=</span><span class="n">wait</span><span class="p">)</span>  
 
         <span class="c1"># store the new filenames as attributes</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">adm_filename</span> <span class="o">=</span> <span class="n">adm</span>
@@ -380,7 +388,10 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">run_proc</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">msg_filename</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{self.analysis_name}</span><span class="s1">.msg&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">res_filename</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{self.analysis_name}</span><span class="s1">.res&#39;</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">res_filename</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{self.analysis_name}</span><span class="s1">.res&#39;</span>
+
+        <span class="c1"># Flag this simulation as solved</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">solved</span> <span class="o">=</span> <span class="kc">True</span></div>
     
 <div class="viewcode-block" id="DrillSim.write_tiem_orbit_files"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim.write_tiem_orbit_files">[docs]</a>    <span class="k">def</span> <span class="nf">write_tiem_orbit_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Writes the solver settings and event files and publishes the string file to the simulation directory.</span>
@@ -532,8 +543,6 @@
 <span class="sd">            A :class:`PasonData` object</span>
 <span class="sd">        sig_type : str</span>
 <span class="sd">            Type of signal. Options are &#39;wob&#39; or &#39;rop&#39;</span>
-<span class="sd">        show_plot : bool, optional</span>
-<span class="sd">            [description] (the default is True, which [default_description])</span>
 <span class="sd">        cutoff_freq : float, optional</span>
 <span class="sd">            Cutoff frequency to be used in the lowpass filter. (the default is None, which uses value from PasonData.CUTOFF_FREQ)</span>
 <span class="sd">        </span>
@@ -622,6 +631,29 @@
         <span class="n">signal</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">set_points</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">time_seg</span><span class="p">])</span>
         <span class="n">time</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">time_seg</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">signal</span><span class="p">,</span> <span class="n">time</span></div>
+    
+<div class="viewcode-block" id="DrillSim.get_duration"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim.get_duration">[docs]</a>    <span class="k">def</span> <span class="nf">get_duration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">use_acf</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the duration of the :class:`DrillSim` simulation based on contents of the acf file or the msg file.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        use_acf : bool (optional)</span>
+<span class="sd">            Set this to `True` if you want to use the acf file even if the :class:`DrillSim` has been solved. (the default is `False`)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            Duration of the simulation</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">solved</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">use_acf</span><span class="p">:</span>
+            <span class="n">duration</span> <span class="o">=</span> <span class="n">get_simdur_from_msg</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">msg_filename</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">built</span><span class="p">:</span>
+            <span class="n">duration</span> <span class="o">=</span> <span class="n">get_simdur_from_acf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">acf_filename</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">duration</span> <span class="o">=</span> <span class="kc">None</span>
+        
+        <span class="k">return</span> <span class="n">duration</span>        </div>
 
     <span class="k">def</span> <span class="nf">_add_adm_splines</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Adds splines to the adm file</span>
@@ -664,16 +696,26 @@
   
 
 
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
