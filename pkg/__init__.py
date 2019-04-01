@@ -1,5 +1,5 @@
 # ---------------------
-version = '0.7.34'
+version = '0.7.35'
 version_notes = 'Minor changes to the DrillSim class'
 date = 'March 26, 2019'
 # ---------------------
