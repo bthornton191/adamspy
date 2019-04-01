@@ -502,9 +502,9 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
 
         """
         if self.solved and not use_acf:
-            duration = get_simdur_from_msg(self.msg_filename)
+            duration = get_simdur_from_msg(os.path.join(self.directory, self.msg_filename))
         elif self.built:
-            duration = get_simdur_from_acf(self.acf_filename)
+            duration = get_simdur_from_acf(os.path.join(self.directory, self.acf_filename))
         else:
             duration = None
         

@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.7.35'
-version_notes = 'Minor changes to the DrillSim class'
+version = '0.7.36'
+version_notes = 'More minor changes to the DrillSim class'
 date = 'March 26, 2019'
 # ---------------------
 author = 'Ben Thornton'
