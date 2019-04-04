@@ -6,6 +6,7 @@ import re
 import time
 
 PPT_AFTERSTART_FILENAME = 'pptAS.cmd'
+AVIEW_AFTERSTART_FILENAME = 'aviewAS.cmd'
 RES_LOADED_PATTERN = '^! File Name:.*{}.*Time Steps:.*Start Time:.*Stop Time:.*(sec)$'
 CMD_MODNAME_PATTERN = r'model create[ \t]+&[ \t]*\n[ \t]*model_name[ \t]*=[ \t]*\w+[ \t]*'
 
@@ -30,7 +31,7 @@ def launch_ppt(res_file, cmd_file=None, wait=False, timeout=30, _terminate=False
     directory, res_file = os.path.split(res_file)
     if not directory:
         directory = os.getcwd()    
-    ppt_as_filename = os.path.join(directory, PPT_AFTERSTART_FILENAME)
+    ppt_as_filename = os.path.join(directory, AVIEW_AFTERSTART_FILENAME)
 
     
     # Write the pptAS file
@@ -43,16 +44,22 @@ def launch_ppt(res_file, cmd_file=None, wait=False, timeout=30, _terminate=False
             fid.write(f'file command read file_name="{cmd_file}"\n')
 
             # Write the command to load the results file
-            fid.write(f'file results read model_name={model_name} file_name="{res_file}"')   
+            fid.write(f'file results read model_name={model_name} file_name="{res_file}"\n')   
+
+            # Open the postprocess window
+            fid.write(f'interface plot window open')
         
         else:
             # if the .cmd file is not specified, write the command to load the results file
-            fid.write(f'file results read file_name="{res_file}"')    
+            fid.write(f'file results read file_name="{res_file}"\n')    
+
+            # Open the postprocess window
+            fid.write(f'interface plot window open')
         
     # Run the postprocessor
     startupinfo = subprocess.STARTUPINFO()
     startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW        
-    ppt_proc = subprocess.Popen('{} appt'.format(os.environ['ADAMS_LAUNCH_COMMAND']), cwd=directory, startupinfo=startupinfo)
+    ppt_proc = subprocess.Popen('{} aview ru-s i'.format(os.environ['ADAMS_LAUNCH_COMMAND']), cwd=directory, startupinfo=startupinfo)
     
     # Terminate immediately or wait for the process to complete before moving on.
     if _terminate:

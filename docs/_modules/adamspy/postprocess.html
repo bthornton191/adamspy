@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.postprocess &mdash; adamspy 0.7.37 documentation</title>
+  <title>adamspy.postprocess &mdash; adamspy 0.7.38 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.7.37
+                0.7.38
               </div>
             
           
@@ -153,6 +153,7 @@
 <span class="kn">import</span> <span class="nn">time</span>
 
 <span class="n">PPT_AFTERSTART_FILENAME</span> <span class="o">=</span> <span class="s1">&#39;pptAS.cmd&#39;</span>
+<span class="n">AVIEW_AFTERSTART_FILENAME</span> <span class="o">=</span> <span class="s1">&#39;aviewAS.cmd&#39;</span>
 <span class="n">RES_LOADED_PATTERN</span> <span class="o">=</span> <span class="s1">&#39;^! File Name:.*</span><span class="si">{}</span><span class="s1">.*Time Steps:.*Start Time:.*Stop Time:.*(sec)$&#39;</span>
 <span class="n">CMD_MODNAME_PATTERN</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;model create[ \t]+&amp;[ \t]*\n[ \t]*model_name[ \t]*=[ \t]*\w+[ \t]*&#39;</span>
 
@@ -177,7 +178,7 @@
     <span class="n">directory</span><span class="p">,</span> <span class="n">res_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">res_file</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">directory</span><span class="p">:</span>
         <span class="n">directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>    
-    <span class="n">ppt_as_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">PPT_AFTERSTART_FILENAME</span><span class="p">)</span>
+    <span class="n">ppt_as_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">AVIEW_AFTERSTART_FILENAME</span><span class="p">)</span>
 
     
     <span class="c1"># Write the pptAS file</span>
@@ -190,16 +191,22 @@
             <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;file command read file_name=&quot;</span><span class="si">{cmd_file}</span><span class="s1">&quot;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
             <span class="c1"># Write the command to load the results file</span>
-            <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;file results read model_name=</span><span class="si">{model_name}</span><span class="s1"> file_name=&quot;</span><span class="si">{res_file}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>   
+            <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;file results read model_name=</span><span class="si">{model_name}</span><span class="s1"> file_name=&quot;</span><span class="si">{res_file}</span><span class="s1">&quot;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>   
+
+            <span class="c1"># Open the postprocess window</span>
+            <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;interface plot window open&#39;</span><span class="p">)</span>
         
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># if the .cmd file is not specified, write the command to load the results file</span>
-            <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;file results read file_name=&quot;</span><span class="si">{res_file}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>    
+            <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;file results read file_name=&quot;</span><span class="si">{res_file}</span><span class="s1">&quot;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>    
+
+            <span class="c1"># Open the postprocess window</span>
+            <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;interface plot window open&#39;</span><span class="p">)</span>
         
     <span class="c1"># Run the postprocessor</span>
     <span class="n">startupinfo</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">STARTUPINFO</span><span class="p">()</span>
     <span class="n">startupinfo</span><span class="o">.</span><span class="n">dwFlags</span> <span class="o">|=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">STARTF_USESHOWWINDOW</span>        
-    <span class="n">ppt_proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> appt&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADAMS_LAUNCH_COMMAND&#39;</span><span class="p">]),</span> <span class="n">cwd</span><span class="o">=</span><span class="n">directory</span><span class="p">,</span> <span class="n">startupinfo</span><span class="o">=</span><span class="n">startupinfo</span><span class="p">)</span>
+    <span class="n">ppt_proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> aview ru-s i&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADAMS_LAUNCH_COMMAND&#39;</span><span class="p">]),</span> <span class="n">cwd</span><span class="o">=</span><span class="n">directory</span><span class="p">,</span> <span class="n">startupinfo</span><span class="o">=</span><span class="n">startupinfo</span><span class="p">)</span>
     
     <span class="c1"># Terminate immediately or wait for the process to complete before moving on.</span>
     <span class="k">if</span> <span class="n">_terminate</span><span class="p">:</span>
