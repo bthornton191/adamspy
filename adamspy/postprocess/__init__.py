@@ -17,7 +17,7 @@ def launch_ppt(res_file, cmd_file=None, wait=False, timeout=30, _terminate=False
     res_file : str
         Filepath to an Adams Results file.
     cmd_file : str, optional
-        Adams View command (.cmd) file.  This file will be loaded 
+        Adams View command (.cmd) file. If given, this will be loaded before the results file.  This is necessary to view animations.
     wait : bool, optional
         If `True`, code execution will freeze until the postprocessor is closed. (the default is False)
     timeout : float, optional
@@ -40,7 +40,7 @@ def launch_ppt(res_file, cmd_file=None, wait=False, timeout=30, _terminate=False
             model_name = _get_model_name_from_cmd(cmd_file)
             
             # Write the command to load the .cmd file
-            fid.write(f'file command read file_name="{cmd_file}"')
+            fid.write(f'file command read file_name="{cmd_file}"\n')
 
             # Write the command to load the results file
             fid.write(f'file results read model_name={model_name} file_name="{res_file}"')   

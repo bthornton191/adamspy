@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.postprocess package &mdash; adamspy 0.7.36 documentation</title>
+  <title>adamspy.postprocess package &mdash; adamspy 0.7.37 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.7.36
+                0.7.37
               </div>
             
           
@@ -255,7 +255,7 @@
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>res_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Filepath to an Adams Results file.</li>
-<li><strong>cmd_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Adams View command (.cmd) file.  This file will be loaded</li>
+<li><strong>cmd_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Adams View command (.cmd) file. If given, this will be loaded before the results file.  This is necessary to view animations.</li>
 <li><strong>wait</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – If <cite>True</cite>, code execution will freeze until the postprocessor is closed. (the default is False)</li>
 <li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>optional</em>) – If <cite>wait`=`False</cite>, code execution will freeze until the postprocessor has started loading the results file or until <cite>timeout</cite> secodns have elapsed.</li>
 <li><strong>_terminate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – If <cite>True</cite>, the PostProcessor will close immediately.  This is for testing purposes.</li>
