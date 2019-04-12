@@ -12,7 +12,7 @@ setuptools.setup(
     description=pkg.description,
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/bthornton191/Adams_Modules",
+    url="https://github.com/bthornton191/adamspy",
     packages=setuptools.find_packages(exclude=['test', 'pkg']),
     package_data={'adamspy.adripy': ['templates/*']},
     classifiers=[

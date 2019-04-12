@@ -1,5 +1,5 @@
 # ---------------------
-version = '0.7.37'
+version = '0.7.38'
 version_notes = 'Fixed a bug in adamspy.postprocess.launch_ppt'
 date = 'April 4th, 2019'
 # ---------------------

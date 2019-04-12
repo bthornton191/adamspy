@@ -209,6 +209,12 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
 
     def build(self, wait=True):
         """This method builds the input deck.  It launches Adams View in batch, reads in the `self.string.filename` and `self.solver_settings.filename` files, and runs the Adams Drill macro ``ds tostart`` to build a drill string model.  Then it saves the model files (.acf, .adm, and .cmd) to the `self.directory` directory.
+
+        Parameters
+        ----------
+        wait : bool
+            If True, code execution waits until the build process terminates before moving on. (default is True)
+
         """
         # Build the model
         adm, acf, cmd = build(self.string_filename, self.solver_settings.filename, self.directory, wait=wait)  
