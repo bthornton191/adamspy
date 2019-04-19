@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.7.38'
-version_notes = 'Fixed a bug in adamspy.postprocess.launch_ppt'
-date = 'April 4th, 2019'
+version = '0.7.39'
+version_notes = 'added a note about units in the add_ramp method of DrillEvent. Fixed a bug when reading string files.'
+date = 'April 19th, 2019'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'
