@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.event &mdash; adamspy 0.7.40 documentation</title>
+  <title>adamspy.adripy.event &mdash; adamspy 0.7.41 documentation</title>
   
 
   
@@ -17,34 +17,32 @@
   
 
   
-  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
+  
+  
     
 
   
+
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
+
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+        <div class="wy-side-nav-search">
           
 
           
@@ -58,7 +56,7 @@
             
             
               <div class="version">
-                0.7.40
+                0.7.41
               </div>
             
           
@@ -291,18 +289,18 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;_DYNAMICS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;DYNAMICS&#39;</span><span class="p">])</span></div>
     
 <div class="viewcode-block" id="DrillEvent.add_ramp"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.event.DrillEvent.add_ramp">[docs]</a>    <span class="k">def</span> <span class="nf">add_ramp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">ramp_duration</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">clear_existing</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Adds a ramp to the specified ramp parameter</span>
+        <span class="sd">&quot;&quot;&quot;Adds a ramp to the specified ramp parameter.</span>
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        parameter : str</span>
-<span class="sd">            ramp parameter, options are &#39;TOP_DRIVE&#39;, &#39;WOB&#39;, &#39;PUMP_FLOW&#39;, of &#39;ROP&#39;</span>
+<span class="sd">            ramp parameter, options are &#39;TOP_DRIVE&#39;, &#39;WOB&#39;, &#39;PUMP_FLOW&#39;, or &#39;ROP&#39;</span>
 <span class="sd">        start_time : float</span>
 <span class="sd">            Start time of the ramp.</span>
 <span class="sd">        ramp_duration : float</span>
 <span class="sd">            Duration of the ramp.</span>
 <span class="sd">        delta : float</span>
-<span class="sd">            Delta of the ramp.</span>
+<span class="sd">            Delta of the ramp.  Units should be in **rpm**, **lbf**, **gpm**, or **ft/sec**.</span>
 <span class="sd">        clear_existing : bool</span>
 <span class="sd">            If true, existing ramps for the specified parameter will be deleted.</span>
 
@@ -566,16 +564,26 @@
   
 
 
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

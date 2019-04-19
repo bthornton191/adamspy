@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.7.40'
-version_notes = 'Changed the agitator extension from agi to agn.'
+version = '0.7.41'
+version_notes = 'Changed environment variable faiulre from an exception to a print statement'
 date = 'April 19th, 2019'
 # ---------------------
 author = 'Ben Thornton'
