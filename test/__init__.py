@@ -1,13 +1,12 @@
 import os
 import glob
 
-from adamspy.adripy.constants import DATABASE_INFO
-
 # Set the ADRILL_USER_CFG and ADRILL_SHARED_CFG environment variables
 os.environ['ADRILL_USER_CFG'] = os.path.join('C:\\', 'Users', 'bthornt', '.adrill.cfg')
 os.environ['ADRILL_SHARED_CFG'] = os.path.join('C:\\', 'MSC.Software', 'Adams', '2018', 'adrill', 'adrill.cfg')
 os.environ['ADAMS_LAUNCH_COMMAND'] = os.path.join('C:\\', 'MSC.Software', 'Adams', '2018', 'common', 'mdi.bat')
 
+from adamspy.adripy.constants import DATABASE_INFO
 
 EXISTING_CDB_NAME = '_EXISTING_DATABASE_1'
 EXISTING_CDB_PATH = os.path.join('C:\\', EXISTING_CDB_NAME + '.cdb')

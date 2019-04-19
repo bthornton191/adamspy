@@ -34,8 +34,12 @@ class Test_AdripyFunctions(unittest.TestCase):
     def setUp(self):
         # Create a test configuration file
         adripy.create_cfg_file(TEST_CONFIG_FILENAME, [EXISTING_CDB_PATH, CDB_TO_REMOVE_PATH, TEST_DATABASE_PATH])
+            
+    def test_get_full_path_abs_path(self):
+        dummy_file = os.path.join(os.getcwd(), 'non_existent_file.txt')
+        full_filepath = adripy.get_full_path(dummy_file)
+        self.assertEqual(full_filepath, os.path.join(dummy_file))
         
-    
     def test_create_cfg_file(self):
         """Tests that create_cfg_file() creates a configuration file with the expected contents
         """

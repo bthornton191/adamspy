@@ -4,39 +4,8 @@ import os
 import re
 import subprocess
 import thornpy
-import jinja2
 from .constants import TO_PARAMETER_PATTERN, TO_LENGTH_PARAM, ADRILL_IDS, ADRILL_PLUGIN_VAR
-
-env = jinja2.Environment(
-    loader=jinja2.PackageLoader('adamspy.adripy', 'templates'),
-    autoescape=jinja2.select_autoescape(['evt','str']),
-    keep_trailing_newline=True,
-    trim_blocks=True,
-    lstrip_blocks=True
-)
-
-# Test that the user config file exists
-if 'ADRILL_USER_CFG' not in os.environ:
-    # raise EnvironmentError('ADRILL_USER_CFG environment variable is not set!')
-    os.environ['ADRILL_USER_CFG'] = os.path.join(os.environ['USERPROFILE'], '.adrill.cfg')
-elif not os.path.exists(os.environ['ADRILL_USER_CFG']):
-    raise FileExistsError('The configuration file {} does not exist!  You must set the ADRILL_USER_CFG environment variable to an existing cfg file before importing adripy.'.format(os.environ['ADRILL_USER_CFG']))
-
-# Test that the user shared file exists
-if 'ADRILL_SHARED_CFG' not in os.environ:    
-    if 'XDG_CACHE_HOME' in os.environ:
-        os.environ['ADRILL_SHARED_CFG'] = os.path.join(os.environ['XDG_CACHE_HOME'], 'adrill', 'adrill.cfg')
-    else:
-        raise EnvironmentError('ADRILL_SHARED_CFG environment variable is not set!')
-elif not os.path.exists(os.environ['ADRILL_SHARED_CFG']):
-    raise FileExistsError('The configuration file {} does not exist!  You must set the ADRILL_SHARED_CFG environment variable to an existing cfg file before importing adripy.'.format(os.environ['ADRILL_SHARED_CFG']))
-
-# Test that the adams launch file exists
-if 'ADAMS_LAUNCH_COMMAND' not in os.environ:
-    # raise EnvironmentError('ADAMS_LAUNCH_COMMAND environment variable is not set!')
-    os.environ['ADAMS_LAUNCH_COMMAND'] = os.path.join(os.environ['XDG_CACHE_HOME'], 'common', 'mdi.bat')
-elif not os.path.exists(os.environ['ADAMS_LAUNCH_COMMAND']):
-    raise FileExistsError('The adams launch file {} does not exist!  You must set the ADRILL_SHARED_CFG environment variable to an existing cfg file before importing adripy.'.format(os.environ['ADAMS_LAUNCH_COMMAND']))
+from . import TMPLT_ENV
 
 def turn_measure_on(string_file, tool_types=[], tool_numbers=[], tool_names=[]):
     """Modify a string file to turn measure on for teh designated tools.  Tools may be designated by type, number (stack order), or name.
@@ -137,8 +106,8 @@ def get_tool_name(string_file, tool_type, n=1, return_full_path=True):
         if tool_type == 'hole':
             for line in fid:
                 if ' Hole_Property_File  =  ' in line:
-                    tool_file = line.split("'")[1].replace('/','\\')
-                    tool_name = tool_file.split('\\')[-1].split('.')[0]
+                    tool_file = os.path.normpath(line.split("'")[1])
+                    tool_name = os.path.split(tool_file.split)[-1].split('.')[0]
                     group_name = tool_name
                     if return_full_path:
                         tool_file = get_full_path(tool_file)
@@ -153,8 +122,8 @@ def get_tool_name(string_file, tool_type, n=1, return_full_path=True):
                 elif count == n and ' name ' in line.lower():
                     group_name = line.split("'")[1]
                 elif count == n and ' property_file' in line.lower():
-                    tool_file = line.split("'")[1].replace('/','\\')
-                    tool_name = tool_file.split('\\')[-1].split('.')[0]
+                    tool_file = os.path.normpath(line.split("'")[1])
+                    tool_name = os.path.split(tool_file)[-1].split('.')[0]
                     if return_full_path:
                         tool_file = get_full_path(tool_file)
                     tool_found = True
@@ -189,7 +158,7 @@ def get_adrill_cdbs(adrill_user_cfg, adrill_shared_cfg=None):
             if line.startswith('DATABASE'):
                 # try:
                 cdb_name = re.split('[\t ]+',line.lstrip())[1]
-                cdb_loc = os.path.normpath(re.split('[\t ]+', line, maxsplit=2)[-1].replace('\n','').replace('$HOME',os.environ['USERPROFILE']))
+                cdb_loc = os.path.normpath(re.split('[\t ]+', line, maxsplit=2)[-1].replace('\n','').replace('$HOME', os.path.expanduser('~')))
                 cdbs[cdb_name] = cdb_loc
                 # except:
                 #     raise cdbError('The following line in {} could not be interpreted.\n\n{}'.format(adrill_user_cfg,line))
@@ -200,7 +169,7 @@ def get_adrill_cdbs(adrill_user_cfg, adrill_shared_cfg=None):
                 if line.startswith('DATABASE'):
                     # try:
                     cdb_name = re.split('[\t ]+', line, maxsplit=2)[1]
-                    cdb_loc = os.path.normpath(re.split('[\t ]+', line, maxsplit=2)[-1].replace('\n','').replace('$HOME',os.environ['USERPROFILE']).replace('$topdir',top_dir))                        
+                    cdb_loc = os.path.normpath(re.split('[\t ]+', line, maxsplit=2)[-1].replace('\n','').replace('$HOME', os.path.expanduser('~')).replace('$topdir', top_dir))                        
                     cdbs[cdb_name] = cdb_loc
                     # except:
                         # raise cdbError('The following line in {} could not be interpreted.\n\n{}'.format(adrill_shared_cfg,line))
@@ -407,8 +376,7 @@ def get_cdb_path(full_filepath):
     return cdb_filepath
 
 def get_full_path(cdb_filepath):    
-    """Given the cdb path to a file located in a cdb, get_full_path returns the path to a
-    file with the cdb alias replaced by the cdb location.
+    """Given the cdb path to a file located in a cdb, returns the path to a file with the cdb alias replaced by the cdb location.  If `cdb_filepath` does not use cdb notation, returns the full filepath (convertes a relative filepath to a full filepath).
 
     Parameters
     ----------
@@ -424,21 +392,22 @@ def get_full_path(cdb_filepath):
     # Find a string that looks like a database alias
     match = re.search('^<.+>', cdb_filepath)
     
-    # Return the given filepath if filepath looks like a full filepath
     if match is None:
-        return cdb_filepath
-    
-    # Pull the database name out of the group
-    cdb_name = match.group(0).replace('<', '').replace('>', '')
+        # Return the given filepath if filepath looks like a full filepath
+        full_filepath = cdb_filepath
 
-    # Get a dictionar of the known cdbs
-    cdbs = get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
-    
-    # Raise an error if cdb_name is not in the cdbs dictionary
-    if cdb_name not in cdbs:
-        raise ValueError('{} not in {} OR {}!'.format(cdb_name, os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG']))
-    
-    full_filepath = cdb_filepath.replace(match.group(0), cdbs[cdb_name])
+    else:
+        # If cdb_filepath uses cdb notation, pull the database name out of the group
+        cdb_name = match.group(0).replace('<', '').replace('>', '')
+
+        # Get a dictionar of the known cdbs
+        cdbs = get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
+        
+        # Raise an error if cdb_name is not in the cdbs dictionary
+        if cdb_name not in cdbs:
+            raise ValueError('{} not in {} OR {}!'.format(cdb_name, os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG']))
+        
+        full_filepath = cdb_filepath.replace(match.group(0), cdbs[cdb_name])
 
     return full_filepath
 
@@ -852,7 +821,7 @@ def create_cfg_file(filename, database_paths):
         databases.append({'name': name, 'path': path})
 
     # Get the cfg template
-    cfg_template = env.from_string(open(os.path.join(os.path.dirname(__file__), 'templates', 'template.cfg')).read())
+    cfg_template = TMPLT_ENV.from_string(open(os.path.join(os.path.dirname(__file__), 'templates', 'template.cfg')).read())
     
     # Write the new cfg file
     with open(filename ,'w') as fid:
@@ -976,6 +945,7 @@ def read_TO_file(filename):
     ------
     TiemOrbitSyntaxError
         Raised if the Tiem Orbit syntax is not recognized
+        
     """    
     if not os.path.exists(get_full_path(os.path.normpath(filename))):
         raise FileNotFoundError(f'{filename} does not exist!')
@@ -1032,7 +1002,7 @@ def read_TO_file(filename):
             # Format the value 
             if "'" in value:
                 # If value is an adams string
-                value = value.replace("'",'')
+                value = value.replace("'",'').strip()
             else:
                 # If value is a number                
                 value = int(value) if thornpy.numtype.str_is_int(value) else float(value)
