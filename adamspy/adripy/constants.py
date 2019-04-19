@@ -70,7 +70,7 @@ DATABASE_INFO = {
     'short_collar': {'table': 'short_collars.tbl', 'extension': 'sco'},
     'dart': {'table': 'darts.tbl', 'extension': 'drt'},
     'jar': {'table': 'jars.tbl', 'extension': 'djr'},
-    'agitator': {'table': 'agitators.tbl', 'extension': 'agi'},
+    'agitator': {'table': 'agitators.tbl', 'extension': 'agn'},
     'blade_reamer': {'table': 'blade_reamers.tbl', 'extension': 'bre'},
     'crossover': {'table': 'crossovers.tbl', 'extension': 'crs'},
     'darts': {'table': 'darts.tbl', 'extension': 'drt'},

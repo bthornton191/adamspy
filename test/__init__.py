@@ -32,6 +32,8 @@ TEST_SOLVER_SETTINGS_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'solver_sett
 TEST_EXISTING_STRING_NAME = 'test_string'
 TEST_EXISTING_STRING_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str')
 
+TEST_EXISTING_AGITATOR_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'agitators.tbl', 'test_agitator.agn')
+
 TEST_EXISTING_STRING_NAME_WITH_SPACES_IN_HOLE_REF = 'test_string_with_spaces_in_hole_ref'
 TEST_EXISTING_STRING_FILE_WITH_SPACES_IN_HOLE_REF = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME_WITH_SPACES_IN_HOLE_REF + '.str')
 

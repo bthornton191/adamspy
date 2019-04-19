@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.7.39'
-version_notes = 'added a note about units in the add_ramp method of DrillEvent. Fixed a bug when reading string files.'
+version = '0.7.40'
+version_notes = 'Changed the agitator extension from agi to agn.'
 date = 'April 19th, 2019'
 # ---------------------
 author = 'Ben Thornton'

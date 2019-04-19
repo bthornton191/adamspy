@@ -10,6 +10,22 @@ os.environ['ADAMS_LAUNCH_COMMAND'] = os.path.join('C:\\', 'MSC.Software', 'Adams
     
 from adamspy import adripy #pylint: disable=wrong-import-position
 
+class Test_AgitatorDrillTool(unittest.TestCase):
+
+    def setUp(self):        
+        # Create a test config file containing the test database
+        adripy.create_cfg_file(TEST_CONFIG_FILENAME, [TEST_DATABASE_PATH])
+
+        self.agitator = adripy.DrillTool(TEST_EXISTING_AGITATOR_FILE)
+
+    def test_agitator_type(self):
+        self.assertEqual(self.agitator.tool_type, 'agitator')
+
+    def tearDown(self):
+        # Delete test config file
+        os.remove(TEST_CONFIG_FILENAME)
+        os.environ['ADRILL_USER_CFG'] = os.path.join(os.environ['USERPROFILE'], '.adrill.cfg')
+
 class Test_DrillTool(unittest.TestCase):
     """Tests the methods in :class:`adripy.tool.DrillTool`
     """
