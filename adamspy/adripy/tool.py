@@ -214,7 +214,7 @@ class DrillTool():
                     
                     if "'" in current_value:
                         # If the value is a string
-                        value = current_value.replace("'",'')
+                        value = current_value.replace("'",'').strip()
                     
                     else:
                         # If the value is a number

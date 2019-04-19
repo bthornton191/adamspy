@@ -144,18 +144,18 @@ class DrillEvent():
         self.parameters['_DYNAMICS'] = zip(*self.parameters['DYNAMICS'])
     
     def add_ramp(self, parameter, start_time, ramp_duration, delta, clear_existing=False):
-        """Adds a ramp to the specified ramp parameter
+        """Adds a ramp to the specified ramp parameter.
         
         Parameters
         ----------
         parameter : str
-            ramp parameter, options are 'TOP_DRIVE', 'WOB', 'PUMP_FLOW', of 'ROP'
+            ramp parameter, options are 'TOP_DRIVE', 'WOB', 'PUMP_FLOW', or 'ROP'
         start_time : float
             Start time of the ramp.
         ramp_duration : float
             Duration of the ramp.
         delta : float
-            Delta of the ramp.
+            Delta of the ramp.  Units should be in **rpm**, **lbf**, **gpm**, or **ft/sec**.
         clear_existing : bool
             If true, existing ramps for the specified parameter will be deleted.
 
