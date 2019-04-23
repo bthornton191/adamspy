@@ -85,7 +85,7 @@ def get_results(result_file, reqs_to_get=None, t_min=None, t_max=None, return_un
 		return reqs_to_return
 
 
-def shrink_results(result_file, reqs_to_keep, t_min=None, t_max=None, new_result_file=None):	
+def shrink_results(result_file, reqs_to_keep=None, t_min=None, t_max=None, new_result_file=None, in_place=False):	
 	"""Shrinks a results file by eliminating unwanted data.
 	
 	Example
@@ -108,19 +108,25 @@ def shrink_results(result_file, reqs_to_keep, t_min=None, t_max=None, new_result
 		Filename of the results file
 	reqs_to_keep : dict
 		Dictionary of requests and request components that should be saved. 
-	t_min : float
-		Start time of period of interest
-	t_max : float
-		End time of period of interest
+	t_min : float, optional
+		Start time of period of interest (default is None which uses the first time step)
+	t_max : float, optional
+		End time of period of interest (default is None which uses the last time step)
 	new_result_file : str
-		Name that will be given to the new results file. (Default is None which adds a '_shrunk' suffix to `result_file`.)
-	
+		Name that will be given to the new results file. (Default is None which adds a '_shrunk' suffix to `result_file` if in_place=False or uses `result_file` if in_place=True.)
+	in_place : bool, optional
+		If True, existing file will be deleted.
+
 	"""	
 	input_tree = et.parse(result_file)
 	input_ans_node = [ans for ans in input_tree.iter('{'+XML_REF+'}Analysis')][0]
 	
 	# Create `units` and `old_ids` dictionaries
 	units, old_ids, _reqs_to_keep = _get_units_and_ids(input_tree, reqs_to_keep)
+	
+	# If `reqs_to_keep` is None, set it equal to all requrests
+	if reqs_to_keep is None:
+		reqs_to_keep = _reqs_to_keep
 
 	# Create New XML tree
 	root_res = et.Element('Results', xname=XML_REF)    
@@ -164,14 +170,22 @@ def shrink_results(result_file, reqs_to_keep, t_min=None, t_max=None, new_result
 				xml_step = et.SubElement(root_data, 'Step', type='dynamic')
 				xml_step.text = new_dynamic_text
 
-	# Determine the output file
-	if new_result_file is None:		
-		new_result_file = result_file.replace('.res', '') + f'{SHRUNK_RES_SUFFIX}.res'
-
+	# Determine the output file if it wasn't given or if the one that was provided is equal to the original
+	if new_result_file is None or new_result_file == result_file:	
+		new_result_file = result_file + '.tmp' if in_place is True else result_file.replace('.res', '') + f'{SHRUNK_RES_SUFFIX}.res'
+	
 	# Write the output file
 	output_tree = et.ElementTree(root_res)
 	_xml_format(root_res)
 	output_tree.write(new_result_file, encoding='utf-8', xml_declaration=True)
+
+	# If in_place is set to true, remove the original results file
+	if in_place is True:
+		os.remove(result_file)
+		
+		# If no name was given for the output file and a .tmp extension was used, remove it
+		if new_result_file.endswith('.tmp'):
+			os.rename(new_result_file, new_result_file.replace('.tmp',''))
 
 def _get_new_steplist(reqs_to_keep, old_step_data, req_ids):
 	"""Returns a list similar to `old_step_data` but with unwanted requests removed.
@@ -261,15 +275,15 @@ def _xml_format(element, level=0):
 		if level and (not element.tail or not element.tail.strip()):
 			element.tail = i
 
-def _get_units_and_ids(tree, reqs):
+def _get_units_and_ids(tree, reqs=None):
 	"""Loops over all the *Entity* nodes in `tree` and picks out the ones requested	in `reqs`. Returns dictionaries of their units and original ids.
 	
 	Parameters
 	----------
 	tree : ElementTree
 		Root xml tree for an Adams results file
-	reqs : dict
-		Dictionary of requests and request components to keep
+	reqs : dict, optional
+		Dictionary of requests and request components to keep. (Default is None, which gets all the requests)
 	
 	Returns
 	-------

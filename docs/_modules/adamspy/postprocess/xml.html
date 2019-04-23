@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.postprocess.xml &mdash; adamspy 0.7.41 documentation</title>
+  <title>adamspy.postprocess.xml &mdash; adamspy 0.7.42 documentation</title>
   
 
   
@@ -17,32 +17,34 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -56,7 +58,7 @@
             
             
               <div class="version">
-                0.7.41
+                0.7.42
               </div>
             
           
@@ -232,7 +234,7 @@
 		<span class="k">return</span> <span class="n">reqs_to_return</span></div>
 
 
-<div class="viewcode-block" id="shrink_results"><a class="viewcode-back" href="../../../adamspy.postprocess.html#adamspy.postprocess.xml.shrink_results">[docs]</a><span class="k">def</span> <span class="nf">shrink_results</span><span class="p">(</span><span class="n">result_file</span><span class="p">,</span> <span class="n">reqs_to_keep</span><span class="p">,</span> <span class="n">t_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">new_result_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>	
+<div class="viewcode-block" id="shrink_results"><a class="viewcode-back" href="../../../adamspy.postprocess.html#adamspy.postprocess.xml.shrink_results">[docs]</a><span class="k">def</span> <span class="nf">shrink_results</span><span class="p">(</span><span class="n">result_file</span><span class="p">,</span> <span class="n">reqs_to_keep</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">new_result_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">in_place</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>	
 	<span class="sd">&quot;&quot;&quot;Shrinks a results file by eliminating unwanted data.</span>
 <span class="sd">	</span>
 <span class="sd">	Example</span>
@@ -255,19 +257,25 @@
 <span class="sd">		Filename of the results file</span>
 <span class="sd">	reqs_to_keep : dict</span>
 <span class="sd">		Dictionary of requests and request components that should be saved. </span>
-<span class="sd">	t_min : float</span>
-<span class="sd">		Start time of period of interest</span>
-<span class="sd">	t_max : float</span>
-<span class="sd">		End time of period of interest</span>
+<span class="sd">	t_min : float, optional</span>
+<span class="sd">		Start time of period of interest (default is None which uses the first time step)</span>
+<span class="sd">	t_max : float, optional</span>
+<span class="sd">		End time of period of interest (default is None which uses the last time step)</span>
 <span class="sd">	new_result_file : str</span>
-<span class="sd">		Name that will be given to the new results file. (Default is None which adds a &#39;_shrunk&#39; suffix to `result_file`.)</span>
-<span class="sd">	</span>
+<span class="sd">		Name that will be given to the new results file. (Default is None which adds a &#39;_shrunk&#39; suffix to `result_file` if in_place=False or uses `result_file` if in_place=True.)</span>
+<span class="sd">	in_place : bool, optional</span>
+<span class="sd">		If True, existing file will be deleted.</span>
+
 <span class="sd">	&quot;&quot;&quot;</span>	
 	<span class="n">input_tree</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">result_file</span><span class="p">)</span>
 	<span class="n">input_ans_node</span> <span class="o">=</span> <span class="p">[</span><span class="n">ans</span> <span class="k">for</span> <span class="n">ans</span> <span class="ow">in</span> <span class="n">input_tree</span><span class="o">.</span><span class="n">iter</span><span class="p">(</span><span class="s1">&#39;{&#39;</span><span class="o">+</span><span class="n">XML_REF</span><span class="o">+</span><span class="s1">&#39;}Analysis&#39;</span><span class="p">)][</span><span class="mi">0</span><span class="p">]</span>
 	
 	<span class="c1"># Create `units` and `old_ids` dictionaries</span>
 	<span class="n">units</span><span class="p">,</span> <span class="n">old_ids</span><span class="p">,</span> <span class="n">_reqs_to_keep</span> <span class="o">=</span> <span class="n">_get_units_and_ids</span><span class="p">(</span><span class="n">input_tree</span><span class="p">,</span> <span class="n">reqs_to_keep</span><span class="p">)</span>
+	
+	<span class="c1"># If `reqs_to_keep` is None, set it equal to all requrests</span>
+	<span class="k">if</span> <span class="n">reqs_to_keep</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+		<span class="n">reqs_to_keep</span> <span class="o">=</span> <span class="n">_reqs_to_keep</span>
 
 	<span class="c1"># Create New XML tree</span>
 	<span class="n">root_res</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="s1">&#39;Results&#39;</span><span class="p">,</span> <span class="n">xname</span><span class="o">=</span><span class="n">XML_REF</span><span class="p">)</span>    
@@ -311,14 +319,22 @@
 				<span class="n">xml_step</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">root_data</span><span class="p">,</span> <span class="s1">&#39;Step&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;dynamic&#39;</span><span class="p">)</span>
 				<span class="n">xml_step</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">new_dynamic_text</span>
 
-	<span class="c1"># Determine the output file</span>
-	<span class="k">if</span> <span class="n">new_result_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>		
-		<span class="n">new_result_file</span> <span class="o">=</span> <span class="n">result_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.res&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{SHRUNK_RES_SUFFIX}</span><span class="s1">.res&#39;</span>
-
+	<span class="c1"># Determine the output file if it wasn&#39;t given or if the one that was provided is equal to the original</span>
+	<span class="k">if</span> <span class="n">new_result_file</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">new_result_file</span> <span class="o">==</span> <span class="n">result_file</span><span class="p">:</span>	
+		<span class="n">new_result_file</span> <span class="o">=</span> <span class="n">result_file</span> <span class="o">+</span> <span class="s1">&#39;.tmp&#39;</span> <span class="k">if</span> <span class="n">in_place</span> <span class="ow">is</span> <span class="kc">True</span> <span class="k">else</span> <span class="n">result_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.res&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{SHRUNK_RES_SUFFIX}</span><span class="s1">.res&#39;</span>
+	
 	<span class="c1"># Write the output file</span>
 	<span class="n">output_tree</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">ElementTree</span><span class="p">(</span><span class="n">root_res</span><span class="p">)</span>
 	<span class="n">_xml_format</span><span class="p">(</span><span class="n">root_res</span><span class="p">)</span>
-	<span class="n">output_tree</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">new_result_file</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="n">xml_declaration</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+	<span class="n">output_tree</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">new_result_file</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="n">xml_declaration</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+	<span class="c1"># If in_place is set to true, remove the original results file</span>
+	<span class="k">if</span> <span class="n">in_place</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+		<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">result_file</span><span class="p">)</span>
+		
+		<span class="c1"># If no name was given for the output file and a .tmp extension was used, remove it</span>
+		<span class="k">if</span> <span class="n">new_result_file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.tmp&#39;</span><span class="p">):</span>
+			<span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">new_result_file</span><span class="p">,</span> <span class="n">new_result_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.tmp&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))</span></div>
 
 <span class="k">def</span> <span class="nf">_get_new_steplist</span><span class="p">(</span><span class="n">reqs_to_keep</span><span class="p">,</span> <span class="n">old_step_data</span><span class="p">,</span> <span class="n">req_ids</span><span class="p">):</span>
 	<span class="sd">&quot;&quot;&quot;Returns a list similar to `old_step_data` but with unwanted requests removed.</span>
@@ -408,15 +424,15 @@
 		<span class="k">if</span> <span class="n">level</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">element</span><span class="o">.</span><span class="n">tail</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">element</span><span class="o">.</span><span class="n">tail</span><span class="o">.</span><span class="n">strip</span><span class="p">()):</span>
 			<span class="n">element</span><span class="o">.</span><span class="n">tail</span> <span class="o">=</span> <span class="n">i</span>
 
-<span class="k">def</span> <span class="nf">_get_units_and_ids</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">reqs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_get_units_and_ids</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">reqs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 	<span class="sd">&quot;&quot;&quot;Loops over all the *Entity* nodes in `tree` and picks out the ones requested	in `reqs`. Returns dictionaries of their units and original ids.</span>
 <span class="sd">	</span>
 <span class="sd">	Parameters</span>
 <span class="sd">	----------</span>
 <span class="sd">	tree : ElementTree</span>
 <span class="sd">		Root xml tree for an Adams results file</span>
-<span class="sd">	reqs : dict</span>
-<span class="sd">		Dictionary of requests and request components to keep</span>
+<span class="sd">	reqs : dict, optional</span>
+<span class="sd">		Dictionary of requests and request components to keep. (Default is None, which gets all the requests)</span>
 <span class="sd">	</span>
 <span class="sd">	Returns</span>
 <span class="sd">	-------</span>
@@ -491,26 +507,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

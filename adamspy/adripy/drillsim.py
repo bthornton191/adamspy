@@ -5,7 +5,7 @@ import subprocess
 import glob
 from thornpy.signal import step_function, low_pass
 from numpy import linspace, argmax, array
-from ..postprocess.xml import get_results
+from ..postprocess.xml import get_results, shrink_results
 from .utilities import build, add_splines_to_acf, add_splines_to_adm
 from ..postprocess import launch_ppt
 from .string import DrillString
@@ -274,7 +274,7 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         self.string.parameters['OutputName'] = self.analysis_name
         self.string_filename = self.string.write_to_file(directory=self.directory, publish=True)   
     
-    def read_results(self, reqs_to_read=None, t_min=None, t_max=None):
+    def read_results(self, reqs_to_read=None, t_min=None, t_max=None, shrink_results_file=False):
         """Reads results from the results file.
         
         Example
@@ -297,10 +297,16 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
             Mininmum time for which to get results (the default is None, which gets results starting at the first time step)
         t_max : float, optional
             Maximum time for which to get results (the default is None, which gets results up to the last time step)
+        shrink_results_file : bool, optional
+            If True, the results file will be rewritten to include only the requests in `reqs_to_read` and the time period between `t_max` and `t_min`.
         
         """
         res_file = os.path.join(self.directory, self.res_filename)
         self.results, self.results_units = get_results(res_file, reqs_to_read, t_min, t_max, return_units=True)
+
+        if shrink_results_file and any([reqs_to_read is not None, t_min is not None, t_max is not None]):
+            shrink_results(res_file, reqs_to_keep=reqs_to_read, t_min=t_min, t_max=t_max, in_place=True)
+
 
     def launch_ppt(self, wait=False):
         """Launches the postprocessor and loads :attr:`res_filename`

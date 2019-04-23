@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy package &mdash; adamspy 0.7.41 documentation</title>
+  <title>adamspy.adripy package &mdash; adamspy 0.7.42 documentation</title>
   
 
   
@@ -17,32 +17,34 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -56,7 +58,7 @@
             
             
               <div class="version">
-                0.7.41
+                0.7.42
               </div>
             
           
@@ -676,7 +678,7 @@
 
 <dl class="method">
 <dt id="adamspy.adripy.drillsim.DrillSim.read_results">
-<code class="descname">read_results</code><span class="sig-paren">(</span><em>reqs_to_read=None</em>, <em>t_min=None</em>, <em>t_max=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/drillsim.html#DrillSim.read_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim.read_results" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read_results</code><span class="sig-paren">(</span><em>reqs_to_read=None</em>, <em>t_min=None</em>, <em>t_max=None</em>, <em>shrink_results_file=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/drillsim.html#DrillSim.read_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim.read_results" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reads results from the results file.</p>
 <p class="rubric">Example</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">drillsim</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
@@ -698,6 +700,7 @@
 <li><strong>reqs_to_read</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – Dictionary of results data (the default is None, which gets all the results)</li>
 <li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>optional</em>) – Mininmum time for which to get results (the default is None, which gets results starting at the first time step)</li>
 <li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>optional</em>) – Maximum time for which to get results (the default is None, which gets results up to the last time step)</li>
+<li><strong>shrink_results_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, the results file will be rewritten to include only the requests in <cite>reqs_to_read</cite> and the time period between <cite>t_max</cite> and <cite>t_min</cite>.</li>
 </ul>
 </td>
 </tr>
@@ -1890,7 +1893,7 @@
 <dt id="adamspy.adripy.utilities.get_cdb_path">
 <code class="descclassname">adamspy.adripy.utilities.</code><code class="descname">get_cdb_path</code><span class="sig-paren">(</span><em>full_filepath</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/utilities.html#get_cdb_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.utilities.get_cdb_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given the full path to a file located in a cdb, get_cdb_path returns the path to a
-file with the cdb path replaced by the cdb alias.  full_filepath will be returned if
+file with the cdb path replaced by the cdb alias.  <cite>full_filepath</cite> will be returned if
 no cdb is found in the path.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -2186,26 +2189,16 @@ no cdb is found in the path.</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

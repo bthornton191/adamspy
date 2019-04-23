@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.7.41'
-version_notes = 'Changed environment variable faiulre from an exception to a print statement'
-date = 'April 19th, 2019'
+version = '0.7.42'
+version_notes = 'drillsim.read_results() now has the ability to shrink the results file when reading it'
+date = 'April 23th, 2019'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'

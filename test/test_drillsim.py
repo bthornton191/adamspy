@@ -14,6 +14,83 @@ os.environ['ADAMS_LAUNCH_COMMAND'] = os.path.join('C:\\', 'MSC.Software', 'Adams
 from adamspy import adripy #pylint: disable=wrong-import-position
 from adamspy.adripy import DrillSim #pylint: disable=wrong-import-position
 
+class Test_ReadResults(unittest.TestCase):
+
+    def setUp(self):
+        # Create a test config file containing the test database
+        adripy.create_cfg_file(TEST_CONFIG_FILENAME, [TEST_DATABASE_PATH, TEST_NEW_DATABASE_PATH])
+        self.drill_sim = DrillSim.read_from_directory(TEST_EXISTING_DRILLSIM_DIRECTORY)
+        self.drill_sim.run()
+
+    def test_read_and_shrink_1(self):    
+        """Tests that `drill_sim.read_results` produces a smaller results file when reqs_to_read is not specified and a time period is specified. 
+        
+        """
+        # Get the size before shrinking
+        original_size = os.stat(os.path.join(self.drill_sim.directory, self.drill_sim.res_filename)).st_size        
+        
+        # Read and shrink
+        self.drill_sim.read_results(t_min=80, t_max=99, shrink_results_file=True)
+        
+        # Get the size after shrinking
+        new_size = os.stat(os.path.join(self.drill_sim.directory, self.drill_sim.res_filename)).st_size
+
+        # Assert that size before shrinking is greater
+        self.assertGreater(original_size, new_size)
+
+    def test_read_and_shrink_2(self):        
+        """Tests that `drill_sim.read_results` produces a smaller results file when reqs_to_read is specified and a time period is not specified.
+        
+        """
+        # Get the size before shrinking
+        original_size = os.stat(os.path.join(self.drill_sim.directory, self.drill_sim.res_filename)).st_size        
+        
+        reqs_to_keep = {
+            'top_drive_data': ['True_Torque', 'Command_Torque']
+        }
+
+        # Read and shrink
+        self.drill_sim.read_results(reqs_to_read=reqs_to_keep, shrink_results_file=True)
+        
+        # Get the size after shrinking
+        new_size = os.stat(os.path.join(self.drill_sim.directory, self.drill_sim.res_filename)).st_size
+
+        # Assert that size before shrinking is greater
+        self.assertGreater(original_size, new_size)
+
+    def test_read_and_shrink_3(self):        
+        """Tests that `drill_sim.read_results` produces a smaller results file when reqs_to_read is specified and a time period is also specified.
+
+        """
+        # Get the size before shrinking
+        original_size = os.stat(os.path.join(self.drill_sim.directory, self.drill_sim.res_filename)).st_size        
+        
+        reqs_to_keep = {
+            'top_drive_data': ['True_Torque', 'Command_Torque']
+        }
+
+        # Read and shrink
+        self.drill_sim.read_results(reqs_to_read=reqs_to_keep, t_min=80, t_max=99, shrink_results_file=True)
+        
+        # Get the size after shrinking
+        new_size = os.stat(os.path.join(self.drill_sim.directory, self.drill_sim.res_filename)).st_size
+
+        # Assert that size before shrinking is greater
+        self.assertGreater(original_size, new_size)
+
+    def tearDown(self):
+        # Remove the test cfg file if it exists
+        try:
+            os.remove(TEST_CONFIG_FILENAME)
+        except: #pylint: disable=bare-except
+            pass
+
+        os.remove(os.path.join(self.drill_sim.directory, self.drill_sim.res_filename))
+        os.remove(os.path.join(self.drill_sim.directory, self.drill_sim.msg_filename))
+        
+        # Reset the ADRILL_USER_CFG environment variable
+        os.environ['ADRILL_USER_CFG'] = os.path.join(os.environ['USERPROFILE'], '.adrill.cfg')
+
 class Test_DrillSim(unittest.TestCase):
     """Tests related to the DrillSim class
     """

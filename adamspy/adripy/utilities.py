@@ -350,7 +350,7 @@ def cdbNotation_to_fullNotation(string_file):
 
 def get_cdb_path(full_filepath):    
     """Given the full path to a file located in a cdb, get_cdb_path returns the path to a
-    file with the cdb path replaced by the cdb alias.  full_filepath will be returned if
+    file with the cdb path replaced by the cdb alias.  `full_filepath` will be returned if
     no cdb is found in the path.
 
     Parameters
