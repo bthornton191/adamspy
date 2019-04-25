@@ -276,6 +276,21 @@ class Test_DrillString(unittest.TestCase):
 
         self.assertDictEqual(drill_string_from_file.parameters, expected_parameters)
     
+    
+    def test_read_string_from_file_measure_off_on_drillpipe(self):
+        """Tests that the measures are correct after a string is read from a file.
+
+        """
+        string_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'drill_strings.tbl', TEST_EXISTING_STRING_NAME + '.str')
+        drill_string_from_file = adripy.DrillString.read_from_file(string_file)
+        
+        drill_pipe = drill_string_from_file.get_tool('drillpipe')
+        for tool in drill_string_from_file.tools:
+            if tool['DrillTool'] is drill_pipe:
+                measure = tool['Measure']
+
+        self.assertEqual(measure, 'no')
+
     def test_read_string_from_file_no_dfb(self):
         
         expected_parameters = {

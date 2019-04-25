@@ -633,7 +633,7 @@ class DrillString():
             equivalent = True if 'equivalent' in tiem_orbit_data[block]['type'].lower() else False
 
             # Add the tool to the tools list
-            self.add_tool(tool, joints=joints, measure=tiem_orbit_data[block]['measure'], group_name=group_name, stack_order=tiem_orbit_data[block]['stack_order'], equivalent=equivalent)
+            self.add_tool(tool, joints=joints, measure=tiem_orbit_data[block]['measure'].lower() in ['yes', 'true'], group_name=group_name, stack_order=tiem_orbit_data[block]['stack_order'], equivalent=equivalent)
         
         # -----------------
         # Add the top drive

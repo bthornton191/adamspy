@@ -492,6 +492,111 @@ $ of the physically modeled string. (Equivalent Upper String not allowed.)
 EXPECTED_DRILLSIM_ADM_FILE_TEXT = '''
 '''
 
+EXPECTED_DRILLSIM_STRING_FILE_TEXT = '''$ ==================================================================
+$ This is the master drill string assmembly file which contains
+$ the following data blocks:
+$  [UNITS]
+$  [MODEL]
+$  [CONTACT]
+$  [DRIVE]
+$  [MEASUREMENT_POINTS]
+$  [DRILL_TOOL_n]
+$  [TOP_OF_STRING]
+$  [TOP_DRIVE]
+$ 
+$ NOTA BENE: block and subblock titles MUST begin in column 1.
+$ Comments also must begin in column 1.
+$ ==================================================================
+$ 
+$--------------------------------------------------------------------------UNITS
+[UNITS]
+$ Adams Drill supports two units sets:
+$ 'Imperial' (foot, degree, pound force, pound mass, second)
+$ 'Metric' (meter, degree, Newton, kilogram, second)
+ Units  =  'Imperial'
+$--------------------------------------------------------------------------MODEL
+[MODEL]
+$ general model set-up parameters
+ ModelName  =  'test_analysis_1'
+ OutputName  =  'test_analysis_1'
+ Gravity  =  32.187
+ Deviation_Deg  =  0.0
+$ Used to rotate gravity direction relative to string
+$ Adams_Results must equal 'standard' 'animation' or 'diagnostics'
+$ Note that 'diagnostics' produces VERY large files sizes
+ Adams_Results  =  'animation'
+ Adams_Requests  =  'on'
+ Adams_Graphics  =  'off'
+ SolverDLL  =  'adrill_solver'
+$ Do not include the '.dll' extension here
+$------------------------------------------------------------------------CONTACT
+[CONTACT]
+$ ContactMethod options are 'Subroutine' and 'ImpactFunction'
+$ ** but only 'Subroutine' is valid at present **
+ Hole_Property_File  =  'test_hole.hol'
+ Contact_Method  =  'Subroutine'
+ Cyl_Drag_Coeff  =  1.2
+ Hole_Color  =  'LtGray'
+$--------------------------------------------------------------------------DRIVE
+[DRIVE]
+ Event_Property_File  =  'test_analysis_1.evt'
+$-------------------------------------------------------------MEASUREMENT_POINTS
+$ [MEASUREMENT_POINTS]
+$ These are auxialliary measurement points in addition to any  measurement
+$ requests made directly on tools or pipes in the DRILL_TOOL blocks.
+$ These are locations in the design position of the model at which
+$ output will be generated.  The output will be generated at the nearest
+$ tool or pipe wall contact point in the string.
+$ {Distance_from_Bit}
+$ ------------------------------------------------------------------------------
+$ 
+$  The DRILL_TOOL blocks below form a descriptive list of tools from bottom to top
+$  NOTA BENE: The tools or sections must be numbered from 1 consecutively
+$  and the last tool or section must be 'TopOfString'.  Remember that a
+$  section  of pipes can include many elements.
+$------------------------------------------------------------------DRILL_TOOL_01
+[DRILL_TOOL_01]
+ Stack_Order  =  1
+ Type  =  'pdc_bit'
+ Name  =  'test_pdc_01'
+ Property_File  =  'test_pdc.pdc'
+ Measure  =  'yes'
+ Color  =  'Default'
+$------------------------------------------------------------------DRILL_TOOL_02
+[DRILL_TOOL_02]
+ Stack_Order  =  2
+ Type  =  'stabilizer'
+ Name  =  'example_stabilizer_02'
+ Property_File  =  'example_stabilizer.sta'
+ Measure  =  'yes'
+ Color  =  'Default'
+$------------------------------------------------------------------DRILL_TOOL_03
+[DRILL_TOOL_03]
+ Stack_Order  =  3
+ Type  =  'drillpipe'
+ Name  =  'Upper_DP_Group'
+ Property_File  =  'test_drillpipe.pip'
+ Measure  =  'no'
+ Color  =  'Default'
+ Number_of_Joints  =  20
+$------------------------------------------------------------------DRILL_TOOL_04
+[DRILL_TOOL_04]
+ Stack_Order  =  4
+ Type  =  'equivalent_upper_string'
+ Name  =  'equivalent_pipe'
+ Property_File  =  'test_eus.pip'
+ Measure  =  'no'
+ Color  =  'Default'
+ Number_of_Joints  =  20
+$------------------------------------------------------------------TOP_OF_STRING
+[TOP_OF_STRING]
+$----------------------------------------------------------------------TOP_DRIVE
+[TOP_DRIVE]
+ Type  =  'top_drive'
+ Name  =  'test_top_drive'
+ Property_File  =  'test_top_drive.tdr'
+'''
+
 EXPECTED_DRILLSIM_EVENT_FILE_TEXT = f"""$ ==================================================================
 $ This is the Adams Drill Event file which contains
 $ the following data blocks:
