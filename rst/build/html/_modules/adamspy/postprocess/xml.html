@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.postprocess.xml &mdash; adamspy 0.7.42 documentation</title>
+  <title>adamspy.postprocess.xml &mdash; adamspy 0.7.43 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.7.42
+                0.7.43
               </div>
             
           
@@ -278,7 +278,7 @@
 		<span class="n">reqs_to_keep</span> <span class="o">=</span> <span class="n">_reqs_to_keep</span>
 
 	<span class="c1"># Create New XML tree</span>
-	<span class="n">root_res</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="s1">&#39;Results&#39;</span><span class="p">,</span> <span class="n">xname</span><span class="o">=</span><span class="n">XML_REF</span><span class="p">)</span>    
+	<span class="n">root_res</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="s1">&#39;Results&#39;</span><span class="p">,</span> <span class="n">xmlns</span><span class="o">=</span><span class="n">XML_REF</span><span class="p">)</span>    
 	<span class="n">root_ans</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">root_res</span><span class="p">,</span> <span class="s1">&#39;Analysis&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">input_ans_node</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">executionDate</span><span class="o">=</span><span class="n">input_ans_node</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;executionDate&#39;</span><span class="p">],</span> <span class="n">Solver</span><span class="o">=</span><span class="n">input_ans_node</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;Solver&#39;</span><span class="p">],</span> <span class="n">script</span><span class="o">=</span><span class="n">input_ans_node</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;script&#39;</span><span class="p">])</span>
 	<span class="n">root_map</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">root_ans</span><span class="p">,</span> <span class="s1">&#39;StepMap&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;map_001&#39;</span><span class="p">)</span>
 	<span class="n">ent_time</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">root_map</span><span class="p">,</span> <span class="s1">&#39;Entity&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>

@@ -129,7 +129,7 @@ def shrink_results(result_file, reqs_to_keep=None, t_min=None, t_max=None, new_r
 		reqs_to_keep = _reqs_to_keep
 
 	# Create New XML tree
-	root_res = et.Element('Results', xname=XML_REF)    
+	root_res = et.Element('Results', xmlns=XML_REF)    
 	root_ans = et.SubElement(root_res, 'Analysis', name=input_ans_node.attrib['name'], executionDate=input_ans_node.attrib['executionDate'], Solver=input_ans_node.attrib['Solver'], script=input_ans_node.attrib['script'])
 	root_map = et.SubElement(root_ans, 'StepMap', name='map_001')
 	ent_time = et.SubElement(root_map, 'Entity', name='time')

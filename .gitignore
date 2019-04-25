@@ -13,3 +13,5 @@ demo*.py
 test/files/adamsctl_272309.bat
 test/files/ppt.log
 test/files/ppt.loq
+test/existing_drillsim/test_analysis_1.msg.cached
+test/existing_drillsim/test_analysis_1.res.cached

@@ -3,6 +3,7 @@
 import unittest
 import os
 import glob
+import shutil
 
 import dripy
 
@@ -19,8 +20,29 @@ class Test_ReadResults(unittest.TestCase):
     def setUp(self):
         # Create a test config file containing the test database
         adripy.create_cfg_file(TEST_CONFIG_FILENAME, [TEST_DATABASE_PATH, TEST_NEW_DATABASE_PATH])
-        self.drill_sim = DrillSim.read_from_directory(TEST_EXISTING_DRILLSIM_DIRECTORY)
-        self.drill_sim.run()
+
+        # Create the res and msg files
+        for file in glob.glob(os.path.join(TEST_EXISTING_DRILLSIM_DIRECTORY, '*.cached')):        
+            shutil.copyfile(file, file.replace('.cached', ''))           
+
+        self.drill_sim = DrillSim.read_from_directory(TEST_EXISTING_DRILLSIM_DIRECTORY)        
+        if not self.drill_sim.solved:
+            self.drill_sim.run()
+
+    def test_read_shrink_read(self):
+        """Tests that drill_sim results can be read-and-shrunk, then read again.
+
+        """
+        # Read and shrink
+        self.drill_sim.read_results(t_min=80, t_max=99, shrink_results_file=True)
+        old_reqs = [k for k in self.drill_sim.results]
+        
+        new_drill_sim = DrillSim.read_from_directory(TEST_EXISTING_DRILLSIM_DIRECTORY)                
+        new_drill_sim.read_results(t_min=80, t_max=99)
+        
+        new_reqs = [k for k in new_drill_sim.results]
+
+        self.assertEqual(sorted(old_reqs), sorted(new_reqs))            
 
     def test_read_and_shrink_1(self):    
         """Tests that `drill_sim.read_results` produces a smaller results file when reqs_to_read is not specified and a time period is specified. 
@@ -40,7 +62,7 @@ class Test_ReadResults(unittest.TestCase):
 
     def test_read_and_shrink_2(self):        
         """Tests that `drill_sim.read_results` produces a smaller results file when reqs_to_read is specified and a time period is not specified.
-        
+
         """
         # Get the size before shrinking
         original_size = os.stat(os.path.join(self.drill_sim.directory, self.drill_sim.res_filename)).st_size        
