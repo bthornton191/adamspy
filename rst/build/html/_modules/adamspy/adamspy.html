@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adamspy &mdash; adamspy 0.7.44 documentation</title>
+  <title>adamspy.adamspy &mdash; adamspy 0.7.45 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.7.44
+                0.7.45
               </div>
             
           
@@ -147,6 +147,7 @@
   <h1>Source code for adamspy.adamspy</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Functions for manipulating adams files and data</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
 
 <div class="viewcode-block" id="get_simdur_from_msg"><a class="viewcode-back" href="../../adamspy.html#adamspy.adamspy.get_simdur_from_msg">[docs]</a><span class="k">def</span> <span class="nf">get_simdur_from_msg</span><span class="p">(</span><span class="n">msg_file</span><span class="p">):</span>
@@ -212,6 +213,39 @@
 		<span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;No simulation end time was found in the specified message file!&#39;</span><span class="p">)</span>
 		
 	<span class="k">return</span> <span class="n">duration</span></div>
+
+<div class="viewcode-block" id="set_n_threads"><a class="viewcode-back" href="../../adamspy.html#adamspy.adamspy.set_n_threads">[docs]</a><span class="k">def</span> <span class="nf">set_n_threads</span><span class="p">(</span><span class="n">adm_file</span><span class="p">,</span> <span class="n">n_threads</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;Changes or creates the NTHREADS option on the PREFERENCES statement in `adm_file`.</span>
+<span class="sd">	</span>
+<span class="sd">	Parameters</span>
+<span class="sd">	----------</span>
+<span class="sd">	adm_file : str</span>
+<span class="sd">		File path to an Adams Dataset (.adm) file</span>
+<span class="sd">	n_threads : int</span>
+<span class="sd">		Number of threads to use when running the model specified in `adm_file`</span>
+
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+	<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">adm_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid_old</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">adm_file</span> <span class="o">+</span> <span class="s1">&#39;.tmp&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid_new</span><span class="p">:</span>
+		<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid_old</span><span class="p">:</span>
+				
+			<span class="c1"># If at the NTHREADS statement, rewrite it</span>
+			<span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;^,[ </span><span class="se">\\</span><span class="s1">t]*nthreads[ </span><span class="se">\\</span><span class="s1">t]*=[ </span><span class="se">\\</span><span class="s1">t]*</span><span class="se">\\</span><span class="s1">d$&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">):</span>
+				<span class="n">fid_new</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;, NTHREADS = </span><span class="si">{n_threads}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+				<span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+
+			<span class="c1"># If the end is reached and the NTHREADS statement isn&#39;t found, create it</span>
+			<span class="k">elif</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;^end[ </span><span class="se">\\</span><span class="s1">t]*$&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
+				<span class="n">fid_new</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;PREFERENCES/</span><span class="se">\n</span><span class="s1">, NTHREADS = </span><span class="si">{n_threads}</span><span class="se">\n</span><span class="s1">!</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+				<span class="n">fid_new</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+			
+			<span class="c1"># If at a normal line, write it</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">fid_new</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+		
+	<span class="c1"># Delete the old adm file and replace with modified</span>
+	<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">adm_file</span><span class="p">)</span>
+	<span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">adm_file</span> <span class="o">+</span> <span class="s1">&#39;.tmp&#39;</span><span class="p">,</span> <span class="n">adm_file</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

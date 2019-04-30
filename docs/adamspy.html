@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy package &mdash; adamspy 0.7.44 documentation</title>
+  <title>adamspy package &mdash; adamspy 0.7.45 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.7.44
+                0.7.45
               </div>
             
           
@@ -228,6 +228,24 @@
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Total duration of the simulation</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="adamspy.adamspy.set_n_threads">
+<code class="descclassname">adamspy.adamspy.</code><code class="descname">set_n_threads</code><span class="sig-paren">(</span><em>adm_file</em>, <em>n_threads</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adamspy.html#set_n_threads"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adamspy.set_n_threads" title="Permalink to this definition">¶</a></dt>
+<dd><p>Changes or creates the NTHREADS option on the PREFERENCES statement in <cite>adm_file</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>adm_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File path to an Adams Dataset (.adm) file</li>
+<li><strong>n_threads</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Number of threads to use when running the model specified in <cite>adm_file</cite></li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>

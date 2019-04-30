@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.7.44'
-version_notes = 'Fixed bug causing all measures to be read as on when reading a drill string file.'
-date = 'April 25th, 2019'
+version = '0.7.45'
+version_notes = 'Added a function to change number of threads in an adm file'
+date = 'April 30th, 2019'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'
