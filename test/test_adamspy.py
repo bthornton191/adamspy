@@ -2,7 +2,7 @@ import os
 import shutil
 import unittest
 
-from adamspy.adamspy import set_n_threads
+from adamspy.adamspy import set_n_threads, get_n_threads
 
 from test import *
 
@@ -30,7 +30,14 @@ class Test_SetNThreads(unittest.TestCase):
         
         threads_line = lines[12336].strip()
 
-        self.assertEqual(threads_line, ', NTHREADS = 10')
+        self.assertEqual(threads_line, ', NTHREADS = 10')           
+
+    def test_get_n_threads(self):
+        """Tests that get_n_threads correctly gets the number of threads defined in an adm file.
+
+        """
+        n_threads = get_n_threads(TEST_ADM_FILE)
+        self.assertEqual(n_threads, 4)
 
     def tearDown(self):
         # Delete the modified adm file if it exists

@@ -67,6 +67,30 @@ def get_simdur_from_acf(acf_file):
 		
 	return duration
 
+def get_n_threads(adm_file):
+	"""Searches `adm_file` for the NTHREADS statement and returns its value.
+	
+	Parameters
+	----------
+	adm_file : str
+		Path to an Adams Dataset (.adm) file
+	
+	Returns
+	-------
+	int
+		Number of threads set `adm_file`
+
+	"""
+	n_threads = 1
+	with open(adm_file, 'r') as fid:		
+		for line in fid:
+				
+			# If at the NTHREADS statement, rewrite it
+			if re.match('^,[ \\t]*nthreads[ \\t]*=[ \\t]*\\d$', line, flags=re.I):				
+				n_threads = int(line.split('=')[1].strip())
+	
+	return n_threads		
+
 def set_n_threads(adm_file, n_threads):
 	"""Changes or creates the NTHREADS option on the PREFERENCES statement in `adm_file`.
 	
@@ -99,3 +123,6 @@ def set_n_threads(adm_file, n_threads):
 	# Delete the old adm file and replace with modified
 	os.remove(adm_file)
 	os.rename(adm_file + '.tmp', adm_file)
+
+class AdmFileError(Exception):
+	pass

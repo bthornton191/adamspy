@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adamspy &mdash; adamspy 0.7.45 documentation</title>
+  <title>adamspy.adamspy &mdash; adamspy 0.7.46 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.7.45
+                0.7.46
               </div>
             
           
@@ -214,6 +214,30 @@
 		
 	<span class="k">return</span> <span class="n">duration</span></div>
 
+<div class="viewcode-block" id="get_n_threads"><a class="viewcode-back" href="../../adamspy.html#adamspy.adamspy.get_n_threads">[docs]</a><span class="k">def</span> <span class="nf">get_n_threads</span><span class="p">(</span><span class="n">adm_file</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;Searches `adm_file` for the NTHREADS statement and returns its value.</span>
+<span class="sd">	</span>
+<span class="sd">	Parameters</span>
+<span class="sd">	----------</span>
+<span class="sd">	adm_file : str</span>
+<span class="sd">		Path to an Adams Dataset (.adm) file</span>
+<span class="sd">	</span>
+<span class="sd">	Returns</span>
+<span class="sd">	-------</span>
+<span class="sd">	int</span>
+<span class="sd">		Number of threads set `adm_file`</span>
+
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">n_threads</span> <span class="o">=</span> <span class="mi">1</span>
+	<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">adm_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>		
+		<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid</span><span class="p">:</span>
+				
+			<span class="c1"># If at the NTHREADS statement, rewrite it</span>
+			<span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;^,[ </span><span class="se">\\</span><span class="s1">t]*nthreads[ </span><span class="se">\\</span><span class="s1">t]*=[ </span><span class="se">\\</span><span class="s1">t]*</span><span class="se">\\</span><span class="s1">d$&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">):</span>				
+				<span class="n">n_threads</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+	
+	<span class="k">return</span> <span class="n">n_threads</span>		</div>
+
 <div class="viewcode-block" id="set_n_threads"><a class="viewcode-back" href="../../adamspy.html#adamspy.adamspy.set_n_threads">[docs]</a><span class="k">def</span> <span class="nf">set_n_threads</span><span class="p">(</span><span class="n">adm_file</span><span class="p">,</span> <span class="n">n_threads</span><span class="p">):</span>
 	<span class="sd">&quot;&quot;&quot;Changes or creates the NTHREADS option on the PREFERENCES statement in `adm_file`.</span>
 <span class="sd">	</span>
@@ -246,6 +270,9 @@
 	<span class="c1"># Delete the old adm file and replace with modified</span>
 	<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">adm_file</span><span class="p">)</span>
 	<span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">adm_file</span> <span class="o">+</span> <span class="s1">&#39;.tmp&#39;</span><span class="p">,</span> <span class="n">adm_file</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AdmFileError"><a class="viewcode-back" href="../../adamspy.html#adamspy.adamspy.AdmFileError">[docs]</a><span class="k">class</span> <span class="nc">AdmFileError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+	<span class="k">pass</span></div>
 </pre></div>
 
            </div>
