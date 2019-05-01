@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.7.45'
-version_notes = 'Added a function to change number of threads in an adm file'
-date = 'April 30th, 2019'
+version = '0.7.47'
+version_notes = 'Removed File_Type and File_Version from the list of parameters in event objects because these parameters are not always in the event file'
+date = 'May 1st, 2019'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'

@@ -23,9 +23,7 @@ class DrillEvent():
     """
 
     _SCALAR_PARAMETERS = [
-        'File_Type',
         'Units',
-        'File_Version',
         'Event_Name',
         'Drive_Type',
         'Measurement_Tool',
@@ -53,8 +51,6 @@ class DrillEvent():
     ]
     
     _DEFAULT_PARAMETER_SCALARS = {
-        'File_Type': 'event',
-        'File_Version': 1.0,
         'Units': 'Imperial',
         'Drive_Type': 'WITH_MOTOR',
         'Measurement_Tool': 'TOS',
