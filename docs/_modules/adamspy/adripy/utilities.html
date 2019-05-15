@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.utilities &mdash; adamspy 0.7.47 documentation</title>
+  <title>adamspy.adripy.utilities &mdash; adamspy 0.7.48 documentation</title>
   
 
   
@@ -17,34 +17,32 @@
   
 
   
-  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
+  
+  
     
 
   
+
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
+
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+        <div class="wy-side-nav-search">
           
 
           
@@ -58,7 +56,7 @@
             
             
               <div class="version">
-                0.7.47
+                0.7.48
               </div>
             
           
@@ -621,7 +619,7 @@
         <span class="k">if</span> <span class="n">old_tool_has_cdb</span><span class="p">:</span>
             <span class="n">old_tool_file</span> <span class="o">=</span> <span class="n">old_tool_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&lt;</span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">old_cdb_name</span><span class="p">),</span> <span class="n">old_cdb_loc</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">cdbError</span><span class="p">(</span><span class="s1">&#39;ADrill Database </span><span class="si">{}</span><span class="s1"> not defined.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cdb_name</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="n">cdbError</span><span class="p">(</span><span class="s1">&#39;The ADrill Database referenced in the path </span><span class="si">{}</span><span class="s1"> is not defined!&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">old_tool_file</span><span class="p">))</span>
                 
     <span class="c1"># Get cdb associated with new_tool_file</span>
     <span class="n">new_tool_has_cdb</span> <span class="o">=</span> <span class="kc">False</span>
@@ -637,7 +635,7 @@
         <span class="k">if</span> <span class="n">new_tool_has_cdb</span><span class="p">:</span>
             <span class="n">new_tool_file</span> <span class="o">=</span> <span class="n">new_tool_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&lt;</span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">new_cdb_name</span><span class="p">),</span> <span class="n">new_cdb_loc</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">cdbError</span><span class="p">(</span><span class="s1">&#39;ADrill Database </span><span class="si">{}</span><span class="s1"> not defined.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cdb_name</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="n">cdbError</span><span class="p">(</span><span class="s1">&#39;The ADrill Database referenced in the path </span><span class="si">{}</span><span class="s1"> is not defined.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">new_tool_file</span><span class="p">))</span>
 
     <span class="k">if</span> <span class="n">old_tool_name</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
         <span class="n">old_tool_name</span> <span class="o">=</span> <span class="n">old_tool_file</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
@@ -745,7 +743,7 @@
                     <span class="k">if</span> <span class="n">tool_has_cdb</span><span class="p">:</span>
                         <span class="n">tool_file</span> <span class="o">=</span> <span class="n">tool_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&lt;</span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tool_cdb_name</span><span class="p">),</span> <span class="n">cdb_loc</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="k">raise</span> <span class="n">cdbError</span><span class="p">(</span><span class="s1">&#39;ADrill Database </span><span class="si">{}</span><span class="s1"> not defined.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cdb_name</span><span class="p">))</span>
+                        <span class="k">raise</span> <span class="n">cdbError</span><span class="p">(</span><span class="s1">&#39;ADrill Database referenced in the path </span><span class="si">{}</span><span class="s1"> is not defined!&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tool_file</span><span class="p">))</span>
                 <span class="n">fid_tool</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">tool_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
                 <span class="n">file_type</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
                 <span class="k">for</span> <span class="n">tool_line</span> <span class="ow">in</span> <span class="n">fid_tool</span><span class="p">:</span>
@@ -813,14 +811,15 @@
                     <span class="k">for</span> <span class="n">cdb_name</span> <span class="ow">in</span> <span class="n">cdbs</span><span class="p">:</span>
                         <span class="k">if</span> <span class="s1">&#39;&lt;</span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cdb_name</span><span class="p">)</span> <span class="ow">in</span> <span class="n">tool_file</span><span class="p">:</span>
                             <span class="n">tool_cdb_name</span> <span class="o">=</span> <span class="n">cdb_name</span>
-                            <span class="n">cdb_loc</span> <span class="o">=</span> <span class="n">cdbs</span><span class="p">[</span><span class="n">cdb_name</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">)</span>
+                            <span class="n">cdb_loc</span> <span class="o">=</span> <span class="n">cdbs</span><span class="p">[</span><span class="n">cdb_name</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">)</span>
                             <span class="n">tool_has_cdb</span> <span class="o">=</span> <span class="kc">True</span>
                             <span class="k">break</span>  
-                    <span class="c1"># Change cdb notation to full path notation</span>
+                    
                     <span class="k">if</span> <span class="n">tool_has_cdb</span><span class="p">:</span>
+                        <span class="c1"># If a known cdb alias is found in the cdb path, change cdb notation to full path notation</span>
                         <span class="n">tool_file</span> <span class="o">=</span> <span class="n">tool_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&lt;</span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tool_cdb_name</span><span class="p">),</span> <span class="n">cdb_loc</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="k">raise</span> <span class="n">cdbError</span><span class="p">(</span><span class="s1">&#39;ADrill Database </span><span class="si">{}</span><span class="s1"> not defined.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cdb_name</span><span class="p">))</span>
+                        <span class="k">raise</span> <span class="n">cdbError</span><span class="p">(</span><span class="s1">&#39;The ADrill Database referenced in the path </span><span class="si">{}</span><span class="s1"> is not defined!&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tool_file</span><span class="p">))</span>
                 <span class="n">fid_tool</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">tool_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
                 <span class="n">file_type</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
                 <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid_tool</span><span class="p">:</span>
@@ -1382,16 +1381,26 @@
   
 
 
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

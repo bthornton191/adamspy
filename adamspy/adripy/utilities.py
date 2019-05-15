@@ -474,7 +474,7 @@ def replace_tool(string_file, old_tool_file, new_tool_file, old_tool_name='', ne
         if old_tool_has_cdb:
             old_tool_file = old_tool_file.replace('<{}>'.format(old_cdb_name), old_cdb_loc)
         else:
-            raise cdbError('ADrill Database {} not defined.'.format(cdb_name))
+            raise cdbError('The ADrill Database referenced in the path {} is not defined!'.format(old_tool_file))
                 
     # Get cdb associated with new_tool_file
     new_tool_has_cdb = False
@@ -490,7 +490,7 @@ def replace_tool(string_file, old_tool_file, new_tool_file, old_tool_name='', ne
         if new_tool_has_cdb:
             new_tool_file = new_tool_file.replace('<{}>'.format(new_cdb_name), new_cdb_loc)
         else:
-            raise cdbError('ADrill Database {} not defined.'.format(cdb_name))
+            raise cdbError('The ADrill Database referenced in the path {} is not defined.'.format(new_tool_file))
 
     if old_tool_name == '':
         old_tool_name = old_tool_file.split('/')[-1].split('.')[0]
@@ -598,7 +598,7 @@ def get_string_length(string_file):
                     if tool_has_cdb:
                         tool_file = tool_file.replace('<{}>'.format(tool_cdb_name), cdb_loc)
                     else:
-                        raise cdbError('ADrill Database {} not defined.'.format(cdb_name))
+                        raise cdbError('ADrill Database referenced in the path {} is not defined!'.format(tool_file))
                 fid_tool = open(tool_file, 'r')
                 file_type = ''
                 for tool_line in fid_tool:
@@ -666,14 +666,15 @@ def get_bha_length(string_file):
                     for cdb_name in cdbs:
                         if '<{}>'.format(cdb_name) in tool_file:
                             tool_cdb_name = cdb_name
-                            cdb_loc = cdbs[cdb_name].replace('/','\\')
+                            cdb_loc = cdbs[cdb_name].replace('/', '\\')
                             tool_has_cdb = True
                             break  
-                    # Change cdb notation to full path notation
+                    
                     if tool_has_cdb:
+                        # If a known cdb alias is found in the cdb path, change cdb notation to full path notation
                         tool_file = tool_file.replace('<{}>'.format(tool_cdb_name), cdb_loc)
                     else:
-                        raise cdbError('ADrill Database {} not defined.'.format(cdb_name))
+                        raise cdbError('The ADrill Database referenced in the path {} is not defined!'.format(tool_file))
                 fid_tool = open(tool_file, 'r')
                 file_type = ''
                 for line in fid_tool:
