@@ -10,8 +10,8 @@ $  Comments also must begin in column 1.
 $  ==================================================================
 $-------------------------------------------------------------ADAMS_DRILL_HEADER
 [ADAMS_DRILL_HEADER]
- File_Type  =  '{{ File_Type }}'
- File_Version  =  {{ File_Version }}
+ File_Type  =  'event'
+ File_Version  =  1.0
 $--------------------------------------------------------------------------UNITS
 [UNITS]
 $  Adams Drill currently supports one units set: 

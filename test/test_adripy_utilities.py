@@ -34,6 +34,48 @@ class Test_AdripyFunctions(unittest.TestCase):
     def setUp(self):
         # Create a test configuration file
         adripy.create_cfg_file(TEST_CONFIG_FILENAME, [EXISTING_CDB_PATH, CDB_TO_REMOVE_PATH, TEST_DATABASE_PATH])
+    
+    def test_replace_tool_new_tool_uses_full_path(self):
+        """Tests that adripy.utilities.replace_tool() works as expected
+
+        """
+        # Copy string
+        temp_string_file = os.path.join(TEST_DATABASE_PATH, 'drill_strings.tbl', 'temp.str')        
+        shutil.copyfile(adripy.get_full_path(TEST_EXISTING_STRING_FILE), temp_string_file)
+        
+        # Replace stabilizer in string
+        fake_stabilizer_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'stabilizers.tbl', 'fake_stabilizer.sta')
+        adripy.replace_tool(temp_string_file, TEST_STABILIZER_FILE, fake_stabilizer_file)
+        
+        # Check new string file contents
+        failures = check_file_contents(temp_string_file, TEST_EXPECTED_STRING_CONTENTS_AFTER_REPLACE)
+
+        # Delete new string
+        os.remove(temp_string_file)
+
+        # Assert correct string file contents
+        self.assertListEqual(failures, [])
+    
+    def test_replace_tool_new_tool_uses_cdb_path(self):
+        """Tests that adripy.utilities.replace_tool() works as expected
+
+        """
+        # Copy string
+        temp_string_file = os.path.join(TEST_DATABASE_PATH, 'drill_strings.tbl', 'temp.str')        
+        shutil.copyfile(adripy.get_full_path(TEST_EXISTING_STRING_FILE), temp_string_file)
+        
+        # Replace stabilizer in string
+        fake_stabilizer_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'stabilizers.tbl', 'fake_stabilizer.sta')
+        adripy.replace_tool(adripy.get_cdb_path(temp_string_file), TEST_STABILIZER_FILE, fake_stabilizer_file)
+        
+        # Check new string file contents
+        failures = check_file_contents(temp_string_file, TEST_EXPECTED_STRING_CONTENTS_AFTER_REPLACE)
+
+        # Delete new string
+        os.remove(temp_string_file)
+
+        # Assert correct string file contents
+        self.assertListEqual(failures, [])
             
     def test_get_full_path_abs_path(self):
         dummy_file = os.path.join(os.getcwd(), 'non_existent_file.txt')
@@ -77,6 +119,16 @@ class Test_AdripyFunctions(unittest.TestCase):
         """
         expected_full_path = os.path.join(EXISTING_CDB_PATH, 'stabilizers.tbl', EXAMPLE_STABILIZER_NAME + '.sta')
         example_cdb_path = os.path.join(f'<{EXISTING_CDB_NAME}>', 'stabilizers.tbl', EXAMPLE_STABILIZER_NAME + '.sta')
+        full_path = adripy.get_full_path(example_cdb_path)
+
+        self.assertEqual(full_path, expected_full_path)
+
+    def test_get_full_path_is_case_insensitive(self):
+        """Test that adripy.get_full_path returns the correct path when the input path has the wrong case.
+        """
+        cdb_name_wrong_case = EXISTING_CDB_NAME.lower() if not EXISTING_CDB_NAME.islower() else EXISTING_CDB_NAME.upper()
+        expected_full_path = os.path.join(EXISTING_CDB_PATH, 'stabilizers.tbl', EXAMPLE_STABILIZER_NAME + '.sta')
+        example_cdb_path = os.path.join(f'<{cdb_name_wrong_case}>', 'stabilizers.tbl', EXAMPLE_STABILIZER_NAME + '.sta')
         full_path = adripy.get_full_path(example_cdb_path)
 
         self.assertEqual(full_path, expected_full_path)

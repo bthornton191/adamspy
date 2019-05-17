@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.7.48'
-version_notes = 'Fixed error message when a cdb alias in a file path is not recognized.'
-date = 'May 15th, 2019'
+version = '0.7.49'
+version_notes = 'Made cdb aliases case insensitive'
+date = 'May 17th, 2019'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'

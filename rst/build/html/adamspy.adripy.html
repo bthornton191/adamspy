@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy package &mdash; adamspy 0.7.48 documentation</title>
+  <title>adamspy.adripy package &mdash; adamspy 0.7.49 documentation</title>
   
 
   
@@ -17,32 +17,34 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -56,7 +58,7 @@
             
             
               <div class="version">
-                0.7.48
+                0.7.49
               </div>
             
           
@@ -1890,9 +1892,7 @@
 <dl class="function">
 <dt id="adamspy.adripy.utilities.get_cdb_path">
 <code class="descclassname">adamspy.adripy.utilities.</code><code class="descname">get_cdb_path</code><span class="sig-paren">(</span><em>full_filepath</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/utilities.html#get_cdb_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.utilities.get_cdb_path" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given the full path to a file located in a cdb, get_cdb_path returns the path to a
-file with the cdb path replaced by the cdb alias.  <cite>full_filepath</cite> will be returned if
-no cdb is found in the path.</p>
+<dd><p>Given the full path to a file located in a cdb, get_cdb_path returns the path to a file with the cdb path replaced by the cdb alias.  <cite>full_filepath</cite> will be returned if no cdb is found in the path.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1911,11 +1911,15 @@ no cdb is found in the path.</p>
 <dt id="adamspy.adripy.utilities.get_full_path">
 <code class="descclassname">adamspy.adripy.utilities.</code><code class="descname">get_full_path</code><span class="sig-paren">(</span><em>cdb_filepath</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/utilities.html#get_full_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.utilities.get_full_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given the cdb path to a file located in a cdb, returns the path to a file with the cdb alias replaced by the cdb location.  If <cite>cdb_filepath</cite> does not use cdb notation, returns the full filepath (convertes a relative filepath to a full filepath).</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><cite>cdb_filepath</cite> is <strong>not</strong> case sensitive.</p>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cdb_filepath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Full file path to a file in a cdb</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cdb_filepath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Full file path to a file in a cdb.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Path to a file with the cdb path replaced by the cdb alias.</td>
 </tr>
@@ -1945,17 +1949,23 @@ no cdb is found in the path.</p>
 
 <dl class="function">
 <dt id="adamspy.adripy.utilities.get_string_length">
-<code class="descclassname">adamspy.adripy.utilities.</code><code class="descname">get_string_length</code><span class="sig-paren">(</span><em>string_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/utilities.html#get_string_length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.utilities.get_string_length" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">adamspy.adripy.utilities.</code><code class="descname">get_string_length</code><span class="sig-paren">(</span><em>string_file</em>, <em>bha_only=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/utilities.html#get_string_length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.utilities.get_string_length" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the total length of the drill string defined in <cite>string_file</cite></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Full path to an Adams Drill string file</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>string_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Full path to an Adams Drill string file</li>
+<li><strong>bha_only</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – If True, ignores the length of top most physical string and equivalent upper string</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Cumulative length of the string</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Cumulative length of the string</p>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a></p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -2187,26 +2197,16 @@ no cdb is found in the path.</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

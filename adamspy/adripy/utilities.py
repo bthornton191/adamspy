@@ -203,16 +203,14 @@ def get_TO_param(filename, requested_parameter):
         lines = fid.readlines()
 
     for line in lines:
-        # For each line in the file, check if we are at a
-        # parameter line
+        # For each line in the file, check if we are at a parameter line
+
         if TO_PARAMETER_PATTERN.match(line):
-            # If we're at a parameter line, check if it's the
-            # requested parameter.
+            # If we're at a parameter line, check if it's the requested parameter.
             [parameter, value] = re.sub('[\\s\\n]','',line).split('=')
 
             if parameter.lower() == requested_parameter.lower():
-                # If we're at the requested parameter line,
-                # check if it's an adams string or a number        
+                # If we're at the requested parameter line, check if it's an adams string or a number        
                 
                 if "'" in value:
                     # If value is an adams string
@@ -225,12 +223,12 @@ def get_TO_param(filename, requested_parameter):
                 # Mark the parameter as found
                 param_found = True
                 break
-
-    if param_found:
-        return requested_value
-    else:
+    
+    # Raise an error if the parameter isn't found
+    if not param_found:
         raise ValueError('{} does not contain the parameter {}'.format(filename,requested_parameter))
 
+    return requested_value
 
 def has_tool(string_file, tool_type):
     """Returns true if string_file has at least one tool of type tool_type
@@ -275,32 +273,28 @@ def fullNotation_to_cdbNotation(string_file):
         Number of replacements made
 
     """
-    cdbs = get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
+    # Initialize a variable to count the number of replacements
     n = 0 
 
     with open(string_file, 'r') as fid_str, open(string_file.replace('.str','.tmp'), 'w') as fid_str_tmp:
+        # Open the string file
+
         for line in fid_str:
-            cdb_found = False
-            if 'property_file' in line.lower():
-                for cdb_name in cdbs:
-                    if cdbs[cdb_name] in line:
-                        cdb_found = True
-                        new_line = line.replace(cdbs[cdb_name], '<{}>'.format(cdb_name))
-                        n += 1
+            # For each line in the file
 
-                    elif cdbs[cdb_name].replace('\\','/') in line:
-                        cdb_found = True
-                        new_line = line.replace(cdbs[cdb_name].replace('\\','/'), '<{}>'.format(cdb_name))
-                        n += 1
-
-                    elif cdbs[cdb_name].replace('/','\\') in line:
-                        cdb_found = True
-                        new_line = line.replace(cdbs[cdb_name].replace('/','\\'), '<{}>'.format(cdb_name))
-                        n += 1
-
-            if cdb_found:
+            if re.match(' *Property_File *= *.*', line, flags=re.IGNORECASE) and '<' not in line:       
+                # If this is a propery file line that doesn't use cdb_notation, get the property file
+                property_file = os.path.normpath(line.split("'")[1])
+                
+                # Rewrite the line replacing the property file with the cdb path property file
+                new_line = ' Property_File  =  \'{}\''.format(get_cdb_path(property_file))
                 fid_str_tmp.write(new_line)
+
+                # Increment the number of replacements
+                n += 1
+            
             else:
+                # If this is not a property file line that doesn't use cdb_notation, write the line unchanged
                 fid_str_tmp.write(line)
     
     os.remove(string_file)
@@ -322,25 +316,30 @@ def cdbNotation_to_fullNotation(string_file):
         Number of replacements made
 
     """
-    cdbs = get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
     n = 0 
 
     # Convert to full filepath if cdb alias used
     string_file = get_full_path(string_file)
 
     with open(string_file, 'r') as fid_str, open(string_file.replace('.str','.tmp'), 'w') as fid_str_tmp:
-        for line in fid_str:
-            cdb_found = False
-            if 'property_file' in line.lower():
-                for cdb_name in cdbs:
-                    if '<{}>'.format(cdb_name) in line:
-                        cdb_found = True
-                        new_line = line.replace('<{}>'.format(cdb_name), cdbs[cdb_name].replace('\\','/'))
-                        n += 1
+        # Open the string file
 
-            if cdb_found:
+        for line in fid_str:
+            # For each line in the file
+
+            if re.match(' *Property_File *= *.*', line, flags=re.IGNORECASE) and '<' in line:
+                # If this is a propery file line that uses cdb_notation, get the property file
+                property_file = os.path.normpath(line.split("'")[1])
+                
+                # Rewrite the line replacing the property file with the cdb path property file
+                new_line = ' Property_File  =  \'{}\''.format(get_full_path(property_file))
                 fid_str_tmp.write(new_line)
+                
+                # Increment the number of replacements
+                n += 1
+
             else:
+                # If this is not a property file line that uses cdb_notation, write the line unchanged
                 fid_str_tmp.write(line)
     
     os.remove(string_file)
@@ -349,9 +348,7 @@ def cdbNotation_to_fullNotation(string_file):
     return n
 
 def get_cdb_path(full_filepath):    
-    """Given the full path to a file located in a cdb, get_cdb_path returns the path to a
-    file with the cdb path replaced by the cdb alias.  `full_filepath` will be returned if
-    no cdb is found in the path.
+    """Given the full path to a file located in a cdb, get_cdb_path returns the path to a file with the cdb path replaced by the cdb alias.  `full_filepath` will be returned if no cdb is found in the path.
 
     Parameters
     ----------
@@ -364,24 +361,46 @@ def get_cdb_path(full_filepath):
         Path to a file with the cdb path replaced by the cdb alias.
 
     """
-    cdb_filepath = full_filepath
-    cdbs = get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
-    for cdb_name in cdbs:
-        if cdbs[cdb_name] in full_filepath:
-            cdb_filepath = full_filepath.replace(cdbs[cdb_name], '<{}>'.format(cdb_name))
-        elif cdbs[cdb_name].replace('\\','/') in full_filepath:
-            cdb_filepath = full_filepath.replace(cdbs[cdb_name].replace('\\','/'), '<{}>'.format(cdb_name))
-        elif cdbs[cdb_name].replace('/','\\') in full_filepath:
-            cdb_filepath = full_filepath.replace(cdbs[cdb_name].replace('/','\\'), '<{}>'.format(cdb_name))
+    # Normalize the filepath
+    full_filepath = os.path.normpath(full_filepath)
+
+    # Find a string that looks like a database alias
+    match = re.search('^<.+>', full_filepath)
+    
+    if match is not None:
+        # Return the given filepath if filepath looks like a cdb filepath
+        cdb_filepath = full_filepath
+    
+    else:
+        # If full_filepath does not use cdb notation, get a dictionary of the known cdbs
+        cdbs = get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
+
+        cdb_loc = None
+        for name, loc in cdbs.items():
+            # For each cdb in the cfg files
+
+            if loc in full_filepath:
+                # If the cdb location is in the filepath, 
+                cdb_loc = loc
+                cdb_name = name
+                break
+                
+        # Set the cdb_filepath by replacing the cdb path with the alias in full_filepath, if no cdb path was found, set it equal to the full filepath
+        cdb_filepath = full_filepath.replace(cdb_loc, '<{}>'.format(cdb_name)) if cdb_loc is not None else full_filepath
+        
     return cdb_filepath
 
 def get_full_path(cdb_filepath):    
     """Given the cdb path to a file located in a cdb, returns the path to a file with the cdb alias replaced by the cdb location.  If `cdb_filepath` does not use cdb notation, returns the full filepath (convertes a relative filepath to a full filepath).
 
+    Note
+    ----
+    `cdb_filepath` is **not** case sensitive.
+
     Parameters
     ----------
     cdb_filepath : str
-        Full file path to a file in a cdb
+        Full file path to a file in a cdb.
                   
     Returns
     -------
@@ -398,16 +417,26 @@ def get_full_path(cdb_filepath):
 
     else:
         # If cdb_filepath uses cdb notation, pull the database name out of the group
-        cdb_name = match.group(0).replace('<', '').replace('>', '')
+        cdb_in_filepath = match.group(0).replace('<', '').replace('>', '')
 
-        # Get a dictionar of the known cdbs
+        # Get a dictionary of the known cdbs
         cdbs = get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
         
-        # Raise an error if cdb_name is not in the cdbs dictionary
-        if cdb_name not in cdbs:
-            raise ValueError('{} not in {} OR {}!'.format(cdb_name, os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG']))
+        # Get the location of cdb_in_filepath
+        cdb_loc = None
+        for name, loc in cdbs.items():
+            # For each cdb in the cfg files
+
+            if cdb_in_filepath.lower() == name.lower():                
+                # If the cdb name from the cfg files equals the cdb name found in the filepath, store that cdbs location                
+                cdb_loc = loc
+                break
+
+        # Raise an error if cdb_in_filepath is not in the cdbs dictionary
+        if cdb_loc is None:
+            raise ValueError('{} not in {} OR {}!'.format(cdb_in_filepath, os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG']))
         
-        full_filepath = cdb_filepath.replace(match.group(0), cdbs[cdb_name])
+        full_filepath = cdb_filepath.replace(match.group(0), cdb_loc)
 
     return full_filepath
 
@@ -451,170 +480,166 @@ def replace_tool(string_file, old_tool_file, new_tool_file, old_tool_name='', ne
     int
         Number of replacements that were made
 
-    """
-    old_tool_file = old_tool_file.replace('\\','/')
-    new_tool_file = new_tool_file.replace('\\','/')
-        
-    # Convert to full filepath if cdb alias used
+    """        
+    # Convert tool filenames to full paths
     string_file = get_full_path(string_file)
 
-    cdbs = get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
-    
-    # Get cdb associated with old_tool_file
-    old_tool_has_cdb = False
-    for cdb_name in cdbs:
-        if '<{}>'.format(cdb_name) in old_tool_file or cdbs[cdb_name].replace('\\','/') in old_tool_file:
-            old_cdb_name = cdb_name
-            old_cdb_loc = cdbs[cdb_name].replace('\\','/')
-            old_tool_has_cdb = True
-            break
-    
-    # If old_tool_file uses cdb notation then change it to full path notation
-    if '<' in old_tool_file:
-        if old_tool_has_cdb:
-            old_tool_file = old_tool_file.replace('<{}>'.format(old_cdb_name), old_cdb_loc)
-        else:
-            raise cdbError('The ADrill Database referenced in the path {} is not defined!'.format(old_tool_file))
-                
-    # Get cdb associated with new_tool_file
-    new_tool_has_cdb = False
-    for cdb_name in cdbs:
-        if '<{}>'.format(cdb_name) in new_tool_file or cdbs[cdb_name].replace('\\','/') in new_tool_file:
-            new_cdb_name = cdb_name
-            new_cdb_loc = cdbs[cdb_name].replace('\\','/')
-            new_tool_has_cdb = True
-            break
-    
-    # If new_tool_file uses cdb notation then change it to full path notation
-    if '<' in new_tool_file:
-        if new_tool_has_cdb:
-            new_tool_file = new_tool_file.replace('<{}>'.format(new_cdb_name), new_cdb_loc)
-        else:
-            raise cdbError('The ADrill Database referenced in the path {} is not defined.'.format(new_tool_file))
-
     if old_tool_name == '':
-        old_tool_name = old_tool_file.split('/')[-1].split('.')[0]
+        old_tool_name = os.path.splitext(os.path.split(old_tool_file)[-1])[0]
     if new_tool_name == '':
-        new_tool_name = new_tool_file.split('/')[-1].split('.')[0]
+        new_tool_name = os.path.splitext(os.path.split(new_tool_file)[-1])[0]
     
     # Open the original string file for reading and a new string file for writing
-    fid_oldString = open(string_file,'r')
-    fid_newString = open(string_file.replace('.str','.tmp'),'w')
+    fid_old = open(string_file,'r')
+    fid_new = open(string_file.replace('.str','.tmp'),'w')
 
     # Initiate the number of replacements made
     n = 0
 
     # If the tool is a hole
-    if old_tool_file.endswith('.hol'):
-        # Loop through the string file to find the hole property file line
-        for line in fid_oldString:
-            if ' Hole_Property_File  =  ' in line:
-                if '<' in line and new_tool_has_cdb:
-                    for cdb_name in cdbs:
-                        if cdbs[cdb_name].replace('\\','/') in new_tool_file:
-                            new_cdb_name = cdb_name
-                            new_cdb_loc = cdbs[cdb_name].replace('\\','/')
-                            break
-                    new_tool_file = new_tool_file.replace(new_cdb_loc, '<' + new_cdb_name + '>')
-                fid_newString.write(" Hole_Property_File  =  '{}'\n".format(new_tool_file))
+    if os.path.splitext(old_tool_file) == '.hol':
+        
+        for line in fid_old:
+            # Loop through the string file to find the hole property file line
+
+            if re.match(' *Hole_Property_File *= *.*', line, flags=re.IGNORECASE):
+                # If at a hole property file line, convert new_tool_file to cdb or full notation depending on what's already in the file
+                new_tool_file = get_cdb_path(new_tool_file) if '<' in line else get_full_path(new_tool_file)
+
+                # Write the modified line
+                fid_new.write(" Hole_Property_File  =  '{}'\n".format(new_tool_file))
+                
+                # Increment the number of replacements made
                 n += 1
+            
             else:
-                fid_newString.write(line)
+                # If not at a hole property file line, write the line unchanged
+                fid_new.write(line)    
     
-    # If the tool is not a hole
     else:
-        # Loop through the string file to find and replace the corresponding tool block
+        # If the tool is not a hole, initialize a flag indicating a replacement should be made on the next line
         replace = False
-        for line in fid_oldString:
-            if ' Type' in line and not line.startswith('$'):
-                tool_type = line.split("'")[1]
-                fid_newString.write(line)
-            elif ' Stack_Order' in line and not line.startswith('$'):
+
+        for line in fid_old:
+            # Loop through the string file to find and replace the corresponding tool block
+
+            if re.match(' *Type *= *.*', line, flags=re.IGNORECASE):
+                fid_new.write(line)
+
+            elif re.match(' *Stack_Order *= *.*', line, flags=re.IGNORECASE):
                 stack_order = int(line.replace(' ','').replace('\n','').split('=')[1])
-                fid_newString.write(line)
-            elif " Name  =  '{}".format(old_tool_name) in line and (n<N or N==0):
-                if " Name  =  '{}_{:02d}'".format(old_tool_name,stack_order) in line:
-                    fid_newString.write(" Name  =  '{}_{:02d}'\n".format(new_tool_name, stack_order))
+                fid_new.write(line)
+
+            elif re.match(' *Name *= *\'{}.*\'.*'.format(old_tool_name), line, flags=re.IGNORECASE) and (n<N or N==0):
+                # If this is the tool name line for the tool to replace
+                
+                if re.match(' *Name *= *\'{}_{:02d}\'.*'.format(old_tool_name, stack_order), line, flags=re.IGNORECASE):
+                    # If the tool name has a stack order appended
+                    fid_new.write(" Name  =  '{}_{:02d}'\n".format(new_tool_name, stack_order))
+                
                 else:
-                    fid_newString.write(" Name  =  '{}'\n".format(new_tool_name))
+                    # If the tool name does not have a stack order appended
+                    fid_new.write(" Name  =  '{}'\n".format(new_tool_name))
+
+                # Indicate that a replacement should be made on the next property file line
                 replace = True
-            elif ' Property_File' in line and replace and not line.startswith('$'):
-                # Check if line uses cdb notation and replace file path with cdb name
-                if '<' in line and new_tool_has_cdb:
-                    for cdb_name in cdbs:
-                        if cdbs[cdb_name].replace('\\','/') in new_tool_file:
-                            new_cdb_name = cdb_name
-                            new_cdb_loc = cdbs[cdb_name].replace('\\','/')
-                            break
-                    new_tool_file = new_tool_file.replace(new_cdb_loc, '<' + new_cdb_name + '>')
-                fid_newString.write(" Property_File  =  '{}'\n".format(new_tool_file))
+
+            elif re.match(' *Property_File *= *.*', line, flags=re.IGNORECASE) and replace:
+                # If at a property file line, convert new_tool_file to cdb or full notation depending on what's already in the file    
+                new_tool_file = get_cdb_path(new_tool_file) if '<' in line else get_full_path(new_tool_file)
+                
+                # Write the modified line
+                fid_new.write(" Property_File  =  '{}'\n".format(new_tool_file))                
+                
+                # Indicate that a replacement should not be made on the next property file line
                 replace = False
+                
+                # Increment the number of replacements made
                 n += 1
+
             else:
-                fid_newString.write(line)
+                # If not at a property file line, write the line unchanged
+                fid_new.write(line)
 
     # Close the string files, delete the original one, and rename the new one
-    fid_oldString.close()
-    fid_newString.close()
+    fid_old.close()
+    fid_new.close()
     os.remove(string_file)
     os.rename(string_file.replace('.str','.tmp'), string_file)
 
     return n
 
-def get_string_length(string_file):
+def get_string_length(string_file, bha_only=False):
     """Gets the total length of the drill string defined in `string_file`
     
     Parameters
     ----------
     string_file : str
         Full path to an Adams Drill string file
+    bha_only : bool
+        If True, ignores the length of top most physical string and equivalent upper string
                       
     Returns
     -------
     float
         Cumulative length of the string
 
-    """
-    cdbs = get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
-    
+    """    
     # Convert to full filepath if cdb alias used
     string_file = get_full_path(string_file)
 
     tool_lengths = []
     with open(string_file, 'r') as fid:
+        # Open the string file
+
         for line in fid:
-            if ' property_file' in line.lower() and not line.startswith('$'):
-                tool_file = line.split("'")[1].replace('/', '\\')
-                if '<' in tool_file:
-                    # Get cdb associated with tool_file
-                    tool_has_cdb = False
-                    for cdb_name in cdbs:
-                        if '<{}>'.format(cdb_name) in tool_file:
-                            tool_cdb_name = cdb_name
-                            cdb_loc = cdbs[cdb_name].replace('/','\\')
-                            tool_has_cdb = True
-                            break  
-                    # Change cdb notation to full path notation
-                    if tool_has_cdb:
-                        tool_file = tool_file.replace('<{}>'.format(tool_cdb_name), cdb_loc)
-                    else:
-                        raise cdbError('ADrill Database referenced in the path {} is not defined!'.format(tool_file))
-                fid_tool = open(tool_file, 'r')
-                file_type = ''
-                for tool_line in fid_tool:
-                    if file_type and 'top_drive' not in file_type.lower() and tool_line.replace(' ', '').split('=')[0] in TO_LENGTH_PARAM[file_type.lower()] and not tool_line.startswith('$'):
-                        tool_length = float(tool_line.replace(' ', '').split('=')[1])
-                        tool_lengths.append(tool_length)
-                        break
-                    elif ' file_type' in tool_line.lower() and not tool_line.startswith('$'):
-                        file_type = tool_line.replace(' ', '').replace("'",'').replace('\n','').split('=')[1]
-                fid_tool.close()
+            # For each line in the string file
+            
+            if re.match(' *Property_File *= *.*', line, flags=re.IGNORECASE):            
+                # If at a property file line, get the property file
+                tool_file = get_full_path(os.path.normpath(line.split("'")[1]))                
+
+                # Open the tool file
+                with open(tool_file, 'r') as fid_tool:
+                    file_type = ''
+
+                    for tool_line in fid_tool:
+                        # For each line in the tool file
+                        
+                        if file_type and 'top_drive' not in file_type.lower() and tool_line.replace(' ', '').split('=')[0] in TO_LENGTH_PARAM[file_type.lower()] and not tool_line.startswith('$'):
+                            # If this parameter is the length parameter, get the tool length
+                            tool_length = float(tool_line.replace(' ', '').split('=')[1])
+                            tool_lengths.append(tool_length)
+                            break
+                        
+                        elif re.match(' *File_Type *= *.*', tool_line, flags=re.IGNORECASE):
+                            file_type = tool_line.replace(' ', '').replace("'",'').replace('\n','').split('=')[1]
+                
             if ' number_of_joints' in line.lower():
                 n = int(line.replace(' ','').split('=')[1])
                 tool_lengths[-1] = tool_lengths[-1]*n
     
-    string_length = sum(tool_lengths)
+    # Sum the tool lengths to get the string length
+    string_length = sum(tool_lengths[:-2]) if bha_only else sum(tool_lengths)
+
     return string_length
+
+def get_bha_length(string_file):
+    """Gets the total length of the drill string defined in string_file NOT including the equivalent upper string and highest most physical string
+    
+    Parameters
+    ----------
+    string_file : str
+        Full path to an Adams Drill string file
+
+    Returns
+    -------
+    float
+        Cumulative length of the string    
+
+    """
+    bha_length = get_string_length(string_file, bha_only=True)
+    return bha_length
 
 def get_number_of_tools(string_file):
     """Gets the total number of tools in a string.  Tools for which quantitiiy can be defined are only counted once.  The top drive is not included
@@ -635,61 +660,6 @@ def get_number_of_tools(string_file):
                 num = int(line.replace(' ','').split('=')[-1])
     
     return num
-
-def get_bha_length(string_file):
-    """Gets the total length of the drill string defined in string_file NOT including the equivalent upper string and highest most physical string
-    
-    Parameters
-    ----------
-    string_file : str
-        Full path to an Adams Drill string file
-
-    Returns
-    -------
-    float
-        Cumulative length of the string    
-
-    """
-    cdbs = get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
-    
-    # Convert to full filepath if cdb alias used
-    string_file = get_full_path(string_file)
-
-    tool_lengths = []
-    with open(string_file, 'r') as fid_string:
-        for line in fid_string:
-            if ' property_file' in line.lower() and not line.startswith('$'):
-                tool_file = line.split("'")[1].replace('/', '\\')
-                if '<' in tool_file:
-                    # Get cdb associated with tool_file
-                    tool_has_cdb = False
-                    for cdb_name in cdbs:
-                        if '<{}>'.format(cdb_name) in tool_file:
-                            tool_cdb_name = cdb_name
-                            cdb_loc = cdbs[cdb_name].replace('/', '\\')
-                            tool_has_cdb = True
-                            break  
-                    
-                    if tool_has_cdb:
-                        # If a known cdb alias is found in the cdb path, change cdb notation to full path notation
-                        tool_file = tool_file.replace('<{}>'.format(tool_cdb_name), cdb_loc)
-                    else:
-                        raise cdbError('The ADrill Database referenced in the path {} is not defined!'.format(tool_file))
-                fid_tool = open(tool_file, 'r')
-                file_type = ''
-                for line in fid_tool:
-                    if file_type and 'top_drive' not in file_type.lower() and line.replace(' ', '').split('=')[0] in TO_LENGTH_PARAM[file_type] and not line.startswith('$'):
-                        tool_length = float(line.replace(' ', '').split('=')[1])
-                        tool_lengths.append(tool_length)
-                        break
-                    elif ' file_type' in line.lower() and not line.startswith('$'):
-                        file_type = line.lower().replace(' ', '').replace("'",'').replace('\n','').split('=')[1]
-                fid_tool.close()
-            if ' number_of_joints' in line.lower():
-                n = int(line.replace(' ','').split('=')[1])
-                tool_lengths[-1] = tool_lengths[-1]*n
-    string_length = sum(tool_lengths[:-2])
-    return string_length
     
 def add_cdb_to_cfg(name, loc, cfg_file):
     """Adds cdb of name `name` and path `loc` to `cfg_file`

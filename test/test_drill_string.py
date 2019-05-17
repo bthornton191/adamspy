@@ -474,6 +474,35 @@ class Test_DrillString(unittest.TestCase):
         expected_n_joints = 2
 
         self.assertEqual(actual_n_joints, expected_n_joints)
+    
+    def test_read_string_from_file_wrong_case_in_refs(self):
+        """Tests that a string file is read correctly when it has a collar in it.
+        """
+        # Read new parameters into the drill string object from a file
+        drill_string_from_file = adripy.DrillString.read_from_file(TEST_EXISTING_STRING_FILE_WRONG_CASE)
+        
+        expected_parameters = {
+            'Units': 'Imperial',
+            'ModelName': 'test_string_wrong_case',
+            'OutputName': 'test_string_wrong_case',
+            'Gravity': 32.187,
+            'Deviation_Deg': 0.0,
+            'Adams_Results': 'animation',
+            'Adams_Graphics': 'off',
+            'Adams_Requests': 'on',
+            'Distance_from_Bit': [100.0, 300.0, 500.0],
+            'SolverDLL': 'adrill_solver',
+            'Hole_Property_File': '<ExAmPlE_dAtAbAsE>\\holes.tbl\\test_hole.hol',
+            'Contact_Method': 'Subroutine',
+            'Cyl_Drag_Coeff': 1.0,
+            'Hole_Color': 'LtGray',
+            'Event_Property_File': '<ExAmPlE_dAtAbAsE>\\events.tbl\\test_event.evt'
+        }
+        
+        # Remove some keys from the parameters dictionary
+        drill_string_from_file.parameters.pop('_Distance_from_Bit')
+
+        self.assertDictEqual(drill_string_from_file.parameters, expected_parameters) 
 
     def test_read_string_from_file_relative_references(self):
         """Tests that the string is read correctly when the file uses relative references.
@@ -653,6 +682,14 @@ class Test_DrillString(unittest.TestCase):
 
         expected_length = 14.48
         actual_length = drill_string.get_bha_length()
+
+        self.assertEqual(actual_length, expected_length)
+
+    def test_get_bha_length_wrong_case(self):
+        """Tests that DrillString.get_bha_length() returns the correct length.
+        """
+        expected_length = 502.393
+        actual_length = adripy.get_bha_length(TEST_EXISTING_STRING_FILE_WRONG_CASE)
 
         self.assertEqual(actual_length, expected_length)
     
