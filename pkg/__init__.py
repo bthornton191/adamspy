@@ -1,5 +1,5 @@
 # ---------------------
-version = '0.7.50'
+version = '0.7.51'
 version_notes = 'Removed environment variable checks'
 date = 'May 29th, 2019'
 # ---------------------
