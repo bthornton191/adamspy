@@ -615,7 +615,7 @@ class DrillString():
 
             # If the tool property file is not absolute, make it absolute
             if not isabs(tool_file):
-                tool_file = os.path.join(os.path.split(tiem_orbit_file)[0], os.path.normpath(tool_file))
+                tool_file = os.path.join(os.path.split(tiem_orbit_file)[0], thornpy.utilities.convert_path(tool_file))
             
             # Create a DrillTool object from the tool property file
             tool = DrillTool(tool_file)
@@ -643,7 +643,7 @@ class DrillString():
 
         # If the top drive property file is not absolute, make it absolute
         if not isabs(top_drive_file):
-            top_drive_file = os.path.join(os.path.split(tiem_orbit_file)[0], os.path.normpath(top_drive_file))
+            top_drive_file = os.path.join(os.path.split(tiem_orbit_file)[0], thornpy.utilities.convert_path(top_drive_file))
         
         # Create a DrillTool object from the property file
         top_drive = DrillTool(top_drive_file)
@@ -705,7 +705,7 @@ class DrillString():
             
             # If the parameter is a relative filename, make it absolute
             if param in self._FILENAME_PARAMETERS and not isabs(param_value):
-                param_value = os.path.join(os.path.split(get_cdb_path(tiem_orbit_file))[0], os.path.normpath(param_value))
+                param_value = os.path.join(os.path.split(get_cdb_path(tiem_orbit_file))[0], thornpy.utilities.convert_path(param_value))
             
             # store the parameter in the self.parameters dict
             self.parameters[param] = param_value

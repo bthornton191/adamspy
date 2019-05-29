@@ -2,6 +2,7 @@
 """
 import os
 import copy
+import thornpy
 from . import TMPLT_ENV
 from .utilities import read_TO_file, get_cdb_path, get_full_path
 
@@ -219,7 +220,7 @@ class DrillEvent():
         
         elif filename is not None:
             # If the filename argument is given
-            filepath = os.path.normpath(filename)
+            filepath = thornpy.utilities.convert_path(filename)
         
         else:
             # Raise an error if none of the arguments are provided

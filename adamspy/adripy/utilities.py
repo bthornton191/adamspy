@@ -93,11 +93,11 @@ def get_tool_name(string_file, tool_type, n=1, return_full_path=True):
     str
         Name of the requested tool
     str
-        Full filepath the the requested tool\'s property file
+        Full filepath the the requested tool's property file
     int
         Stack order of tool
     str
-        Tool\'s group name if it has one
+        Tool's group name if it has one
 
     """
     tool_found = False
@@ -105,8 +105,8 @@ def get_tool_name(string_file, tool_type, n=1, return_full_path=True):
     with open(get_full_path(string_file),'r') as fid:
         if tool_type == 'hole':
             for line in fid:
-                if ' Hole_Property_File  =  ' in line:
-                    tool_file = os.path.normpath(line.split("'")[1])
+                if ' Hole_Property_File  =  ' in line:                    
+                    tool_file = thornpy.utilities.convert_path(line.split("'")[1])
                     tool_name = os.path.split(tool_file.split)[-1].split('.')[0]
                     group_name = tool_name
                     if return_full_path:
@@ -122,7 +122,7 @@ def get_tool_name(string_file, tool_type, n=1, return_full_path=True):
                 elif count == n and ' name ' in line.lower():
                     group_name = line.split("'")[1]
                 elif count == n and ' property_file' in line.lower():
-                    tool_file = os.path.normpath(line.split("'")[1])
+                    tool_file = thornpy.utilities.convert_path(line.split("'")[1])
                     tool_name = os.path.split(tool_file)[-1].split('.')[0]
                     if return_full_path:
                         tool_file = get_full_path(tool_file)
@@ -158,7 +158,7 @@ def get_adrill_cdbs(adrill_user_cfg, adrill_shared_cfg=None):
             if line.startswith('DATABASE'):
                 # try:
                 cdb_name = re.split('[\t ]+',line.lstrip())[1]
-                cdb_loc = os.path.normpath(re.split('[\t ]+', line, maxsplit=2)[-1].replace('\n','').replace('$HOME', os.path.expanduser('~')))
+                cdb_loc = thornpy.utilities.convert_path(re.split('[\t ]+', line, maxsplit=2)[-1].replace('\n','').replace('$HOME', os.path.expanduser('~')))
                 cdbs[cdb_name] = cdb_loc
                 # except:
                 #     raise cdbError('The following line in {} could not be interpreted.\n\n{}'.format(adrill_user_cfg,line))
@@ -169,7 +169,7 @@ def get_adrill_cdbs(adrill_user_cfg, adrill_shared_cfg=None):
                 if line.startswith('DATABASE'):
                     # try:
                     cdb_name = re.split('[\t ]+', line, maxsplit=2)[1]
-                    cdb_loc = os.path.normpath(re.split('[\t ]+', line, maxsplit=2)[-1].replace('\n','').replace('$HOME', os.path.expanduser('~')).replace('$topdir', top_dir))                        
+                    cdb_loc = thornpy.utilities.convert_path(re.split('[\t ]+', line, maxsplit=2)[-1].replace('\n','').replace('$HOME', os.path.expanduser('~')).replace('$topdir', top_dir))                        
                     cdbs[cdb_name] = cdb_loc
                     # except:
                         # raise cdbError('The following line in {} could not be interpreted.\n\n{}'.format(adrill_shared_cfg,line))
@@ -284,7 +284,7 @@ def fullNotation_to_cdbNotation(string_file):
 
             if re.match(' *Property_File *= *.*', line, flags=re.IGNORECASE) and '<' not in line:       
                 # If this is a propery file line that doesn't use cdb_notation, get the property file
-                property_file = os.path.normpath(line.split("'")[1])
+                property_file = thornpy.utilities.convert_path(line.split("'")[1])
                 
                 # Rewrite the line replacing the property file with the cdb path property file
                 new_line = ' Property_File  =  \'{}\''.format(get_cdb_path(property_file))
@@ -329,7 +329,7 @@ def cdbNotation_to_fullNotation(string_file):
 
             if re.match(' *Property_File *= *.*', line, flags=re.IGNORECASE) and '<' in line:
                 # If this is a propery file line that uses cdb_notation, get the property file
-                property_file = os.path.normpath(line.split("'")[1])
+                property_file = thornpy.utilities.convert_path(line.split("'")[1])
                 
                 # Rewrite the line replacing the property file with the cdb path property file
                 new_line = ' Property_File  =  \'{}\''.format(get_full_path(property_file))
@@ -362,7 +362,7 @@ def get_cdb_path(full_filepath):
 
     """
     # Normalize the filepath
-    full_filepath = os.path.normpath(full_filepath)
+    full_filepath = thornpy.utilities.convert_path(full_filepath)
 
     # Find a string that looks like a database alias
     match = re.search('^<.+>', full_filepath)
@@ -597,7 +597,7 @@ def get_string_length(string_file, bha_only=False):
             
             if re.match(' *Property_File *= *.*', line, flags=re.IGNORECASE):            
                 # If at a property file line, get the property file
-                tool_file = get_full_path(os.path.normpath(line.split("'")[1]))                
+                tool_file = get_full_path(thornpy.utilities.convert_path(line.split("'")[1]))                
 
                 # Open the tool file
                 with open(tool_file, 'r') as fid_tool:
@@ -681,7 +681,7 @@ def add_cdb_to_cfg(name, loc, cfg_file):
         Raised if the user does not have permissiosn to edit the given config file
 
     """
-    loc = os.path.normpath(loc)
+    loc = thornpy.utilities.convert_path(loc)
     cdbs = {}
 
     # Read config file
@@ -692,7 +692,7 @@ def add_cdb_to_cfg(name, loc, cfg_file):
     for line in lines:
         if line.lower().startswith('database'):
             splt = re.split('[ \t]+', line.replace('\n',''), maxsplit=2)
-            cdbs[splt[1]] = os.path.normpath(splt[2])
+            cdbs[splt[1]] = thornpy.utilities.convert_path(splt[2])
     
     # Check if cdb name already exists
     if name in cdbs:
@@ -750,7 +750,7 @@ def remove_cdb_from_cfg(name, cfg_file):
     for line in lines:
         if line.lower().startswith('database'):
             splt = re.split('[ \t]+', line.replace('\n',''), maxsplit=2)
-            cdbs[splt[1]] = os.path.normpath(splt[2])
+            cdbs[splt[1]] = thornpy.utilities.convert_path(splt[2])
     
     # Check if cdb name exists
     if name not in cdbs:
@@ -838,16 +838,16 @@ def build(string_file, solver_settings_file, working_directory, output_name=None
     cmd_file = output_name + '.cmd'
     
     # Format the string filename    
-    adams_formatted_str_filename = os.path.normpath(get_full_path(string_file)).replace(os.sep, '/')
+    adams_formatted_str_filename = thornpy.utilities.convert_path(get_full_path(string_file)).replace(os.sep, '/')
     
     # Set the event filename and solver settings file name (relative paths if in the same directory)    
-    event_file = os.path.normpath(get_TO_param(string_file, 'Event_Property_File'))
-    if os.path.split(event_file)[0] == os.path.normpath(working_directory):
+    event_file = thornpy.utilities.convert_path(get_TO_param(string_file, 'Event_Property_File'))
+    if os.path.split(event_file)[0] == thornpy.utilities.convert_path(working_directory):
         evt_name = os.path.split(event_file)[-1]
     else:
-        evt_name = os.path.normpath(event_file)
+        evt_name = thornpy.utilities.convert_path(event_file)
     
-    if os.path.split(solver_settings_file)[0] == os.path.normpath(working_directory):
+    if os.path.split(solver_settings_file)[0] == thornpy.utilities.convert_path(working_directory):
         ssf_name = os.path.split(solver_settings_file)[-1]
     else:
         ssf_name = os.path.split(solver_settings_file)
@@ -918,7 +918,7 @@ def read_TO_file(filename):
         Raised if the Tiem Orbit syntax is not recognized
         
     """    
-    if not os.path.exists(get_full_path(os.path.normpath(filename))):
+    if not os.path.exists(get_full_path(thornpy.utilities.convert_path(filename))):
         raise FileNotFoundError(f'{filename} does not exist!')
     
     # Read in the TO file

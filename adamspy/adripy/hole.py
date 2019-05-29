@@ -2,6 +2,7 @@
 """
 import os
 import copy
+import thornpy
 from . import TMPLT_ENV
 from .utilities import read_TO_file, get_cdb_path, get_full_path
 class DrillHole():
@@ -156,7 +157,7 @@ class DrillHole():
         
         elif filename is not None:
             # If the filename argument is given
-            filepath = get_full_path(os.path.normpath(filename))
+            filepath = get_full_path(thornpy.utilities.convert_path(filename))
         
         else:
             # Raise an error if none of the arguments are provided

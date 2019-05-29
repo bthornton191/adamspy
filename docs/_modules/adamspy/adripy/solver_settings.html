@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.solver_settings &mdash; adamspy 0.7.51 documentation</title>
+  <title>adamspy.adripy.solver_settings &mdash; adamspy 0.7.52 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.7.51
+                0.7.52
               </div>
             
           
@@ -149,6 +149,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">thornpy</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">TMPLT_ENV</span>
 <span class="kn">from</span> <span class="nn">.utilities</span> <span class="k">import</span> <span class="n">read_TO_file</span><span class="p">,</span> <span class="n">get_cdb_path</span><span class="p">,</span> <span class="n">get_full_path</span>
 
@@ -274,7 +275,7 @@
 
         <span class="k">elif</span> <span class="n">filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># If Nothing but a filename is given, set that as the full path</span>
-            <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">filename</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;.</span><span class="si">{self._EXT}</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))</span>            
+            <span class="n">filepath</span> <span class="o">=</span> <span class="n">thornpy</span><span class="o">.</span><span class="n">utilities</span><span class="o">.</span><span class="n">convert_path</span><span class="p">(</span><span class="n">filename</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;.</span><span class="si">{self._EXT}</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))</span>            
 
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># If nothing is given, raise an error</span>

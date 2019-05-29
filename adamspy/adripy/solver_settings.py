@@ -2,6 +2,7 @@
 """
 import os
 import copy
+import thornpy
 from . import TMPLT_ENV
 from .utilities import read_TO_file, get_cdb_path, get_full_path
 
@@ -127,7 +128,7 @@ class DrillSolverSettings():
 
         elif filename is not None:
             # If Nothing but a filename is given, set that as the full path
-            filepath = os.path.normpath(filename.replace(f'.{self._EXT}',''))            
+            filepath = thornpy.utilities.convert_path(filename.replace(f'.{self._EXT}',''))            
 
         else:
             # If nothing is given, raise an error

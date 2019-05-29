@@ -273,7 +273,7 @@ class Test_DrillSim(unittest.TestCase):
         drill_sim = DrillSim(self.drill_string, self.event, self.solver_settings, TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME)
         
         hole_filepath = adripy.get_TO_param(drill_sim.string_filename, 'Hole_Property_File')
-        self.assertFalse(os.path.normpath(drill_sim.directory) in os.path.normpath(hole_filepath))
+        self.assertFalse(thornpy.utilities.convert_path(drill_sim.directory) in thornpy.utilities.convert_path(hole_filepath))
 
     def test_relativity_in_string_event_reference(self):
         """Tests that the file references in the string file are relative to drill_sim.directory       
@@ -281,7 +281,7 @@ class Test_DrillSim(unittest.TestCase):
         drill_sim = DrillSim(self.drill_string, self.event, self.solver_settings, TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME)
         
         event_filepath = adripy.get_TO_param(drill_sim.string_filename, 'Event_Property_File')
-        self.assertFalse(os.path.normpath(drill_sim.directory) in os.path.normpath(event_filepath))
+        self.assertFalse(thornpy.utilities.convert_path(drill_sim.directory) in thornpy.utilities.convert_path(event_filepath))
 
     def test_relativity_in_string_pdc_reference(self):
         """Tests that the file references in the string file are relative to drill_sim.directory       
@@ -290,7 +290,7 @@ class Test_DrillSim(unittest.TestCase):
         
         _name, pdc_filepath, _so, _gn = adripy.get_tool_name(drill_sim.string_filename, 'pdc_bit', return_full_path=True)
 
-        self.assertFalse(os.path.normpath(drill_sim.directory) in os.path.normpath(pdc_filepath))
+        self.assertFalse(thornpy.utilities.convert_path(drill_sim.directory) in thornpy.utilities.convert_path(pdc_filepath))
 
     def test_input_deck_directory_contents(self):
         """Tests that the input deck (adm, acf, cmd files) are written to the directory

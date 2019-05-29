@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.string &mdash; adamspy 0.7.51 documentation</title>
+  <title>adamspy.adripy.string &mdash; adamspy 0.7.52 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.7.51
+                0.7.52
               </div>
             
           
@@ -762,7 +762,7 @@
 
             <span class="c1"># If the tool property file is not absolute, make it absolute</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">isabs</span><span class="p">(</span><span class="n">tool_file</span><span class="p">):</span>
-                <span class="n">tool_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">tiem_orbit_file</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">tool_file</span><span class="p">))</span>
+                <span class="n">tool_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">tiem_orbit_file</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">thornpy</span><span class="o">.</span><span class="n">utilities</span><span class="o">.</span><span class="n">convert_path</span><span class="p">(</span><span class="n">tool_file</span><span class="p">))</span>
             
             <span class="c1"># Create a DrillTool object from the tool property file</span>
             <span class="n">tool</span> <span class="o">=</span> <span class="n">DrillTool</span><span class="p">(</span><span class="n">tool_file</span><span class="p">)</span>
@@ -790,7 +790,7 @@
 
         <span class="c1"># If the top drive property file is not absolute, make it absolute</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">isabs</span><span class="p">(</span><span class="n">top_drive_file</span><span class="p">):</span>
-            <span class="n">top_drive_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">tiem_orbit_file</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">top_drive_file</span><span class="p">))</span>
+            <span class="n">top_drive_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">tiem_orbit_file</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">thornpy</span><span class="o">.</span><span class="n">utilities</span><span class="o">.</span><span class="n">convert_path</span><span class="p">(</span><span class="n">top_drive_file</span><span class="p">))</span>
         
         <span class="c1"># Create a DrillTool object from the property file</span>
         <span class="n">top_drive</span> <span class="o">=</span> <span class="n">DrillTool</span><span class="p">(</span><span class="n">top_drive_file</span><span class="p">)</span>
@@ -852,7 +852,7 @@
             
             <span class="c1"># If the parameter is a relative filename, make it absolute</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_FILENAME_PARAMETERS</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">isabs</span><span class="p">(</span><span class="n">param_value</span><span class="p">):</span>
-                <span class="n">param_value</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">get_cdb_path</span><span class="p">(</span><span class="n">tiem_orbit_file</span><span class="p">))[</span><span class="mi">0</span><span class="p">],</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">param_value</span><span class="p">))</span>
+                <span class="n">param_value</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">get_cdb_path</span><span class="p">(</span><span class="n">tiem_orbit_file</span><span class="p">))[</span><span class="mi">0</span><span class="p">],</span> <span class="n">thornpy</span><span class="o">.</span><span class="n">utilities</span><span class="o">.</span><span class="n">convert_path</span><span class="p">(</span><span class="n">param_value</span><span class="p">))</span>
             
             <span class="c1"># store the parameter in the self.parameters dict</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">param_value</span></div>

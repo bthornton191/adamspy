@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.7.51'
-version_notes = 'Removed environment variable checks'
+version = '0.7.52'
+version_notes = 'Replaced os.path.normpath with custom function'
 date = 'May 29th, 2019'
 # ---------------------
 author = 'Ben Thornton'
