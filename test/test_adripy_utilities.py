@@ -35,6 +35,9 @@ class Test_AdripyFunctions(unittest.TestCase):
         # Create a test configuration file
         adripy.create_cfg_file(TEST_CONFIG_FILENAME, [EXISTING_CDB_PATH, CDB_TO_REMOVE_PATH, TEST_DATABASE_PATH])
     
+    def test_bha_length(self):
+        self.assertTrue(False)
+    
     def test_replace_tool_new_tool_uses_full_path(self):
         """Tests that adripy.utilities.replace_tool() works as expected
 

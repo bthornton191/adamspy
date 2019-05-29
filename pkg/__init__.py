@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.7.49'
-version_notes = 'Made cdb aliases case insensitive'
-date = 'May 17th, 2019'
+version = '0.7.50'
+version_notes = 'Removed environment variable checks'
+date = 'May 29th, 2019'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'
