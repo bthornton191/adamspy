@@ -135,7 +135,8 @@ class Test_RexExPatterns(unittest.TestCase):
             ' Hmax =   5.0e-3',
             ' PP =   5.0e+3',
             '  Pipe_Length         = 31',
-            " Event_Property_File  =  ''"
+            " Event_Property_File  =  ''",
+            '  Stabilizer_Length= 3.0000'
         ]
         strings_to_not_match = [
             'lkjfds  =  2\n',

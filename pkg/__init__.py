@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.7.53'
-version_notes = 'fixed a bug in thornpy'
+version = '0.7.54'
+version_notes = 'fixed a bug in the parameter regex'
 date = 'May 29th, 2019'
 # ---------------------
 author = 'Ben Thornton'
