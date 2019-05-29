@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.7.52'
-version_notes = 'Replaced os.path.normpath with custom function'
+version = '0.7.53'
+version_notes = 'fixed a bug in thornpy'
 date = 'May 29th, 2019'
 # ---------------------
 author = 'Ben Thornton'
