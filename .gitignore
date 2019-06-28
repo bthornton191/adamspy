@@ -1,5 +1,4 @@
 /env
-**.vscode
 **__pycache__
 /build
 /adamspy.egg-info
@@ -7,7 +6,6 @@
 *.res
 *aview.lo?
 demo*.py
-/.vscode
 /_test_drill.cfg
 /test/example_working_directory/**
 test/files/adamsctl_272309.bat
