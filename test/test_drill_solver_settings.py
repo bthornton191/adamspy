@@ -56,6 +56,41 @@ class Test_DrillSolverSettings(unittest.TestCase):
 
         self.assertDictEqual(params, TEST_EXPECTED_SOLVER_SETTINGS_TO_PARAMETERS)
 
+    def test_read_from_file_2(self):        
+        """Tests that the parameters in the string are correct after a string is read from a file.
+        """        
+        # Create an event object
+        solver_settings_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'solver_settings.tbl', TEST_SOLVER_SETTINGS_NAME_2 + '.ssf')
+
+        # Read new parameters into the drill string object from a file
+        solver_settings_from_file = adripy.DrillSolverSettings.read_from_file(solver_settings_file)
+        
+        params = dict(solver_settings_from_file.parameters)
+        params.pop('_Funnel')
+        TEST_EXPECTED_SOLVER_SETTINGS_TO_PARAMETERS_2.pop('_Funnel')
+
+        self.assertDictEqual(params, TEST_EXPECTED_SOLVER_SETTINGS_TO_PARAMETERS_2)
+
+    def test_read_from_file_then_write_to_file(self):        
+        """Tests that the parameters in the string are correct after a string is read from a file.
+        """        
+        # Create an event object
+        solver_settings_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'solver_settings.tbl', TEST_SOLVER_SETTINGS_NAME + '.ssf')
+
+        # Read new parameters into the drill string object from a file
+        solver_settings_from_file = adripy.DrillSolverSettings.read_from_file(solver_settings_file)
+
+        # Write the DrillSolverSettings object to a solver settins file
+        solver_settings_from_file.write_to_file(TEST_SOLVER_SETTINGS_NAME, directory=TEST_WORKING_DIRECTORY)
+        
+        # Check for unexpected lines in the solver settings file
+        failures = check_file_contents(solver_settings_from_file.filename, TEST_EXPECTED_SOLVER_SETTINGS_FILE_TEXT_READ_THEN_WRITE)
+        
+        # Delete the solver settings file
+        os.remove(solver_settings_from_file.filename)
+
+        self.assertListEqual(failures, [])
+
     @classmethod
     def tearDownClass(cls):
         # Delete test config file

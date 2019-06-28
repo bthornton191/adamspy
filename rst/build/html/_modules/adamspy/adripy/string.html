@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.string &mdash; adamspy 0.7.54 documentation</title>
+  <title>adamspy.adripy.string &mdash; adamspy 0.7.55 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.7.54
+                0.7.55
               </div>
             
           
@@ -151,6 +151,7 @@
 <span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">thornpy</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">TMPLT_ENV</span>
 <span class="kn">from</span> <span class="nn">.tool</span> <span class="k">import</span> <span class="n">DrillTool</span>
 <span class="kn">from</span> <span class="nn">.utilities</span> <span class="k">import</span> <span class="n">read_TO_file</span><span class="p">,</span> <span class="n">get_cdb_location</span><span class="p">,</span> <span class="n">get_cdb_path</span><span class="p">,</span> <span class="n">get_full_path</span><span class="p">,</span> <span class="n">TO_LENGTH_PARAM</span><span class="p">,</span> <span class="n">isabs</span>
@@ -849,15 +850,20 @@
                     <span class="n">param_value</span> <span class="o">=</span> <span class="p">[]</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{param}</span><span class="s1"> not found!&#39;</span><span class="p">)</span>
-            
-            <span class="c1"># If the parameter is a relative filename, make it absolute</span>
+                        
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_FILENAME_PARAMETERS</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">isabs</span><span class="p">(</span><span class="n">param_value</span><span class="p">):</span>
+                <span class="c1"># If the parameter is a relative filename, make it absolute</span>
                 <span class="n">param_value</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">get_cdb_path</span><span class="p">(</span><span class="n">tiem_orbit_file</span><span class="p">))[</span><span class="mi">0</span><span class="p">],</span> <span class="n">thornpy</span><span class="o">.</span><span class="n">utilities</span><span class="o">.</span><span class="n">convert_path</span><span class="p">(</span><span class="n">param_value</span><span class="p">))</span>
+            
+            <span class="k">elif</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_FILENAME_PARAMETERS</span><span class="p">:</span>
+                <span class="c1"># If the parameters is an absolute filename, make sure it is formatted correctly.</span>
+                <span class="n">param_value</span> <span class="o">=</span> <span class="n">thornpy</span><span class="o">.</span><span class="n">utilities</span><span class="o">.</span><span class="n">convert_path</span><span class="p">(</span><span class="n">param_value</span><span class="p">)</span>
+
+            
+
             
             <span class="c1"># store the parameter in the self.parameters dict</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">param_value</span></div>
-
-                
 
 <div class="viewcode-block" id="DrillStringError"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.string.DrillStringError">[docs]</a><span class="k">class</span> <span class="nc">DrillStringError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>

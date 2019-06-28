@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.7.54'
-version_notes = 'fixed a bug in the parameter regex'
-date = 'May 29th, 2019'
+version = '0.7.55'
+version_notes = 'minor bug fix'
+date = 'June 28th, 2019'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'

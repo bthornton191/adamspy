@@ -4,6 +4,7 @@ import os
 import copy
 import re
 import shutil
+import thornpy
 from . import TMPLT_ENV
 from .tool import DrillTool
 from .utilities import read_TO_file, get_cdb_location, get_cdb_path, get_full_path, TO_LENGTH_PARAM, isabs
@@ -702,15 +703,20 @@ class DrillString():
                     param_value = []
                 else:
                     raise ValueError(f'{param} not found!')
-            
-            # If the parameter is a relative filename, make it absolute
+                        
             if param in self._FILENAME_PARAMETERS and not isabs(param_value):
+                # If the parameter is a relative filename, make it absolute
                 param_value = os.path.join(os.path.split(get_cdb_path(tiem_orbit_file))[0], thornpy.utilities.convert_path(param_value))
+            
+            elif param in self._FILENAME_PARAMETERS:
+                # If the parameters is an absolute filename, make sure it is formatted correctly.
+                param_value = thornpy.utilities.convert_path(param_value)
+
+            
+
             
             # store the parameter in the self.parameters dict
             self.parameters[param] = param_value
-
-                
 
 class DrillStringError(Exception):
     pass

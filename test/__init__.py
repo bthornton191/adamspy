@@ -27,6 +27,7 @@ TEST_EVENT_NAME = 'test_event'
 TEST_EVENT_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'events.tbl', TEST_EVENT_NAME + '.evt')
 
 TEST_SOLVER_SETTINGS_NAME = 'test_solver_settings'
+TEST_SOLVER_SETTINGS_NAME_2 = 'test_solver_settings_2'
 TEST_SOLVER_SETTINGS_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'solver_settings.tbl', TEST_SOLVER_SETTINGS_NAME + '.ssf')
 
 TEST_EXISTING_STRING_NAME = 'test_string'
@@ -1269,6 +1270,72 @@ TEST_EXPECTED_SOLVER_SETTINGS_TO_PARAMETERS = {
     'Thread_Count': 4
 }
 TEST_EXPECTED_SOLVER_SETTINGS_TO_PARAMETERS['_Funnel'] = zip(*TEST_EXPECTED_SOLVER_SETTINGS_TO_PARAMETERS['Funnel'])
+
+TEST_EXPECTED_SOLVER_SETTINGS_TO_PARAMETERS_2 = {
+    'Funnel': [
+        [500.0, 500.0, 500.0, 500.0, 500.0],
+        [8.0, 8.0, 8.0, 8.0, 8.0],
+        [1.0, 0.5, 0.1, 0.05, 0.01],
+        [1.0, 0.5, 0.1, 0.05, 0.01],
+        [1.0, 1.0, 1.0, 1.0, 1.0],
+        [2.0, 2.0, 2.0, 2.0, 2.0]
+    ],
+    'Integrator': 'HHT',
+    'Formulation': 'I3',
+    'Corrector': 'Original',
+    'Error':  1.0e-5,
+    'HMax': 0.1,
+    'Alpha': -0.25,
+    'Thread_Count': 4
+}
+TEST_EXPECTED_SOLVER_SETTINGS_TO_PARAMETERS_2['_Funnel'] = zip(*TEST_EXPECTED_SOLVER_SETTINGS_TO_PARAMETERS_2['Funnel'])
+
+TEST_EXPECTED_SOLVER_SETTINGS_FILE_TEXT_READ_THEN_WRITE = """$ ==================================================================
+$ This is an Adams Drill solver settings file (.ssf)
+$ When this file is specified under 'Adams Solver Parameters' on the
+$ 'Run Simulation' tab of an Adams Drill Excel workbook, then the values
+$ specified here will override the Adams defaults.
+$------------------------------------------------------------------------STATICS
+[STATICS]
+$ Sometimes, a standard preliminary static simulation will not be possible,
+$ so we will need to do a static funnel which runs multiple static simulations
+$ with increasingly tighter settings.
+$ 'Equilibirum_Mehtod' options: 'Standard' or 'Static_Funnel'
+ Equilibrium_Method  =  'Static_Funnel'
+$ 
+$ Settings for 'Standard' equilibrium method:
+ Maxit  =  500.0
+ Stability  =  5.0
+ Error  =  1.0
+ Imbalance  =  1.0
+ Tlimit  =  0.5
+ Alimit  =  1.0
+$ 
+$ Settings for 'Static_Funnel' equilibrium method:
+$ Alimit is in degrees
+(FUNNEL)
+{Maxit  Stability  Error  Imbalance  Tlimit  Alimit}
+500   0.01   0.01   0.01   1   2
+500   0.001   0.001   0.001   1   2
+500   0.0005   0.0005   0.0005   1   2
+$ 
+$-----------------------------------------------------------------------DYNAMICS
+[DYNAMICS]
+$ Integratror options: GSTIFF or HHT
+ Integrator  =  'HHT'
+$ 
+$ Formulation options: I3 or SI2 (I3 is only valid for HHT)
+ Formulation  =  'I3'
+$ 
+$ Corrector Options: Original or Modified
+ Corrector  =  'Original'
+ Error  =  2e-05
+ HMax  =  0.005
+ Alpha  =  -0.25
+$---------------------------------------------------------------------EXECUTABLE
+[EXECUTABLE]
+ Thread_Count  =  4
+"""
 
 TEST_EXPECTED_SOLVER_SETTINGS_FILE_TEXT = """$ ==================================================================
 $ This is an Adams Drill solver settings file (.ssf)

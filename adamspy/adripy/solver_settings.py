@@ -228,7 +228,7 @@ class DrillSolverSettings():
         """
 
         for param in self._TABLE_PARAMETERS:
-            # For each string parameter initialize a found flag
+            # For each parameter initialize a found flag
             found = False
             
             if param.lower() == 'funnel':
@@ -242,7 +242,7 @@ class DrillSolverSettings():
                 raise ValueError(f'{param} not found!')
 
         for param in self._SCALAR_PARAMETERS:
-            # For each string parameter initialize a found flag
+            # For each parameter initialize a found flag
             found = False
 
             for block in tiem_orbit_data:

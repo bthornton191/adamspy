@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.solver_settings &mdash; adamspy 0.7.54 documentation</title>
+  <title>adamspy.adripy.solver_settings &mdash; adamspy 0.7.55 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.7.54
+                0.7.55
               </div>
             
           
@@ -375,7 +375,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_TABLE_PARAMETERS</span><span class="p">:</span>
-            <span class="c1"># For each string parameter initialize a found flag</span>
+            <span class="c1"># For each parameter initialize a found flag</span>
             <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
             
             <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;funnel&#39;</span><span class="p">:</span>
@@ -389,7 +389,7 @@
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{param}</span><span class="s1"> not found!&#39;</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_SCALAR_PARAMETERS</span><span class="p">:</span>
-            <span class="c1"># For each string parameter initialize a found flag</span>
+            <span class="c1"># For each parameter initialize a found flag</span>
             <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
 
             <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">tiem_orbit_data</span><span class="p">:</span>
