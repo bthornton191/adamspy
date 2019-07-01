@@ -242,7 +242,7 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         """                
         startupinfo = subprocess.STARTUPINFO()
         startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW        
-        self.run_proc = subprocess.Popen('{} ru-s {}'.format(os.environ['ADAMS_LAUNCH_COMMAND'], os.path.split(self.acf_filename)[-1]), cwd=self.directory, startupinfo=startupinfo)
+        self.run_proc = subprocess.Popen('"{}" ru-s "{}"'.format(os.environ['ADAMS_LAUNCH_COMMAND'], os.path.split(self.acf_filename)[-1]), cwd=self.directory, startupinfo=startupinfo)
         
         # Wait for the process to complete before moving on.
         if wait:

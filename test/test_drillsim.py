@@ -7,11 +7,9 @@ import shutil
 import re
 
 import dripy
+import thornpy
 
 from test import *
-os.environ['ADRILL_SHARED_CFG'] = os.path.join('C:\\', 'MSC.Software', 'Adams', '2018', 'adrill', 'adrill.cfg')
-os.environ['ADRILL_USER_CFG'] = os.path.join(os.environ['USERPROFILE'], '.adrill.cfg')
-os.environ['ADAMS_LAUNCH_COMMAND'] = os.path.join('C:\\', 'MSC.Software', 'Adams', '2018', 'common', 'mdi.bat')
     
 from adamspy import adripy #pylint: disable=wrong-import-position
 from adamspy.adripy import DrillSim #pylint: disable=wrong-import-position
@@ -210,7 +208,7 @@ class Test_DrillSim(unittest.TestCase):
         drill_sim.build()
         adm_file = os.path.join(TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME + '.adm')
         n_adm_lines = len(open(adm_file,'r').readlines())
-        expected_n_adm_lines = 12451
+        expected_n_adm_lines = 12457
         self.assertEqual(n_adm_lines, expected_n_adm_lines)
 
     def test_write_tiem_orbit_files_event_filename(self):

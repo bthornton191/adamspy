@@ -4,9 +4,6 @@ import glob
 import re
 from test import *
 # Set the ADRILL_USER_CFG and ADRILL_SHARED_CFG environment variables
-os.environ['ADRILL_USER_CFG'] = os.path.join('C:\\', 'Users', 'bthornt', '.adrill.cfg')
-os.environ['ADRILL_SHARED_CFG'] = os.path.join('C:\\', 'MSC.Software', 'Adams', '2018', 'adrill', 'adrill.cfg')
-os.environ['ADAMS_LAUNCH_COMMAND'] = os.path.join('C:\\', 'MSC.Software', 'Adams', '2018', 'common', 'mdi.bat')
 from adamspy import adripy
 
 class Test_Build(unittest.TestCase):
