@@ -163,7 +163,7 @@ def get_adrill_cdbs(adrill_user_cfg, adrill_shared_cfg=None):
                 # except:
                 #     raise cdbError('The following line in {} could not be interpreted.\n\n{}'.format(adrill_user_cfg,line))
     if adrill_shared_cfg:
-        top_dir = os.path.split(adrill_shared_cfg)[0]
+        top_dir = os.path.split(os.path.split(adrill_shared_cfg)[0])[0]
         with open(adrill_shared_cfg,'r') as fid:
             for line in fid:
                 if line.startswith('DATABASE'):

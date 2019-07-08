@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.7.56'
-version_notes = 'added quotes to calls to adams launch command and updated version number '
-date = 'July 1st, 2019'
+version = '0.7.57'
+version_notes = 'fixed a bug in get_adrill_cdbs'
+date = 'July 8th, 2019'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'

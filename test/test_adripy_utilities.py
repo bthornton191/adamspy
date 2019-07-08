@@ -89,6 +89,21 @@ class Test_AdripyFunctions(unittest.TestCase):
         failures = check_file_contents(TEST_CONFIG_FILENAME, TEST_ORIG_CONFIG_FILE_TEXT)
         
         self.assertListEqual([], failures)
+    
+    def test_get_adrill_cdbs(self):        
+        """Tests that adripy.get_adrill_cdbs returns the correct cdbs.
+
+        """
+        cdbs = adripy.get_adrill_cdbs(os.environ['ADRILL_USER_CFG'], os.environ['ADRILL_SHARED_CFG'])
+        
+        expected_cdbs = {
+            EXISTING_CDB_NAME: EXISTING_CDB_PATH,
+            CDB_TO_REMOVE_NAME: CDB_TO_REMOVE_PATH,
+            TEST_DATABASE_NAME: TEST_DATABASE_PATH,
+            'adrill_shared': os.path.join(os.path.split(os.environ['ADRILL_SHARED_CFG'])[0], 'adrill_shared.cdb')
+        }
+
+        self.assertDictEqual(cdbs, expected_cdbs)
 
     def test_add_cdb_to_cfg(self):
         """

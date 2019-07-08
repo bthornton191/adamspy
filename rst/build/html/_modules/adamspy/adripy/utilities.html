@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.utilities &mdash; adamspy 0.7.56 documentation</title>
+  <title>adamspy.adripy.utilities &mdash; adamspy 0.7.57 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.7.56
+                0.7.57
               </div>
             
           
@@ -310,7 +310,7 @@
                 <span class="c1"># except:</span>
                 <span class="c1">#     raise cdbError(&#39;The following line in {} could not be interpreted.\n\n{}&#39;.format(adrill_user_cfg,line))</span>
     <span class="k">if</span> <span class="n">adrill_shared_cfg</span><span class="p">:</span>
-        <span class="n">top_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">adrill_shared_cfg</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">top_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">adrill_shared_cfg</span><span class="p">)[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">adrill_shared_cfg</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;DATABASE&#39;</span><span class="p">):</span>
