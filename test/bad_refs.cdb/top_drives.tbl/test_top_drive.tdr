@@ -1,0 +1,18 @@
+$ NOTE: Block and subblock titles MUST begin in column 1
+$       Comment lines MUST also begin in column 1
+$------------------------------------------------------------ADAMS_DRILL_HEADER
+[ADAMS_DRILL_HEADER]
+ File_Type          =  'top_drive'
+ File_Version       =  1.0
+ Name               =  'test_top_drive'
+ Tool_Name	        =  'test_top_drive'
+ Manufacturer       =  ''
+$-------------------------------------------------------------------------UNITS
+[UNITS]
+$--------------------------------------------------------------------CONTROLLER
+[CONTROLLER] 
+ Proportional_Gain  = 10326.0
+ Integral_Gain 	    = 34665.0
+ Derivative_Gain	= 708.0
+ RPM_Filter_Tau     = 2.0
+ Max_Drive_Torque   = 35000.0

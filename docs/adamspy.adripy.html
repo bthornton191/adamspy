@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy package &mdash; adamspy 0.7.57 documentation</title>
+  <title>adamspy.adripy package &mdash; adamspy 0.7.58 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.7.57
+                0.7.58
               </div>
             
           
@@ -87,6 +87,7 @@
 <li><a class="reference internal" href="#">adamspy.adripy package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#module-adamspy.adripy.constants">adamspy.adripy.constants module</a></li>
+<li><a class="reference internal" href="#module-adamspy.adripy.database">adamspy.adripy.database module</a></li>
 <li><a class="reference internal" href="#module-adamspy.adripy.drillsim">adamspy.adripy.drillsim module</a></li>
 <li><a class="reference internal" href="#module-adamspy.adripy.event">adamspy.adripy.event module</a></li>
 <li><a class="reference internal" href="#module-adamspy.adripy.hole">adamspy.adripy.hole module</a></li>
@@ -220,6 +221,48 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> of <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-adamspy.adripy.database">
+<span id="adamspy-adripy-database-module"></span><h2>adamspy.adripy.database module<a class="headerlink" href="#module-adamspy.adripy.database" title="Permalink to this headline">¶</a></h2>
+<p>Tools for working with Adams Drill Databases</p>
+<dl class="function">
+<dt id="adamspy.adripy.database.fix_strings_in_cdb">
+<code class="descclassname">adamspy.adripy.database.</code><code class="descname">fix_strings_in_cdb</code><span class="sig-paren">(</span><em>cdb_path</em>, <em>old_cdb_path=None</em>, <em>cdb_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/database.html#fix_strings_in_cdb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.database.fix_strings_in_cdb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds all the string files in the Adams Drill Database given in <cite>cdb_path</cite> and converts all cdb references in the string files to cdb notation.  If <cite>old_cdb_path</cite> and <cite>cdb_name</cite> are given, replaces any references to <cite>old_cdb_path</cite> with references to <cite>cdb_name</cite> using cdb notation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>cdb_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Path to an Adams Drill Database</li>
+<li><strong>old_cdb_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Filepath to a cdb which should be replaced. (default is None)</li>
+<li><strong>cdb_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Name of the cdb with which to replace the old file path. (default is None)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="adamspy.adripy.database.replace_old_cdb_paths_in_string">
+<code class="descclassname">adamspy.adripy.database.</code><code class="descname">replace_old_cdb_paths_in_string</code><span class="sig-paren">(</span><em>string_file</em>, <em>old_cdb_path</em>, <em>cdb_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/database.html#replace_old_cdb_paths_in_string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.database.replace_old_cdb_paths_in_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replaces all occurences of <cite>old_cdb_path</cite> with ‘&lt;<cite>cdb_name</cite>&gt;’ in <cite>string_file</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>string_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – String file</li>
+<li><strong>old_cdb_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Filepath to a cdb which should be replaced.</li>
+<li><strong>cdb_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Name of the cdb with which to replace the old file path.</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>

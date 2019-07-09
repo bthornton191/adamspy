@@ -98,6 +98,233 @@ TEST_REQUESTS_TO_GET['blahMotor_X_X_X_150_10000_02_Motion'] = ['Omega_Z', 'Axial
 TEST_REQUEST_TIME_MIN = 20
 TEST_REQUEST_TIME_MAX = 22
 
+TEST_BAD_REFS_CDB_PATH = os.path.join(os.getcwd(), 'test', 'bad_refs.cdb')
+TEST_BAD_REF = '\\\\nonexistent_server\\nonexistent_path\\nonexistent.cdb'
+TEST_BAD_REF_NEW_CDB = 'nonexistent.cdb'
+
+TEST_EXPECTED_STRING_AFTER_BAD_REF_REPLACE = '''$ ==================================================================
+$ This is the master drill string assmembly file which contains
+$ the following data blocks:
+$  [UNITS]
+$  [MODEL]
+$  [CONTACT]
+$  [DRIVE]
+$  [MEASUREMENT_POINTS]
+$  [DRILL_TOOL_n]
+$  [TOP_OF_STRING]
+$  [TOP_DRIVE]
+$ 
+$ NOTA BENE: block and subblock titles MUST begin in column 1.
+$ Comments also must begin in column 1.
+$ ==================================================================
+$ 
+$--------------------------------------------------------------------------UNITS
+[UNITS]
+$ Adams Drill supports two units sets:
+$ 'Imperial' (foot, degree, pound force, pound mass, second)
+$ 'Metric' (meter, degree, Newton, kilogram, second)
+ Units  =  'Imperial'
+$--------------------------------------------------------------------------MODEL
+[MODEL]
+$ general model set-up parameters
+ ModelName  =  'test_string'
+ OutputName  =  'test_string'
+ Gravity  =  32.187
+ Deviation_Deg  =  0.0
+$ Used to rotate gravity direction relative to string
+$ Adams_Results must equal 'standard' 'animation' or 'diagnostics'
+$ Note that 'diagnostics' produces VERY large files sizes
+ Adams_Results  =  'animation'
+ Adams_Requests  =  'on'
+ Adams_Graphics  =  'off'
+ SolverDLL  =  'adrill_solver'
+$ Do not include the '.dll' extension here
+$------------------------------------------------------------------------CONTACT
+[CONTACT]
+$ ContactMethod options are 'Subroutine' and 'ImpactFunction'
+$ ** but only 'Subroutine' is valid at present **
+ Hole_Property_File  =  '<nonexistent>\\holes.tbl\\test_hole.hol'
+ Contact_Method  =  'Subroutine'
+ Cyl_Drag_Coeff  =  1.0
+ Hole_Color  =  'LtGray'
+$--------------------------------------------------------------------------DRIVE
+[DRIVE]
+ Event_Property_File  =  '<nonexistent>\\events.tbl\\test_event.evt'
+$-------------------------------------------------------------MEASUREMENT_POINTS
+[MEASUREMENT_POINTS]
+$ These are auxialliary measurement points in addition to any  measurement
+$ requests made directly on tools or pipes in the DRILL_TOOL blocks.
+$ These are locations in the design position of the model at which
+$ output will be generated.  The output will be generated at the nearest
+$ tool or pipe wall contact point in the string.
+{Distance_from_Bit}
+100.0
+300.0
+500.0
+$ ------------------------------------------------------------------------------
+$ 
+$  The DRILL_TOOL blocks below form a descriptive list of tools from bottom to top
+$  NOTA BENE: The tools or sections must be numbered from 1 consecutively
+$  and the last tool or section must be 'TopOfString'.  Remember that a
+$  section  of pipes can include many elements.
+$------------------------------------------------------------------DRILL_TOOL_01
+[DRILL_TOOL_01]
+ Stack_Order  =  1
+ Type  =  'pdc_bit'
+ Name  =  'test_pdc_01'
+ Property_File  =  '<nonexistent>\\pdc_bits.tbl\\test_pdc.pdc'
+ Measure  =  'yes'
+ Color  =  'Default'
+$------------------------------------------------------------------DRILL_TOOL_02
+[DRILL_TOOL_02]
+ Stack_Order  =  2
+ Type  =  'stabilizer'
+ Name  =  'example_stabilizer_02'
+ Property_File  =  '<nonexistent>\\stabilizers.tbl\\example_stabilizer.sta'
+ Measure  =  'yes'
+ Color  =  'Default'
+$------------------------------------------------------------------DRILL_TOOL_03
+[DRILL_TOOL_03]
+ Stack_Order  =  3
+ Type  =  'short_collar'
+ Name  =  'test_collar_03'
+ Property_File  =  '<nonexistent>\\short_collars.tbl\\test_collar.sco'
+ Measure  =  'no'
+ Color  =  'Default'
+$------------------------------------------------------------------DRILL_TOOL_04
+[DRILL_TOOL_04]
+ Stack_Order  =  4
+ Type  =  'generic_long'
+ Name  =  'test_generic_long_04'
+ Property_File  =  '<nonexistent>/generic_longs.tbl/test_generic_long.gnl'
+ Measure  =  'no'
+ Color  =  'Default'
+$------------------------------------------------------------------DRILL_TOOL_05
+[DRILL_TOOL_05]
+ Stack_Order  =  5
+ Type  =  'stabilizer'
+ Name  =  'example_stabilizer_05'
+ Property_File  =  '<nonexistent>\\stabilizers.tbl\\example_stabilizer.sta'
+ Measure  =  'yes'
+ Color  =  'Default'
+$------------------------------------------------------------------DRILL_TOOL_06
+[DRILL_TOOL_06]
+ Stack_Order  =  6
+ Type  =  'mwd_tool'
+ Name  =  'test_mwd_06'
+ Property_File  =  '<nonexistent>\\mwd_tools.tbl\\test_mwd.mwd'
+ Measure  =  'no'
+ Color  =  'Default'
+$------------------------------------------------------------------DRILL_TOOL_07
+[DRILL_TOOL_07]
+ Stack_Order  =  7
+ Type  =  'crossover'
+ Name  =  'test_crossover_07'
+ Property_File  =  '<nonexistent>\\crossovers.tbl\\test_crossover.crs'
+ Measure  =  'no'
+ Color  =  'Default'
+$------------------------------------------------------------------DRILL_TOOL_08
+[DRILL_TOOL_08]
+ Stack_Order  =  8
+ Type  =  'blade_reamer'
+ Name  =  'test_blade_reamer_08'
+ Property_File  =  '<nonexistent>\\blade_reamers.tbl\\test_blade_reamer.bre'
+ Measure  =  'yes'
+ Color  =  'Default'
+$------------------------------------------------------------------DRILL_TOOL_09
+[DRILL_TOOL_09]
+ Stack_Order  =  9
+ Type  =  'flex_pipe'
+ Name  =  'test_flex_pipe_09'
+ Property_File  =  '<nonexistent>\\flex_pipes.tbl\\test_flex_pipe.flp'
+ Measure  =  'no'
+ Color  =  'Default'
+$------------------------------------------------------------------DRILL_TOOL_10
+[DRILL_TOOL_10]
+ Stack_Order  =  10
+ Type  =  'crossover'
+ Name  =  'test_float_crossover_10'
+ Property_File  =  '<nonexistent>\\crossovers.tbl\\test_float_crossover.crs'
+ Measure  =  'no'
+ Color  =  'Default'
+$------------------------------------------------------------------DRILL_TOOL_11
+[DRILL_TOOL_11]
+ Stack_Order  =  11
+ Type  =  'hw_pipe'
+ Name  =  'lower_group'
+ Property_File  =  '<nonexistent>\\hw_pipes.tbl\\test_hwdp.hwp'
+ Measure  =  'no'
+ Color  =  'Default'
+ Number_of_Joints  =  4
+$------------------------------------------------------------------DRILL_TOOL_12
+[DRILL_TOOL_12]
+ Stack_Order  =  12
+ Type  =  'jar'
+ Name  =  'test_jar_12'
+ Property_File  =  '<nonexistent>\\jars.tbl\\test_jar.djr'
+ Measure  =  'yes'
+ Color  =  'Default'
+$------------------------------------------------------------------DRILL_TOOL_13
+[DRILL_TOOL_13]
+ Stack_Order  =  13
+ Type  =  'hw_pipe'
+ Name  =  'middle_group'
+ Property_File  =  '<nonexistent>\\hw_pipes.tbl\\test_hwdp2.hwp'
+ Measure  =  'yes'
+ Color  =  'Default'
+ Number_of_Joints  =  5
+$------------------------------------------------------------------DRILL_TOOL_14
+[DRILL_TOOL_14]
+ Stack_Order  =  14
+ Type  =  'accelerator'
+ Name  =  'test_accelerator_14'
+ Property_File  =  '<nonexistent>\\accelerators.tbl\\test_accelerator.acc'
+ Measure  =  'yes'
+ Color  =  'Default'
+$------------------------------------------------------------------DRILL_TOOL_15
+[DRILL_TOOL_15]
+ Stack_Order  =  15
+ Type  =  'hw_pipe'
+ Name  =  'upper_group'
+ Property_File  =  '<nonexistent>\\hw_pipes.tbl\\test_hwdp3.hwp'
+ Measure  =  'no'
+ Color  =  'Default'
+ Number_of_Joints  =  2
+$------------------------------------------------------------------DRILL_TOOL_16
+[DRILL_TOOL_16]
+ Stack_Order  =  16
+ Type  =  'crossover'
+ Name  =  'test_crossover2_16'
+ Property_File  =  '<nonexistent>\\crossovers.tbl\\test_crossover2.crs'
+ Measure  =  'no'
+ Color  =  'Default'
+$------------------------------------------------------------------DRILL_TOOL_17
+[DRILL_TOOL_17]
+ Stack_Order  =  17
+ Type  =  'drillpipe'
+ Name  =  'Upper_DP_Group'
+ Property_File  =  '<nonexistent>\\drill_pipes.tbl\\test_drillpipe.pip'
+ Measure  =  'no'
+ Color  =  'Default'
+ Number_of_Joints  =  6
+$------------------------------------------------------------------DRILL_TOOL_18
+[DRILL_TOOL_18]
+ Stack_Order  =  18
+ Type  =  'equivalent_upper_string'
+ Name  =  'equivalent_pipe'
+ Property_File  =  '<nonexistent>\\drill_pipes.tbl\\test_eus.pip'
+ Measure  =  'yes'
+ Color  =  'Default'
+ Number_of_Joints  =  19
+$------------------------------------------------------------------TOP_OF_STRING
+[TOP_OF_STRING]
+$----------------------------------------------------------------------TOP_DRIVE
+[TOP_DRIVE]
+ Type  =  'top_drive'
+ Name  =  'test_top_drive'
+ Property_File  =  '<nonexistent>\\top_drives.tbl\\test_top_drive.tdr'
+'''
+
 TEST_EXPECTED_REQUESTS = {
     'MSE': {
         'Instantaneous_Bottom_MSE': [5337.63906383821995405, 5606.08545797803253663, 5025.78584931647219491, 5313.80955553230887745, 5159.68664727625764499, 5607.2919254371226998, 5991.99287229788205877, 6131.18889136154848529, 6170.69141104307709611, 6549.93155836753612675, 6489.67243176894589851, 6530.90851605792795453, 6822.07449483032814896, 7010.84223324748472805, 7133.85856673468788358, 7574.65456524828368856, 7602.81023443935464456, 7439.26197539354143373, 7927.1898833254335841, 8164.27304330869355908, 8008.95769430475047557, 8810.15104968192827073, 9360.14305730695923558, 8946.2664248036689969, 9853.8508844798507198, 10550.30729893630268634, 11113.54431583623227198, 11299.6148276115545741, 11409.65555154075627797, 12474.38875767132230976, 13081.14612744832993485, 13615.01872298609123391, 14102.63043832186122017, 14529.01588833887944929, 14866.17863855830728426, 15489.28184527035773499, 16269.48759981991679524, 16494.9358892105956329, 16369.6224154571955296, 16516.74036933651586878, 16126.71318612981121987],

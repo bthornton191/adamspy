@@ -1,0 +1,51 @@
+$ NOTE: Block and subblock titles MUST begin in column 1
+$       Comment lines MUST also begin in column 1
+$------------------------------------------------------------ADAMS_DRILL_HEADER
+[ADAMS_DRILL_HEADER]
+ File_Type        =  'jar'
+ File_Version     =  1.0
+ Name             =  'test_jar'
+ Tool_Name	      =  'test_jar'
+ Manufacturer     =  ''
+$-------------------------------------------------------------------------UNITS
+[UNITS]
+ Length           =  'foot'
+ Mass             =  'pound_mass'
+$--------------------------------------------------------------MANDREL_GEOMETRY
+[MANDREL_GEOMETRY] 
+ Mandrel_Length   = 16.0
+ Mandrel_OD       = 0.50
+ Mandrel_ID       = 0.40
+ Stub_Length      = 4.0
+ Stub_OD          = 0.6875
+ Stub_ID          = 0.55
+$-----------------------------------------------------------------BODY_GEOMETRY
+[BODY_GEOMETRY]
+ Body_Length      = 20.0
+ Body_OD          = 0.6875
+ Body_ID          = 0.55
+$------------------------------------------------------------------JAR_GEOMETRY
+[JAR_GEOMETRY] 
+ Closed_Clearance = 0.1
+ Open_Clearance   = 2.1
+$----------------------------------------------------------------------FUNCTION
+[FUNCTION]
+ Valve_Limit      = 0.25
+ Equivalent_K     = 1E8
+ Bleed_Constant   = 7.7E-6  
+$---------------------------------------------------------------MASS_PROPERTIES
+[MASS_PROPERTIES]
+$ If known, specify Mass to define the actual component mass, otherwise set=0
+$ and either let Adams compute it based on the density (units: slug/ft^3), or
+$ let Adams compute it based on a selected material from the Adams database.
+$ Young's Modulus is also defined by the material if a material is specified. 
+$ For this component if specifying mass directly, then the body and mandreal
+$ portions must be specified independently.  If specifying material or density, 
+$ they will be applied to both the body and mandrel.  A single Young's Modulus
+$ will be applie to both body and mandrel.
+ Material       = '.materials.null'
+ Density        = 0 
+ Youngs_Modulus = 4.32E9
+ Mass_Body      = 2000
+ Mass_Mandrel   = 2000
+ 

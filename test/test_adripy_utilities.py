@@ -4,7 +4,6 @@ import shutil
 import difflib
 from test import *
 
-# Set the ADRILL_USER_CFG and ADRILL_SHARED_CFG environment variables
 from adamspy import adripy
 
 class Test_TOParameterPattern(unittest.TestCase):
@@ -104,6 +103,16 @@ class Test_AdripyFunctions(unittest.TestCase):
         }
 
         self.assertDictEqual(cdbs, expected_cdbs)
+
+    def test_get_cdb_location(self):
+        """Tests that adripy.get_cdb_location returns expected location.
+
+        """
+        cdb_location = adripy.get_cdb_location('adrill_shared')
+
+        expected_cdb_location = os.path.join(os.path.split(os.environ['ADRILL_SHARED_CFG'])[0], 'adrill_shared.cdb')
+
+        self.assertEqual(cdb_location, expected_cdb_location)
 
     def test_add_cdb_to_cfg(self):
         """

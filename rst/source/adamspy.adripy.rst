@@ -12,6 +12,14 @@ adamspy.adripy.constants module
     :undoc-members:
     :show-inheritance:
 
+adamspy.adripy.database module
+------------------------------
+
+.. automodule:: adamspy.adripy.database
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 adamspy.adripy.drillsim module
 ------------------------------
 

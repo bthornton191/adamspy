@@ -1,0 +1,31 @@
+$ NOTE: Block and subblock titles MUST begin in column 1
+$       Comment lines MUST also begin in column 1
+$------------------------------------------------------------ADAMS_DRILL_HEADER
+[ADAMS_DRILL_HEADER]
+ File_Type            =  'accelerator'
+ File_Version         =  1.0
+ Name                 =  'test_accelerator'
+ Tool_Name	          =  'test_accelerator'
+ Manufacturer         =  ''
+$-------------------------------------------------------------------------UNITS
+[UNITS]
+ Length               =  'foot'
+ Mass                 =  'pound_mass'
+$----------------------------------------------------------------------GEOMETRY
+[GEOMETRY]
+  Accelerator_Length  = 30.000
+  Pipe_OD             = 0.6667
+  Pipe_ID             = 0.2500
+  Cylinder_Length     = 17.000
+  Rod_OD              = 0.4167
+  Rod_Length          = 3.0000
+$---------------------------------------------------------------MASS_PROPERTIES
+[MASS_PROPERTIES]
+$ If known, specify Mass to define the actual component mass, otherwise set=0
+$ and either let Adams compute it based on the density (units: slug/ft^3), or
+$ let Adams compute it based on a selected material from the Adams database.
+$ Young's Modulus is also defined by the material if a material is specified. 
+  Mass                = 4500.0
+  Density             = 0.0
+  Youngs_Modulus      = 4.32E9
+  Material            = '.materials.null'
