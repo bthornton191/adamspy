@@ -42,6 +42,43 @@ class Test_DrillString(unittest.TestCase):
         
         # Create a DrillTool object representing a top drive
         self.top_drive = adripy.DrillTool(TEST_TOP_DRIVE_FILE)
+    
+    def test_check_references_two_stabs(self):
+        """Tests that `DrillString.check_for_references` returns two when checking for references to a stabilizer file in a string that has two references.
+
+        """
+        # Create a DrillString object
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_EXISTING_HOLE_FILE, TEST_EVENT_FILE)
+
+        # Add tools to the drill string
+        drill_string.add_tool(self.pdc_bit)
+        drill_string.add_tool(self.motor)
+        drill_string.add_tool(self.stabilizer)
+        drill_string.add_tool(self.mwd)
+        drill_string.add_tool(self.upper_stabilizer)
+
+        # Check the number of references to the stabilizer file
+        num_refs = drill_string.check_for_references(TEST_STABILIZER_FILE)
+
+        self.assertEqual(num_refs, 2)
+    
+    def test_check_references_one_stabs(self):
+        """Tests that `DrillString.check_for_references` returns one when checking for references to a stabilizer file in a string that has one reference
+
+        """
+        # Create a DrillString object
+        drill_string = adripy.DrillString(TEST_STRING_NAME, TEST_EXISTING_HOLE_FILE, TEST_EVENT_FILE)
+
+        # Add tools to the drill string
+        drill_string.add_tool(self.pdc_bit)
+        drill_string.add_tool(self.motor)
+        drill_string.add_tool(self.stabilizer)
+        drill_string.add_tool(self.mwd)
+
+        # Check the number of references to the stabilizer file
+        num_refs = drill_string.check_for_references(TEST_STABILIZER_FILE)
+
+        self.assertEqual(num_refs, 1)
         
     def test_add_tool(self):
         """Test the `DrillString.add_tool()` method.

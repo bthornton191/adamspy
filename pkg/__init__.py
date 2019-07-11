@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.7.58'
-version_notes = 'added tools for working with Adams Drill Databases'
-date = 'July 9th, 2019'
+version = '0.7.59'
+version_notes = 'added a method DrillString.check_for_references'
+date = 'July 11th, 2019'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'

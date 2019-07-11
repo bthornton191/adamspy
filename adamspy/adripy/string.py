@@ -470,6 +470,36 @@ class DrillString():
         drill_string._get_tools_from_TO_data(filename) #pylint: disable=protected-access
 
         return drill_string
+
+    def check_for_references(self, filename):
+        """Checks for references to `filename` in the string.  Returns the number of references found.
+        
+        Parameters
+        ----------
+        filename : str
+            Filename to find references to.
+        
+        Returns
+        -------
+        int
+            Number of references found.
+
+        """
+        counter = 0
+        for tool in self.tools:
+            if tool['Property_File'].replace('/', '\\') == filename.replace('/', '\\'):
+                counter += 1
+        
+        if 'Property_File' in self.top_drive and self.top_drive['Property_File'].replace('/', '\\') == filename.replace('/', '\\'):
+            counter += 1
+
+        if self.parameters['Event_Property_File'].replace('/', '\\') == filename.replace('/', '\\'):
+            counter += 1
+
+        if self.parameters['Hole_Property_File'].replace('/', '\\') == filename.replace('/', '\\'):
+            counter += 1
+
+        return counter
     
     def validate(self):
         """
