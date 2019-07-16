@@ -1,5 +1,5 @@
 
-file/model=test
+file/model=test_analysis_1
 !
 ! Integrator Settings:
 INTEGRATOR/ &

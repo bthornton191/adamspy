@@ -7,7 +7,7 @@ import time
 
 PPT_AFTERSTART_FILENAME = 'pptAS.cmd'
 AVIEW_AFTERSTART_FILENAME = 'aviewAS.cmd'
-RES_LOADED_PATTERN = '^! File Name:.*{}.*Time Steps:.*Start Time:.*Stop Time:.*(sec)$'
+RES_LOADED_PATTERN = '! File Name:.*{}.*Time Steps:.*Start Time:.*Stop Time:.*(sec)'
 CMD_MODNAME_PATTERN = r'model create[ \t]+&[ \t]*\n[ \t]*model_name[ \t]*=[ \t]*\w+[ \t]*'
 
 def launch_ppt(res_file, cmd_file=None, wait=False, timeout=30, _terminate=False):
@@ -56,6 +56,16 @@ def launch_ppt(res_file, cmd_file=None, wait=False, timeout=30, _terminate=False
             # Open the postprocess window
             fid.write(f'interface plot window open')
         
+    # Set the ppt.log filename
+    ppt_log_file = os.path.join(directory, 'aview.log')
+
+    # Remove aview.log
+    if os.path.exists(ppt_log_file):
+        try:
+            os.remove(ppt_log_file)
+        except PermissionError:
+            pass
+
     # Run the postprocessor
     startupinfo = subprocess.STARTUPINFO()
     startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW        
@@ -69,14 +79,23 @@ def launch_ppt(res_file, cmd_file=None, wait=False, timeout=30, _terminate=False
     else:
         sleep_time = 0.2
         for _i in range(int(timeout/sleep_time)):
-            with open(os.path.join(directory, 'ppt.log'), 'r') as fid:
-                text = fid.read()
-            if re.search(RES_LOADED_PATTERN.format(res_file), text, re.MULTILINE):
-                break
-            time.sleep(0.2)
+            
+            ppt_log_file_exists = os.path.exists(ppt_log_file)       
+
+            if ppt_log_file_exists is True:
+                # If ppt.log exists, open it and see if the results have been loaded
+                with open(ppt_log_file, 'r') as fid:
+                    text = fid.read()
+                if re.search(RES_LOADED_PATTERN.format(res_file), text):
+                    break
+                    
+            time.sleep(sleep_time)
 
     # Remove the pptAS file
-    os.remove(ppt_as_filename)
+    try:
+        os.remove(ppt_as_filename)
+    except PermissionError:
+        pass
 
     return directory
 

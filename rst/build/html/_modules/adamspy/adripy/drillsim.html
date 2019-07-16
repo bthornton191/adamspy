@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.drillsim &mdash; adamspy 0.7.59 documentation</title>
+  <title>adamspy.adripy.drillsim &mdash; adamspy 0.8.0 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.7.59
+                0.8.0
               </div>
             
           
@@ -296,22 +296,22 @@
         <span class="n">drill_sim</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">solver_settings</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">analysis_name</span><span class="p">,</span> <span class="n">write_TO_files</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
         <span class="c1"># Define file names</span>
-        <span class="n">drill_sim</span><span class="o">.</span><span class="n">string_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">string_filename</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>   
+        <span class="n">drill_sim</span><span class="o">.</span><span class="n">string_filename</span> <span class="o">=</span> <span class="n">string_filename</span>
         
         <span class="n">adm_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s1">&#39;*.adm&#39;</span><span class="p">))</span>
-        <span class="n">drill_sim</span><span class="o">.</span><span class="n">adm_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">adm_files</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">adm_files</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+        <span class="n">drill_sim</span><span class="o">.</span><span class="n">adm_filename</span> <span class="o">=</span> <span class="n">adm_files</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">adm_files</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
 
         <span class="n">acf_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s1">&#39;*.acf&#39;</span><span class="p">))</span>
-        <span class="n">drill_sim</span><span class="o">.</span><span class="n">acf_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">acf_files</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">acf_files</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+        <span class="n">drill_sim</span><span class="o">.</span><span class="n">acf_filename</span> <span class="o">=</span> <span class="n">acf_files</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">acf_files</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
 
         <span class="n">cmd_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s1">&#39;*.cmd&#39;</span><span class="p">))</span>
-        <span class="n">drill_sim</span><span class="o">.</span><span class="n">cmd_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">cmd_files</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">cmd_files</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+        <span class="n">drill_sim</span><span class="o">.</span><span class="n">cmd_filename</span> <span class="o">=</span> <span class="n">cmd_files</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">cmd_files</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
 
         <span class="n">res_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s1">&#39;*.res&#39;</span><span class="p">))</span>
-        <span class="n">drill_sim</span><span class="o">.</span><span class="n">res_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">res_files</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">res_files</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+        <span class="n">drill_sim</span><span class="o">.</span><span class="n">res_filename</span> <span class="o">=</span> <span class="n">res_files</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">res_files</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
 
         <span class="n">msg_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s1">&#39;*.msg&#39;</span><span class="p">))</span>
-        <span class="n">drill_sim</span><span class="o">.</span><span class="n">msg_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">msg_files</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">msg_files</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+        <span class="n">drill_sim</span><span class="o">.</span><span class="n">msg_filename</span> <span class="o">=</span><span class="n">msg_files</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">msg_files</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
 
         <span class="c1"># Set the `built` flag</span>
         <span class="k">if</span> <span class="n">drill_sim</span><span class="o">.</span><span class="n">acf_filename</span> <span class="ow">and</span> <span class="n">drill_sim</span><span class="o">.</span><span class="n">adm_filename</span><span class="p">:</span>            

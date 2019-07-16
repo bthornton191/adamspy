@@ -1,4 +1,4 @@
-Adams View model name: test_string_1
+Adams View model name: test
 !
 !-------------------------------- SYSTEM UNITS ---------------------------------
 !
@@ -11287,7 +11287,7 @@ VARIABLE/9102
 VARIABLE/9103
 , FUNCTION = -708.0
 !
-!                         adams_view_name='Command_ROP'
+!                         adams_view_name='Input_ROP'
 VARIABLE/9104
 , FUNCTION = STEP(TIME,88.0,0,88.0+42.0,125.0/3600)
 !
@@ -12261,7 +12261,7 @@ REQUEST/7003
 !                          adams_view_name='top_drive'
 REQUEST/7004
 , COMMENT = _:cmdRPM:surfRPM:TOSRPM:_:cmdTrq:true_Trq:_
-, CNAMES = "Command_RPM", "Surface_RPM", "Top_of_String_RPM", "Command_Torque"
+, CNAMES = "Input_RPM", "Surface_RPM", "Top_of_String_RPM", "Surface_Torque"
 , "True_Torque"
 , CLABELS = "(RPM)", "(RPM)", "(RPM)", "(kft-lbf)", "(kft-lbf)"
 , RESULTS_NAME = top_drive_data
@@ -12274,8 +12274,8 @@ REQUEST/7004
 !                         adams_view_name='ROP_controls'
 REQUEST/7005
 , COMMENT = _:cmd_ROP:BOH_V:MD:_:cmd_WOB:true_WOB:HookLoad
-, CNAMES = "Command_ROP", "Bottom_of_Hole_Velocity", "Measured_Depth"
-, "Command_WOB", "True_WOB", "HookLoad"
+, CNAMES = "Input_ROP", "Bottom_of_Hole_Velocity", "Measured_Depth"
+, "Command_WOB", "Downhole_WOB", "HookLoad"
 , CLABELS = "(ft/hr)", "(ft/hr)", "(ft)", "(klbf)", "(klbf)", "(klbf)"
 , RESULTS_NAME = ROP_controls
 , F1 = DIF1(8001)*3600\

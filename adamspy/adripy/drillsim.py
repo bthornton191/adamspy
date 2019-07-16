@@ -149,22 +149,22 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         drill_sim = cls(string, event, solver_settings, directory, analysis_name, write_TO_files=False)
 
         # Define file names
-        drill_sim.string_filename = os.path.split(string_filename)[1]   
+        drill_sim.string_filename = string_filename
         
         adm_files = glob.glob(os.path.join(directory, '*.adm'))
-        drill_sim.adm_filename = os.path.split(adm_files[0])[1] if adm_files else ''
+        drill_sim.adm_filename = adm_files[0] if adm_files else ''
 
         acf_files = glob.glob(os.path.join(directory, '*.acf'))
-        drill_sim.acf_filename = os.path.split(acf_files[0])[1] if acf_files else ''
+        drill_sim.acf_filename = acf_files[0] if acf_files else ''
 
         cmd_files = glob.glob(os.path.join(directory, '*.cmd'))
-        drill_sim.cmd_filename = os.path.split(cmd_files[0])[1] if cmd_files else ''
+        drill_sim.cmd_filename = cmd_files[0] if cmd_files else ''
 
         res_files = glob.glob(os.path.join(directory, '*.res'))
-        drill_sim.res_filename = os.path.split(res_files[0])[1] if res_files else ''
+        drill_sim.res_filename = res_files[0] if res_files else ''
 
         msg_files = glob.glob(os.path.join(directory, '*.msg'))
-        drill_sim.msg_filename = os.path.split(msg_files[0])[1] if msg_files else ''
+        drill_sim.msg_filename =msg_files[0] if msg_files else ''
 
         # Set the `built` flag
         if drill_sim.acf_filename and drill_sim.adm_filename:            

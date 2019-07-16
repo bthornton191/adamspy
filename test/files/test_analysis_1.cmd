@@ -142,20 +142,26 @@ data_element create variable  &
    function = ""
 !
 data_element create variable  &
-   variable_name = .test_analysis_1.Surface_MSE  &
+   variable_name = .test_analysis_1.ROPmdepth  &
    adams_id = 11026  &
    initial_condition = 0.0  &
    function = ""
 !
 data_element create variable  &
-   variable_name = .test_analysis_1.Bottom_MSE  &
+   variable_name = .test_analysis_1.Surface_MSE  &
    adams_id = 11027  &
    initial_condition = 0.0  &
    function = ""
 !
 data_element create variable  &
-   variable_name = .test_analysis_1.dummy_DGSE_input  &
+   variable_name = .test_analysis_1.Bottom_MSE  &
    adams_id = 11028  &
+   initial_condition = 0.0  &
+   function = ""
+!
+data_element create variable  &
+   variable_name = .test_analysis_1.dummy_DGSE_input  &
+   adams_id = 11029  &
    function = ""
 !
 data_element create array u_input_array  &
@@ -486,50 +492,50 @@ data_element create matrix full  &
 data_element create spline  &
    spline_name = .test_analysis_1.HoleIDspl  &
    adams_id = 8901  &
-   x = -5000.0, 0.0, 5000.0, 1.0E+04, 1.5E+04, 2.0E+04  &
-   y = 1.0835, 1.0835, 1.0835, 1.0835, 1.0835, 1.0835  &
+   x = -5000.0, 0.0, 5000.0, 1.0E+04, 1.5E+04, 2.0E+04, 2.5E+04, 3.0E+04  &
+   y = 1.0835, 1.0835, 1.0835, 1.0835, 1.0835, 1.0835, 1.0835, 1.0835  &
    linear_extrapolate = yes
 !
 data_element create spline  &
    spline_name = .test_analysis_1.WallKspl  &
    adams_id = 8911  &
-   x = -5000.0, 0.0, 5000.0, 1.0E+04, 1.5E+04, 2.0E+04  &
-   y = 5.0E+05, 5.0E+05, 5.0E+05, 5.0E+05, 5.0E+05, 5.0E+05  &
+   x = -5000.0, 0.0, 5000.0, 1.0E+04, 1.5E+04, 2.0E+04, 2.5E+04, 3.0E+04  &
+   y = 5.0E+05, 5.0E+05, 5.0E+05, 5.0E+05, 5.0E+05, 5.0E+05, 5.0E+05, 5.0E+05  &
    linear_extrapolate = yes
 !
 data_element create spline  &
    spline_name = .test_analysis_1.WallCspl  &
    adams_id = 8912  &
-   x = -5000.0, 0.0, 5000.0, 1.0E+04, 1.5E+04, 2.0E+04  &
-   y = 500.0, 500.0, 500.0, 500.0, 500.0, 500.0  &
+   x = -5000.0, 0.0, 5000.0, 1.0E+04, 1.5E+04, 2.0E+04, 2.5E+04, 3.0E+04  &
+   y = 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0  &
    linear_extrapolate = yes
 !
 data_element create spline  &
    spline_name = .test_analysis_1.Static_Muspl  &
    adams_id = 8921  &
-   x = -5000.0, 0.0, 5000.0, 1.0E+04, 1.5E+04, 2.0E+04  &
-   y = 0.9, 0.9, 0.9, 0.9, 0.9, 0.9  &
+   x = -5000.0, 0.0, 5000.0, 1.0E+04, 1.5E+04, 2.0E+04, 2.5E+04, 3.0E+04  &
+   y = 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9  &
    linear_extrapolate = yes
 !
 data_element create spline  &
    spline_name = .test_analysis_1.Static_Vspl  &
    adams_id = 8922  &
-   x = -5000.0, 0.0, 5000.0, 1.0E+04, 1.5E+04, 2.0E+04  &
-   y = 0.15, 0.15, 0.15, 0.15, 0.15, 0.15  &
+   x = -5000.0, 0.0, 5000.0, 1.0E+04, 1.5E+04, 2.0E+04, 2.5E+04, 3.0E+04  &
+   y = 0.15, 0.15, 0.15, 0.15, 0.15, 0.15, 0.15, 0.15  &
    linear_extrapolate = yes
 !
 data_element create spline  &
    spline_name = .test_analysis_1.Dynamic_Muspl  &
    adams_id = 8923  &
-   x = -5000.0, 0.0, 5000.0, 1.0E+04, 1.5E+04, 2.0E+04  &
-   y = 0.3, 0.3, 0.3, 0.3, 0.3, 0.3  &
+   x = -5000.0, 0.0, 5000.0, 1.0E+04, 1.5E+04, 2.0E+04, 2.5E+04, 3.0E+04  &
+   y = 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3  &
    linear_extrapolate = yes
 !
 data_element create spline  &
    spline_name = .test_analysis_1.Dynamic_Vspl  &
    adams_id = 8924  &
-   x = -5000.0, 0.0, 5000.0, 1.0E+04, 1.5E+04, 2.0E+04  &
-   y = 0.3, 0.3, 0.3, 0.3, 0.3, 0.3  &
+   x = -5000.0, 0.0, 5000.0, 1.0E+04, 1.5E+04, 2.0E+04, 2.5E+04, 3.0E+04  &
+   y = 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3  &
    linear_extrapolate = yes
 !
 data_element create curve  &
@@ -21197,11 +21203,10 @@ output_control create request  &
    request_name = .test_analysis_1.test_pdc_01_Motion  &
    adams_id = 1  &
    component_names = "Measured_Depth", "Radial_Displacement",  &
-                     "Radial_Velocity", "Axial_Angular_Velocity",  &
-                     "Orbiting_Angular_Velocity", "Bending_Moment",  &
-                     "Twisting_Moment", "Axial_Load"  &
-   component_labels = "(ft)", "(ft)", "(ft/sec)", "(RPM)", "(RPM)",  &
-                      "(Kft-lbf)", "(Kft-lbf)", "(Klbf)"  &
+                     "Radial_Velocity", "", "Orbiting_Angular_Velocity",  &
+                     "Bending_Moment", "Torque", "Axial_Load", "", ""  &
+   component_labels = "(ft)", "(ft)", "(ft/sec)", "", "(RPM)", "(Kft-lbf)",  &
+                      "(Kft-lbf)", "(Klbf)"  &
    results_name = "test_pdc_01_Motion"  &
    user_function = -1.0, 9.000005E+06, 9.000001E+06, -0.1660421644  &
    routine = "adrill_solver::MotionOut"
@@ -21211,7 +21216,7 @@ output_control create request  &
    adams_id = 2  &
    comment = "test_pdc_01 Motion Output"  &
    component_names = "Radial_Displacement_X", "Radial_Displacement_Y",  &
-                     "Omega_Z"  &
+                     "Rotational_Speed", "", "", "", "", "", "", ""  &
    component_labels = "(ft)", "(ft)", "(RPM)"  &
    results_name = "test_pdc_01_Motion"  &
    f1 = ""  &
@@ -21222,10 +21227,10 @@ output_control create request  &
    request_name = .test_analysis_1.example_stabilizer_02_Motion  &
    adams_id = 3  &
    component_names = "Measured_Depth", "Radial_Displacement",  &
-                     "Radial_Velocity", "Axial_Angular_Velocity",  &
-                     "Orbiting_Angular_Velocity", "Bending_Moment",  &
-                     "Twisting_Moment", "Axial_Load"  &
-   component_labels = "(ft)", "(ft)", "(ft/sec)", "(RPM)", "(RPM)",  &
+                     "Radial_Velocity", "Radial_Contact_Load",  &
+                     "Orbiting_Angular_Velocity", "Bending_Moment", "Torque",  &
+                     "Axial_Load", "", ""  &
+   component_labels = "(ft)", "(ft)", "(ft/sec)", "(lbf)", "(RPM)",  &
                       "(Kft-lbf)", "(Kft-lbf)", "(Klbf)"  &
    results_name = "example_stabilizer_02_Motion"  &
    user_function = 9.000202E+06, 9.0002E+06, 9.000201E+06, -1.4993688639  &
@@ -21236,7 +21241,7 @@ output_control create request  &
    adams_id = 4  &
    comment = "example_stabilizer_02 Motion Output"  &
    component_names = "Radial_Displacement_X", "Radial_Displacement_Y",  &
-                     "Omega_Z"  &
+                     "Rotational_Speed", "", "", "", "", "", "", ""  &
    component_labels = "(ft)", "(ft)", "(RPM)"  &
    results_name = "example_stabilizer_02_Motion"  &
    f1 = ""  &
@@ -21249,7 +21254,7 @@ output_control create request  &
    comment = "equivalent_pipe1 Torsion States Output"  &
    component_names = "top_disp", "upr_mid_disp", "lwr_mid_disp",  &
                      "bottom_disp", "top_vel", "upr_mid_vel", "lwr_mid_vel",  &
-                     "bottom_vel"  &
+                     "bottom_vel", "", ""  &
    component_labels = "(radians)", "(radians)", "(radians)", "(radians)",  &
                       "(rad/sec)", "(rad/sec)", "(rad/sec)", "(rad/sec)"  &
    results_name = "equivalent_pipe1_TorsionStates"  &
@@ -21268,7 +21273,7 @@ output_control create request  &
    comment = "equivalent_pipe1 Axial States Output"  &
    component_names = "top_disp", "upr_mid_disp", "lwr_mid_disp",  &
                      "bottom_disp", "top_vel", "upr_mid_vel", "lwr_mid_vel",  &
-                     "bottom_vel"  &
+                     "bottom_vel", "", ""  &
    component_labels = "(ft)", "(ft)", "(ft)", "(ft)", "(ft/sec)", "(ft/sec)",  &
                       "(ft/sec)", "(ft/sec)"  &
    results_name = "equivalent_pipe1_AxialStates"  &
@@ -21285,8 +21290,8 @@ output_control create request  &
    request_name = .test_analysis_1.top_drive  &
    adams_id = 7  &
    comment = "_:cmdRPM:surfRPM:TOSRPM:_:cmdTrq:true_Trq:_"  &
-   component_names = "Command_RPM", "Surface_RPM", "Top_of_String_RPM",  &
-                     "Command_Torque", "True_Torque"  &
+   component_names = "Input_RPM", "Surface_RPM", "Top_of_String_RPM",  &
+                     "Surface_Torque", "True_Torque", "", "", "", "", ""  &
    component_labels = "(RPM)", "(RPM)", "(RPM)", "(kft-lbf)", "(kft-lbf)"  &
    results_name = "top_drive_data"  &
    f1 = ""  &
@@ -21299,8 +21304,9 @@ output_control create request  &
    request_name = .test_analysis_1.ROP_controls  &
    adams_id = 8  &
    comment = "_:cmd_ROP:BOH_V:MD:_:cmd_WOB:true_WOB:HookLoad"  &
-   component_names = "Command_ROP", "Bottom_of_Hole_Velocity",  &
-                     "Measured_Depth", "Command_WOB", "True_WOB", "HookLoad"  &
+   component_names = "Input_ROP", "Bottom_of_Hole_Velocity",  &
+                     "Measured_Depth", "Input_WOB", "Downhole_WOB",  &
+                     "HookLoad", "", "", "", ""  &
    component_labels = "(ft/hr)", "(ft/hr)", "(ft)", "(klbf)", "(klbf)",  &
                       "(klbf)"  &
    results_name = "ROP_controls"  &
@@ -21316,7 +21322,8 @@ output_control create request  &
    adams_id = 9  &
    comment = "Surface:AtBit"  &
    component_names = "Instantaneous_Surface_MSE", "Instantaneous_Bottom_MSE",  &
-                     "Filtered_Surface_MSE", "Filtered_Bottom_MSE"  &
+                     "Filtered_Surface_MSE", "Filtered_Bottom_MSE", "", "",  &
+                     "", "", "", ""  &
    component_labels = "(psi)", "(psi)", "(psi)", "(psi)"  &
    results_name = "MSE"  &
    f1 = ""  &
@@ -21508,6 +21515,26 @@ variable create  &
    integer_value = 1
 !
 variable create  &
+   variable_name = .test_analysis_1.FileVerion  &
+   real_value = 1.0
+!
+variable create  &
+   variable_name = .test_analysis_1.topDrivesubHeader  &
+   string_value = "TOP_DRIVE"
+!
+variable create  &
+   variable_name = .test_analysis_1.pumpFlowsubHeader  &
+   string_value = "PUMP_FLOW"
+!
+variable create  &
+   variable_name = .test_analysis_1.muddensity_cnvt  &
+   real_value = 1.0
+!
+variable create  &
+   variable_name = .test_analysis_1.wob_cnvt  &
+   real_value = 1.0
+!
+variable create  &
    variable_name = .test_analysis_1.DriveType  &
    string_value = "WITH_MOTOR"
 !
@@ -21532,15 +21559,15 @@ variable create  &
    real_value = 0.0
 !
 variable create  &
+   variable_name = .test_analysis_1.Top_Drive_Start  &
+   real_value = 15.0
+!
+variable create  &
    variable_name = .test_analysis_1.Command_RPM  &
    real_value = 60.0
 !
 variable create  &
    variable_name = .test_analysis_1.Top_Drive_Ramp  &
-   real_value = 15.0
-!
-variable create  &
-   variable_name = .test_analysis_1.Top_Drive_Start  &
    real_value = 15.0
 !
 variable create  &
@@ -21600,24 +21627,24 @@ variable create  &
    real_value = 1.05
 !
 variable create  &
-   variable_name = .test_analysis_1.WeightOnBit  &
-   real_value = 50.0
-!
-variable create  &
    variable_name = .test_analysis_1.WOB_Start  &
    real_value = 30.0
+!
+variable create  &
+   variable_name = .test_analysis_1.WeightOnBit  &
+   real_value = 50.0
 !
 variable create  &
    variable_name = .test_analysis_1.WOB_Ramp  &
    real_value = 15.0
 !
 variable create  &
-   variable_name = .test_analysis_1.ROP  &
-   real_value = 100.0
-!
-variable create  &
    variable_name = .test_analysis_1.ROP_Start  &
    real_value = 30.0
+!
+variable create  &
+   variable_name = .test_analysis_1.ROP  &
+   real_value = 100.0
 !
 variable create  &
    variable_name = .test_analysis_1.ROP_Ramp  &
@@ -21749,6 +21776,14 @@ variable create  &
 variable create  &
    variable_name = .test_analysis_1.HoleDataOpen  &
    integer_value = 0
+!
+variable create  &
+   variable_name = .test_analysis_1.holeFileVerion  &
+   real_value = 1.0
+!
+variable create  &
+   variable_name = .test_analysis_1.centerlinesubHeader  &
+   string_value = "True_Depth"
 !
 variable create  &
    variable_name = .test_analysis_1.spline_nrows  &
@@ -22390,6 +22425,10 @@ data_element modify variable  &
 data_element modify variable  &
    variable_name = .test_analysis_1.BitMD  &
    function = "DIF(.test_analysis_1.integrated_ROP)"
+!
+data_element modify variable  &
+   variable_name = .test_analysis_1.ROPmdepth  &
+   function = "DIF(.test_analysis_1.integrated_BOHV)"
 !
 data_element modify variable  &
    variable_name = .test_analysis_1.Surface_MSE  &
@@ -23538,11 +23577,15 @@ data_element modify spline  &
       (.test_analysis_1.HoleID),  &
       (.test_analysis_1.HoleID),  &
       (.test_analysis_1.HoleID),  &
+      (.test_analysis_1.HoleID),  &
+      (.test_analysis_1.HoleID),  &
       (.test_analysis_1.HoleID)
 !
 data_element modify spline  &
    spline_name = .test_analysis_1.WallKspl  &
    y =   &
+      (.test_analysis_1.WallK),  &
+      (.test_analysis_1.WallK),  &
       (.test_analysis_1.WallK),  &
       (.test_analysis_1.WallK),  &
       (.test_analysis_1.WallK),  &
@@ -23558,11 +23601,15 @@ data_element modify spline  &
       (.test_analysis_1.WallC),  &
       (.test_analysis_1.WallC),  &
       (.test_analysis_1.WallC),  &
+      (.test_analysis_1.WallC),  &
+      (.test_analysis_1.WallC),  &
       (.test_analysis_1.WallC)
 !
 data_element modify spline  &
    spline_name = .test_analysis_1.Static_Muspl  &
    y =   &
+      (.test_analysis_1.Sta_Mu),  &
+      (.test_analysis_1.Sta_Mu),  &
       (.test_analysis_1.Sta_Mu),  &
       (.test_analysis_1.Sta_Mu),  &
       (.test_analysis_1.Sta_Mu),  &
@@ -23578,6 +23625,8 @@ data_element modify spline  &
       (.test_analysis_1.Stat_V),  &
       (.test_analysis_1.Stat_V),  &
       (.test_analysis_1.Stat_V),  &
+      (.test_analysis_1.Stat_V),  &
+      (.test_analysis_1.Stat_V),  &
       (.test_analysis_1.Stat_V)
 !
 data_element modify spline  &
@@ -23588,11 +23637,15 @@ data_element modify spline  &
       (.test_analysis_1.Dyn_Mu),  &
       (.test_analysis_1.Dyn_Mu),  &
       (.test_analysis_1.Dyn_Mu),  &
+      (.test_analysis_1.Dyn_Mu),  &
+      (.test_analysis_1.Dyn_Mu),  &
       (.test_analysis_1.Dyn_Mu)
 !
 data_element modify spline  &
    spline_name = .test_analysis_1.Dynamic_Vspl  &
    y =   &
+      (.test_analysis_1.Dyna_V),  &
+      (.test_analysis_1.Dyna_V),  &
       (.test_analysis_1.Dyna_V),  &
       (.test_analysis_1.Dyna_V),  &
       (.test_analysis_1.Dyna_V),  &
