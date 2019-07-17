@@ -7,6 +7,7 @@ from test import *
     
 from adamspy import adripy #pylint: disable=wrong-import-position
 from adamspy.adripy import utilities #pylint: disable=wrong-import-position
+from adamspy.adripy.constants import TO_PARAMETER_PATTERN
 
 class Test_ReadTOFile(unittest.TestCase):
     """Tests adamspy.adripy.utilities.read_to_file()    
@@ -141,7 +142,7 @@ class Test_RexExPatterns(unittest.TestCase):
             ' fdslkj  =  "lkjfdslkj"\n',
             ' fdslkfds  =  5*10'
         ]             
-        failures = self._find_match_failures(strings_to_match, strings_to_not_match, utilities.TO_PARAMETER_PATTERN)      
+        failures = self._find_match_failures(strings_to_match, strings_to_not_match, TO_PARAMETER_PATTERN)      
         self.assertEqual(failures, [])
 
     def _find_match_failures(self, strings_to_match, strings_to_not_match, pattern):

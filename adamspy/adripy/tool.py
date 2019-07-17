@@ -4,8 +4,8 @@
 import os
 import shutil
 from thornpy import numtype
-from .utilities import TO_BLOCK_HEADER_PATTERN, TO_PARAMETER_PATTERN, get_cdb_location, get_cdb_path, get_full_path
-from .constants import DATABASE_INFO
+from .utilities import TO_BLOCK_HEADER_PATTERN, get_cdb_location, get_cdb_path, get_full_path
+from .constants import DATABASE_INFO, TO_PARAMETER_PATTERN
 
 class DrillTool():
     """

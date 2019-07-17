@@ -14,7 +14,7 @@ DATABASE_INFO : :obj:`dict` of :obj:`dict`
 """
 import re
 
-TO_PARAMETER_PATTERN = re.compile('^ [_0-9a-zA-Z]+\\s+=\\s+((\'[-:_0-9a-zA-Z<>\\\\/\\.]+\')|(-?[\\+-\\.e0-9]+))\\s*$')
+TO_PARAMETER_PATTERN = re.compile('^ *[_0-9a-zA-Z]+\\s*=\\s*((\'[-:_0-9a-zA-Z<>\\\\/\\.\\s]*\')|(-?[\\+-\\.e0-9]+))\\s*$')
 
 TO_LENGTH_PARAM = {}
 TO_LENGTH_PARAM['accelerator'] = ['Accelerator_Length']

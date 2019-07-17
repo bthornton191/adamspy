@@ -5,25 +5,41 @@ import difflib
 from test import *
 
 from adamspy import adripy
+from adamspy.adripy.constants import TO_PARAMETER_PATTERN
 
 class Test_TOParameterPattern(unittest.TestCase):
     """Tests that the TO_PARAMTER_PATTERN regex works on a variety of example text. 
     """
     
     def test_string_file_event_property_file(self):
-        line_text = ' Event_Property_File  =  \'c:\\Users\\bthornt\\GUI\\adamspy\\test\example_working_directory\\test_analysis_1.evt\''
-        match = adripy.TO_PARAMETER_PATTERN.match(line_text)
+        line_text = " Event_Property_File  =  'c:\\Users\\bthornt\\GUI\\adamspy\\test\example_working_directory\\test_analysis_1.evt'"
+        match = TO_PARAMETER_PATTERN.match(line_text)
         self.assertTrue(bool(match))
 
     def test_string_file_unc_hole_property_file(self):
         line_text = ' Hole_Property_File  =  \'//us/corpdir/LCO/OpenInternal/Adams/PXD_Shared.cdb/holes.tbl/0_Baselines/Wolfcamp B/4-String/Hole_WCB3_4S_Int1_02.hol\''
-        match = adripy.TO_PARAMETER_PATTERN.match(line_text)
+        match = TO_PARAMETER_PATTERN.match(line_text)
         self.assertTrue(bool(match))
     
     def test_string_file_units(self):
         line_text = ' Units  =  \'Imperial\''
-        match = adripy.TO_PARAMETER_PATTERN.match(line_text)
+        match = TO_PARAMETER_PATTERN.match(line_text)
         self.assertTrue(bool(match))
+    
+    def test_no_space_at_beginning(self):
+        line_text = 'NOR_min_RPM_A  =  0.1633333333'
+        match = TO_PARAMETER_PATTERN.match(line_text)
+        self.assertTrue(bool(match))
+    
+    def test_two_spaces_at_beginning(self):
+        line_text = "  Material        = '.materials.steel'"
+        match = TO_PARAMETER_PATTERN.match(line_text)
+        self.assertTrue(bool(match))
+    
+    def test_table_does_not_match(self):
+        line_text = '0.0   5.0   60.0'
+        match = TO_PARAMETER_PATTERN.match(line_text)
+        self.assertFalse(bool(match))        
 
 class Test_AdripyFunctions(unittest.TestCase):    
     
