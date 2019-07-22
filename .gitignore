@@ -14,3 +14,5 @@ test/files/ppt.loq
 test/existing_drillsim/test_analysis_1.msg.cached
 test/existing_drillsim/test_analysis_1.res.cached
 test/files/aviewAS.cmd
+/aview.cmd
+/cd_then_build.cmd

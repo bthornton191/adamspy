@@ -863,11 +863,20 @@ def build(string_file, solver_settings_file, working_directory, output_name=None
     with open(os.path.join(working_directory, 'build.cmd'), 'w') as fid:			
         for cmd in cmds:
             fid.write(cmd)
-                                            
+
+    # Create cd_then_build script
+    cd_then_build_filename = os.path.join(os.getcwd(), '_cd_then_build.cmd')
+    cmds = []
+    cmds.append('var set var=foo string=(eval(CHDIR("{}")))\n'.format(working_directory.replace('\\', '/')))
+    cmds.append('file command read file_name="build.cmd"')
+    with open(cd_then_build_filename, 'w') as fid:
+        for cmd in cmds:
+            fid.write(cmd)
+
     # Run adams to generate adm, acf, cmd
     startupinfo = subprocess.STARTUPINFO()
     startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-    process = subprocess.Popen('"{}" aview ru-s b build.cmd'.format(os.environ['ADAMS_LAUNCH_COMMAND']), cwd=working_directory, startupinfo=startupinfo)
+    process = subprocess.Popen('"{}" aview ru-s b {}'.format(os.environ['ADAMS_LAUNCH_COMMAND'], os.path.split(cd_then_build_filename)[1]), cwd=os.getcwd(), startupinfo=startupinfo)
     if wait:
         process.wait()    
 
@@ -875,12 +884,19 @@ def build(string_file, solver_settings_file, working_directory, output_name=None
     acf_file = os.path.join(working_directory, acf_file)
     cmd_file = os.path.join(working_directory, cmd_file)
 
+    # Remove the cd_then_build script and aview.cmd
+    if os.path.exists(cd_then_build_filename):
+        os.remove(cd_then_build_filename)
+    if os.path.exists(os.path.join(os.getcwd(), 'aview.cmd')):
+        os.remove(os.path.join(os.getcwd(), 'aview.cmd'))
+
     return adm_file, acf_file, cmd_file
 
 TO_BLOCK_HEADER_PATTERN = re.compile('^\\[[_0-9a-zA-Z]+\\]\\s*$') 
 TO_SUBBLOCK_HEADER_PATTERN = re.compile('^\\([_0-9a-zA-Z]+\\)\\s*$') 
 TO_TABLE_HEADER_PATTERN = re.compile('^\\{(\\s*[_0-9a-zA-Z])+\\s*\\}\\s*$')
 TO_TABLE_LINE_PATTERN = re.compile("^((\\s*\\'[_0-9a-zA-Z]+\\')+)|((\\s*-?[\\+-\\.eE0-9]+)+)\\s*(<- use this format for constant values)?\\s$")
+
 
 def read_TO_file(filename):
     """Reads a Tiem Orbit file into a dictionary of parameters

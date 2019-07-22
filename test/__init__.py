@@ -81,6 +81,7 @@ TEST_NEW_DATABASE_NAME = 'new_database'
 TEST_NEW_DATABASE_PATH = os.path.join(os.getcwd(), 'test', TEST_NEW_DATABASE_NAME + '.cdb')
 
 TEST_WORKING_DIRECTORY = os.path.join(os.getcwd(), 'test', 'example_working_directory')
+TEST_WORKING_DIRECTORY_UNC = os.path.join('\\\\localhost', TEST_WORKING_DIRECTORY.replace(':', '$'))
 TEST_ANALYSIS_NAME = 'test_analysis_1'
 
 TEST_EXISTING_DRILLSIM_DIRECTORY = os.path.join(os.getcwd(), 'test', 'existing_drillsim')
