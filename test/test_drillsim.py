@@ -330,6 +330,8 @@ class Test_DrillSim(unittest.TestCase):
             os.path.join(drill_sim.directory, drill_sim.adm_filename),
             os.path.join(drill_sim.directory, drill_sim.acf_filename),
             os.path.join(drill_sim.directory, drill_sim.cmd_filename),
+            os.path.join(drill_sim.directory, 'aview.cmd'),
+            os.path.join(drill_sim.directory, 'aview.log'),
             os.path.join(drill_sim.directory, 'build.cmd'),   
         ]
 
