@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.8.2'
-version_notes = 'added some diagnostics for use with SimManager'
+version = '0.8.3'
+version_notes = 'changed version number'
 date = 'July 31th, 2019'
 # ---------------------
 author = 'Ben Thornton'
