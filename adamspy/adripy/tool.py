@@ -189,24 +189,20 @@ class DrillTool():
 
         # Read the property file
         filename = get_full_path(self.property_file)
-        with open(filename, 'r') as fid:
+        with open(filename, 'rb') as fid:            
+            lines_b = fid.readlines()
+
+        # Decode each line ignore any exceptions that occur on commented lines
+        lines = []
+        for line_b in lines_b:
             try:
-                lines = fid.readlines()
+                lines.append(line_b.decode())
 
-            except UnicodeDecodeError:                
-                error_type, value, sys.last_traceback = sys.exc_info()
-                
-                # Get the error traceback
-                diagnostics_block = '\n'.join(traceback.format_exception(error_type, value,sys.last_traceback))                 
-                
-                # Make an error message
-                message  =  f'Unexpected error encountered when trying to read {filename}.'            
-                # message +=  '\n'
-                # message +=  'Diagnostic Info\n'
-                # message +=  '---------------\n'
-                # message += f'{diagnostics_block}'
-
-                raise Exception(message)
+            except UnicodeDecodeError as err:
+                if line_b[0:1].decode() == '$':
+                    pass
+                else:
+                    raise err
 
         # Initialize a boolean specifying if the for loop is at a line in the [UNITS] block
         at_units_block = False

@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.8.4'
-version_notes = 'minor change'
+version = '0.8.5'
+version_notes = 'added exception handling for reading files with a degree symbol'
 date = 'July 31th, 2019'
 # ---------------------
 author = 'Ben Thornton'
