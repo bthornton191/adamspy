@@ -2,6 +2,8 @@
 """
 
 import os
+import sys
+import traceback
 import shutil
 from thornpy import numtype
 from .utilities import TO_BLOCK_HEADER_PATTERN, get_cdb_location, get_cdb_path, get_full_path
@@ -188,7 +190,23 @@ class DrillTool():
         # Read the property file
         filename = get_full_path(self.property_file)
         with open(filename, 'r') as fid:
-            lines = fid.readlines()
+            try:
+                lines = fid.readlines()
+
+            except UnicodeDecodeError:                
+                error_type, value, sys.last_traceback = sys.exc_info()
+                
+                # Get the error traceback
+                diagnostics_block = '\n'.join(traceback.format_exception(error_type, value,sys.last_traceback))                 
+                
+                # Make an error message
+                message  =  f'Unexpected error encountered when trying to read {filename}.'            
+                # message +=  '\n'
+                # message +=  'Diagnostic Info\n'
+                # message +=  '---------------\n'
+                # message += f'{diagnostics_block}'
+
+                raise UnicodeDecodeError(message)
 
         # Initialize a boolean specifying if the for loop is at a line in the [UNITS] block
         at_units_block = False

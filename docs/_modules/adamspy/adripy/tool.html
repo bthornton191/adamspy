@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.tool &mdash; adamspy 0.8.1 documentation</title>
+  <title>adamspy.adripy.tool &mdash; adamspy 0.8.2 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.8.1
+                0.8.2
               </div>
             
           
@@ -149,6 +149,8 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">traceback</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
 <span class="kn">from</span> <span class="nn">thornpy</span> <span class="k">import</span> <span class="n">numtype</span>
 <span class="kn">from</span> <span class="nn">.utilities</span> <span class="k">import</span> <span class="n">TO_BLOCK_HEADER_PATTERN</span><span class="p">,</span> <span class="n">get_cdb_location</span><span class="p">,</span> <span class="n">get_cdb_path</span><span class="p">,</span> <span class="n">get_full_path</span>
@@ -335,7 +337,23 @@
         <span class="c1"># Read the property file</span>
         <span class="n">filename</span> <span class="o">=</span> <span class="n">get_full_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">property_file</span><span class="p">)</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
-            <span class="n">lines</span> <span class="o">=</span> <span class="n">fid</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">lines</span> <span class="o">=</span> <span class="n">fid</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+
+            <span class="k">except</span> <span class="ne">UnicodeDecodeError</span><span class="p">:</span>                
+                <span class="n">error_type</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">last_traceback</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()</span>
+                
+                <span class="c1"># Get the error traceback</span>
+                <span class="n">diagnostics_block</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exception</span><span class="p">(</span><span class="n">error_type</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span><span class="n">sys</span><span class="o">.</span><span class="n">last_traceback</span><span class="p">))</span>                 
+                
+                <span class="c1"># Make an error message</span>
+                <span class="n">message</span>  <span class="o">=</span>  <span class="n">f</span><span class="s1">&#39;Unexpected error encountered when trying to read </span><span class="si">{filename}</span><span class="s1">.&#39;</span>            
+                <span class="c1"># message +=  &#39;\n&#39;</span>
+                <span class="c1"># message +=  &#39;Diagnostic Info\n&#39;</span>
+                <span class="c1"># message +=  &#39;---------------\n&#39;</span>
+                <span class="c1"># message += f&#39;{diagnostics_block}&#39;</span>
+
+                <span class="k">raise</span> <span class="ne">UnicodeDecodeError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
 
         <span class="c1"># Initialize a boolean specifying if the for loop is at a line in the [UNITS] block</span>
         <span class="n">at_units_block</span> <span class="o">=</span> <span class="kc">False</span>

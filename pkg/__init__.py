@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.8.1'
-version_notes = 'changed TO_PARAMETER_PATTERN'
-date = 'July 17th, 2019'
+version = '0.8.2'
+version_notes = 'added some diagnostics for use with SimManager'
+date = 'July 31th, 2019'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'
