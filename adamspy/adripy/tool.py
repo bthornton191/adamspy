@@ -206,7 +206,7 @@ class DrillTool():
                 # message +=  '---------------\n'
                 # message += f'{diagnostics_block}'
 
-                raise UnicodeDecodeError(message)
+                raise Exception(message)
 
         # Initialize a boolean specifying if the for loop is at a line in the [UNITS] block
         at_units_block = False

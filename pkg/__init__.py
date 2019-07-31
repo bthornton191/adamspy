@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.8.3'
-version_notes = 'changed version number'
+version = '0.8.4'
+version_notes = 'minor change'
 date = 'July 31th, 2019'
 # ---------------------
 author = 'Ben Thornton'
