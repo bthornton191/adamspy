@@ -77,7 +77,7 @@ class DrillEvent():
     }
 
     _TABLE_PARAMETERS = [
-        'TOP_DRIVE',
+        'ROTARY_RPM',
         'MOTOR',
         'PUMP_FLOW',
         'WOB',
@@ -354,6 +354,10 @@ class DrillEvent():
             for block in blocks:
                 # For each block in the TO file, get the sub blocks
                 sub_blocks = [header for header in tiem_orbit_data[block] if isinstance(tiem_orbit_data[block][header], dict)]
+                
+                # This is a bandaid to make this code backward compatible
+                if 'TOP_DRIVE' in sub_blocks:
+                    sub_blocks['ROTARY_RPM'] = sub_blocks.pop('TOP_DRIVE')
 
                 if param.upper()==block and block=='DYNAMICS':
                     # If the parameter is DYNAMICS and so is the current block

@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.8.5'
-version_notes = 'added exception handling for reading files with a degree symbol'
-date = 'July 31th, 2019'
+version = '0.8.6'
+version_notes = 'fixed an adams 2019.2 compatibility bug in event.py'
+date = 'August 2nd, 2019'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'
