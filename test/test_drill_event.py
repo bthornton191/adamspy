@@ -22,7 +22,7 @@ class Test_EventFile(unittest.TestCase):
         
         # Add ramp parameters to event file object
         self.event.add_ramp('PUMP_FLOW', 1, 10, 500, clear_existing=True)
-        self.event.add_ramp('TOP_DRIVE', 10, 15, 60, clear_existing=True)
+        self.event.add_ramp('ROTARY_RPM', 10, 15, 60, clear_existing=True)
         self.event.add_ramp('WOB', 30, 10, 50, clear_existing=True)
         self.event.add_ramp('ROP', 35, 10, 100, clear_existing=True)   
 
@@ -38,7 +38,7 @@ class Test_EventFile(unittest.TestCase):
         """
         event = adripy.DrillEvent(TEST_CREATED_EVENT_NAME, 4000, 4)
         event.add_ramp('PUMP_FLOW', 1, 10, 500, clear_existing=True)
-        event.add_ramp('TOP_DRIVE', 10, 15, 60, clear_existing=True)
+        event.add_ramp('ROTARY_RPM', 10, 15, 60, clear_existing=True)
         event.add_ramp('WOB', 30, 10, 50, clear_existing=True)
         
         validated = event.validate()
@@ -60,7 +60,25 @@ class Test_EventFile(unittest.TestCase):
         params.pop('_NPERREV')
         params.pop('_PUMP_FLOW')
         params.pop('_ROP')
-        params.pop('_TOP_DRIVE')
+        params.pop('_ROTARY_RPM')
+        params.pop('_WOB')
+
+        self.assertDictEqual(params, TEST_EXPECTED_EVENT_TO_PARAMETERS)
+    
+    def test_read_from_file_2019_2(self):        
+        # Create an event object
+        event_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'events.tbl', TEST_EVENT_NAME_2019_2 + '.evt')
+
+        # Read new parameters into the drill string object from a file
+        event_from_file = adripy.DrillEvent.read_from_file(event_file)
+        
+        params = dict(event_from_file.parameters)
+        params.pop('_DYNAMICS')
+        params.pop('_MOTOR')
+        params.pop('_NPERREV')
+        params.pop('_PUMP_FLOW')
+        params.pop('_ROP')
+        params.pop('_ROTARY_RPM')
         params.pop('_WOB')
 
         self.assertDictEqual(params, TEST_EXPECTED_EVENT_TO_PARAMETERS)

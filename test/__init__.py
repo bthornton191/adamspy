@@ -26,6 +26,9 @@ TEST_CREATED_EVENT_FILENAME = os.path.join(TEST_DATABASE_PATH,'events.tbl', f'{T
 TEST_EVENT_NAME = 'test_event'
 TEST_EVENT_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'events.tbl', TEST_EVENT_NAME + '.evt')
 
+TEST_EVENT_NAME_2019_2 = 'test_event_2019_2'
+TEST_EVENT_FILE_2019_2 = os.path.join(f'<{TEST_DATABASE_NAME}>', 'events.tbl', TEST_EVENT_NAME_2019_2 + '.evt')
+
 TEST_SOLVER_SETTINGS_NAME = 'test_solver_settings'
 TEST_SOLVER_SETTINGS_NAME_2 = 'test_solver_settings_2'
 TEST_SOLVER_SETTINGS_FILE = os.path.join(f'<{TEST_DATABASE_NAME}>', 'solver_settings.tbl', TEST_SOLVER_SETTINGS_NAME + '.ssf')
@@ -1462,7 +1465,7 @@ TEST_EXPECTED_EVENT_TO_PARAMETERS = {
     'Start_Depth': 1300.0,
     'Start_Distance': 50.0,
     'Start_Time': [30.0],
-    'TOP_DRIVE': [[30.0], [10.0], [120.0]],
+    'ROTARY_RPM': [[30.0], [10.0], [120.0]],
     'Units': 'Imperial',
     'WOB': [[85.0], [35.0], [50000.0]],
     'C_hi': 1.005,

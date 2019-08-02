@@ -87,7 +87,7 @@ class DrillEvent():
     ]
 
     _DEFAULT_PARAMETER_TABLES = {
-        'TOP_DRIVE': ((),(),()),
+        'ROTARY_RPM': ((),(),()),
         'MOTOR': ((0,), (1,), (1,)),
         'PUMP_FLOW': ((),(),()),
         'WOB': ((),(),()),
@@ -357,8 +357,14 @@ class DrillEvent():
                 
                 # This is a bandaid to make this code backward compatible
                 if 'TOP_DRIVE' in sub_blocks:
-                    sub_blocks['ROTARY_RPM'] = sub_blocks.pop('TOP_DRIVE')
-                    tiem_orbit_data[block]['ROTARY_RPM'] = tiem_orbit_data[block].pop(['TOP_DRIVE'])
+                    
+                    # Replace 'TOP_DRIVE' with 'ROTARY_RPM'
+                    for _i in range(len(sub_blocks)):
+                        if sub_blocks[_i] == 'TOP_DRIVE':
+                            sub_blocks[_i] = 'ROTARY_RPM'
+                            break                   
+
+                    tiem_orbit_data[block]['ROTARY_RPM'] = tiem_orbit_data[block].pop('TOP_DRIVE')
 
                 if param.upper()==block and block=='DYNAMICS':
                     # If the parameter is DYNAMICS and so is the current block
