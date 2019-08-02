@@ -358,6 +358,7 @@ class DrillEvent():
                 # This is a bandaid to make this code backward compatible
                 if 'TOP_DRIVE' in sub_blocks:
                     sub_blocks['ROTARY_RPM'] = sub_blocks.pop('TOP_DRIVE')
+                    tiem_orbit_data[block]['ROTARY_RPM'] = tiem_orbit_data[block].pop(['TOP_DRIVE'])
 
                 if param.upper()==block and block=='DYNAMICS':
                     # If the parameter is DYNAMICS and so is the current block
