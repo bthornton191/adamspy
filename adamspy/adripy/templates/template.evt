@@ -11,7 +11,7 @@ $  ==================================================================
 $-------------------------------------------------------------ADAMS_DRILL_HEADER
 [ADAMS_DRILL_HEADER]
  File_Type  =  'event'
- File_Version  =  1.0
+ File_Version  =  2.0
 $--------------------------------------------------------------------------UNITS
 [UNITS]
 $  Adams Drill currently supports one units set: 
