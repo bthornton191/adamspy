@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.8.10'
-version_notes = 'minor bug fix'
+version = '0.8.11'
+version_notes = 'changed TOP_DRIVE to ROTARY_RPM in .evt template'
 date = 'August 5th, 2019'
 # ---------------------
 author = 'Ben Thornton'
