@@ -196,7 +196,7 @@ class DrillTool():
         lines = []
         for line_b in lines_b:
             try:
-                lines.append(line_b.decode())
+                lines.append(line_b.decode().replace('\r', ''))
 
             except UnicodeDecodeError as err:
                 if line_b[0:1].decode() == '$':

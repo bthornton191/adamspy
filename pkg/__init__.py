@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.8.9'
-version_notes = 'fixed another adams 2019.2 compatibility bug in event.py'
+version = '0.8.10'
+version_notes = 'minor bug fix'
 date = 'August 5th, 2019'
 # ---------------------
 author = 'Ben Thornton'
