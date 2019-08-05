@@ -48,22 +48,22 @@ $ proceed better.  *They should not be changed by the user.*
  Motor_Bend_Start			= 1.0
  Motor_Bend_Ramp			= 9.0
 $
-{Start_Time  Ramp_Duration  Delta_RPM}
-32.0   8.0  85.0
+{Start_Time  End_Time  RPM_at_End}
+32.0   40.0  85.0
 $
 $ PUMP_FLOW applies only to 3D motors; valid only for DRIVE_TYPE = WITH_MOTOR
 $ Gallons/minute in imperial units; Liters/minute in metric units
 (PUMP_FLOW)
-{Start_Time  Ramp_Duration  Delta_Flow_Rate}
-33.0  20.0  511.0
+{Start_Time  End_Time  Flow_at_End}
+33.0  53.0  511.0
 $
 (WOB)
-{Start_Time  Ramp_Duration  Delta_WOB}
-85.0   35.0  50000.0
+{Start_Time  End_Time  WOB_at_End}
+85.0   120.0  50000.0
 $
 (ROP)
-{Start_Time  Ramp_Duration  Delta_ROP}
-88.0  42.0  125.0
+{Start_Time  End_Time  ROP_at_End}
+88.0  130.0  125.0
 $--------------------------------------------------------------------------MISC
 [MISC]
 $ Enter MUD_DENSITY in pounds-mass per cubic foot for IMPERIAL units

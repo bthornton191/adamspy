@@ -318,13 +318,20 @@ class DrillEvent():
             for block in tiem_orbit_data:
                 # For each block in the TO file
 
-                if param.lower() in tiem_orbit_data[block]:
+                if param.lower() in ['start_time', 'end_time']:
+                    # If finding the End_Time, or Start_Time parameters, only look in the PLOT_4D block
+                    if block.lower() == 'plot_4d':                        
+                        self.parameters[param] = tiem_orbit_data[block][param.lower()]
+                        found = True
+                        break
+
+                elif param.lower() in tiem_orbit_data[block]:
                     # If the parameter is in this block, set the parameter and break the loop
                     self.parameters[param] = tiem_orbit_data[block][param.lower()]
                     found = True
                     break
 
-                else:
+                elif param.lower() != 'end_time':
                     # If the parameter is not in this block, find all the sub blocks 
                     # and look for the parameter inside each sub block
                     sub_blocks = [header for header in tiem_orbit_data[block] if isinstance(tiem_orbit_data[block][header], dict)]
@@ -355,7 +362,7 @@ class DrillEvent():
                 # For each block in the TO file, get the sub blocks
                 sub_blocks = [header for header in tiem_orbit_data[block] if isinstance(tiem_orbit_data[block][header], dict)]
                 
-                # This is a bandaid to make this code backward compatible
+                # vvvvvvvvvvvv This is a bandaid to make this code backward compatible vvvvvvvvvvvv
                 if 'TOP_DRIVE' in sub_blocks:
                     
                     # Replace 'TOP_DRIVE' with 'ROTARY_RPM'
@@ -365,6 +372,7 @@ class DrillEvent():
                             break                   
 
                     tiem_orbit_data[block]['ROTARY_RPM'] = tiem_orbit_data[block].pop('TOP_DRIVE')
+                # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
                 if param.upper()==block and block=='DYNAMICS':
                     # If the parameter is DYNAMICS and so is the current block
@@ -386,11 +394,41 @@ class DrillEvent():
                 elif param.upper() in sub_blocks:
                     # If the current parameter is in this sub block, add to the parameters dictionary
                     self.parameters[param][0] = tiem_orbit_data[block][param.upper()]['start_time']
-                    self.parameters[param][1] = tiem_orbit_data[block][param.upper()]['ramp_duration']
+
+                    if 'ramp_duration' in tiem_orbit_data[block][param.upper()]:
+                        # If the .evt file uses the 2018 notation
+                        self.parameters[param][1] = tiem_orbit_data[block][param.upper()]['ramp_duration']
+                    elif 'end_time' in tiem_orbit_data[block][param.upper()]:
+                        # If the .evt file uses the 2019 notation
+                        self.parameters[param][1] = [end - start for end, start in zip(tiem_orbit_data[block][param.upper()]['end_time'], tiem_orbit_data[block][param.upper()]['start_time'])]
+
                     if len(self.parameters[param])>2:
                         list_params = [par for par in tiem_orbit_data[block][param.upper()] if isinstance(tiem_orbit_data[block][param.upper()][par], list)]
-                        last_col = [col for col in list_params if col not in ['start_time','ramp_duration']][0]
-                        self.parameters[param][2] = tiem_orbit_data[block][param.upper()][last_col]
+                        last_col = [col for col in list_params if col not in ['start_time','ramp_duration', 'end_time']][0]
+                                                
+                        if 'delta' in last_col:
+                            # If .evt file uses 2018 notation (delta)
+                            self.parameters[param][2] = tiem_orbit_data[block][param.upper()][last_col]
+                        
+                        elif 'at_end' in last_col:
+                            # If .evt file uses 2019 notation (value at end)
+                            at_end_values = tiem_orbit_data[block][param.upper()][last_col]
+
+                            if len(at_end_values) < 2:                                
+                                # If there is only one value (the delta and the end value are the same)
+                                self.parameters[param][2] = at_end_values
+                            
+                            else:
+                                # If there are multiple values, calculate the deltas                                
+                                # The first "delta" value is the same as the first "at end" value
+                                delta_values = at_end_values[:1]
+
+                                # Loop over the "at end" values to calculate the "delta" values
+                                for at_end_value, prev_at_end_value in zip(at_end_values[1:], at_end_values[:-1]):
+                                    delta_values.append(at_end_value - prev_at_end_value)
+
+                                self.parameters[param][2] = delta_values
+
                     found = True
                     break
                 
