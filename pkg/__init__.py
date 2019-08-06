@@ -1,5 +1,5 @@
 # ---------------------
-version = '0.8.17'
+version = '0.8.18'
 version_notes = 'fixed wob conversion when writing'
 date = 'August 6th, 2019'
 # ---------------------
