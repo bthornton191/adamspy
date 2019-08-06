@@ -1,10 +1,14 @@
 """Contains the DrillEvent class
 """
 import os
+import logging
 import copy
 import thornpy
 from . import TMPLT_ENV
 from .utilities import read_TO_file, get_cdb_path, get_full_path
+
+# Configure Logging
+LOG = logging.getLogger(__name__)
 
 class DrillEvent():
     """
@@ -250,10 +254,12 @@ class DrillEvent():
         # Check that all parameters exist in the self.parameters dictionary
         for param_name in self._SCALAR_PARAMETERS:
             if param_name not in self.parameters:
+                LOG.critical('%s not found in %s', param_name, self.filename)
                 validated = False        
         
         for param_name in self._TABLE_PARAMETERS:
             if not all([elem for elem in self.parameters[param_name]]):
+                LOG.critical('%s not found in %s', param_name, self.filename)
                 validated = False
             
         return validated          

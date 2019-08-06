@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.event &mdash; adamspy 0.8.14 documentation</title>
+  <title>adamspy.adripy.event &mdash; adamspy 0.8.15 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.8.14
+                0.8.15
               </div>
             
           
@@ -148,10 +148,14 @@
 <span></span><span class="sd">&quot;&quot;&quot;Contains the DrillEvent class</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">thornpy</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">TMPLT_ENV</span>
 <span class="kn">from</span> <span class="nn">.utilities</span> <span class="k">import</span> <span class="n">read_TO_file</span><span class="p">,</span> <span class="n">get_cdb_path</span><span class="p">,</span> <span class="n">get_full_path</span>
+
+<span class="c1"># Configure Logging</span>
+<span class="n">LOG</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 <div class="viewcode-block" id="DrillEvent"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.event.DrillEvent">[docs]</a><span class="k">class</span> <span class="nc">DrillEvent</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -397,10 +401,12 @@
         <span class="c1"># Check that all parameters exist in the self.parameters dictionary</span>
         <span class="k">for</span> <span class="n">param_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_SCALAR_PARAMETERS</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">param_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
+                <span class="n">LOG</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> not found in </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">param_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
                 <span class="n">validated</span> <span class="o">=</span> <span class="kc">False</span>        
         
         <span class="k">for</span> <span class="n">param_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_TABLE_PARAMETERS</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">([</span><span class="n">elem</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">param_name</span><span class="p">]]):</span>
+                <span class="n">LOG</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> not found in </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">param_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
                 <span class="n">validated</span> <span class="o">=</span> <span class="kc">False</span>
             
         <span class="k">return</span> <span class="n">validated</span>          </div>

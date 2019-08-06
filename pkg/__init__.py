@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.8.14'
-version_notes = 'changed PUMP_FLOW to FLOW_RATE in event template'
-date = 'August 5th, 2019'
+version = '0.8.15'
+version_notes = 'more logging'
+date = 'August 6th, 2019'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'
