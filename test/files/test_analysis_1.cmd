@@ -21524,7 +21524,7 @@ variable create  &
 !
 variable create  &
    variable_name = .test_analysis_1.pumpFlowsubHeader  &
-   string_value = "PUMP_FLOW"
+   string_value = "FLOW_RATE"
 !
 variable create  &
    variable_name = .test_analysis_1.muddensity_cnvt  &

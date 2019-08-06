@@ -79,7 +79,7 @@ class DrillEvent():
     _TABLE_PARAMETERS = [
         'ROTARY_RPM',
         'MOTOR',
-        'PUMP_FLOW',
+        'FLOW_RATE',
         'WOB',
         'ROP',
         'NPERREV',
@@ -89,7 +89,7 @@ class DrillEvent():
     _DEFAULT_PARAMETER_TABLES = {
         'ROTARY_RPM': ((),(),()),
         'MOTOR': ((0,), (1,), (1,)),
-        'PUMP_FLOW': ((),(),()),
+        'FLOW_RATE': ((),(),()),
         'WOB': ((),(),()),
         'ROP': ((),(),()),
         'NPERREV': ((0,),(1,)),
@@ -146,7 +146,7 @@ class DrillEvent():
         Parameters
         ----------
         parameter : str
-            ramp parameter, options are 'TOP_DRIVE', 'WOB', 'PUMP_FLOW', or 'ROP'
+            ramp parameter, options are 'TOP_DRIVE', 'WOB', 'FLOW_RATE', or 'ROP'
         start_time : float
             Start time of the ramp.
         ramp_duration : float
@@ -363,8 +363,7 @@ class DrillEvent():
                 sub_blocks = [header for header in tiem_orbit_data[block] if isinstance(tiem_orbit_data[block][header], dict)]
                 
                 # vvvvvvvvvvvv This is a bandaid to make this code backward compatible vvvvvvvvvvvv
-                if 'TOP_DRIVE' in sub_blocks:
-                    
+                if 'TOP_DRIVE' in sub_blocks:                    
                     # Replace 'TOP_DRIVE' with 'ROTARY_RPM'
                     for _i in range(len(sub_blocks)):
                         if sub_blocks[_i] == 'TOP_DRIVE':
@@ -372,6 +371,15 @@ class DrillEvent():
                             break                   
 
                     tiem_orbit_data[block]['ROTARY_RPM'] = tiem_orbit_data[block].pop('TOP_DRIVE')
+
+                if 'PUMP_FLOW' in sub_blocks:                    
+                    # Replace 'PUMP_FLOW' with 'FLOW_RATE'
+                    for _i in range(len(sub_blocks)):
+                        if sub_blocks[_i] == 'PUMP_FLOW':
+                            sub_blocks[_i] = 'FLOW_RATE'
+                            break                   
+
+                    tiem_orbit_data[block]['FLOW_RATE'] = tiem_orbit_data[block].pop('PUMP_FLOW')
                 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
                 if param.upper()==block and block=='DYNAMICS':

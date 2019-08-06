@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.event &mdash; adamspy 0.8.13 documentation</title>
+  <title>adamspy.adripy.event &mdash; adamspy 0.8.14 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.8.13
+                0.8.14
               </div>
             
           
@@ -226,7 +226,7 @@
     <span class="n">_TABLE_PARAMETERS</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;ROTARY_RPM&#39;</span><span class="p">,</span>
         <span class="s1">&#39;MOTOR&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;PUMP_FLOW&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;FLOW_RATE&#39;</span><span class="p">,</span>
         <span class="s1">&#39;WOB&#39;</span><span class="p">,</span>
         <span class="s1">&#39;ROP&#39;</span><span class="p">,</span>
         <span class="s1">&#39;NPERREV&#39;</span><span class="p">,</span>
@@ -236,7 +236,7 @@
     <span class="n">_DEFAULT_PARAMETER_TABLES</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s1">&#39;ROTARY_RPM&#39;</span><span class="p">:</span> <span class="p">((),(),()),</span>
         <span class="s1">&#39;MOTOR&#39;</span><span class="p">:</span> <span class="p">((</span><span class="mi">0</span><span class="p">,),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)),</span>
-        <span class="s1">&#39;PUMP_FLOW&#39;</span><span class="p">:</span> <span class="p">((),(),()),</span>
+        <span class="s1">&#39;FLOW_RATE&#39;</span><span class="p">:</span> <span class="p">((),(),()),</span>
         <span class="s1">&#39;WOB&#39;</span><span class="p">:</span> <span class="p">((),(),()),</span>
         <span class="s1">&#39;ROP&#39;</span><span class="p">:</span> <span class="p">((),(),()),</span>
         <span class="s1">&#39;NPERREV&#39;</span><span class="p">:</span> <span class="p">((</span><span class="mi">0</span><span class="p">,),(</span><span class="mi">1</span><span class="p">,)),</span>
@@ -293,7 +293,7 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        parameter : str</span>
-<span class="sd">            ramp parameter, options are &#39;TOP_DRIVE&#39;, &#39;WOB&#39;, &#39;PUMP_FLOW&#39;, or &#39;ROP&#39;</span>
+<span class="sd">            ramp parameter, options are &#39;TOP_DRIVE&#39;, &#39;WOB&#39;, &#39;FLOW_RATE&#39;, or &#39;ROP&#39;</span>
 <span class="sd">        start_time : float</span>
 <span class="sd">            Start time of the ramp.</span>
 <span class="sd">        ramp_duration : float</span>
@@ -510,8 +510,7 @@
                 <span class="n">sub_blocks</span> <span class="o">=</span> <span class="p">[</span><span class="n">header</span> <span class="k">for</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="n">header</span><span class="p">],</span> <span class="nb">dict</span><span class="p">)]</span>
                 
                 <span class="c1"># vvvvvvvvvvvv This is a bandaid to make this code backward compatible vvvvvvvvvvvv</span>
-                <span class="k">if</span> <span class="s1">&#39;TOP_DRIVE&#39;</span> <span class="ow">in</span> <span class="n">sub_blocks</span><span class="p">:</span>
-                    
+                <span class="k">if</span> <span class="s1">&#39;TOP_DRIVE&#39;</span> <span class="ow">in</span> <span class="n">sub_blocks</span><span class="p">:</span>                    
                     <span class="c1"># Replace &#39;TOP_DRIVE&#39; with &#39;ROTARY_RPM&#39;</span>
                     <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sub_blocks</span><span class="p">)):</span>
                         <span class="k">if</span> <span class="n">sub_blocks</span><span class="p">[</span><span class="n">_i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;TOP_DRIVE&#39;</span><span class="p">:</span>
@@ -519,6 +518,15 @@
                             <span class="k">break</span>                   
 
                     <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="s1">&#39;ROTARY_RPM&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;TOP_DRIVE&#39;</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="s1">&#39;PUMP_FLOW&#39;</span> <span class="ow">in</span> <span class="n">sub_blocks</span><span class="p">:</span>                    
+                    <span class="c1"># Replace &#39;PUMP_FLOW&#39; with &#39;FLOW_RATE&#39;</span>
+                    <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sub_blocks</span><span class="p">)):</span>
+                        <span class="k">if</span> <span class="n">sub_blocks</span><span class="p">[</span><span class="n">_i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;PUMP_FLOW&#39;</span><span class="p">:</span>
+                            <span class="n">sub_blocks</span><span class="p">[</span><span class="n">_i</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;FLOW_RATE&#39;</span>
+                            <span class="k">break</span>                   
+
+                    <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">][</span><span class="s1">&#39;FLOW_RATE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiem_orbit_data</span><span class="p">[</span><span class="n">block</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;PUMP_FLOW&#39;</span><span class="p">)</span>
                 <span class="c1"># ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span>
 
                 <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">==</span><span class="n">block</span> <span class="ow">and</span> <span class="n">block</span><span class="o">==</span><span class="s1">&#39;DYNAMICS&#39;</span><span class="p">:</span>

@@ -21,7 +21,7 @@ class Test_EventFile(unittest.TestCase):
         self.event = adripy.DrillEvent(TEST_CREATED_EVENT_NAME, 4000, 4)
         
         # Add ramp parameters to event file object
-        self.event.add_ramp('PUMP_FLOW', 1, 10, 500, clear_existing=True)
+        self.event.add_ramp('FLOW_RATE', 1, 10, 500, clear_existing=True)
         self.event.add_ramp('ROTARY_RPM', 10, 15, 60, clear_existing=True)
         self.event.add_ramp('WOB', 30, 10, 50, clear_existing=True)
         self.event.add_ramp('ROP', 35, 10, 100, clear_existing=True)   
@@ -37,7 +37,7 @@ class Test_EventFile(unittest.TestCase):
         """Tests if :meth:`DrillEvent.validate` returns False when one of the table parameters is not set.        
         """
         event = adripy.DrillEvent(TEST_CREATED_EVENT_NAME, 4000, 4)
-        event.add_ramp('PUMP_FLOW', 1, 10, 500, clear_existing=True)
+        event.add_ramp('FLOW_RATE', 1, 10, 500, clear_existing=True)
         event.add_ramp('ROTARY_RPM', 10, 15, 60, clear_existing=True)
         event.add_ramp('WOB', 30, 10, 50, clear_existing=True)
         
@@ -58,7 +58,7 @@ class Test_EventFile(unittest.TestCase):
         params.pop('_DYNAMICS')
         params.pop('_MOTOR')
         params.pop('_NPERREV')
-        params.pop('_PUMP_FLOW')
+        params.pop('_FLOW_RATE')
         params.pop('_ROP')
         params.pop('_ROTARY_RPM')
         params.pop('_WOB')
@@ -76,7 +76,7 @@ class Test_EventFile(unittest.TestCase):
         params.pop('_DYNAMICS')
         params.pop('_MOTOR')
         params.pop('_NPERREV')
-        params.pop('_PUMP_FLOW')
+        params.pop('_FLOW_RATE')
         params.pop('_ROP')
         params.pop('_ROTARY_RPM')
         params.pop('_WOB')

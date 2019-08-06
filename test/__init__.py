@@ -634,7 +634,7 @@ $  ==================================================================
 $-------------------------------------------------------------ADAMS_DRILL_HEADER
 [ADAMS_DRILL_HEADER]
  File_Type  =  'event'
- File_Version  =  1.0
+ File_Version  =  2.0
 $--------------------------------------------------------------------------UNITS
 [UNITS]
 $  Adams Drill currently supports one units set: 
@@ -653,7 +653,7 @@ $ Either 'TOS' (default) or user-selected tool from drill string
 $ 
  Initial_Drive_Torque  =  0
 $ 
-(TOP_DRIVE)
+(ROTARY_RPM)
 {{Start_Time  Ramp_Duration  Delta_RPM}}
 10   15   60
 $ 
@@ -674,9 +674,9 @@ $
 {{Start_Time  Ramp_Duration  Delta_RPM}}
 0   1   1
 $ 
-$ PUMP_FLOW applies only to 3D motors; valid only for DRIVE_TYPE = WITH_MOTOR
+$ FLOW_RATE applies only to 3D motors; valid only for DRIVE_TYPE = WITH_MOTOR
 $ Gallons/minute in imperial units; Liters/minute in metric units
-(PUMP_FLOW)
+(FLOW_RATE)
 {{Start_Time  Ramp_Duration  Delta_Flow_Rate}}
 1   10   500
 $ 
@@ -888,9 +888,9 @@ $
 {{Start_Time  Ramp_Duration  Delta_RPM}}
 0   1   1
 $ 
-$ PUMP_FLOW applies only to 3D motors; valid only for DRIVE_TYPE = WITH_MOTOR
+$ FLOW_RATE applies only to 3D motors; valid only for DRIVE_TYPE = WITH_MOTOR
 $ Gallons/minute in imperial units; Liters/minute in metric units
-(PUMP_FLOW)
+(FLOW_RATE)
 {{Start_Time  Ramp_Duration  Delta_Flow_Rate}}
 0   15   500
 $ 
@@ -1457,7 +1457,7 @@ TEST_EXPECTED_EVENT_TO_PARAMETERS = {
     'NPERREV': [[80.0], [20.0]],
     'NperRev': 'on',
     'Off_Bottom': 5.0,
-    'PUMP_FLOW': [[33.0], [20.0], [511.0]],
+    'FLOW_RATE': [[33.0], [20.0], [511.0]],
     'Plotting_4D': 'on',
     'Plotting_Interval': 0.1,
     'ROP': [[88.0], [42.0], [125.0]],

@@ -558,7 +558,7 @@ class Test_DrillString(unittest.TestCase):
         event = adripy.DrillEvent(TEST_EVENT_NAME,2000, 3)
         event.add_simulation_step(10)
         event.add_simulation_step(100)
-        event.add_ramp('PUMP_FLOW', 0, 15, 500)
+        event.add_ramp('FLOW_RATE', 0, 15, 500)
         event.add_ramp('TOP_DRIVE', 15, 15, 60)
         event.add_ramp('WOB', 30, 15, 50)
         event.add_ramp('ROP', 30, 15, 100)

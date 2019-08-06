@@ -51,9 +51,9 @@ $
 {Start_Time  End_Time  RPM_at_End}
 32.0   40.0  85.0
 $
-$ PUMP_FLOW applies only to 3D motors; valid only for DRIVE_TYPE = WITH_MOTOR
+$ FLOW_RATE applies only to 3D motors; valid only for DRIVE_TYPE = WITH_MOTOR
 $ Gallons/minute in imperial units; Liters/minute in metric units
-(PUMP_FLOW)
+(FLOW_RATE)
 {Start_Time  End_Time  Flow_at_End}
 33.0  53.0  511.0
 $

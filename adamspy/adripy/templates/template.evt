@@ -55,11 +55,11 @@ $
 {{ start_time }}   {{ ramp_duration }}   {{ delta }}
 {% endfor %}
 $ 
-$ PUMP_FLOW applies only to 3D motors; valid only for DRIVE_TYPE = WITH_MOTOR
+$ FLOW_RATE applies only to 3D motors; valid only for DRIVE_TYPE = WITH_MOTOR
 $ Gallons/minute in imperial units; Liters/minute in metric units
-(PUMP_FLOW)
+(FLOW_RATE)
 {Start_Time  Ramp_Duration  Delta_Flow_Rate}
-{% for start_time, ramp_duration, delta in _PUMP_FLOW %}
+{% for start_time, ramp_duration, delta in _FLOW_RATE %}
 {{ start_time }}   {{ ramp_duration }}   {{ delta }}
 {% endfor %}
 $ 

@@ -51,9 +51,9 @@ $
 {Start_Time  Ramp_Duration  Delta_RPM}
 32.0   8.0  85.0
 $
-$ PUMP_FLOW applies only to 3D motors; valid only for DRIVE_TYPE = WITH_MOTOR
+$ FLOW_RATE applies only to 3D motors; valid only for DRIVE_TYPE = WITH_MOTOR
 $ Gallons/minute in imperial units; Liters/minute in metric units
-(PUMP_FLOW)
+(FLOW_RATE)
 {Start_Time  Ramp_Duration  Delta_Flow_Rate}
 33.0  20.0  511.0
 $
