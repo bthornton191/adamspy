@@ -238,7 +238,6 @@ class DrillEvent():
         self.filename = get_cdb_path(filepath)
 
         return self.filename
-
     
     def validate(self):
         """
@@ -317,6 +316,8 @@ class DrillEvent():
             An event parameter could not be found
 
         """
+        file_version = float(tiem_orbit_data['ADAMS_DRILL_HEADER']['file_version'])
+
         for param in self._SCALAR_PARAMETERS:
             # For each event parameter initialize a found flag
             found = False
@@ -386,6 +387,7 @@ class DrillEvent():
                             break                   
 
                     tiem_orbit_data[block]['FLOW_RATE'] = tiem_orbit_data[block].pop('PUMP_FLOW')
+                
                 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
                 if param.upper()==block and block=='DYNAMICS':
@@ -442,6 +444,11 @@ class DrillEvent():
                                     delta_values.append(at_end_value - prev_at_end_value)
 
                                 self.parameters[param][2] = delta_values
+                        
+                        # Check if need to convert wob from klbf to lbf
+                        if file_version >= 2.0 and param.lower() == 'wob':
+                            # If this is a file version 2.0 and the parameter is wob, convert from klbf to lbf
+                            self.parameters[param][2] = [p*1000 for p in self.parameters[param][2]]
 
                     found = True
                     break

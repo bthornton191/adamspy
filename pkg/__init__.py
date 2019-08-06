@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.8.15'
-version_notes = 'more logging'
+version = '0.8.16'
+version_notes = 'fixed wob conversion (another fix for adams 2019.2)'
 date = 'August 6th, 2019'
 # ---------------------
 author = 'Ben Thornton'
