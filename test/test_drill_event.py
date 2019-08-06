@@ -83,6 +83,28 @@ class Test_EventFile(unittest.TestCase):
 
         self.assertDictEqual(params, TEST_EXPECTED_EVENT_TO_PARAMETERS)
     
+    def test_read_from_file_2019_2_WOB_UNITS(self):        
+        # Create an event object
+        event_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'events.tbl', TEST_EVENT_NAME_2019_2 + '.evt')
+
+        # Read new parameters into the drill string object from a file
+        event_from_file = adripy.DrillEvent.read_from_file(event_file)
+        
+        params = dict(event_from_file.parameters)
+
+        self.assertEqual([p for p in params['_WOB']][0][2], 50.0)
+    
+    def test_read_from_file_2018_WOB_UNITS(self):        
+        # Create an event object
+        event_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'events.tbl', TEST_EVENT_NAME_2019_2 + '.evt')
+
+        # Read new parameters into the drill string object from a file
+        event_from_file = adripy.DrillEvent.read_from_file(event_file)
+        
+        params = dict(event_from_file.parameters)
+
+        self.assertEqual([p for p in params['_WOB']][0][2], 50.0)
+    
     def test_write_event_file(self):
         """
         Tests if the event file was written correctly.

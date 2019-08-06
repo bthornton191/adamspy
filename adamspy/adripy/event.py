@@ -456,4 +456,7 @@ class DrillEvent():
             if not found:
                 raise ValueError(f'{param} not found!')
             
-            self.parameters['_' + param] = zip(*self.parameters[param])
+            if param.lower() == 'wob':
+                self.parameters['_' + param] = zip(*[self.parameters[param][0], self.parameters[param][1], [p/1000 for p in self.parameters[param][2]]])            
+            else:
+                self.parameters['_' + param] = zip(*self.parameters[param])

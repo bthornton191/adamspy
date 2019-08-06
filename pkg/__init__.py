@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.8.16'
-version_notes = 'fixed wob conversion (another fix for adams 2019.2)'
+version = '0.8.17'
+version_notes = 'fixed wob conversion when writing'
 date = 'August 6th, 2019'
 # ---------------------
 author = 'Ben Thornton'
