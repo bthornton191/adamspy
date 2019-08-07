@@ -121,6 +121,7 @@ class Test_RexExPatterns(unittest.TestCase):
 
     def test_parameter_pattern(self):
         strings_to_match = [
+            'lkjfds  =  2\n',
             ' lkjfdslkj  =  \'lkjfdslkj\' \n',
             ' lkjfdslkj  =  \'lkjfdslkj\'\n',
             ' lkjfdslkj  =  100\n',
@@ -137,7 +138,6 @@ class Test_RexExPatterns(unittest.TestCase):
             '  Stabilizer_Length= 3.0000'
         ]
         strings_to_not_match = [
-            'lkjfds  =  2\n',
             '$ lkjfds  =  2\n',
             ' fdslkj  =  "lkjfdslkj"\n',
             ' fdslkfds  =  5*10'

@@ -631,16 +631,16 @@ $
 $  NOTA BENE: block and subblock titles MUST begin in column 1.
 $  Comments also must begin in column 1.
 $  ==================================================================
-$-------------------------------------------------------------ADAMS_DRILL_HEADER
+$------------------------------------------------------------ADAMS_DRILL_HEADER
 [ADAMS_DRILL_HEADER]
  File_Type  =  'event'
  File_Version  =  2.0
-$--------------------------------------------------------------------------UNITS
+$-------------------------------------------------------------------------UNITS
 [UNITS]
-$  Adams Drill currently supports one units set: 
-$  'Imperial' (foot, degree, pound force, pound mass, second)
+$ Adams Drill currently supports one units set: 
+$ 'Imperial' (foot, degree, pound force, pound mass, second)
  Units  =  'Imperial'
-$--------------------------------------------------------------------------DRIVE
+$-------------------------------------------------------------------------DRIVE
 [DRIVE]
 (GENERAL)
  Event_Name  =  '{TEST_CREATED_EVENT_NAME}'
@@ -681,13 +681,14 @@ $ Gallons/minute in imperial units; Liters/minute in metric units
 1   10   500
 $ 
 (WOB)
+$ Units are in klbf
 {{Start_Time  Ramp_Duration  Delta_WOB}}
-30   10   50
+30   10   50.0
 $ 
 (ROP)
 {{Start_Time  Ramp_Duration  Delta_ROP}}
 35   10   100
-$---------------------------------------------------------------------------MISC
+$--------------------------------------------------------------------------MISC
 [MISC]
 $ Enter MUD_DENSITY in pounds-mass per cubic foot for IMPERIAL units
 $ Enter MUD_DENSITY in kilograms per cubic meter for METRIC units
@@ -704,13 +705,13 @@ $ See Adams Drill documentation prior to switching NperRev 'on'
  C_hi  =  1.05
 {{Start_Time  Ramp_Duration}}
 0   1
-$-----------------------------------------------------------------------DYNAMICS
+$----------------------------------------------------------------------DYNAMICS
 [DYNAMICS]
 $ Specify the simulation time and output rate in seconds
 {{End_Time  Output_Step_Size}}
 10   0.05
 100   0.05
-$------------------------------------------------------------------------PLOT_4D
+$-----------------------------------------------------------------------PLOT_4D
 [PLOT_4D]
 $ Select if 3D and 4D plotting is to be enabled (on/off).
 $ If 3D/4D plotting is turned on, set time range and time increment at which
@@ -845,16 +846,16 @@ $
 $  NOTA BENE: block and subblock titles MUST begin in column 1.
 $  Comments also must begin in column 1.
 $  ==================================================================
-$-------------------------------------------------------------ADAMS_DRILL_HEADER
+$------------------------------------------------------------ADAMS_DRILL_HEADER
 [ADAMS_DRILL_HEADER]
  File_Type  =  'event'
- File_Version  =  1.0
-$--------------------------------------------------------------------------UNITS
+ File_Version  =  2.0
+$-------------------------------------------------------------------------UNITS
 [UNITS]
-$  Adams Drill currently supports one units set: 
-$  'Imperial' (foot, degree, pound force, pound mass, second)
+$ Adams Drill currently supports one units set: 
+$ 'Imperial' (foot, degree, pound force, pound mass, second)
  Units  =  'Imperial'
-$--------------------------------------------------------------------------DRIVE
+$-------------------------------------------------------------------------DRIVE
 [DRIVE]
 (GENERAL)
  Event_Name  =  '{TEST_ANALYSIS_NAME}'
@@ -867,7 +868,7 @@ $ Either 'TOS' (default) or user-selected tool from drill string
 $ 
  Initial_Drive_Torque  =  0
 $ 
-(TOP_DRIVE)
+(ROTARY_RPM)
 {{Start_Time  Ramp_Duration  Delta_RPM}}
 15   15   60
 $ 
@@ -895,13 +896,14 @@ $ Gallons/minute in imperial units; Liters/minute in metric units
 0   15   500
 $ 
 (WOB)
+$ Units are in klbf
 {{Start_Time  Ramp_Duration  Delta_WOB}}
-30   15   50
+30   15   50.0
 $ 
 (ROP)
 {{Start_Time  Ramp_Duration  Delta_ROP}}
 30   15   100
-$---------------------------------------------------------------------------MISC
+$--------------------------------------------------------------------------MISC
 [MISC]
 $ Enter MUD_DENSITY in pounds-mass per cubic foot for IMPERIAL units
 $ Enter MUD_DENSITY in kilograms per cubic meter for METRIC units
@@ -918,13 +920,13 @@ $ See Adams Drill documentation prior to switching NperRev 'on'
  C_hi  =  1.05
 {{Start_Time  Ramp_Duration}}
 0   1
-$-----------------------------------------------------------------------DYNAMICS
+$----------------------------------------------------------------------DYNAMICS
 [DYNAMICS]
 $ Specify the simulation time and output rate in seconds
 {{End_Time  Output_Step_Size}}
 10   0.05
 100   0.05
-$------------------------------------------------------------------------PLOT_4D
+$-----------------------------------------------------------------------PLOT_4D
 [PLOT_4D]
 $ Select if 3D and 4D plotting is to be enabled (on/off).
 $ If 3D/4D plotting is turned on, set time range and time increment at which
@@ -1852,6 +1854,185 @@ $----------------------------------------------------------------------TOP_DRIVE
  Type  =  'top_drive'
  Name  =  'test_top_drive'
  Property_File  =  '<example_database>\\top_drives.tbl\\test_top_drive.tdr'
+"""
+
+EXPECTED_READ_THEN_WRITE_EVENT_TEXT = """$ ==================================================================
+$ This is the Adams Drill Event file which contains
+$ the following data blocks:
+$   [UNITS]
+$   [DRIVE]
+$   [MISC]
+$ 
+$  NOTA BENE: block and subblock titles MUST begin in column 1.
+$  Comments also must begin in column 1.
+$  ==================================================================
+$------------------------------------------------------------ADAMS_DRILL_HEADER
+[ADAMS_DRILL_HEADER]
+ File_Type  =  'event'
+ File_Version  =  2.0
+$-------------------------------------------------------------------------UNITS
+[UNITS]
+$ Adams Drill currently supports one units set: 
+$ 'Imperial' (foot, degree, pound force, pound mass, second)
+ Units  =  'Imperial'
+$-------------------------------------------------------------------------DRIVE
+[DRIVE]
+(GENERAL)
+ Event_Name  =  'test_event'
+$ Valid Drive Types: 'WITH_MOTOR', 'TOP_ONLY'
+ Drive_Type  =  'TOP_ONLY'
+$ Either 'TOS' (default) or user-selected tool from drill string
+ Measurement_Tool  =  'TOS'
+ Start_Depth  =  1300.0
+ Off_Bottom  =  5.0
+$ 
+ Initial_Drive_Torque  =  0.0
+$ 
+(ROTARY_RPM)
+{Start_Time  Ramp_Duration  Delta_RPM}
+30.0   10.0   120.0
+$ 
+$ MOTOR valid only for DRIVE_TYPE = WITH_MOTOR
+(MOTOR)
+ Motor_Type  =  '3D'
+$ 
+$ No user control of this parameter.
+ Filter_Time_Constant  =  0.05
+$ 
+$ Note that the motor starts out straight for simulation purposes and
+$ builds up to the full bend over the ramp time.  The bend is defined
+$ in the tool description.  These values allow the static simulation to
+$ proceed better.  *They should not be changed by the user.*
+ Motor_Bend_Start  =  1.0
+ Motor_Bend_Ramp  =  9.0
+$ 
+{Start_Time  Ramp_Duration  Delta_RPM}
+32.0   8.0   85.0
+$ 
+$ FLOW_RATE applies only to 3D motors; valid only for DRIVE_TYPE = WITH_MOTOR
+$ Gallons/minute in imperial units; Liters/minute in metric units
+(FLOW_RATE)
+{Start_Time  Ramp_Duration  Delta_Flow_Rate}
+33.0   20.0   511.0
+$ 
+(WOB)
+$ Units are in klbf
+{Start_Time  Ramp_Duration  Delta_WOB}
+85.0   35.0   50.0
+$ 
+(ROP)
+{Start_Time  Ramp_Duration  Delta_ROP}
+88.0   42.0   125.0
+$--------------------------------------------------------------------------MISC
+[MISC]
+$ Enter MUD_DENSITY in pounds-mass per cubic foot for IMPERIAL units
+$ Enter MUD_DENSITY in kilograms per cubic meter for METRIC units
+ Mud_Density  =  75.0
+ Impact_Damping_Penetration  =  0.005
+ Impact_Exponent  =  1.05
+ MWD_Pulsing  =  'on'
+$ 
+(NPERREV)
+$ See Adams Drill documentation prior to switching NperRev 'on'
+ NperRev  =  'on'
+ N  =  5
+ S_threshold  =  0.5
+ C_hi  =  1.005
+{Start_Time  Ramp_Duration}
+80.0   20.0
+$----------------------------------------------------------------------DYNAMICS
+[DYNAMICS]
+$ Specify the simulation time and output rate in seconds
+{End_Time  Output_Step_Size}
+10.0   0.04
+50.0   0.04
+100.0   0.02
+150.0   0.02
+200.0   0.02
+$-----------------------------------------------------------------------PLOT_4D
+[PLOT_4D]
+$ Select if 3D and 4D plotting is to be enabled (on/off).
+$ If 3D/4D plotting is turned on, set time range and time increment at which
+$ to take measurements ('Plotting_Interval'). Also specify where along the
+$ string to measure (Start Distance and End Distance are relative to bit at 0).
+$ One (1) contiguous block of not more than a 400 time measurements during the
+$ simulation can be specified, for not more than one 5000ft (1500m) section
+$ of the physically modeled string. (Equivalent Upper String not allowed.)
+ Plotting_4D  =  'on'
+ Start_Time  =  150.0
+ End_Time  =  180.0
+ Plotting_Interval  =  0.1
+ Start_Distance  =  50.0
+ End_Distance  =  550.0
+"""
+
+EXPECTED_DRILLSIM_FROM_EXISTING_EVENT_FILE_ACF_TEXT = """
+file/model=test_analysis_1
+!
+! Integrator Settings:
+INTEGRATOR/ &
+, HHT &
+, ERROR = 1.0E-05
+!
+! Command String Speed:
+! Note: Factors of PI/30 used to convert from RPM 
+! commands to internal modeling units of rad/sec
+VARIABLE/9105 &
+, FUNCTION=STEP(TIME,30.0,0.0,30.0+10.0,120.0*PI/30)
+!
+! Command WOB:
+! Note: Unit of weight is lbf 
+VARIABLE/9106 &
+, FUNCTION=STEP(TIME,85.0,0,85.0+35.0,5.0E+04)
+!
+! Command ROP:
+! Note: Factors of 1/3600 used to convert from ft/hr 
+! commands to internal modeling units of ft/sec
+VARIABLE/9104 &
+, FUNCTION=STEP(TIME,88.0,0,88.0+42.0,125.0/3600)
+!
+!
+equil/maxit=500, stab=0.1, error=0.1, imbal=0.1, tlim=1.0, alim=2.0D
+sim/stat
+equil/maxit=500, stab=5.0, error=1.0, imbal=1.0, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=51, stab=0.5, error=0.3, imbal=0.3, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=52, stab=0.5, error=0.3, imbal=0.2, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=53, stab=0.5, error=0.2, imbal=0.2, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=54, stab=0.5, error=0.2, imbal=0.1, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=55, stab=0.5, error=0.1, imbal=0.1, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=56, stab=0.5, error=0.1, imbal=5.0E-02, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=57, stab=0.5, error=5.0E-02, imbal=5.0E-02, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=58, stab=0.5, error=5.0E-02, imbal=1.0E-02, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=59, stab=0.5, error=1.0E-02, imbal=1.0E-02, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=60, stab=0.5, error=1.0E-02, imbal=5.0E-03, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=61, stab=0.5, error=5.0E-03, imbal=5.0E-03, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=62, stab=0.5, error=5.0E-03, imbal=1.0E-03, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=63, stab=0.5, error=5.0E-03, imbal=5.0E-04, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=100, stab=0.5, error=5.0E-03, imbal=5.0E-03, tlim=0.5, alim=1.0D
+sim/stat
+!
+sim/dyn, end=10.0, dtout=4.0E-02
+sim/dyn, end=50.0, dtout=4.0E-02
+sim/dyn, end=100.0, dtout=2.0E-02
+sim/dyn, end=150.0, dtout=2.0E-02
+sim/dyn, end=200.0, dtout=2.0E-02
+!
+
+stop
 """
 
 def check_file_contents(filename, expected_text):

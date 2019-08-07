@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.8.18'
-version_notes = 'fixed wob conversion when writing'
-date = 'August 6th, 2019'
+version = '0.8.19'
+version_notes = 'more changes to fix the WOB conversion'
+date = 'August 7th, 2019'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'

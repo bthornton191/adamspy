@@ -7,44 +7,22 @@ from test import *
     
 from adamspy import adripy #pylint: disable=wrong-import-position
 
-class Test_EventFile(unittest.TestCase):
-    """
-    Tests that adripy can correctly write an event file
-    """
-    maxDiff = None
-    def setUp(self):
-        
+class Test_ReadThenWrite(unittest.TestCase):
+
+    def setUp(self):        
         # Create a configuration file for testing
         adripy.create_cfg_file(TEST_CONFIG_FILENAME, [TEST_DATABASE_PATH])
-
-        # Create event file object
-        self.event = adripy.DrillEvent(TEST_CREATED_EVENT_NAME, 4000, 4)
         
-        # Add ramp parameters to event file object
-        self.event.add_ramp('FLOW_RATE', 1, 10, 500, clear_existing=True)
-        self.event.add_ramp('ROTARY_RPM', 10, 15, 60, clear_existing=True)
-        self.event.add_ramp('WOB', 30, 10, 50, clear_existing=True)
-        self.event.add_ramp('ROP', 35, 10, 100, clear_existing=True)   
+        self.written_event_file_2018 = os.path.join(os.getcwd(), 'test', 'files', 'read_then_write_2018.evt')
+        self.written_event_file_2019 = os.path.join(os.getcwd(), 'test', 'files', 'read_then_write_2019.evt')
 
-        # Add simulation steps to event file object
-        self.event.add_simulation_step(10, clear_existing=True)
-        self.event.add_simulation_step(100)     
+        for file in [self.written_event_file_2018, self.written_event_file_2019]:
+            try:
+                os.remove(file)
+            except Exception:                                               # pylint: disable=broad-except
+                pass
 
-        # Write an event file from the event file object
-        self.event.write_to_file(cdb=TEST_DATABASE_NAME)
-
-    def test_validate_with_an_empty_table(self):
-        """Tests if :meth:`DrillEvent.validate` returns False when one of the table parameters is not set.        
-        """
-        event = adripy.DrillEvent(TEST_CREATED_EVENT_NAME, 4000, 4)
-        event.add_ramp('FLOW_RATE', 1, 10, 500, clear_existing=True)
-        event.add_ramp('ROTARY_RPM', 10, 15, 60, clear_existing=True)
-        event.add_ramp('WOB', 30, 10, 50, clear_existing=True)
-        
-        validated = event.validate()
-        self.assertFalse(validated)
-
-    def test_read_from_file(self):
+    def test_read_from_file_2018(self):
         """Tests that the parameters in the string are correct after a string is read from a file.
         """
         
@@ -82,6 +60,69 @@ class Test_EventFile(unittest.TestCase):
         params.pop('_WOB')
 
         self.assertDictEqual(params, TEST_EXPECTED_EVENT_TO_PARAMETERS)
+
+    def test_read_then_write_2018(self):
+        event_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'events.tbl', TEST_EVENT_NAME + '.evt')
+        event = adripy.event.DrillEvent.read_from_file(event_file)
+
+        event.write_to_file(filename=self.written_event_file_2018)
+        failures = check_file_contents(self.written_event_file_2018, EXPECTED_READ_THEN_WRITE_EVENT_TEXT)
+        self.assertListEqual(failures, [])
+
+    def test_read_then_write_2019(self):
+        event_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'events.tbl', TEST_EVENT_NAME_2019_2 + '.evt')
+        event = adripy.event.DrillEvent.read_from_file(event_file)
+
+        event.write_to_file(filename=self.written_event_file_2019)
+        failures = check_file_contents(self.written_event_file_2019, EXPECTED_READ_THEN_WRITE_EVENT_TEXT)
+        self.assertListEqual(failures, [])
+
+    
+
+    def tearDown(self):
+        for file in [self.written_event_file_2018, self.written_event_file_2019]:
+            try:
+                os.remove(file)
+            except Exception:                                               # pylint: disable=broad-except
+                pass
+        
+
+class Test_EventFile(unittest.TestCase):
+    """
+    Tests that adripy can correctly write an event file
+    """
+    maxDiff = None
+    def setUp(self):
+        
+        # Create a configuration file for testing
+        adripy.create_cfg_file(TEST_CONFIG_FILENAME, [TEST_DATABASE_PATH])
+
+        # Create event file object
+        self.event = adripy.DrillEvent(TEST_CREATED_EVENT_NAME, 4000, 4)
+        
+        # Add ramp parameters to event file object
+        self.event.add_ramp('FLOW_RATE', 1, 10, 500, clear_existing=True)
+        self.event.add_ramp('ROTARY_RPM', 10, 15, 60, clear_existing=True)
+        self.event.add_ramp('WOB', 30, 10, 50000, clear_existing=True)
+        self.event.add_ramp('ROP', 35, 10, 100, clear_existing=True)   
+
+        # Add simulation steps to event file object
+        self.event.add_simulation_step(10, clear_existing=True)
+        self.event.add_simulation_step(100)     
+
+        # Write an event file from the event file object
+        self.event.write_to_file(cdb=TEST_DATABASE_NAME)
+
+    def test_validate_with_an_empty_table(self):
+        """Tests if :meth:`DrillEvent.validate` returns False when one of the table parameters is not set.        
+        """
+        event = adripy.DrillEvent(TEST_CREATED_EVENT_NAME, 4000, 4)
+        event.add_ramp('FLOW_RATE', 1, 10, 500, clear_existing=True)
+        event.add_ramp('ROTARY_RPM', 10, 15, 60, clear_existing=True)
+        event.add_ramp('WOB', 30, 10, 50000, clear_existing=True)
+        
+        validated = event.validate()
+        self.assertFalse(validated)
     
     def test_read_from_file_2019_2_WOB_UNITS(self):        
         # Create an event object
@@ -92,18 +133,20 @@ class Test_EventFile(unittest.TestCase):
         
         params = dict(event_from_file.parameters)
 
-        self.assertEqual([p for p in params['_WOB']][0][2], 50.0)
+        self.assertEqual([p for p in params['_WOB']][0][2], 50000.0)
     
     def test_read_from_file_2018_WOB_UNITS(self):        
         # Create an event object
-        event_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'events.tbl', TEST_EVENT_NAME_2019_2 + '.evt')
+        event_file = os.path.join(f'<{TEST_DATABASE_NAME}>', 'events.tbl', TEST_EVENT_NAME + '.evt')
 
         # Read new parameters into the drill string object from a file
         event_from_file = adripy.DrillEvent.read_from_file(event_file)
         
         params = dict(event_from_file.parameters)
 
-        self.assertEqual([p for p in params['_WOB']][0][2], 50.0)
+        self.assertEqual([p for p in params['_WOB']][0][2], 50000.0)
+    
+
     
     def test_write_event_file(self):
         """

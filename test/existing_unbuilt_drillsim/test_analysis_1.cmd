@@ -20,7 +20,7 @@ defaults attributes  &
    inheritance = bottom_up  &
    icon_visibility = off  &
    grid_visibility = off  &
-   size_of_icons = 0.1640419948  &
+   size_of_icons = 6.5616666667E-03  &
    spacing_for_grid = 3.280839895
 !
 !------------------------------ Adams View Model ------------------------------!
@@ -41,7 +41,7 @@ data_element create variable  &
 !
 data_element create variable  &
    variable_name = .test_analysis_1.Bit_omega  &
-   adams_id = 11022  &
+   adams_id = 9107  &
    initial_condition = 0.0  &
    function = ""
 !
@@ -77,17 +77,17 @@ data_element create variable  &
 !
 data_element create variable  &
    variable_name = .test_analysis_1.hookload_command  &
-   adams_id = 11023  &
+   adams_id = 9108  &
    function = ""
 !
 data_element create variable  &
    variable_name = .test_analysis_1.TOS_Z  &
-   adams_id = 11024  &
+   adams_id = 9109  &
    function = ""
 !
 data_element create variable  &
    variable_name = .test_analysis_1.TOS_VZ  &
-   adams_id = 11025  &
+   adams_id = 9110  &
    function = ""
 !
 data_element create variable  &
@@ -121,16 +121,6 @@ data_element create variable  &
    function = ""
 !
 data_element create variable  &
-   variable_name = .test_analysis_1.MWDFlowDeficit  &
-   adams_id = 11021  &
-   function = ""
-!
-data_element create variable  &
-   variable_name = .test_analysis_1.motor_GPM  &
-   adams_id = 1102  &
-   function = ""
-!
-data_element create variable  &
    variable_name = .test_analysis_1.Command_WOB  &
    adams_id = 9106  &
    function = ""
@@ -143,25 +133,25 @@ data_element create variable  &
 !
 data_element create variable  &
    variable_name = .test_analysis_1.ROPmdepth  &
-   adams_id = 11026  &
+   adams_id = 9111  &
    initial_condition = 0.0  &
    function = ""
 !
 data_element create variable  &
    variable_name = .test_analysis_1.Surface_MSE  &
-   adams_id = 11027  &
+   adams_id = 9112  &
    initial_condition = 0.0  &
    function = ""
 !
 data_element create variable  &
    variable_name = .test_analysis_1.Bottom_MSE  &
-   adams_id = 11028  &
+   adams_id = 9113  &
    initial_condition = 0.0  &
    function = ""
 !
 data_element create variable  &
    variable_name = .test_analysis_1.dummy_DGSE_input  &
-   adams_id = 11029  &
+   adams_id = 9114  &
    function = ""
 !
 data_element create array u_input_array  &
@@ -21349,11 +21339,6 @@ INTEGRATOR/ &
 VARIABLE/9105 &
 , FUNCTION=STEP(TIME,15.0,0.0,15.0+15.0,60.0*PI/30)
 !
-! Motor GPM:
-VARIABLE/1102 &
-, FUNCTION=VARVAL(11021) * &
-, (STEP(TIME,0.0,0.0,0.0+15.0,500.0))
-!
 ! Command WOB:
 ! Note: Unit of weight is lbf 
 VARIABLE/9106 &
@@ -21524,7 +21509,7 @@ variable create  &
 !
 variable create  &
    variable_name = .test_analysis_1.pumpFlowsubHeader  &
-   string_value = "FLOW_RATE"
+   string_value = "PUMP_FLOW"
 !
 variable create  &
    variable_name = .test_analysis_1.muddensity_cnvt  &
@@ -21677,18 +21662,6 @@ variable create  &
 variable create  &
    variable_name = .test_analysis_1.Motor_Bend_Ramp  &
    real_value = 9.0
-!
-variable create  &
-   variable_name = .test_analysis_1.Motor_FlowStart  &
-   real_value = 0.0
-!
-variable create  &
-   variable_name = .test_analysis_1.Motor_FlowRamp  &
-   real_value = 15.0
-!
-variable create  &
-   variable_name = .test_analysis_1.Motor_FlowRate  &
-   real_value = 500.0
 !
 variable create  &
    variable_name = .test_analysis_1.BouyancyFac  &
@@ -22138,10 +22111,6 @@ variable create  &
    integer_value = 1
 !
 variable create  &
-   variable_name = .test_analysis_1.AgitatorExist  &
-   integer_value = 0
-!
-variable create  &
    variable_name = .test_analysis_1.bitFileName  &
    string_value = "test_pdc.pdc"
 !
@@ -22409,14 +22378,6 @@ data_element modify variable  &
 data_element modify variable  &
    variable_name = .test_analysis_1.motor_RPM  &
    function = "DIF(.test_analysis_1.MotorSpeedFilter)*30/PI"
-!
-data_element modify variable  &
-   variable_name = .test_analysis_1.MWDFlowDeficit  &
-   function = "1.0"
-!
-data_element modify variable  &
-   variable_name = .test_analysis_1.motor_GPM  &
-   function = "VARVAL(.test_analysis_1.MWDFlowDeficit) * (STEP(TIME,0.0,0.0,0.0+15.0,500.0))"
 !
 data_element modify variable  &
    variable_name = .test_analysis_1.Command_WOB  &

@@ -8,16 +8,16 @@ $
 $  NOTA BENE: block and subblock titles MUST begin in column 1.
 $  Comments also must begin in column 1.
 $  ==================================================================
-$-------------------------------------------------------------ADAMS_DRILL_HEADER
+$------------------------------------------------------------ADAMS_DRILL_HEADER
 [ADAMS_DRILL_HEADER]
  File_Type  =  'event'
  File_Version  =  2.0
-$--------------------------------------------------------------------------UNITS
+$-------------------------------------------------------------------------UNITS
 [UNITS]
-$  Adams Drill currently supports one units set: 
-$  'Imperial' (foot, degree, pound force, pound mass, second)
+$ Adams Drill currently supports one units set: 
+$ 'Imperial' (foot, degree, pound force, pound mass, second)
  Units  =  '{{ Units }}'
-$--------------------------------------------------------------------------DRIVE
+$-------------------------------------------------------------------------DRIVE
 [DRIVE]
 (GENERAL)
  Event_Name  =  '{{ Event_Name }}'
@@ -64,9 +64,10 @@ $ Gallons/minute in imperial units; Liters/minute in metric units
 {% endfor %}
 $ 
 (WOB)
+$ Units are in klbf
 {Start_Time  Ramp_Duration  Delta_WOB}
 {% for start_time, ramp_duration, delta in _WOB %}
-{{ start_time }}   {{ ramp_duration }}   {{ delta }}
+{{ start_time }}   {{ ramp_duration }}   {{ delta/1000 }}
 {% endfor %}
 $ 
 (ROP)
@@ -74,7 +75,7 @@ $
 {% for start_time, ramp_duration, delta in _ROP %}
 {{ start_time }}   {{ ramp_duration }}   {{ delta }}
 {% endfor %}
-$---------------------------------------------------------------------------MISC
+$--------------------------------------------------------------------------MISC
 [MISC]
 $ Enter MUD_DENSITY in pounds-mass per cubic foot for IMPERIAL units
 $ Enter MUD_DENSITY in kilograms per cubic meter for METRIC units
@@ -93,14 +94,14 @@ $ See Adams Drill documentation prior to switching NperRev 'on'
 {% for start_time, ramp_duration in _NPERREV %}
 {{ start_time }}   {{ ramp_duration }}
 {% endfor %}
-$-----------------------------------------------------------------------DYNAMICS
+$----------------------------------------------------------------------DYNAMICS
 [DYNAMICS]
 $ Specify the simulation time and output rate in seconds
 {End_Time  Output_Step_Size}
 {% for end_time, output_step_size in _DYNAMICS %}
 {{ end_time }}   {{ output_step_size }}
 {% endfor %}
-$------------------------------------------------------------------------PLOT_4D
+$-----------------------------------------------------------------------PLOT_4D
 [PLOT_4D]
 $ Select if 3D and 4D plotting is to be enabled (on/off).
 $ If 3D/4D plotting is turned on, set time range and time increment at which
