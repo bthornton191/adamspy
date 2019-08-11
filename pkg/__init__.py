@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.8.20'
-version_notes = 'added a solve function to adamspy'
+version = '0.8.21'
+version_notes = 'uploading to pip'
 date = 'August 11th, 2019'
 # ---------------------
 author = 'Ben Thornton'

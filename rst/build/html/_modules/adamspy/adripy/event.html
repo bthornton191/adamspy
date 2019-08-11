@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.event &mdash; adamspy 0.8.19 documentation</title>
+  <title>adamspy.adripy.event &mdash; adamspy 0.8.21 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.8.19
+                0.8.21
               </div>
             
           
@@ -159,12 +159,16 @@
 
 <div class="viewcode-block" id="DrillEvent"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.event.DrillEvent">[docs]</a><span class="k">class</span> <span class="nc">DrillEvent</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates an object with all data necessary to write a drill event.  Once the DrillEvent is instanced ramp parameters must be defined before the DrillEvent is written to an event file.  </span>
+<span class="sd">    Creates an object with all data necessary to write a drill event.  Once the DrillEvent is instanced ramp parameters must be defined before the DrillEvent is written to an event file.</span>
 
 <span class="sd">    Note</span>
 <span class="sd">    ----</span>
 <span class="sd">    After instancing the class, at least one simulation step must be added using the `add_simulation_step()` method. Also, at least one ramp must be added for each of the four drilling parameters (i.e. wob, rpm, gpm, rop) using the `add_ramp()` method.  All other parameters in the event file can be specified when the DrillEvent is instanced using kwargs or they can be set later using:</span>
 <span class="sd">        &gt;&gt;&gt; drill_event.parameters[parameter] = value </span>
+
+<span class="sd">    Note</span>
+<span class="sd">    ----</span>
+<span class="sd">    WOB should be in lbf    </span>
 <span class="sd">    </span>
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -172,8 +176,8 @@
 <span class="sd">        Dictionary of parameters that make up an Adams Drill string and would be found in an Adams Drill String file (.str).  The keys of the dictionary are the parameter names that would be seen in the string file and the values of the dictionary are the values that would be seen in the string file.</span>
 <span class="sd">    filename : str</span>
 <span class="sd">        Name of the event file (.evt) in which this event is stored.  This attribute is initially empty and is populated by the `write_to_file()` method. </span>
-<span class="sd">    &quot;&quot;&quot;</span>
 
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_SCALAR_PARAMETERS</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;Units&#39;</span><span class="p">,</span>
         <span class="s1">&#39;Event_Name&#39;</span><span class="p">,</span>
