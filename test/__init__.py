@@ -2035,6 +2035,8 @@ sim/dyn, end=200.0, dtout=2.0E-02
 stop
 """
 
+EXISTING_MODEL_DIR = os.path.join(os.getcwd(), 'test', 'existing_model')
+
 def check_file_contents(filename, expected_text):
     """Checks that the given file contains the expected text.
     

@@ -1,0 +1,9 @@
+
+file/model=camelot_1_pull0_offset0
+! Insert ACF commands here:
+!DEACTIVATE/CONTACT, ID=10,9
+ACTIVATE/JOINT, ID=12
+SIMULATE/STATIC
+DEACTIVATE/JOINT, ID=12
+SIMULATE/DYNAMIC, END=1.5, DTOUT=1.0E-03
+stop

@@ -1,8 +1,9 @@
 import os
+import time
 import shutil
 import unittest
 
-from adamspy.adamspy import set_n_threads, get_n_threads
+from adamspy.adamspy import set_n_threads, get_n_threads, solve
 
 from test import *
 
@@ -46,3 +47,57 @@ class Test_SetNThreads(unittest.TestCase):
         except FileNotFoundError:
             pass
             
+class Test_Solve(unittest.TestCase):
+
+    def setUp(self):
+        for file in glob.glob(os.path.join(EXISTING_MODEL_DIR, '*')):
+            ext = os.path.splitext(file)[-1]
+            if ext not in ['.acf', '.adm', '.xmt_txt']:
+                try:
+                    os.remove(file)
+                except FileNotFoundError:               
+                    pass
+                except PermissionError:
+                    pass
+
+    def test_solve_wait(self):
+        """Tests that adamspy.adamspy.solve() works when wait=True
+        
+        """
+        acf_file = glob.glob(os.path.join(EXISTING_MODEL_DIR, '*.acf'))[0]
+        solve(acf_file, wait=True)
+        res_files = glob.glob(os.path.join(EXISTING_MODEL_DIR, '*.res'))
+        self.assertTrue(res_files != [])
+
+    
+    def test_solve_dont_wait(self):
+        """Tests that adamspy.adamspy.solve() works when wait=False
+        
+        """
+        acf_file = glob.glob(os.path.join(EXISTING_MODEL_DIR, '*.acf'))[0]
+        proc = solve(acf_file, wait=False)
+        
+        # Check that the res file isn't there yet
+        res_files = glob.glob(os.path.join(EXISTING_MODEL_DIR, '*.res'))
+        if res_files != []:
+            self.fail('Solve did not wait!')
+        
+        # Wait 60 seconds for the res file to show up
+        for _i in range(60):            
+            res_files = glob.glob(os.path.join(EXISTING_MODEL_DIR, '*.res'))
+            if res_files != []:
+                break 
+            time.sleep(1)
+    
+        self.assertTrue(res_files != [])
+       
+    def tearDown(self):
+        for file in glob.glob(os.path.join(EXISTING_MODEL_DIR, '*')):
+            ext = os.path.splitext(file)[-1]
+            if ext not in ['.acf', '.adm', '.xmt_txt']:
+                try:
+                    os.remove(file)
+                except FileNotFoundError:               
+                    pass
+                except PermissionError:
+                    pass

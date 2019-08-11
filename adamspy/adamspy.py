@@ -2,6 +2,7 @@
 """
 import os
 import re
+import subprocess
 
 def get_simdur_from_msg(msg_file):
 	"""Reads an Adams message file (.msg) and returns the total duration of the simulation.
@@ -123,6 +124,27 @@ def set_n_threads(adm_file, n_threads):
 	# Delete the old adm file and replace with modified
 	os.remove(adm_file)
 	os.rename(adm_file + '.tmp', adm_file)
+
+def solve(acf_file, wait=False):
+	"""Runs Adams Solver to solve the model specified in `acf_file`
+	
+	Parameters
+	----------
+	acf_file : str
+		Path to an Adams Command (.acf) File 
+
+	"""	
+	file = os.path.split(acf_file)[-1]
+	command = '"{}" ru-s "{}"'.format(os.environ['ADAMS_LAUNCH_COMMAND'], file)
+	startupinfo = subprocess.STARTUPINFO()
+	startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+	cwd = os.path.dirname(acf_file) if os.path.dirname(acf_file) != '' else os.getcwd()
+	proc = subprocess.Popen(command, cwd=cwd, startupinfo=startupinfo)
+
+	if wait:
+		proc.wait()
+	
+	return proc
 
 class AdmFileError(Exception):
 	pass
