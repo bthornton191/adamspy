@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.8.21'
-version_notes = 'uploading to pip'
+version = '0.8.22'
+version_notes = 'uploading to pip again'
 date = 'August 11th, 2019'
 # ---------------------
 author = 'Ben Thornton'
