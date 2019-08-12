@@ -37,6 +37,7 @@ class DrillTool():
         'jar',
         'agitator',
         'blade_reamer',
+        'drill_n_ream',
         'crossover',
         'darts',
         'flex_pipe',

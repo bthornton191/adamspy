@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.8.22'
-version_notes = 'uploading to pip again'
-date = 'August 11th, 2019'
+version = '0.8.23'
+version_notes = 'added drill_n_ream as a tool type'
+date = 'August 12th, 2019'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'
