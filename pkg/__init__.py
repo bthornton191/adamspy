@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.8.24'
-version_notes = 'fixed waiting in utilities.build(), added dog_leg_reamer as a tool type'
+version = '0.8.25'
+version_notes = 'uploading to pip'
 date = 'August 27th, 2019'
 # ---------------------
 author = 'Ben Thornton'

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.utilities &mdash; adamspy 0.8.23 documentation</title>
+  <title>adamspy.adripy.utilities &mdash; adamspy 0.8.25 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.8.23
+                0.8.25
               </div>
             
           
@@ -150,6 +150,8 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
 <span class="kn">import</span> <span class="nn">thornpy</span>
 <span class="kn">from</span> <span class="nn">.constants</span> <span class="k">import</span> <span class="n">TO_PARAMETER_PATTERN</span><span class="p">,</span> <span class="n">TO_LENGTH_PARAM</span><span class="p">,</span> <span class="n">ADRILL_IDS</span><span class="p">,</span> <span class="n">ADRILL_PLUGIN_VAR</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">TMPLT_ENV</span>
@@ -1015,13 +1017,27 @@
     <span class="n">startupinfo</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">STARTUPINFO</span><span class="p">()</span>
     <span class="n">startupinfo</span><span class="o">.</span><span class="n">dwFlags</span> <span class="o">|=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">STARTF_USESHOWWINDOW</span>
     <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="s1">&#39;&quot;</span><span class="si">{}</span><span class="s1">&quot; aview ru-s b build.cmd&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADAMS_LAUNCH_COMMAND&#39;</span><span class="p">]),</span> <span class="n">cwd</span><span class="o">=</span><span class="n">working_directory</span><span class="p">,</span> <span class="n">startupinfo</span><span class="o">=</span><span class="n">startupinfo</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">wait</span><span class="p">:</span>
-        <span class="n">process</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>    
 
     <span class="n">adm_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">working_directory</span><span class="p">,</span> <span class="n">adm_file</span><span class="p">)</span>
     <span class="n">acf_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">working_directory</span><span class="p">,</span> <span class="n">acf_file</span><span class="p">)</span>
     <span class="n">cmd_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">working_directory</span><span class="p">,</span> <span class="n">cmd_file</span><span class="p">)</span>
 
+    <span class="c1"># Wait for the process to finish (if requested)</span>
+    <span class="k">if</span> <span class="n">wait</span><span class="p">:</span>        
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">process</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># If the process has terminated, stop waiting</span>
+                <span class="k">break</span>
+
+            <span class="k">elif</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">adm_file</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">acf_file</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">cmd_file</span><span class="p">):</span>
+                <span class="c1"># If the process hasn&#39;t terminated, but the adm file acf file and cmd files all exist</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+                <span class="k">break</span>
+            
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># If the model is still being built</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                
     <span class="k">return</span> <span class="n">adm_file</span><span class="p">,</span> <span class="n">acf_file</span><span class="p">,</span> <span class="n">cmd_file</span></div>
 
 <span class="n">TO_BLOCK_HEADER_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;^</span><span class="se">\\</span><span class="s1">[[_0-9a-zA-Z]+</span><span class="se">\\</span><span class="s1">]</span><span class="se">\\</span><span class="s1">s*$&#39;</span><span class="p">)</span> 
