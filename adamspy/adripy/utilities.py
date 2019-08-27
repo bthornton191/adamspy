@@ -3,6 +3,8 @@
 import os
 import re
 import subprocess
+import time
+
 import thornpy
 from .constants import TO_PARAMETER_PATTERN, TO_LENGTH_PARAM, ADRILL_IDS, ADRILL_PLUGIN_VAR
 from . import TMPLT_ENV
@@ -868,13 +870,27 @@ def build(string_file, solver_settings_file, working_directory, output_name=None
     startupinfo = subprocess.STARTUPINFO()
     startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
     process = subprocess.Popen('"{}" aview ru-s b build.cmd'.format(os.environ['ADAMS_LAUNCH_COMMAND']), cwd=working_directory, startupinfo=startupinfo)
-    if wait:
-        process.wait()    
 
     adm_file = os.path.join(working_directory, adm_file)
     acf_file = os.path.join(working_directory, acf_file)
     cmd_file = os.path.join(working_directory, cmd_file)
 
+    # Wait for the process to finish (if requested)
+    if wait:        
+        while True:
+            if process.poll() is not None:
+                # If the process has terminated, stop waiting
+                break
+
+            elif os.path.exists(adm_file) and os.path.exists(acf_file) and os.path.exists(cmd_file):
+                # If the process hasn't terminated, but the adm file acf file and cmd files all exist
+                time.sleep(5)
+                break
+            
+            else:
+                # If the model is still being built
+                time.sleep(1)
+                
     return adm_file, acf_file, cmd_file
 
 TO_BLOCK_HEADER_PATTERN = re.compile('^\\[[_0-9a-zA-Z]+\\]\\s*$') 

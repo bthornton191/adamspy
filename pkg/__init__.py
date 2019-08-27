@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.8.23'
-version_notes = 'added drill_n_ream as a tool type'
-date = 'August 12th, 2019'
+version = '0.8.24'
+version_notes = 'fixed waiting in utilities.build(), added dog_leg_reamer as a tool type'
+date = 'August 27th, 2019'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'

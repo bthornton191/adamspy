@@ -38,6 +38,7 @@ class DrillTool():
         'agitator',
         'blade_reamer',
         'drill_n_ream',
+        'dog_leg_reamer',
         'crossover',
         'darts',
         'flex_pipe',
