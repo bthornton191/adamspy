@@ -18,7 +18,7 @@ defaults units  &
 !
 defaults attributes  &
    inheritance = bottom_up  &
-   icon_visibility = off  &
+   icon_visibility = on  &
    grid_visibility = off  &
    size_of_icons = 6.5616666667E-03  &
    spacing_for_grid = 3.280839895
@@ -41,7 +41,13 @@ data_element create variable  &
 !
 data_element create variable  &
    variable_name = .test_analysis_1.Bit_omega  &
-   adams_id = 9107  &
+   adams_id = 70032  &
+   initial_condition = 0.0  &
+   function = ""
+!
+data_element create variable  &
+   variable_name = .test_analysis_1.test_pdc_01_sliderA_toolface  &
+   adams_id = 70033  &
    initial_condition = 0.0  &
    function = ""
 !
@@ -77,17 +83,17 @@ data_element create variable  &
 !
 data_element create variable  &
    variable_name = .test_analysis_1.hookload_command  &
-   adams_id = 9108  &
+   adams_id = 70034  &
    function = ""
 !
 data_element create variable  &
    variable_name = .test_analysis_1.TOS_Z  &
-   adams_id = 9109  &
+   adams_id = 70035  &
    function = ""
 !
 data_element create variable  &
    variable_name = .test_analysis_1.TOS_VZ  &
-   adams_id = 9110  &
+   adams_id = 70036  &
    function = ""
 !
 data_element create variable  &
@@ -132,26 +138,36 @@ data_element create variable  &
    function = ""
 !
 data_element create variable  &
+   variable_name = .test_analysis_1.Surface_AZ  &
+   adams_id = 70021  &
+   function = ""
+!
+data_element create variable  &
+   variable_name = .test_analysis_1.Surface_WZ  &
+   adams_id = 70031  &
+   function = ""
+!
+data_element create variable  &
    variable_name = .test_analysis_1.ROPmdepth  &
-   adams_id = 9111  &
+   adams_id = 70037  &
    initial_condition = 0.0  &
    function = ""
 !
 data_element create variable  &
    variable_name = .test_analysis_1.Surface_MSE  &
-   adams_id = 9112  &
+   adams_id = 70038  &
    initial_condition = 0.0  &
    function = ""
 !
 data_element create variable  &
    variable_name = .test_analysis_1.Bottom_MSE  &
-   adams_id = 9113  &
+   adams_id = 70039  &
    initial_condition = 0.0  &
    function = ""
 !
 data_element create variable  &
    variable_name = .test_analysis_1.dummy_DGSE_input  &
-   adams_id = 9114  &
+   adams_id = 70040  &
    function = ""
 !
 data_element create array u_input_array  &
@@ -3375,6 +3391,10 @@ floating_marker create  &
    adams_id = 9000103
 !
 floating_marker create  &
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9000106  &
+   adams_id = 9000106
+!
+floating_marker create  &
    floating_marker_name = .test_analysis_1.ground.FMARKER_9000302  &
    adams_id = 9000302
 !
@@ -6174,6 +6194,18 @@ marker create  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
+marker create  &
+   marker_name = .test_analysis_1.test_pdc_01_sliderA.tangent_ref  &
+   adams_id = 9006331  &
+   location = 0.0, 0.0, 1.0  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.test_pdc_01_sliderA.down_ref  &
+   adams_id = 9006332  &
+   location = -1.0, 0.0, 0.0  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
@@ -6238,13 +6270,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.example_stabilizer_02_sliderA.A1  &
-   adams_id = 9006335  &
+   adams_id = 9006337  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.example_stabilizer_02_sliderA.A2  &
-   adams_id = 9006336  &
+   adams_id = 9006338  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -6312,7 +6344,7 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.example_stabilizer_02_B.barrelA  &
-   adams_id = 9006331  &
+   adams_id = 9006333  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -6330,19 +6362,19 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.example_stabilizer_02_B.barrelB  &
-   adams_id = 9006332  &
+   adams_id = 9006334  &
    location = 0.0, 0.0, -1.83  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.example_stabilizer_02_B.cm  &
-   adams_id = 9006333  &
+   adams_id = 9006335  &
    location = 0.0, 0.0, -0.915  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.example_stabilizer_02_B.end_B2  &
-   adams_id = 9006334  &
+   adams_id = 9006336  &
    location = 0.0, 0.0, -4.16  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -8090,13 +8122,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.example_stabilizer_02_sliderB.B1  &
-   adams_id = 9006337  &
+   adams_id = 9006339  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.example_stabilizer_02_sliderB.B2  &
-   adams_id = 9006338  &
+   adams_id = 9006340  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -8164,19 +8196,19 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group1_A.cm  &
-   adams_id = 9006339  &
+   adams_id = 9006341  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group1_A.gmark1  &
-   adams_id = 9006340  &
+   adams_id = 9006342  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group1_A.end_beamA  &
-   adams_id = 9006341  &
+   adams_id = 9006343  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -8268,7 +8300,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group1_B.end_B  &
-   adams_id = 9006342  &
+   adams_id = 9006344  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -8280,7 +8312,7 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group1_B.end_beamB  &
-   adams_id = 9006343  &
+   adams_id = 9006345  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -8361,13 +8393,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group1_sliderA.A1  &
-   adams_id = 9006347  &
+   adams_id = 9006349  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group1_sliderA.A2  &
-   adams_id = 9006348  &
+   adams_id = 9006350  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -8429,7 +8461,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group1_C.gmark2  &
-   adams_id = 9006346  &
+   adams_id = 9006348  &
    location = 0.0, 0.0, 7.7492680529  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -8441,13 +8473,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group1_C.cm  &
-   adams_id = 9006344  &
+   adams_id = 9006346  &
    location = 0.0, 0.0, 3.0112965519  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group1_C.end_beamC  &
-   adams_id = 9006345  &
+   adams_id = 9006347  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -8545,13 +8577,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group1_sliderB.B1  &
-   adams_id = 9006349  &
+   adams_id = 9006351  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group1_sliderB.B2  &
-   adams_id = 9006350  &
+   adams_id = 9006352  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -8619,19 +8651,19 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group2_A.cm  &
-   adams_id = 9006351  &
+   adams_id = 9006353  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group2_A.gmark1  &
-   adams_id = 9006352  &
+   adams_id = 9006354  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group2_A.end_beamA  &
-   adams_id = 9006353  &
+   adams_id = 9006355  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -8723,7 +8755,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group2_B.end_B  &
-   adams_id = 9006354  &
+   adams_id = 9006356  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -8735,7 +8767,7 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group2_B.end_beamB  &
-   adams_id = 9006355  &
+   adams_id = 9006357  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -8816,13 +8848,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group2_sliderA.A1  &
-   adams_id = 9006359  &
+   adams_id = 9006361  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group2_sliderA.A2  &
-   adams_id = 9006360  &
+   adams_id = 9006362  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -8884,7 +8916,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group2_C.gmark2  &
-   adams_id = 9006358  &
+   adams_id = 9006360  &
    location = 0.0, 0.0, 7.7491989053  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -8896,13 +8928,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group2_C.cm  &
-   adams_id = 9006356  &
+   adams_id = 9006358  &
    location = 0.0, 0.0, 3.0112517305  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group2_C.end_beamC  &
-   adams_id = 9006357  &
+   adams_id = 9006359  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -9000,13 +9032,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group2_sliderB.B1  &
-   adams_id = 9006361  &
+   adams_id = 9006363  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group2_sliderB.B2  &
-   adams_id = 9006362  &
+   adams_id = 9006364  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -9074,19 +9106,19 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group3_A.cm  &
-   adams_id = 9006363  &
+   adams_id = 9006365  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group3_A.gmark1  &
-   adams_id = 9006364  &
+   adams_id = 9006366  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group3_A.end_beamA  &
-   adams_id = 9006365  &
+   adams_id = 9006367  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -9178,7 +9210,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group3_B.end_B  &
-   adams_id = 9006366  &
+   adams_id = 9006368  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -9190,7 +9222,7 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group3_B.end_beamB  &
-   adams_id = 9006367  &
+   adams_id = 9006369  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -9271,13 +9303,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group3_sliderA.A1  &
-   adams_id = 9006371  &
+   adams_id = 9006373  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group3_sliderA.A2  &
-   adams_id = 9006372  &
+   adams_id = 9006374  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -9339,7 +9371,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group3_C.gmark2  &
-   adams_id = 9006370  &
+   adams_id = 9006372  &
    location = 0.0, 0.0, 7.7491331241  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -9351,13 +9383,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group3_C.cm  &
-   adams_id = 9006368  &
+   adams_id = 9006370  &
    location = 0.0, 0.0, 3.0112090912  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group3_C.end_beamC  &
-   adams_id = 9006369  &
+   adams_id = 9006371  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -9455,13 +9487,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group3_sliderB.B1  &
-   adams_id = 9006373  &
+   adams_id = 9006375  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group3_sliderB.B2  &
-   adams_id = 9006374  &
+   adams_id = 9006376  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -9529,19 +9561,19 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group4_A.cm  &
-   adams_id = 9006375  &
+   adams_id = 9006377  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group4_A.gmark1  &
-   adams_id = 9006376  &
+   adams_id = 9006378  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group4_A.end_beamA  &
-   adams_id = 9006377  &
+   adams_id = 9006379  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -9633,7 +9665,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group4_B.end_B  &
-   adams_id = 9006378  &
+   adams_id = 9006380  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -9645,7 +9677,7 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group4_B.end_beamB  &
-   adams_id = 9006379  &
+   adams_id = 9006381  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -9726,13 +9758,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group4_sliderA.A1  &
-   adams_id = 9006383  &
+   adams_id = 9006385  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group4_sliderA.A2  &
-   adams_id = 9006384  &
+   adams_id = 9006386  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -9794,7 +9826,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group4_C.gmark2  &
-   adams_id = 9006382  &
+   adams_id = 9006384  &
    location = 0.0, 0.0, 7.7490848877  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -9806,13 +9838,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group4_C.cm  &
-   adams_id = 9006380  &
+   adams_id = 9006382  &
    location = 0.0, 0.0, 3.0111778244  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group4_C.end_beamC  &
-   adams_id = 9006381  &
+   adams_id = 9006383  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -9910,13 +9942,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group4_sliderB.B1  &
-   adams_id = 9006385  &
+   adams_id = 9006387  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group4_sliderB.B2  &
-   adams_id = 9006386  &
+   adams_id = 9006388  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -9984,19 +10016,19 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group5_A.cm  &
-   adams_id = 9006387  &
+   adams_id = 9006389  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group5_A.gmark1  &
-   adams_id = 9006388  &
+   adams_id = 9006390  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group5_A.end_beamA  &
-   adams_id = 9006389  &
+   adams_id = 9006391  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -10088,7 +10120,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group5_B.end_B  &
-   adams_id = 9006390  &
+   adams_id = 9006392  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -10100,7 +10132,7 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group5_B.end_beamB  &
-   adams_id = 9006391  &
+   adams_id = 9006393  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -10181,13 +10213,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group5_sliderA.A1  &
-   adams_id = 9006395  &
+   adams_id = 9006397  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group5_sliderA.A2  &
-   adams_id = 9006396  &
+   adams_id = 9006398  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -10249,7 +10281,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group5_C.gmark2  &
-   adams_id = 9006394  &
+   adams_id = 9006396  &
    location = 0.0, 0.0, 7.749039994  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -10261,13 +10293,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group5_C.cm  &
-   adams_id = 9006392  &
+   adams_id = 9006394  &
    location = 0.0, 0.0, 3.0111487244  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group5_C.end_beamC  &
-   adams_id = 9006393  &
+   adams_id = 9006395  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -10365,13 +10397,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group5_sliderB.B1  &
-   adams_id = 9006397  &
+   adams_id = 9006399  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group5_sliderB.B2  &
-   adams_id = 9006398  &
+   adams_id = 9006400  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -10439,19 +10471,19 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group6_A.cm  &
-   adams_id = 9006399  &
+   adams_id = 9006401  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group6_A.gmark1  &
-   adams_id = 9006400  &
+   adams_id = 9006402  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group6_A.end_beamA  &
-   adams_id = 9006401  &
+   adams_id = 9006403  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -10543,7 +10575,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group6_B.end_B  &
-   adams_id = 9006402  &
+   adams_id = 9006404  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -10555,7 +10587,7 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group6_B.end_beamB  &
-   adams_id = 9006403  &
+   adams_id = 9006405  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -10636,13 +10668,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group6_sliderA.A1  &
-   adams_id = 9006407  &
+   adams_id = 9006409  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group6_sliderA.A2  &
-   adams_id = 9006408  &
+   adams_id = 9006410  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -10704,7 +10736,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group6_C.gmark2  &
-   adams_id = 9006406  &
+   adams_id = 9006408  &
    location = 0.0, 0.0, 7.7489698343  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -10716,13 +10748,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group6_C.cm  &
-   adams_id = 9006404  &
+   adams_id = 9006406  &
    location = 0.0, 0.0, 3.0111032469  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group6_C.end_beamC  &
-   adams_id = 9006405  &
+   adams_id = 9006407  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -10820,13 +10852,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group6_sliderB.B1  &
-   adams_id = 9006409  &
+   adams_id = 9006411  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group6_sliderB.B2  &
-   adams_id = 9006410  &
+   adams_id = 9006412  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -10894,19 +10926,19 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group7_A.cm  &
-   adams_id = 9006411  &
+   adams_id = 9006413  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group7_A.gmark1  &
-   adams_id = 9006412  &
+   adams_id = 9006414  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group7_A.end_beamA  &
-   adams_id = 9006413  &
+   adams_id = 9006415  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -10998,7 +11030,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group7_B.end_B  &
-   adams_id = 9006414  &
+   adams_id = 9006416  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -11010,7 +11042,7 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group7_B.end_beamB  &
-   adams_id = 9006415  &
+   adams_id = 9006417  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -11091,13 +11123,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group7_sliderA.A1  &
-   adams_id = 9006419  &
+   adams_id = 9006421  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group7_sliderA.A2  &
-   adams_id = 9006420  &
+   adams_id = 9006422  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -11159,7 +11191,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group7_C.gmark2  &
-   adams_id = 9006418  &
+   adams_id = 9006420  &
    location = 0.0, 0.0, 7.7489321979  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -11171,13 +11203,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group7_C.cm  &
-   adams_id = 9006416  &
+   adams_id = 9006418  &
    location = 0.0, 0.0, 3.011078851  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group7_C.end_beamC  &
-   adams_id = 9006417  &
+   adams_id = 9006419  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -11275,13 +11307,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group7_sliderB.B1  &
-   adams_id = 9006421  &
+   adams_id = 9006423  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group7_sliderB.B2  &
-   adams_id = 9006422  &
+   adams_id = 9006424  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -11349,19 +11381,19 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group8_A.cm  &
-   adams_id = 9006423  &
+   adams_id = 9006425  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group8_A.gmark1  &
-   adams_id = 9006424  &
+   adams_id = 9006426  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group8_A.end_beamA  &
-   adams_id = 9006425  &
+   adams_id = 9006427  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -11453,7 +11485,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group8_B.end_B  &
-   adams_id = 9006426  &
+   adams_id = 9006428  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -11465,7 +11497,7 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group8_B.end_beamB  &
-   adams_id = 9006427  &
+   adams_id = 9006429  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -11546,13 +11578,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group8_sliderA.A1  &
-   adams_id = 9006431  &
+   adams_id = 9006433  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group8_sliderA.A2  &
-   adams_id = 9006432  &
+   adams_id = 9006434  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -11614,7 +11646,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group8_C.gmark2  &
-   adams_id = 9006430  &
+   adams_id = 9006432  &
    location = 0.0, 0.0, 7.7490813413  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -11626,13 +11658,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group8_C.cm  &
-   adams_id = 9006428  &
+   adams_id = 9006430  &
    location = 0.0, 0.0, 3.0111755256  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group8_C.end_beamC  &
-   adams_id = 9006429  &
+   adams_id = 9006431  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -11730,13 +11762,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group8_sliderB.B1  &
-   adams_id = 9006433  &
+   adams_id = 9006435  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group8_sliderB.B2  &
-   adams_id = 9006434  &
+   adams_id = 9006436  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -11804,19 +11836,19 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group9_A.cm  &
-   adams_id = 9006435  &
+   adams_id = 9006437  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group9_A.gmark1  &
-   adams_id = 9006436  &
+   adams_id = 9006438  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group9_A.end_beamA  &
-   adams_id = 9006437  &
+   adams_id = 9006439  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -11908,7 +11940,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group9_B.end_B  &
-   adams_id = 9006438  &
+   adams_id = 9006440  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -11920,7 +11952,7 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group9_B.end_beamB  &
-   adams_id = 9006439  &
+   adams_id = 9006441  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -12001,13 +12033,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group9_sliderA.A1  &
-   adams_id = 9006443  &
+   adams_id = 9006445  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group9_sliderA.A2  &
-   adams_id = 9006444  &
+   adams_id = 9006446  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -12069,7 +12101,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group9_C.gmark2  &
-   adams_id = 9006442  &
+   adams_id = 9006444  &
    location = 0.0, 0.0, 7.7492119949  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -12081,13 +12113,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group9_C.cm  &
-   adams_id = 9006440  &
+   adams_id = 9006442  &
    location = 0.0, 0.0, 3.0112602151  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group9_C.end_beamC  &
-   adams_id = 9006441  &
+   adams_id = 9006443  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -12185,13 +12217,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group9_sliderB.B1  &
-   adams_id = 9006445  &
+   adams_id = 9006447  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group9_sliderB.B2  &
-   adams_id = 9006446  &
+   adams_id = 9006448  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -12259,19 +12291,19 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group10_A.cm  &
-   adams_id = 9006447  &
+   adams_id = 9006449  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group10_A.gmark1  &
-   adams_id = 9006448  &
+   adams_id = 9006450  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group10_A.end_beamA  &
-   adams_id = 9006449  &
+   adams_id = 9006451  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -12363,7 +12395,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group10_B.end_B  &
-   adams_id = 9006450  &
+   adams_id = 9006452  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -12375,7 +12407,7 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group10_B.end_beamB  &
-   adams_id = 9006451  &
+   adams_id = 9006453  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -12456,13 +12488,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group10_sliderA.A1  &
-   adams_id = 9006455  &
+   adams_id = 9006457  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group10_sliderA.A2  &
-   adams_id = 9006456  &
+   adams_id = 9006458  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -12524,7 +12556,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group10_C.gmark2  &
-   adams_id = 9006454  &
+   adams_id = 9006456  &
    location = 0.0, 0.0, 7.7493463933  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -12536,13 +12568,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group10_C.cm  &
-   adams_id = 9006452  &
+   adams_id = 9006454  &
    location = 0.0, 0.0, 3.0113473321  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group10_C.end_beamC  &
-   adams_id = 9006453  &
+   adams_id = 9006455  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -12640,13 +12672,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group10_sliderB.B1  &
-   adams_id = 9006457  &
+   adams_id = 9006459  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group10_sliderB.B2  &
-   adams_id = 9006458  &
+   adams_id = 9006460  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -12714,19 +12746,19 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group11_A.cm  &
-   adams_id = 9006459  &
+   adams_id = 9006461  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group11_A.gmark1  &
-   adams_id = 9006460  &
+   adams_id = 9006462  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group11_A.end_beamA  &
-   adams_id = 9006461  &
+   adams_id = 9006463  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -12818,7 +12850,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group11_B.end_B  &
-   adams_id = 9006462  &
+   adams_id = 9006464  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -12830,7 +12862,7 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group11_B.end_beamB  &
-   adams_id = 9006463  &
+   adams_id = 9006465  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -12911,13 +12943,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group11_sliderA.A1  &
-   adams_id = 9006467  &
+   adams_id = 9006469  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group11_sliderA.A2  &
-   adams_id = 9006468  &
+   adams_id = 9006470  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -12979,7 +13011,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group11_C.gmark2  &
-   adams_id = 9006466  &
+   adams_id = 9006468  &
    location = 0.0, 0.0, 7.7494840264  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -12991,13 +13023,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group11_C.cm  &
-   adams_id = 9006464  &
+   adams_id = 9006466  &
    location = 0.0, 0.0, 3.0114365457  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group11_C.end_beamC  &
-   adams_id = 9006465  &
+   adams_id = 9006467  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -13095,13 +13127,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group11_sliderB.B1  &
-   adams_id = 9006469  &
+   adams_id = 9006471  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group11_sliderB.B2  &
-   adams_id = 9006470  &
+   adams_id = 9006472  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -13169,19 +13201,19 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group12_A.cm  &
-   adams_id = 9006471  &
+   adams_id = 9006473  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group12_A.gmark1  &
-   adams_id = 9006472  &
+   adams_id = 9006474  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group12_A.end_beamA  &
-   adams_id = 9006473  &
+   adams_id = 9006475  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -13273,7 +13305,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group12_B.end_B  &
-   adams_id = 9006474  &
+   adams_id = 9006476  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -13285,7 +13317,7 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group12_B.end_beamB  &
-   adams_id = 9006475  &
+   adams_id = 9006477  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -13366,13 +13398,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group12_sliderA.A1  &
-   adams_id = 9006479  &
+   adams_id = 9006481  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group12_sliderA.A2  &
-   adams_id = 9006480  &
+   adams_id = 9006482  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -13434,7 +13466,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group12_C.gmark2  &
-   adams_id = 9006478  &
+   adams_id = 9006480  &
    location = 0.0, 0.0, 7.7496239935  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -13446,13 +13478,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group12_C.cm  &
-   adams_id = 9006476  &
+   adams_id = 9006478  &
    location = 0.0, 0.0, 3.0115272723  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group12_C.end_beamC  &
-   adams_id = 9006477  &
+   adams_id = 9006479  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -13550,13 +13582,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group12_sliderB.B1  &
-   adams_id = 9006481  &
+   adams_id = 9006483  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group12_sliderB.B2  &
-   adams_id = 9006482  &
+   adams_id = 9006484  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -13624,19 +13656,19 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group13_A.cm  &
-   adams_id = 9006483  &
+   adams_id = 9006485  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group13_A.gmark1  &
-   adams_id = 9006484  &
+   adams_id = 9006486  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group13_A.end_beamA  &
-   adams_id = 9006485  &
+   adams_id = 9006487  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -13728,7 +13760,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group13_B.end_B  &
-   adams_id = 9006486  &
+   adams_id = 9006488  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -13740,7 +13772,7 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group13_B.end_beamB  &
-   adams_id = 9006487  &
+   adams_id = 9006489  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -13821,13 +13853,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group13_sliderA.A1  &
-   adams_id = 9006491  &
+   adams_id = 9006493  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group13_sliderA.A2  &
-   adams_id = 9006492  &
+   adams_id = 9006494  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -13889,7 +13921,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group13_C.gmark2  &
-   adams_id = 9006490  &
+   adams_id = 9006492  &
    location = 0.0, 0.0, 7.7497214648  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -13901,13 +13933,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group13_C.cm  &
-   adams_id = 9006488  &
+   adams_id = 9006490  &
    location = 0.0, 0.0, 3.011590453  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group13_C.end_beamC  &
-   adams_id = 9006489  &
+   adams_id = 9006491  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -14005,13 +14037,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group13_sliderB.B1  &
-   adams_id = 9006493  &
+   adams_id = 9006495  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group13_sliderB.B2  &
-   adams_id = 9006494  &
+   adams_id = 9006496  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -14079,19 +14111,19 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group14_A.cm  &
-   adams_id = 9006495  &
+   adams_id = 9006497  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group14_A.gmark1  &
-   adams_id = 9006496  &
+   adams_id = 9006498  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group14_A.end_beamA  &
-   adams_id = 9006497  &
+   adams_id = 9006499  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -14183,7 +14215,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group14_B.end_B  &
-   adams_id = 9006498  &
+   adams_id = 9006500  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -14195,7 +14227,7 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group14_B.end_beamB  &
-   adams_id = 9006499  &
+   adams_id = 9006501  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -14276,13 +14308,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group14_sliderA.A1  &
-   adams_id = 9006503  &
+   adams_id = 9006505  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group14_sliderA.A2  &
-   adams_id = 9006504  &
+   adams_id = 9006506  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -14344,7 +14376,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group14_C.gmark2  &
-   adams_id = 9006502  &
+   adams_id = 9006504  &
    location = 0.0, 0.0, 7.7498025715  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -14356,13 +14388,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group14_C.cm  &
-   adams_id = 9006500  &
+   adams_id = 9006502  &
    location = 0.0, 0.0, 3.0116430263  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group14_C.end_beamC  &
-   adams_id = 9006501  &
+   adams_id = 9006503  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -14460,13 +14492,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group14_sliderB.B1  &
-   adams_id = 9006505  &
+   adams_id = 9006507  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group14_sliderB.B2  &
-   adams_id = 9006506  &
+   adams_id = 9006508  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -14534,19 +14566,19 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group15_A.cm  &
-   adams_id = 9006507  &
+   adams_id = 9006509  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group15_A.gmark1  &
-   adams_id = 9006508  &
+   adams_id = 9006510  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group15_A.end_beamA  &
-   adams_id = 9006509  &
+   adams_id = 9006511  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -14638,7 +14670,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group15_B.end_B  &
-   adams_id = 9006510  &
+   adams_id = 9006512  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -14650,7 +14682,7 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group15_B.end_beamB  &
-   adams_id = 9006511  &
+   adams_id = 9006513  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -14731,13 +14763,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group15_sliderA.A1  &
-   adams_id = 9006515  &
+   adams_id = 9006517  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group15_sliderA.A2  &
-   adams_id = 9006516  &
+   adams_id = 9006518  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -14799,7 +14831,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group15_C.gmark2  &
-   adams_id = 9006514  &
+   adams_id = 9006516  &
    location = 0.0, 0.0, 7.7499800707  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -14811,13 +14843,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group15_C.cm  &
-   adams_id = 9006512  &
+   adams_id = 9006514  &
    location = 0.0, 0.0, 3.0117580811  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group15_C.end_beamC  &
-   adams_id = 9006513  &
+   adams_id = 9006515  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -14915,13 +14947,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group15_sliderB.B1  &
-   adams_id = 9006517  &
+   adams_id = 9006519  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group15_sliderB.B2  &
-   adams_id = 9006518  &
+   adams_id = 9006520  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -14989,19 +15021,19 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group16_A.cm  &
-   adams_id = 9006519  &
+   adams_id = 9006521  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group16_A.gmark1  &
-   adams_id = 9006520  &
+   adams_id = 9006522  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group16_A.end_beamA  &
-   adams_id = 9006521  &
+   adams_id = 9006523  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -15093,7 +15125,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group16_B.end_B  &
-   adams_id = 9006522  &
+   adams_id = 9006524  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -15105,7 +15137,7 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group16_B.end_beamB  &
-   adams_id = 9006523  &
+   adams_id = 9006525  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -15186,13 +15218,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group16_sliderA.A1  &
-   adams_id = 9006527  &
+   adams_id = 9006529  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group16_sliderA.A2  &
-   adams_id = 9006528  &
+   adams_id = 9006530  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -15254,7 +15286,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group16_C.gmark2  &
-   adams_id = 9006526  &
+   adams_id = 9006528  &
    location = 0.0, 0.0, 7.750059695  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -15266,13 +15298,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group16_C.cm  &
-   adams_id = 9006524  &
+   adams_id = 9006526  &
    location = 0.0, 0.0, 3.0118096935  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group16_C.end_beamC  &
-   adams_id = 9006525  &
+   adams_id = 9006527  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -15370,13 +15402,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group16_sliderB.B1  &
-   adams_id = 9006529  &
+   adams_id = 9006531  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group16_sliderB.B2  &
-   adams_id = 9006530  &
+   adams_id = 9006532  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -15444,19 +15476,19 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group17_A.cm  &
-   adams_id = 9006531  &
+   adams_id = 9006533  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group17_A.gmark1  &
-   adams_id = 9006532  &
+   adams_id = 9006534  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group17_A.end_beamA  &
-   adams_id = 9006533  &
+   adams_id = 9006535  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -15548,7 +15580,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group17_B.end_B  &
-   adams_id = 9006534  &
+   adams_id = 9006536  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -15560,7 +15592,7 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group17_B.end_beamB  &
-   adams_id = 9006535  &
+   adams_id = 9006537  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -15641,13 +15673,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group17_sliderA.A1  &
-   adams_id = 9006539  &
+   adams_id = 9006541  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group17_sliderA.A2  &
-   adams_id = 9006540  &
+   adams_id = 9006542  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -15709,7 +15741,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group17_C.gmark2  &
-   adams_id = 9006538  &
+   adams_id = 9006540  &
    location = 0.0, 0.0, 7.7502353429  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -15721,13 +15753,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group17_C.cm  &
-   adams_id = 9006536  &
+   adams_id = 9006538  &
    location = 0.0, 0.0, 3.0119235483  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group17_C.end_beamC  &
-   adams_id = 9006537  &
+   adams_id = 9006539  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -15825,13 +15857,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group17_sliderB.B1  &
-   adams_id = 9006541  &
+   adams_id = 9006543  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group17_sliderB.B2  &
-   adams_id = 9006542  &
+   adams_id = 9006544  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -15899,19 +15931,19 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group18_A.cm  &
-   adams_id = 9006543  &
+   adams_id = 9006545  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group18_A.gmark1  &
-   adams_id = 9006544  &
+   adams_id = 9006546  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group18_A.end_beamA  &
-   adams_id = 9006545  &
+   adams_id = 9006547  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -16003,7 +16035,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group18_B.end_B  &
-   adams_id = 9006546  &
+   adams_id = 9006548  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -16015,7 +16047,7 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group18_B.end_beamB  &
-   adams_id = 9006547  &
+   adams_id = 9006549  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -16096,13 +16128,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group18_sliderA.A1  &
-   adams_id = 9006551  &
+   adams_id = 9006553  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group18_sliderA.A2  &
-   adams_id = 9006552  &
+   adams_id = 9006554  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -16164,7 +16196,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group18_C.gmark2  &
-   adams_id = 9006550  &
+   adams_id = 9006552  &
    location = 0.0, 0.0, 7.75035241  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -16176,13 +16208,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group18_C.cm  &
-   adams_id = 9006548  &
+   adams_id = 9006550  &
    location = 0.0, 0.0, 3.011999431  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group18_C.end_beamC  &
-   adams_id = 9006549  &
+   adams_id = 9006551  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -16280,13 +16312,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group18_sliderB.B1  &
-   adams_id = 9006553  &
+   adams_id = 9006555  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group18_sliderB.B2  &
-   adams_id = 9006554  &
+   adams_id = 9006556  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -16354,19 +16386,19 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group19_A.cm  &
-   adams_id = 9006555  &
+   adams_id = 9006557  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group19_A.gmark1  &
-   adams_id = 9006556  &
+   adams_id = 9006558  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group19_A.end_beamA  &
-   adams_id = 9006557  &
+   adams_id = 9006559  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -16458,7 +16490,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group19_B.end_B  &
-   adams_id = 9006558  &
+   adams_id = 9006560  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -16470,7 +16502,7 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group19_B.end_beamB  &
-   adams_id = 9006559  &
+   adams_id = 9006561  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -16551,13 +16583,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group19_sliderA.A1  &
-   adams_id = 9006563  &
+   adams_id = 9006565  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group19_sliderA.A2  &
-   adams_id = 9006564  &
+   adams_id = 9006566  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -16619,7 +16651,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group19_C.gmark2  &
-   adams_id = 9006562  &
+   adams_id = 9006564  &
    location = 0.0, 0.0, 7.7504893215  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -16631,13 +16663,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group19_C.cm  &
-   adams_id = 9006560  &
+   adams_id = 9006562  &
    location = 0.0, 0.0, 3.012088177  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group19_C.end_beamC  &
-   adams_id = 9006561  &
+   adams_id = 9006563  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -16735,13 +16767,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group19_sliderB.B1  &
-   adams_id = 9006565  &
+   adams_id = 9006567  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group19_sliderB.B2  &
-   adams_id = 9006566  &
+   adams_id = 9006568  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -16809,19 +16841,19 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_A.cm  &
-   adams_id = 9006567  &
+   adams_id = 9006569  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_A.gmark1  &
-   adams_id = 9006568  &
+   adams_id = 9006570  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_A.end_beamA  &
-   adams_id = 9006569  &
+   adams_id = 9006571  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -16913,7 +16945,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_B.end_B  &
-   adams_id = 9006570  &
+   adams_id = 9006572  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -16925,7 +16957,7 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_B.end_beamB  &
-   adams_id = 9006571  &
+   adams_id = 9006573  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -17006,13 +17038,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_sliderA.A1  &
-   adams_id = 9006575  &
+   adams_id = 9006577  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_sliderA.A2  &
-   adams_id = 9006576  &
+   adams_id = 9006578  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -17074,7 +17106,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_C.gmark2  &
-   adams_id = 9006574  &
+   adams_id = 9006576  &
    location = 0.0, 0.0, 7.7506311204  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -17086,13 +17118,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_C.cm  &
-   adams_id = 9006572  &
+   adams_id = 9006574  &
    location = 0.0, 0.0, 3.0121800908  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_C.end_beamC  &
-   adams_id = 9006573  &
+   adams_id = 9006575  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -17190,13 +17222,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_sliderB.B1  &
-   adams_id = 9006577  &
+   adams_id = 9006579  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_sliderB.B2  &
-   adams_id = 9006578  &
+   adams_id = 9006580  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -17264,13 +17296,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_sliderC.C1  &
-   adams_id = 9006579  &
+   adams_id = 9006581  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_sliderC.C2  &
-   adams_id = 9006580  &
+   adams_id = 9006582  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -17336,6 +17368,22 @@ part create equation differential_equation  &
    differential_equation_name = .test_analysis_1.test_pdc_01_A_WZ_integral  &
    adams_id = 9000000  &
    initial_condition = 0.0  &
+   function = ""  &
+   implicit = off  &
+   static_hold = on
+!
+part create equation differential_equation  &
+   differential_equation_name = .test_analysis_1.BitOffset  &
+   adams_id = 9000011  &
+   initial_condition = 3.0  &
+   function = ""  &
+   implicit = off  &
+   static_hold = off
+!
+part create equation differential_equation  &
+   differential_equation_name = .test_analysis_1.test_pdc_01_TrueMD  &
+   adams_id = 9000012  &
+   initial_condition = 2000.0  &
    function = ""  &
    implicit = off  &
    static_hold = on
@@ -17439,7 +17487,7 @@ part create equation differential_equation  &
 part create equation differential_equation  &
    differential_equation_name = .test_analysis_1.HookLoadLatch  &
    adams_id = 101  &
-   initial_condition = 8.8868573805E+04  &
+   initial_condition = 8.5336206311E+04  &
    function = ""  &
    implicit = off  &
    static_hold = off
@@ -19654,6 +19702,16 @@ force create direct force_vector  &
    z_force_function = ""
 !
 force create direct force_vector  &
+   force_vector_name = .test_analysis_1.test_pdc_01_sliderA_aligner  &
+   adams_id = 9006331  &
+   i_marker_name = .test_analysis_1.test_pdc_01_sliderA.down_ref  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000106  &
+   ref_marker_name = .test_analysis_1.ground.adrill_origin  &
+   x_force_function = ""  &
+   y_force_function = ""  &
+   z_force_function = ""
+!
+force create direct force_vector  &
    force_vector_name = .test_analysis_1.example_stabilizer_02_sliderA_locator  &
    adams_id = 9000220  &
    i_marker_name = .test_analysis_1.example_stabilizer_02_B.barrelA1  &
@@ -20728,7 +20786,7 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.TOSLoad  &
-   adams_id = 9006331  &
+   adams_id = 9006332  &
    i_marker_name = .test_analysis_1.Upper_DP_Group20_C.end_C  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006321  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group20_sliderC.cm  &
@@ -21193,10 +21251,11 @@ output_control create request  &
    request_name = .test_analysis_1.test_pdc_01_Motion  &
    adams_id = 1  &
    component_names = "Measured_Depth", "Radial_Displacement",  &
-                     "Radial_Velocity", "", "Orbiting_Angular_Velocity",  &
-                     "Bending_Moment", "Torque", "Axial_Load", "", ""  &
-   component_labels = "(ft)", "(ft)", "(ft/sec)", "", "(RPM)", "(Kft-lbf)",  &
-                      "(Kft-lbf)", "(Klbf)"  &
+                     "Radial_Velocity", "Axial_Angular_Velocity",  &
+                     "Orbiting_Angular_Velocity", "Bending_Moment",  &
+                     "Twisting_Moment", "Axial_Load"  &
+   component_labels = "(ft)", "(ft)", "(ft/sec)", "(RPM)", "(RPM)",  &
+                      "(Kft-lbf)", "(Kft-lbf)", "(Klbf)"  &
    results_name = "test_pdc_01_Motion"  &
    user_function = -1.0, 9.000005E+06, 9.000001E+06, -0.1660421644  &
    routine = "adrill_solver::MotionOut"
@@ -21206,16 +21265,36 @@ output_control create request  &
    adams_id = 2  &
    comment = "test_pdc_01 Motion Output"  &
    component_names = "Radial_Displacement_X", "Radial_Displacement_Y",  &
-                     "Rotational_Speed", "", "", "", "", "", "", ""  &
-   component_labels = "(ft)", "(ft)", "(RPM)"  &
+                     "Rotational_Speed", "Bit_True_MD", "Bit_True_Vaxial",  &
+                     "Bit_True_ROP"  &
+   component_labels = "(ft)", "(ft)", "(RPM)", "(ft)", "(ft/sec)", "(ft/hr)"  &
    results_name = "test_pdc_01_Motion"  &
    f1 = ""  &
    f2 = ""  &
-   f3 = ""
+   f3 = ""  &
+   f4 = ""  &
+   f5 = ""  &
+   f6 = ""
+!
+output_control create request  &
+   request_name = .test_analysis_1.test_pdc_01_sliderA_aligned  &
+   adams_id = 3  &
+   component_names = "Inclination", "Azimuth", "Force_UP_or_N",  &
+                     "Force_RIGHT_or_E", "Force_Magnitude",  &
+                     "Force_Direction", "Toolface_Direction"  &
+   component_labels = "deg", "deg", "lbf", "lbf", "lbf", "deg", "deg"  &
+   results_name = "test_pdc_01_sliderA_aligned"  &
+   f1 = ""  &
+   f2 = ""  &
+   f3 = ""  &
+   f4 = ""  &
+   f5 = ""  &
+   f6 = ""  &
+   f7 = ""
 !
 output_control create request  &
    request_name = .test_analysis_1.example_stabilizer_02_Motion  &
-   adams_id = 3  &
+   adams_id = 4  &
    component_names = "Measured_Depth", "Radial_Displacement",  &
                      "Radial_Velocity", "Radial_Contact_Load",  &
                      "Orbiting_Angular_Velocity", "Bending_Moment", "Torque",  &
@@ -21228,7 +21307,7 @@ output_control create request  &
 !
 output_control create request  &
    request_name = .test_analysis_1.example_stabilizer_02_Motion2  &
-   adams_id = 4  &
+   adams_id = 5  &
    comment = "example_stabilizer_02 Motion Output"  &
    component_names = "Radial_Displacement_X", "Radial_Displacement_Y",  &
                      "Rotational_Speed", "", "", "", "", "", "", ""  &
@@ -21240,11 +21319,11 @@ output_control create request  &
 !
 output_control create request  &
    request_name = .test_analysis_1.equivalent_pipe1_TorsionStates  &
-   adams_id = 5  &
+   adams_id = 6  &
    comment = "equivalent_pipe1 Torsion States Output"  &
    component_names = "top_disp", "upr_mid_disp", "lwr_mid_disp",  &
                      "bottom_disp", "top_vel", "upr_mid_vel", "lwr_mid_vel",  &
-                     "bottom_vel", "", ""  &
+                     "bottom_vel"  &
    component_labels = "(radians)", "(radians)", "(radians)", "(radians)",  &
                       "(rad/sec)", "(rad/sec)", "(rad/sec)", "(rad/sec)"  &
    results_name = "equivalent_pipe1_TorsionStates"  &
@@ -21259,11 +21338,11 @@ output_control create request  &
 !
 output_control create request  &
    request_name = .test_analysis_1.equivalent_pipe1_AxialStates  &
-   adams_id = 6  &
+   adams_id = 7  &
    comment = "equivalent_pipe1 Axial States Output"  &
    component_names = "top_disp", "upr_mid_disp", "lwr_mid_disp",  &
                      "bottom_disp", "top_vel", "upr_mid_vel", "lwr_mid_vel",  &
-                     "bottom_vel", "", ""  &
+                     "bottom_vel"  &
    component_labels = "(ft)", "(ft)", "(ft)", "(ft)", "(ft/sec)", "(ft/sec)",  &
                       "(ft/sec)", "(ft/sec)"  &
    results_name = "equivalent_pipe1_AxialStates"  &
@@ -21278,25 +21357,27 @@ output_control create request  &
 !
 output_control create request  &
    request_name = .test_analysis_1.top_drive  &
-   adams_id = 7  &
+   adams_id = 8  &
    comment = "_:cmdRPM:surfRPM:TOSRPM:_:cmdTrq:true_Trq:_"  &
-   component_names = "Input_RPM", "Surface_RPM", "Top_of_String_RPM",  &
-                     "Surface_Torque", "True_Torque", "", "", "", "", ""  &
-   component_labels = "(RPM)", "(RPM)", "(RPM)", "(kft-lbf)", "(kft-lbf)"  &
+   component_names = "Command_RPM", "Surface_RPM", "Top_of_String_RPM",  &
+                     "Surface_Torque", "True_Torque", "Surface_Rotation"  &
+   component_labels = "(RPM)", "(RPM)", "(RPM)", "(kft-lbf)", "(kft-lbf)",  &
+                      "(deg)"  &
    results_name = "top_drive_data"  &
    f1 = ""  &
    f2 = ""  &
    f3 = ""  &
    f4 = ""  &
-   f5 = ""
+   f5 = ""  &
+   f6 = ""
 !
 output_control create request  &
    request_name = .test_analysis_1.ROP_controls  &
-   adams_id = 8  &
+   adams_id = 9  &
    comment = "_:cmd_ROP:BOH_V:MD:_:cmd_WOB:true_WOB:HookLoad"  &
    component_names = "Input_ROP", "Bottom_of_Hole_Velocity",  &
                      "Measured_Depth", "Input_WOB", "Downhole_WOB",  &
-                     "HookLoad", "", "", "", ""  &
+                     "HookLoad"  &
    component_labels = "(ft/hr)", "(ft/hr)", "(ft)", "(klbf)", "(klbf)",  &
                       "(klbf)"  &
    results_name = "ROP_controls"  &
@@ -21309,17 +21390,42 @@ output_control create request  &
 !
 output_control create request  &
    request_name = .test_analysis_1.MSE_Motion  &
-   adams_id = 9  &
+   adams_id = 10  &
    comment = "Surface:AtBit"  &
    component_names = "Instantaneous_Surface_MSE", "Instantaneous_Bottom_MSE",  &
-                     "Filtered_Surface_MSE", "Filtered_Bottom_MSE", "", "",  &
-                     "", "", "", ""  &
+                     "Filtered_Surface_MSE", "Filtered_Bottom_MSE"  &
    component_labels = "(psi)", "(psi)", "(psi)", "(psi)"  &
    results_name = "MSE"  &
    f1 = ""  &
    f2 = ""  &
    f3 = ""  &
    f4 = ""
+!
+output_control create request  &
+   request_name = .test_analysis_1.bitloads_aligned  &
+   adams_id = 11  &
+   component_names = "Inclination", "Azimuth", "Force_UP_or_N",  &
+                     "Force_RIGHT_or_E", "Force_Magnitude"  &
+   component_labels = "(deg)", "(deg)", "(lbf)", "(lbf)", "(lbf)"  &
+   results_name = "bitloads_aligned"  &
+   f1 = ""  &
+   f2 = ""  &
+   f3 = ""  &
+   f4 = ""  &
+   f5 = ""
+!
+output_control create request  &
+   request_name = .test_analysis_1.bitloads_aligned2  &
+   adams_id = 12  &
+   component_names = "Force_Direction", "Hole_Curvature_Mag",  &
+                     "Hole_Curvature_Dir", "RefZero", "AvgFX", "AvgFY",  &
+                     "AvgFM", "AvgFdir"  &
+   component_labels = "(deg)", "(deg/100ft)", "(deg)", "(lbf)", "(lbf)",  &
+                      "(lbf)", "(lbf)", "(deg)"  &
+   results_name = "bitloads_aligned"  &
+   user_function = 8002.0, 9001.0, 2287.3973538343, 9.000001E+06, 1001.0,  &
+                   9.000202E+06, 9.000001E+06  &
+   routine = "adrillX10D::FIXLOAD"
 !
 !----------------------------- Simulation Scripts -----------------------------!
 !
@@ -21901,6 +22007,10 @@ variable create  &
    object_value = (NONE)
 !
 variable create  &
+   variable_name = .test_analysis_1.bit_oriented_slider  &
+   object_value = (NONE)
+!
+variable create  &
    variable_name = .test_analysis_1.CloseBitfile  &
    integer_value = 1
 !
@@ -22185,6 +22295,10 @@ variable modify  &
    object_value = .test_analysis_1.Upper_DP_Group20_C.end_C
 !
 variable modify  &
+   variable_name = .test_analysis_1.bit_oriented_slider  &
+   object_value = .test_analysis_1.test_pdc_01_sliderA
+!
+variable modify  &
    variable_name = .test_analysis_1.string_top_marker  &
    object_value = .test_analysis_1.Upper_DP_Group20_C.end_C
 !
@@ -22320,6 +22434,10 @@ data_element modify variable  &
    function = "WZ(.test_analysis_1.test_pdc_01.LateralRef,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.test_pdc_01_sliderA.cm)"
 !
 data_element modify variable  &
+   variable_name = .test_analysis_1.test_pdc_01_sliderA_toolface  &
+   function = "AZ(.test_analysis_1.test_pdc_01.LateralRef,.test_analysis_1.test_pdc_01_sliderA.cm)*RTOD"
+!
+data_element modify variable  &
    variable_name = .test_analysis_1.drive_torque_command  &
    function = "VARVAL(.test_analysis_1.PropGain)*DIF1(.test_analysis_1.StringSpeedError)+VARVAL(.test_analysis_1.IntGain)*DIF(.test_analysis_1.StringSpeedError)+VARVAL(.test_analysis_1.DerivGain)*DIF1(.test_analysis_1.StringSpeedErrorRate)"
 !
@@ -22388,6 +22506,14 @@ data_element modify variable  &
    function = "DIF(.test_analysis_1.integrated_ROP)"
 !
 data_element modify variable  &
+   variable_name = .test_analysis_1.Surface_AZ  &
+   function = "ARYVAL(.test_analysis_1.Epipe1TorsionStates,1)*180/PI"
+!
+data_element modify variable  &
+   variable_name = .test_analysis_1.Surface_WZ  &
+   function = "ARYVAL(.test_analysis_1.Epipe1TorsionStates,5)*180/PI"
+!
+data_element modify variable  &
    variable_name = .test_analysis_1.ROPmdepth  &
    function = "DIF(.test_analysis_1.integrated_BOHV)"
 !
@@ -22419,6 +22545,16 @@ part modify equation differential_equation  &
 part modify equation differential_equation  &
    differential_equation_name = .test_analysis_1.test_pdc_01_A_WZ_integral  &
    function = "WZ(.test_analysis_1.test_pdc_01.LateralRef,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.test_pdc_01_sliderA.cm)"
+!
+part modify equation differential_equation  &
+   differential_equation_name = .test_analysis_1.BitOffset  &
+   function = "IF(MODE-5: 0,",  &
+              "DIF(.test_analysis_1.BitOffset)-DZ(.test_analysis_1.Hole_Bottom.gref1,.test_analysis_1.test_pdc_01.end,.test_analysis_1.Hole_Bottom.gref1),",  &
+              "0 )"
+!
+part modify equation differential_equation  &
+   differential_equation_name = .test_analysis_1.test_pdc_01_TrueMD  &
+   function = "VZ(.test_analysis_1.test_pdc_01.LateralRef,.test_analysis_1.ground.adrill_origin,.test_analysis_1.test_pdc_01_sliderA.cm)"
 !
 part modify equation differential_equation  &
    differential_equation_name = .test_analysis_1.example_stabilizer_02_A_WZ_integral  &
@@ -22490,8 +22626,16 @@ force modify direct force_vector  &
    force_vector_name = .test_analysis_1.test_pdc_01_sliderA_locator  &
    x_force_function = "0"  &
    y_force_function = "0"  &
-   z_force_function = "-1E5*DZ(.test_analysis_1.test_pdc_01.LateralRef,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.test_pdc_01_sliderA.cm)",  &
-              "-1E4*VZ(.test_analysis_1.test_pdc_01.LateralRef,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.test_pdc_01_sliderA.cm)"
+   z_force_function = "-5E5*DZ(.test_analysis_1.test_pdc_01.LateralRef,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.test_pdc_01_sliderA.cm)",  &
+              "-5E4*VZ(.test_analysis_1.test_pdc_01.LateralRef,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.test_pdc_01_sliderA.cm)"
+!
+force modify direct force_vector  &
+   force_vector_name = .test_analysis_1.test_pdc_01_sliderA_aligner  &
+   x_force_function = "STEP(ACOS(DZ(.test_analysis_1.test_pdc_01_sliderA.tangent_ref,",  &
+              ".test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.ground.adrill_origin)),0.045,0.01,0.055, 0)"  &
+   y_force_function = "0"  &
+   z_force_function = "STEP(ACOS(DZ(.test_analysis_1.test_pdc_01_sliderA.tangent_ref,",  &
+              ".test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.ground.adrill_origin)),0.045,0,0.055, 0.01)"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.example_stabilizer_02_sliderA_locator  &
@@ -23170,7 +23314,7 @@ force modify direct torque_vector  &
    torque_vector_name = .test_analysis_1.test_pdc_01_sliderA_damper  &
    x_torque_function = "0"  &
    y_torque_function = "0"  &
-   z_torque_function = "-10*WZ(.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.ground.adrill_origin,.test_analysis_1.test_pdc_01_sliderA.cm)"
+   z_torque_function = "-5.0*WZ(.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.ground.adrill_origin,.test_analysis_1.test_pdc_01_sliderA.cm)"
 !
 force modify direct torque_vector  &
    torque_vector_name = .test_analysis_1.example_stabilizer_02_sliderA_damper  &
@@ -23453,7 +23597,22 @@ output_control modify request  &
    request_name = .test_analysis_1.test_pdc_01_Motion2  &
    f1 = "DX(.test_analysis_1.test_pdc_01.LateralRef,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.test_pdc_01_sliderA.cm)"  &
    f2 = "DY(.test_analysis_1.test_pdc_01.LateralRef,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.test_pdc_01_sliderA.cm)"  &
-   f3 = "WZ(.test_analysis_1.test_pdc_01.LateralRef,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.test_pdc_01_sliderA.cm)*30/PI"
+   f3 = "WZ(.test_analysis_1.test_pdc_01.LateralRef,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.test_pdc_01_sliderA.cm)*30/PI"  &
+   f4 = "DIF(.test_analysis_1.test_pdc_01_TrueMD)-DIF(.test_analysis_1.BitOffset)"  &
+   f5 = "DIF1(.test_analysis_1.test_pdc_01_TrueMD)"  &
+   f6 = "DIF1(.test_analysis_1.test_pdc_01_TrueMD)*3600"
+!
+output_control modify request  &
+   request_name = .test_analysis_1.test_pdc_01_sliderA_aligned  &
+   f1 = "ACOS(DZ(.test_analysis_1.test_pdc_01_sliderA.tangent_ref,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.ground.adrill_origin))*RTOD"  &
+   f2 = "MOD(ATAN2(DX(.test_analysis_1.test_pdc_01_sliderA.tangent_ref,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.ground.adrill_origin),",  &
+              " DY(.test_analysis_1.test_pdc_01_sliderA.tangent_ref,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.ground.adrill_origin))+2*PI,",  &
+              " 2*PI)*RTOD"  &
+   f3 = "0"  &
+   f4 = "0"  &
+   f5 = "0"  &
+   f6 = "0"  &
+   f7 = "AZ(.test_analysis_1.test_pdc_01.LateralRef,.test_analysis_1.test_pdc_01_sliderA.cm)*RTOD"
 !
 output_control modify request  &
    request_name = .test_analysis_1.example_stabilizer_02_Motion2  &
@@ -23486,10 +23645,11 @@ output_control modify request  &
 output_control modify request  &
    request_name = .test_analysis_1.top_drive  &
    f1 = "VARVAL(.test_analysis_1.Command_String_Speed)*30/PI"  &
-   f2 = "ARYVAL(.test_analysis_1.Epipe1TorsionStates,5)*30/PI"  &
+   f2 = "VARVAL(.test_analysis_1.Surface_WZ)/6"  &
    f3 = "ARYVAL(.test_analysis_1.Epipe1TorsionStates,8)*30/PI"  &
    f4 = "VARVAL(.test_analysis_1.drive_torque_command)/1000"  &
-   f5 = "SFORCE(.test_analysis_1.topdrive,0,8,.test_analysis_1.TOS_direction_marker)/1000"
+   f5 = "SFORCE(.test_analysis_1.topdrive,0,8,.test_analysis_1.TOS_direction_marker)/1000"  &
+   f6 = "VARVAL(.test_analysis_1.Surface_AZ)"
 !
 output_control modify request  &
    request_name = .test_analysis_1.ROP_controls  &
@@ -23506,6 +23666,17 @@ output_control modify request  &
    f2 = "VARVAL(.test_analysis_1.Bottom_MSE)"  &
    f3 = "DIF(.test_analysis_1.filtered_Surface_MSE)"  &
    f4 = "DIF(.test_analysis_1.filtered_Bottom_MSE)"
+!
+output_control modify request  &
+   request_name = .test_analysis_1.bitloads_aligned  &
+   f1 = "ACOS(DZ(.test_analysis_1.test_pdc_01_sliderA.tangent_ref,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.ground.adrill_origin))*RTOD"  &
+   f2 = "MOD(ATAN2(DX(.test_analysis_1.test_pdc_01_sliderA.tangent_ref,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.ground.adrill_origin),",  &
+              " DY(.test_analysis_1.test_pdc_01_sliderA.tangent_ref,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.ground.adrill_origin))+2*PI,",  &
+              " 2*PI)*RTOD"  &
+   f3 = "JOINT(.test_analysis_1.connector_2to1,1,2,.test_analysis_1.test_pdc_01_sliderA.cm)"  &
+   f4 = "JOINT(.test_analysis_1.connector_2to1,1,3,.test_analysis_1.test_pdc_01_sliderA.cm)"  &
+   f5 = "SQRT(JOINT(.test_analysis_1.connector_2to1,1,2,.test_analysis_1.test_pdc_01_sliderA.cm)**2+",  &
+              "JOINT(.test_analysis_1.connector_2to1,1,3,.test_analysis_1.test_pdc_01_sliderA.cm)**2)"
 !
 !--------------------------- Expression definitions ---------------------------!
 !
@@ -23708,6 +23879,10 @@ force modify direct force_vector  &
    i_marker_name = ("test_pdc_01" // ".LateralRef")  &
    ref_marker_name = ("test_pdc_01" // ".LateralRef")
 !
+part modify equation differential_equation  &
+   differential_equation_name = .test_analysis_1.test_pdc_01_TrueMD  &
+   initial_condition = (.test_analysis_1.initial_bitMD)
+!
 force modify direct general_force  &
    general_force_name = .test_analysis_1.test_pdc_01_contactA  &
    i_marker_name = ("test_pdc_01" // ".LateralRef")  &
@@ -23728,6 +23903,14 @@ force modify direct general_force  &
       0.55,  &
       1.05  &
    routine = "adrill_solver::BitForces"
+!
+force modify direct force_vector  &
+   force_vector_name = .test_analysis_1.test_pdc_01_sliderA_aligner  &
+   i_marker_name = (".test_analysis_1.test_pdc_01_sliderA" // ".down_ref")
+!
+variable modify  &
+   variable_name = .test_analysis_1.bit_oriented_slider  &
+   object_value = ("test_pdc_01" // "_sliderA")
 !
 marker modify  &
    marker_name = .test_analysis_1.example_stabilizer_02_B.barrelA1  &
