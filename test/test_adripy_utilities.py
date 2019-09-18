@@ -1,11 +1,13 @@
 import unittest
 import os
 import shutil
+import string
+import random
 import difflib
 from test import *
 
 from adamspy import adripy
-from adamspy.adripy.constants import TO_PARAMETER_PATTERN
+from adamspy.adripy.constants import TO_PARAMETER_PATTERN, ACF_FUNNEL_PATTERN, ACF_INTEGRATOR_ERROR_PATTERN
 
 class Test_TOParameterPattern(unittest.TestCase):
     """Tests that the TO_PARAMTER_PATTERN regex works on a variety of example text. 
@@ -40,6 +42,72 @@ class Test_TOParameterPattern(unittest.TestCase):
         line_text = '0.0   5.0   60.0'
         match = TO_PARAMETER_PATTERN.match(line_text)
         self.assertFalse(bool(match))        
+
+class Test_AcfSolverSettingsPatterns(unittest.TestCase):
+
+    def setUp(self):
+        return
+
+    def test_match_funnel(self):
+        failures = []
+        for i, funnel in enumerate(TEST_STATIC_FUNNELS):
+            match = ACF_FUNNEL_PATTERN.match(funnel)
+            if not bool(match):
+                failures.append(f'Failed to match funnel {i}')
+        
+        self.assertListEqual(failures, [])
+
+    def test_not_match_funnel(self):
+        failures = []
+        for i, funnel in enumerate(TEST_NON_STATIC_FUNNELS):
+            match = ACF_FUNNEL_PATTERN.match(funnel)
+            if bool(match):
+                failures.append(f'Erroneously matched funnel {i}')
+
+        self.assertListEqual(failures, [])
+    
+    def test_search_funnel_1(self):
+        funnel = TEST_NON_STATIC_FUNNELS[-1]
+        match = ACF_FUNNEL_PATTERN.search(funnel)
+        self.assertTrue(bool(match))
+
+    def test_search_funnel_2(self):
+        funnel = TEST_NON_STATIC_FUNNELS[-2]
+        match = ACF_FUNNEL_PATTERN.search(funnel)
+        self.assertFalse(bool(match))
+    
+    def test_match_integrator(self):
+        failures = []
+        for i, integrator_statement in enumerate(TEST_INTEGRATOR_STATEMENTS):
+            match = ACF_INTEGRATOR_ERROR_PATTERN.match(integrator_statement)
+            if not bool(match):
+                failures.append(f'Failed to match integrator statement {i}')
+        
+        self.assertListEqual(failures, [])
+
+    def test_match_integrator_returned_string(self):
+        """Tests that `ACF_INTEGRATOR_ERROR_PATTERN` only returns the error part of the integrator statement
+
+        """
+        failures = []
+        for i, integrator_statement in enumerate(TEST_INTEGRATOR_STATEMENTS):
+            match = ACF_INTEGRATOR_ERROR_PATTERN.match(integrator_statement)
+            if not bool(match) and not len(match.groups)==1 and not match.group(0)==', ERROR = 1.0E-05':
+                failures.append(f'Failed to match integrator statement {i}')
+        
+        self.assertListEqual(failures, [])
+    
+    def test_not_match_integrator(self):
+        failures = []
+        for i, integrator_statement in enumerate(TEST_NON_INTEGRATOR_STATEMENTS):
+            match = ACF_INTEGRATOR_ERROR_PATTERN.match(integrator_statement)
+            if bool(match):
+                failures.append(f'Erroneously matched integrator statement {i}')
+        
+        self.assertListEqual(failures, [])
+        
+    def tearDown(self):
+        return
 
 class Test_AdripyFunctions(unittest.TestCase):    
     
@@ -240,10 +308,72 @@ class Test_AdripyFunctions(unittest.TestCase):
         test_path = os.path.join('fake_dir', 'fake_filename.str')
         path_is_abs = adripy.isabs(test_path)
         self.assertFalse(path_is_abs)
-        
+
     def tearDown(self):
         os.remove(TEST_CONFIG_FILENAME)
         os.environ['ADRILL_USER_CFG'] = os.path.join(os.environ['USERPROFILE'], '.adrill.cfg')
+
+class Test_AcfModifiers(unittest.TestCase):
+
+    def setUp(self):
+        # Create a temporary acf file
+        self.acf_file = os.path.join(os.path.dirname(TEST_ACF_FILE), random_sting() + '.acf')
+        shutil.copyfile(TEST_ACF_FILE, self.acf_file)
+
+        # Define Static funnel
+        maxit = [100, 101, 102]
+        stab = [1.001, 2.0, 3.00]
+        error = [11,22,33]
+        imbal = [22,23,24]
+        tlim = [4,5,6]
+        alim = [1,2.0,3]
+        self.statics = [maxit, stab, error, imbal, tlim, alim]
+                
+        # Define new integrator error
+        self.error = 3.1
+    
+    def test_modify_acf_funnel(self):
+        """Tests that :meth:`adripy.utilities.modify_acf_solver_settings` produces the correct file content when just given a static funnel.
+
+        """
+        # Replace the funnel
+        adripy.modify_acf_solver_settings(self.acf_file, statics=self.statics)
+
+        # Check the file contents
+        failures = check_file_contents(self.acf_file, TEST_EXPECTED_ACF_AFTER_FUNNEL_MOD)
+
+        # Assert no failures
+        self.assertListEqual(failures, [])
+    
+    def test_modify_acf_integrator_settings(self):
+        """Tests that :meth:`adripy.utilities.modify_acf_solver_settings` produces the correct file content when just given an integrator error.
+
+        """
+        # Replace the funnel
+        adripy.modify_acf_solver_settings(self.acf_file, error=self.error)
+
+        # Check the file contents
+        failures = check_file_contents(self.acf_file, TEST_EXPECTED_ACF_AFTER_INTEGRATOR_MOD)
+
+        # Assert no failures
+        self.assertListEqual(failures, [])
+    
+    def test_modify_acf_integrator_and_funnel(self):
+        """Tests that :meth:`adripy.utilities.modify_acf_solver_settings` produces the correct file content when both the integrator settings and the funnel are modified.
+
+        """
+        # Replace the funnel
+        adripy.modify_acf_solver_settings(self.acf_file, statics=self.statics, error=self.error)
+
+        # Check the file contents
+        failures = check_file_contents(self.acf_file, TEST_EXPECTED_ACF_AFTER_INTEGRATOR_AND_FUNNEL_MOD)
+
+        # Assert no failures
+        self.assertListEqual(failures, [])
+
+    def tearDown(self):
+        # Remove the temporary acf file
+        os.remove(self.acf_file)
 
 class Test_AddSplines(unittest.TestCase):
 
@@ -282,8 +412,11 @@ def compare_files(file_1, file_2):
             file_diff += line[1:]
     
     return file_diff
-
-    
+ 
+def random_sting(length=10):
+    """Generate a random string of fixed length """
+    letters = string.ascii_lowercase
+    return ''.join(random.choice(letters) for i in range(length))    
 
 if __name__ == '__main__':
     unittest.main()

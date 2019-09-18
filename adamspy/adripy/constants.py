@@ -15,6 +15,9 @@ DATABASE_INFO : :obj:`dict` of :obj:`dict`
 import re
 
 TO_PARAMETER_PATTERN = re.compile('^ *[_0-9a-zA-Z]+\\s*=\\s*((\'[-:_0-9a-zA-Z<>\\\\/\\.\\s]*\')|(-?[\\+-\\.e0-9]+))\\s*$')
+# ACF_FUNNEL_PATTERN = re.compile(r'((^equil(ibrium)?/([(maxit)(stab)(error)(imbal)(tlim)(alim)]=[\.0-9]d?,?[ \t]*){6}[ \t]*$^sim(ulate)?/stat(ics)?[ \t]*)|(^[ \t]*!.*$))+', flags=re.IGNORECASE | re.MULTILINE)
+ACF_FUNNEL_PATTERN = re.compile(r'^(((!.*)|([ \t]*)\n)*(equil(ibrium)?/([a-z]+=[\.e\-\+0-9]+,?d?[ \t]*){6})[ \t]*\n((!.*)|([ \t]*)\n)*(sim(ulate)?/stat(ics)?)[ \t]*\n)+', flags=re.IGNORECASE | re.MULTILINE)
+ACF_INTEGRATOR_ERROR_PATTERN = re.compile(r'(^integrator/[ \t]*(?:&[ \t]*\n)?)(, [ \t]*[a-z]+(?:[ \t]*=[ \t]*[\-\+\.0-9e]+)?(?:[ \t]*&[ \t]*\n)?)*(?:(, [ \t]*error+(?:[ \t]*=[ \t]*[\-\+\.0-9e]+))((?:[ \t]*&[ \t]*\n)?(?:, [ \t]*[a-z]+(?:[ \t]*=[ \t]*[\-\+\.0-9e]+)?(?:[ \t]*&[ \t]*\n)?)*))', flags=re.IGNORECASE | re.MULTILINE)
 
 TO_LENGTH_PARAM = {}
 TO_LENGTH_PARAM['accelerator'] = ['Accelerator_Length']

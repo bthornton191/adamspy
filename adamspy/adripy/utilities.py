@@ -6,7 +6,7 @@ import subprocess
 import time
 
 import thornpy
-from .constants import TO_PARAMETER_PATTERN, TO_LENGTH_PARAM, ADRILL_IDS, ADRILL_PLUGIN_VAR
+from .constants import TO_PARAMETER_PATTERN, TO_LENGTH_PARAM, ADRILL_IDS, ADRILL_PLUGIN_VAR, ACF_FUNNEL_PATTERN, ACF_INTEGRATOR_ERROR_PATTERN
 from . import TMPLT_ENV
 
 def turn_measure_on(string_file, tool_types=[], tool_numbers=[], tool_names=[]):
@@ -1186,6 +1186,62 @@ def add_splines_to_acf(acf_file):
     # Replace original acf file
     os.remove(acf_file)
     os.rename(acf_file.replace('.acf','.tmp'), acf_file)
+
+def modify_acf_solver_settings(acf_file, statics=None, error=None):
+    """Modifies the contents of the Adams Command (.acf) file given in `acf_file` to apply the static funnel given in `statics` and the dynamic steps given in `dynamics`.
+    
+    Parameters
+    ----------
+    acf_file : str
+        Path to Adams Command (.acf) file to be updated
+    statics : list
+        List of six lists where each list contains the values of a particular equilibrium setting at each step in the funnel. (Defaults to the value already in the acf file.)
+    error : float
+        Error tolerance to use for the dynamics solver. (Defaults to the value already in the acf file.)
+
+    Example
+    -------    
+    The following example modifies example.acf to have a three-step static funnel and a dynamic solver error tolerance of 0.0001.
+
+    >>> maxit = [500, 500, 500]
+    >>> stab = [8.0, 1.0, .01]
+    >>> error = [1.0, 0.1, .01]
+    >>> imbal = [4.0, 2.0, .01]
+    >>> tlim = [4.0, 2.0, 1.0]
+    >>> alim = [4.0, 2.0, 1.0] # Assumes DEGREES
+    >>> statics = [maxit, stab, error, imbal, tlim, alim]
+    >>> modify_acf_solver_settings('example.acf', statics=statics, error=.0001)
+
+    """
+    # Read the current acf text
+    with open(acf_file, 'r') as fid:
+        acf_text = fid.read()
+    
+    # Replace the static funnel
+    if statics is not None:
+        if len(statics) != 6 or not all([len(statics[0])==len(param) for param in statics]):
+            raise Exception('The statics list does not have the correct shape.')
+
+        # Create the new funnel text
+        funnel = ''.join([f'equil/maxit={maxit}, stab={stab}, error={error}, imbal={imbal}, tlim={tlim}, alim={alim}D\nsim/stat\n' for maxit, stab, error, imbal, tlim, alim in zip(*statics)])
+        
+        # Replace the funnel
+        acf_text = ACF_FUNNEL_PATTERN.sub('!\n!\n' + funnel, acf_text)
+    
+    # Replace the dynamic error tolerance
+    if error is not None:
+        # current_integrator_block = re.match
+        error_text = f', ERROR = {error}'
+
+        acf_text = ACF_INTEGRATOR_ERROR_PATTERN.sub(r'\1\2' + error_text + r'\4', acf_text)
+
+    # Write a temporary acf file
+    with open(acf_file + '.tmp', 'w') as fid:
+        fid.write(acf_text)
+    
+    # Replace the existing acf file with the temporary
+    os.remove(acf_file)
+    os.rename(acf_file + '.tmp', acf_file)   
 
 class TiemOrbitSyntaxError(Exception):
     pass

@@ -2035,7 +2035,276 @@ sim/dyn, end=200.0, dtout=2.0E-02
 stop
 """
 
+TEST_EXPECTED_ACF_AFTER_FUNNEL_MOD = """
+file/model=test
+!
+! Integrator Settings:
+INTEGRATOR/ &
+, HHT &
+, ERROR = 1.0E-05
+!
+! Command String Speed:
+! Note: Factors of PI/30 used to convert from RPM 
+! commands to internal modeling units of rad/sec
+VARIABLE/9105 &
+, FUNCTION=STEP(TIME,15.0,0.0,15.0+15.0,60.0*PI/30)
+!
+! Motor GPM:
+VARIABLE/1102 &
+, FUNCTION=VARVAL(11021) * &
+, (STEP(TIME,0.0,0.0,0.0+15.0,500.0))
+!
+! Command WOB:
+! Note: Unit of weight is lbf 
+VARIABLE/9106 &
+, FUNCTION=STEP(TIME,30.0,0,30.0+15.0,50.0)
+!
+! Command ROP:
+! Note: Factors of 1/3600 used to convert from ft/hr 
+! commands to internal modeling units of ft/sec
+VARIABLE/9104 &
+, FUNCTION=STEP(TIME,30.0,0,30.0+15.0,100.0/3600)
+!
+!
+equil/maxit=100, stab=1.001, error=11, imbal=22, tlim=4, alim=1D
+sim/stat
+equil/maxit=101, stab=2.0, error=22, imbal=23, tlim=5, alim=2.0D
+sim/stat
+equil/maxit=102, stab=3.0, error=33, imbal=24, tlim=6, alim=3D
+sim/stat
+!
+sim/dyn, end=10.0, dtout=5.0E-02
+sim/dyn, end=100.0, dtout=5.0E-02
+!
+
+stop
+
+"""
+
+TEST_EXPECTED_ACF_AFTER_INTEGRATOR_MOD = """
+file/model=test
+!
+! Integrator Settings:
+INTEGRATOR/ &
+, HHT &
+, ERROR = 3.1
+!
+! Command String Speed:
+! Note: Factors of PI/30 used to convert from RPM 
+! commands to internal modeling units of rad/sec
+VARIABLE/9105 &
+, FUNCTION=STEP(TIME,15.0,0.0,15.0+15.0,60.0*PI/30)
+!
+! Motor GPM:
+VARIABLE/1102 &
+, FUNCTION=VARVAL(11021) * &
+, (STEP(TIME,0.0,0.0,0.0+15.0,500.0))
+!
+! Command WOB:
+! Note: Unit of weight is lbf 
+VARIABLE/9106 &
+, FUNCTION=STEP(TIME,30.0,0,30.0+15.0,50.0)
+!
+! Command ROP:
+! Note: Factors of 1/3600 used to convert from ft/hr 
+! commands to internal modeling units of ft/sec
+VARIABLE/9104 &
+, FUNCTION=STEP(TIME,30.0,0,30.0+15.0,100.0/3600)
+!
+!
+equil/maxit=500, stab=0.1, error=0.1, imbal=0.1, tlim=1.0, alim=2.0D
+sim/stat
+equil/maxit=500, stab=5.0, error=1.0, imbal=1.0, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=51, stab=0.5, error=0.3, imbal=0.3, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=52, stab=0.5, error=0.3, imbal=0.2, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=53, stab=0.5, error=0.2, imbal=0.2, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=54, stab=0.5, error=0.2, imbal=0.1, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=55, stab=0.5, error=0.1, imbal=0.1, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=56, stab=0.5, error=0.1, imbal=5.0E-02, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=57, stab=0.5, error=5.0E-02, imbal=5.0E-02, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=58, stab=0.5, error=5.0E-02, imbal=1.0E-02, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=59, stab=0.5, error=1.0E-02, imbal=1.0E-02, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=60, stab=0.5, error=1.0E-02, imbal=5.0E-03, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=61, stab=0.5, error=5.0E-03, imbal=5.0E-03, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=62, stab=0.5, error=5.0E-03, imbal=1.0E-03, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=63, stab=0.5, error=5.0E-03, imbal=5.0E-04, tlim=0.5, alim=1.0D
+sim/stat
+equil/maxit=100, stab=0.5, error=5.0E-03, imbal=5.0E-03, tlim=0.5, alim=1.0D
+sim/stat
+!
+sim/dyn, end=10.0, dtout=5.0E-02
+sim/dyn, end=100.0, dtout=5.0E-02
+!
+
+stop
+"""
+
+TEST_EXPECTED_ACF_AFTER_INTEGRATOR_AND_FUNNEL_MOD = """
+file/model=test
+!
+! Integrator Settings:
+INTEGRATOR/ &
+, HHT &
+, ERROR = 3.1
+!
+! Command String Speed:
+! Note: Factors of PI/30 used to convert from RPM 
+! commands to internal modeling units of rad/sec
+VARIABLE/9105 &
+, FUNCTION=STEP(TIME,15.0,0.0,15.0+15.0,60.0*PI/30)
+!
+! Motor GPM:
+VARIABLE/1102 &
+, FUNCTION=VARVAL(11021) * &
+, (STEP(TIME,0.0,0.0,0.0+15.0,500.0))
+!
+! Command WOB:
+! Note: Unit of weight is lbf 
+VARIABLE/9106 &
+, FUNCTION=STEP(TIME,30.0,0,30.0+15.0,50.0)
+!
+! Command ROP:
+! Note: Factors of 1/3600 used to convert from ft/hr 
+! commands to internal modeling units of ft/sec
+VARIABLE/9104 &
+, FUNCTION=STEP(TIME,30.0,0,30.0+15.0,100.0/3600)
+!
+!
+equil/maxit=100, stab=1.001, error=11, imbal=22, tlim=4, alim=1D
+sim/stat
+equil/maxit=101, stab=2.0, error=22, imbal=23, tlim=5, alim=2.0D
+sim/stat
+equil/maxit=102, stab=3.0, error=33, imbal=24, tlim=6, alim=3D
+sim/stat
+!
+sim/dyn, end=10.0, dtout=5.0E-02
+sim/dyn, end=100.0, dtout=5.0E-02
+!
+
+stop
+"""
+
 EXISTING_MODEL_DIR = os.path.join(os.getcwd(), 'test', 'existing_model')
+
+TEST_STATIC_FUNNELS = [
+"""equil/maxit=500, stab=8.0, error=2.0, imbal=2.0, tlim=4.0, alim=4.0D
+sim/stat
+equil/maxit=500, stab=8.0, error=1.0, imbal=1.0, tlim=4.0, alim=4.0D
+sim/stat
+equil/maxit=500, stab=1.0, error=0.1, imbal=0.1, tlim=2.0, alim=2.0D
+sim/stat
+! sdklfsdklj
+equil/maxit=500, stab=1.0E-02, error=1.0E-02, imbal=1.0E-02, tlim=1.0, alim=1.0D
+sim/stat""",
+
+"""equilibrium/maxit=500, stab=8.0, error=2.0, imbal=2.0, tlim=4.0, alim=4.0D
+sim/stat
+equil/maxit=500, stab=8.0, error=1.0, imbal=1.0, tlim=4.0, alim=4.0D
+sim/stat
+equil/maxit=500, stab=1.0, error=0.1, imbal=0.1, tlim=2.0, alim=2.0D
+sim/stat
+! sdklfsdklj
+equil/maxit=500, stab=1.0E-02, error=1.0E-02, imbal=1.0E-02, tlim=1.0, alim=1.0D
+sim/stat""",
+
+"""equilibrium/maxit=500, stab=8.0e+2, error=2.0, imbal=2.0, tlim=4.0, alim=4.0D
+sim/stat
+equil/maxit=500, stab=8.0, error=1.0e-1, imbal=1.0, tlim=4.0, alim=4.0D
+sim/stat
+equil/maxit=500, stab=1.0, error=0.1e01, imbal=0.1, tlim=2.0, alim=2.0D
+sim/stat
+! sdklfsdklj
+equil/maxit=500, stab=1.0E-02, error=1.0E-02, imbal=1.0E-02, tlim=1.0, alim=1.0D
+sim/stat""",
+
+"""equil/maxit=500, stab=8.0e+2, error=2.0, imbal=2.0, tlim=4.0, alim=4.0D
+sim/stat
+equil/maxit=500, stab=8.0, error=1.0e-1, imbal=1.0, tlim=4.0, alim=4.0D
+sim/stat
+equil/maxit=500, stab=1.0, error=0.1e01, imbal=0.1, tlim=2.0, alim=2.0D
+sim/stat
+! sdklfsdklj
+
+!
+equil/maxit=500, stab=1.0E-02, error=1.0E-02, imbal=1.0E-02, tlim=1.0, alim=1.0D
+sim/stat"""
+]
+
+TEST_NON_STATIC_FUNNELS = [
+"""sim/dyn, end=5.0, dtout=5.0E-02
+sim/dyn, end=45.0, dtout=2.0E-02""",
+
+"""VARIABLE/9104 &
+, FUNCTION=STEP(TIME,5.0,0,5.0+15.0,125.0/3600)
+!
+!
+equil/maxit=500, stab=8.0, error=2.0, imbal=2.0, tlim=4.0, alim=4.0D
+sim/stat""",
+
+"""!equil/maxit=500, stab=1.0E-02, error=1.0E-02, imbal=1.0E-02, tlim=1.0, alim=1.0D
+!sim/stat
+!
+!sim/dyn, end=5.0, dtout=5.0E-02""",
+
+"""! Note: Unit of weight is lbf 
+VARIABLE/9106 &
+, FUNCTION=STEP(TIME,5.0,0,5.0+15.0,4.0E+04)
+!
+! Command ROP:
+! Note: Factors of 1/3600 used to convert from ft/hr 
+! commands to internal modeling units of ft/sec
+VARIABLE/9104 &
+, FUNCTION=STEP(TIME,5.0,0,5.0+15.0,125.0/3600)
+!
+!
+equil/maxit=500, stab=8.0, error=2.0, imbal=2.0, tlim=4.0, alim=4.0D
+sim/stat
+equil/maxit=500, stab=8.0, error=1.0, imbal=1.0, tlim=4.0, alim=4.0D
+sim/stat
+equil/maxit=500, stab=1.0, error=0.1, imbal=0.1, tlim=2.0, alim=2.0D
+sim/stat
+! sdklfsdklj
+equil/maxit=500, stab=1.0E-02, error=1.0E-02, imbal=1.0E-02, tlim=1.0, alim=1.0D
+sim/stat
+!
+sim/dyn, end=5.0, dtout=5.0E-02
+sim/dyn, end=45.0, dtout=2.0E-02
+!
+
+stop""",
+]
+
+TEST_INTEGRATOR_STATEMENTS = [
+    """INTEGRATOR/ &
+, HHT &
+, ERROR = 1.0E-05""",
+
+'INTEGRATOR/, HHT, ERROR = 1.0E-05',
+
+"""INTEGRATOR/ &
+, HHT &
+, ERROR = 1.0E-05 &
+, hmax = 1.0E-05"""
+]
+
+TEST_NON_INTEGRATOR_STATEMENTS = [
+    """EQUILIBRIUM/ &
+, HHT &
+, ERROR = 1.0E-05"""
+]
 
 def check_file_contents(filename, expected_text):
     """Checks that the given file contains the expected text.

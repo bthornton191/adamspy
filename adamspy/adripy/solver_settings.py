@@ -30,9 +30,8 @@ class DrillSolverSettings():
         Dictionary of parameters that make up an Adams Drill solver settings and would be found in an Adams Drill solver settings file (.ssf).  The keys of the dictionary are the parameter names that would be seen in the string file and the values of the dictionary are the values that would be seen in the string file.
     filename : str
         Name of the solver settings file (.ssf) in which these solver settings are stored.  This attribute is initially empty and is populated by the `write_to_file()` method.
-    """
     
-
+    """    
     _SCALAR_PARAMETERS = [
         'Integrator',
         'Formulation',
@@ -200,6 +199,7 @@ class DrillSolverSettings():
     def _apply_defaults(self):
         """
         Applies defaults from class variables
+
         """
         # Applies normal parameter defaults
         for scalar_parameter, value in self._DEFAULT_PARAMETER_SCALARS.items():
@@ -225,8 +225,8 @@ class DrillSolverSettings():
         ------
         ValueError
             A solver settings parameter could not be found
-        """
 
+        """
         for param in self._TABLE_PARAMETERS:
             # For each parameter initialize a found flag
             found = False

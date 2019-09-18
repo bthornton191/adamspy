@@ -520,7 +520,18 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         else:
             duration = None
         
-        return duration        
+        return duration       
+
+    def modify_acf_from_ssf(self, ssf_file):
+        """Modifies the contents of the Adams Command (.acf) file given in `acf_file` to apply the solver settings specified in the Solver Settings (.ssf) file given in `ssf_file`.
+        
+        Parameters
+        ----------
+        ssf_file : str
+            Path to Solver Settings (.ssf) file to use in updating the Adams Command file.
+
+        """
+        solver_settings = DrillSolverSettings.read_from_file(ssf_file) 
 
     def _add_adm_splines(self):
         """Adds splines to the adm file
