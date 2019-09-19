@@ -844,12 +844,12 @@ def build(string_file, solver_settings_file, working_directory, output_name=None
     
     # Set the event filename and solver settings file name (relative paths if in the same directory)    
     event_file = thornpy.utilities.convert_path(get_TO_param(string_file, 'Event_Property_File'))
-    if os.path.split(event_file)[0] == thornpy.utilities.convert_path(working_directory):
+    if os.path.dirname(event_file) == thornpy.utilities.convert_path(working_directory):
         evt_name = os.path.split(event_file)[-1]
     else:
         evt_name = thornpy.utilities.convert_path(event_file)
     
-    if os.path.split(solver_settings_file)[0] == thornpy.utilities.convert_path(working_directory):
+    if os.path.dirname(solver_settings_file) == thornpy.utilities.convert_path(working_directory):
         ssf_name = os.path.split(solver_settings_file)[-1]
     else:
         ssf_name = os.path.split(solver_settings_file)
@@ -862,6 +862,12 @@ def build(string_file, solver_settings_file, working_directory, output_name=None
     cmds.append(f'file adams write file="{adm_file}"\n')
     cmds.append(f'simulation script write_acf sim_script_name = "{output_name}" file_name = "{acf_file}"\n')
     cmds.append(f'file command write entity_name = "{output_name}" file_name = "{cmd_file}"')
+
+    # If the working directory doesn't exit, create it
+    if not os.path.exists(working_directory):
+        os.makedirs(working_directory)
+
+    # Create the build.cmd script
     with open(os.path.join(working_directory, 'build.cmd'), 'w') as fid:			
         for cmd in cmds:
             fid.write(cmd)

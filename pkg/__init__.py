@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.8.27'
-version_notes = 'increased version numver to upload to pip'
+version = '0.8.28'
+version_notes = 'minor bug fixes'
 date = 'September 19th, 2019'
 # ---------------------
 author = 'Ben Thornton'

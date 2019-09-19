@@ -570,7 +570,7 @@ class Test_DrillString(unittest.TestCase):
         drill_sim = adripy.DrillSim(drill_string, event, solver_settings, TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME)
 
         try:
-            _drill_string = adripy.DrillString.read_from_file(drill_sim.string_filename)
+            _drill_string = adripy.DrillString.read_from_file(os.path.join(drill_sim.directory, drill_sim.string_filename))
         except FileNotFoundError as err:
             self.fail('Failed to read the drill string: ' + traceback.format_exc())
 

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.utilities &mdash; adamspy 0.8.27 documentation</title>
+  <title>adamspy.adripy.utilities &mdash; adamspy 0.8.28 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.8.27
+                0.8.28
               </div>
             
           
@@ -991,12 +991,12 @@
     
     <span class="c1"># Set the event filename and solver settings file name (relative paths if in the same directory)    </span>
     <span class="n">event_file</span> <span class="o">=</span> <span class="n">thornpy</span><span class="o">.</span><span class="n">utilities</span><span class="o">.</span><span class="n">convert_path</span><span class="p">(</span><span class="n">get_TO_param</span><span class="p">(</span><span class="n">string_file</span><span class="p">,</span> <span class="s1">&#39;Event_Property_File&#39;</span><span class="p">))</span>
-    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">event_file</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">thornpy</span><span class="o">.</span><span class="n">utilities</span><span class="o">.</span><span class="n">convert_path</span><span class="p">(</span><span class="n">working_directory</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">event_file</span><span class="p">)</span> <span class="o">==</span> <span class="n">thornpy</span><span class="o">.</span><span class="n">utilities</span><span class="o">.</span><span class="n">convert_path</span><span class="p">(</span><span class="n">working_directory</span><span class="p">):</span>
         <span class="n">evt_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">event_file</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">evt_name</span> <span class="o">=</span> <span class="n">thornpy</span><span class="o">.</span><span class="n">utilities</span><span class="o">.</span><span class="n">convert_path</span><span class="p">(</span><span class="n">event_file</span><span class="p">)</span>
     
-    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">solver_settings_file</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">thornpy</span><span class="o">.</span><span class="n">utilities</span><span class="o">.</span><span class="n">convert_path</span><span class="p">(</span><span class="n">working_directory</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">solver_settings_file</span><span class="p">)</span> <span class="o">==</span> <span class="n">thornpy</span><span class="o">.</span><span class="n">utilities</span><span class="o">.</span><span class="n">convert_path</span><span class="p">(</span><span class="n">working_directory</span><span class="p">):</span>
         <span class="n">ssf_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">solver_settings_file</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">ssf_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">solver_settings_file</span><span class="p">)</span>
@@ -1009,6 +1009,12 @@
     <span class="n">cmds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;file adams write file=&quot;</span><span class="si">{adm_file}</span><span class="s1">&quot;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="n">cmds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;simulation script write_acf sim_script_name = &quot;</span><span class="si">{output_name}</span><span class="s1">&quot; file_name = &quot;</span><span class="si">{acf_file}</span><span class="s1">&quot;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="n">cmds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;file command write entity_name = &quot;</span><span class="si">{output_name}</span><span class="s1">&quot; file_name = &quot;</span><span class="si">{cmd_file}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+
+    <span class="c1"># If the working directory doesn&#39;t exit, create it</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">working_directory</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">working_directory</span><span class="p">)</span>
+
+    <span class="c1"># Create the build.cmd script</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">working_directory</span><span class="p">,</span> <span class="s1">&#39;build.cmd&#39;</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>			
         <span class="k">for</span> <span class="n">cmd</span> <span class="ow">in</span> <span class="n">cmds</span><span class="p">:</span>
             <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>

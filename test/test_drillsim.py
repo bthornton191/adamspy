@@ -181,7 +181,7 @@ class Test_DrillSim(unittest.TestCase):
         drill_sim = DrillSim.read_from_directory(TEST_EXISTING_DRILLSIM_DIRECTORY)
         
         # Backup the drill sim's acf file and ssf files
-        shutil.copyfile(drill_sim.acf_filename, drill_sim.acf_filename + '.tmp')
+        shutil.copyfile(os.path.join(drill_sim.directory, drill_sim.acf_filename), os.path.join(drill_sim.directory, drill_sim.acf_filename) + '.tmp')
         shutil.copyfile(drill_sim.solver_settings.filename, drill_sim.solver_settings.filename + '.tmp')
 
         # Read in the new solver settings
@@ -190,11 +190,11 @@ class Test_DrillSim(unittest.TestCase):
         # Update the drill sim with the new solver setings
         drill_sim.modify_solver_settings(new_solver_settings)
 
-        failures = check_file_contents(drill_sim.acf_filename, EXPECTED_DRILLSIM_ACF_TEXT_AFTER_SSF_CHANGE)
+        failures = check_file_contents(os.path.join(drill_sim.directory, drill_sim.acf_filename), EXPECTED_DRILLSIM_ACF_TEXT_AFTER_SSF_CHANGE)
 
         # Replace files
-        os.remove(drill_sim.acf_filename)
-        os.rename(drill_sim.acf_filename + '.tmp', drill_sim.acf_filename)
+        os.remove(os.path.join(drill_sim.directory, drill_sim.acf_filename))
+        os.rename(os.path.join(drill_sim.directory, drill_sim.acf_filename) + '.tmp', os.path.join(drill_sim.directory, drill_sim.acf_filename))
         os.remove(drill_sim.solver_settings.filename)
         os.rename(drill_sim.solver_settings.filename + '.tmp', drill_sim.solver_settings.filename)
 
@@ -228,7 +228,7 @@ class Test_DrillSim(unittest.TestCase):
         drill_sim = DrillSim(self.drill_string, event_from_file, self.solver_settings, TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME)
         drill_sim.build()
 
-        failures = check_file_contents(drill_sim.acf_filename, EXPECTED_DRILLSIM_FROM_EXISTING_EVENT_FILE_ACF_TEXT)
+        failures = check_file_contents(os.path.join(drill_sim.directory, drill_sim.acf_filename), EXPECTED_DRILLSIM_FROM_EXISTING_EVENT_FILE_ACF_TEXT)
         self.assertListEqual(failures, [])
 
     def test_drillsim_from_existing_event_file_2019(self):
@@ -236,7 +236,7 @@ class Test_DrillSim(unittest.TestCase):
         drill_sim = DrillSim(self.drill_string, event_from_file, self.solver_settings, TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME)
         drill_sim.build()
 
-        failures = check_file_contents(drill_sim.acf_filename, EXPECTED_DRILLSIM_FROM_EXISTING_EVENT_FILE_ACF_TEXT)
+        failures = check_file_contents(os.path.join(drill_sim.directory, drill_sim.acf_filename), EXPECTED_DRILLSIM_FROM_EXISTING_EVENT_FILE_ACF_TEXT)
         self.assertListEqual(failures, [])
 
     def test_string_file_contents(self):
@@ -245,7 +245,7 @@ class Test_DrillSim(unittest.TestCase):
         """
         drill_sim = DrillSim(self.drill_string, self.event, self.solver_settings, TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME)
 
-        failures = check_file_contents(drill_sim.string_filename, EXPECTED_DRILLSIM_STRING_FILE_TEXT)
+        failures = check_file_contents(os.path.join(drill_sim.directory, drill_sim.string_filename), EXPECTED_DRILLSIM_STRING_FILE_TEXT)
 
         self.assertListEqual(failures, [])
         
@@ -290,7 +290,7 @@ class Test_DrillSim(unittest.TestCase):
         drill_sim.build()
 
         # Assert that the acf file exists
-        self.assertTrue(os.path.exists(drill_sim.acf_filename))
+        self.assertTrue(os.path.exists(os.path.join(drill_sim.directory, drill_sim.acf_filename)))
 
     def test_build_evt_contents(self):
         """Tests that the event file created in the DrillSim directory has the correct contents.        
@@ -334,7 +334,7 @@ class Test_DrillSim(unittest.TestCase):
 
         # Test the filename
         expected_filename = os.path.join(TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME + '.str')        
-        actual_filename = drill_sim.string_filename        
+        actual_filename = os.path.join(drill_sim.directory, drill_sim.string_filename)
         self.assertEqual(actual_filename, expected_filename)
 
     def test_write_tiem_orbit_files_ssf_filename(self):
@@ -356,7 +356,7 @@ class Test_DrillSim(unittest.TestCase):
 
         expected_contents = [
             drill_sim.event.filename,
-            drill_sim.string_filename,
+            os.path.join(drill_sim.directory, drill_sim.string_filename),
             drill_sim.solver_settings.filename
         ]
         for tool in drill_sim.string.tools:
@@ -374,7 +374,7 @@ class Test_DrillSim(unittest.TestCase):
         """
         drill_sim = DrillSim(self.drill_string, self.event, self.solver_settings, TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME)
         
-        hole_filepath = adripy.get_TO_param(drill_sim.string_filename, 'Hole_Property_File')
+        hole_filepath = adripy.get_TO_param(os.path.join(drill_sim.directory, drill_sim.string_filename), 'Hole_Property_File')
         self.assertFalse(thornpy.utilities.convert_path(drill_sim.directory) in thornpy.utilities.convert_path(hole_filepath))
 
     def test_relativity_in_string_event_reference(self):
@@ -382,7 +382,7 @@ class Test_DrillSim(unittest.TestCase):
         """
         drill_sim = DrillSim(self.drill_string, self.event, self.solver_settings, TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME)
         
-        event_filepath = adripy.get_TO_param(drill_sim.string_filename, 'Event_Property_File')
+        event_filepath = adripy.get_TO_param(os.path.join(drill_sim.directory, drill_sim.string_filename), 'Event_Property_File')
         self.assertFalse(thornpy.utilities.convert_path(drill_sim.directory) in thornpy.utilities.convert_path(event_filepath))
 
     def test_relativity_in_string_pdc_reference(self):
@@ -390,7 +390,7 @@ class Test_DrillSim(unittest.TestCase):
         """
         drill_sim = DrillSim(self.drill_string, self.event, self.solver_settings, TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME)
         
-        _name, pdc_filepath, _so, _gn = adripy.get_tool_name(drill_sim.string_filename, 'pdc_bit', return_full_path=True)
+        _name, pdc_filepath, _so, _gn = adripy.get_tool_name(os.path.join(drill_sim.directory, drill_sim.string_filename), 'pdc_bit', return_full_path=True)
 
         self.assertFalse(thornpy.utilities.convert_path(drill_sim.directory) in thornpy.utilities.convert_path(pdc_filepath))
 
@@ -402,7 +402,7 @@ class Test_DrillSim(unittest.TestCase):
         drill_sim.build()
         expected_contents = [
             drill_sim.event.filename,
-            drill_sim.string_filename,
+            os.path.join(drill_sim.directory, drill_sim.string_filename),
             drill_sim.solver_settings.filename,
             os.path.join(drill_sim.directory, drill_sim.adm_filename),
             os.path.join(drill_sim.directory, drill_sim.acf_filename),

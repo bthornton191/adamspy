@@ -44,15 +44,15 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
     analysis_name : str
         Name of the analysis.  Used for all file prefixes
     string_filename : str
-        Filename of the analysis' string file 
+        Filename of the analysis' string file relative to :attr:`directory`
     adm_filename : str
-        Filename of the analysis' adm file 
+        Filename of the analysis' adm file relative to :attr:`directory`
     acf_filename : str
-        Filename of the analysis' acf file
+        Filename of the analysis' acf file relative to :attr:`directory`
     cmd_filename : str
-        Filename of the analysis' cmd file
+        Filename of the analysis' cmd file relative to :attr:`directory`
     res_filename : str
-        Filename of the analysis' res file
+        Filename of the analysis' res file relative to :attr:`directory`
     results : dict
         Simulation results
     results_units : dict
@@ -155,22 +155,22 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         drill_sim = cls(string, event, solver_settings, directory, analysis_name, write_TO_files=False)
 
         # Define file names
-        drill_sim.string_filename = string_filename
+        drill_sim.string_filename = os.path.relpath(string_filename, directory)
         
         adm_files = glob.glob(os.path.join(directory, '*.adm'))
-        drill_sim.adm_filename = adm_files[0] if adm_files else ''
+        drill_sim.adm_filename = os.path.relpath(adm_files[0], directory) if adm_files else ''
 
         acf_files = glob.glob(os.path.join(directory, '*.acf'))
-        drill_sim.acf_filename = acf_files[0] if acf_files else ''
+        drill_sim.acf_filename = os.path.relpath(acf_files[0], directory) if acf_files else ''
 
         cmd_files = glob.glob(os.path.join(directory, '*.cmd'))
-        drill_sim.cmd_filename = cmd_files[0] if cmd_files else ''
+        drill_sim.cmd_filename = os.path.relpath(cmd_files[0], directory) if cmd_files else ''
 
         res_files = glob.glob(os.path.join(directory, '*.res'))
-        drill_sim.res_filename = res_files[0] if res_files else ''
+        drill_sim.res_filename = os.path.relpath(res_files[0], directory) if res_files else ''
 
         msg_files = glob.glob(os.path.join(directory, '*.msg'))
-        drill_sim.msg_filename =msg_files[0] if msg_files else ''
+        drill_sim.msg_filename = os.path.relpath(msg_files[0], directory) if msg_files else ''
 
         # Set the `built` flag
         if drill_sim.acf_filename and drill_sim.adm_filename:            
@@ -223,12 +223,12 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
 
         """
         # Build the model
-        adm, acf, cmd = build(self.string_filename, self.solver_settings.filename, self.directory, wait=wait)  
+        adm, acf, cmd = build(os.path.join(self.directory, self.string_filename), self.solver_settings.filename, self.directory, wait=wait)  
 
         # store the new filenames as attributes
-        self.adm_filename = adm
-        self.acf_filename = acf
-        self.cmd_filename = cmd
+        self.adm_filename = os.path.relpath(adm, self.directory)
+        self.acf_filename = os.path.relpath(acf, self.directory)
+        self.cmd_filename = os.path.relpath(cmd, self.directory)
 
         if self.pason_inputs:
             self._add_adm_splines()
@@ -248,7 +248,7 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         """                
         startupinfo = subprocess.STARTUPINFO()
         startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW        
-        self.run_proc = subprocess.Popen('"{}" ru-s "{}"'.format(os.environ['ADAMS_LAUNCH_COMMAND'], os.path.split(self.acf_filename)[-1]), cwd=self.directory, startupinfo=startupinfo)
+        self.run_proc = subprocess.Popen('"{}" ru-s "{}"'.format(os.environ['ADAMS_LAUNCH_COMMAND'], self.acf_filename), cwd=self.directory, startupinfo=startupinfo)
         
         # Wait for the process to complete before moving on.
         if wait:
@@ -278,7 +278,8 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         self.string.parameters['Event_Property_File'] = os.path.split(self.event.filename)[1]
         self.string.parameters['ModelName'] = self.analysis_name
         self.string.parameters['OutputName'] = self.analysis_name
-        self.string_filename = self.string.write_to_file(directory=self.directory, publish=True)   
+        abs_str_file = self.string.write_to_file(directory=self.directory, publish=True)   
+        self.string_filename = os.path.relpath(abs_str_file, self.directory)
     
     def read_results(self, reqs_to_read=None, t_min=None, t_max=None, shrink_results_file=False):
         """Reads results from the results file.
@@ -307,11 +308,10 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
             If True, the results file will be rewritten to include only the requests in `reqs_to_read` and the time period between `t_max` and `t_min`.
         
         """
-        res_file = os.path.join(self.directory, self.res_filename)
-        self.results, self.results_units = get_results(res_file, reqs_to_read, t_min, t_max, return_units=True)
+        self.results, self.results_units = get_results(os.path.join(self.directory, self.res_filename), reqs_to_read, t_min, t_max, return_units=True)
 
         if shrink_results_file and any([reqs_to_read is not None, t_min is not None, t_max is not None]):
-            shrink_results(res_file, reqs_to_keep=reqs_to_read, t_min=t_min, t_max=t_max, in_place=True)
+            shrink_results(os.path.join(self.directory, self.res_filename), reqs_to_keep=reqs_to_read, t_min=t_min, t_max=t_max, in_place=True)
 
 
     def launch_ppt(self, wait=False):
@@ -333,7 +333,7 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
             res_files = glob.glob(os.path.join(self.directory, '*.res'))
             if not res_files:
                 raise FileNotFoundError('No results file found!  You must run the simultion using DrillSim.solve before you can launch the postprocessor to view the results.')
-            self.res_filename = os.path.split(res_files[0])[1]
+            self.res_filename = os.path.relpath(res_files[0], self.directory)
         
         # Launch the postprocessor
         launch_ppt(os.path.join(self.directory, self.res_filename), wait=wait)
@@ -554,7 +554,7 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
             self.solver_settings.parameters['Error'] = new_solver_settings.parameters['Error']
             
             # Modify the acf file
-            modify_acf_solver_settings(self.acf_filename, new_solver_settings.parameters['Funnel'], new_solver_settings.parameters['Error'])
+            modify_acf_solver_settings(os.path.join(self.directory, self.acf_filename), new_solver_settings.parameters['Funnel'], new_solver_settings.parameters['Error'])
         
         else:
             # If not already built, simply replace self.sover_settings
@@ -567,11 +567,11 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         """Adds splines to the adm file
         
         """
-        add_splines_to_adm(self.adm_filename, self.pason_inputs)
+        add_splines_to_adm(os.path.join(self.directory, self.adm_filename), self.pason_inputs)
             
     def _add_acf_splines(self):
         """Adds splines to the acf file
         
         """
-        add_splines_to_acf(self.acf_filename)
+        add_splines_to_acf(os.path.join(self.directory, self.acf_filename))
     
