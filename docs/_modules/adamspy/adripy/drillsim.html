@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.drillsim &mdash; adamspy 0.8.25 documentation</title>
+  <title>adamspy.adripy.drillsim &mdash; adamspy 0.8.27 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.8.25
+                0.8.27
               </div>
             
           
@@ -150,6 +150,7 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">import</span> <span class="nn">glob</span>
+
 <span class="kn">from</span> <span class="nn">thornpy.signal</span> <span class="k">import</span> <span class="n">step_function</span><span class="p">,</span> <span class="n">low_pass</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">linspace</span><span class="p">,</span> <span class="n">argmax</span><span class="p">,</span> <span class="n">array</span>
 <span class="kn">from</span> <span class="nn">..postprocess.xml</span> <span class="k">import</span> <span class="n">get_results</span><span class="p">,</span> <span class="n">shrink_results</span>
@@ -158,7 +159,8 @@
 <span class="kn">from</span> <span class="nn">.string</span> <span class="k">import</span> <span class="n">DrillString</span>
 <span class="kn">from</span> <span class="nn">.event</span> <span class="k">import</span> <span class="n">DrillEvent</span>
 <span class="kn">from</span> <span class="nn">.solver_settings</span> <span class="k">import</span> <span class="n">DrillSolverSettings</span>
-<span class="kn">from</span> <span class="nn">adamspy.adamspy</span> <span class="k">import</span> <span class="n">get_simdur_from_acf</span><span class="p">,</span> <span class="n">get_simdur_from_msg</span>
+<span class="kn">from</span> <span class="nn">..adamspy</span> <span class="k">import</span> <span class="n">get_simdur_from_acf</span><span class="p">,</span> <span class="n">get_simdur_from_msg</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">modify_acf_solver_settings</span>
 
 <div class="viewcode-block" id="DrillSim"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim">[docs]</a><span class="k">class</span> <span class="nc">DrillSim</span><span class="p">():</span> <span class="c1">#pylint: disable=too-many-instance-attributes</span>
     <span class="sd">&quot;&quot;&quot;Contains data defining the files that make up an Adams Drill input deck.    </span>
@@ -245,7 +247,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="kc">None</span>     
         <span class="bp">self</span><span class="o">.</span><span class="n">results_units</span> <span class="o">=</span> <span class="kc">None</span>
         
-        <span class="c1"># Write the TO files to the working directory</span>
+        <span class="c1"># If `directory` does not exist, create it</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">)</span>
+
+        <span class="c1"># Write the TO files to the `directory`</span>
         <span class="k">if</span> <span class="n">write_TO_files</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">write_tiem_orbit_files</span><span class="p">()</span>
         
@@ -667,7 +673,42 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">duration</span> <span class="o">=</span> <span class="kc">None</span>
         
-        <span class="k">return</span> <span class="n">duration</span>        </div>
+        <span class="k">return</span> <span class="n">duration</span>       </div>
+
+<div class="viewcode-block" id="DrillSim.modify_solver_settings"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim.modify_solver_settings">[docs]</a>    <span class="k">def</span> <span class="nf">modify_solver_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_solver_settings</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Modifies the contents of the Adams Command (.acf) file given in `acf_file` to apply the solver settings specified in the Solver Settings (.ssf) file given in `ssf_file`.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        solver_settings : DrillSolverSettings</span>
+<span class="sd">            Solver settings to use in updating the Adams Command file.</span>
+
+<span class="sd">        Note</span>
+<span class="sd">        ----</span>
+<span class="sd">        If the DrillSim.built is True, Only the static equilibrium funnel and the integrator error are modified</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="c1"># Remove the current solver settings file</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">solver_settings</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+
+        <span class="c1"># Check if this drill sim has already been built</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">built</span><span class="p">:</span>
+            <span class="c1"># If already built, update the funnel</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">maxit</span><span class="p">,</span> <span class="n">stab</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">imbal</span><span class="p">,</span> <span class="n">tlim</span><span class="p">,</span> <span class="n">alim</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">new_solver_settings</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;_Funnel&#39;</span><span class="p">]):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">solver_settings</span><span class="o">.</span><span class="n">add_funnel_step</span><span class="p">(</span><span class="n">maxit</span><span class="p">,</span> <span class="n">stab</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">imbal</span><span class="p">,</span> <span class="n">tlim</span><span class="p">,</span> <span class="n">alim</span><span class="p">,</span> <span class="n">clear_existing</span><span class="o">=</span><span class="kc">True</span> <span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="mi">0</span> <span class="k">else</span> <span class="kc">False</span><span class="p">)</span>
+            
+            <span class="c1"># Update the integrator error</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">solver_settings</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Error&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_solver_settings</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Error&#39;</span><span class="p">]</span>
+            
+            <span class="c1"># Modify the acf file</span>
+            <span class="n">modify_acf_solver_settings</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">acf_filename</span><span class="p">,</span> <span class="n">new_solver_settings</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Funnel&#39;</span><span class="p">],</span> <span class="n">new_solver_settings</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Error&#39;</span><span class="p">])</span>
+        
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># If not already built, simply replace self.sover_settings</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">solver_settings</span> <span class="o">=</span> <span class="n">new_solver_settings</span>
+        
+        <span class="c1"># Write the modified solver settings</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">solver_settings</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">analysis_name</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">)</span>    </div>
 
     <span class="k">def</span> <span class="nf">_add_adm_splines</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Adds splines to the adm file</span>

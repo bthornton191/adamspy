@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.utilities &mdash; adamspy 0.8.25 documentation</title>
+  <title>adamspy.adripy.utilities &mdash; adamspy 0.8.27 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.8.25
+                0.8.27
               </div>
             
           
@@ -153,7 +153,7 @@
 <span class="kn">import</span> <span class="nn">time</span>
 
 <span class="kn">import</span> <span class="nn">thornpy</span>
-<span class="kn">from</span> <span class="nn">.constants</span> <span class="k">import</span> <span class="n">TO_PARAMETER_PATTERN</span><span class="p">,</span> <span class="n">TO_LENGTH_PARAM</span><span class="p">,</span> <span class="n">ADRILL_IDS</span><span class="p">,</span> <span class="n">ADRILL_PLUGIN_VAR</span>
+<span class="kn">from</span> <span class="nn">.constants</span> <span class="k">import</span> <span class="n">TO_PARAMETER_PATTERN</span><span class="p">,</span> <span class="n">TO_LENGTH_PARAM</span><span class="p">,</span> <span class="n">ADRILL_IDS</span><span class="p">,</span> <span class="n">ADRILL_PLUGIN_VAR</span><span class="p">,</span> <span class="n">ACF_FUNNEL_PATTERN</span><span class="p">,</span> <span class="n">ACF_INTEGRATOR_ERROR_PATTERN</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">TMPLT_ENV</span>
 
 <div class="viewcode-block" id="turn_measure_on"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.utilities.turn_measure_on">[docs]</a><span class="k">def</span> <span class="nf">turn_measure_on</span><span class="p">(</span><span class="n">string_file</span><span class="p">,</span> <span class="n">tool_types</span><span class="o">=</span><span class="p">[],</span> <span class="n">tool_numbers</span><span class="o">=</span><span class="p">[],</span> <span class="n">tool_names</span><span class="o">=</span><span class="p">[]):</span>
@@ -1333,6 +1333,62 @@
     <span class="c1"># Replace original acf file</span>
     <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">acf_file</span><span class="p">)</span>
     <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">acf_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.acf&#39;</span><span class="p">,</span><span class="s1">&#39;.tmp&#39;</span><span class="p">),</span> <span class="n">acf_file</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="modify_acf_solver_settings"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.utilities.modify_acf_solver_settings">[docs]</a><span class="k">def</span> <span class="nf">modify_acf_solver_settings</span><span class="p">(</span><span class="n">acf_file</span><span class="p">,</span> <span class="n">statics</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">error</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Modifies the contents of the Adams Command (.acf) file given in `acf_file` to apply the static funnel given in `statics` and the dynamic steps given in `dynamics`.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    acf_file : str</span>
+<span class="sd">        Path to Adams Command (.acf) file to be updated</span>
+<span class="sd">    statics : list</span>
+<span class="sd">        List of six lists where each list contains the values of a particular equilibrium setting at each step in the funnel. (Defaults to the value already in the acf file.)</span>
+<span class="sd">    error : float</span>
+<span class="sd">        Error tolerance to use for the dynamics solver. (Defaults to the value already in the acf file.)</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------    </span>
+<span class="sd">    The following example modifies example.acf to have a three-step static funnel and a dynamic solver error tolerance of 0.0001.</span>
+
+<span class="sd">    &gt;&gt;&gt; maxit = [500, 500, 500]</span>
+<span class="sd">    &gt;&gt;&gt; stab = [8.0, 1.0, .01]</span>
+<span class="sd">    &gt;&gt;&gt; error = [1.0, 0.1, .01]</span>
+<span class="sd">    &gt;&gt;&gt; imbal = [4.0, 2.0, .01]</span>
+<span class="sd">    &gt;&gt;&gt; tlim = [4.0, 2.0, 1.0]</span>
+<span class="sd">    &gt;&gt;&gt; alim = [4.0, 2.0, 1.0] # Assumes DEGREES</span>
+<span class="sd">    &gt;&gt;&gt; statics = [maxit, stab, error, imbal, tlim, alim]</span>
+<span class="sd">    &gt;&gt;&gt; modify_acf_solver_settings(&#39;example.acf&#39;, statics=statics, error=.0001)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Read the current acf text</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">acf_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+        <span class="n">acf_text</span> <span class="o">=</span> <span class="n">fid</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    
+    <span class="c1"># Replace the static funnel</span>
+    <span class="k">if</span> <span class="n">statics</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">statics</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">6</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">statics</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">==</span><span class="nb">len</span><span class="p">(</span><span class="n">param</span><span class="p">)</span> <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">statics</span><span class="p">]):</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;The statics list does not have the correct shape.&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Create the new funnel text</span>
+        <span class="n">funnel</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">f</span><span class="s1">&#39;equil/maxit=</span><span class="si">{maxit}</span><span class="s1">, stab=</span><span class="si">{stab}</span><span class="s1">, error=</span><span class="si">{error}</span><span class="s1">, imbal=</span><span class="si">{imbal}</span><span class="s1">, tlim=</span><span class="si">{tlim}</span><span class="s1">, alim=</span><span class="si">{alim}</span><span class="s1">D</span><span class="se">\n</span><span class="s1">sim/stat</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">maxit</span><span class="p">,</span> <span class="n">stab</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">imbal</span><span class="p">,</span> <span class="n">tlim</span><span class="p">,</span> <span class="n">alim</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">statics</span><span class="p">)])</span>
+        
+        <span class="c1"># Replace the funnel</span>
+        <span class="n">acf_text</span> <span class="o">=</span> <span class="n">ACF_FUNNEL_PATTERN</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;!</span><span class="se">\n</span><span class="s1">!</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">funnel</span><span class="p">,</span> <span class="n">acf_text</span><span class="p">)</span>
+    
+    <span class="c1"># Replace the dynamic error tolerance</span>
+    <span class="k">if</span> <span class="n">error</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># current_integrator_block = re.match</span>
+        <span class="n">error_text</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;, ERROR = </span><span class="si">{error}</span><span class="s1">&#39;</span>
+
+        <span class="n">acf_text</span> <span class="o">=</span> <span class="n">ACF_INTEGRATOR_ERROR_PATTERN</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\1\2&#39;</span> <span class="o">+</span> <span class="n">error_text</span> <span class="o">+</span> <span class="sa">r</span><span class="s1">&#39;\4&#39;</span><span class="p">,</span> <span class="n">acf_text</span><span class="p">)</span>
+
+    <span class="c1"># Write a temporary acf file</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">acf_file</span> <span class="o">+</span> <span class="s1">&#39;._tmp_&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+        <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">acf_text</span><span class="p">)</span>
+    
+    <span class="c1"># Replace the existing acf file with the temporary</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">acf_file</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">acf_file</span> <span class="o">+</span> <span class="s1">&#39;._tmp_&#39;</span><span class="p">,</span> <span class="n">acf_file</span><span class="p">)</span>   </div>
 
 <div class="viewcode-block" id="TiemOrbitSyntaxError"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.utilities.TiemOrbitSyntaxError">[docs]</a><span class="k">class</span> <span class="nc">TiemOrbitSyntaxError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>

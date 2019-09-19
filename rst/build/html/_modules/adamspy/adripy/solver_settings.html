@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.solver_settings &mdash; adamspy 0.8.25 documentation</title>
+  <title>adamspy.adripy.solver_settings &mdash; adamspy 0.8.27 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.8.25
+                0.8.27
               </div>
             
           
@@ -177,9 +177,8 @@
 <span class="sd">        Dictionary of parameters that make up an Adams Drill solver settings and would be found in an Adams Drill solver settings file (.ssf).  The keys of the dictionary are the parameter names that would be seen in the string file and the values of the dictionary are the values that would be seen in the string file.</span>
 <span class="sd">    filename : str</span>
 <span class="sd">        Name of the solver settings file (.ssf) in which these solver settings are stored.  This attribute is initially empty and is populated by the `write_to_file()` method.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    
-
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>    
     <span class="n">_SCALAR_PARAMETERS</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;Integrator&#39;</span><span class="p">,</span>
         <span class="s1">&#39;Formulation&#39;</span><span class="p">,</span>
@@ -235,6 +234,33 @@
         
         <span class="c1"># Initialize filename instance variable</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+<div class="viewcode-block" id="DrillSolverSettings.add_funnel_step"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.solver_settings.DrillSolverSettings.add_funnel_step">[docs]</a>    <span class="k">def</span> <span class="nf">add_funnel_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">maxit</span><span class="p">,</span> <span class="n">stab</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">imbal</span><span class="p">,</span> <span class="n">tlim</span><span class="p">,</span> <span class="n">alim</span><span class="p">,</span> <span class="n">clear_existing</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Adds a ramp to the specified ramp parameter.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        maxit : int</span>
+<span class="sd">            Specifies the maximum number of iterations allowed for finding static equilibrium</span>
+<span class="sd">        stab : float</span>
+<span class="sd">            Specifies the fraction of the mass and damping matrices (subsets of the equilibrium Jacobian matrix) Adams Solver (C++) adds to the stiffness matrix (a subset of the equilibrium Jacobian matrix) during static simulations performed using static analyses.</span>
+<span class="sd">        error : float</span>
+<span class="sd">            Specifies the relative correction convergence threshold.</span>
+<span class="sd">        imbal : float</span>
+<span class="sd">            Specifies the equation imbalance convergence threshold.</span>
+<span class="sd">        tlim : float</span>
+<span class="sd">            Specifies the maximum translational increment allowed per iteration.</span>
+<span class="sd">        alim : float</span>
+<span class="sd">            Specifies the maximum angular increment allowed per iteration during a static or quasi-static equilibrium analysis.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">clear_existing</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Funnel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]]</span>
+        
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="n">maxit</span><span class="p">,</span> <span class="n">stab</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">imbal</span><span class="p">,</span> <span class="n">tlim</span><span class="p">,</span> <span class="n">alim</span><span class="p">]):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Funnel&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
+            
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;_Funnel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Funnel&#39;</span><span class="p">])</span>  </div>
 
 <div class="viewcode-block" id="DrillSolverSettings.write_to_file"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.solver_settings.DrillSolverSettings.write_to_file">[docs]</a>    <span class="k">def</span> <span class="nf">write_to_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cdb</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Creates a solver settings file from the DrillSolverSettings object.</span>
@@ -294,7 +320,6 @@
         <span class="c1"># Return the name of the file that was written</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span></div>
 
-
 <div class="viewcode-block" id="DrillSolverSettings.validate"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.solver_settings.DrillSolverSettings.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Determines if all parameters have been set</span>
@@ -347,6 +372,7 @@
     <span class="k">def</span> <span class="nf">_apply_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Applies defaults from class variables</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Applies normal parameter defaults</span>
         <span class="k">for</span> <span class="n">scalar_parameter</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_DEFAULT_PARAMETER_SCALARS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -372,8 +398,8 @@
 <span class="sd">        ------</span>
 <span class="sd">        ValueError</span>
 <span class="sd">            A solver settings parameter could not be found</span>
-<span class="sd">        &quot;&quot;&quot;</span>
 
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_TABLE_PARAMETERS</span><span class="p">:</span>
             <span class="c1"># For each parameter initialize a found flag</span>
             <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>

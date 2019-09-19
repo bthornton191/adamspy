@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy package &mdash; adamspy 0.8.25 documentation</title>
+  <title>adamspy.adripy package &mdash; adamspy 0.8.27 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.8.25
+                0.8.27
               </div>
             
           
@@ -697,6 +697,24 @@
 </table>
 </dd></dl>
 
+<dl class="method">
+<dt id="adamspy.adripy.drillsim.DrillSim.modify_solver_settings">
+<code class="descname">modify_solver_settings</code><span class="sig-paren">(</span><em>new_solver_settings</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/drillsim.html#DrillSim.modify_solver_settings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim.modify_solver_settings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modifies the contents of the Adams Command (.acf) file given in <cite>acf_file</cite> to apply the solver settings specified in the Solver Settings (.ssf) file given in <cite>ssf_file</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>solver_settings</strong> (<a class="reference internal" href="#adamspy.adripy.solver_settings.DrillSolverSettings" title="adamspy.adripy.solver_settings.DrillSolverSettings"><em>DrillSolverSettings</em></a>) – Solver settings to use in updating the Adams Command file.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If the DrillSim.built is True, Only the static equilibrium funnel and the integrator error are modified</p>
+</div>
+</dd></dl>
+
 <dl class="classmethod">
 <dt id="adamspy.adripy.drillsim.DrillSim.read_from_directory">
 <em class="property">classmethod </em><code class="descname">read_from_directory</code><span class="sig-paren">(</span><em>directory</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/drillsim.html#DrillSim.read_from_directory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.drillsim.DrillSim.read_from_directory" title="Permalink to this definition">¶</a></dt>
@@ -933,7 +951,7 @@
 <dt id="adamspy.adripy.hole.DrillHole">
 <em class="property">class </em><code class="descclassname">adamspy.adripy.hole.</code><code class="descname">DrillHole</code><span class="sig-paren">(</span><em>hole_name</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/hole.html#DrillHole"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.hole.DrillHole" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>An object with all teh data necessary to write an Adams Drill hole (.hol) file.</p>
+<p>An object with all the data necessary to write an Adams Drill hole (.hol) file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -965,6 +983,24 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="adamspy.adripy.hole.DrillHole.get_tvd">
+<code class="descname">get_tvd</code><span class="sig-paren">(</span><em>md</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/hole.html#DrillHole.get_tvd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.hole.DrillHole.get_tvd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the true vertical depth (TVD) corresponding to the provided measured depth (MD).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>md</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Measured depth for which true vertical depth should be returned</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True vertical depth corresponding to the given measured depth</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a></td>
 </tr>
 </tbody>
 </table>
@@ -1175,6 +1211,28 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="adamspy.adripy.solver_settings.DrillSolverSettings.add_funnel_step">
+<code class="descname">add_funnel_step</code><span class="sig-paren">(</span><em>maxit</em>, <em>stab</em>, <em>error</em>, <em>imbal</em>, <em>tlim</em>, <em>alim</em>, <em>clear_existing=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/solver_settings.html#DrillSolverSettings.add_funnel_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.solver_settings.DrillSolverSettings.add_funnel_step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a ramp to the specified ramp parameter.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>maxit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Specifies the maximum number of iterations allowed for finding static equilibrium</li>
+<li><strong>stab</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Specifies the fraction of the mass and damping matrices (subsets of the equilibrium Jacobian matrix) Adams Solver (C++) adds to the stiffness matrix (a subset of the equilibrium Jacobian matrix) during static simulations performed using static analyses.</li>
+<li><strong>error</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Specifies the relative correction convergence threshold.</li>
+<li><strong>imbal</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Specifies the equation imbalance convergence threshold.</li>
+<li><strong>tlim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Specifies the maximum translational increment allowed per iteration.</li>
+<li><strong>alim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Specifies the maximum angular increment allowed per iteration during a static or quasi-static equilibrium analysis.</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
@@ -2116,6 +2174,37 @@
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="function">
+<dt id="adamspy.adripy.utilities.modify_acf_solver_settings">
+<code class="descclassname">adamspy.adripy.utilities.</code><code class="descname">modify_acf_solver_settings</code><span class="sig-paren">(</span><em>acf_file</em>, <em>statics=None</em>, <em>error=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adripy/utilities.html#modify_acf_solver_settings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adripy.utilities.modify_acf_solver_settings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modifies the contents of the Adams Command (.acf) file given in <cite>acf_file</cite> to apply the static funnel given in <cite>statics</cite> and the dynamic steps given in <cite>dynamics</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>acf_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Path to Adams Command (.acf) file to be updated</li>
+<li><strong>statics</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – List of six lists where each list contains the values of a particular equilibrium setting at each step in the funnel. (Defaults to the value already in the acf file.)</li>
+<li><strong>error</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Error tolerance to use for the dynamics solver. (Defaults to the value already in the acf file.)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<p>The following example modifies example.acf to have a three-step static funnel and a dynamic solver error tolerance of 0.0001.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maxit</span> <span class="o">=</span> <span class="p">[</span><span class="mi">500</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">500</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stab</span> <span class="o">=</span> <span class="p">[</span><span class="mf">8.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="o">.</span><span class="mi">01</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">error</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="o">.</span><span class="mi">01</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">imbal</span> <span class="o">=</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="o">.</span><span class="mi">01</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tlim</span> <span class="o">=</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">alim</span> <span class="o">=</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span> <span class="c1"># Assumes DEGREES</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">statics</span> <span class="o">=</span> <span class="p">[</span><span class="n">maxit</span><span class="p">,</span> <span class="n">stab</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">imbal</span><span class="p">,</span> <span class="n">tlim</span><span class="p">,</span> <span class="n">alim</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">modify_acf_solver_settings</span><span class="p">(</span><span class="s1">&#39;example.acf&#39;</span><span class="p">,</span> <span class="n">statics</span><span class="o">=</span><span class="n">statics</span><span class="p">,</span> <span class="n">error</span><span class="o">=.</span><span class="mi">0001</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
