@@ -71,23 +71,31 @@ $------------------------------------------------------------------DRILL_TOOL_01
 $------------------------------------------------------------------DRILL_TOOL_02
 [DRILL_TOOL_02]
  Stack_Order  =  2
- Type  =  'stabilizer'
- Name  =  'example_stabilizer_02'
- Property_File  =  'example_stabilizer.sta'
+ Type  =  'motor'
+ Name  =  'example_motor_02'
+ Property_File  =  'example_motor.mot'
  Measure  =  'yes'
  Color  =  'Default'
 $------------------------------------------------------------------DRILL_TOOL_03
 [DRILL_TOOL_03]
  Stack_Order  =  3
+ Type  =  'stabilizer'
+ Name  =  'example_stabilizer_03'
+ Property_File  =  'example_stabilizer.sta'
+ Measure  =  'yes'
+ Color  =  'Default'
+$------------------------------------------------------------------DRILL_TOOL_04
+[DRILL_TOOL_04]
+ Stack_Order  =  4
  Type  =  'drillpipe'
  Name  =  'Upper_DP_Group'
  Property_File  =  'test_drillpipe.pip'
  Measure  =  'no'
  Color  =  'Default'
  Number_of_Joints  =  20
-$------------------------------------------------------------------DRILL_TOOL_04
-[DRILL_TOOL_04]
- Stack_Order  =  4
+$------------------------------------------------------------------DRILL_TOOL_05
+[DRILL_TOOL_05]
+ Stack_Order  =  5
  Type  =  'equivalent_upper_string'
  Name  =  'equivalent_pipe'
  Property_File  =  'test_eus.pip'

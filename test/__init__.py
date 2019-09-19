@@ -2035,6 +2035,51 @@ sim/dyn, end=200.0, dtout=2.0E-02
 stop
 """
 
+EXPECTED_DRILLSIM_ACF_TEXT_AFTER_SSF_CHANGE = """
+file/model=test_analysis_1
+!
+! Integrator Settings:
+INTEGRATOR/ &
+, HHT &
+, ERROR = 2e-05
+!
+! Command String Speed:
+! Note: Factors of PI/30 used to convert from RPM 
+! commands to internal modeling units of rad/sec
+VARIABLE/9105 &
+, FUNCTION=STEP(TIME,15.0,0.0,15.0+15.0,60.0*PI/30)
+!
+! Motor GPM:
+VARIABLE/1102 &
+, FUNCTION=VARVAL(11021) * &
+, (STEP(TIME,0.0,0.0,0.0+15.0,500.0))
+!
+! Command WOB:
+! Note: Unit of weight is lbf 
+VARIABLE/9106 &
+, FUNCTION=STEP(TIME,30.0,0,30.0+15.0,5.0E+04)
+!
+! Command ROP:
+! Note: Factors of 1/3600 used to convert from ft/hr 
+! commands to internal modeling units of ft/sec
+VARIABLE/9104 &
+, FUNCTION=STEP(TIME,30.0,0,30.0+15.0,100.0/3600)
+!
+!
+equil/maxit=500, stab=0.01, error=0.01, imbal=0.01, tlim=1, alim=2D
+sim/stat
+equil/maxit=500, stab=0.001, error=0.001, imbal=0.001, tlim=1, alim=2D
+sim/stat
+equil/maxit=500, stab=0.0005, error=0.0005, imbal=0.0005, tlim=1, alim=2D
+sim/stat
+!
+sim/dyn, end=10.0, dtout=5.0E-02
+sim/dyn, end=100.0, dtout=5.0E-02
+!
+
+stop
+"""
+
 TEST_EXPECTED_ACF_AFTER_FUNNEL_MOD = """
 file/model=test
 !

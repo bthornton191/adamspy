@@ -20,7 +20,7 @@ VARIABLE/1102 &
 ! Command WOB:
 ! Note: Unit of weight is lbf 
 VARIABLE/9106 &
-, FUNCTION=STEP(TIME,30.0,0,30.0+15.0,50.0)
+, FUNCTION=STEP(TIME,30.0,0,30.0+15.0,5.0E+04)
 !
 ! Command ROP:
 ! Note: Factors of 1/3600 used to convert from ft/hr 

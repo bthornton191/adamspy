@@ -8,16 +8,16 @@ $
 $  NOTA BENE: block and subblock titles MUST begin in column 1.
 $  Comments also must begin in column 1.
 $  ==================================================================
-$-------------------------------------------------------------ADAMS_DRILL_HEADER
+$------------------------------------------------------------ADAMS_DRILL_HEADER
 [ADAMS_DRILL_HEADER]
  File_Type  =  'event'
- File_Version  =  1.0
-$--------------------------------------------------------------------------UNITS
+ File_Version  =  2.0
+$-------------------------------------------------------------------------UNITS
 [UNITS]
-$  Adams Drill currently supports one units set: 
-$  'Imperial' (foot, degree, pound force, pound mass, second)
+$ Adams Drill currently supports one units set: 
+$ 'Imperial' (foot, degree, pound force, pound mass, second)
  Units  =  'Imperial'
-$--------------------------------------------------------------------------DRIVE
+$-------------------------------------------------------------------------DRIVE
 [DRIVE]
 (GENERAL)
  Event_Name  =  'test_analysis_1'
@@ -30,7 +30,7 @@ $ Either 'TOS' (default) or user-selected tool from drill string
 $ 
  Initial_Drive_Torque  =  0
 $ 
-(TOP_DRIVE)
+(ROTARY_RPM)
 {Start_Time  Ramp_Duration  Delta_RPM}
 15   15   60
 $ 
@@ -58,13 +58,14 @@ $ Gallons/minute in imperial units; Liters/minute in metric units
 0   15   500
 $ 
 (WOB)
+$ Units are in klbf
 {Start_Time  Ramp_Duration  Delta_WOB}
-30   15   50
+30   15   50.0
 $ 
 (ROP)
 {Start_Time  Ramp_Duration  Delta_ROP}
 30   15   100
-$---------------------------------------------------------------------------MISC
+$--------------------------------------------------------------------------MISC
 [MISC]
 $ Enter MUD_DENSITY in pounds-mass per cubic foot for IMPERIAL units
 $ Enter MUD_DENSITY in kilograms per cubic meter for METRIC units
@@ -81,13 +82,13 @@ $ See Adams Drill documentation prior to switching NperRev 'on'
  C_hi  =  1.05
 {Start_Time  Ramp_Duration}
 0   1
-$-----------------------------------------------------------------------DYNAMICS
+$----------------------------------------------------------------------DYNAMICS
 [DYNAMICS]
 $ Specify the simulation time and output rate in seconds
 {End_Time  Output_Step_Size}
 10   0.05
 100   0.05
-$------------------------------------------------------------------------PLOT_4D
+$-----------------------------------------------------------------------PLOT_4D
 [PLOT_4D]
 $ Select if 3D and 4D plotting is to be enabled (on/off).
 $ If 3D/4D plotting is turned on, set time range and time increment at which

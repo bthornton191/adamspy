@@ -1236,12 +1236,12 @@ def modify_acf_solver_settings(acf_file, statics=None, error=None):
         acf_text = ACF_INTEGRATOR_ERROR_PATTERN.sub(r'\1\2' + error_text + r'\4', acf_text)
 
     # Write a temporary acf file
-    with open(acf_file + '.tmp', 'w') as fid:
+    with open(acf_file + '._tmp_', 'w') as fid:
         fid.write(acf_text)
     
     # Replace the existing acf file with the temporary
     os.remove(acf_file)
-    os.rename(acf_file + '.tmp', acf_file)   
+    os.rename(acf_file + '._tmp_', acf_file)   
 
 class TiemOrbitSyntaxError(Exception):
     pass

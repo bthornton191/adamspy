@@ -3,6 +3,7 @@
 import os
 import subprocess
 import glob
+
 from thornpy.signal import step_function, low_pass
 from numpy import linspace, argmax, array
 from ..postprocess.xml import get_results, shrink_results
@@ -11,7 +12,8 @@ from ..postprocess import launch_ppt
 from .string import DrillString
 from .event import DrillEvent
 from .solver_settings import DrillSolverSettings
-from adamspy.adamspy import get_simdur_from_acf, get_simdur_from_msg
+from ..adamspy import get_simdur_from_acf, get_simdur_from_msg
+from . import modify_acf_solver_settings
 
 class DrillSim(): #pylint: disable=too-many-instance-attributes
     """Contains data defining the files that make up an Adams Drill input deck.    
@@ -98,7 +100,11 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         self.results = None     
         self.results_units = None
         
-        # Write the TO files to the working directory
+        # If `directory` does not exist, create it
+        if not os.path.exists(self.directory):
+            os.makedirs(self.directory)
+
+        # Write the TO files to the `directory`
         if write_TO_files:
             self.write_tiem_orbit_files()
         
@@ -522,16 +528,38 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         
         return duration       
 
-    def modify_acf_from_ssf(self, ssf_file):
+    def modify_solver_settings(self, new_solver_settings):
         """Modifies the contents of the Adams Command (.acf) file given in `acf_file` to apply the solver settings specified in the Solver Settings (.ssf) file given in `ssf_file`.
         
         Parameters
         ----------
-        ssf_file : str
-            Path to Solver Settings (.ssf) file to use in updating the Adams Command file.
+        solver_settings : DrillSolverSettings
+            Solver settings to use in updating the Adams Command file.
 
-        """
-        solver_settings = DrillSolverSettings.read_from_file(ssf_file) 
+        Note
+        ----
+        If the DrillSim.built is True, Only the static equilibrium funnel and the integrator error are modified
+
+        """        
+        # Check if this drill sim has already been built
+        if self.built:
+            # If already built, update the funnel
+            for i, (maxit, stab, error, imbal, tlim, alim) in enumerate(new_solver_settings.parameters['_Funnel']):
+                self.solver_settings.add_funnel_step(maxit, stab, error, imbal, tlim, alim, clear_existing=True if i==0 else False)
+            
+            # Update the integrator error
+            self.solver_settings.parameters['Error'] = new_solver_settings.parameters['Error']
+            
+            # Modify the acf file
+            modify_acf_solver_settings(self.acf_filename, new_solver_settings.parameters['Funnel'], new_solver_settings.parameters['Error'])
+        
+        else:
+            # If not already built, simply replace self.sover_settings
+            self.solver_settings = new_solver_settings
+        
+        # Write the modified solver settings
+        os.remove(self.solver_settings.filename)
+        self.solver_settings.write_to_file(self.analysis_name, directory=self.directory)    
 
     def _add_adm_splines(self):
         """Adds splines to the adm file

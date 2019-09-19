@@ -18,9 +18,9 @@ defaults units  &
 !
 defaults attributes  &
    inheritance = bottom_up  &
-   icon_visibility = off  &
+   icon_visibility = on  &
    grid_visibility = off  &
-   size_of_icons = 0.1640419948  &
+   size_of_icons = 6.5616666667E-03  &
    spacing_for_grid = 3.280839895
 !
 !------------------------------ Adams View Model ------------------------------!
@@ -41,7 +41,19 @@ data_element create variable  &
 !
 data_element create variable  &
    variable_name = .test_analysis_1.Bit_omega  &
-   adams_id = 11022  &
+   adams_id = 70032  &
+   initial_condition = 0.0  &
+   function = ""
+!
+data_element create variable  &
+   variable_name = .test_analysis_1.test_pdc_01_sliderA_toolface  &
+   adams_id = 70033  &
+   initial_condition = 0.0  &
+   function = ""
+!
+data_element create variable  &
+   variable_name = .test_analysis_1.example_motor_02_sliderA_toolface  &
+   adams_id = 70034  &
    initial_condition = 0.0  &
    function = ""
 !
@@ -77,17 +89,17 @@ data_element create variable  &
 !
 data_element create variable  &
    variable_name = .test_analysis_1.hookload_command  &
-   adams_id = 11023  &
+   adams_id = 70035  &
    function = ""
 !
 data_element create variable  &
    variable_name = .test_analysis_1.TOS_Z  &
-   adams_id = 11024  &
+   adams_id = 70036  &
    function = ""
 !
 data_element create variable  &
    variable_name = .test_analysis_1.TOS_VZ  &
-   adams_id = 11025  &
+   adams_id = 70037  &
    function = ""
 !
 data_element create variable  &
@@ -138,30 +150,40 @@ data_element create variable  &
 data_element create variable  &
    variable_name = .test_analysis_1.BitMD  &
    adams_id = 9001  &
-   initial_condition = 1372.01  &
+   initial_condition = 1343.09  &
+   function = ""
+!
+data_element create variable  &
+   variable_name = .test_analysis_1.Surface_AZ  &
+   adams_id = 70021  &
+   function = ""
+!
+data_element create variable  &
+   variable_name = .test_analysis_1.Surface_WZ  &
+   adams_id = 70031  &
    function = ""
 !
 data_element create variable  &
    variable_name = .test_analysis_1.ROPmdepth  &
-   adams_id = 11026  &
+   adams_id = 70038  &
    initial_condition = 0.0  &
    function = ""
 !
 data_element create variable  &
    variable_name = .test_analysis_1.Surface_MSE  &
-   adams_id = 11027  &
+   adams_id = 70039  &
    initial_condition = 0.0  &
    function = ""
 !
 data_element create variable  &
    variable_name = .test_analysis_1.Bottom_MSE  &
-   adams_id = 11028  &
+   adams_id = 70040  &
    initial_condition = 0.0  &
    function = ""
 !
 data_element create variable  &
    variable_name = .test_analysis_1.dummy_DGSE_input  &
-   adams_id = 11029  &
+   adams_id = 70041  &
    function = ""
 !
 data_element create array u_input_array  &
@@ -218,28 +240,29 @@ data_element create array y_output_array  &
 data_element create array ic_array  &
    array_name = .test_analysis_1.sliderCMarray  &
    adams_id = 9002  &
-   size = 44  &
-   numbers = 9.000001E+06, 9.000201E+06, 9.000301E+06, 9.000401E+06,  &
-             9.000501E+06, 9.000701E+06, 9.000801E+06, 9.001001E+06,  &
-             9.001101E+06, 9.001301E+06, 9.001401E+06, 9.001601E+06,  &
-             9.001701E+06, 9.001901E+06, 9.002001E+06, 9.002201E+06,  &
-             9.002301E+06, 9.002501E+06, 9.002601E+06, 9.002801E+06,  &
-             9.002901E+06, 9.003101E+06, 9.003201E+06, 9.003401E+06,  &
-             9.003501E+06, 9.003701E+06, 9.003801E+06, 9.004001E+06,  &
-             9.004101E+06, 9.004301E+06, 9.004401E+06, 9.004601E+06,  &
-             9.004701E+06, 9.004901E+06, 9.005001E+06, 9.005201E+06,  &
-             9.005301E+06, 9.005501E+06, 9.005601E+06, 9.005801E+06,  &
-             9.005901E+06, 9.006101E+06, 9.006201E+06, 9.006301E+06
+   size = 47  &
+   numbers = 9.000001E+06, 9.000201E+06, 9.000301E+06, 9.000501E+06,  &
+             9.000801E+06, 9.000901E+06, 9.001001E+06, 9.001101E+06,  &
+             9.001301E+06, 9.001401E+06, 9.001601E+06, 9.001701E+06,  &
+             9.001901E+06, 9.002001E+06, 9.002201E+06, 9.002301E+06,  &
+             9.002501E+06, 9.002601E+06, 9.002801E+06, 9.002901E+06,  &
+             9.003101E+06, 9.003201E+06, 9.003401E+06, 9.003501E+06,  &
+             9.003701E+06, 9.003801E+06, 9.004001E+06, 9.004101E+06,  &
+             9.004301E+06, 9.004401E+06, 9.004601E+06, 9.004701E+06,  &
+             9.004901E+06, 9.005001E+06, 9.005201E+06, 9.005301E+06,  &
+             9.005501E+06, 9.005601E+06, 9.005801E+06, 9.005901E+06,  &
+             9.006101E+06, 9.006201E+06, 9.006401E+06, 9.006501E+06,  &
+             9.006701E+06, 9.006801E+06, 9.006901E+06
 !
 data_element create array ic_array  &
    array_name = .test_analysis_1.FixedJarray  &
    adams_id = 9003  &
-   size = 21  &
-   numbers = 9.000202E+06, 9.0004E+06, 9.0007E+06, 9.001E+06, 9.0013E+06,  &
-             9.0016E+06, 9.0019E+06, 9.0022E+06, 9.0025E+06, 9.0028E+06,  &
-             9.0031E+06, 9.0034E+06, 9.0037E+06, 9.004E+06, 9.0043E+06,  &
-             9.0046E+06, 9.0049E+06, 9.0052E+06, 9.0055E+06, 9.0058E+06,  &
-             9.0061E+06
+   size = 22  &
+   numbers = 9.0007E+06, 9.000802E+06, 9.001E+06, 9.0013E+06, 9.0016E+06,  &
+             9.0019E+06, 9.0022E+06, 9.0025E+06, 9.0028E+06, 9.0031E+06,  &
+             9.0034E+06, 9.0037E+06, 9.004E+06, 9.0043E+06, 9.0046E+06,  &
+             9.0049E+06, 9.0052E+06, 9.0055E+06, 9.0058E+06, 9.0061E+06,  &
+             9.0064E+06, 9.0067E+06
 !
 data_element create array ic_array  &
    array_name = .test_analysis_1.Holedata  &
@@ -3344,13 +3367,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.ground.stop  &
-   adams_id = 9006322  &
+   adams_id = 9006922  &
    location = 713.6038974491, 0.0, 1502.000729913  &
    orientation = 90.0d, 89.9981431949d, 270.0d
 !
 marker create  &
    marker_name = .test_analysis_1.ground.stopref  &
-   adams_id = 9006323  &
+   adams_id = 9006923  &
    location = 713.1038974494, 0.0, 1502.0007137093  &
    orientation = 90.0d, 89.9981431949d, 270.0d
 !
@@ -3385,84 +3408,60 @@ floating_marker create  &
    adams_id = 9000103
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9000302  &
-   adams_id = 9000302
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9000106  &
+   adams_id = 9000106
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9000303  &
-   adams_id = 9000303
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9000701  &
+   adams_id = 9000701
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9000304  &
-   adams_id = 9000304
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9000702  &
+   adams_id = 9000702
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9000305  &
-   adams_id = 9000305
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9000703  &
+   adams_id = 9000703
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9000306  &
-   adams_id = 9000306
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9000704  &
+   adams_id = 9000704
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9000307  &
-   adams_id = 9000307
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9000705  &
+   adams_id = 9000705
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9000310  &
-   adams_id = 9000310
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9000706  &
+   adams_id = 9000706
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9000311  &
-   adams_id = 9000311
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9000707  &
+   adams_id = 9000707
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9000601  &
-   adams_id = 9000601
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9000708  &
+   adams_id = 9000708
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9000602  &
-   adams_id = 9000602
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9000709  &
+   adams_id = 9000709
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9000603  &
-   adams_id = 9000603
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9000713  &
+   adams_id = 9000713
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9000604  &
-   adams_id = 9000604
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9000714  &
+   adams_id = 9000714
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9000605  &
-   adams_id = 9000605
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9000715  &
+   adams_id = 9000715
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9000606  &
-   adams_id = 9000606
-!
-floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9000609  &
-   adams_id = 9000609
-!
-floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9000610  &
-   adams_id = 9000610
-!
-floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9000611  &
-   adams_id = 9000611
-!
-floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9000612  &
-   adams_id = 9000612
-!
-floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9000613  &
-   adams_id = 9000613
-!
-floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9000901  &
-   adams_id = 9000901
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9000716  &
+   adams_id = 9000716
 !
 floating_marker create  &
    floating_marker_name = .test_analysis_1.ground.FMARKER_9000902  &
@@ -3485,8 +3484,8 @@ floating_marker create  &
    adams_id = 9000906
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9000909  &
-   adams_id = 9000909
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9000907  &
+   adams_id = 9000907
 !
 floating_marker create  &
    floating_marker_name = .test_analysis_1.ground.FMARKER_9000910  &
@@ -3495,14 +3494,6 @@ floating_marker create  &
 floating_marker create  &
    floating_marker_name = .test_analysis_1.ground.FMARKER_9000911  &
    adams_id = 9000911
-!
-floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9000912  &
-   adams_id = 9000912
-!
-floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9000913  &
-   adams_id = 9000913
 !
 floating_marker create  &
    floating_marker_name = .test_analysis_1.ground.FMARKER_9001201  &
@@ -4253,6 +4244,10 @@ floating_marker create  &
    adams_id = 9006013
 !
 floating_marker create  &
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006301  &
+   adams_id = 9006301
+!
+floating_marker create  &
    floating_marker_name = .test_analysis_1.ground.FMARKER_9006302  &
    adams_id = 9006302
 !
@@ -4273,14 +4268,6 @@ floating_marker create  &
    adams_id = 9006306
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9006307  &
-   adams_id = 9006307
-!
-floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9006308  &
-   adams_id = 9006308
-!
-floating_marker create  &
    floating_marker_name = .test_analysis_1.ground.FMARKER_9006309  &
    adams_id = 9006309
 !
@@ -4289,36 +4276,128 @@ floating_marker create  &
    adams_id = 9006310
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9006314  &
-   adams_id = 9006314
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006311  &
+   adams_id = 9006311
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9006315  &
-   adams_id = 9006315
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006312  &
+   adams_id = 9006312
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9006316  &
-   adams_id = 9006316
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006313  &
+   adams_id = 9006313
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9006317  &
-   adams_id = 9006317
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006601  &
+   adams_id = 9006601
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9006318  &
-   adams_id = 9006318
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006602  &
+   adams_id = 9006602
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9006319  &
-   adams_id = 9006319
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006603  &
+   adams_id = 9006603
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9006320  &
-   adams_id = 9006320
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006604  &
+   adams_id = 9006604
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.ground.FMARKER_9006321  &
-   adams_id = 9006321
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006605  &
+   adams_id = 9006605
+!
+floating_marker create  &
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006606  &
+   adams_id = 9006606
+!
+floating_marker create  &
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006609  &
+   adams_id = 9006609
+!
+floating_marker create  &
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006610  &
+   adams_id = 9006610
+!
+floating_marker create  &
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006611  &
+   adams_id = 9006611
+!
+floating_marker create  &
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006612  &
+   adams_id = 9006612
+!
+floating_marker create  &
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006613  &
+   adams_id = 9006613
+!
+floating_marker create  &
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006902  &
+   adams_id = 9006902
+!
+floating_marker create  &
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006903  &
+   adams_id = 9006903
+!
+floating_marker create  &
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006904  &
+   adams_id = 9006904
+!
+floating_marker create  &
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006905  &
+   adams_id = 9006905
+!
+floating_marker create  &
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006906  &
+   adams_id = 9006906
+!
+floating_marker create  &
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006907  &
+   adams_id = 9006907
+!
+floating_marker create  &
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006908  &
+   adams_id = 9006908
+!
+floating_marker create  &
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006909  &
+   adams_id = 9006909
+!
+floating_marker create  &
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006910  &
+   adams_id = 9006910
+!
+floating_marker create  &
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006914  &
+   adams_id = 9006914
+!
+floating_marker create  &
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006915  &
+   adams_id = 9006915
+!
+floating_marker create  &
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006916  &
+   adams_id = 9006916
+!
+floating_marker create  &
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006917  &
+   adams_id = 9006917
+!
+floating_marker create  &
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006918  &
+   adams_id = 9006918
+!
+floating_marker create  &
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006919  &
+   adams_id = 9006919
+!
+floating_marker create  &
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006920  &
+   adams_id = 9006920
+!
+floating_marker create  &
+   floating_marker_name = .test_analysis_1.ground.FMARKER_9006921  &
+   adams_id = 9006921
 !
 ! ****** Graphics for current part ******
 !
@@ -4441,7 +4520,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.ground.bottom_graphic  &
-   adams_id = 3147  &
+   adams_id = 5431  &
    center_marker = .test_analysis_1.ground.stopref  &
    radius = 0.54175  &
    segment_count = 18
@@ -4470,7 +4549,7 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Hole_Bottom.gref1  &
-   adams_id = 9006324  &
+   adams_id = 9006924  &
    location = 0.0, 0.0, 3.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -4482,13 +4561,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.Hole_Bottom.A1  &
-   adams_id = 9006325  &
+   adams_id = 9006925  &
    location = 0.0, 0.0, 3.8  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Hole_Bottom.A2  &
-   adams_id = 9006326  &
+   adams_id = 9006926  &
    location = 0.0, 0.0, 3.2  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -4513,7 +4592,7 @@ part create rigid_body mass_properties  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Hole_Bottom.gbottom  &
-   adams_id = 3145  &
+   adams_id = 5429  &
    center_marker = .test_analysis_1.Hole_Bottom.gref1  &
    radius = 0.54175  &
    segment_count = 24
@@ -4525,7 +4604,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Hole_Bottom.Hole_Bottomgraphic  &
-   adams_id = 3211  &
+   adams_id = 5498  &
    center_marker = .test_analysis_1.Hole_Bottom.A2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -4569,13 +4648,13 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.test_pdc_01.gref2  &
-   adams_id = 9006327  &
+   adams_id = 9006927  &
    location = 0.0, 0.0, -1.0833  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.test_pdc_01.end_B  &
-   adams_id = 9006328  &
+   adams_id = 9006928  &
    location = 0.0, 0.0, -1.5  &
    orientation = 0.0d, 0.0d, 0.0d
 !
@@ -4600,7 +4679,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape frustum  &
    frustum_name = .test_analysis_1.test_pdc_01.frust1  &
-   adams_id = 3461  &
+   adams_id = 5757  &
    center_marker = .test_analysis_1.test_pdc_01.LateralRef  &
    angle_extent = 360.0  &
    length = 0.1583365  &
@@ -4615,7 +4694,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.test_pdc_01.cyl1  &
-   adams_id = 3212  &
+   adams_id = 5499  &
    center_marker = .test_analysis_1.test_pdc_01.LateralRef  &
    angle_extent = 360.0  &
    length = -0.91663  &
@@ -4629,7 +4708,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.test_pdc_01.cyl2  &
-   adams_id = 3213  &
+   adams_id = 5500  &
    center_marker = .test_analysis_1.test_pdc_01.gref2  &
    angle_extent = 360.0  &
    length = -0.4167  &
@@ -6174,14 +6253,26 @@ marker create  &
 !
 marker create  &
    marker_name = .test_analysis_1.test_pdc_01_sliderA.A1  &
-   adams_id = 9006329  &
+   adams_id = 9006929  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.test_pdc_01_sliderA.A2  &
-   adams_id = 9006330  &
+   adams_id = 9006930  &
    location = 0.0, 0.0, -0.3  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.test_pdc_01_sliderA.tangent_ref  &
+   adams_id = 9006931  &
+   location = 0.0, 0.0, 1.0  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.test_pdc_01_sliderA.down_ref  &
+   adams_id = 9006932  &
+   location = -1.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
@@ -6198,7 +6289,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.test_pdc_01_sliderA.test_pdc_01_sliderAgraphic  &
-   adams_id = 3214  &
+   adams_id = 5501  &
    center_marker = .test_analysis_1.test_pdc_01_sliderA.A2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -6213,7 +6304,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.test_pdc_01_sliderA.ghole  &
-   adams_id = 3146  &
+   adams_id = 5430  &
    center_marker = .test_analysis_1.test_pdc_01_sliderA.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -6223,57 +6314,2575 @@ geometry attributes  &
    color = BLUE  &
    render = wireframe
 !
-!----------------------- example_stabilizer_02_sliderA ------------------------!
+!----------------------------- example_motor_02_R -----------------------------!
 !
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.ground
 !
 part create rigid_body name_and_position  &
-   part_name = .test_analysis_1.example_stabilizer_02_sliderA  &
-   adams_id = 9000201  &
-   location = 708.5909084524, 0.0, 1502.0005209362  &
-   orientation = 90.0d, 89.9972021726d, 270.0d
+   part_name = .test_analysis_1.example_motor_02_R  &
+   adams_id = 9000700  &
+   location = 711.1039084494, 0.0, 1502.0006436493  &
+   orientation = 90.0d, 89.9977856069d, 270.0d
 !
 defaults coordinate_system  &
-   default_coordinate_system = .test_analysis_1.example_stabilizer_02_sliderA
+   default_coordinate_system = .test_analysis_1.example_motor_02_R
 !
 ! ****** Markers for current part ******
 !
 marker create  &
-   marker_name = .test_analysis_1.example_stabilizer_02_sliderA.cm  &
+   marker_name = .test_analysis_1.example_motor_02_R.end_R  &
+   adams_id = 9000700  &
+   location = 0.0, 0.0, 0.0  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_R.cm  &
+   adams_id = 9006933  &
+   location = 0.0, 0.0, -0.1875  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_R.motor_bearing_R  &
+   adams_id = 9006934  &
+   location = 0.0, 0.0, -0.375  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+part create rigid_body mass_properties  &
+   part_name = .test_analysis_1.example_motor_02_R  &
+   mass = 0.1288691124  &
+   center_of_mass_marker = .test_analysis_1.example_motor_02_R.cm  &
+   ixx = 5.1461284934E-03  &
+   iyy = 5.1461284934E-03  &
+   izz = 7.271887165E-03  &
+   ixy = 0.0  &
+   izx = 0.0  &
+   iyz = 0.0
+!
+! ****** Graphics for current part ******
+!
+geometry create shape cylinder  &
+   cylinder_name = .test_analysis_1.example_motor_02_R.cyl1  &
+   adams_id = 5502  &
+   center_marker = .test_analysis_1.example_motor_02_R.end_R  &
+   angle_extent = 360.0  &
+   length = -0.375  &
+   radius = 0.33335  &
+   side_count_for_body = 16  &
+   segment_count_for_ends = 16
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_R.cyl1  &
+   color = RED
+!
+!----------------------------- example_motor_02_A -----------------------------!
+!
+!
+defaults coordinate_system  &
+   default_coordinate_system = .test_analysis_1.ground
+!
+part create rigid_body name_and_position  &
+   part_name = .test_analysis_1.example_motor_02_A  &
+   adams_id = 9000200  &
+   location = 710.729541234, 0.0, 1502.0006291805  &
+   orientation = 90.0d, 89.997633077d, 270.0d
+!
+defaults coordinate_system  &
+   default_coordinate_system = .test_analysis_1.example_motor_02_A
+!
+! ****** Markers for current part ******
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_A.end_A  &
+   adams_id = 9006935  &
+   location = 0.0, 0.0, 0.0  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_A.motor_bearing_A  &
+   adams_id = 9006936  &
+   location = 0.0, 0.0, 0.0  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_A.stab_center  &
+   adams_id = 9000200  &
+   location = 0.0, 0.0, -1.125  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_A.cm  &
+   adams_id = 9006937  &
+   location = 0.0, 0.0, -0.9375  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_A.end_beam1A  &
+   adams_id = 9006938  &
+   location = 0.0, 0.0, -0.75  &
+   orientation = 0.0d, 90.0d, 90.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_A.stabref  &
+   adams_id = 9006939  &
+   location = 0.0, 0.0, -1.35415  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+part create rigid_body mass_properties  &
+   part_name = .test_analysis_1.example_motor_02_A  &
+   mass = 10.0429042826  &
+   center_of_mass_marker = .test_analysis_1.example_motor_02_A.cm  &
+   ixx = 2.0907125781  &
+   iyy = 2.0907125781  &
+   izz = 0.7083821852  &
+   ixy = 0.0  &
+   izx = 0.0  &
+   iyz = 0.0
+!
+! ****** Graphics for current part ******
+!
+geometry create shape cylinder  &
+   cylinder_name = .test_analysis_1.example_motor_02_A.cyl1  &
+   adams_id = 5503  &
+   center_marker = .test_analysis_1.example_motor_02_A.end_A  &
+   angle_extent = 360.0  &
+   length = -1.35415  &
+   radius = 0.33335  &
+   side_count_for_body = 16  &
+   segment_count_for_ends = 16
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.cyl1  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth14  &
+   location = 0.300015, 7.8125E-02, -1.35415  &
+      , 0.800015, 7.8125E-02, -1.35415  &
+      , 0.800015, -7.8125E-02, -1.35415  &
+      , 0.300015, -7.8125E-02, -1.35415  &
+      , 0.300015, 7.8125E-02, -1.35415  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth14  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth11  &
+   location = 0.300015, 7.8125E-02, -1.35415  &
+      , 0.300015, 7.8125E-02, -1.30832  &
+      , 5.0, 7.8125E-02, -1.30832  &
+      , 0.800015, 7.8125E-02, -1.35415  &
+      , 0.300015, 7.8125E-02, -1.35415  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth11  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth12  &
+   location = 0.800015, 7.8125E-02, -1.35415  &
+      , 5.0, 7.8125E-02, -1.30832  &
+      , 5.0, -7.8125E-02, -1.30832  &
+      , 0.800015, -7.8125E-02, -1.35415  &
+      , 0.800015, 7.8125E-02, -1.35415  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth12  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth13  &
+   location = 0.800015, -7.8125E-02, -1.35415  &
+      , 5.0, -7.8125E-02, -1.30832  &
+      , 0.300015, -7.8125E-02, -1.30832  &
+      , 0.300015, -7.8125E-02, -1.35415  &
+      , 0.800015, -7.8125E-02, -1.35415  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth13  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth104  &
+   location = 0.300015, 7.8125E-02, -0.89585  &
+      , 0.800015, 7.8125E-02, -0.89585  &
+      , 0.800015, -7.8125E-02, -0.89585  &
+      , 0.300015, -7.8125E-02, -0.89585  &
+      , 0.300015, 7.8125E-02, -0.89585  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth104  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth101  &
+   location = 0.300015, 7.8125E-02, -0.94168  &
+      , 0.300015, 7.8125E-02, -0.89585  &
+      , 0.800015, 7.8125E-02, -0.89585  &
+      , 5.0, 7.8125E-02, -0.94168  &
+      , 0.300015, 7.8125E-02, -0.94168  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth101  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth102  &
+   location = 5.0, 7.8125E-02, -0.94168  &
+      , 0.800015, 7.8125E-02, -0.89585  &
+      , 0.800015, -7.8125E-02, -0.89585  &
+      , 5.0, -7.8125E-02, -0.94168  &
+      , 5.0, 7.8125E-02, -0.94168  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth102  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth103  &
+   location = 5.0, -7.8125E-02, -0.94168  &
+      , 0.800015, -7.8125E-02, -0.89585  &
+      , 0.300015, -7.8125E-02, -0.89585  &
+      , 0.300015, -7.8125E-02, -0.94168  &
+      , 5.0, -7.8125E-02, -0.94168  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth103  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth21  &
+   location = 0.300015, 7.8125E-02, -1.30832  &
+      , 0.300015, 7.8125E-02, -1.26249  &
+      , 5.0, 7.8125E-02, -1.26249  &
+      , 5.0, 7.8125E-02, -1.30832  &
+      , 0.300015, 7.8125E-02, -1.30832  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth21  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth22  &
+   location = 5.0, 7.8125E-02, -1.30832  &
+      , 5.0, 7.8125E-02, -1.26249  &
+      , 5.0, -7.8125E-02, -1.26249  &
+      , 5.0, -7.8125E-02, -1.30832  &
+      , 5.0, 7.8125E-02, -1.30832  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth22  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth23  &
+   location = 5.0, -7.8125E-02, -1.30832  &
+      , 5.0, -7.8125E-02, -1.26249  &
+      , 0.300015, -7.8125E-02, -1.26249  &
+      , 0.300015, -7.8125E-02, -1.30832  &
+      , 5.0, -7.8125E-02, -1.30832  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth23  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth31  &
+   location = 0.300015, 7.8125E-02, -1.26249  &
+      , 0.300015, 7.8125E-02, -1.21666  &
+      , 5.0, 7.8125E-02, -1.21666  &
+      , 5.0, 7.8125E-02, -1.26249  &
+      , 0.300015, 7.8125E-02, -1.26249  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth31  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth32  &
+   location = 5.0, 7.8125E-02, -1.26249  &
+      , 5.0, 7.8125E-02, -1.21666  &
+      , 5.0, -7.8125E-02, -1.21666  &
+      , 5.0, -7.8125E-02, -1.26249  &
+      , 5.0, 7.8125E-02, -1.26249  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth32  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth33  &
+   location = 5.0, -7.8125E-02, -1.26249  &
+      , 5.0, -7.8125E-02, -1.21666  &
+      , 0.300015, -7.8125E-02, -1.21666  &
+      , 0.300015, -7.8125E-02, -1.26249  &
+      , 5.0, -7.8125E-02, -1.26249  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth33  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth41  &
+   location = 0.300015, 7.8125E-02, -1.21666  &
+      , 0.300015, 7.8125E-02, -1.17083  &
+      , 5.0, 7.8125E-02, -1.17083  &
+      , 5.0, 7.8125E-02, -1.21666  &
+      , 0.300015, 7.8125E-02, -1.21666  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth41  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth42  &
+   location = 5.0, 7.8125E-02, -1.21666  &
+      , 5.0, 7.8125E-02, -1.17083  &
+      , 5.0, -7.8125E-02, -1.17083  &
+      , 5.0, -7.8125E-02, -1.21666  &
+      , 5.0, 7.8125E-02, -1.21666  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth42  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth43  &
+   location = 5.0, -7.8125E-02, -1.21666  &
+      , 5.0, -7.8125E-02, -1.17083  &
+      , 0.300015, -7.8125E-02, -1.17083  &
+      , 0.300015, -7.8125E-02, -1.21666  &
+      , 5.0, -7.8125E-02, -1.21666  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth43  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth51  &
+   location = 0.300015, 7.8125E-02, -1.17083  &
+      , 0.300015, 7.8125E-02, -1.125  &
+      , 5.0, 7.8125E-02, -1.125  &
+      , 5.0, 7.8125E-02, -1.17083  &
+      , 0.300015, 7.8125E-02, -1.17083  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth51  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth52  &
+   location = 5.0, 7.8125E-02, -1.17083  &
+      , 5.0, 7.8125E-02, -1.125  &
+      , 5.0, -7.8125E-02, -1.125  &
+      , 5.0, -7.8125E-02, -1.17083  &
+      , 5.0, 7.8125E-02, -1.17083  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth52  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth53  &
+   location = 5.0, -7.8125E-02, -1.17083  &
+      , 5.0, -7.8125E-02, -1.125  &
+      , 0.300015, -7.8125E-02, -1.125  &
+      , 0.300015, -7.8125E-02, -1.17083  &
+      , 5.0, -7.8125E-02, -1.17083  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth53  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth61  &
+   location = 0.300015, 7.8125E-02, -1.125  &
+      , 0.300015, 7.8125E-02, -1.07917  &
+      , 5.0, 7.8125E-02, -1.07917  &
+      , 5.0, 7.8125E-02, -1.125  &
+      , 0.300015, 7.8125E-02, -1.125  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth61  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth62  &
+   location = 5.0, 7.8125E-02, -1.125  &
+      , 5.0, 7.8125E-02, -1.07917  &
+      , 5.0, -7.8125E-02, -1.07917  &
+      , 5.0, -7.8125E-02, -1.125  &
+      , 5.0, 7.8125E-02, -1.125  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth62  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth63  &
+   location = 5.0, -7.8125E-02, -1.125  &
+      , 5.0, -7.8125E-02, -1.07917  &
+      , 0.300015, -7.8125E-02, -1.07917  &
+      , 0.300015, -7.8125E-02, -1.125  &
+      , 5.0, -7.8125E-02, -1.125  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth63  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth71  &
+   location = 0.300015, 7.8125E-02, -1.07917  &
+      , 0.300015, 7.8125E-02, -1.03334  &
+      , 5.0, 7.8125E-02, -1.03334  &
+      , 5.0, 7.8125E-02, -1.07917  &
+      , 0.300015, 7.8125E-02, -1.07917  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth71  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth72  &
+   location = 5.0, 7.8125E-02, -1.07917  &
+      , 5.0, 7.8125E-02, -1.03334  &
+      , 5.0, -7.8125E-02, -1.03334  &
+      , 5.0, -7.8125E-02, -1.07917  &
+      , 5.0, 7.8125E-02, -1.07917  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth72  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth73  &
+   location = 5.0, -7.8125E-02, -1.07917  &
+      , 5.0, -7.8125E-02, -1.03334  &
+      , 0.300015, -7.8125E-02, -1.03334  &
+      , 0.300015, -7.8125E-02, -1.07917  &
+      , 5.0, -7.8125E-02, -1.07917  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth73  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth81  &
+   location = 0.300015, 7.8125E-02, -1.03334  &
+      , 0.300015, 7.8125E-02, -0.98751  &
+      , 5.0, 7.8125E-02, -0.98751  &
+      , 5.0, 7.8125E-02, -1.03334  &
+      , 0.300015, 7.8125E-02, -1.03334  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth81  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth82  &
+   location = 5.0, 7.8125E-02, -1.03334  &
+      , 5.0, 7.8125E-02, -0.98751  &
+      , 5.0, -7.8125E-02, -0.98751  &
+      , 5.0, -7.8125E-02, -1.03334  &
+      , 5.0, 7.8125E-02, -1.03334  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth82  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth83  &
+   location = 5.0, -7.8125E-02, -1.03334  &
+      , 5.0, -7.8125E-02, -0.98751  &
+      , 0.300015, -7.8125E-02, -0.98751  &
+      , 0.300015, -7.8125E-02, -1.03334  &
+      , 5.0, -7.8125E-02, -1.03334  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth83  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth91  &
+   location = 0.300015, 7.8125E-02, -0.98751  &
+      , 0.300015, 7.8125E-02, -0.94168  &
+      , 5.0, 7.8125E-02, -0.94168  &
+      , 5.0, 7.8125E-02, -0.98751  &
+      , 0.300015, 7.8125E-02, -0.98751  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth91  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth92  &
+   location = 5.0, 7.8125E-02, -0.98751  &
+      , 5.0, 7.8125E-02, -0.94168  &
+      , 5.0, -7.8125E-02, -0.94168  &
+      , 5.0, -7.8125E-02, -0.98751  &
+      , 5.0, 7.8125E-02, -0.98751  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth92  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth93  &
+   location = 5.0, -7.8125E-02, -0.98751  &
+      , 5.0, -7.8125E-02, -0.94168  &
+      , 0.300015, -7.8125E-02, -0.94168  &
+      , 0.300015, -7.8125E-02, -0.98751  &
+      , 5.0, -7.8125E-02, -0.98751  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth93  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth11_2  &
+   location = 1.8408443232E-02, 0.3094731734, -1.35415  &
+      , 1.8408443232E-02, 0.3094731734, -1.30832  &
+      , 1.4707836815, 4.7794245342, -1.30832  &
+      , 0.1729169404, 0.7850014316, -1.35415  &
+      , 1.8408443232E-02, 0.3094731734, -1.35415  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth11_2  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth12_2  &
+   location = 0.1729169404, 0.7850014316, -1.35415  &
+      , 1.4707836815, 4.7794245342, -1.30832  &
+      , 1.6193862622, 4.7311406288, -1.30832  &
+      , 0.3215195211, 0.7367175262, -1.35415  &
+      , 0.1729169404, 0.7850014316, -1.35415  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth12_2  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth13_2  &
+   location = 0.3215195211, 0.7367175262, -1.35415  &
+      , 1.6193862622, 4.7311406288, -1.30832  &
+      , 0.1670110239, 0.2611892681, -1.30832  &
+      , 0.1670110239, 0.2611892681, -1.35415  &
+      , 0.3215195211, 0.7367175262, -1.35415  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth13_2  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth14_2  &
+   location = 1.8408443232E-02, 0.3094731734, -1.35415  &
+      , 0.1729169404, 0.7850014316, -1.35415  &
+      , 0.3215195211, 0.7367175262, -1.35415  &
+      , 0.1670110239, 0.2611892681, -1.35415  &
+      , 1.8408443232E-02, 0.3094731734, -1.35415  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth14_2  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth101_2  &
+   location = 1.8408443232E-02, 0.3094731734, -0.94168  &
+      , 1.8408443232E-02, 0.3094731734, -0.89585  &
+      , 0.1729169404, 0.7850014316, -0.89585  &
+      , 1.4707836815, 4.7794245342, -0.94168  &
+      , 1.8408443232E-02, 0.3094731734, -0.94168  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth101_2  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth102_2  &
+   location = 1.4707836815, 4.7794245342, -0.94168  &
+      , 0.1729169404, 0.7850014316, -0.89585  &
+      , 0.3215195211, 0.7367175262, -0.89585  &
+      , 1.6193862622, 4.7311406288, -0.94168  &
+      , 1.4707836815, 4.7794245342, -0.94168  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth102_2  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth103_2  &
+   location = 1.6193862622, 4.7311406288, -0.94168  &
+      , 0.3215195211, 0.7367175262, -0.89585  &
+      , 0.1670110239, 0.2611892681, -0.89585  &
+      , 0.1670110239, 0.2611892681, -0.94168  &
+      , 1.6193862622, 4.7311406288, -0.94168  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth103_2  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth104_2  &
+   location = 1.8408443232E-02, 0.3094731734, -0.89585  &
+      , 0.1729169404, 0.7850014316, -0.89585  &
+      , 0.3215195211, 0.7367175262, -0.89585  &
+      , 0.1670110239, 0.2611892681, -0.89585  &
+      , 1.8408443232E-02, 0.3094731734, -0.89585  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth104_2  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth21_2  &
+   location = 1.8408443232E-02, 0.3094731734, -1.30832  &
+      , 1.8408443232E-02, 0.3094731734, -1.26249  &
+      , 1.4707836815, 4.7794245342, -1.26249  &
+      , 1.4707836815, 4.7794245342, -1.30832  &
+      , 1.8408443232E-02, 0.3094731734, -1.30832  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth21_2  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth22_2  &
+   location = 1.4707836815, 4.7794245342, -1.30832  &
+      , 1.4707836815, 4.7794245342, -1.26249  &
+      , 1.6193862622, 4.7311406288, -1.26249  &
+      , 1.6193862622, 4.7311406288, -1.30832  &
+      , 1.4707836815, 4.7794245342, -1.30832  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth22_2  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth23_2  &
+   location = 1.6193862622, 4.7311406288, -1.30832  &
+      , 1.6193862622, 4.7311406288, -1.26249  &
+      , 0.1670110239, 0.2611892681, -1.26249  &
+      , 0.1670110239, 0.2611892681, -1.30832  &
+      , 1.6193862622, 4.7311406288, -1.30832  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth23_2  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth31_2  &
+   location = 1.8408443232E-02, 0.3094731734, -1.26249  &
+      , 1.8408443232E-02, 0.3094731734, -1.21666  &
+      , 1.4707836815, 4.7794245342, -1.21666  &
+      , 1.4707836815, 4.7794245342, -1.26249  &
+      , 1.8408443232E-02, 0.3094731734, -1.26249  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth31_2  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth32_2  &
+   location = 1.4707836815, 4.7794245342, -1.26249  &
+      , 1.4707836815, 4.7794245342, -1.21666  &
+      , 1.6193862622, 4.7311406288, -1.21666  &
+      , 1.6193862622, 4.7311406288, -1.26249  &
+      , 1.4707836815, 4.7794245342, -1.26249  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth32_2  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth33_2  &
+   location = 1.6193862622, 4.7311406288, -1.26249  &
+      , 1.6193862622, 4.7311406288, -1.21666  &
+      , 0.1670110239, 0.2611892681, -1.21666  &
+      , 0.1670110239, 0.2611892681, -1.26249  &
+      , 1.6193862622, 4.7311406288, -1.26249  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth33_2  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth41_2  &
+   location = 1.8408443232E-02, 0.3094731734, -1.21666  &
+      , 1.8408443232E-02, 0.3094731734, -1.17083  &
+      , 1.4707836815, 4.7794245342, -1.17083  &
+      , 1.4707836815, 4.7794245342, -1.21666  &
+      , 1.8408443232E-02, 0.3094731734, -1.21666  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth41_2  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth42_2  &
+   location = 1.4707836815, 4.7794245342, -1.21666  &
+      , 1.4707836815, 4.7794245342, -1.17083  &
+      , 1.6193862622, 4.7311406288, -1.17083  &
+      , 1.6193862622, 4.7311406288, -1.21666  &
+      , 1.4707836815, 4.7794245342, -1.21666  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth42_2  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth43_2  &
+   location = 1.6193862622, 4.7311406288, -1.21666  &
+      , 1.6193862622, 4.7311406288, -1.17083  &
+      , 0.1670110239, 0.2611892681, -1.17083  &
+      , 0.1670110239, 0.2611892681, -1.21666  &
+      , 1.6193862622, 4.7311406288, -1.21666  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth43_2  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth51_2  &
+   location = 1.8408443232E-02, 0.3094731734, -1.17083  &
+      , 1.8408443232E-02, 0.3094731734, -1.125  &
+      , 1.4707836815, 4.7794245342, -1.125  &
+      , 1.4707836815, 4.7794245342, -1.17083  &
+      , 1.8408443232E-02, 0.3094731734, -1.17083  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth51_2  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth52_2  &
+   location = 1.4707836815, 4.7794245342, -1.17083  &
+      , 1.4707836815, 4.7794245342, -1.125  &
+      , 1.6193862622, 4.7311406288, -1.125  &
+      , 1.6193862622, 4.7311406288, -1.17083  &
+      , 1.4707836815, 4.7794245342, -1.17083  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth52_2  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth53_2  &
+   location = 1.6193862622, 4.7311406288, -1.17083  &
+      , 1.6193862622, 4.7311406288, -1.125  &
+      , 0.1670110239, 0.2611892681, -1.125  &
+      , 0.1670110239, 0.2611892681, -1.17083  &
+      , 1.6193862622, 4.7311406288, -1.17083  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth53_2  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth61_2  &
+   location = 1.8408443232E-02, 0.3094731734, -1.125  &
+      , 1.8408443232E-02, 0.3094731734, -1.07917  &
+      , 1.4707836815, 4.7794245342, -1.07917  &
+      , 1.4707836815, 4.7794245342, -1.125  &
+      , 1.8408443232E-02, 0.3094731734, -1.125  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth61_2  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth62_2  &
+   location = 1.4707836815, 4.7794245342, -1.125  &
+      , 1.4707836815, 4.7794245342, -1.07917  &
+      , 1.6193862622, 4.7311406288, -1.07917  &
+      , 1.6193862622, 4.7311406288, -1.125  &
+      , 1.4707836815, 4.7794245342, -1.125  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth62_2  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth63_2  &
+   location = 1.6193862622, 4.7311406288, -1.125  &
+      , 1.6193862622, 4.7311406288, -1.07917  &
+      , 0.1670110239, 0.2611892681, -1.07917  &
+      , 0.1670110239, 0.2611892681, -1.125  &
+      , 1.6193862622, 4.7311406288, -1.125  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth63_2  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth71_2  &
+   location = 1.8408443232E-02, 0.3094731734, -1.07917  &
+      , 1.8408443232E-02, 0.3094731734, -1.03334  &
+      , 1.4707836815, 4.7794245342, -1.03334  &
+      , 1.4707836815, 4.7794245342, -1.07917  &
+      , 1.8408443232E-02, 0.3094731734, -1.07917  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth71_2  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth72_2  &
+   location = 1.4707836815, 4.7794245342, -1.07917  &
+      , 1.4707836815, 4.7794245342, -1.03334  &
+      , 1.6193862622, 4.7311406288, -1.03334  &
+      , 1.6193862622, 4.7311406288, -1.07917  &
+      , 1.4707836815, 4.7794245342, -1.07917  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth72_2  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth73_2  &
+   location = 1.6193862622, 4.7311406288, -1.07917  &
+      , 1.6193862622, 4.7311406288, -1.03334  &
+      , 0.1670110239, 0.2611892681, -1.03334  &
+      , 0.1670110239, 0.2611892681, -1.07917  &
+      , 1.6193862622, 4.7311406288, -1.07917  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth73_2  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth81_2  &
+   location = 1.8408443232E-02, 0.3094731734, -1.03334  &
+      , 1.8408443232E-02, 0.3094731734, -0.98751  &
+      , 1.4707836815, 4.7794245342, -0.98751  &
+      , 1.4707836815, 4.7794245342, -1.03334  &
+      , 1.8408443232E-02, 0.3094731734, -1.03334  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth81_2  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth82_2  &
+   location = 1.4707836815, 4.7794245342, -1.03334  &
+      , 1.4707836815, 4.7794245342, -0.98751  &
+      , 1.6193862622, 4.7311406288, -0.98751  &
+      , 1.6193862622, 4.7311406288, -1.03334  &
+      , 1.4707836815, 4.7794245342, -1.03334  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth82_2  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth83_2  &
+   location = 1.6193862622, 4.7311406288, -1.03334  &
+      , 1.6193862622, 4.7311406288, -0.98751  &
+      , 0.1670110239, 0.2611892681, -0.98751  &
+      , 0.1670110239, 0.2611892681, -1.03334  &
+      , 1.6193862622, 4.7311406288, -1.03334  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth83_2  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth91_2  &
+   location = 1.8408443232E-02, 0.3094731734, -0.98751  &
+      , 1.8408443232E-02, 0.3094731734, -0.94168  &
+      , 1.4707836815, 4.7794245342, -0.94168  &
+      , 1.4707836815, 4.7794245342, -0.98751  &
+      , 1.8408443232E-02, 0.3094731734, -0.98751  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth91_2  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth92_2  &
+   location = 1.4707836815, 4.7794245342, -0.98751  &
+      , 1.4707836815, 4.7794245342, -0.94168  &
+      , 1.6193862622, 4.7311406288, -0.94168  &
+      , 1.6193862622, 4.7311406288, -0.98751  &
+      , 1.4707836815, 4.7794245342, -0.98751  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth92_2  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth93_2  &
+   location = 1.6193862622, 4.7311406288, -0.98751  &
+      , 1.6193862622, 4.7311406288, -0.94168  &
+      , 0.1670110239, 0.2611892681, -0.94168  &
+      , 0.1670110239, 0.2611892681, -0.98751  &
+      , 1.6193862622, 4.7311406288, -0.98751  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth93_2  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth11_3  &
+   location = -0.2886379564, 0.1131399398, -1.35415  &
+      , -0.2886379564, 0.1131399398, -1.30832  &
+      , -4.0910056947, 2.8757218088, -1.30832  &
+      , -0.6931464536, 0.4070325659, -1.35415  &
+      , -0.2886379564, 0.1131399398, -1.35415  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth11_3  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth12_3  &
+   location = -0.6931464536, 0.4070325659, -1.35415  &
+      , -4.0910056947, 2.8757218088, -1.30832  &
+      , -3.999164249, 3.0021307141, -1.30832  &
+      , -0.6013050079, 0.5334414713, -1.35415  &
+      , -0.6931464536, 0.4070325659, -1.35415  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth12_3  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth13_3  &
+   location = -0.6013050079, 0.5334414713, -1.35415  &
+      , -3.999164249, 3.0021307141, -1.30832  &
+      , -0.1967965107, 0.2395488452, -1.30832  &
+      , -0.1967965107, 0.2395488452, -1.35415  &
+      , -0.6013050079, 0.5334414713, -1.35415  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth13_3  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth14_3  &
+   location = -0.2886379564, 0.1131399398, -1.35415  &
+      , -0.6931464536, 0.4070325659, -1.35415  &
+      , -0.6013050079, 0.5334414713, -1.35415  &
+      , -0.1967965107, 0.2395488452, -1.35415  &
+      , -0.2886379564, 0.1131399398, -1.35415  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth14_3  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth101_3  &
+   location = -0.2886379564, 0.1131399398, -0.94168  &
+      , -0.2886379564, 0.1131399398, -0.89585  &
+      , -0.6931464536, 0.4070325659, -0.89585  &
+      , -4.0910056947, 2.8757218088, -0.94168  &
+      , -0.2886379564, 0.1131399398, -0.94168  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth101_3  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth102_3  &
+   location = -4.0910056947, 2.8757218088, -0.94168  &
+      , -0.6931464536, 0.4070325659, -0.89585  &
+      , -0.6013050079, 0.5334414713, -0.89585  &
+      , -3.999164249, 3.0021307141, -0.94168  &
+      , -4.0910056947, 2.8757218088, -0.94168  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth102_3  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth103_3  &
+   location = -3.999164249, 3.0021307141, -0.94168  &
+      , -0.6013050079, 0.5334414713, -0.89585  &
+      , -0.1967965107, 0.2395488452, -0.89585  &
+      , -0.1967965107, 0.2395488452, -0.94168  &
+      , -3.999164249, 3.0021307141, -0.94168  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth103_3  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth104_3  &
+   location = -0.2886379564, 0.1131399398, -0.89585  &
+      , -0.6931464536, 0.4070325659, -0.89585  &
+      , -0.6013050079, 0.5334414713, -0.89585  &
+      , -0.1967965107, 0.2395488452, -0.89585  &
+      , -0.2886379564, 0.1131399398, -0.89585  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth104_3  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth21_3  &
+   location = -0.2886379564, 0.1131399398, -1.30832  &
+      , -0.2886379564, 0.1131399398, -1.26249  &
+      , -4.0910056947, 2.8757218088, -1.26249  &
+      , -4.0910056947, 2.8757218088, -1.30832  &
+      , -0.2886379564, 0.1131399398, -1.30832  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth21_3  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth22_3  &
+   location = -4.0910056947, 2.8757218088, -1.30832  &
+      , -4.0910056947, 2.8757218088, -1.26249  &
+      , -3.999164249, 3.0021307141, -1.26249  &
+      , -3.999164249, 3.0021307141, -1.30832  &
+      , -4.0910056947, 2.8757218088, -1.30832  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth22_3  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth23_3  &
+   location = -3.999164249, 3.0021307141, -1.30832  &
+      , -3.999164249, 3.0021307141, -1.26249  &
+      , -0.1967965107, 0.2395488452, -1.26249  &
+      , -0.1967965107, 0.2395488452, -1.30832  &
+      , -3.999164249, 3.0021307141, -1.30832  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth23_3  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth31_3  &
+   location = -0.2886379564, 0.1131399398, -1.26249  &
+      , -0.2886379564, 0.1131399398, -1.21666  &
+      , -4.0910056947, 2.8757218088, -1.21666  &
+      , -4.0910056947, 2.8757218088, -1.26249  &
+      , -0.2886379564, 0.1131399398, -1.26249  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth31_3  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth32_3  &
+   location = -4.0910056947, 2.8757218088, -1.26249  &
+      , -4.0910056947, 2.8757218088, -1.21666  &
+      , -3.999164249, 3.0021307141, -1.21666  &
+      , -3.999164249, 3.0021307141, -1.26249  &
+      , -4.0910056947, 2.8757218088, -1.26249  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth32_3  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth33_3  &
+   location = -3.999164249, 3.0021307141, -1.26249  &
+      , -3.999164249, 3.0021307141, -1.21666  &
+      , -0.1967965107, 0.2395488452, -1.21666  &
+      , -0.1967965107, 0.2395488452, -1.26249  &
+      , -3.999164249, 3.0021307141, -1.26249  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth33_3  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth41_3  &
+   location = -0.2886379564, 0.1131399398, -1.21666  &
+      , -0.2886379564, 0.1131399398, -1.17083  &
+      , -4.0910056947, 2.8757218088, -1.17083  &
+      , -4.0910056947, 2.8757218088, -1.21666  &
+      , -0.2886379564, 0.1131399398, -1.21666  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth41_3  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth42_3  &
+   location = -4.0910056947, 2.8757218088, -1.21666  &
+      , -4.0910056947, 2.8757218088, -1.17083  &
+      , -3.999164249, 3.0021307141, -1.17083  &
+      , -3.999164249, 3.0021307141, -1.21666  &
+      , -4.0910056947, 2.8757218088, -1.21666  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth42_3  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth43_3  &
+   location = -3.999164249, 3.0021307141, -1.21666  &
+      , -3.999164249, 3.0021307141, -1.17083  &
+      , -0.1967965107, 0.2395488452, -1.17083  &
+      , -0.1967965107, 0.2395488452, -1.21666  &
+      , -3.999164249, 3.0021307141, -1.21666  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth43_3  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth51_3  &
+   location = -0.2886379564, 0.1131399398, -1.17083  &
+      , -0.2886379564, 0.1131399398, -1.125  &
+      , -4.0910056947, 2.8757218088, -1.125  &
+      , -4.0910056947, 2.8757218088, -1.17083  &
+      , -0.2886379564, 0.1131399398, -1.17083  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth51_3  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth52_3  &
+   location = -4.0910056947, 2.8757218088, -1.17083  &
+      , -4.0910056947, 2.8757218088, -1.125  &
+      , -3.999164249, 3.0021307141, -1.125  &
+      , -3.999164249, 3.0021307141, -1.17083  &
+      , -4.0910056947, 2.8757218088, -1.17083  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth52_3  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth53_3  &
+   location = -3.999164249, 3.0021307141, -1.17083  &
+      , -3.999164249, 3.0021307141, -1.125  &
+      , -0.1967965107, 0.2395488452, -1.125  &
+      , -0.1967965107, 0.2395488452, -1.17083  &
+      , -3.999164249, 3.0021307141, -1.17083  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth53_3  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth61_3  &
+   location = -0.2886379564, 0.1131399398, -1.125  &
+      , -0.2886379564, 0.1131399398, -1.07917  &
+      , -4.0910056947, 2.8757218088, -1.07917  &
+      , -4.0910056947, 2.8757218088, -1.125  &
+      , -0.2886379564, 0.1131399398, -1.125  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth61_3  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth62_3  &
+   location = -4.0910056947, 2.8757218088, -1.125  &
+      , -4.0910056947, 2.8757218088, -1.07917  &
+      , -3.999164249, 3.0021307141, -1.07917  &
+      , -3.999164249, 3.0021307141, -1.125  &
+      , -4.0910056947, 2.8757218088, -1.125  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth62_3  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth63_3  &
+   location = -3.999164249, 3.0021307141, -1.125  &
+      , -3.999164249, 3.0021307141, -1.07917  &
+      , -0.1967965107, 0.2395488452, -1.07917  &
+      , -0.1967965107, 0.2395488452, -1.125  &
+      , -3.999164249, 3.0021307141, -1.125  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth63_3  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth71_3  &
+   location = -0.2886379564, 0.1131399398, -1.07917  &
+      , -0.2886379564, 0.1131399398, -1.03334  &
+      , -4.0910056947, 2.8757218088, -1.03334  &
+      , -4.0910056947, 2.8757218088, -1.07917  &
+      , -0.2886379564, 0.1131399398, -1.07917  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth71_3  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth72_3  &
+   location = -4.0910056947, 2.8757218088, -1.07917  &
+      , -4.0910056947, 2.8757218088, -1.03334  &
+      , -3.999164249, 3.0021307141, -1.03334  &
+      , -3.999164249, 3.0021307141, -1.07917  &
+      , -4.0910056947, 2.8757218088, -1.07917  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth72_3  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth73_3  &
+   location = -3.999164249, 3.0021307141, -1.07917  &
+      , -3.999164249, 3.0021307141, -1.03334  &
+      , -0.1967965107, 0.2395488452, -1.03334  &
+      , -0.1967965107, 0.2395488452, -1.07917  &
+      , -3.999164249, 3.0021307141, -1.07917  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth73_3  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth81_3  &
+   location = -0.2886379564, 0.1131399398, -1.03334  &
+      , -0.2886379564, 0.1131399398, -0.98751  &
+      , -4.0910056947, 2.8757218088, -0.98751  &
+      , -4.0910056947, 2.8757218088, -1.03334  &
+      , -0.2886379564, 0.1131399398, -1.03334  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth81_3  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth82_3  &
+   location = -4.0910056947, 2.8757218088, -1.03334  &
+      , -4.0910056947, 2.8757218088, -0.98751  &
+      , -3.999164249, 3.0021307141, -0.98751  &
+      , -3.999164249, 3.0021307141, -1.03334  &
+      , -4.0910056947, 2.8757218088, -1.03334  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth82_3  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth83_3  &
+   location = -3.999164249, 3.0021307141, -1.03334  &
+      , -3.999164249, 3.0021307141, -0.98751  &
+      , -0.1967965107, 0.2395488452, -0.98751  &
+      , -0.1967965107, 0.2395488452, -1.03334  &
+      , -3.999164249, 3.0021307141, -1.03334  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth83_3  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth91_3  &
+   location = -0.2886379564, 0.1131399398, -0.98751  &
+      , -0.2886379564, 0.1131399398, -0.94168  &
+      , -4.0910056947, 2.8757218088, -0.94168  &
+      , -4.0910056947, 2.8757218088, -0.98751  &
+      , -0.2886379564, 0.1131399398, -0.98751  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth91_3  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth92_3  &
+   location = -4.0910056947, 2.8757218088, -0.98751  &
+      , -4.0910056947, 2.8757218088, -0.94168  &
+      , -3.999164249, 3.0021307141, -0.94168  &
+      , -3.999164249, 3.0021307141, -0.98751  &
+      , -4.0910056947, 2.8757218088, -0.98751  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth92_3  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth93_3  &
+   location = -3.999164249, 3.0021307141, -0.98751  &
+      , -3.999164249, 3.0021307141, -0.94168  &
+      , -0.1967965107, 0.2395488452, -0.94168  &
+      , -0.1967965107, 0.2395488452, -0.98751  &
+      , -3.999164249, 3.0021307141, -0.98751  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth93_3  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth11_4  &
+   location = -0.1967965107, -0.2395488452, -1.35415  &
+      , -0.1967965107, -0.2395488452, -1.30832  &
+      , -3.999164249, -3.0021307141, -1.30832  &
+      , -0.6013050079, -0.5334414713, -1.35415  &
+      , -0.1967965107, -0.2395488452, -1.35415  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth11_4  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth12_4  &
+   location = -0.6013050079, -0.5334414713, -1.35415  &
+      , -3.999164249, -3.0021307141, -1.30832  &
+      , -4.0910056947, -2.8757218088, -1.30832  &
+      , -0.6931464536, -0.4070325659, -1.35415  &
+      , -0.6013050079, -0.5334414713, -1.35415  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth12_4  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth13_4  &
+   location = -0.6931464536, -0.4070325659, -1.35415  &
+      , -4.0910056947, -2.8757218088, -1.30832  &
+      , -0.2886379564, -0.1131399398, -1.30832  &
+      , -0.2886379564, -0.1131399398, -1.35415  &
+      , -0.6931464536, -0.4070325659, -1.35415  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth13_4  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth14_4  &
+   location = -0.1967965107, -0.2395488452, -1.35415  &
+      , -0.6013050079, -0.5334414713, -1.35415  &
+      , -0.6931464536, -0.4070325659, -1.35415  &
+      , -0.2886379564, -0.1131399398, -1.35415  &
+      , -0.1967965107, -0.2395488452, -1.35415  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth14_4  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth101_4  &
+   location = -0.1967965107, -0.2395488452, -0.94168  &
+      , -0.1967965107, -0.2395488452, -0.89585  &
+      , -0.6013050079, -0.5334414713, -0.89585  &
+      , -3.999164249, -3.0021307141, -0.94168  &
+      , -0.1967965107, -0.2395488452, -0.94168  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth101_4  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth102_4  &
+   location = -3.999164249, -3.0021307141, -0.94168  &
+      , -0.6013050079, -0.5334414713, -0.89585  &
+      , -0.6931464536, -0.4070325659, -0.89585  &
+      , -4.0910056947, -2.8757218088, -0.94168  &
+      , -3.999164249, -3.0021307141, -0.94168  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth102_4  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth103_4  &
+   location = -4.0910056947, -2.8757218088, -0.94168  &
+      , -0.6931464536, -0.4070325659, -0.89585  &
+      , -0.2886379564, -0.1131399398, -0.89585  &
+      , -0.2886379564, -0.1131399398, -0.94168  &
+      , -4.0910056947, -2.8757218088, -0.94168  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth103_4  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth104_4  &
+   location = -0.1967965107, -0.2395488452, -0.89585  &
+      , -0.6013050079, -0.5334414713, -0.89585  &
+      , -0.6931464536, -0.4070325659, -0.89585  &
+      , -0.2886379564, -0.1131399398, -0.89585  &
+      , -0.1967965107, -0.2395488452, -0.89585  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth104_4  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth21_4  &
+   location = -0.1967965107, -0.2395488452, -1.30832  &
+      , -0.1967965107, -0.2395488452, -1.26249  &
+      , -3.999164249, -3.0021307141, -1.26249  &
+      , -3.999164249, -3.0021307141, -1.30832  &
+      , -0.1967965107, -0.2395488452, -1.30832  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth21_4  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth22_4  &
+   location = -3.999164249, -3.0021307141, -1.30832  &
+      , -3.999164249, -3.0021307141, -1.26249  &
+      , -4.0910056947, -2.8757218088, -1.26249  &
+      , -4.0910056947, -2.8757218088, -1.30832  &
+      , -3.999164249, -3.0021307141, -1.30832  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth22_4  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth23_4  &
+   location = -4.0910056947, -2.8757218088, -1.30832  &
+      , -4.0910056947, -2.8757218088, -1.26249  &
+      , -0.2886379564, -0.1131399398, -1.26249  &
+      , -0.2886379564, -0.1131399398, -1.30832  &
+      , -4.0910056947, -2.8757218088, -1.30832  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth23_4  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth31_4  &
+   location = -0.1967965107, -0.2395488452, -1.26249  &
+      , -0.1967965107, -0.2395488452, -1.21666  &
+      , -3.999164249, -3.0021307141, -1.21666  &
+      , -3.999164249, -3.0021307141, -1.26249  &
+      , -0.1967965107, -0.2395488452, -1.26249  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth31_4  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth32_4  &
+   location = -3.999164249, -3.0021307141, -1.26249  &
+      , -3.999164249, -3.0021307141, -1.21666  &
+      , -4.0910056947, -2.8757218088, -1.21666  &
+      , -4.0910056947, -2.8757218088, -1.26249  &
+      , -3.999164249, -3.0021307141, -1.26249  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth32_4  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth33_4  &
+   location = -4.0910056947, -2.8757218088, -1.26249  &
+      , -4.0910056947, -2.8757218088, -1.21666  &
+      , -0.2886379564, -0.1131399398, -1.21666  &
+      , -0.2886379564, -0.1131399398, -1.26249  &
+      , -4.0910056947, -2.8757218088, -1.26249  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth33_4  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth41_4  &
+   location = -0.1967965107, -0.2395488452, -1.21666  &
+      , -0.1967965107, -0.2395488452, -1.17083  &
+      , -3.999164249, -3.0021307141, -1.17083  &
+      , -3.999164249, -3.0021307141, -1.21666  &
+      , -0.1967965107, -0.2395488452, -1.21666  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth41_4  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth42_4  &
+   location = -3.999164249, -3.0021307141, -1.21666  &
+      , -3.999164249, -3.0021307141, -1.17083  &
+      , -4.0910056947, -2.8757218088, -1.17083  &
+      , -4.0910056947, -2.8757218088, -1.21666  &
+      , -3.999164249, -3.0021307141, -1.21666  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth42_4  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth43_4  &
+   location = -4.0910056947, -2.8757218088, -1.21666  &
+      , -4.0910056947, -2.8757218088, -1.17083  &
+      , -0.2886379564, -0.1131399398, -1.17083  &
+      , -0.2886379564, -0.1131399398, -1.21666  &
+      , -4.0910056947, -2.8757218088, -1.21666  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth43_4  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth51_4  &
+   location = -0.1967965107, -0.2395488452, -1.17083  &
+      , -0.1967965107, -0.2395488452, -1.125  &
+      , -3.999164249, -3.0021307141, -1.125  &
+      , -3.999164249, -3.0021307141, -1.17083  &
+      , -0.1967965107, -0.2395488452, -1.17083  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth51_4  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth52_4  &
+   location = -3.999164249, -3.0021307141, -1.17083  &
+      , -3.999164249, -3.0021307141, -1.125  &
+      , -4.0910056947, -2.8757218088, -1.125  &
+      , -4.0910056947, -2.8757218088, -1.17083  &
+      , -3.999164249, -3.0021307141, -1.17083  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth52_4  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth53_4  &
+   location = -4.0910056947, -2.8757218088, -1.17083  &
+      , -4.0910056947, -2.8757218088, -1.125  &
+      , -0.2886379564, -0.1131399398, -1.125  &
+      , -0.2886379564, -0.1131399398, -1.17083  &
+      , -4.0910056947, -2.8757218088, -1.17083  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth53_4  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth61_4  &
+   location = -0.1967965107, -0.2395488452, -1.125  &
+      , -0.1967965107, -0.2395488452, -1.07917  &
+      , -3.999164249, -3.0021307141, -1.07917  &
+      , -3.999164249, -3.0021307141, -1.125  &
+      , -0.1967965107, -0.2395488452, -1.125  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth61_4  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth62_4  &
+   location = -3.999164249, -3.0021307141, -1.125  &
+      , -3.999164249, -3.0021307141, -1.07917  &
+      , -4.0910056947, -2.8757218088, -1.07917  &
+      , -4.0910056947, -2.8757218088, -1.125  &
+      , -3.999164249, -3.0021307141, -1.125  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth62_4  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth63_4  &
+   location = -4.0910056947, -2.8757218088, -1.125  &
+      , -4.0910056947, -2.8757218088, -1.07917  &
+      , -0.2886379564, -0.1131399398, -1.07917  &
+      , -0.2886379564, -0.1131399398, -1.125  &
+      , -4.0910056947, -2.8757218088, -1.125  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth63_4  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth71_4  &
+   location = -0.1967965107, -0.2395488452, -1.07917  &
+      , -0.1967965107, -0.2395488452, -1.03334  &
+      , -3.999164249, -3.0021307141, -1.03334  &
+      , -3.999164249, -3.0021307141, -1.07917  &
+      , -0.1967965107, -0.2395488452, -1.07917  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth71_4  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth72_4  &
+   location = -3.999164249, -3.0021307141, -1.07917  &
+      , -3.999164249, -3.0021307141, -1.03334  &
+      , -4.0910056947, -2.8757218088, -1.03334  &
+      , -4.0910056947, -2.8757218088, -1.07917  &
+      , -3.999164249, -3.0021307141, -1.07917  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth72_4  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth73_4  &
+   location = -4.0910056947, -2.8757218088, -1.07917  &
+      , -4.0910056947, -2.8757218088, -1.03334  &
+      , -0.2886379564, -0.1131399398, -1.03334  &
+      , -0.2886379564, -0.1131399398, -1.07917  &
+      , -4.0910056947, -2.8757218088, -1.07917  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth73_4  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth81_4  &
+   location = -0.1967965107, -0.2395488452, -1.03334  &
+      , -0.1967965107, -0.2395488452, -0.98751  &
+      , -3.999164249, -3.0021307141, -0.98751  &
+      , -3.999164249, -3.0021307141, -1.03334  &
+      , -0.1967965107, -0.2395488452, -1.03334  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth81_4  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth82_4  &
+   location = -3.999164249, -3.0021307141, -1.03334  &
+      , -3.999164249, -3.0021307141, -0.98751  &
+      , -4.0910056947, -2.8757218088, -0.98751  &
+      , -4.0910056947, -2.8757218088, -1.03334  &
+      , -3.999164249, -3.0021307141, -1.03334  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth82_4  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth83_4  &
+   location = -4.0910056947, -2.8757218088, -1.03334  &
+      , -4.0910056947, -2.8757218088, -0.98751  &
+      , -0.2886379564, -0.1131399398, -0.98751  &
+      , -0.2886379564, -0.1131399398, -1.03334  &
+      , -4.0910056947, -2.8757218088, -1.03334  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth83_4  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth91_4  &
+   location = -0.1967965107, -0.2395488452, -0.98751  &
+      , -0.1967965107, -0.2395488452, -0.94168  &
+      , -3.999164249, -3.0021307141, -0.94168  &
+      , -3.999164249, -3.0021307141, -0.98751  &
+      , -0.1967965107, -0.2395488452, -0.98751  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth91_4  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth92_4  &
+   location = -3.999164249, -3.0021307141, -0.98751  &
+      , -3.999164249, -3.0021307141, -0.94168  &
+      , -4.0910056947, -2.8757218088, -0.94168  &
+      , -4.0910056947, -2.8757218088, -0.98751  &
+      , -3.999164249, -3.0021307141, -0.98751  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth92_4  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth93_4  &
+   location = -4.0910056947, -2.8757218088, -0.98751  &
+      , -4.0910056947, -2.8757218088, -0.94168  &
+      , -0.2886379564, -0.1131399398, -0.94168  &
+      , -0.2886379564, -0.1131399398, -0.98751  &
+      , -4.0910056947, -2.8757218088, -0.98751  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth93_4  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth11_5  &
+   location = 0.1670110239, -0.2611892681, -1.35415  &
+      , 0.1670110239, -0.2611892681, -1.30832  &
+      , 1.6193862622, -4.7311406288, -1.30832  &
+      , 0.3215195211, -0.7367175262, -1.35415  &
+      , 0.1670110239, -0.2611892681, -1.35415  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth11_5  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth12_5  &
+   location = 0.3215195211, -0.7367175262, -1.35415  &
+      , 1.6193862622, -4.7311406288, -1.30832  &
+      , 1.4707836815, -4.7794245342, -1.30832  &
+      , 0.1729169404, -0.7850014316, -1.35415  &
+      , 0.3215195211, -0.7367175262, -1.35415  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth12_5  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth13_5  &
+   location = 0.1729169404, -0.7850014316, -1.35415  &
+      , 1.4707836815, -4.7794245342, -1.30832  &
+      , 1.8408443232E-02, -0.3094731734, -1.30832  &
+      , 1.8408443232E-02, -0.3094731734, -1.35415  &
+      , 0.1729169404, -0.7850014316, -1.35415  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth13_5  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth14_5  &
+   location = 0.1670110239, -0.2611892681, -1.35415  &
+      , 0.3215195211, -0.7367175262, -1.35415  &
+      , 0.1729169404, -0.7850014316, -1.35415  &
+      , 1.8408443232E-02, -0.3094731734, -1.35415  &
+      , 0.1670110239, -0.2611892681, -1.35415  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth14_5  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth101_5  &
+   location = 0.1670110239, -0.2611892681, -0.94168  &
+      , 0.1670110239, -0.2611892681, -0.89585  &
+      , 0.3215195211, -0.7367175262, -0.89585  &
+      , 1.6193862622, -4.7311406288, -0.94168  &
+      , 0.1670110239, -0.2611892681, -0.94168  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth101_5  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth102_5  &
+   location = 1.6193862622, -4.7311406288, -0.94168  &
+      , 0.3215195211, -0.7367175262, -0.89585  &
+      , 0.1729169404, -0.7850014316, -0.89585  &
+      , 1.4707836815, -4.7794245342, -0.94168  &
+      , 1.6193862622, -4.7311406288, -0.94168  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth102_5  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth103_5  &
+   location = 1.4707836815, -4.7794245342, -0.94168  &
+      , 0.1729169404, -0.7850014316, -0.89585  &
+      , 1.8408443232E-02, -0.3094731734, -0.89585  &
+      , 1.8408443232E-02, -0.3094731734, -0.94168  &
+      , 1.4707836815, -4.7794245342, -0.94168  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth103_5  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth104_5  &
+   location = 0.1670110239, -0.2611892681, -0.89585  &
+      , 0.3215195211, -0.7367175262, -0.89585  &
+      , 0.1729169404, -0.7850014316, -0.89585  &
+      , 1.8408443232E-02, -0.3094731734, -0.89585  &
+      , 0.1670110239, -0.2611892681, -0.89585  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth104_5  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth21_5  &
+   location = 0.1670110239, -0.2611892681, -1.30832  &
+      , 0.1670110239, -0.2611892681, -1.26249  &
+      , 1.6193862622, -4.7311406288, -1.26249  &
+      , 1.6193862622, -4.7311406288, -1.30832  &
+      , 0.1670110239, -0.2611892681, -1.30832  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth21_5  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth22_5  &
+   location = 1.6193862622, -4.7311406288, -1.30832  &
+      , 1.6193862622, -4.7311406288, -1.26249  &
+      , 1.4707836815, -4.7794245342, -1.26249  &
+      , 1.4707836815, -4.7794245342, -1.30832  &
+      , 1.6193862622, -4.7311406288, -1.30832  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth22_5  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth23_5  &
+   location = 1.4707836815, -4.7794245342, -1.30832  &
+      , 1.4707836815, -4.7794245342, -1.26249  &
+      , 1.8408443232E-02, -0.3094731734, -1.26249  &
+      , 1.8408443232E-02, -0.3094731734, -1.30832  &
+      , 1.4707836815, -4.7794245342, -1.30832  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth23_5  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth31_5  &
+   location = 0.1670110239, -0.2611892681, -1.26249  &
+      , 0.1670110239, -0.2611892681, -1.21666  &
+      , 1.6193862622, -4.7311406288, -1.21666  &
+      , 1.6193862622, -4.7311406288, -1.26249  &
+      , 0.1670110239, -0.2611892681, -1.26249  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth31_5  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth32_5  &
+   location = 1.6193862622, -4.7311406288, -1.26249  &
+      , 1.6193862622, -4.7311406288, -1.21666  &
+      , 1.4707836815, -4.7794245342, -1.21666  &
+      , 1.4707836815, -4.7794245342, -1.26249  &
+      , 1.6193862622, -4.7311406288, -1.26249  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth32_5  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth33_5  &
+   location = 1.4707836815, -4.7794245342, -1.26249  &
+      , 1.4707836815, -4.7794245342, -1.21666  &
+      , 1.8408443232E-02, -0.3094731734, -1.21666  &
+      , 1.8408443232E-02, -0.3094731734, -1.26249  &
+      , 1.4707836815, -4.7794245342, -1.26249  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth33_5  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth41_5  &
+   location = 0.1670110239, -0.2611892681, -1.21666  &
+      , 0.1670110239, -0.2611892681, -1.17083  &
+      , 1.6193862622, -4.7311406288, -1.17083  &
+      , 1.6193862622, -4.7311406288, -1.21666  &
+      , 0.1670110239, -0.2611892681, -1.21666  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth41_5  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth42_5  &
+   location = 1.6193862622, -4.7311406288, -1.21666  &
+      , 1.6193862622, -4.7311406288, -1.17083  &
+      , 1.4707836815, -4.7794245342, -1.17083  &
+      , 1.4707836815, -4.7794245342, -1.21666  &
+      , 1.6193862622, -4.7311406288, -1.21666  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth42_5  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth43_5  &
+   location = 1.4707836815, -4.7794245342, -1.21666  &
+      , 1.4707836815, -4.7794245342, -1.17083  &
+      , 1.8408443232E-02, -0.3094731734, -1.17083  &
+      , 1.8408443232E-02, -0.3094731734, -1.21666  &
+      , 1.4707836815, -4.7794245342, -1.21666  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth43_5  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth51_5  &
+   location = 0.1670110239, -0.2611892681, -1.17083  &
+      , 0.1670110239, -0.2611892681, -1.125  &
+      , 1.6193862622, -4.7311406288, -1.125  &
+      , 1.6193862622, -4.7311406288, -1.17083  &
+      , 0.1670110239, -0.2611892681, -1.17083  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth51_5  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth52_5  &
+   location = 1.6193862622, -4.7311406288, -1.17083  &
+      , 1.6193862622, -4.7311406288, -1.125  &
+      , 1.4707836815, -4.7794245342, -1.125  &
+      , 1.4707836815, -4.7794245342, -1.17083  &
+      , 1.6193862622, -4.7311406288, -1.17083  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth52_5  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth53_5  &
+   location = 1.4707836815, -4.7794245342, -1.17083  &
+      , 1.4707836815, -4.7794245342, -1.125  &
+      , 1.8408443232E-02, -0.3094731734, -1.125  &
+      , 1.8408443232E-02, -0.3094731734, -1.17083  &
+      , 1.4707836815, -4.7794245342, -1.17083  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth53_5  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth61_5  &
+   location = 0.1670110239, -0.2611892681, -1.125  &
+      , 0.1670110239, -0.2611892681, -1.07917  &
+      , 1.6193862622, -4.7311406288, -1.07917  &
+      , 1.6193862622, -4.7311406288, -1.125  &
+      , 0.1670110239, -0.2611892681, -1.125  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth61_5  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth62_5  &
+   location = 1.6193862622, -4.7311406288, -1.125  &
+      , 1.6193862622, -4.7311406288, -1.07917  &
+      , 1.4707836815, -4.7794245342, -1.07917  &
+      , 1.4707836815, -4.7794245342, -1.125  &
+      , 1.6193862622, -4.7311406288, -1.125  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth62_5  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth63_5  &
+   location = 1.4707836815, -4.7794245342, -1.125  &
+      , 1.4707836815, -4.7794245342, -1.07917  &
+      , 1.8408443232E-02, -0.3094731734, -1.07917  &
+      , 1.8408443232E-02, -0.3094731734, -1.125  &
+      , 1.4707836815, -4.7794245342, -1.125  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth63_5  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth71_5  &
+   location = 0.1670110239, -0.2611892681, -1.07917  &
+      , 0.1670110239, -0.2611892681, -1.03334  &
+      , 1.6193862622, -4.7311406288, -1.03334  &
+      , 1.6193862622, -4.7311406288, -1.07917  &
+      , 0.1670110239, -0.2611892681, -1.07917  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth71_5  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth72_5  &
+   location = 1.6193862622, -4.7311406288, -1.07917  &
+      , 1.6193862622, -4.7311406288, -1.03334  &
+      , 1.4707836815, -4.7794245342, -1.03334  &
+      , 1.4707836815, -4.7794245342, -1.07917  &
+      , 1.6193862622, -4.7311406288, -1.07917  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth72_5  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth73_5  &
+   location = 1.4707836815, -4.7794245342, -1.07917  &
+      , 1.4707836815, -4.7794245342, -1.03334  &
+      , 1.8408443232E-02, -0.3094731734, -1.03334  &
+      , 1.8408443232E-02, -0.3094731734, -1.07917  &
+      , 1.4707836815, -4.7794245342, -1.07917  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth73_5  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth81_5  &
+   location = 0.1670110239, -0.2611892681, -1.03334  &
+      , 0.1670110239, -0.2611892681, -0.98751  &
+      , 1.6193862622, -4.7311406288, -0.98751  &
+      , 1.6193862622, -4.7311406288, -1.03334  &
+      , 0.1670110239, -0.2611892681, -1.03334  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth81_5  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth82_5  &
+   location = 1.6193862622, -4.7311406288, -1.03334  &
+      , 1.6193862622, -4.7311406288, -0.98751  &
+      , 1.4707836815, -4.7794245342, -0.98751  &
+      , 1.4707836815, -4.7794245342, -1.03334  &
+      , 1.6193862622, -4.7311406288, -1.03334  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth82_5  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth83_5  &
+   location = 1.4707836815, -4.7794245342, -1.03334  &
+      , 1.4707836815, -4.7794245342, -0.98751  &
+      , 1.8408443232E-02, -0.3094731734, -0.98751  &
+      , 1.8408443232E-02, -0.3094731734, -1.03334  &
+      , 1.4707836815, -4.7794245342, -1.03334  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth83_5  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth91_5  &
+   location = 0.1670110239, -0.2611892681, -0.98751  &
+      , 0.1670110239, -0.2611892681, -0.94168  &
+      , 1.6193862622, -4.7311406288, -0.94168  &
+      , 1.6193862622, -4.7311406288, -0.98751  &
+      , 0.1670110239, -0.2611892681, -0.98751  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth91_5  &
+   color = ForestGreen
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth92_5  &
+   location = 1.6193862622, -4.7311406288, -0.98751  &
+      , 1.6193862622, -4.7311406288, -0.94168  &
+      , 1.4707836815, -4.7794245342, -0.94168  &
+      , 1.4707836815, -4.7794245342, -0.98751  &
+      , 1.6193862622, -4.7311406288, -0.98751  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth92_5  &
+   color = SILVER
+!
+geometry create curve polyline  &
+   polyline_name = .test_analysis_1.example_motor_02_A.tth93_5  &
+   location = 1.4707836815, -4.7794245342, -0.98751  &
+      , 1.4707836815, -4.7794245342, -0.94168  &
+      , 1.8408443232E-02, -0.3094731734, -0.94168  &
+      , 1.8408443232E-02, -0.3094731734, -0.98751  &
+      , 1.4707836815, -4.7794245342, -0.98751  &
+   close = yes
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_A.tth93_5  &
+   color = ForestGreen
+!
+!----------------------------- example_motor_02_B -----------------------------!
+!
+!
+defaults coordinate_system  &
+   default_coordinate_system = .test_analysis_1.ground
+!
+part create rigid_body name_and_position  &
+   part_name = .test_analysis_1.example_motor_02_B  &
+   adams_id = 9000300  &
+   location = 709.3760291576, 0.0, 1502.0005732661  &
+   orientation = 90.0d, 89.9970746934d, 270.0d
+!
+defaults coordinate_system  &
+   default_coordinate_system = .test_analysis_1.example_motor_02_B
+!
+! ****** Markers for current part ******
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_B.end_B  &
+   adams_id = 9006940  &
+   location = 0.0, 0.0, 0.0  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_B.cm  &
+   adams_id = 9006941  &
+   location = 0.0, 0.0, -2.190425  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_B.end_beam1B  &
+   adams_id = 9006942  &
+   location = 0.0, 0.0, -2.4514879224  &
+   orientation = 0.0d, 90.0d, 90.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_B.benddir1  &
+   adams_id = 9000300  &
+   location = 0.0, 0.0, -4.38085  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_B.bendrev1  &
+   adams_id = 9006943  &
+   location = 0.0, 0.0, -4.38085  &
+   orientation = 0.0d, 90.0d, 0.0d
+!
+part create rigid_body mass_properties  &
+   part_name = .test_analysis_1.example_motor_02_B  &
+   mass = 28.2522533637  &
+   center_of_mass_marker = .test_analysis_1.example_motor_02_B.cm  &
+   ixx = 45.9815254277  &
+   iyy = 45.9815254277  &
+   izz = 1.594231502  &
+   ixy = 0.0  &
+   izx = 0.0  &
+   iyz = 0.0
+!
+! ****** Graphics for current part ******
+!
+geometry create shape cylinder  &
+   cylinder_name = .test_analysis_1.example_motor_02_B.cyl1  &
+   adams_id = 5504  &
+   center_marker = .test_analysis_1.example_motor_02_B.end_B  &
+   angle_extent = 360.0  &
+   length = -4.38085  &
+   radius = 0.33335  &
+   side_count_for_body = 16  &
+   segment_count_for_ends = 16
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_B.cyl1  &
+   color = ForestGreen
+!
+!---------------------------- example_motor_02_B2 -----------------------------!
+!
+!
+defaults coordinate_system  &
+   default_coordinate_system = .test_analysis_1.ground
+!
+part create rigid_body name_and_position  &
+   part_name = .test_analysis_1.example_motor_02_B2  &
+   adams_id = 9000400  &
+   location = 704.995833433, 0.0, 1502.0003496299  &
+   orientation = 90.0d, 89.995894967d, 270.0d
+!
+defaults coordinate_system  &
+   default_coordinate_system = .test_analysis_1.example_motor_02_B2
+!
+! ****** Markers for current part ******
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_B2.end_B2  &
+   adams_id = 9006944  &
+   location = 0.0, 0.0, 0.0  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_B2.cm  &
+   adams_id = 9006945  &
+   location = 0.0, 0.0, -2.85125  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_B2.benddir2  &
+   adams_id = 9006946  &
+   location = 0.0, 0.0, 0.0  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_B2.bendend  &
+   adams_id = 9006947  &
+   location = 0.0, 0.0, -5.7025  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_B2.end_beam2B  &
+   adams_id = 9006948  &
+   location = 0.0, 0.0, -2.85125  &
+   orientation = 0.0d, 90.0d, 90.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_B2.bendrev2  &
+   adams_id = 9006949  &
+   location = 0.0, 0.0, 0.0  &
+   orientation = 0.0d, 90.0d, 0.0d
+!
+part create rigid_body mass_properties  &
+   part_name = .test_analysis_1.example_motor_02_B2  &
+   mass = 36.7756199839  &
+   center_of_mass_marker = .test_analysis_1.example_motor_02_B2.cm  &
+   ixx = 100.6949483882  &
+   iyy = 100.6949483882  &
+   izz = 2.0751920609  &
+   ixy = 0.0  &
+   izx = 0.0  &
+   iyz = 0.0
+!
+! ****** Graphics for current part ******
+!
+geometry create shape cylinder  &
+   cylinder_name = .test_analysis_1.example_motor_02_B2.cyl2  &
+   adams_id = 5505  &
+   center_marker = .test_analysis_1.example_motor_02_B2.benddir2  &
+   angle_extent = 360.0  &
+   length = -5.7025  &
+   radius = 0.33335  &
+   side_count_for_body = 16  &
+   segment_count_for_ends = 16
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_B2.cyl2  &
+   color = ForestGreen
+!
+!----------------------------- example_motor_02_C -----------------------------!
+!
+!
+defaults coordinate_system  &
+   default_coordinate_system = .test_analysis_1.ground
+!
+part create rigid_body name_and_position  &
+   part_name = .test_analysis_1.example_motor_02_C  &
+   adams_id = 9000500  &
+   location = 699.2940033046, 0.0, 1501.9999411146  &
+   orientation = 90.0d, 89.9938296885d, 270.0d
+!
+defaults coordinate_system  &
+   default_coordinate_system = .test_analysis_1.example_motor_02_C
+!
+! ****** Markers for current part ******
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_C.end_C  &
+   adams_id = 9006950  &
+   location = 0.0, 0.0, -11.405  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_C.cm  &
+   adams_id = 9000500  &
+   location = 0.0, 0.0, -5.7025  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_C.end_beam2C  &
+   adams_id = 9006951  &
+   location = 0.0, 0.0, -4.276875  &
+   orientation = 0.0d, 90.0d, 90.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_C.end_beam3C  &
+   adams_id = 9006952  &
+   location = 0.0, 0.0, -7.128125  &
+   orientation = 0.0d, 90.0d, 90.0d
+!
+part create rigid_body mass_properties  &
+   part_name = .test_analysis_1.example_motor_02_C  &
+   mass = 73.5512399677  &
+   center_of_mass_marker = .test_analysis_1.example_motor_02_C.cm  &
+   ixx = 799.3340109228  &
+   iyy = 799.3340109228  &
+   izz = 4.1503841219  &
+   ixy = 0.0  &
+   izx = 0.0  &
+   iyz = 0.0
+!
+! ****** Graphics for current part ******
+!
+geometry create shape cylinder  &
+   cylinder_name = .test_analysis_1.example_motor_02_C.cyl1  &
+   adams_id = 5506  &
+   center_marker = .test_analysis_1.example_motor_02_C.end_C  &
+   angle_extent = 360.0  &
+   length = 11.405  &
+   radius = 0.33335  &
+   side_count_for_body = 16  &
+   segment_count_for_ends = 16
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_C.cyl1  &
+   color = ForestGreen
+!
+!----------------------------- example_motor_02_D -----------------------------!
+!
+!
+defaults coordinate_system  &
+   default_coordinate_system = .test_analysis_1.ground
+!
+part create rigid_body name_and_position  &
+   part_name = .test_analysis_1.example_motor_02_D  &
+   adams_id = 9000600  &
+   location = 687.8897114154, 0.0, 1501.9987129607  &
+   orientation = 90.0d, 89.9924600177d, 270.0d
+!
+defaults coordinate_system  &
+   default_coordinate_system = .test_analysis_1.example_motor_02_D
+!
+! ****** Markers for current part ******
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_D.end_D  &
+   adams_id = 9000600  &
+   location = 0.0, 0.0, -5.7025  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_D.cm  &
+   adams_id = 9006953  &
+   location = 0.0, 0.0, -2.85125  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_D.end_beam3D  &
+   adams_id = 9006954  &
+   location = 0.0, 0.0, -2.85125  &
+   orientation = 0.0d, 90.0d, 90.0d
+!
+part create rigid_body mass_properties  &
+   part_name = .test_analysis_1.example_motor_02_D  &
+   mass = 36.7756199839  &
+   center_of_mass_marker = .test_analysis_1.example_motor_02_D.cm  &
+   ixx = 100.6949483882  &
+   iyy = 100.6949483882  &
+   izz = 2.0751920609  &
+   ixy = 0.0  &
+   izx = 0.0  &
+   iyz = 0.0
+!
+! ****** Graphics for current part ******
+!
+geometry create shape cylinder  &
+   cylinder_name = .test_analysis_1.example_motor_02_D.cyl1  &
+   adams_id = 5507  &
+   center_marker = .test_analysis_1.example_motor_02_D.end_D  &
+   angle_extent = 360.0  &
+   length = 5.7025  &
+   radius = 0.33335  &
+   side_count_for_body = 16  &
+   segment_count_for_ends = 16
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_D.cyl1  &
+   color = ForestGreen
+!
+!-------------------------- example_motor_02_sliderA --------------------------!
+!
+!
+defaults coordinate_system  &
+   default_coordinate_system = .test_analysis_1.ground
+!
+part create rigid_body name_and_position  &
+   part_name = .test_analysis_1.example_motor_02_sliderA  &
+   adams_id = 9000201  &
+   location = 709.604541235, 0.0, 1502.0005827061  &
+   orientation = 90.0d, 89.997633077d, 270.0d
+!
+defaults coordinate_system  &
+   default_coordinate_system = .test_analysis_1.example_motor_02_sliderA
+!
+! ****** Markers for current part ******
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_sliderA.cm  &
    adams_id = 9000201  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
-   marker_name = .test_analysis_1.example_stabilizer_02_sliderA.A1  &
-   adams_id = 9006335  &
+   marker_name = .test_analysis_1.example_motor_02_sliderA.A1  &
+   adams_id = 9006955  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
-   marker_name = .test_analysis_1.example_stabilizer_02_sliderA.A2  &
-   adams_id = 9006336  &
+   marker_name = .test_analysis_1.example_motor_02_sliderA.A2  &
+   adams_id = 9006956  &
    location = 0.0, 0.0, -0.3  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_sliderA.tangent_ref  &
+   adams_id = 9006957  &
+   location = 0.0, 0.0, 1.0  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_sliderA.down_ref  &
+   adams_id = 9006958  &
+   location = -1.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.example_stabilizer_02_sliderA.FMARKER_9000308  &
-   adams_id = 9000308
+   floating_marker_name = .test_analysis_1.example_motor_02_sliderA.FMARKER_9000710  &
+   adams_id = 9000710
 !
 part create rigid_body mass_properties  &
-   part_name = .test_analysis_1.example_stabilizer_02_sliderA  &
+   part_name = .test_analysis_1.example_motor_02_sliderA  &
    density = 0.1
 !
 ! ****** Graphics for current part ******
 !
 geometry create shape cylinder  &
-   cylinder_name = .test_analysis_1.example_stabilizer_02_sliderA.example_stabilizer_02_sliderAgraphic  &
-   adams_id = 3218  &
-   center_marker = .test_analysis_1.example_stabilizer_02_sliderA.A2  &
+   cylinder_name = .test_analysis_1.example_motor_02_sliderA.example_motor_02_sliderAgraphic  &
+   adams_id = 5508  &
+   center_marker = .test_analysis_1.example_motor_02_sliderA.A2  &
    angle_extent = 360.0  &
    length = 0.6  &
    radius = 7.0E-02  &
@@ -6281,85 +8890,307 @@ geometry create shape cylinder  &
    segment_count_for_ends = 4
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_sliderA.example_stabilizer_02_sliderAgraphic  &
+   geometry_name = .test_analysis_1.example_motor_02_sliderA.example_motor_02_sliderAgraphic  &
    color = MidnightBlue2  &
    render = wireframe
 !
 geometry create curve circle  &
-   circle_name = .test_analysis_1.example_stabilizer_02_sliderA.ghole  &
-   adams_id = 3148  &
-   center_marker = .test_analysis_1.example_stabilizer_02_sliderA.cm  &
+   circle_name = .test_analysis_1.example_motor_02_sliderA.ghole  &
+   adams_id = 5432  &
+   center_marker = .test_analysis_1.example_motor_02_sliderA.cm  &
    radius = 0.54175  &
    segment_count = 24
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_sliderA.ghole  &
+   geometry_name = .test_analysis_1.example_motor_02_sliderA.ghole  &
    color = BLUE  &
    render = wireframe
 !
-!-------------------------- example_stabilizer_02_B ---------------------------!
+!-------------------------- example_motor_02_sliderB --------------------------!
 !
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.ground
 !
 part create rigid_body name_and_position  &
-   part_name = .test_analysis_1.example_stabilizer_02_B  &
-   adams_id = 9000200  &
-   location = 708.7739084522, 0.0, 1502.0005298723  &
-   orientation = 90.0d, 89.9972021726d, 270.0d
+   part_name = .test_analysis_1.example_motor_02_sliderB  &
+   adams_id = 9000301  &
+   location = 704.9951791633, 0.0, 1502.0003495965  &
+   orientation = 90.0d, 89.9970746934d, 270.0d
 !
 defaults coordinate_system  &
-   default_coordinate_system = .test_analysis_1.example_stabilizer_02_B
+   default_coordinate_system = .test_analysis_1.example_motor_02_sliderB
 !
 ! ****** Markers for current part ******
 !
 marker create  &
-   marker_name = .test_analysis_1.example_stabilizer_02_B.end_B1  &
-   adams_id = 9000202  &
-   location = 0.0, 0.0, 2.33  &
-   orientation = 0.0d, 0.0d, 0.0d
-!
-marker create  &
-   marker_name = .test_analysis_1.example_stabilizer_02_B.barrelA  &
-   adams_id = 9006331  &
+   marker_name = .test_analysis_1.example_motor_02_sliderB.cm  &
+   adams_id = 9000301  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
-   marker_name = .test_analysis_1.example_stabilizer_02_B.barrelA1  &
-   adams_id = 9000200  &
+   marker_name = .test_analysis_1.example_motor_02_sliderB.B1  &
+   adams_id = 9006959  &
+   location = 0.0, 0.0, 0.3  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_sliderB.B2  &
+   adams_id = 9006960  &
+   location = 0.0, 0.0, -0.3  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+! ****** Floating Markers for current part ******
+!
+floating_marker create  &
+   floating_marker_name = .test_analysis_1.example_motor_02_sliderB.FMARKER_9000711  &
+   adams_id = 9000711
+!
+part create rigid_body mass_properties  &
+   part_name = .test_analysis_1.example_motor_02_sliderB  &
+   density = 0.1
+!
+! ****** Graphics for current part ******
+!
+geometry create shape cylinder  &
+   cylinder_name = .test_analysis_1.example_motor_02_sliderB.example_motor_02_sliderBgraphic  &
+   adams_id = 5509  &
+   center_marker = .test_analysis_1.example_motor_02_sliderB.B2  &
+   angle_extent = 360.0  &
+   length = 0.6  &
+   radius = 7.0E-02  &
+   side_count_for_body = 4  &
+   segment_count_for_ends = 4
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_sliderB.example_motor_02_sliderBgraphic  &
+   color = MidnightBlue2  &
+   render = wireframe
+!
+geometry create curve circle  &
+   circle_name = .test_analysis_1.example_motor_02_sliderB.ghole  &
+   adams_id = 5433  &
+   center_marker = .test_analysis_1.example_motor_02_sliderB.cm  &
+   radius = 0.54175  &
+   segment_count = 24
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_sliderB.ghole  &
+   color = BLUE  &
+   render = wireframe
+!
+!-------------------------- example_motor_02_sliderC --------------------------!
+!
+!
+defaults coordinate_system  &
+   default_coordinate_system = .test_analysis_1.ground
+!
+part create rigid_body name_and_position  &
+   part_name = .test_analysis_1.example_motor_02_sliderC  &
+   adams_id = 9000501  &
+   location = 693.5915033377, 0.0, 1501.9993269995  &
+   orientation = 90.0d, 89.9938296885d, 270.0d
+!
+defaults coordinate_system  &
+   default_coordinate_system = .test_analysis_1.example_motor_02_sliderC
+!
+! ****** Markers for current part ******
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_sliderC.cm  &
+   adams_id = 9000501  &
+   location = 0.0, 0.0, 0.0  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_sliderC.C1  &
+   adams_id = 9006961  &
+   location = 0.0, 0.0, 0.3  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.example_motor_02_sliderC.C2  &
+   adams_id = 9006962  &
+   location = 0.0, 0.0, -0.3  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+! ****** Floating Markers for current part ******
+!
+floating_marker create  &
+   floating_marker_name = .test_analysis_1.example_motor_02_sliderC.FMARKER_9000712  &
+   adams_id = 9000712
+!
+part create rigid_body mass_properties  &
+   part_name = .test_analysis_1.example_motor_02_sliderC  &
+   density = 0.1
+!
+! ****** Graphics for current part ******
+!
+geometry create shape cylinder  &
+   cylinder_name = .test_analysis_1.example_motor_02_sliderC.example_motor_02_sliderCgraphic  &
+   adams_id = 5510  &
+   center_marker = .test_analysis_1.example_motor_02_sliderC.C2  &
+   angle_extent = 360.0  &
+   length = 0.6  &
+   radius = 7.0E-02  &
+   side_count_for_body = 4  &
+   segment_count_for_ends = 4
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_sliderC.example_motor_02_sliderCgraphic  &
+   color = MidnightBlue2  &
+   render = wireframe
+!
+geometry create curve circle  &
+   circle_name = .test_analysis_1.example_motor_02_sliderC.ghole  &
+   adams_id = 5434  &
+   center_marker = .test_analysis_1.example_motor_02_sliderC.cm  &
+   radius = 0.54175  &
+   segment_count = 24
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_motor_02_sliderC.ghole  &
+   color = BLUE  &
+   render = wireframe
+!
+!----------------------- example_stabilizer_03_sliderA ------------------------!
+!
+!
+defaults coordinate_system  &
+   default_coordinate_system = .test_analysis_1.ground
+!
+part create rigid_body name_and_position  &
+   part_name = .test_analysis_1.example_stabilizer_03_sliderA  &
+   adams_id = 9000801  &
+   location = 679.6710371357, 0.0, 1501.9976088926  &
+   orientation = 90.0d, 89.9919472259d, 270.0d
+!
+defaults coordinate_system  &
+   default_coordinate_system = .test_analysis_1.example_stabilizer_03_sliderA
+!
+! ****** Markers for current part ******
+!
+marker create  &
+   marker_name = .test_analysis_1.example_stabilizer_03_sliderA.cm  &
+   adams_id = 9000801  &
+   location = 0.0, 0.0, 0.0  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.example_stabilizer_03_sliderA.A1  &
+   adams_id = 9006967  &
+   location = 0.0, 0.0, 0.3  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.example_stabilizer_03_sliderA.A2  &
+   adams_id = 9006968  &
+   location = 0.0, 0.0, -0.3  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+! ****** Floating Markers for current part ******
+!
+floating_marker create  &
+   floating_marker_name = .test_analysis_1.example_stabilizer_03_sliderA.FMARKER_9000908  &
+   adams_id = 9000908
+!
+part create rigid_body mass_properties  &
+   part_name = .test_analysis_1.example_stabilizer_03_sliderA  &
+   density = 0.1
+!
+! ****** Graphics for current part ******
+!
+geometry create shape cylinder  &
+   cylinder_name = .test_analysis_1.example_stabilizer_03_sliderA.example_stabilizer_03_sliderAgraphic  &
+   adams_id = 5514  &
+   center_marker = .test_analysis_1.example_stabilizer_03_sliderA.A2  &
+   angle_extent = 360.0  &
+   length = 0.6  &
+   radius = 7.0E-02  &
+   side_count_for_body = 4  &
+   segment_count_for_ends = 4
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_sliderA.example_stabilizer_03_sliderAgraphic  &
+   color = MidnightBlue2  &
+   render = wireframe
+!
+geometry create curve circle  &
+   circle_name = .test_analysis_1.example_stabilizer_03_sliderA.ghole  &
+   adams_id = 5435  &
+   center_marker = .test_analysis_1.example_stabilizer_03_sliderA.cm  &
+   radius = 0.54175  &
+   segment_count = 24
+!
+geometry attributes  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_sliderA.ghole  &
+   color = BLUE  &
+   render = wireframe
+!
+!-------------------------- example_stabilizer_03_B ---------------------------!
+!
+!
+defaults coordinate_system  &
+   default_coordinate_system = .test_analysis_1.ground
+!
+part create rigid_body name_and_position  &
+   part_name = .test_analysis_1.example_stabilizer_03_B  &
+   adams_id = 9000800  &
+   location = 679.8540371339, 0.0, 1501.9976346128  &
+   orientation = 90.0d, 89.9919472259d, 270.0d
+!
+defaults coordinate_system  &
+   default_coordinate_system = .test_analysis_1.example_stabilizer_03_B
+!
+! ****** Markers for current part ******
+!
+marker create  &
+   marker_name = .test_analysis_1.example_stabilizer_03_B.end_B1  &
+   adams_id = 9000802  &
+   location = 0.0, 0.0, 2.33  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.example_stabilizer_03_B.barrelA  &
+   adams_id = 9006963  &
+   location = 0.0, 0.0, 0.0  &
+   orientation = 0.0d, 0.0d, 0.0d
+!
+marker create  &
+   marker_name = .test_analysis_1.example_stabilizer_03_B.barrelA1  &
+   adams_id = 9000800  &
    location = 0.0, 0.0, -0.183  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
-   marker_name = .test_analysis_1.example_stabilizer_02_B.barrelB1  &
-   adams_id = 9000300  &
+   marker_name = .test_analysis_1.example_stabilizer_03_B.barrelB1  &
+   adams_id = 9000900  &
    location = 0.0, 0.0, -1.647  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
-   marker_name = .test_analysis_1.example_stabilizer_02_B.barrelB  &
-   adams_id = 9006332  &
+   marker_name = .test_analysis_1.example_stabilizer_03_B.barrelB  &
+   adams_id = 9006964  &
    location = 0.0, 0.0, -1.83  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
-   marker_name = .test_analysis_1.example_stabilizer_02_B.cm  &
-   adams_id = 9006333  &
+   marker_name = .test_analysis_1.example_stabilizer_03_B.cm  &
+   adams_id = 9006965  &
    location = 0.0, 0.0, -0.915  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
-   marker_name = .test_analysis_1.example_stabilizer_02_B.end_B2  &
-   adams_id = 9006334  &
+   marker_name = .test_analysis_1.example_stabilizer_03_B.end_B2  &
+   adams_id = 9006966  &
    location = 0.0, 0.0, -4.16  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 part create rigid_body mass_properties  &
-   part_name = .test_analysis_1.example_stabilizer_02_B  &
+   part_name = .test_analysis_1.example_stabilizer_03_B  &
    mass = 22.4508185341  &
-   center_of_mass_marker = .test_analysis_1.example_stabilizer_02_B.cm  &
+   center_of_mass_marker = .test_analysis_1.example_stabilizer_03_B.cm  &
    ixx = 65.5345280843  &
    iyy = 65.5345280843  &
    izz = 1.1981914445  &
@@ -6370,9 +9201,9 @@ part create rigid_body mass_properties  &
 ! ****** Graphics for current part ******
 !
 geometry create shape cylinder  &
-   cylinder_name = .test_analysis_1.example_stabilizer_02_B.cyl2  &
-   adams_id = 3216  &
-   center_marker = .test_analysis_1.example_stabilizer_02_B.barrelA  &
+   cylinder_name = .test_analysis_1.example_stabilizer_03_B.cyl2  &
+   adams_id = 5512  &
+   center_marker = .test_analysis_1.example_stabilizer_03_B.barrelA  &
    angle_extent = 360.0  &
    length = -1.83  &
    radius = 0.2691666666  &
@@ -6380,13 +9211,13 @@ geometry create shape cylinder  &
    segment_count_for_ends = 16
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.cyl2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.cyl2  &
    color = MedOrchid
 !
 geometry create shape cylinder  &
-   cylinder_name = .test_analysis_1.example_stabilizer_02_B.cyl1  &
-   adams_id = 3215  &
-   center_marker = .test_analysis_1.example_stabilizer_02_B.end_B1  &
+   cylinder_name = .test_analysis_1.example_stabilizer_03_B.cyl1  &
+   adams_id = 5511  &
+   center_marker = .test_analysis_1.example_stabilizer_03_B.end_B1  &
    angle_extent = 360.0  &
    length = -2.33  &
    radius = 0.2691666666  &
@@ -6394,13 +9225,13 @@ geometry create shape cylinder  &
    segment_count_for_ends = 16
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.cyl1  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.cyl1  &
    color = MedOrchid
 !
 geometry create shape cylinder  &
-   cylinder_name = .test_analysis_1.example_stabilizer_02_B.cyl11  &
-   adams_id = 3217  &
-   center_marker = .test_analysis_1.example_stabilizer_02_B.end_B2  &
+   cylinder_name = .test_analysis_1.example_stabilizer_03_B.cyl11  &
+   adams_id = 5513  &
+   center_marker = .test_analysis_1.example_stabilizer_03_B.end_B2  &
    angle_extent = 360.0  &
    length = 2.33  &
    radius = 0.2691666666  &
@@ -6408,11 +9239,11 @@ geometry create shape cylinder  &
    segment_count_for_ends = 16
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.cyl11  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.cyl11  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth14  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth14  &
    location = 0.24225, 0.1041666667, -1.83  &
       , 0.2771458333, 0.1041666667, -1.83  &
       , 0.2771458333, -0.1041666667, -1.83  &
@@ -6421,11 +9252,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth14  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth14  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth11  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth11  &
    location = 0.24225, 0.1041666667, -1.83  &
       , 0.24225, 0.1041666667, -1.647  &
       , 0.3489583334, 0.1041666667, -1.647  &
@@ -6434,11 +9265,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth11  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth11  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth12  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth12  &
    location = 0.2771458333, 0.1041666667, -1.83  &
       , 0.3489583334, 0.1041666667, -1.647  &
       , 0.3489583334, -0.1041666667, -1.647  &
@@ -6447,11 +9278,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth12  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth12  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth13  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth13  &
    location = 0.2771458333, -0.1041666667, -1.83  &
       , 0.3489583334, -0.1041666667, -1.647  &
       , 0.24225, -0.1041666667, -1.647  &
@@ -6460,11 +9291,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth13  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth13  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth104  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth104  &
    location = 0.24225, 0.1041666667, 0.0  &
       , 0.2771458333, 0.1041666667, 0.0  &
       , 0.2771458333, -0.1041666667, 0.0  &
@@ -6473,11 +9304,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth104  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth104  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth101  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth101  &
    location = 0.24225, 0.1041666667, -0.183  &
       , 0.24225, 0.1041666667, 0.0  &
       , 0.2771458333, 0.1041666667, 0.0  &
@@ -6486,11 +9317,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth101  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth101  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth102  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth102  &
    location = 0.3489583333, 0.1041666667, -0.183  &
       , 0.2771458333, 0.1041666667, 0.0  &
       , 0.2771458333, -0.1041666667, 0.0  &
@@ -6499,11 +9330,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth102  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth102  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth103  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth103  &
    location = 0.3489583333, -0.1041666667, -0.183  &
       , 0.2771458333, -0.1041666667, 0.0  &
       , 0.24225, -0.1041666667, 0.0  &
@@ -6512,89 +9343,89 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth103  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth103  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth21  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth21  &
    location = 0.24225, 0.1041666667, -1.647  &
       , 0.24225, 0.1041666667, -1.464  &
-      , 0.3489583334, 0.1041666667, -1.464  &
+      , 0.3489583333, 0.1041666667, -1.464  &
       , 0.3489583334, 0.1041666667, -1.647  &
       , 0.24225, 0.1041666667, -1.647  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth21  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth21  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth22  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth22  &
    location = 0.3489583334, 0.1041666667, -1.647  &
-      , 0.3489583334, 0.1041666667, -1.464  &
-      , 0.3489583334, -0.1041666667, -1.464  &
+      , 0.3489583333, 0.1041666667, -1.464  &
+      , 0.3489583333, -0.1041666667, -1.464  &
       , 0.3489583334, -0.1041666667, -1.647  &
       , 0.3489583334, 0.1041666667, -1.647  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth22  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth22  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth23  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth23  &
    location = 0.3489583334, -0.1041666667, -1.647  &
-      , 0.3489583334, -0.1041666667, -1.464  &
+      , 0.3489583333, -0.1041666667, -1.464  &
       , 0.24225, -0.1041666667, -1.464  &
       , 0.24225, -0.1041666667, -1.647  &
       , 0.3489583334, -0.1041666667, -1.647  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth23  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth23  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth31  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth31  &
    location = 0.24225, 0.1041666667, -1.464  &
       , 0.24225, 0.1041666667, -1.281  &
       , 0.3489583334, 0.1041666667, -1.281  &
-      , 0.3489583334, 0.1041666667, -1.464  &
+      , 0.3489583333, 0.1041666667, -1.464  &
       , 0.24225, 0.1041666667, -1.464  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth31  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth31  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth32  &
-   location = 0.3489583334, 0.1041666667, -1.464  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth32  &
+   location = 0.3489583333, 0.1041666667, -1.464  &
       , 0.3489583334, 0.1041666667, -1.281  &
       , 0.3489583334, -0.1041666667, -1.281  &
-      , 0.3489583334, -0.1041666667, -1.464  &
-      , 0.3489583334, 0.1041666667, -1.464  &
+      , 0.3489583333, -0.1041666667, -1.464  &
+      , 0.3489583333, 0.1041666667, -1.464  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth32  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth32  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth33  &
-   location = 0.3489583334, -0.1041666667, -1.464  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth33  &
+   location = 0.3489583333, -0.1041666667, -1.464  &
       , 0.3489583334, -0.1041666667, -1.281  &
       , 0.24225, -0.1041666667, -1.281  &
       , 0.24225, -0.1041666667, -1.464  &
-      , 0.3489583334, -0.1041666667, -1.464  &
+      , 0.3489583333, -0.1041666667, -1.464  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth33  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth33  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth41  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth41  &
    location = 0.24225, 0.1041666667, -1.281  &
       , 0.24225, 0.1041666667, -1.098  &
       , 0.3489583333, 0.1041666667, -1.098  &
@@ -6603,11 +9434,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth41  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth41  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth42  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth42  &
    location = 0.3489583334, 0.1041666667, -1.281  &
       , 0.3489583333, 0.1041666667, -1.098  &
       , 0.3489583333, -0.1041666667, -1.098  &
@@ -6616,11 +9447,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth42  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth42  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth43  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth43  &
    location = 0.3489583334, -0.1041666667, -1.281  &
       , 0.3489583333, -0.1041666667, -1.098  &
       , 0.24225, -0.1041666667, -1.098  &
@@ -6629,128 +9460,128 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth43  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth43  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth51  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth51  &
    location = 0.24225, 0.1041666667, -1.098  &
       , 0.24225, 0.1041666667, -0.915  &
-      , 0.3489583333, 0.1041666667, -0.915  &
+      , 0.3489583334, 0.1041666667, -0.915  &
       , 0.3489583333, 0.1041666667, -1.098  &
       , 0.24225, 0.1041666667, -1.098  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth51  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth51  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth52  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth52  &
    location = 0.3489583333, 0.1041666667, -1.098  &
-      , 0.3489583333, 0.1041666667, -0.915  &
-      , 0.3489583333, -0.1041666667, -0.915  &
+      , 0.3489583334, 0.1041666667, -0.915  &
+      , 0.3489583334, -0.1041666667, -0.915  &
       , 0.3489583333, -0.1041666667, -1.098  &
       , 0.3489583333, 0.1041666667, -1.098  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth52  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth52  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth53  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth53  &
    location = 0.3489583333, -0.1041666667, -1.098  &
-      , 0.3489583333, -0.1041666667, -0.915  &
+      , 0.3489583334, -0.1041666667, -0.915  &
       , 0.24225, -0.1041666667, -0.915  &
       , 0.24225, -0.1041666667, -1.098  &
       , 0.3489583333, -0.1041666667, -1.098  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth53  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth53  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth61  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth61  &
    location = 0.24225, 0.1041666667, -0.915  &
       , 0.24225, 0.1041666667, -0.732  &
-      , 0.3489583333, 0.1041666667, -0.732  &
-      , 0.3489583333, 0.1041666667, -0.915  &
+      , 0.3489583334, 0.1041666667, -0.732  &
+      , 0.3489583334, 0.1041666667, -0.915  &
       , 0.24225, 0.1041666667, -0.915  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth61  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth61  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth62  &
-   location = 0.3489583333, 0.1041666667, -0.915  &
-      , 0.3489583333, 0.1041666667, -0.732  &
-      , 0.3489583333, -0.1041666667, -0.732  &
-      , 0.3489583333, -0.1041666667, -0.915  &
-      , 0.3489583333, 0.1041666667, -0.915  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth62  &
+   location = 0.3489583334, 0.1041666667, -0.915  &
+      , 0.3489583334, 0.1041666667, -0.732  &
+      , 0.3489583334, -0.1041666667, -0.732  &
+      , 0.3489583334, -0.1041666667, -0.915  &
+      , 0.3489583334, 0.1041666667, -0.915  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth62  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth62  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth63  &
-   location = 0.3489583333, -0.1041666667, -0.915  &
-      , 0.3489583333, -0.1041666667, -0.732  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth63  &
+   location = 0.3489583334, -0.1041666667, -0.915  &
+      , 0.3489583334, -0.1041666667, -0.732  &
       , 0.24225, -0.1041666667, -0.732  &
       , 0.24225, -0.1041666667, -0.915  &
-      , 0.3489583333, -0.1041666667, -0.915  &
+      , 0.3489583334, -0.1041666667, -0.915  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth63  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth63  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth71  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth71  &
    location = 0.24225, 0.1041666667, -0.732  &
       , 0.24225, 0.1041666667, -0.549  &
       , 0.3489583333, 0.1041666667, -0.549  &
-      , 0.3489583333, 0.1041666667, -0.732  &
+      , 0.3489583334, 0.1041666667, -0.732  &
       , 0.24225, 0.1041666667, -0.732  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth71  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth71  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth72  &
-   location = 0.3489583333, 0.1041666667, -0.732  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth72  &
+   location = 0.3489583334, 0.1041666667, -0.732  &
       , 0.3489583333, 0.1041666667, -0.549  &
       , 0.3489583333, -0.1041666667, -0.549  &
-      , 0.3489583333, -0.1041666667, -0.732  &
-      , 0.3489583333, 0.1041666667, -0.732  &
+      , 0.3489583334, -0.1041666667, -0.732  &
+      , 0.3489583334, 0.1041666667, -0.732  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth72  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth72  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth73  &
-   location = 0.3489583333, -0.1041666667, -0.732  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth73  &
+   location = 0.3489583334, -0.1041666667, -0.732  &
       , 0.3489583333, -0.1041666667, -0.549  &
       , 0.24225, -0.1041666667, -0.549  &
       , 0.24225, -0.1041666667, -0.732  &
-      , 0.3489583333, -0.1041666667, -0.732  &
+      , 0.3489583334, -0.1041666667, -0.732  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth73  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth73  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth81  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth81  &
    location = 0.24225, 0.1041666667, -0.549  &
       , 0.24225, 0.1041666667, -0.366  &
       , 0.3489583333, 0.1041666667, -0.366  &
@@ -6759,11 +9590,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth81  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth81  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth82  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth82  &
    location = 0.3489583333, 0.1041666667, -0.549  &
       , 0.3489583333, 0.1041666667, -0.366  &
       , 0.3489583333, -0.1041666667, -0.366  &
@@ -6772,11 +9603,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth82  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth82  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth83  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth83  &
    location = 0.3489583333, -0.1041666667, -0.549  &
       , 0.3489583333, -0.1041666667, -0.366  &
       , 0.24225, -0.1041666667, -0.366  &
@@ -6785,11 +9616,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth83  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth83  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth91  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth91  &
    location = 0.24225, 0.1041666667, -0.366  &
       , 0.24225, 0.1041666667, -0.183  &
       , 0.3489583333, 0.1041666667, -0.183  &
@@ -6798,11 +9629,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth91  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth91  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth92  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth92  &
    location = 0.3489583333, 0.1041666667, -0.366  &
       , 0.3489583333, 0.1041666667, -0.183  &
       , 0.3489583333, -0.1041666667, -0.183  &
@@ -6811,11 +9642,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth92  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth92  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth93  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth93  &
    location = 0.3489583333, -0.1041666667, -0.366  &
       , 0.3489583333, -0.1041666667, -0.183  &
       , 0.24225, -0.1041666667, -0.183  &
@@ -6824,466 +9655,466 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth93  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth93  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth11_2  &
-   location = -0.1041666666, 0.24225, -1.83  &
-      , -0.1041666666, 0.24225, -1.647  &
-      , -0.1041666666, 0.3489583334, -1.647  &
-      , -0.1041666666, 0.2771458333, -1.83  &
-      , -0.1041666666, 0.24225, -1.83  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth11_2  &
+   location = -0.1041666667, 0.24225, -1.83  &
+      , -0.1041666667, 0.24225, -1.647  &
+      , -0.1041666667, 0.3489583333, -1.647  &
+      , -0.1041666667, 0.2771458333, -1.83  &
+      , -0.1041666667, 0.24225, -1.83  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth11_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth11_2  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth12_2  &
-   location = -0.1041666666, 0.2771458333, -1.83  &
-      , -0.1041666666, 0.3489583334, -1.647  &
-      , 0.1041666666, 0.3489583334, -1.647  &
-      , 0.1041666666, 0.2771458333, -1.83  &
-      , -0.1041666666, 0.2771458333, -1.83  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth12_2  &
+   location = -0.1041666667, 0.2771458333, -1.83  &
+      , -0.1041666667, 0.3489583333, -1.647  &
+      , 0.1041666667, 0.3489583333, -1.647  &
+      , 0.1041666667, 0.2771458333, -1.83  &
+      , -0.1041666667, 0.2771458333, -1.83  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth12_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth12_2  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth13_2  &
-   location = 0.1041666666, 0.2771458333, -1.83  &
-      , 0.1041666666, 0.3489583334, -1.647  &
-      , 0.1041666666, 0.24225, -1.647  &
-      , 0.1041666666, 0.24225, -1.83  &
-      , 0.1041666666, 0.2771458333, -1.83  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth13_2  &
+   location = 0.1041666667, 0.2771458333, -1.83  &
+      , 0.1041666667, 0.3489583333, -1.647  &
+      , 0.1041666667, 0.24225, -1.647  &
+      , 0.1041666667, 0.24225, -1.83  &
+      , 0.1041666667, 0.2771458333, -1.83  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth13_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth13_2  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth14_2  &
-   location = -0.1041666666, 0.24225, -1.83  &
-      , -0.1041666666, 0.2771458333, -1.83  &
-      , 0.1041666666, 0.2771458333, -1.83  &
-      , 0.1041666666, 0.24225, -1.83  &
-      , -0.1041666666, 0.24225, -1.83  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth14_2  &
+   location = -0.1041666667, 0.24225, -1.83  &
+      , -0.1041666667, 0.2771458333, -1.83  &
+      , 0.1041666667, 0.2771458333, -1.83  &
+      , 0.1041666667, 0.24225, -1.83  &
+      , -0.1041666667, 0.24225, -1.83  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth14_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth14_2  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth101_2  &
-   location = -0.1041666666, 0.24225, -0.183  &
-      , -0.1041666666, 0.24225, 0.0  &
-      , -0.1041666666, 0.2771458333, 0.0  &
-      , -0.1041666666, 0.3489583333, -0.183  &
-      , -0.1041666666, 0.24225, -0.183  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth101_2  &
+   location = -0.1041666667, 0.24225, -0.183  &
+      , -0.1041666667, 0.24225, 0.0  &
+      , -0.1041666667, 0.2771458333, 0.0  &
+      , -0.1041666667, 0.3489583333, -0.183  &
+      , -0.1041666667, 0.24225, -0.183  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth101_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth101_2  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth102_2  &
-   location = -0.1041666666, 0.3489583333, -0.183  &
-      , -0.1041666666, 0.2771458333, 0.0  &
-      , 0.1041666666, 0.2771458333, 0.0  &
-      , 0.1041666666, 0.3489583333, -0.183  &
-      , -0.1041666666, 0.3489583333, -0.183  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth102_2  &
+   location = -0.1041666667, 0.3489583333, -0.183  &
+      , -0.1041666667, 0.2771458333, 0.0  &
+      , 0.1041666667, 0.2771458333, 0.0  &
+      , 0.1041666667, 0.3489583333, -0.183  &
+      , -0.1041666667, 0.3489583333, -0.183  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth102_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth102_2  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth103_2  &
-   location = 0.1041666666, 0.3489583333, -0.183  &
-      , 0.1041666666, 0.2771458333, 0.0  &
-      , 0.1041666666, 0.24225, 0.0  &
-      , 0.1041666666, 0.24225, -0.183  &
-      , 0.1041666666, 0.3489583333, -0.183  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth103_2  &
+   location = 0.1041666667, 0.3489583333, -0.183  &
+      , 0.1041666667, 0.2771458333, 0.0  &
+      , 0.1041666667, 0.24225, 0.0  &
+      , 0.1041666667, 0.24225, -0.183  &
+      , 0.1041666667, 0.3489583333, -0.183  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth103_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth103_2  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth104_2  &
-   location = -0.1041666666, 0.24225, 0.0  &
-      , -0.1041666666, 0.2771458333, 0.0  &
-      , 0.1041666666, 0.2771458333, 0.0  &
-      , 0.1041666666, 0.24225, 0.0  &
-      , -0.1041666666, 0.24225, 0.0  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth104_2  &
+   location = -0.1041666667, 0.24225, 0.0  &
+      , -0.1041666667, 0.2771458333, 0.0  &
+      , 0.1041666667, 0.2771458333, 0.0  &
+      , 0.1041666667, 0.24225, 0.0  &
+      , -0.1041666667, 0.24225, 0.0  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth104_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth104_2  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth21_2  &
-   location = -0.1041666666, 0.24225, -1.647  &
-      , -0.1041666666, 0.24225, -1.464  &
-      , -0.1041666666, 0.3489583334, -1.464  &
-      , -0.1041666666, 0.3489583334, -1.647  &
-      , -0.1041666666, 0.24225, -1.647  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth21_2  &
+   location = -0.1041666667, 0.24225, -1.647  &
+      , -0.1041666667, 0.24225, -1.464  &
+      , -0.1041666667, 0.3489583333, -1.464  &
+      , -0.1041666667, 0.3489583333, -1.647  &
+      , -0.1041666667, 0.24225, -1.647  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth21_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth21_2  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth22_2  &
-   location = -0.1041666666, 0.3489583334, -1.647  &
-      , -0.1041666666, 0.3489583334, -1.464  &
-      , 0.1041666666, 0.3489583334, -1.464  &
-      , 0.1041666666, 0.3489583334, -1.647  &
-      , -0.1041666666, 0.3489583334, -1.647  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth22_2  &
+   location = -0.1041666667, 0.3489583333, -1.647  &
+      , -0.1041666667, 0.3489583333, -1.464  &
+      , 0.1041666667, 0.3489583333, -1.464  &
+      , 0.1041666667, 0.3489583333, -1.647  &
+      , -0.1041666667, 0.3489583333, -1.647  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth22_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth22_2  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth23_2  &
-   location = 0.1041666666, 0.3489583334, -1.647  &
-      , 0.1041666666, 0.3489583334, -1.464  &
-      , 0.1041666666, 0.24225, -1.464  &
-      , 0.1041666666, 0.24225, -1.647  &
-      , 0.1041666666, 0.3489583334, -1.647  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth23_2  &
+   location = 0.1041666667, 0.3489583333, -1.647  &
+      , 0.1041666667, 0.3489583333, -1.464  &
+      , 0.1041666667, 0.24225, -1.464  &
+      , 0.1041666667, 0.24225, -1.647  &
+      , 0.1041666667, 0.3489583333, -1.647  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth23_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth23_2  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth31_2  &
-   location = -0.1041666666, 0.24225, -1.464  &
-      , -0.1041666666, 0.24225, -1.281  &
-      , -0.1041666666, 0.3489583334, -1.281  &
-      , -0.1041666666, 0.3489583334, -1.464  &
-      , -0.1041666666, 0.24225, -1.464  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth31_2  &
+   location = -0.1041666667, 0.24225, -1.464  &
+      , -0.1041666667, 0.24225, -1.281  &
+      , -0.1041666667, 0.3489583333, -1.281  &
+      , -0.1041666667, 0.3489583333, -1.464  &
+      , -0.1041666667, 0.24225, -1.464  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth31_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth31_2  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth32_2  &
-   location = -0.1041666666, 0.3489583334, -1.464  &
-      , -0.1041666666, 0.3489583334, -1.281  &
-      , 0.1041666666, 0.3489583334, -1.281  &
-      , 0.1041666666, 0.3489583334, -1.464  &
-      , -0.1041666666, 0.3489583334, -1.464  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth32_2  &
+   location = -0.1041666667, 0.3489583333, -1.464  &
+      , -0.1041666667, 0.3489583333, -1.281  &
+      , 0.1041666667, 0.3489583333, -1.281  &
+      , 0.1041666667, 0.3489583333, -1.464  &
+      , -0.1041666667, 0.3489583333, -1.464  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth32_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth32_2  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth33_2  &
-   location = 0.1041666666, 0.3489583334, -1.464  &
-      , 0.1041666666, 0.3489583334, -1.281  &
-      , 0.1041666666, 0.24225, -1.281  &
-      , 0.1041666666, 0.24225, -1.464  &
-      , 0.1041666666, 0.3489583334, -1.464  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth33_2  &
+   location = 0.1041666667, 0.3489583333, -1.464  &
+      , 0.1041666667, 0.3489583333, -1.281  &
+      , 0.1041666667, 0.24225, -1.281  &
+      , 0.1041666667, 0.24225, -1.464  &
+      , 0.1041666667, 0.3489583333, -1.464  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth33_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth33_2  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth41_2  &
-   location = -0.1041666666, 0.24225, -1.281  &
-      , -0.1041666666, 0.24225, -1.098  &
-      , -0.1041666666, 0.3489583333, -1.098  &
-      , -0.1041666666, 0.3489583334, -1.281  &
-      , -0.1041666666, 0.24225, -1.281  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth41_2  &
+   location = -0.1041666667, 0.24225, -1.281  &
+      , -0.1041666667, 0.24225, -1.098  &
+      , -0.1041666667, 0.3489583333, -1.098  &
+      , -0.1041666667, 0.3489583333, -1.281  &
+      , -0.1041666667, 0.24225, -1.281  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth41_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth41_2  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth42_2  &
-   location = -0.1041666666, 0.3489583334, -1.281  &
-      , -0.1041666666, 0.3489583333, -1.098  &
-      , 0.1041666666, 0.3489583333, -1.098  &
-      , 0.1041666666, 0.3489583334, -1.281  &
-      , -0.1041666666, 0.3489583334, -1.281  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth42_2  &
+   location = -0.1041666667, 0.3489583333, -1.281  &
+      , -0.1041666667, 0.3489583333, -1.098  &
+      , 0.1041666667, 0.3489583333, -1.098  &
+      , 0.1041666667, 0.3489583333, -1.281  &
+      , -0.1041666667, 0.3489583333, -1.281  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth42_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth42_2  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth43_2  &
-   location = 0.1041666666, 0.3489583334, -1.281  &
-      , 0.1041666666, 0.3489583333, -1.098  &
-      , 0.1041666666, 0.24225, -1.098  &
-      , 0.1041666666, 0.24225, -1.281  &
-      , 0.1041666666, 0.3489583334, -1.281  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth43_2  &
+   location = 0.1041666667, 0.3489583333, -1.281  &
+      , 0.1041666667, 0.3489583333, -1.098  &
+      , 0.1041666667, 0.24225, -1.098  &
+      , 0.1041666667, 0.24225, -1.281  &
+      , 0.1041666667, 0.3489583333, -1.281  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth43_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth43_2  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth51_2  &
-   location = -0.1041666666, 0.24225, -1.098  &
-      , -0.1041666666, 0.24225, -0.915  &
-      , -0.1041666666, 0.3489583333, -0.915  &
-      , -0.1041666666, 0.3489583333, -1.098  &
-      , -0.1041666666, 0.24225, -1.098  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth51_2  &
+   location = -0.1041666667, 0.24225, -1.098  &
+      , -0.1041666667, 0.24225, -0.915  &
+      , -0.1041666667, 0.3489583333, -0.915  &
+      , -0.1041666667, 0.3489583333, -1.098  &
+      , -0.1041666667, 0.24225, -1.098  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth51_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth51_2  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth52_2  &
-   location = -0.1041666666, 0.3489583333, -1.098  &
-      , -0.1041666666, 0.3489583333, -0.915  &
-      , 0.1041666666, 0.3489583333, -0.915  &
-      , 0.1041666666, 0.3489583333, -1.098  &
-      , -0.1041666666, 0.3489583333, -1.098  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth52_2  &
+   location = -0.1041666667, 0.3489583333, -1.098  &
+      , -0.1041666667, 0.3489583333, -0.915  &
+      , 0.1041666667, 0.3489583333, -0.915  &
+      , 0.1041666667, 0.3489583333, -1.098  &
+      , -0.1041666667, 0.3489583333, -1.098  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth52_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth52_2  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth53_2  &
-   location = 0.1041666666, 0.3489583333, -1.098  &
-      , 0.1041666666, 0.3489583333, -0.915  &
-      , 0.1041666666, 0.24225, -0.915  &
-      , 0.1041666666, 0.24225, -1.098  &
-      , 0.1041666666, 0.3489583333, -1.098  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth53_2  &
+   location = 0.1041666667, 0.3489583333, -1.098  &
+      , 0.1041666667, 0.3489583333, -0.915  &
+      , 0.1041666667, 0.24225, -0.915  &
+      , 0.1041666667, 0.24225, -1.098  &
+      , 0.1041666667, 0.3489583333, -1.098  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth53_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth53_2  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth61_2  &
-   location = -0.1041666666, 0.24225, -0.915  &
-      , -0.1041666666, 0.24225, -0.732  &
-      , -0.1041666666, 0.3489583333, -0.732  &
-      , -0.1041666666, 0.3489583333, -0.915  &
-      , -0.1041666666, 0.24225, -0.915  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth61_2  &
+   location = -0.1041666667, 0.24225, -0.915  &
+      , -0.1041666667, 0.24225, -0.732  &
+      , -0.1041666667, 0.3489583333, -0.732  &
+      , -0.1041666667, 0.3489583333, -0.915  &
+      , -0.1041666667, 0.24225, -0.915  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth61_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth61_2  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth62_2  &
-   location = -0.1041666666, 0.3489583333, -0.915  &
-      , -0.1041666666, 0.3489583333, -0.732  &
-      , 0.1041666666, 0.3489583333, -0.732  &
-      , 0.1041666666, 0.3489583333, -0.915  &
-      , -0.1041666666, 0.3489583333, -0.915  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth62_2  &
+   location = -0.1041666667, 0.3489583333, -0.915  &
+      , -0.1041666667, 0.3489583333, -0.732  &
+      , 0.1041666667, 0.3489583333, -0.732  &
+      , 0.1041666667, 0.3489583333, -0.915  &
+      , -0.1041666667, 0.3489583333, -0.915  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth62_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth62_2  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth63_2  &
-   location = 0.1041666666, 0.3489583333, -0.915  &
-      , 0.1041666666, 0.3489583333, -0.732  &
-      , 0.1041666666, 0.24225, -0.732  &
-      , 0.1041666666, 0.24225, -0.915  &
-      , 0.1041666666, 0.3489583333, -0.915  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth63_2  &
+   location = 0.1041666667, 0.3489583333, -0.915  &
+      , 0.1041666667, 0.3489583333, -0.732  &
+      , 0.1041666667, 0.24225, -0.732  &
+      , 0.1041666667, 0.24225, -0.915  &
+      , 0.1041666667, 0.3489583333, -0.915  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth63_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth63_2  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth71_2  &
-   location = -0.1041666666, 0.24225, -0.732  &
-      , -0.1041666666, 0.24225, -0.549  &
-      , -0.1041666666, 0.3489583333, -0.549  &
-      , -0.1041666666, 0.3489583333, -0.732  &
-      , -0.1041666666, 0.24225, -0.732  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth71_2  &
+   location = -0.1041666667, 0.24225, -0.732  &
+      , -0.1041666667, 0.24225, -0.549  &
+      , -0.1041666667, 0.3489583333, -0.549  &
+      , -0.1041666667, 0.3489583333, -0.732  &
+      , -0.1041666667, 0.24225, -0.732  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth71_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth71_2  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth72_2  &
-   location = -0.1041666666, 0.3489583333, -0.732  &
-      , -0.1041666666, 0.3489583333, -0.549  &
-      , 0.1041666666, 0.3489583333, -0.549  &
-      , 0.1041666666, 0.3489583333, -0.732  &
-      , -0.1041666666, 0.3489583333, -0.732  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth72_2  &
+   location = -0.1041666667, 0.3489583333, -0.732  &
+      , -0.1041666667, 0.3489583333, -0.549  &
+      , 0.1041666667, 0.3489583333, -0.549  &
+      , 0.1041666667, 0.3489583333, -0.732  &
+      , -0.1041666667, 0.3489583333, -0.732  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth72_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth72_2  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth73_2  &
-   location = 0.1041666666, 0.3489583333, -0.732  &
-      , 0.1041666666, 0.3489583333, -0.549  &
-      , 0.1041666666, 0.24225, -0.549  &
-      , 0.1041666666, 0.24225, -0.732  &
-      , 0.1041666666, 0.3489583333, -0.732  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth73_2  &
+   location = 0.1041666667, 0.3489583333, -0.732  &
+      , 0.1041666667, 0.3489583333, -0.549  &
+      , 0.1041666667, 0.24225, -0.549  &
+      , 0.1041666667, 0.24225, -0.732  &
+      , 0.1041666667, 0.3489583333, -0.732  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth73_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth73_2  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth81_2  &
-   location = -0.1041666666, 0.24225, -0.549  &
-      , -0.1041666666, 0.24225, -0.366  &
-      , -0.1041666666, 0.3489583333, -0.366  &
-      , -0.1041666666, 0.3489583333, -0.549  &
-      , -0.1041666666, 0.24225, -0.549  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth81_2  &
+   location = -0.1041666667, 0.24225, -0.549  &
+      , -0.1041666667, 0.24225, -0.366  &
+      , -0.1041666667, 0.3489583333, -0.366  &
+      , -0.1041666667, 0.3489583333, -0.549  &
+      , -0.1041666667, 0.24225, -0.549  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth81_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth81_2  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth82_2  &
-   location = -0.1041666666, 0.3489583333, -0.549  &
-      , -0.1041666666, 0.3489583333, -0.366  &
-      , 0.1041666666, 0.3489583333, -0.366  &
-      , 0.1041666666, 0.3489583333, -0.549  &
-      , -0.1041666666, 0.3489583333, -0.549  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth82_2  &
+   location = -0.1041666667, 0.3489583333, -0.549  &
+      , -0.1041666667, 0.3489583333, -0.366  &
+      , 0.1041666667, 0.3489583333, -0.366  &
+      , 0.1041666667, 0.3489583333, -0.549  &
+      , -0.1041666667, 0.3489583333, -0.549  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth82_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth82_2  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth83_2  &
-   location = 0.1041666666, 0.3489583333, -0.549  &
-      , 0.1041666666, 0.3489583333, -0.366  &
-      , 0.1041666666, 0.24225, -0.366  &
-      , 0.1041666666, 0.24225, -0.549  &
-      , 0.1041666666, 0.3489583333, -0.549  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth83_2  &
+   location = 0.1041666667, 0.3489583333, -0.549  &
+      , 0.1041666667, 0.3489583333, -0.366  &
+      , 0.1041666667, 0.24225, -0.366  &
+      , 0.1041666667, 0.24225, -0.549  &
+      , 0.1041666667, 0.3489583333, -0.549  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth83_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth83_2  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth91_2  &
-   location = -0.1041666666, 0.24225, -0.366  &
-      , -0.1041666666, 0.24225, -0.183  &
-      , -0.1041666666, 0.3489583333, -0.183  &
-      , -0.1041666666, 0.3489583333, -0.366  &
-      , -0.1041666666, 0.24225, -0.366  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth91_2  &
+   location = -0.1041666667, 0.24225, -0.366  &
+      , -0.1041666667, 0.24225, -0.183  &
+      , -0.1041666667, 0.3489583333, -0.183  &
+      , -0.1041666667, 0.3489583333, -0.366  &
+      , -0.1041666667, 0.24225, -0.366  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth91_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth91_2  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth92_2  &
-   location = -0.1041666666, 0.3489583333, -0.366  &
-      , -0.1041666666, 0.3489583333, -0.183  &
-      , 0.1041666666, 0.3489583333, -0.183  &
-      , 0.1041666666, 0.3489583333, -0.366  &
-      , -0.1041666666, 0.3489583333, -0.366  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth92_2  &
+   location = -0.1041666667, 0.3489583333, -0.366  &
+      , -0.1041666667, 0.3489583333, -0.183  &
+      , 0.1041666667, 0.3489583333, -0.183  &
+      , 0.1041666667, 0.3489583333, -0.366  &
+      , -0.1041666667, 0.3489583333, -0.366  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth92_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth92_2  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth93_2  &
-   location = 0.1041666666, 0.3489583333, -0.366  &
-      , 0.1041666666, 0.3489583333, -0.183  &
-      , 0.1041666666, 0.24225, -0.183  &
-      , 0.1041666666, 0.24225, -0.366  &
-      , 0.1041666666, 0.3489583333, -0.366  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth93_2  &
+   location = 0.1041666667, 0.3489583333, -0.366  &
+      , 0.1041666667, 0.3489583333, -0.183  &
+      , 0.1041666667, 0.24225, -0.183  &
+      , 0.1041666667, 0.24225, -0.366  &
+      , 0.1041666667, 0.3489583333, -0.366  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth93_2  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth93_2  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth11_3  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth11_3  &
    location = -0.24225, -0.1041666666, -1.83  &
       , -0.24225, -0.1041666666, -1.647  &
-      , -0.3489583334, -0.1041666666, -1.647  &
+      , -0.3489583333, -0.1041666666, -1.647  &
       , -0.2771458333, -0.1041666666, -1.83  &
       , -0.24225, -0.1041666666, -1.83  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth11_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth11_3  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth12_3  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth12_3  &
    location = -0.2771458333, -0.1041666666, -1.83  &
-      , -0.3489583334, -0.1041666666, -1.647  &
-      , -0.3489583334, 0.1041666667, -1.647  &
+      , -0.3489583333, -0.1041666666, -1.647  &
+      , -0.3489583333, 0.1041666667, -1.647  &
       , -0.2771458333, 0.1041666667, -1.83  &
       , -0.2771458333, -0.1041666666, -1.83  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth12_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth12_3  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth13_3  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth13_3  &
    location = -0.2771458333, 0.1041666667, -1.83  &
-      , -0.3489583334, 0.1041666667, -1.647  &
+      , -0.3489583333, 0.1041666667, -1.647  &
       , -0.24225, 0.1041666667, -1.647  &
       , -0.24225, 0.1041666667, -1.83  &
       , -0.2771458333, 0.1041666667, -1.83  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth13_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth13_3  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth14_3  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth14_3  &
    location = -0.24225, -0.1041666666, -1.83  &
       , -0.2771458333, -0.1041666666, -1.83  &
       , -0.2771458333, 0.1041666667, -1.83  &
@@ -7292,11 +10123,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth14_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth14_3  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth101_3  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth101_3  &
    location = -0.24225, -0.1041666666, -0.183  &
       , -0.24225, -0.1041666666, 0.0  &
       , -0.2771458333, -0.1041666666, 0.0  &
@@ -7305,11 +10136,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth101_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth101_3  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth102_3  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth102_3  &
    location = -0.3489583333, -0.1041666666, -0.183  &
       , -0.2771458333, -0.1041666666, 0.0  &
       , -0.2771458333, 0.1041666667, 0.0  &
@@ -7318,11 +10149,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth102_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth102_3  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth103_3  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth103_3  &
    location = -0.3489583333, 0.1041666667, -0.183  &
       , -0.2771458333, 0.1041666667, 0.0  &
       , -0.24225, 0.1041666667, 0.0  &
@@ -7331,11 +10162,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth103_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth103_3  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth104_3  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth104_3  &
    location = -0.24225, -0.1041666666, 0.0  &
       , -0.2771458333, -0.1041666666, 0.0  &
       , -0.2771458333, 0.1041666667, 0.0  &
@@ -7344,128 +10175,128 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth104_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth104_3  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth21_3  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth21_3  &
    location = -0.24225, -0.1041666666, -1.647  &
       , -0.24225, -0.1041666666, -1.464  &
-      , -0.3489583334, -0.1041666666, -1.464  &
-      , -0.3489583334, -0.1041666666, -1.647  &
+      , -0.3489583333, -0.1041666666, -1.464  &
+      , -0.3489583333, -0.1041666666, -1.647  &
       , -0.24225, -0.1041666666, -1.647  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth21_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth21_3  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth22_3  &
-   location = -0.3489583334, -0.1041666666, -1.647  &
-      , -0.3489583334, -0.1041666666, -1.464  &
-      , -0.3489583334, 0.1041666667, -1.464  &
-      , -0.3489583334, 0.1041666667, -1.647  &
-      , -0.3489583334, -0.1041666666, -1.647  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth22_3  &
+   location = -0.3489583333, -0.1041666666, -1.647  &
+      , -0.3489583333, -0.1041666666, -1.464  &
+      , -0.3489583333, 0.1041666667, -1.464  &
+      , -0.3489583333, 0.1041666667, -1.647  &
+      , -0.3489583333, -0.1041666666, -1.647  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth22_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth22_3  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth23_3  &
-   location = -0.3489583334, 0.1041666667, -1.647  &
-      , -0.3489583334, 0.1041666667, -1.464  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth23_3  &
+   location = -0.3489583333, 0.1041666667, -1.647  &
+      , -0.3489583333, 0.1041666667, -1.464  &
       , -0.24225, 0.1041666667, -1.464  &
       , -0.24225, 0.1041666667, -1.647  &
-      , -0.3489583334, 0.1041666667, -1.647  &
+      , -0.3489583333, 0.1041666667, -1.647  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth23_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth23_3  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth31_3  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth31_3  &
    location = -0.24225, -0.1041666666, -1.464  &
       , -0.24225, -0.1041666666, -1.281  &
-      , -0.3489583334, -0.1041666666, -1.281  &
-      , -0.3489583334, -0.1041666666, -1.464  &
+      , -0.3489583333, -0.1041666666, -1.281  &
+      , -0.3489583333, -0.1041666666, -1.464  &
       , -0.24225, -0.1041666666, -1.464  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth31_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth31_3  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth32_3  &
-   location = -0.3489583334, -0.1041666666, -1.464  &
-      , -0.3489583334, -0.1041666666, -1.281  &
-      , -0.3489583334, 0.1041666667, -1.281  &
-      , -0.3489583334, 0.1041666667, -1.464  &
-      , -0.3489583334, -0.1041666666, -1.464  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth32_3  &
+   location = -0.3489583333, -0.1041666666, -1.464  &
+      , -0.3489583333, -0.1041666666, -1.281  &
+      , -0.3489583333, 0.1041666667, -1.281  &
+      , -0.3489583333, 0.1041666667, -1.464  &
+      , -0.3489583333, -0.1041666666, -1.464  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth32_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth32_3  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth33_3  &
-   location = -0.3489583334, 0.1041666667, -1.464  &
-      , -0.3489583334, 0.1041666667, -1.281  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth33_3  &
+   location = -0.3489583333, 0.1041666667, -1.464  &
+      , -0.3489583333, 0.1041666667, -1.281  &
       , -0.24225, 0.1041666667, -1.281  &
       , -0.24225, 0.1041666667, -1.464  &
-      , -0.3489583334, 0.1041666667, -1.464  &
+      , -0.3489583333, 0.1041666667, -1.464  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth33_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth33_3  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth41_3  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth41_3  &
    location = -0.24225, -0.1041666666, -1.281  &
       , -0.24225, -0.1041666666, -1.098  &
       , -0.3489583333, -0.1041666666, -1.098  &
-      , -0.3489583334, -0.1041666666, -1.281  &
+      , -0.3489583333, -0.1041666666, -1.281  &
       , -0.24225, -0.1041666666, -1.281  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth41_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth41_3  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth42_3  &
-   location = -0.3489583334, -0.1041666666, -1.281  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth42_3  &
+   location = -0.3489583333, -0.1041666666, -1.281  &
       , -0.3489583333, -0.1041666666, -1.098  &
       , -0.3489583333, 0.1041666667, -1.098  &
-      , -0.3489583334, 0.1041666667, -1.281  &
-      , -0.3489583334, -0.1041666666, -1.281  &
+      , -0.3489583333, 0.1041666667, -1.281  &
+      , -0.3489583333, -0.1041666666, -1.281  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth42_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth42_3  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth43_3  &
-   location = -0.3489583334, 0.1041666667, -1.281  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth43_3  &
+   location = -0.3489583333, 0.1041666667, -1.281  &
       , -0.3489583333, 0.1041666667, -1.098  &
       , -0.24225, 0.1041666667, -1.098  &
       , -0.24225, 0.1041666667, -1.281  &
-      , -0.3489583334, 0.1041666667, -1.281  &
+      , -0.3489583333, 0.1041666667, -1.281  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth43_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth43_3  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth51_3  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth51_3  &
    location = -0.24225, -0.1041666666, -1.098  &
       , -0.24225, -0.1041666666, -0.915  &
       , -0.3489583333, -0.1041666666, -0.915  &
@@ -7474,11 +10305,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth51_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth51_3  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth52_3  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth52_3  &
    location = -0.3489583333, -0.1041666666, -1.098  &
       , -0.3489583333, -0.1041666666, -0.915  &
       , -0.3489583333, 0.1041666667, -0.915  &
@@ -7487,11 +10318,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth52_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth52_3  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth53_3  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth53_3  &
    location = -0.3489583333, 0.1041666667, -1.098  &
       , -0.3489583333, 0.1041666667, -0.915  &
       , -0.24225, 0.1041666667, -0.915  &
@@ -7500,11 +10331,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth53_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth53_3  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth61_3  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth61_3  &
    location = -0.24225, -0.1041666666, -0.915  &
       , -0.24225, -0.1041666666, -0.732  &
       , -0.3489583333, -0.1041666666, -0.732  &
@@ -7513,11 +10344,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth61_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth61_3  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth62_3  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth62_3  &
    location = -0.3489583333, -0.1041666666, -0.915  &
       , -0.3489583333, -0.1041666666, -0.732  &
       , -0.3489583333, 0.1041666667, -0.732  &
@@ -7526,11 +10357,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth62_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth62_3  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth63_3  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth63_3  &
    location = -0.3489583333, 0.1041666667, -0.915  &
       , -0.3489583333, 0.1041666667, -0.732  &
       , -0.24225, 0.1041666667, -0.732  &
@@ -7539,11 +10370,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth63_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth63_3  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth71_3  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth71_3  &
    location = -0.24225, -0.1041666666, -0.732  &
       , -0.24225, -0.1041666666, -0.549  &
       , -0.3489583333, -0.1041666666, -0.549  &
@@ -7552,11 +10383,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth71_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth71_3  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth72_3  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth72_3  &
    location = -0.3489583333, -0.1041666666, -0.732  &
       , -0.3489583333, -0.1041666666, -0.549  &
       , -0.3489583333, 0.1041666667, -0.549  &
@@ -7565,11 +10396,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth72_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth72_3  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth73_3  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth73_3  &
    location = -0.3489583333, 0.1041666667, -0.732  &
       , -0.3489583333, 0.1041666667, -0.549  &
       , -0.24225, 0.1041666667, -0.549  &
@@ -7578,11 +10409,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth73_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth73_3  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth81_3  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth81_3  &
    location = -0.24225, -0.1041666666, -0.549  &
       , -0.24225, -0.1041666666, -0.366  &
       , -0.3489583333, -0.1041666666, -0.366  &
@@ -7591,11 +10422,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth81_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth81_3  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth82_3  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth82_3  &
    location = -0.3489583333, -0.1041666666, -0.549  &
       , -0.3489583333, -0.1041666666, -0.366  &
       , -0.3489583333, 0.1041666667, -0.366  &
@@ -7604,11 +10435,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth82_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth82_3  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth83_3  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth83_3  &
    location = -0.3489583333, 0.1041666667, -0.549  &
       , -0.3489583333, 0.1041666667, -0.366  &
       , -0.24225, 0.1041666667, -0.366  &
@@ -7617,11 +10448,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth83_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth83_3  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth91_3  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth91_3  &
    location = -0.24225, -0.1041666666, -0.366  &
       , -0.24225, -0.1041666666, -0.183  &
       , -0.3489583333, -0.1041666666, -0.183  &
@@ -7630,11 +10461,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth91_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth91_3  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth92_3  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth92_3  &
    location = -0.3489583333, -0.1041666666, -0.366  &
       , -0.3489583333, -0.1041666666, -0.183  &
       , -0.3489583333, 0.1041666667, -0.183  &
@@ -7643,11 +10474,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth92_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth92_3  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth93_3  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth93_3  &
    location = -0.3489583333, 0.1041666667, -0.366  &
       , -0.3489583333, 0.1041666667, -0.183  &
       , -0.24225, 0.1041666667, -0.183  &
@@ -7656,50 +10487,50 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth93_3  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth93_3  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth11_4  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth11_4  &
    location = 0.1041666666, -0.24225, -1.83  &
       , 0.1041666666, -0.24225, -1.647  &
-      , 0.1041666666, -0.3489583334, -1.647  &
+      , 0.1041666666, -0.3489583333, -1.647  &
       , 0.1041666666, -0.2771458333, -1.83  &
       , 0.1041666666, -0.24225, -1.83  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth11_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth11_4  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth12_4  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth12_4  &
    location = 0.1041666666, -0.2771458333, -1.83  &
-      , 0.1041666666, -0.3489583334, -1.647  &
-      , -0.1041666667, -0.3489583334, -1.647  &
+      , 0.1041666666, -0.3489583333, -1.647  &
+      , -0.1041666667, -0.3489583333, -1.647  &
       , -0.1041666667, -0.2771458333, -1.83  &
       , 0.1041666666, -0.2771458333, -1.83  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth12_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth12_4  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth13_4  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth13_4  &
    location = -0.1041666667, -0.2771458333, -1.83  &
-      , -0.1041666667, -0.3489583334, -1.647  &
+      , -0.1041666667, -0.3489583333, -1.647  &
       , -0.1041666667, -0.24225, -1.647  &
       , -0.1041666667, -0.24225, -1.83  &
       , -0.1041666667, -0.2771458333, -1.83  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth13_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth13_4  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth14_4  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth14_4  &
    location = 0.1041666666, -0.24225, -1.83  &
       , 0.1041666666, -0.2771458333, -1.83  &
       , -0.1041666667, -0.2771458333, -1.83  &
@@ -7708,11 +10539,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth14_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth14_4  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth101_4  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth101_4  &
    location = 0.1041666666, -0.24225, -0.183  &
       , 0.1041666666, -0.24225, 0.0  &
       , 0.1041666666, -0.2771458333, 0.0  &
@@ -7721,11 +10552,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth101_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth101_4  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth102_4  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth102_4  &
    location = 0.1041666666, -0.3489583333, -0.183  &
       , 0.1041666666, -0.2771458333, 0.0  &
       , -0.1041666667, -0.2771458333, 0.0  &
@@ -7734,11 +10565,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth102_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth102_4  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth103_4  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth103_4  &
    location = -0.1041666667, -0.3489583333, -0.183  &
       , -0.1041666667, -0.2771458333, 0.0  &
       , -0.1041666667, -0.24225, 0.0  &
@@ -7747,11 +10578,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth103_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth103_4  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth104_4  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth104_4  &
    location = 0.1041666666, -0.24225, 0.0  &
       , 0.1041666666, -0.2771458333, 0.0  &
       , -0.1041666667, -0.2771458333, 0.0  &
@@ -7760,128 +10591,128 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth104_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth104_4  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth21_4  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth21_4  &
    location = 0.1041666666, -0.24225, -1.647  &
       , 0.1041666666, -0.24225, -1.464  &
-      , 0.1041666666, -0.3489583334, -1.464  &
-      , 0.1041666666, -0.3489583334, -1.647  &
+      , 0.1041666666, -0.3489583333, -1.464  &
+      , 0.1041666666, -0.3489583333, -1.647  &
       , 0.1041666666, -0.24225, -1.647  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth21_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth21_4  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth22_4  &
-   location = 0.1041666666, -0.3489583334, -1.647  &
-      , 0.1041666666, -0.3489583334, -1.464  &
-      , -0.1041666667, -0.3489583334, -1.464  &
-      , -0.1041666667, -0.3489583334, -1.647  &
-      , 0.1041666666, -0.3489583334, -1.647  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth22_4  &
+   location = 0.1041666666, -0.3489583333, -1.647  &
+      , 0.1041666666, -0.3489583333, -1.464  &
+      , -0.1041666667, -0.3489583333, -1.464  &
+      , -0.1041666667, -0.3489583333, -1.647  &
+      , 0.1041666666, -0.3489583333, -1.647  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth22_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth22_4  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth23_4  &
-   location = -0.1041666667, -0.3489583334, -1.647  &
-      , -0.1041666667, -0.3489583334, -1.464  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth23_4  &
+   location = -0.1041666667, -0.3489583333, -1.647  &
+      , -0.1041666667, -0.3489583333, -1.464  &
       , -0.1041666667, -0.24225, -1.464  &
       , -0.1041666667, -0.24225, -1.647  &
-      , -0.1041666667, -0.3489583334, -1.647  &
+      , -0.1041666667, -0.3489583333, -1.647  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth23_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth23_4  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth31_4  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth31_4  &
    location = 0.1041666666, -0.24225, -1.464  &
       , 0.1041666666, -0.24225, -1.281  &
-      , 0.1041666666, -0.3489583334, -1.281  &
-      , 0.1041666666, -0.3489583334, -1.464  &
+      , 0.1041666666, -0.3489583333, -1.281  &
+      , 0.1041666666, -0.3489583333, -1.464  &
       , 0.1041666666, -0.24225, -1.464  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth31_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth31_4  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth32_4  &
-   location = 0.1041666666, -0.3489583334, -1.464  &
-      , 0.1041666666, -0.3489583334, -1.281  &
-      , -0.1041666667, -0.3489583334, -1.281  &
-      , -0.1041666667, -0.3489583334, -1.464  &
-      , 0.1041666666, -0.3489583334, -1.464  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth32_4  &
+   location = 0.1041666666, -0.3489583333, -1.464  &
+      , 0.1041666666, -0.3489583333, -1.281  &
+      , -0.1041666667, -0.3489583333, -1.281  &
+      , -0.1041666667, -0.3489583333, -1.464  &
+      , 0.1041666666, -0.3489583333, -1.464  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth32_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth32_4  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth33_4  &
-   location = -0.1041666667, -0.3489583334, -1.464  &
-      , -0.1041666667, -0.3489583334, -1.281  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth33_4  &
+   location = -0.1041666667, -0.3489583333, -1.464  &
+      , -0.1041666667, -0.3489583333, -1.281  &
       , -0.1041666667, -0.24225, -1.281  &
       , -0.1041666667, -0.24225, -1.464  &
-      , -0.1041666667, -0.3489583334, -1.464  &
+      , -0.1041666667, -0.3489583333, -1.464  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth33_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth33_4  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth41_4  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth41_4  &
    location = 0.1041666666, -0.24225, -1.281  &
       , 0.1041666666, -0.24225, -1.098  &
       , 0.1041666666, -0.3489583333, -1.098  &
-      , 0.1041666666, -0.3489583334, -1.281  &
+      , 0.1041666666, -0.3489583333, -1.281  &
       , 0.1041666666, -0.24225, -1.281  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth41_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth41_4  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth42_4  &
-   location = 0.1041666666, -0.3489583334, -1.281  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth42_4  &
+   location = 0.1041666666, -0.3489583333, -1.281  &
       , 0.1041666666, -0.3489583333, -1.098  &
       , -0.1041666667, -0.3489583333, -1.098  &
-      , -0.1041666667, -0.3489583334, -1.281  &
-      , 0.1041666666, -0.3489583334, -1.281  &
+      , -0.1041666667, -0.3489583333, -1.281  &
+      , 0.1041666666, -0.3489583333, -1.281  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth42_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth42_4  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth43_4  &
-   location = -0.1041666667, -0.3489583334, -1.281  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth43_4  &
+   location = -0.1041666667, -0.3489583333, -1.281  &
       , -0.1041666667, -0.3489583333, -1.098  &
       , -0.1041666667, -0.24225, -1.098  &
       , -0.1041666667, -0.24225, -1.281  &
-      , -0.1041666667, -0.3489583334, -1.281  &
+      , -0.1041666667, -0.3489583333, -1.281  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth43_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth43_4  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth51_4  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth51_4  &
    location = 0.1041666666, -0.24225, -1.098  &
       , 0.1041666666, -0.24225, -0.915  &
       , 0.1041666666, -0.3489583333, -0.915  &
@@ -7890,11 +10721,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth51_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth51_4  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth52_4  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth52_4  &
    location = 0.1041666666, -0.3489583333, -1.098  &
       , 0.1041666666, -0.3489583333, -0.915  &
       , -0.1041666667, -0.3489583333, -0.915  &
@@ -7903,11 +10734,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth52_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth52_4  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth53_4  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth53_4  &
    location = -0.1041666667, -0.3489583333, -1.098  &
       , -0.1041666667, -0.3489583333, -0.915  &
       , -0.1041666667, -0.24225, -0.915  &
@@ -7916,11 +10747,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth53_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth53_4  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth61_4  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth61_4  &
    location = 0.1041666666, -0.24225, -0.915  &
       , 0.1041666666, -0.24225, -0.732  &
       , 0.1041666666, -0.3489583333, -0.732  &
@@ -7929,11 +10760,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth61_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth61_4  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth62_4  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth62_4  &
    location = 0.1041666666, -0.3489583333, -0.915  &
       , 0.1041666666, -0.3489583333, -0.732  &
       , -0.1041666667, -0.3489583333, -0.732  &
@@ -7942,11 +10773,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth62_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth62_4  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth63_4  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth63_4  &
    location = -0.1041666667, -0.3489583333, -0.915  &
       , -0.1041666667, -0.3489583333, -0.732  &
       , -0.1041666667, -0.24225, -0.732  &
@@ -7955,11 +10786,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth63_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth63_4  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth71_4  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth71_4  &
    location = 0.1041666666, -0.24225, -0.732  &
       , 0.1041666666, -0.24225, -0.549  &
       , 0.1041666666, -0.3489583333, -0.549  &
@@ -7968,11 +10799,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth71_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth71_4  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth72_4  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth72_4  &
    location = 0.1041666666, -0.3489583333, -0.732  &
       , 0.1041666666, -0.3489583333, -0.549  &
       , -0.1041666667, -0.3489583333, -0.549  &
@@ -7981,11 +10812,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth72_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth72_4  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth73_4  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth73_4  &
    location = -0.1041666667, -0.3489583333, -0.732  &
       , -0.1041666667, -0.3489583333, -0.549  &
       , -0.1041666667, -0.24225, -0.549  &
@@ -7994,11 +10825,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth73_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth73_4  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth81_4  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth81_4  &
    location = 0.1041666666, -0.24225, -0.549  &
       , 0.1041666666, -0.24225, -0.366  &
       , 0.1041666666, -0.3489583333, -0.366  &
@@ -8007,11 +10838,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth81_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth81_4  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth82_4  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth82_4  &
    location = 0.1041666666, -0.3489583333, -0.549  &
       , 0.1041666666, -0.3489583333, -0.366  &
       , -0.1041666667, -0.3489583333, -0.366  &
@@ -8020,11 +10851,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth82_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth82_4  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth83_4  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth83_4  &
    location = -0.1041666667, -0.3489583333, -0.549  &
       , -0.1041666667, -0.3489583333, -0.366  &
       , -0.1041666667, -0.24225, -0.366  &
@@ -8033,11 +10864,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth83_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth83_4  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth91_4  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth91_4  &
    location = 0.1041666666, -0.24225, -0.366  &
       , 0.1041666666, -0.24225, -0.183  &
       , 0.1041666666, -0.3489583333, -0.183  &
@@ -8046,11 +10877,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth91_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth91_4  &
    color = MedOrchid
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth92_4  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth92_4  &
    location = 0.1041666666, -0.3489583333, -0.366  &
       , 0.1041666666, -0.3489583333, -0.183  &
       , -0.1041666667, -0.3489583333, -0.183  &
@@ -8059,11 +10890,11 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth92_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth92_4  &
    color = SILVER
 !
 geometry create curve polyline  &
-   polyline_name = .test_analysis_1.example_stabilizer_02_B.tth93_4  &
+   polyline_name = .test_analysis_1.example_stabilizer_03_B.tth93_4  &
    location = -0.1041666667, -0.3489583333, -0.366  &
       , -0.1041666667, -0.3489583333, -0.183  &
       , -0.1041666667, -0.24225, -0.183  &
@@ -8072,60 +10903,60 @@ geometry create curve polyline  &
    close = yes
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_B.tth93_4  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_B.tth93_4  &
    color = MedOrchid
 !
-!----------------------- example_stabilizer_02_sliderB ------------------------!
+!----------------------- example_stabilizer_03_sliderB ------------------------!
 !
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.ground
 !
 part create rigid_body name_and_position  &
-   part_name = .test_analysis_1.example_stabilizer_02_sliderB  &
-   adams_id = 9000301  &
-   location = 707.1269084541, 0.0, 1502.0004494472  &
-   orientation = 90.0d, 89.9972021726d, 270.0d
+   part_name = .test_analysis_1.example_stabilizer_03_sliderB  &
+   adams_id = 9000901  &
+   location = 678.2070371502, 0.0, 1501.9974031312  &
+   orientation = 90.0d, 89.9919472259d, 270.0d
 !
 defaults coordinate_system  &
-   default_coordinate_system = .test_analysis_1.example_stabilizer_02_sliderB
+   default_coordinate_system = .test_analysis_1.example_stabilizer_03_sliderB
 !
 ! ****** Markers for current part ******
 !
 marker create  &
-   marker_name = .test_analysis_1.example_stabilizer_02_sliderB.cm  &
-   adams_id = 9000301  &
+   marker_name = .test_analysis_1.example_stabilizer_03_sliderB.cm  &
+   adams_id = 9000901  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
-   marker_name = .test_analysis_1.example_stabilizer_02_sliderB.B1  &
-   adams_id = 9006337  &
+   marker_name = .test_analysis_1.example_stabilizer_03_sliderB.B1  &
+   adams_id = 9006969  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
-   marker_name = .test_analysis_1.example_stabilizer_02_sliderB.B2  &
-   adams_id = 9006338  &
+   marker_name = .test_analysis_1.example_stabilizer_03_sliderB.B2  &
+   adams_id = 9006970  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.example_stabilizer_02_sliderB.FMARKER_9000309  &
-   adams_id = 9000309
+   floating_marker_name = .test_analysis_1.example_stabilizer_03_sliderB.FMARKER_9000909  &
+   adams_id = 9000909
 !
 part create rigid_body mass_properties  &
-   part_name = .test_analysis_1.example_stabilizer_02_sliderB  &
+   part_name = .test_analysis_1.example_stabilizer_03_sliderB  &
    density = 0.1
 !
 ! ****** Graphics for current part ******
 !
 geometry create shape cylinder  &
-   cylinder_name = .test_analysis_1.example_stabilizer_02_sliderB.example_stabilizer_02_sliderBgraphic  &
-   adams_id = 3219  &
-   center_marker = .test_analysis_1.example_stabilizer_02_sliderB.B2  &
+   cylinder_name = .test_analysis_1.example_stabilizer_03_sliderB.example_stabilizer_03_sliderBgraphic  &
+   adams_id = 5515  &
+   center_marker = .test_analysis_1.example_stabilizer_03_sliderB.B2  &
    angle_extent = 360.0  &
    length = 0.6  &
    radius = 7.0E-02  &
@@ -8133,19 +10964,19 @@ geometry create shape cylinder  &
    segment_count_for_ends = 4
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_sliderB.example_stabilizer_02_sliderBgraphic  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_sliderB.example_stabilizer_03_sliderBgraphic  &
    color = MidnightBlue2  &
    render = wireframe
 !
 geometry create curve circle  &
-   circle_name = .test_analysis_1.example_stabilizer_02_sliderB.ghole  &
-   adams_id = 3149  &
-   center_marker = .test_analysis_1.example_stabilizer_02_sliderB.cm  &
+   circle_name = .test_analysis_1.example_stabilizer_03_sliderB.ghole  &
+   adams_id = 5436  &
+   center_marker = .test_analysis_1.example_stabilizer_03_sliderB.cm  &
    radius = 0.54175  &
    segment_count = 24
 !
 geometry attributes  &
-   geometry_name = .test_analysis_1.example_stabilizer_02_sliderB.ghole  &
+   geometry_name = .test_analysis_1.example_stabilizer_03_sliderB.ghole  &
    color = BLUE  &
    render = wireframe
 !
@@ -8157,9 +10988,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group1_A  &
-   adams_id = 9000400  &
-   location = 704.6139370839, 0.0, 1502.000326728  &
-   orientation = 90.0d, 89.9955181698d, 270.0d
+   adams_id = 9001000  &
+   location = 675.6940662442, 0.0, 1501.9970499376  &
+   orientation = 90.0d, 89.9917308868d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group1_A
@@ -8168,25 +10999,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group1_A.end_A  &
-   adams_id = 9000400  &
+   adams_id = 9001000  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group1_A.cm  &
-   adams_id = 9006339  &
+   adams_id = 9006971  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group1_A.gmark1  &
-   adams_id = 9006340  &
+   adams_id = 9006972  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group1_A.end_beamA  &
-   adams_id = 9006341  &
+   adams_id = 9006973  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -8194,8 +11025,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group1_A  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group1_A.cm  &
-   ixx = 53.8655360846  &
-   iyy = 53.8655360846  &
+   ixx = 105.0618254756  &
+   iyy = 105.0618254756  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -8205,7 +11036,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group1_A.cyl1  &
-   adams_id = 3220  &
+   adams_id = 5516  &
    center_marker = .test_analysis_1.Upper_DP_Group1_A.end_A  &
    angle_extent = 360.0  &
    length = -1.0  &
@@ -8219,7 +11050,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group1_A.cyl1a  &
-   adams_id = 3221  &
+   adams_id = 5517  &
    center_marker = .test_analysis_1.Upper_DP_Group1_A.end_A  &
    angle_extent = 6.0  &
    length = -1.0  &
@@ -8233,7 +11064,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group1_A.cyl2  &
-   adams_id = 3222  &
+   adams_id = 5518  &
    center_marker = .test_analysis_1.Upper_DP_Group1_A.gmark1  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -8247,7 +11078,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group1_A.cyl2a  &
-   adams_id = 3223  &
+   adams_id = 5519  &
    center_marker = .test_analysis_1.Upper_DP_Group1_A.gmark1  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -8267,9 +11098,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group1_B  &
-   adams_id = 9000500  &
-   location = 696.8646169151, 0.0, 1501.9997205553  &
-   orientation = 90.0d, 89.9930839743d, 270.0d
+   adams_id = 9001100  &
+   location = 667.9448109877, 0.0, 1501.9959315399  &
+   orientation = 90.0d, 89.9922743821d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group1_B
@@ -8278,19 +11109,19 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group1_B.end_B  &
-   adams_id = 9006342  &
+   adams_id = 9006974  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group1_B.cm  &
-   adams_id = 9000500  &
+   adams_id = 9001100  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group1_B.end_beamB  &
-   adams_id = 9006343  &
+   adams_id = 9006975  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -8298,8 +11129,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group1_B  &
    mass = 11.5258405181  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group1_B.cm  &
-   ixx = 294.0966081325  &
-   iyy = 294.0966081325  &
+   ixx = 703.2414069608  &
+   iyy = 703.2414069608  &
    izz = 0.4102158729  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -8309,7 +11140,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group1_B.cyl1  &
-   adams_id = 3224  &
+   adams_id = 5520  &
    center_marker = .test_analysis_1.Upper_DP_Group1_B.end_B  &
    angle_extent = 360.0  &
    length = -15.5  &
@@ -8323,7 +11154,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group1_B.cyl1a  &
-   adams_id = 3225  &
+   adams_id = 5521  &
    center_marker = .test_analysis_1.Upper_DP_Group1_B.end_B  &
    angle_extent = 6.0  &
    length = -15.5  &
@@ -8337,7 +11168,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group1_B.rub1  &
-   adams_id = 3150  &
+   adams_id = 5437  &
    center_marker = .test_analysis_1.Upper_DP_Group1_B.cm  &
    radius = 0.25  &
    segment_count = 16
@@ -8354,9 +11185,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group1_sliderA  &
-   adams_id = 9000401  &
-   location = 704.6139370839, 0.0, 1502.000326728  &
-   orientation = 90.0d, 89.9955181698d, 270.0d
+   adams_id = 9001001  &
+   location = 675.6940662442, 0.0, 1501.9970499376  &
+   orientation = 90.0d, 89.9917308868d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group1_sliderA
@@ -8365,27 +11196,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group1_sliderA.cm  &
-   adams_id = 9000401  &
+   adams_id = 9001001  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group1_sliderA.A1  &
-   adams_id = 9006347  &
+   adams_id = 9006979  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group1_sliderA.A2  &
-   adams_id = 9006348  &
+   adams_id = 9006980  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group1_sliderA.FMARKER_9000607  &
-   adams_id = 9000607
+   floating_marker_name = .test_analysis_1.Upper_DP_Group1_sliderA.FMARKER_9001207  &
+   adams_id = 9001207
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group1_sliderA  &
@@ -8395,7 +11226,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group1_sliderA.Upper_DP_Group1_sliderAgraphic  &
-   adams_id = 3230  &
+   adams_id = 5526  &
    center_marker = .test_analysis_1.Upper_DP_Group1_sliderA.A2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -8410,7 +11241,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group1_sliderA.ghole  &
-   adams_id = 3151  &
+   adams_id = 5438  &
    center_marker = .test_analysis_1.Upper_DP_Group1_sliderA.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -8428,9 +11259,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group1_C  &
-   adams_id = 9000600  &
-   location = 673.6160808865, 0.0, 1501.9967509003  &
-   orientation = 90.0d, 89.9918759604d, 270.0d
+   adams_id = 9001200  &
+   location = 644.6964043308, 0.0, 1501.9930148652  &
+   orientation = 90.0d, 89.9938868261d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group1_C
@@ -8439,25 +11270,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group1_C.gmark2  &
-   adams_id = 9006346  &
-   location = 0.0, 0.0, 7.7492680529  &
+   adams_id = 9006978  &
+   location = 0.0, 0.0, 7.7492035001  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group1_C.end_C  &
-   adams_id = 9000600  &
+   adams_id = 9001200  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group1_C.cm  &
-   adams_id = 9006344  &
-   location = 0.0, 0.0, 3.0112965519  &
+   adams_id = 9006976  &
+   location = 0.0, 0.0, 3.0112547088  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group1_C.end_beamC  &
-   adams_id = 9006345  &
+   adams_id = 9006977  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -8465,8 +11296,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group1_C  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group1_C.cm  &
-   ixx = 53.8555203645  &
-   iyy = 53.8555203645  &
+   ixx = 105.0509265277  &
+   iyy = 105.0509265277  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -8476,7 +11307,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group1_C.cyl1a  &
-   adams_id = 3228  &
+   adams_id = 5524  &
    center_marker = .test_analysis_1.Upper_DP_Group1_C.end_C  &
    angle_extent = 6.0  &
    length = 1.0  &
@@ -8490,7 +11321,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group1_C.cyl1  &
-   adams_id = 3229  &
+   adams_id = 5525  &
    center_marker = .test_analysis_1.Upper_DP_Group1_C.end_C  &
    angle_extent = 360.0  &
    length = 1.0  &
@@ -8504,7 +11335,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group1_C.cyl2  &
-   adams_id = 3226  &
+   adams_id = 5522  &
    center_marker = .test_analysis_1.Upper_DP_Group1_C.gmark2  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -8518,7 +11349,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group1_C.cyl2a  &
-   adams_id = 3227  &
+   adams_id = 5523  &
    center_marker = .test_analysis_1.Upper_DP_Group1_C.gmark2  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -8538,9 +11369,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group1_sliderB  &
-   adams_id = 9000501  &
-   location = 689.1146169716, 0.0, 1501.9987850728  &
-   orientation = 90.0d, 89.9930839743d, 270.0d
+   adams_id = 9001101  &
+   location = 660.1948110582, 0.0, 1501.9948865495  &
+   orientation = 90.0d, 89.9922743821d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group1_sliderB
@@ -8549,27 +11380,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group1_sliderB.cm  &
-   adams_id = 9000501  &
+   adams_id = 9001101  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group1_sliderB.B1  &
-   adams_id = 9006349  &
+   adams_id = 9006981  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group1_sliderB.B2  &
-   adams_id = 9006350  &
+   adams_id = 9006982  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group1_sliderB.FMARKER_9000608  &
-   adams_id = 9000608
+   floating_marker_name = .test_analysis_1.Upper_DP_Group1_sliderB.FMARKER_9001208  &
+   adams_id = 9001208
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group1_sliderB  &
@@ -8579,7 +11410,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group1_sliderB.Upper_DP_Group1_sliderBgraphic  &
-   adams_id = 3231  &
+   adams_id = 5527  &
    center_marker = .test_analysis_1.Upper_DP_Group1_sliderB.B2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -8594,7 +11425,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group1_sliderB.ghole  &
-   adams_id = 3152  &
+   adams_id = 5439  &
    center_marker = .test_analysis_1.Upper_DP_Group1_sliderB.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -8612,9 +11443,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group2_A  &
-   adams_id = 9000700  &
-   location = 673.6140755871, 0.0, 1501.9967506109  &
-   orientation = 90.0d, 89.9917392276d, 270.0d
+   adams_id = 9001300  &
+   location = 644.6942051321, 0.0, 1501.9930146638  &
+   orientation = 90.0d, 89.9959088523d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group2_A
@@ -8623,25 +11454,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group2_A.end_A  &
-   adams_id = 9000700  &
+   adams_id = 9001300  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group2_A.cm  &
-   adams_id = 9006351  &
+   adams_id = 9006983  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group2_A.gmark1  &
-   adams_id = 9006352  &
+   adams_id = 9006984  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group2_A.end_beamA  &
-   adams_id = 9006353  &
+   adams_id = 9006985  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -8649,8 +11480,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group2_A  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group2_A.cm  &
-   ixx = 53.8655360846  &
-   iyy = 53.8655360846  &
+   ixx = 105.0618254756  &
+   iyy = 105.0618254756  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -8660,7 +11491,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group2_A.cyl1  &
-   adams_id = 3232  &
+   adams_id = 5528  &
    center_marker = .test_analysis_1.Upper_DP_Group2_A.end_A  &
    angle_extent = 360.0  &
    length = -1.0  &
@@ -8674,7 +11505,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group2_A.cyl1a  &
-   adams_id = 3233  &
+   adams_id = 5529  &
    center_marker = .test_analysis_1.Upper_DP_Group2_A.end_A  &
    angle_extent = 6.0  &
    length = -1.0  &
@@ -8688,7 +11519,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group2_A.cyl2  &
-   adams_id = 3234  &
+   adams_id = 5530  &
    center_marker = .test_analysis_1.Upper_DP_Group2_A.gmark1  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -8702,7 +11533,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group2_A.cyl2a  &
-   adams_id = 3235  &
+   adams_id = 5531  &
    center_marker = .test_analysis_1.Upper_DP_Group2_A.gmark1  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -8722,9 +11553,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group2_B  &
-   adams_id = 9000800  &
-   location = 665.8648249903, 0.0, 1501.995633342  &
-   orientation = 90.0d, 89.9924803495d, 270.0d
+   adams_id = 9001400  &
+   location = 636.9450187127, 0.0, 1501.9924613409  &
+   orientation = 90.0d, 90.0012006278d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group2_B
@@ -8733,19 +11564,19 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group2_B.end_B  &
-   adams_id = 9006354  &
+   adams_id = 9006986  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group2_B.cm  &
-   adams_id = 9000800  &
+   adams_id = 9001400  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group2_B.end_beamB  &
-   adams_id = 9006355  &
+   adams_id = 9006987  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -8753,8 +11584,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group2_B  &
    mass = 11.5258405181  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group2_B.cm  &
-   ixx = 294.0966081325  &
-   iyy = 294.0966081325  &
+   ixx = 703.2414069608  &
+   iyy = 703.2414069608  &
    izz = 0.4102158729  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -8764,7 +11595,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group2_B.cyl1  &
-   adams_id = 3236  &
+   adams_id = 5532  &
    center_marker = .test_analysis_1.Upper_DP_Group2_B.end_B  &
    angle_extent = 360.0  &
    length = -15.5  &
@@ -8778,7 +11609,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group2_B.cyl1a  &
-   adams_id = 3237  &
+   adams_id = 5533  &
    center_marker = .test_analysis_1.Upper_DP_Group2_B.end_B  &
    angle_extent = 6.0  &
    length = -15.5  &
@@ -8792,7 +11623,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group2_B.rub1  &
-   adams_id = 3153  &
+   adams_id = 5440  &
    center_marker = .test_analysis_1.Upper_DP_Group2_B.cm  &
    radius = 0.25  &
    segment_count = 16
@@ -8809,9 +11640,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group2_sliderA  &
-   adams_id = 9000701  &
-   location = 673.6140755871, 0.0, 1501.9967506109  &
-   orientation = 90.0d, 89.9917392276d, 270.0d
+   adams_id = 9001301  &
+   location = 644.6942051321, 0.0, 1501.9930146638  &
+   orientation = 90.0d, 89.9959088523d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group2_sliderA
@@ -8820,27 +11651,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group2_sliderA.cm  &
-   adams_id = 9000701  &
+   adams_id = 9001301  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group2_sliderA.A1  &
-   adams_id = 9006359  &
+   adams_id = 9006991  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group2_sliderA.A2  &
-   adams_id = 9006360  &
+   adams_id = 9006992  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group2_sliderA.FMARKER_9000907  &
-   adams_id = 9000907
+   floating_marker_name = .test_analysis_1.Upper_DP_Group2_sliderA.FMARKER_9001507  &
+   adams_id = 9001507
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group2_sliderA  &
@@ -8850,7 +11681,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group2_sliderA.Upper_DP_Group2_sliderAgraphic  &
-   adams_id = 3242  &
+   adams_id = 5538  &
    center_marker = .test_analysis_1.Upper_DP_Group2_sliderA.A2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -8865,7 +11696,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group2_sliderA.ghole  &
-   adams_id = 3154  &
+   adams_id = 5441  &
    center_marker = .test_analysis_1.Upper_DP_Group2_sliderA.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -8883,9 +11714,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group2_C  &
-   adams_id = 9000900  &
-   location = 642.6164275354, 0.0, 1501.992834513  &
-   orientation = 90.0d, 89.9943461856d, 270.0d
+   adams_id = 9001500  &
+   location = 613.6967454655, 0.0, 1501.9941356456  &
+   orientation = 90.0d, 90.0099781301d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group2_C
@@ -8894,25 +11725,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group2_C.gmark2  &
-   adams_id = 9006358  &
-   location = 0.0, 0.0, 7.7491989053  &
+   adams_id = 9006990  &
+   location = 0.0, 0.0, 7.7491372442  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group2_C.end_C  &
-   adams_id = 9000900  &
+   adams_id = 9001500  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group2_C.cm  &
-   adams_id = 9006356  &
-   location = 0.0, 0.0, 3.0112517305  &
+   adams_id = 9006988  &
+   location = 0.0, 0.0, 3.0112117619  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group2_C.end_beamC  &
-   adams_id = 9006357  &
+   adams_id = 9006989  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -8920,8 +11751,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group2_C  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group2_C.cm  &
-   ixx = 53.8545742697  &
-   iyy = 53.8545742697  &
+   ixx = 105.0500200131  &
+   iyy = 105.0500200131  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -8931,7 +11762,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group2_C.cyl1a  &
-   adams_id = 3240  &
+   adams_id = 5536  &
    center_marker = .test_analysis_1.Upper_DP_Group2_C.end_C  &
    angle_extent = 6.0  &
    length = 1.0  &
@@ -8945,7 +11776,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group2_C.cyl1  &
-   adams_id = 3241  &
+   adams_id = 5537  &
    center_marker = .test_analysis_1.Upper_DP_Group2_C.end_C  &
    angle_extent = 360.0  &
    length = 1.0  &
@@ -8959,7 +11790,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group2_C.cyl2  &
-   adams_id = 3238  &
+   adams_id = 5534  &
    center_marker = .test_analysis_1.Upper_DP_Group2_C.gmark2  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -8973,7 +11804,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group2_C.cyl2a  &
-   adams_id = 3239  &
+   adams_id = 5535  &
    center_marker = .test_analysis_1.Upper_DP_Group2_C.gmark2  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -8993,9 +11824,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group2_sliderB  &
-   adams_id = 9000801  &
-   location = 658.114825057, 0.0, 1501.9946162114  &
-   orientation = 90.0d, 89.9924803495d, 270.0d
+   adams_id = 9001401  &
+   location = 629.1950187144, 0.0, 1501.9926237415  &
+   orientation = 90.0d, 90.0012006278d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group2_sliderB
@@ -9004,27 +11835,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group2_sliderB.cm  &
-   adams_id = 9000801  &
+   adams_id = 9001401  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group2_sliderB.B1  &
-   adams_id = 9006361  &
+   adams_id = 9006993  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group2_sliderB.B2  &
-   adams_id = 9006362  &
+   adams_id = 9006994  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group2_sliderB.FMARKER_9000908  &
-   adams_id = 9000908
+   floating_marker_name = .test_analysis_1.Upper_DP_Group2_sliderB.FMARKER_9001508  &
+   adams_id = 9001508
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group2_sliderB  &
@@ -9034,7 +11865,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group2_sliderB.Upper_DP_Group2_sliderBgraphic  &
-   adams_id = 3243  &
+   adams_id = 5539  &
    center_marker = .test_analysis_1.Upper_DP_Group2_sliderB.B2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -9049,7 +11880,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group2_sliderB.ghole  &
-   adams_id = 3155  &
+   adams_id = 5442  &
    center_marker = .test_analysis_1.Upper_DP_Group2_sliderB.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -9067,9 +11898,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group3_A  &
-   adams_id = 9001000  &
-   location = 642.6142143753, 0.0, 1501.9928343323  &
-   orientation = 90.0d, 89.9966119423d, 270.0d
+   adams_id = 9001600  &
+   location = 613.694339699, 0.0, 1501.994136239  &
+   orientation = 90.0d, 90.019446256d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group3_A
@@ -9078,25 +11909,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group3_A.end_A  &
-   adams_id = 9001000  &
+   adams_id = 9001600  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group3_A.cm  &
-   adams_id = 9006363  &
+   adams_id = 9006995  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group3_A.gmark1  &
-   adams_id = 9006364  &
+   adams_id = 9006996  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group3_A.end_beamA  &
-   adams_id = 9006365  &
+   adams_id = 9006997  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -9104,8 +11935,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group3_A  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group3_A.cm  &
-   ixx = 53.8655360846  &
-   iyy = 53.8655360846  &
+   ixx = 105.0618254756  &
+   iyy = 105.0618254756  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -9115,7 +11946,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group3_A.cyl1  &
-   adams_id = 3244  &
+   adams_id = 5540  &
    center_marker = .test_analysis_1.Upper_DP_Group3_A.end_A  &
    angle_extent = 360.0  &
    length = -1.0  &
@@ -9129,7 +11960,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group3_A.cyl1a  &
-   adams_id = 3245  &
+   adams_id = 5541  &
    center_marker = .test_analysis_1.Upper_DP_Group3_A.end_A  &
    angle_extent = 6.0  &
    length = -1.0  &
@@ -9143,7 +11974,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group3_A.cyl2  &
-   adams_id = 3246  &
+   adams_id = 5542  &
    center_marker = .test_analysis_1.Upper_DP_Group3_A.gmark1  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -9157,7 +11988,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group3_A.cyl2a  &
-   adams_id = 3247  &
+   adams_id = 5543  &
    center_marker = .test_analysis_1.Upper_DP_Group3_A.gmark1  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -9177,9 +12008,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group3_B  &
-   adams_id = 9001100  &
-   location = 634.8650324938, 0.0, 1501.9923761017  &
-   orientation = 90.0d, 90.002482533d, 270.0d
+   adams_id = 9001700  &
+   location = 605.9452178135, 0.0, 1501.9967663004  &
+   orientation = 90.0d, 90.0407774812d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group3_B
@@ -9188,19 +12019,19 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group3_B.end_B  &
-   adams_id = 9006366  &
+   adams_id = 9006998  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group3_B.cm  &
-   adams_id = 9001100  &
+   adams_id = 9001700  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group3_B.end_beamB  &
-   adams_id = 9006367  &
+   adams_id = 9006999  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -9208,8 +12039,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group3_B  &
    mass = 11.5258405181  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group3_B.cm  &
-   ixx = 294.0966081325  &
-   iyy = 294.0966081325  &
+   ixx = 703.2414069608  &
+   iyy = 703.2414069608  &
    izz = 0.4102158729  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -9219,7 +12050,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group3_B.cyl1  &
-   adams_id = 3248  &
+   adams_id = 5544  &
    center_marker = .test_analysis_1.Upper_DP_Group3_B.end_B  &
    angle_extent = 360.0  &
    length = -15.5  &
@@ -9233,7 +12064,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group3_B.cyl1a  &
-   adams_id = 3249  &
+   adams_id = 5545  &
    center_marker = .test_analysis_1.Upper_DP_Group3_B.end_B  &
    angle_extent = 6.0  &
    length = -15.5  &
@@ -9247,7 +12078,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group3_B.rub1  &
-   adams_id = 3156  &
+   adams_id = 5443  &
    center_marker = .test_analysis_1.Upper_DP_Group3_B.cm  &
    radius = 0.25  &
    segment_count = 16
@@ -9264,9 +12095,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group3_sliderA  &
-   adams_id = 9001001  &
-   location = 642.6142143753, 0.0, 1501.9928343323  &
-   orientation = 90.0d, 89.9966119423d, 270.0d
+   adams_id = 9001601  &
+   location = 613.694339699, 0.0, 1501.994136239  &
+   orientation = 90.0d, 90.019446256d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group3_sliderA
@@ -9275,27 +12106,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group3_sliderA.cm  &
-   adams_id = 9001001  &
+   adams_id = 9001601  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group3_sliderA.A1  &
-   adams_id = 9006371  &
+   adams_id = 9007003  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group3_sliderA.A2  &
-   adams_id = 9006372  &
+   adams_id = 9007004  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group3_sliderA.FMARKER_9001207  &
-   adams_id = 9001207
+   floating_marker_name = .test_analysis_1.Upper_DP_Group3_sliderA.FMARKER_9001807  &
+   adams_id = 9001807
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group3_sliderA  &
@@ -9305,7 +12136,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group3_sliderA.Upper_DP_Group3_sliderAgraphic  &
-   adams_id = 3254  &
+   adams_id = 5550  &
    center_marker = .test_analysis_1.Upper_DP_Group3_sliderA.A2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -9320,7 +12151,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group3_sliderA.ghole  &
-   adams_id = 3157  &
+   adams_id = 5444  &
    center_marker = .test_analysis_1.Upper_DP_Group3_sliderA.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -9338,9 +12169,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group3_C  &
-   adams_id = 9001200  &
-   location = 611.6167677149, 0.0, 1501.9946957745  &
-   orientation = 90.0d, 90.0121859247d, 270.0d
+   adams_id = 9001800  &
+   location = 582.6970548496, 0.0, 1502.0157494601  &
+   orientation = 90.0d, 90.0587993723d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group3_C
@@ -9349,25 +12180,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group3_C.gmark2  &
-   adams_id = 9006370  &
-   location = 0.0, 0.0, 7.7491331241  &
+   adams_id = 9007002  &
+   location = 0.0, 0.0, 7.7490876017  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group3_C.end_C  &
-   adams_id = 9001200  &
+   adams_id = 9001800  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group3_C.cm  &
-   adams_id = 9006368  &
-   location = 0.0, 0.0, 3.0112090912  &
+   adams_id = 9007000  &
+   location = 0.0, 0.0, 3.0111795836  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group3_C.end_beamC  &
-   adams_id = 9006369  &
+   adams_id = 9007001  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -9375,8 +12206,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group3_C  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group3_C.cm  &
-   ixx = 53.85367425  &
-   iyy = 53.85367425  &
+   ixx = 105.0493408122  &
+   iyy = 105.0493408122  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -9386,7 +12217,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group3_C.cyl1a  &
-   adams_id = 3252  &
+   adams_id = 5548  &
    center_marker = .test_analysis_1.Upper_DP_Group3_C.end_C  &
    angle_extent = 6.0  &
    length = 1.0  &
@@ -9400,7 +12231,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group3_C.cyl1  &
-   adams_id = 3253  &
+   adams_id = 5549  &
    center_marker = .test_analysis_1.Upper_DP_Group3_C.end_C  &
    angle_extent = 360.0  &
    length = 1.0  &
@@ -9414,7 +12245,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group3_C.cyl2  &
-   adams_id = 3250  &
+   adams_id = 5546  &
    center_marker = .test_analysis_1.Upper_DP_Group3_C.gmark2  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -9428,7 +12259,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group3_C.cyl2a  &
-   adams_id = 3251  &
+   adams_id = 5547  &
    center_marker = .test_analysis_1.Upper_DP_Group3_C.gmark2  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -9448,9 +12279,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group3_sliderB  &
-   adams_id = 9001101  &
-   location = 627.1150325011, 0.0, 1501.9927118966  &
-   orientation = 90.0d, 90.002482533d, 270.0d
+   adams_id = 9001701  &
+   location = 598.1952197763, 0.0, 1502.002281985  &
+   orientation = 90.0d, 90.0407774812d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group3_sliderB
@@ -9459,27 +12290,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group3_sliderB.cm  &
-   adams_id = 9001101  &
+   adams_id = 9001701  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group3_sliderB.B1  &
-   adams_id = 9006373  &
+   adams_id = 9007005  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group3_sliderB.B2  &
-   adams_id = 9006374  &
+   adams_id = 9007006  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group3_sliderB.FMARKER_9001208  &
-   adams_id = 9001208
+   floating_marker_name = .test_analysis_1.Upper_DP_Group3_sliderB.FMARKER_9001808  &
+   adams_id = 9001808
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group3_sliderB  &
@@ -9489,7 +12320,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group3_sliderB.Upper_DP_Group3_sliderBgraphic  &
-   adams_id = 3255  &
+   adams_id = 5551  &
    center_marker = .test_analysis_1.Upper_DP_Group3_sliderB.B2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -9504,7 +12335,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group3_sliderB.ghole  &
-   adams_id = 3158  &
+   adams_id = 5445  &
    center_marker = .test_analysis_1.Upper_DP_Group3_sliderB.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -9522,9 +12353,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group4_A  &
-   adams_id = 9001300  &
-   location = 611.6143483216, 0.0, 1501.9946964828  &
-   orientation = 90.0d, 90.0226392076d, 270.0d
+   adams_id = 9001900  &
+   location = 582.694457093, 0.0, 1502.0157522859  &
+   orientation = 90.0d, 90.0644531792d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group4_A
@@ -9533,25 +12364,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group4_A.end_A  &
-   adams_id = 9001300  &
+   adams_id = 9001900  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group4_A.cm  &
-   adams_id = 9006375  &
+   adams_id = 9007007  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group4_A.gmark1  &
-   adams_id = 9006376  &
+   adams_id = 9007008  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group4_A.end_beamA  &
-   adams_id = 9006377  &
+   adams_id = 9007009  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -9559,8 +12390,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group4_A  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group4_A.cm  &
-   ixx = 53.8655360846  &
-   iyy = 53.8655360846  &
+   ixx = 105.0618254756  &
+   iyy = 105.0618254756  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -9570,7 +12401,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group4_A.cyl1  &
-   adams_id = 3256  &
+   adams_id = 5552  &
    center_marker = .test_analysis_1.Upper_DP_Group4_A.end_A  &
    angle_extent = 360.0  &
    length = -1.0  &
@@ -9584,7 +12415,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group4_A.cyl1a  &
-   adams_id = 3257  &
+   adams_id = 5553  &
    center_marker = .test_analysis_1.Upper_DP_Group4_A.end_A  &
    angle_extent = 6.0  &
    length = -1.0  &
@@ -9598,7 +12429,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group4_A.cyl2  &
-   adams_id = 3258  &
+   adams_id = 5554  &
    center_marker = .test_analysis_1.Upper_DP_Group4_A.gmark1  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -9612,7 +12443,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group4_A.cyl2a  &
-   adams_id = 3259  &
+   adams_id = 5555  &
    center_marker = .test_analysis_1.Upper_DP_Group4_A.gmark1  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -9632,9 +12463,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group4_B  &
-   adams_id = 9001400  &
-   location = 603.8652303478, 0.0, 1501.9977583819  &
-   orientation = 90.0d, 90.0446003877d, 270.0d
+   adams_id = 9002000  &
+   location = 574.9453845049, 0.0, 1502.0244693778  &
+   orientation = 90.0d, 90.0652039462d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group4_B
@@ -9643,19 +12474,19 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group4_B.end_B  &
-   adams_id = 9006378  &
+   adams_id = 9007010  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group4_B.cm  &
-   adams_id = 9001400  &
+   adams_id = 9002000  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group4_B.end_beamB  &
-   adams_id = 9006379  &
+   adams_id = 9007011  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -9663,8 +12494,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group4_B  &
    mass = 11.5258405181  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group4_B.cm  &
-   ixx = 294.0966081325  &
-   iyy = 294.0966081325  &
+   ixx = 703.2414069608  &
+   iyy = 703.2414069608  &
    izz = 0.4102158729  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -9674,7 +12505,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group4_B.cyl1  &
-   adams_id = 3260  &
+   adams_id = 5556  &
    center_marker = .test_analysis_1.Upper_DP_Group4_B.end_B  &
    angle_extent = 360.0  &
    length = -15.5  &
@@ -9688,7 +12519,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group4_B.cyl1a  &
-   adams_id = 3261  &
+   adams_id = 5557  &
    center_marker = .test_analysis_1.Upper_DP_Group4_B.end_B  &
    angle_extent = 6.0  &
    length = -15.5  &
@@ -9702,7 +12533,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group4_B.rub1  &
-   adams_id = 3159  &
+   adams_id = 5446  &
    center_marker = .test_analysis_1.Upper_DP_Group4_B.cm  &
    radius = 0.25  &
    segment_count = 16
@@ -9719,9 +12550,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group4_sliderA  &
-   adams_id = 9001301  &
-   location = 611.6143483216, 0.0, 1501.9946964828  &
-   orientation = 90.0d, 90.0226392076d, 270.0d
+   adams_id = 9001901  &
+   location = 582.694457093, 0.0, 1502.0157522859  &
+   orientation = 90.0d, 90.0644531792d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group4_sliderA
@@ -9730,27 +12561,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group4_sliderA.cm  &
-   adams_id = 9001301  &
+   adams_id = 9001901  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group4_sliderA.A1  &
-   adams_id = 9006383  &
+   adams_id = 9007015  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group4_sliderA.A2  &
-   adams_id = 9006384  &
+   adams_id = 9007016  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group4_sliderA.FMARKER_9001507  &
-   adams_id = 9001507
+   floating_marker_name = .test_analysis_1.Upper_DP_Group4_sliderA.FMARKER_9002107  &
+   adams_id = 9002107
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group4_sliderA  &
@@ -9760,7 +12591,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group4_sliderA.Upper_DP_Group4_sliderAgraphic  &
-   adams_id = 3266  &
+   adams_id = 5562  &
    center_marker = .test_analysis_1.Upper_DP_Group4_sliderA.A2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -9775,7 +12606,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group4_sliderA.ghole  &
-   adams_id = 3160  &
+   adams_id = 5447  &
    center_marker = .test_analysis_1.Upper_DP_Group4_sliderA.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -9793,9 +12624,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group4_C  &
-   adams_id = 9001500  &
-   location = 580.6170735162, 0.0, 1502.0180374265  &
-   orientation = 90.0d, 90.0607347592d, 270.0d
+   adams_id = 9002100  &
+   location = 551.6973095675, 0.0, 1502.0499944849  &
+   orientation = 90.0d, 90.0583145882d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group4_C
@@ -9804,25 +12635,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group4_C.gmark2  &
-   adams_id = 9006382  &
-   location = 0.0, 0.0, 7.7490848877  &
+   adams_id = 9007014  &
+   location = 0.0, 0.0, 7.749043601  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group4_C.end_C  &
-   adams_id = 9001500  &
+   adams_id = 9002100  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group4_C.cm  &
-   adams_id = 9006380  &
-   location = 0.0, 0.0, 3.0111778244  &
+   adams_id = 9007012  &
+   location = 0.0, 0.0, 3.0111510624  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group4_C.end_beamC  &
-   adams_id = 9006381  &
+   adams_id = 9007013  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -9830,8 +12661,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group4_C  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group4_C.cm  &
-   ixx = 53.8530142891  &
-   iyy = 53.8530142891  &
+   ixx = 105.0487388095  &
+   iyy = 105.0487388095  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -9841,7 +12672,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group4_C.cyl1a  &
-   adams_id = 3264  &
+   adams_id = 5560  &
    center_marker = .test_analysis_1.Upper_DP_Group4_C.end_C  &
    angle_extent = 6.0  &
    length = 1.0  &
@@ -9855,7 +12686,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group4_C.cyl1  &
-   adams_id = 3265  &
+   adams_id = 5561  &
    center_marker = .test_analysis_1.Upper_DP_Group4_C.end_C  &
    angle_extent = 360.0  &
    length = 1.0  &
@@ -9869,7 +12700,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group4_C.cyl2  &
-   adams_id = 3262  &
+   adams_id = 5558  &
    center_marker = .test_analysis_1.Upper_DP_Group4_C.gmark2  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -9883,7 +12714,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group4_C.cyl2a  &
-   adams_id = 3263  &
+   adams_id = 5559  &
    center_marker = .test_analysis_1.Upper_DP_Group4_C.gmark2  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -9903,9 +12734,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group4_sliderB  &
-   adams_id = 9001401  &
-   location = 596.1152326958, 0.0, 1502.0037911643  &
-   orientation = 90.0d, 90.0446003877d, 270.0d
+   adams_id = 9002001  &
+   location = 567.1953895234, 0.0, 1502.0332890583  &
+   orientation = 90.0d, 90.0652039462d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group4_sliderB
@@ -9914,27 +12745,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group4_sliderB.cm  &
-   adams_id = 9001401  &
+   adams_id = 9002001  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group4_sliderB.B1  &
-   adams_id = 9006385  &
+   adams_id = 9007017  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group4_sliderB.B2  &
-   adams_id = 9006386  &
+   adams_id = 9007018  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group4_sliderB.FMARKER_9001508  &
-   adams_id = 9001508
+   floating_marker_name = .test_analysis_1.Upper_DP_Group4_sliderB.FMARKER_9002108  &
+   adams_id = 9002108
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group4_sliderB  &
@@ -9944,7 +12775,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group4_sliderB.Upper_DP_Group4_sliderBgraphic  &
-   adams_id = 3267  &
+   adams_id = 5563  &
    center_marker = .test_analysis_1.Upper_DP_Group4_sliderB.B2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -9959,7 +12790,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group4_sliderB.ghole  &
-   adams_id = 3161  &
+   adams_id = 5448  &
    center_marker = .test_analysis_1.Upper_DP_Group4_sliderB.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -9977,9 +12808,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group5_A  &
-   adams_id = 9001600  &
-   location = 580.6144642679, 0.0, 1502.0180403264  &
-   orientation = 90.0d, 90.0652837487d, 270.0d
+   adams_id = 9002200  &
+   location = 551.6945639051, 0.0, 1502.0499970664  &
+   orientation = 90.0d, 90.0476471574d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group5_A
@@ -9988,25 +12819,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group5_A.end_A  &
-   adams_id = 9001600  &
+   adams_id = 9002200  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group5_A.cm  &
-   adams_id = 9006387  &
+   adams_id = 9007019  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group5_A.gmark1  &
-   adams_id = 9006388  &
+   adams_id = 9007020  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group5_A.end_beamA  &
-   adams_id = 9006389  &
+   adams_id = 9007021  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -10014,8 +12845,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group5_A  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group5_A.cm  &
-   ixx = 53.8655360846  &
-   iyy = 53.8655360846  &
+   ixx = 105.0618254756  &
+   iyy = 105.0618254756  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -10025,7 +12856,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group5_A.cyl1  &
-   adams_id = 3268  &
+   adams_id = 5564  &
    center_marker = .test_analysis_1.Upper_DP_Group5_A.end_A  &
    angle_extent = 360.0  &
    length = -1.0  &
@@ -10039,7 +12870,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group5_A.cyl1a  &
-   adams_id = 3269  &
+   adams_id = 5565  &
    center_marker = .test_analysis_1.Upper_DP_Group5_A.end_A  &
    angle_extent = 6.0  &
    length = -1.0  &
@@ -10053,7 +12884,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group5_A.cyl2  &
-   adams_id = 3270  &
+   adams_id = 5566  &
    center_marker = .test_analysis_1.Upper_DP_Group5_A.gmark1  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -10067,7 +12898,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group5_A.cyl2a  &
-   adams_id = 3271  &
+   adams_id = 5567  &
    center_marker = .test_analysis_1.Upper_DP_Group5_A.gmark1  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -10087,9 +12918,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group5_B  &
-   adams_id = 9001700  &
-   location = 572.8653945454, 0.0, 1502.0268697471  &
-   orientation = 90.0d, 90.0645355491d, 270.0d
+   adams_id = 9002300  &
+   location = 543.9455371533, 0.0, 1502.0564411568  &
+   orientation = 90.0d, 90.0181147392d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group5_B
@@ -10098,19 +12929,19 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group5_B.end_B  &
-   adams_id = 9006390  &
+   adams_id = 9007022  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group5_B.cm  &
-   adams_id = 9001700  &
+   adams_id = 9002300  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group5_B.end_beamB  &
-   adams_id = 9006391  &
+   adams_id = 9007023  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -10118,8 +12949,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group5_B  &
    mass = 11.5258405181  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group5_B.cm  &
-   ixx = 294.0966081325  &
-   iyy = 294.0966081325  &
+   ixx = 703.2414069608  &
+   iyy = 703.2414069608  &
    izz = 0.4102158729  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -10129,7 +12960,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group5_B.cyl1  &
-   adams_id = 3272  &
+   adams_id = 5568  &
    center_marker = .test_analysis_1.Upper_DP_Group5_B.end_B  &
    angle_extent = 360.0  &
    length = -15.5  &
@@ -10143,7 +12974,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group5_B.cyl1a  &
-   adams_id = 3273  &
+   adams_id = 5569  &
    center_marker = .test_analysis_1.Upper_DP_Group5_B.end_B  &
    angle_extent = 6.0  &
    length = -15.5  &
@@ -10157,7 +12988,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group5_B.rub1  &
-   adams_id = 3162  &
+   adams_id = 5449  &
    center_marker = .test_analysis_1.Upper_DP_Group5_B.cm  &
    radius = 0.25  &
    segment_count = 16
@@ -10174,9 +13005,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group5_sliderA  &
-   adams_id = 9001601  &
-   location = 580.6144642679, 0.0, 1502.0180403264  &
-   orientation = 90.0d, 90.0652837487d, 270.0d
+   adams_id = 9002201  &
+   location = 551.6945639051, 0.0, 1502.0499970664  &
+   orientation = 90.0d, 90.0476471574d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group5_sliderA
@@ -10185,27 +13016,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group5_sliderA.cm  &
-   adams_id = 9001601  &
+   adams_id = 9002201  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group5_sliderA.A1  &
-   adams_id = 9006395  &
+   adams_id = 9007027  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group5_sliderA.A2  &
-   adams_id = 9006396  &
+   adams_id = 9007028  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group5_sliderA.FMARKER_9001807  &
-   adams_id = 9001807
+   floating_marker_name = .test_analysis_1.Upper_DP_Group5_sliderA.FMARKER_9002407  &
+   adams_id = 9002407
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group5_sliderA  &
@@ -10215,7 +13046,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group5_sliderA.Upper_DP_Group5_sliderAgraphic  &
-   adams_id = 3278  &
+   adams_id = 5574  &
    center_marker = .test_analysis_1.Upper_DP_Group5_sliderA.A2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -10230,7 +13061,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group5_sliderA.ghole  &
-   adams_id = 3163  &
+   adams_id = 5450  &
    center_marker = .test_analysis_1.Upper_DP_Group5_sliderA.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -10248,9 +13079,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group5_C  &
-   adams_id = 9001800  &
-   location = 549.6173258983, 0.0, 1502.0518964374  &
-   orientation = 90.0d, 90.0559662634d, 270.0d
+   adams_id = 9002400  &
+   location = 520.6975847777, 0.0, 1502.0570396132  &
+   orientation = 90.0d, 89.9681930892d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group5_C
@@ -10259,25 +13090,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group5_C.gmark2  &
-   adams_id = 9006394  &
-   location = 0.0, 0.0, 7.749039994  &
+   adams_id = 9007026  &
+   location = 0.0, 0.0, 7.748974876  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group5_C.end_C  &
-   adams_id = 9001800  &
+   adams_id = 9002400  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group5_C.cm  &
-   adams_id = 9006392  &
-   location = 0.0, 0.0, 3.0111487244  &
+   adams_id = 9007024  &
+   location = 0.0, 0.0, 3.0111065149  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group5_C.end_beamC  &
-   adams_id = 9006393  &
+   adams_id = 9007025  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -10285,8 +13116,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group5_C  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group5_C.cm  &
-   ixx = 53.8524000697  &
-   iyy = 53.8524000697  &
+   ixx = 105.0477985516  &
+   iyy = 105.0477985516  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -10296,7 +13127,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group5_C.cyl1a  &
-   adams_id = 3276  &
+   adams_id = 5572  &
    center_marker = .test_analysis_1.Upper_DP_Group5_C.end_C  &
    angle_extent = 6.0  &
    length = 1.0  &
@@ -10310,7 +13141,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group5_C.cyl1  &
-   adams_id = 3277  &
+   adams_id = 5573  &
    center_marker = .test_analysis_1.Upper_DP_Group5_C.end_C  &
    angle_extent = 360.0  &
    length = 1.0  &
@@ -10324,7 +13155,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group5_C.cyl2  &
-   adams_id = 3274  &
+   adams_id = 5570  &
    center_marker = .test_analysis_1.Upper_DP_Group5_C.gmark2  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -10338,7 +13169,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group5_C.cyl2a  &
-   adams_id = 3275  &
+   adams_id = 5571  &
    center_marker = .test_analysis_1.Upper_DP_Group5_C.gmark2  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -10358,9 +13189,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group5_sliderB  &
-   adams_id = 9001701  &
-   location = 565.1153994615, 0.0, 1502.0355990183  &
-   orientation = 90.0d, 90.0645355491d, 270.0d
+   adams_id = 9002301  &
+   location = 536.1955375406, 0.0, 1502.058891411  &
+   orientation = 90.0d, 90.0181147392d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group5_sliderB
@@ -10369,27 +13200,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group5_sliderB.cm  &
-   adams_id = 9001701  &
+   adams_id = 9002301  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group5_sliderB.B1  &
-   adams_id = 9006397  &
+   adams_id = 9007029  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group5_sliderB.B2  &
-   adams_id = 9006398  &
+   adams_id = 9007030  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group5_sliderB.FMARKER_9001808  &
-   adams_id = 9001808
+   floating_marker_name = .test_analysis_1.Upper_DP_Group5_sliderB.FMARKER_9002408  &
+   adams_id = 9002408
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group5_sliderB  &
@@ -10399,7 +13230,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group5_sliderB.Upper_DP_Group5_sliderBgraphic  &
-   adams_id = 3279  &
+   adams_id = 5575  &
    center_marker = .test_analysis_1.Upper_DP_Group5_sliderB.B2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -10414,7 +13245,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group5_sliderB.ghole  &
-   adams_id = 3164  &
+   adams_id = 5451  &
    center_marker = .test_analysis_1.Upper_DP_Group5_sliderB.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -10432,9 +13263,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group6_A  &
-   adams_id = 9001900  &
-   location = 549.6145714036, 0.0, 1502.0518988817  &
-   orientation = 90.0d, 90.0438073896d, 270.0d
+   adams_id = 9002500  &
+   location = 520.694693513, 0.0, 1502.0570368089  &
+   orientation = 90.0d, 89.913967789d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group6_A
@@ -10443,25 +13274,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group6_A.end_A  &
-   adams_id = 9001900  &
+   adams_id = 9002500  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group6_A.cm  &
-   adams_id = 9006399  &
+   adams_id = 9007031  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group6_A.gmark1  &
-   adams_id = 9006400  &
+   adams_id = 9007032  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group6_A.end_beamA  &
-   adams_id = 9006401  &
+   adams_id = 9007033  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -10469,8 +13300,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group6_A  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group6_A.cm  &
-   ixx = 53.8655360846  &
-   iyy = 53.8655360846  &
+   ixx = 105.0618254756  &
+   iyy = 105.0618254756  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -10480,7 +13311,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group6_A.cyl1  &
-   adams_id = 3280  &
+   adams_id = 5576  &
    center_marker = .test_analysis_1.Upper_DP_Group6_A.end_A  &
    angle_extent = 360.0  &
    length = -1.0  &
@@ -10494,7 +13325,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group6_A.cyl1a  &
-   adams_id = 3281  &
+   adams_id = 5577  &
    center_marker = .test_analysis_1.Upper_DP_Group6_A.end_A  &
    angle_extent = 6.0  &
    length = -1.0  &
@@ -10508,7 +13339,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group6_A.cyl2  &
-   adams_id = 3282  &
+   adams_id = 5578  &
    center_marker = .test_analysis_1.Upper_DP_Group6_A.gmark1  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -10522,7 +13353,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group6_A.cyl2a  &
-   adams_id = 3283  &
+   adams_id = 5579  &
    center_marker = .test_analysis_1.Upper_DP_Group6_A.gmark1  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -10542,9 +13373,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group6_B  &
-   adams_id = 9002000  &
-   location = 541.8655484014, 0.0, 1502.0578236556  &
-   orientation = 90.0d, 90.0108627085d, 270.0d
+   adams_id = 9002600  &
+   location = 512.9457440261, 0.0, 1502.0454014012  &
+   orientation = 90.0d, 89.7769034609d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group6_B
@@ -10553,19 +13384,19 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group6_B.end_B  &
-   adams_id = 9006402  &
+   adams_id = 9007034  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group6_B.cm  &
-   adams_id = 9002000  &
+   adams_id = 9002600  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group6_B.end_beamB  &
-   adams_id = 9006403  &
+   adams_id = 9007035  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -10573,8 +13404,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group6_B  &
    mass = 11.5258405181  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group6_B.cm  &
-   ixx = 294.0966081325  &
-   iyy = 294.0966081325  &
+   ixx = 703.2414069608  &
+   iyy = 703.2414069608  &
    izz = 0.4102158729  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -10584,7 +13415,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group6_B.cyl1  &
-   adams_id = 3284  &
+   adams_id = 5580  &
    center_marker = .test_analysis_1.Upper_DP_Group6_B.end_B  &
    angle_extent = 360.0  &
    length = -15.5  &
@@ -10598,7 +13429,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group6_B.cyl1a  &
-   adams_id = 3285  &
+   adams_id = 5581  &
    center_marker = .test_analysis_1.Upper_DP_Group6_B.end_B  &
    angle_extent = 6.0  &
    length = -15.5  &
@@ -10612,7 +13443,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group6_B.rub1  &
-   adams_id = 3165  &
+   adams_id = 5452  &
    center_marker = .test_analysis_1.Upper_DP_Group6_B.cm  &
    radius = 0.25  &
    segment_count = 16
@@ -10629,9 +13460,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group6_sliderA  &
-   adams_id = 9001901  &
-   location = 549.6145714036, 0.0, 1502.0518988817  &
-   orientation = 90.0d, 90.0438073896d, 270.0d
+   adams_id = 9002501  &
+   location = 520.694693513, 0.0, 1502.0570368089  &
+   orientation = 90.0d, 89.913967789d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group6_sliderA
@@ -10640,27 +13471,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group6_sliderA.cm  &
-   adams_id = 9001901  &
+   adams_id = 9002501  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group6_sliderA.A1  &
-   adams_id = 9006407  &
+   adams_id = 9007039  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group6_sliderA.A2  &
-   adams_id = 9006408  &
+   adams_id = 9007040  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group6_sliderA.FMARKER_9002107  &
-   adams_id = 9002107
+   floating_marker_name = .test_analysis_1.Upper_DP_Group6_sliderA.FMARKER_9002707  &
+   adams_id = 9002707
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group6_sliderA  &
@@ -10670,7 +13501,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group6_sliderA.Upper_DP_Group6_sliderAgraphic  &
-   adams_id = 3290  &
+   adams_id = 5586  &
    center_marker = .test_analysis_1.Upper_DP_Group6_sliderA.A2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -10685,7 +13516,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group6_sliderA.ghole  &
-   adams_id = 3166  &
+   adams_id = 5453  &
    center_marker = .test_analysis_1.Upper_DP_Group6_sliderA.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -10703,9 +13534,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group6_C  &
-   adams_id = 9002100  &
-   location = 518.6176075843, 0.0, 1502.0547525431  &
-   orientation = 90.0d, 89.9555653649d, 270.0d
+   adams_id = 9002700  &
+   location = 489.6985165869, 0.0, 1501.8927360364  &
+   orientation = 90.0d, 89.3173959765d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group6_C
@@ -10714,25 +13545,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group6_C.gmark2  &
-   adams_id = 9006406  &
-   location = 0.0, 0.0, 7.7489698343  &
+   adams_id = 9007038  &
+   location = 0.0, 0.0, 7.748927236  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group6_C.end_C  &
-   adams_id = 9002100  &
+   adams_id = 9002700  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group6_C.cm  &
-   adams_id = 9006404  &
-   location = 0.0, 0.0, 3.0111032469  &
+   adams_id = 9007036  &
+   location = 0.0, 0.0, 3.0110756347  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group6_C.end_beamC  &
-   adams_id = 9006405  &
+   adams_id = 9007037  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -10740,8 +13571,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group6_C  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group6_C.cm  &
-   ixx = 53.8514401839  &
-   iyy = 53.8514401839  &
+   ixx = 105.0471467764  &
+   iyy = 105.0471467764  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -10751,7 +13582,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group6_C.cyl1a  &
-   adams_id = 3288  &
+   adams_id = 5584  &
    center_marker = .test_analysis_1.Upper_DP_Group6_C.end_C  &
    angle_extent = 6.0  &
    length = 1.0  &
@@ -10765,7 +13596,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group6_C.cyl1  &
-   adams_id = 3289  &
+   adams_id = 5585  &
    center_marker = .test_analysis_1.Upper_DP_Group6_C.end_C  &
    angle_extent = 360.0  &
    length = 1.0  &
@@ -10779,7 +13610,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group6_C.cyl2  &
-   adams_id = 3286  &
+   adams_id = 5582  &
    center_marker = .test_analysis_1.Upper_DP_Group6_C.gmark2  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -10793,7 +13624,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group6_C.cyl2a  &
-   adams_id = 3287  &
+   adams_id = 5583  &
    center_marker = .test_analysis_1.Upper_DP_Group6_C.gmark2  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -10813,9 +13644,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group6_sliderB  &
-   adams_id = 9002001  &
-   location = 534.1155485407, 0.0, 1502.0592929783  &
-   orientation = 90.0d, 90.0108627085d, 270.0d
+   adams_id = 9002601  &
+   location = 505.1958027766, 0.0, 1502.0152247665  &
+   orientation = 90.0d, 89.7769034609d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group6_sliderB
@@ -10824,27 +13655,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group6_sliderB.cm  &
-   adams_id = 9002001  &
+   adams_id = 9002601  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group6_sliderB.B1  &
-   adams_id = 9006409  &
+   adams_id = 9007041  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group6_sliderB.B2  &
-   adams_id = 9006410  &
+   adams_id = 9007042  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group6_sliderB.FMARKER_9002108  &
-   adams_id = 9002108
+   floating_marker_name = .test_analysis_1.Upper_DP_Group6_sliderB.FMARKER_9002708  &
+   adams_id = 9002708
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group6_sliderB  &
@@ -10854,7 +13685,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group6_sliderB.Upper_DP_Group6_sliderBgraphic  &
-   adams_id = 3291  &
+   adams_id = 5587  &
    center_marker = .test_analysis_1.Upper_DP_Group6_sliderB.B2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -10869,7 +13700,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group6_sliderB.ghole  &
-   adams_id = 3167  &
+   adams_id = 5454  &
    center_marker = .test_analysis_1.Upper_DP_Group6_sliderB.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -10887,9 +13718,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group7_A  &
-   adams_id = 9002200  &
-   location = 518.6147045221, 0.0, 1502.0547489608  &
-   orientation = 90.0d, 89.895654038d, 270.0d
+   adams_id = 9002800  &
+   location = 489.6954635055, 0.0, 1501.8926779527  &
+   orientation = 90.0d, 88.4152921703d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group7_A
@@ -10898,25 +13729,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group7_A.end_A  &
-   adams_id = 9002200  &
+   adams_id = 9002800  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group7_A.cm  &
-   adams_id = 9006411  &
+   adams_id = 9007043  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group7_A.gmark1  &
-   adams_id = 9006412  &
+   adams_id = 9007044  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group7_A.end_beamA  &
-   adams_id = 9006413  &
+   adams_id = 9007045  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -10924,8 +13755,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group7_A  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group7_A.cm  &
-   ixx = 53.8655360846  &
-   iyy = 53.8655360846  &
+   ixx = 105.0618254756  &
+   iyy = 105.0618254756  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -10935,7 +13766,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group7_A.cyl1  &
-   adams_id = 3292  &
+   adams_id = 5588  &
    center_marker = .test_analysis_1.Upper_DP_Group7_A.end_A  &
    angle_extent = 360.0  &
    length = -1.0  &
@@ -10949,7 +13780,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group7_A.cyl1a  &
-   adams_id = 3293  &
+   adams_id = 5589  &
    center_marker = .test_analysis_1.Upper_DP_Group7_A.end_A  &
    angle_extent = 6.0  &
    length = -1.0  &
@@ -10963,7 +13794,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group7_A.cyl2  &
-   adams_id = 3294  &
+   adams_id = 5590  &
    center_marker = .test_analysis_1.Upper_DP_Group7_A.gmark1  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -10977,7 +13808,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group7_A.cyl2a  &
-   adams_id = 3295  &
+   adams_id = 5591  &
    center_marker = .test_analysis_1.Upper_DP_Group7_A.gmark1  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -10997,9 +13828,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group7_B  &
-   adams_id = 9002300  &
-   location = 510.865761983, 0.0, 1502.0406367214  &
-   orientation = 90.0d, 89.7353367317d, 270.0d
+   adams_id = 9002900  &
+   location = 481.9494578503, 0.0, 1501.6783814203  &
+   orientation = 90.0d, 87.0160816448d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group7_B
@@ -11008,19 +13839,19 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group7_B.end_B  &
-   adams_id = 9006414  &
+   adams_id = 9007046  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group7_B.cm  &
-   adams_id = 9002300  &
+   adams_id = 9002900  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group7_B.end_beamB  &
-   adams_id = 9006415  &
+   adams_id = 9007047  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -11028,8 +13859,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group7_B  &
    mass = 11.5258405181  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group7_B.cm  &
-   ixx = 294.0966081325  &
-   iyy = 294.0966081325  &
+   ixx = 703.2414069608  &
+   iyy = 703.2414069608  &
    izz = 0.4102158729  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -11039,7 +13870,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group7_B.cyl1  &
-   adams_id = 3296  &
+   adams_id = 5592  &
    center_marker = .test_analysis_1.Upper_DP_Group7_B.end_B  &
    angle_extent = 360.0  &
    length = -15.5  &
@@ -11053,7 +13884,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group7_B.cyl1a  &
-   adams_id = 3297  &
+   adams_id = 5593  &
    center_marker = .test_analysis_1.Upper_DP_Group7_B.end_B  &
    angle_extent = 6.0  &
    length = -15.5  &
@@ -11067,7 +13898,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group7_B.rub1  &
-   adams_id = 3168  &
+   adams_id = 5455  &
    center_marker = .test_analysis_1.Upper_DP_Group7_B.cm  &
    radius = 0.25  &
    segment_count = 16
@@ -11084,9 +13915,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group7_sliderA  &
-   adams_id = 9002201  &
-   location = 518.6147045221, 0.0, 1502.0547489608  &
-   orientation = 90.0d, 89.895654038d, 270.0d
+   adams_id = 9002801  &
+   location = 489.6954635055, 0.0, 1501.8926779527  &
+   orientation = 90.0d, 88.4152921703d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group7_sliderA
@@ -11095,27 +13926,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group7_sliderA.cm  &
-   adams_id = 9002201  &
+   adams_id = 9002801  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group7_sliderA.A1  &
-   adams_id = 9006419  &
+   adams_id = 9007051  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group7_sliderA.A2  &
-   adams_id = 9006420  &
+   adams_id = 9007052  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group7_sliderA.FMARKER_9002407  &
-   adams_id = 9002407
+   floating_marker_name = .test_analysis_1.Upper_DP_Group7_sliderA.FMARKER_9003007  &
+   adams_id = 9003007
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group7_sliderA  &
@@ -11125,7 +13956,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group7_sliderA.Upper_DP_Group7_sliderAgraphic  &
-   adams_id = 3302  &
+   adams_id = 5598  &
    center_marker = .test_analysis_1.Upper_DP_Group7_sliderA.A2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -11140,7 +13971,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group7_sliderA.ghole  &
-   adams_id = 3169  &
+   adams_id = 5456  &
    center_marker = .test_analysis_1.Upper_DP_Group7_sliderA.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -11158,9 +13989,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group7_C  &
-   adams_id = 9002400  &
-   location = 487.6189674376, 0.0, 1501.8485106149  &
-   orientation = 90.0d, 89.1087415425d, 270.0d
+   adams_id = 9003000  &
+   location = 458.7440867145, 0.0, 1500.2974066208  &
+   orientation = 90.0d, 85.7506514561d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group7_C
@@ -11169,25 +14000,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group7_C.gmark2  &
-   adams_id = 9006418  &
-   location = 0.0, 0.0, 7.7489321979  &
+   adams_id = 9007050  &
+   location = 0.0, 0.0, 7.7490728756  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group7_C.end_C  &
-   adams_id = 9002400  &
+   adams_id = 9003000  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group7_C.cm  &
-   adams_id = 9006416  &
-   location = 0.0, 0.0, 3.011078851  &
+   adams_id = 9007048  &
+   location = 0.0, 0.0, 3.0111700382  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group7_C.end_beamC  &
-   adams_id = 9006417  &
+   adams_id = 9007049  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -11195,8 +14026,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group7_C  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group7_C.cm  &
-   ixx = 53.8509252701  &
-   iyy = 53.8509252701  &
+   ixx = 105.0491393339  &
+   iyy = 105.0491393339  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -11206,7 +14037,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group7_C.cyl1a  &
-   adams_id = 3300  &
+   adams_id = 5596  &
    center_marker = .test_analysis_1.Upper_DP_Group7_C.end_C  &
    angle_extent = 6.0  &
    length = 1.0  &
@@ -11220,7 +14051,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group7_C.cyl1  &
-   adams_id = 3301  &
+   adams_id = 5597  &
    center_marker = .test_analysis_1.Upper_DP_Group7_C.end_C  &
    angle_extent = 360.0  &
    length = 1.0  &
@@ -11234,7 +14065,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group7_C.cyl2  &
-   adams_id = 3298  &
+   adams_id = 5594  &
    center_marker = .test_analysis_1.Upper_DP_Group7_C.gmark2  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -11248,7 +14079,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group7_C.cyl2a  &
-   adams_id = 3299  &
+   adams_id = 5595  &
    center_marker = .test_analysis_1.Upper_DP_Group7_C.gmark2  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -11268,9 +14099,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group7_sliderB  &
-   adams_id = 9002301  &
-   location = 503.1158446654, 0.0, 1502.0048376965  &
-   orientation = 90.0d, 89.7353367317d, 270.0d
+   adams_id = 9002901  &
+   location = 474.2099654169, 0.0, 1501.274950046  &
+   orientation = 90.0d, 87.0160816448d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group7_sliderB
@@ -11279,27 +14110,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group7_sliderB.cm  &
-   adams_id = 9002301  &
+   adams_id = 9002901  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group7_sliderB.B1  &
-   adams_id = 9006421  &
+   adams_id = 9007053  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group7_sliderB.B2  &
-   adams_id = 9006422  &
+   adams_id = 9007054  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group7_sliderB.FMARKER_9002408  &
-   adams_id = 9002408
+   floating_marker_name = .test_analysis_1.Upper_DP_Group7_sliderB.FMARKER_9003008  &
+   adams_id = 9003008
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group7_sliderB  &
@@ -11309,7 +14140,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group7_sliderB.Upper_DP_Group7_sliderBgraphic  &
-   adams_id = 3303  &
+   adams_id = 5599  &
    center_marker = .test_analysis_1.Upper_DP_Group7_sliderB.B2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -11324,7 +14155,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group7_sliderB.ghole  &
-   adams_id = 3170  &
+   adams_id = 5457  &
    center_marker = .test_analysis_1.Upper_DP_Group7_sliderB.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -11342,9 +14173,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group8_A  &
-   adams_id = 9002500  &
-   location = 487.6159071788, 0.0, 1501.848438584  &
-   orientation = 90.0d, 88.1409677293d, 270.0d
+   adams_id = 9003100  &
+   location = 458.7411830967, 0.0, 1500.2971673653  &
+   orientation = 90.0d, 84.8094893796d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group8_A
@@ -11353,25 +14184,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group8_A.end_A  &
-   adams_id = 9002500  &
+   adams_id = 9003100  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group8_A.cm  &
-   adams_id = 9006423  &
+   adams_id = 9007055  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group8_A.gmark1  &
-   adams_id = 9006424  &
+   adams_id = 9007056  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group8_A.end_beamA  &
-   adams_id = 9006425  &
+   adams_id = 9007057  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -11379,8 +14210,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group8_A  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group8_A.cm  &
-   ixx = 53.8655360846  &
-   iyy = 53.8655360846  &
+   ixx = 105.0618254756  &
+   iyy = 105.0618254756  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -11390,7 +14221,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group8_A.cyl1  &
-   adams_id = 3304  &
+   adams_id = 5600  &
    center_marker = .test_analysis_1.Upper_DP_Group8_A.end_A  &
    angle_extent = 360.0  &
    length = -1.0  &
@@ -11404,7 +14235,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group8_A.cyl1a  &
-   adams_id = 3305  &
+   adams_id = 5601  &
    center_marker = .test_analysis_1.Upper_DP_Group8_A.end_A  &
    angle_extent = 6.0  &
    length = -1.0  &
@@ -11418,7 +14249,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group8_A.cyl2  &
-   adams_id = 3306  &
+   adams_id = 5602  &
    center_marker = .test_analysis_1.Upper_DP_Group8_A.gmark1  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -11432,7 +14263,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group8_A.cyl2a  &
-   adams_id = 3307  &
+   adams_id = 5603  &
    center_marker = .test_analysis_1.Upper_DP_Group8_A.gmark1  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -11452,9 +14283,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group8_B  &
-   adams_id = 9002600  &
-   location = 479.8710278123, 0.0, 1501.5970581951  &
-   orientation = 90.0d, 86.7910236906d, 270.0d
+   adams_id = 9003200  &
+   location = 451.0238661419, 0.0, 1499.5961252193  &
+   orientation = 90.0d, 83.4747577224d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group8_B
@@ -11463,19 +14294,19 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group8_B.end_B  &
-   adams_id = 9006426  &
+   adams_id = 9007058  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group8_B.cm  &
-   adams_id = 9002600  &
+   adams_id = 9003200  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group8_B.end_beamB  &
-   adams_id = 9006427  &
+   adams_id = 9007059  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -11483,8 +14314,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group8_B  &
    mass = 11.5258405181  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group8_B.cm  &
-   ixx = 294.0966081325  &
-   iyy = 294.0966081325  &
+   ixx = 703.2414069608  &
+   iyy = 703.2414069608  &
    izz = 0.4102158729  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -11494,7 +14325,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group8_B.cyl1  &
-   adams_id = 3308  &
+   adams_id = 5604  &
    center_marker = .test_analysis_1.Upper_DP_Group8_B.end_B  &
    angle_extent = 360.0  &
    length = -15.5  &
@@ -11508,7 +14339,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group8_B.cyl1a  &
-   adams_id = 3309  &
+   adams_id = 5605  &
    center_marker = .test_analysis_1.Upper_DP_Group8_B.end_B  &
    angle_extent = 6.0  &
    length = -15.5  &
@@ -11522,7 +14353,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group8_B.rub1  &
-   adams_id = 3171  &
+   adams_id = 5458  &
    center_marker = .test_analysis_1.Upper_DP_Group8_B.cm  &
    radius = 0.25  &
    segment_count = 16
@@ -11539,9 +14370,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group8_sliderA  &
-   adams_id = 9002501  &
-   location = 487.6159071788, 0.0, 1501.848438584  &
-   orientation = 90.0d, 88.1409677293d, 270.0d
+   adams_id = 9003101  &
+   location = 458.7411830967, 0.0, 1500.2971673653  &
+   orientation = 90.0d, 84.8094893796d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group8_sliderA
@@ -11550,27 +14381,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group8_sliderA.cm  &
-   adams_id = 9002501  &
+   adams_id = 9003101  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group8_sliderA.A1  &
-   adams_id = 9006431  &
+   adams_id = 9007063  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group8_sliderA.A2  &
-   adams_id = 9006432  &
+   adams_id = 9007064  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group8_sliderA.FMARKER_9002707  &
-   adams_id = 9002707
+   floating_marker_name = .test_analysis_1.Upper_DP_Group8_sliderA.FMARKER_9003307  &
+   adams_id = 9003307
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group8_sliderA  &
@@ -11580,7 +14411,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group8_sliderA.Upper_DP_Group8_sliderAgraphic  &
-   adams_id = 3314  &
+   adams_id = 5610  &
    center_marker = .test_analysis_1.Upper_DP_Group8_sliderA.A2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -11595,7 +14426,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group8_sliderA.ghole  &
-   adams_id = 3172  &
+   adams_id = 5459  &
    center_marker = .test_analysis_1.Upper_DP_Group8_sliderA.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -11613,9 +14444,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group8_C  &
-   adams_id = 9002700  &
-   location = 456.6714616606, 0.0, 1500.1219365575  &
-   orientation = 90.0d, 85.5033076005d, 270.0d
+   adams_id = 9003300  &
+   location = 427.9488039651, 0.0, 1496.7778441818  &
+   orientation = 90.0d, 82.160383644d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group8_C
@@ -11624,25 +14455,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group8_C.gmark2  &
-   adams_id = 9006430  &
-   location = 0.0, 0.0, 7.7490813413  &
+   adams_id = 9007062  &
+   location = 0.0, 0.0, 7.7492030294  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group8_C.end_C  &
-   adams_id = 9002700  &
+   adams_id = 9003300  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group8_C.cm  &
-   adams_id = 9006428  &
-   location = 0.0, 0.0, 3.0111755256  &
+   adams_id = 9007060  &
+   location = 0.0, 0.0, 3.0112544038  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group8_C.end_beamC  &
-   adams_id = 9006429  &
+   adams_id = 9007061  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -11650,8 +14481,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group8_C  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group8_C.cm  &
-   ixx = 53.8529657678  &
-   iyy = 53.8529657678  &
+   ixx = 105.0509200879  &
+   iyy = 105.0509200879  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -11661,7 +14492,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group8_C.cyl1a  &
-   adams_id = 3312  &
+   adams_id = 5608  &
    center_marker = .test_analysis_1.Upper_DP_Group8_C.end_C  &
    angle_extent = 6.0  &
    length = 1.0  &
@@ -11675,7 +14506,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group8_C.cyl1  &
-   adams_id = 3313  &
+   adams_id = 5609  &
    center_marker = .test_analysis_1.Upper_DP_Group8_C.end_C  &
    angle_extent = 360.0  &
    length = 1.0  &
@@ -11689,7 +14520,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group8_C.cyl2  &
-   adams_id = 3310  &
+   adams_id = 5606  &
    center_marker = .test_analysis_1.Upper_DP_Group8_C.gmark2  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -11703,7 +14534,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group8_C.cyl2a  &
-   adams_id = 3311  &
+   adams_id = 5607  &
    center_marker = .test_analysis_1.Upper_DP_Group8_C.gmark2  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -11723,9 +14554,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group8_sliderB  &
-   adams_id = 9002601  &
-   location = 472.1331797613, 0.0, 1501.1632292672  &
-   orientation = 90.0d, 86.7910236906d, 270.0d
+   adams_id = 9003201  &
+   location = 443.3240715227, 0.0, 1498.7154079991  &
+   orientation = 90.0d, 83.4747577224d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group8_sliderB
@@ -11734,27 +14565,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group8_sliderB.cm  &
-   adams_id = 9002601  &
+   adams_id = 9003201  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group8_sliderB.B1  &
-   adams_id = 9006433  &
+   adams_id = 9007065  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group8_sliderB.B2  &
-   adams_id = 9006434  &
+   adams_id = 9007066  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group8_sliderB.FMARKER_9002708  &
-   adams_id = 9002708
+   floating_marker_name = .test_analysis_1.Upper_DP_Group8_sliderB.FMARKER_9003308  &
+   adams_id = 9003308
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group8_sliderB  &
@@ -11764,7 +14595,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group8_sliderB.Upper_DP_Group8_sliderBgraphic  &
-   adams_id = 3315  &
+   adams_id = 5611  &
    center_marker = .test_analysis_1.Upper_DP_Group8_sliderB.B2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -11779,7 +14610,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group8_sliderB.ghole  &
-   adams_id = 3173  &
+   adams_id = 5460  &
    center_marker = .test_analysis_1.Upper_DP_Group8_sliderB.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -11797,9 +14628,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group9_A  &
-   adams_id = 9002800  &
-   location = 456.6685829294, 0.0, 1500.1216862314  &
-   orientation = 90.0d, 84.5583152872d, 270.0d
+   adams_id = 9003400  &
+   location = 427.9463153426, 0.0, 1496.7774817386  &
+   orientation = 90.0d, 81.2677570198d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group9_A
@@ -11808,25 +14639,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group9_A.end_A  &
-   adams_id = 9002800  &
+   adams_id = 9003400  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group9_A.cm  &
-   adams_id = 9006435  &
+   adams_id = 9007067  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group9_A.gmark1  &
-   adams_id = 9006436  &
+   adams_id = 9007068  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group9_A.end_beamA  &
-   adams_id = 9006437  &
+   adams_id = 9007069  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -11834,8 +14665,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group9_A  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group9_A.cm  &
-   ixx = 53.8655360846  &
-   iyy = 53.8655360846  &
+   ixx = 105.0618254756  &
+   iyy = 105.0618254756  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -11845,7 +14676,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group9_A.cyl1  &
-   adams_id = 3316  &
+   adams_id = 5612  &
    center_marker = .test_analysis_1.Upper_DP_Group9_A.end_A  &
    angle_extent = 360.0  &
    length = -1.0  &
@@ -11859,7 +14690,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group9_A.cyl1a  &
-   adams_id = 3317  &
+   adams_id = 5613  &
    center_marker = .test_analysis_1.Upper_DP_Group9_A.end_A  &
    angle_extent = 6.0  &
    length = -1.0  &
@@ -11873,7 +14704,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group9_A.cyl2  &
-   adams_id = 3318  &
+   adams_id = 5614  &
    center_marker = .test_analysis_1.Upper_DP_Group9_A.gmark1  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -11887,7 +14718,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group9_A.cyl2a  &
-   adams_id = 3319  &
+   adams_id = 5615  &
    center_marker = .test_analysis_1.Upper_DP_Group9_A.gmark1  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -11907,9 +14738,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group9_B  &
-   adams_id = 9002900  &
-   location = 448.9543944328, 0.0, 1499.386817838  &
-   orientation = 90.0d, 83.2412933292d, 270.0d
+   adams_id = 9003500  &
+   location = 420.2869080661, 0.0, 1495.6010161146  &
+   orientation = 90.0d, 79.9363914625d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group9_B
@@ -11918,19 +14749,19 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group9_B.end_B  &
-   adams_id = 9006438  &
+   adams_id = 9007070  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group9_B.cm  &
-   adams_id = 9002900  &
+   adams_id = 9003500  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group9_B.end_beamB  &
-   adams_id = 9006439  &
+   adams_id = 9007071  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -11938,8 +14769,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group9_B  &
    mass = 11.5258405181  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group9_B.cm  &
-   ixx = 294.0966081325  &
-   iyy = 294.0966081325  &
+   ixx = 703.2414069608  &
+   iyy = 703.2414069608  &
    izz = 0.4102158729  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -11949,7 +14780,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group9_B.cyl1  &
-   adams_id = 3320  &
+   adams_id = 5616  &
    center_marker = .test_analysis_1.Upper_DP_Group9_B.end_B  &
    angle_extent = 360.0  &
    length = -15.5  &
@@ -11963,7 +14794,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group9_B.cyl1a  &
-   adams_id = 3321  &
+   adams_id = 5617  &
    center_marker = .test_analysis_1.Upper_DP_Group9_B.end_B  &
    angle_extent = 6.0  &
    length = -15.5  &
@@ -11977,7 +14808,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group9_B.rub1  &
-   adams_id = 3174  &
+   adams_id = 5461  &
    center_marker = .test_analysis_1.Upper_DP_Group9_B.cm  &
    radius = 0.25  &
    segment_count = 16
@@ -11994,9 +14825,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group9_sliderA  &
-   adams_id = 9002801  &
-   location = 456.6685829294, 0.0, 1500.1216862314  &
-   orientation = 90.0d, 84.5583152872d, 270.0d
+   adams_id = 9003401  &
+   location = 427.9463153426, 0.0, 1496.7774817386  &
+   orientation = 90.0d, 81.2677570198d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group9_sliderA
@@ -12005,27 +14836,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group9_sliderA.cm  &
-   adams_id = 9002801  &
+   adams_id = 9003401  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group9_sliderA.A1  &
-   adams_id = 9006443  &
+   adams_id = 9007075  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group9_sliderA.A2  &
-   adams_id = 9006444  &
+   adams_id = 9007076  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group9_sliderA.FMARKER_9003007  &
-   adams_id = 9003007
+   floating_marker_name = .test_analysis_1.Upper_DP_Group9_sliderA.FMARKER_9003607  &
+   adams_id = 9003607
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group9_sliderA  &
@@ -12035,7 +14866,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group9_sliderA.Upper_DP_Group9_sliderAgraphic  &
-   adams_id = 3326  &
+   adams_id = 5622  &
    center_marker = .test_analysis_1.Upper_DP_Group9_sliderA.A2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -12050,7 +14881,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group9_sliderA.ghole  &
-   adams_id = 3175  &
+   adams_id = 5462  &
    center_marker = .test_analysis_1.Upper_DP_Group9_sliderA.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -12068,9 +14899,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group9_C  &
-   adams_id = 9003000  &
-   location = 425.891101165, 0.0, 1496.4737901919  &
-   orientation = 90.0d, 81.921361902d, 270.0d
+   adams_id = 9003600  &
+   location = 397.4298516852, 0.0, 1491.362435195  &
+   orientation = 90.0d, 78.6106351457d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group9_C
@@ -12079,25 +14910,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group9_C.gmark2  &
-   adams_id = 9006442  &
-   location = 0.0, 0.0, 7.7492119949  &
+   adams_id = 9007074  &
+   location = 0.0, 0.0, 7.7493183381  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group9_C.end_C  &
-   adams_id = 9003000  &
+   adams_id = 9003600  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group9_C.cm  &
-   adams_id = 9006440  &
-   location = 0.0, 0.0, 3.0112602151  &
+   adams_id = 9007072  &
+   location = 0.0, 0.0, 3.0113291467  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group9_C.end_beamC  &
-   adams_id = 9006441  &
+   adams_id = 9007073  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -12105,8 +14936,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group9_C  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group9_C.cm  &
-   ixx = 53.8547533635  &
-   iyy = 53.8547533635  &
+   ixx = 105.0524977815  &
+   iyy = 105.0524977815  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -12116,7 +14947,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group9_C.cyl1a  &
-   adams_id = 3324  &
+   adams_id = 5620  &
    center_marker = .test_analysis_1.Upper_DP_Group9_C.end_C  &
    angle_extent = 6.0  &
    length = 1.0  &
@@ -12130,7 +14961,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group9_C.cyl1  &
-   adams_id = 3325  &
+   adams_id = 5621  &
    center_marker = .test_analysis_1.Upper_DP_Group9_C.end_C  &
    angle_extent = 360.0  &
    length = 1.0  &
@@ -12144,7 +14975,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group9_C.cyl2  &
-   adams_id = 3322  &
+   adams_id = 5618  &
    center_marker = .test_analysis_1.Upper_DP_Group9_C.gmark2  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -12158,7 +14989,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group9_C.cyl2a  &
-   adams_id = 3323  &
+   adams_id = 5619  &
    center_marker = .test_analysis_1.Upper_DP_Group9_C.gmark2  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -12178,9 +15009,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group9_sliderB  &
-   adams_id = 9002901  &
-   location = 441.2582524029, 0.0, 1498.4747334909  &
-   orientation = 90.0d, 83.2412933292d, 270.0d
+   adams_id = 9003501  &
+   location = 412.6561467318, 0.0, 1494.2467703984  &
+   orientation = 90.0d, 79.9363914625d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group9_sliderB
@@ -12189,27 +15020,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group9_sliderB.cm  &
-   adams_id = 9002901  &
+   adams_id = 9003501  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group9_sliderB.B1  &
-   adams_id = 9006445  &
+   adams_id = 9007077  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group9_sliderB.B2  &
-   adams_id = 9006446  &
+   adams_id = 9007078  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group9_sliderB.FMARKER_9003008  &
-   adams_id = 9003008
+   floating_marker_name = .test_analysis_1.Upper_DP_Group9_sliderB.FMARKER_9003608  &
+   adams_id = 9003608
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group9_sliderB  &
@@ -12219,7 +15050,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group9_sliderB.Upper_DP_Group9_sliderBgraphic  &
-   adams_id = 3327  &
+   adams_id = 5623  &
    center_marker = .test_analysis_1.Upper_DP_Group9_sliderB.B2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -12234,7 +15065,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group9_sliderB.ghole  &
-   adams_id = 3176  &
+   adams_id = 5463  &
    center_marker = .test_analysis_1.Upper_DP_Group9_sliderB.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -12252,9 +15083,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group10_A  &
-   adams_id = 9003100  &
-   location = 425.8886424264, 0.0, 1496.473421646  &
-   orientation = 90.0d, 81.0275312375d, 270.0d
+   adams_id = 9003700  &
+   location = 397.4277681942, 0.0, 1491.3619996068  &
+   orientation = 90.0d, 77.7757648503d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group10_A
@@ -12263,25 +15094,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group10_A.end_A  &
-   adams_id = 9003100  &
+   adams_id = 9003700  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group10_A.cm  &
-   adams_id = 9006447  &
+   adams_id = 9007079  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group10_A.gmark1  &
-   adams_id = 9006448  &
+   adams_id = 9007080  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group10_A.end_beamA  &
-   adams_id = 9006449  &
+   adams_id = 9007081  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -12289,8 +15120,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group10_A  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group10_A.cm  &
-   ixx = 53.8655360846  &
-   iyy = 53.8655360846  &
+   ixx = 105.0618254756  &
+   iyy = 105.0618254756  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -12300,7 +15131,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group10_A.cyl1  &
-   adams_id = 3328  &
+   adams_id = 5624  &
    center_marker = .test_analysis_1.Upper_DP_Group10_A.end_A  &
    angle_extent = 360.0  &
    length = -1.0  &
@@ -12314,7 +15145,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group10_A.cyl1a  &
-   adams_id = 3329  &
+   adams_id = 5625  &
    center_marker = .test_analysis_1.Upper_DP_Group10_A.end_A  &
    angle_extent = 6.0  &
    length = -1.0  &
@@ -12328,7 +15159,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group10_A.cyl2  &
-   adams_id = 3330  &
+   adams_id = 5626  &
    center_marker = .test_analysis_1.Upper_DP_Group10_A.gmark1  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -12342,7 +15173,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group10_A.cyl2a  &
-   adams_id = 3331  &
+   adams_id = 5627  &
    center_marker = .test_analysis_1.Upper_DP_Group10_A.gmark1  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -12362,9 +15193,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group10_B  &
-   adams_id = 9003200  &
-   location = 418.2342294772, 0.0, 1495.2648517417  &
-   orientation = 90.0d, 79.6985670303d, 270.0d
+   adams_id = 9003800  &
+   location = 389.8540924104, 0.0, 1489.7211593454  &
+   orientation = 90.0d, 76.3657695352d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group10_B
@@ -12373,19 +15204,19 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group10_B.end_B  &
-   adams_id = 9006450  &
+   adams_id = 9007082  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group10_B.cm  &
-   adams_id = 9003200  &
+   adams_id = 9003800  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group10_B.end_beamB  &
-   adams_id = 9006451  &
+   adams_id = 9007083  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -12393,8 +15224,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group10_B  &
    mass = 11.5258405181  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group10_B.cm  &
-   ixx = 294.0966081325  &
-   iyy = 294.0966081325  &
+   ixx = 703.2414069608  &
+   iyy = 703.2414069608  &
    izz = 0.4102158729  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -12404,7 +15235,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group10_B.cyl1  &
-   adams_id = 3332  &
+   adams_id = 5628  &
    center_marker = .test_analysis_1.Upper_DP_Group10_B.end_B  &
    angle_extent = 360.0  &
    length = -15.5  &
@@ -12418,7 +15249,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group10_B.cyl1a  &
-   adams_id = 3333  &
+   adams_id = 5629  &
    center_marker = .test_analysis_1.Upper_DP_Group10_B.end_B  &
    angle_extent = 6.0  &
    length = -15.5  &
@@ -12432,7 +15263,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group10_B.rub1  &
-   adams_id = 3177  &
+   adams_id = 5464  &
    center_marker = .test_analysis_1.Upper_DP_Group10_B.cm  &
    radius = 0.25  &
    segment_count = 16
@@ -12449,9 +15280,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group10_sliderA  &
-   adams_id = 9003101  &
-   location = 425.8886424264, 0.0, 1496.473421646  &
-   orientation = 90.0d, 81.0275312375d, 270.0d
+   adams_id = 9003701  &
+   location = 397.4277681942, 0.0, 1491.3619996068  &
+   orientation = 90.0d, 77.7757648503d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group10_sliderA
@@ -12460,27 +15291,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group10_sliderA.cm  &
-   adams_id = 9003101  &
+   adams_id = 9003701  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group10_sliderA.A1  &
-   adams_id = 9006455  &
+   adams_id = 9007087  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group10_sliderA.A2  &
-   adams_id = 9006456  &
+   adams_id = 9007088  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group10_sliderA.FMARKER_9003307  &
-   adams_id = 9003307
+   floating_marker_name = .test_analysis_1.Upper_DP_Group10_sliderA.FMARKER_9003907  &
+   adams_id = 9003907
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group10_sliderA  &
@@ -12490,7 +15321,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group10_sliderA.Upper_DP_Group10_sliderAgraphic  &
-   adams_id = 3338  &
+   adams_id = 5634  &
    center_marker = .test_analysis_1.Upper_DP_Group10_sliderA.A2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -12505,7 +15336,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group10_sliderA.ghole  &
-   adams_id = 3178  &
+   adams_id = 5465  &
    center_marker = .test_analysis_1.Upper_DP_Group10_sliderA.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -12523,9 +15354,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group10_C  &
-   adams_id = 9003300  &
-   location = 395.3946294469, 0.0, 1490.9329435055  &
-   orientation = 90.0d, 78.3842549434d, 270.0d
+   adams_id = 9003900  &
+   location = 367.3048781505, 0.0, 1484.0683770061  &
+   orientation = 90.0d, 75.0486779507d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group10_C
@@ -12534,25 +15365,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group10_C.gmark2  &
-   adams_id = 9006454  &
-   location = 0.0, 0.0, 7.7493463933  &
+   adams_id = 9007086  &
+   location = 0.0, 0.0, 7.7494739148  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group10_C.end_C  &
-   adams_id = 9003300  &
+   adams_id = 9003900  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group10_C.cm  &
-   adams_id = 9006452  &
-   location = 0.0, 0.0, 3.0113473321  &
+   adams_id = 9007084  &
+   location = 0.0, 0.0, 3.0114299914  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group10_C.end_beamC  &
-   adams_id = 9006453  &
+   adams_id = 9007085  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -12560,8 +15391,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group10_C  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group10_C.cm  &
-   ixx = 53.8565922582  &
-   iyy = 53.8565922582  &
+   ixx = 105.0546265103  &
+   iyy = 105.0546265103  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -12571,7 +15402,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group10_C.cyl1a  &
-   adams_id = 3336  &
+   adams_id = 5632  &
    center_marker = .test_analysis_1.Upper_DP_Group10_C.end_C  &
    angle_extent = 6.0  &
    length = 1.0  &
@@ -12585,7 +15416,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group10_C.cyl1  &
-   adams_id = 3337  &
+   adams_id = 5633  &
    center_marker = .test_analysis_1.Upper_DP_Group10_C.end_C  &
    angle_extent = 360.0  &
    length = 1.0  &
@@ -12599,7 +15430,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group10_C.cyl2  &
-   adams_id = 3334  &
+   adams_id = 5630  &
    center_marker = .test_analysis_1.Upper_DP_Group10_C.gmark2  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -12613,7 +15444,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group10_C.cyl2a  &
-   adams_id = 3335  &
+   adams_id = 5631  &
    center_marker = .test_analysis_1.Upper_DP_Group10_C.gmark2  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -12633,9 +15464,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group10_sliderB  &
-   adams_id = 9003201  &
-   location = 410.6091550924, 0.0, 1493.8789438707  &
-   orientation = 90.0d, 79.6985670303d, 270.0d
+   adams_id = 9003801  &
+   location = 382.3224847354, 0.0, 1487.8943080023  &
+   orientation = 90.0d, 76.3657695352d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group10_sliderB
@@ -12644,27 +15475,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group10_sliderB.cm  &
-   adams_id = 9003201  &
+   adams_id = 9003801  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group10_sliderB.B1  &
-   adams_id = 9006457  &
+   adams_id = 9007089  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group10_sliderB.B2  &
-   adams_id = 9006458  &
+   adams_id = 9007090  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group10_sliderB.FMARKER_9003308  &
-   adams_id = 9003308
+   floating_marker_name = .test_analysis_1.Upper_DP_Group10_sliderB.FMARKER_9003908  &
+   adams_id = 9003908
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group10_sliderB  &
@@ -12674,7 +15505,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group10_sliderB.Upper_DP_Group10_sliderBgraphic  &
-   adams_id = 3339  &
+   adams_id = 5635  &
    center_marker = .test_analysis_1.Upper_DP_Group10_sliderB.B2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -12689,7 +15520,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group10_sliderB.ghole  &
-   adams_id = 3179  &
+   adams_id = 5466  &
    center_marker = .test_analysis_1.Upper_DP_Group10_sliderB.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -12707,9 +15538,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group11_A  &
-   adams_id = 9003400  &
-   location = 395.3925676379, 0.0, 1490.9325043459  &
-   orientation = 90.0d, 77.5386733227d, 270.0d
+   adams_id = 9004000  &
+   location = 367.3031929984, 0.0, 1484.0679137342  &
+   orientation = 90.0d, 74.1765716088d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group11_A
@@ -12718,25 +15549,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group11_A.end_A  &
-   adams_id = 9003400  &
+   adams_id = 9004000  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group11_A.cm  &
-   adams_id = 9006459  &
+   adams_id = 9007091  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group11_A.gmark1  &
-   adams_id = 9006460  &
+   adams_id = 9007092  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group11_A.end_beamA  &
-   adams_id = 9006461  &
+   adams_id = 9007093  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -12744,8 +15575,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group11_A  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group11_A.cm  &
-   ixx = 53.8655360846  &
-   iyy = 53.8655360846  &
+   ixx = 105.0618254756  &
+   iyy = 105.0618254756  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -12755,7 +15586,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group11_A.cyl1  &
-   adams_id = 3340  &
+   adams_id = 5636  &
    center_marker = .test_analysis_1.Upper_DP_Group11_A.end_A  &
    angle_extent = 360.0  &
    length = -1.0  &
@@ -12769,7 +15600,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group11_A.cyl1a  &
-   adams_id = 3341  &
+   adams_id = 5637  &
    center_marker = .test_analysis_1.Upper_DP_Group11_A.end_A  &
    angle_extent = 6.0  &
    length = -1.0  &
@@ -12783,7 +15614,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group11_A.cyl2  &
-   adams_id = 3342  &
+   adams_id = 5638  &
    center_marker = .test_analysis_1.Upper_DP_Group11_A.gmark1  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -12797,7 +15628,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group11_A.cyl2a  &
-   adams_id = 3343  &
+   adams_id = 5639  &
    center_marker = .test_analysis_1.Upper_DP_Group11_A.gmark1  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -12817,9 +15648,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group11_B  &
-   adams_id = 9003500  &
-   location = 387.8257617939, 0.0, 1489.2603415167  &
-   orientation = 90.0d, 76.1178979072d, 270.0d
+   adams_id = 9004100  &
+   location = 359.8473805228, 0.0, 1481.9548382638  &
+   orientation = 90.0d, 72.8433559629d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group11_B
@@ -12828,19 +15659,19 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group11_B.end_B  &
-   adams_id = 9006462  &
+   adams_id = 9007094  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group11_B.cm  &
-   adams_id = 9003500  &
+   adams_id = 9004100  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group11_B.end_beamB  &
-   adams_id = 9006463  &
+   adams_id = 9007095  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -12848,8 +15679,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group11_B  &
    mass = 11.5258405181  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group11_B.cm  &
-   ixx = 294.0966081325  &
-   iyy = 294.0966081325  &
+   ixx = 703.2414069608  &
+   iyy = 703.2414069608  &
    izz = 0.4102158729  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -12859,7 +15690,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group11_B.cyl1  &
-   adams_id = 3344  &
+   adams_id = 5640  &
    center_marker = .test_analysis_1.Upper_DP_Group11_B.end_B  &
    angle_extent = 360.0  &
    length = -15.5  &
@@ -12873,7 +15704,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group11_B.cyl1a  &
-   adams_id = 3345  &
+   adams_id = 5641  &
    center_marker = .test_analysis_1.Upper_DP_Group11_B.end_B  &
    angle_extent = 6.0  &
    length = -15.5  &
@@ -12887,7 +15718,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group11_B.rub1  &
-   adams_id = 3180  &
+   adams_id = 5467  &
    center_marker = .test_analysis_1.Upper_DP_Group11_B.cm  &
    radius = 0.25  &
    segment_count = 16
@@ -12904,9 +15735,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group11_sliderA  &
-   adams_id = 9003401  &
-   location = 395.3925676379, 0.0, 1490.9325043459  &
-   orientation = 90.0d, 77.5386733227d, 270.0d
+   adams_id = 9004001  &
+   location = 367.3031929984, 0.0, 1484.0679137342  &
+   orientation = 90.0d, 74.1765716088d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group11_sliderA
@@ -12915,27 +15746,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group11_sliderA.cm  &
-   adams_id = 9003401  &
+   adams_id = 9004001  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group11_sliderA.A1  &
-   adams_id = 9006467  &
+   adams_id = 9007099  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group11_sliderA.A2  &
-   adams_id = 9006468  &
+   adams_id = 9007100  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group11_sliderA.FMARKER_9003607  &
-   adams_id = 9003607
+   floating_marker_name = .test_analysis_1.Upper_DP_Group11_sliderA.FMARKER_9004207  &
+   adams_id = 9004207
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group11_sliderA  &
@@ -12945,7 +15776,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group11_sliderA.Upper_DP_Group11_sliderAgraphic  &
-   adams_id = 3350  &
+   adams_id = 5646  &
    center_marker = .test_analysis_1.Upper_DP_Group11_sliderA.A2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -12960,7 +15791,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group11_sliderA.ghole  &
-   adams_id = 3181  &
+   adams_id = 5468  &
    center_marker = .test_analysis_1.Upper_DP_Group11_sliderA.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -12978,9 +15809,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group11_C  &
-   adams_id = 9003600  &
-   location = 365.3003781085, 0.0, 1483.5129055711  &
-   orientation = 90.0d, 74.8227159993d, 270.0d
+   adams_id = 9004200  &
+   location = 337.6896922442, 0.0, 1474.9214327276  &
+   orientation = 90.0d, 71.4810373855d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group11_C
@@ -12989,25 +15820,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group11_C.gmark2  &
-   adams_id = 9006466  &
-   location = 0.0, 0.0, 7.7494840264  &
+   adams_id = 9007098  &
+   location = 0.0, 0.0, 7.7495842925  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group11_C.end_C  &
-   adams_id = 9003600  &
+   adams_id = 9004200  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group11_C.cm  &
-   adams_id = 9006464  &
-   location = 0.0, 0.0, 3.0114365457  &
+   adams_id = 9007096  &
+   location = 0.0, 0.0, 3.0115015381  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group11_C.end_beamC  &
-   adams_id = 9006465  &
+   adams_id = 9007097  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -13015,8 +15846,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group11_C  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group11_C.cm  &
-   ixx = 53.8584754775  &
-   iyy = 53.8584754775  &
+   ixx = 105.0561368411  &
+   iyy = 105.0561368411  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -13026,7 +15857,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group11_C.cyl1a  &
-   adams_id = 3348  &
+   adams_id = 5644  &
    center_marker = .test_analysis_1.Upper_DP_Group11_C.end_C  &
    angle_extent = 6.0  &
    length = 1.0  &
@@ -13040,7 +15871,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group11_C.cyl1  &
-   adams_id = 3349  &
+   adams_id = 5645  &
    center_marker = .test_analysis_1.Upper_DP_Group11_C.end_C  &
    angle_extent = 360.0  &
    length = 1.0  &
@@ -13054,7 +15885,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group11_C.cyl2  &
-   adams_id = 3346  &
+   adams_id = 5642  &
    center_marker = .test_analysis_1.Upper_DP_Group11_C.gmark2  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -13068,7 +15899,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group11_C.cyl2a  &
-   adams_id = 3347  &
+   adams_id = 5643  &
    center_marker = .test_analysis_1.Upper_DP_Group11_C.gmark2  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -13088,9 +15919,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group11_sliderB  &
-   adams_id = 9003501  &
-   location = 380.3021278547, 0.0, 1487.4009243101  &
-   orientation = 90.0d, 76.1178979072d, 270.0d
+   adams_id = 9004101  &
+   location = 352.4422411686, 0.0, 1479.6687037217  &
+   orientation = 90.0d, 72.8433559629d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group11_sliderB
@@ -13099,27 +15930,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group11_sliderB.cm  &
-   adams_id = 9003501  &
+   adams_id = 9004101  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group11_sliderB.B1  &
-   adams_id = 9006469  &
+   adams_id = 9007101  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group11_sliderB.B2  &
-   adams_id = 9006470  &
+   adams_id = 9007102  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group11_sliderB.FMARKER_9003608  &
-   adams_id = 9003608
+   floating_marker_name = .test_analysis_1.Upper_DP_Group11_sliderB.FMARKER_9004208  &
+   adams_id = 9004208
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group11_sliderB  &
@@ -13129,7 +15960,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group11_sliderB.Upper_DP_Group11_sliderBgraphic  &
-   adams_id = 3351  &
+   adams_id = 5647  &
    center_marker = .test_analysis_1.Upper_DP_Group11_sliderB.B2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -13144,7 +15975,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group11_sliderB.ghole  &
-   adams_id = 3182  &
+   adams_id = 5469  &
    center_marker = .test_analysis_1.Upper_DP_Group11_sliderB.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -13162,9 +15993,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group12_A  &
-   adams_id = 9003700  &
-   location = 365.2987175484, 0.0, 1483.5124417046  &
-   orientation = 90.0d, 73.9298492835d, 270.0d
+   adams_id = 9004300  &
+   location = 337.6884016481, 0.0, 1474.9209897868  &
+   orientation = 90.0d, 70.6410992472d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group12_A
@@ -13173,25 +16004,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group12_A.end_A  &
-   adams_id = 9003700  &
+   adams_id = 9004300  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group12_A.cm  &
-   adams_id = 9006471  &
+   adams_id = 9007103  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group12_A.gmark1  &
-   adams_id = 9006472  &
+   adams_id = 9007104  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group12_A.end_beamA  &
-   adams_id = 9006473  &
+   adams_id = 9007105  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -13199,8 +16030,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group12_A  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group12_A.cm  &
-   ixx = 53.8655360846  &
-   iyy = 53.8655360846  &
+   ixx = 105.0618254756  &
+   iyy = 105.0618254756  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -13210,7 +16041,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group12_A.cyl1  &
-   adams_id = 3352  &
+   adams_id = 5648  &
    center_marker = .test_analysis_1.Upper_DP_Group12_A.end_A  &
    angle_extent = 360.0  &
    length = -1.0  &
@@ -13224,7 +16055,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group12_A.cyl1a  &
-   adams_id = 3353  &
+   adams_id = 5649  &
    center_marker = .test_analysis_1.Upper_DP_Group12_A.end_A  &
    angle_extent = 6.0  &
    length = -1.0  &
@@ -13238,7 +16069,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group12_A.cyl2  &
-   adams_id = 3354  &
+   adams_id = 5650  &
    center_marker = .test_analysis_1.Upper_DP_Group12_A.gmark1  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -13252,7 +16083,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group12_A.cyl2a  &
-   adams_id = 3355  &
+   adams_id = 5651  &
    center_marker = .test_analysis_1.Upper_DP_Group12_A.gmark1  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -13272,9 +16103,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group12_B  &
-   adams_id = 9003800  &
-   location = 357.8520709314, 0.0, 1481.3672796361  &
-   orientation = 90.0d, 72.6038600745d, 270.0d
+   adams_id = 9004400  &
+   location = 330.3769251202, 0.0, 1472.3521060217  &
+   orientation = 90.0d, 69.2572116093d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group12_B
@@ -13283,19 +16114,19 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group12_B.end_B  &
-   adams_id = 9006474  &
+   adams_id = 9007106  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group12_B.cm  &
-   adams_id = 9003800  &
+   adams_id = 9004400  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group12_B.end_beamB  &
-   adams_id = 9006475  &
+   adams_id = 9007107  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -13303,8 +16134,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group12_B  &
    mass = 11.5258405181  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group12_B.cm  &
-   ixx = 294.0966081325  &
-   iyy = 294.0966081325  &
+   ixx = 703.2414069608  &
+   iyy = 703.2414069608  &
    izz = 0.4102158729  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -13314,7 +16145,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group12_B.cyl1  &
-   adams_id = 3356  &
+   adams_id = 5652  &
    center_marker = .test_analysis_1.Upper_DP_Group12_B.end_B  &
    angle_extent = 360.0  &
    length = -15.5  &
@@ -13328,7 +16159,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group12_B.cyl1a  &
-   adams_id = 3357  &
+   adams_id = 5653  &
    center_marker = .test_analysis_1.Upper_DP_Group12_B.end_B  &
    angle_extent = 6.0  &
    length = -15.5  &
@@ -13342,7 +16173,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group12_B.rub1  &
-   adams_id = 3183  &
+   adams_id = 5470  &
    center_marker = .test_analysis_1.Upper_DP_Group12_B.cm  &
    radius = 0.25  &
    segment_count = 16
@@ -13359,9 +16190,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group12_sliderA  &
-   adams_id = 9003701  &
-   location = 365.2987175484, 0.0, 1483.5124417046  &
-   orientation = 90.0d, 73.9298492835d, 270.0d
+   adams_id = 9004301  &
+   location = 337.6884016481, 0.0, 1474.9209897868  &
+   orientation = 90.0d, 70.6410992472d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group12_sliderA
@@ -13370,27 +16201,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group12_sliderA.cm  &
-   adams_id = 9003701  &
+   adams_id = 9004301  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group12_sliderA.A1  &
-   adams_id = 9006479  &
+   adams_id = 9007111  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group12_sliderA.A2  &
-   adams_id = 9006480  &
+   adams_id = 9007112  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group12_sliderA.FMARKER_9003907  &
-   adams_id = 9003907
+   floating_marker_name = .test_analysis_1.Upper_DP_Group12_sliderA.FMARKER_9004507  &
+   adams_id = 9004507
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group12_sliderA  &
@@ -13400,7 +16231,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group12_sliderA.Upper_DP_Group12_sliderAgraphic  &
-   adams_id = 3362  &
+   adams_id = 5658  &
    center_marker = .test_analysis_1.Upper_DP_Group12_sliderA.A2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -13415,7 +16246,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group12_sliderA.ghole  &
-   adams_id = 3184  &
+   adams_id = 5471  &
    center_marker = .test_analysis_1.Upper_DP_Group12_sliderA.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -13433,9 +16264,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group12_C  &
-   adams_id = 9003900  &
-   location = 335.723544811, 0.0, 1474.2425597681  &
-   orientation = 90.0d, 71.251272663d, 270.0d
+   adams_id = 9004500  &
+   location = 308.6990037973, 0.0, 1463.9547009384  &
+   orientation = 90.0d, 67.9607490841d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group12_C
@@ -13444,25 +16275,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group12_C.gmark2  &
-   adams_id = 9006478  &
-   location = 0.0, 0.0, 7.7496239935  &
+   adams_id = 9007110  &
+   location = 0.0, 0.0, 7.7497104992  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group12_C.end_C  &
-   adams_id = 9003900  &
+   adams_id = 9004500  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group12_C.cm  &
-   adams_id = 9006476  &
-   location = 0.0, 0.0, 3.0115272723  &
+   adams_id = 9007108  &
+   location = 0.0, 0.0, 3.0115833451  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group12_C.end_beamC  &
-   adams_id = 9006477  &
+   adams_id = 9007109  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -13470,8 +16301,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group12_C  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group12_C.cm  &
-   ixx = 53.8603907014  &
-   iyy = 53.8603907014  &
+   ixx = 105.0578638171  &
+   iyy = 105.0578638171  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -13481,7 +16312,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group12_C.cyl1a  &
-   adams_id = 3360  &
+   adams_id = 5656  &
    center_marker = .test_analysis_1.Upper_DP_Group12_C.end_C  &
    angle_extent = 6.0  &
    length = 1.0  &
@@ -13495,7 +16326,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group12_C.cyl1  &
-   adams_id = 3361  &
+   adams_id = 5657  &
    center_marker = .test_analysis_1.Upper_DP_Group12_C.end_C  &
    angle_extent = 360.0  &
    length = 1.0  &
@@ -13509,7 +16340,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group12_C.cyl2  &
-   adams_id = 3358  &
+   adams_id = 5654  &
    center_marker = .test_analysis_1.Upper_DP_Group12_C.gmark2  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -13523,7 +16354,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group12_C.cyl2a  &
-   adams_id = 3359  &
+   adams_id = 5655  &
    center_marker = .test_analysis_1.Upper_DP_Group12_C.gmark2  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -13543,9 +16374,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group12_sliderB  &
-   adams_id = 9003801  &
-   location = 350.4565522654, 0.0, 1479.0502117344  &
-   orientation = 90.0d, 72.6038600745d, 270.0d
+   adams_id = 9004401  &
+   location = 323.1292817044, 0.0, 1469.6072626897  &
+   orientation = 90.0d, 69.2572116093d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group12_sliderB
@@ -13554,27 +16385,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group12_sliderB.cm  &
-   adams_id = 9003801  &
+   adams_id = 9004401  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group12_sliderB.B1  &
-   adams_id = 9006481  &
+   adams_id = 9007113  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group12_sliderB.B2  &
-   adams_id = 9006482  &
+   adams_id = 9007114  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group12_sliderB.FMARKER_9003908  &
-   adams_id = 9003908
+   floating_marker_name = .test_analysis_1.Upper_DP_Group12_sliderB.FMARKER_9004508  &
+   adams_id = 9004508
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group12_sliderB  &
@@ -13584,7 +16415,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group12_sliderB.Upper_DP_Group12_sliderBgraphic  &
-   adams_id = 3363  &
+   adams_id = 5659  &
    center_marker = .test_analysis_1.Upper_DP_Group12_sliderB.B2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -13599,7 +16430,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group12_sliderB.ghole  &
-   adams_id = 3185  &
+   adams_id = 5472  &
    center_marker = .test_analysis_1.Upper_DP_Group12_sliderB.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -13617,9 +16448,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group13_A  &
-   adams_id = 9004000  &
-   location = 335.7222718733, 0.0, 1474.2421175649  &
-   orientation = 90.0d, 70.4016421238d, 270.0d
+   adams_id = 9004600  &
+   location = 308.6981071793, 0.0, 1463.9543299956  &
+   orientation = 90.0d, 67.0705546926d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group13_A
@@ -13628,25 +16459,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group13_A.end_A  &
-   adams_id = 9004000  &
+   adams_id = 9004600  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group13_A.cm  &
-   adams_id = 9006483  &
+   adams_id = 9007115  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group13_A.gmark1  &
-   adams_id = 9006484  &
+   adams_id = 9007116  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group13_A.end_beamA  &
-   adams_id = 9006485  &
+   adams_id = 9007117  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -13654,8 +16485,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group13_A  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group13_A.cm  &
-   ixx = 53.8655360846  &
-   iyy = 53.8655360846  &
+   ixx = 105.0618254756  &
+   iyy = 105.0618254756  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -13665,7 +16496,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group13_A.cyl1  &
-   adams_id = 3364  &
+   adams_id = 5660  &
    center_marker = .test_analysis_1.Upper_DP_Group13_A.end_A  &
    angle_extent = 360.0  &
    length = -1.0  &
@@ -13679,7 +16510,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group13_A.cyl1a  &
-   adams_id = 3365  &
+   adams_id = 5661  &
    center_marker = .test_analysis_1.Upper_DP_Group13_A.end_A  &
    angle_extent = 6.0  &
    length = -1.0  &
@@ -13693,7 +16524,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group13_A.cyl2  &
-   adams_id = 3366  &
+   adams_id = 5662  &
    center_marker = .test_analysis_1.Upper_DP_Group13_A.gmark1  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -13707,7 +16538,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group13_A.cyl2a  &
-   adams_id = 3367  &
+   adams_id = 5663  &
    center_marker = .test_analysis_1.Upper_DP_Group13_A.gmark1  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -13727,9 +16558,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group13_B  &
-   adams_id = 9004100  &
-   location = 328.4216183118, 0.0, 1471.6427075367  &
-   orientation = 90.0d, 69.0180785911d, 270.0d
+   adams_id = 9004700  &
+   location = 301.5607031744, 0.0, 1460.9350490183  &
+   orientation = 90.0d, 65.7226789279d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group13_B
@@ -13738,19 +16569,19 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group13_B.end_B  &
-   adams_id = 9006486  &
+   adams_id = 9007118  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group13_B.cm  &
-   adams_id = 9004100  &
+   adams_id = 9004700  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group13_B.end_beamB  &
-   adams_id = 9006487  &
+   adams_id = 9007119  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -13758,8 +16589,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group13_B  &
    mass = 11.5258405181  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group13_B.cm  &
-   ixx = 294.0966081325  &
-   iyy = 294.0966081325  &
+   ixx = 703.2414069608  &
+   iyy = 703.2414069608  &
    izz = 0.4102158729  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -13769,7 +16600,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group13_B.cyl1  &
-   adams_id = 3368  &
+   adams_id = 5664  &
    center_marker = .test_analysis_1.Upper_DP_Group13_B.end_B  &
    angle_extent = 360.0  &
    length = -15.5  &
@@ -13783,7 +16614,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group13_B.cyl1a  &
-   adams_id = 3369  &
+   adams_id = 5665  &
    center_marker = .test_analysis_1.Upper_DP_Group13_B.end_B  &
    angle_extent = 6.0  &
    length = -15.5  &
@@ -13797,7 +16628,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group13_B.rub1  &
-   adams_id = 3186  &
+   adams_id = 5473  &
    center_marker = .test_analysis_1.Upper_DP_Group13_B.cm  &
    radius = 0.25  &
    segment_count = 16
@@ -13814,9 +16645,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group13_sliderA  &
-   adams_id = 9004001  &
-   location = 335.7222718733, 0.0, 1474.2421175649  &
-   orientation = 90.0d, 70.4016421238d, 270.0d
+   adams_id = 9004601  &
+   location = 308.6981071793, 0.0, 1463.9543299956  &
+   orientation = 90.0d, 67.0705546926d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group13_sliderA
@@ -13825,27 +16656,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group13_sliderA.cm  &
-   adams_id = 9004001  &
+   adams_id = 9004601  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group13_sliderA.A1  &
-   adams_id = 9006491  &
+   adams_id = 9007123  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group13_sliderA.A2  &
-   adams_id = 9006492  &
+   adams_id = 9007124  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group13_sliderA.FMARKER_9004207  &
-   adams_id = 9004207
+   floating_marker_name = .test_analysis_1.Upper_DP_Group13_sliderA.FMARKER_9004807  &
+   adams_id = 9004807
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group13_sliderA  &
@@ -13855,7 +16686,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group13_sliderA.Upper_DP_Group13_sliderAgraphic  &
-   adams_id = 3374  &
+   adams_id = 5670  &
    center_marker = .test_analysis_1.Upper_DP_Group13_sliderA.A2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -13870,7 +16701,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group13_sliderA.ghole  &
-   adams_id = 3187  &
+   adams_id = 5474  &
    center_marker = .test_analysis_1.Upper_DP_Group13_sliderA.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -13888,9 +16719,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group13_C  &
-   adams_id = 9004200  &
-   location = 306.7786190368, 0.0, 1463.155521467  &
-   orientation = 90.0d, 67.7267446328d, 270.0d
+   adams_id = 9004800  &
+   location = 280.4402705814, 0.0, 1451.2195335405  &
+   orientation = 90.0d, 64.4465630087d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group13_C
@@ -13899,25 +16730,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group13_C.gmark2  &
-   adams_id = 9006490  &
-   location = 0.0, 0.0, 7.7497214648  &
+   adams_id = 9007122  &
+   location = 0.0, 0.0, 7.7498262772  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group13_C.end_C  &
-   adams_id = 9004200  &
+   adams_id = 9004800  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group13_C.cm  &
-   adams_id = 9006488  &
-   location = 0.0, 0.0, 3.011590453  &
+   adams_id = 9007120  &
+   location = 0.0, 0.0, 3.0116583923  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group13_C.end_beamC  &
-   adams_id = 9006489  &
+   adams_id = 9007121  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -13925,8 +16756,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group13_C  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group13_C.cm  &
-   ixx = 53.8617244793  &
-   iyy = 53.8617244793  &
+   ixx = 105.0594481395  &
+   iyy = 105.0594481395  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -13936,7 +16767,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group13_C.cyl1a  &
-   adams_id = 3372  &
+   adams_id = 5668  &
    center_marker = .test_analysis_1.Upper_DP_Group13_C.end_C  &
    angle_extent = 6.0  &
    length = 1.0  &
@@ -13950,7 +16781,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group13_C.cyl1  &
-   adams_id = 3373  &
+   adams_id = 5669  &
    center_marker = .test_analysis_1.Upper_DP_Group13_C.end_C  &
    angle_extent = 360.0  &
    length = 1.0  &
@@ -13964,7 +16795,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group13_C.cyl2  &
-   adams_id = 3370  &
+   adams_id = 5666  &
    center_marker = .test_analysis_1.Upper_DP_Group13_C.gmark2  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -13978,7 +16809,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group13_C.cyl2a  &
-   adams_id = 3371  &
+   adams_id = 5667  &
    center_marker = .test_analysis_1.Upper_DP_Group13_C.gmark2  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -13998,9 +16829,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group13_sliderB  &
-   adams_id = 9004101  &
-   location = 321.1854940263, 0.0, 1468.8676390106  &
-   orientation = 90.0d, 69.0180785911d, 270.0d
+   adams_id = 9004701  &
+   location = 294.4960659641, 0.0, 1457.748608828  &
+   orientation = 90.0d, 65.7226789279d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group13_sliderB
@@ -14009,27 +16840,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group13_sliderB.cm  &
-   adams_id = 9004101  &
+   adams_id = 9004701  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group13_sliderB.B1  &
-   adams_id = 9006493  &
+   adams_id = 9007125  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group13_sliderB.B2  &
-   adams_id = 9006494  &
+   adams_id = 9007126  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group13_sliderB.FMARKER_9004208  &
-   adams_id = 9004208
+   floating_marker_name = .test_analysis_1.Upper_DP_Group13_sliderB.FMARKER_9004808  &
+   adams_id = 9004808
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group13_sliderB  &
@@ -14039,7 +16870,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group13_sliderB.Upper_DP_Group13_sliderBgraphic  &
-   adams_id = 3375  &
+   adams_id = 5671  &
    center_marker = .test_analysis_1.Upper_DP_Group13_sliderB.B2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -14054,7 +16885,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group13_sliderB.ghole  &
-   adams_id = 3188  &
+   adams_id = 5475  &
    center_marker = .test_analysis_1.Upper_DP_Group13_sliderB.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -14072,9 +16903,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group14_A  &
-   adams_id = 9004300  &
-   location = 306.777745422, 0.0, 1463.1551557519  &
-   orientation = 90.0d, 66.8245631559d, 270.0d
+   adams_id = 9004900  &
+   location = 280.4397407575, 0.0, 1451.2192746084  &
+   orientation = 90.0d, 63.4710220579d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group14_A
@@ -14083,25 +16914,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group14_A.end_A  &
-   adams_id = 9004300  &
+   adams_id = 9004900  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group14_A.cm  &
-   adams_id = 9006495  &
+   adams_id = 9007127  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group14_A.gmark1  &
-   adams_id = 9006496  &
+   adams_id = 9007128  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group14_A.end_beamA  &
-   adams_id = 9006497  &
+   adams_id = 9007129  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -14109,8 +16940,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group14_A  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group14_A.cm  &
-   ixx = 53.8655360846  &
-   iyy = 53.8655360846  &
+   ixx = 105.0618254756  &
+   iyy = 105.0618254756  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -14120,7 +16951,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group14_A.cyl1  &
-   adams_id = 3376  &
+   adams_id = 5672  &
    center_marker = .test_analysis_1.Upper_DP_Group14_A.end_A  &
    angle_extent = 360.0  &
    length = -1.0  &
@@ -14134,7 +16965,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group14_A.cyl1a  &
-   adams_id = 3377  &
+   adams_id = 5673  &
    center_marker = .test_analysis_1.Upper_DP_Group14_A.end_A  &
    angle_extent = 6.0  &
    length = -1.0  &
@@ -14148,7 +16979,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group14_A.cyl2  &
-   adams_id = 3378  &
+   adams_id = 5674  &
    center_marker = .test_analysis_1.Upper_DP_Group14_A.gmark1  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -14162,7 +16993,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group14_A.cyl2a  &
-   adams_id = 3379  &
+   adams_id = 5675  &
    center_marker = .test_analysis_1.Upper_DP_Group14_A.gmark1  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -14182,9 +17013,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group14_B  &
-   adams_id = 9004400  &
-   location = 299.6533591836, 0.0, 1460.1052545935  &
-   orientation = 90.0d, 65.4936012167d, 270.0d
+   adams_id = 9005000  &
+   location = 273.5058618488, 0.0, 1447.7577903717  &
+   orientation = 90.0d, 62.170667254d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group14_B
@@ -14193,19 +17024,19 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group14_B.end_B  &
-   adams_id = 9006498  &
+   adams_id = 9007130  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group14_B.cm  &
-   adams_id = 9004400  &
+   adams_id = 9005000  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group14_B.end_beamB  &
-   adams_id = 9006499  &
+   adams_id = 9007131  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -14213,8 +17044,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group14_B  &
    mass = 11.5258405181  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group14_B.cm  &
-   ixx = 294.0966081325  &
-   iyy = 294.0966081325  &
+   ixx = 703.2414069608  &
+   iyy = 703.2414069608  &
    izz = 0.4102158729  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -14224,7 +17055,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group14_B.cyl1  &
-   adams_id = 3380  &
+   adams_id = 5676  &
    center_marker = .test_analysis_1.Upper_DP_Group14_B.end_B  &
    angle_extent = 360.0  &
    length = -15.5  &
@@ -14238,7 +17069,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group14_B.cyl1a  &
-   adams_id = 3381  &
+   adams_id = 5677  &
    center_marker = .test_analysis_1.Upper_DP_Group14_B.end_B  &
    angle_extent = 6.0  &
    length = -15.5  &
@@ -14252,7 +17083,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group14_B.rub1  &
-   adams_id = 3189  &
+   adams_id = 5476  &
    center_marker = .test_analysis_1.Upper_DP_Group14_B.cm  &
    radius = 0.25  &
    segment_count = 16
@@ -14269,9 +17100,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group14_sliderA  &
-   adams_id = 9004301  &
-   location = 306.777745422, 0.0, 1463.1551557519  &
-   orientation = 90.0d, 66.8245631559d, 270.0d
+   adams_id = 9004901  &
+   location = 280.4397407575, 0.0, 1451.2192746084  &
+   orientation = 90.0d, 63.4710220579d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group14_sliderA
@@ -14280,27 +17111,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group14_sliderA.cm  &
-   adams_id = 9004301  &
+   adams_id = 9004901  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group14_sliderA.A1  &
-   adams_id = 9006503  &
+   adams_id = 9007135  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group14_sliderA.A2  &
-   adams_id = 9006504  &
+   adams_id = 9007136  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group14_sliderA.FMARKER_9004507  &
-   adams_id = 9004507
+   floating_marker_name = .test_analysis_1.Upper_DP_Group14_sliderA.FMARKER_9005107  &
+   adams_id = 9005107
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group14_sliderA  &
@@ -14310,7 +17141,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group14_sliderA.Upper_DP_Group14_sliderAgraphic  &
-   adams_id = 3386  &
+   adams_id = 5682  &
    center_marker = .test_analysis_1.Upper_DP_Group14_sliderA.A2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -14325,7 +17156,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group14_sliderA.ghole  &
-   adams_id = 3190  &
+   adams_id = 5477  &
    center_marker = .test_analysis_1.Upper_DP_Group14_sliderA.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -14343,9 +17174,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group14_C  &
-   adams_id = 9004500  &
-   location = 278.5736760614, 0.0, 1450.3017225689  &
-   orientation = 90.0d, 64.1875836982d, 270.0d
+   adams_id = 9005100  &
+   location = 253.0313016285, 0.0, 1436.7458623723  &
+   orientation = 90.0d, 60.8399566577d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group14_C
@@ -14354,25 +17185,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group14_C.gmark2  &
-   adams_id = 9006502  &
-   location = 0.0, 0.0, 7.7498025715  &
+   adams_id = 9007134  &
+   location = 0.0, 0.0, 7.7499740263  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group14_C.end_C  &
-   adams_id = 9004500  &
+   adams_id = 9005100  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group14_C.cm  &
-   adams_id = 9006500  &
-   location = 0.0, 0.0, 3.0116430263  &
+   adams_id = 9007132  &
+   location = 0.0, 0.0, 3.0117541631  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group14_C.end_beamC  &
-   adams_id = 9006501  &
+   adams_id = 9007133  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -14380,8 +17211,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group14_C  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group14_C.cm  &
-   ixx = 53.8628343522  &
-   iyy = 53.8628343522  &
+   ixx = 105.0614700273  &
+   iyy = 105.0614700273  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -14391,7 +17222,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group14_C.cyl1a  &
-   adams_id = 3384  &
+   adams_id = 5680  &
    center_marker = .test_analysis_1.Upper_DP_Group14_C.end_C  &
    angle_extent = 6.0  &
    length = 1.0  &
@@ -14405,7 +17236,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group14_C.cyl1  &
-   adams_id = 3385  &
+   adams_id = 5681  &
    center_marker = .test_analysis_1.Upper_DP_Group14_C.end_C  &
    angle_extent = 360.0  &
    length = 1.0  &
@@ -14419,7 +17250,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group14_C.cyl2  &
-   adams_id = 3382  &
+   adams_id = 5678  &
    center_marker = .test_analysis_1.Upper_DP_Group14_C.gmark2  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -14433,7 +17264,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group14_C.cyl2a  &
-   adams_id = 3383  &
+   adams_id = 5679  &
    center_marker = .test_analysis_1.Upper_DP_Group14_C.gmark2  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -14453,9 +17284,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group14_sliderB  &
-   adams_id = 9004401  &
-   location = 292.601518303, 0.0, 1456.8905943944  &
-   orientation = 90.0d, 65.4936012167d, 270.0d
+   adams_id = 9005001  &
+   location = 266.6522106415, 0.0, 1444.1397846878  &
+   orientation = 90.0d, 62.170667254d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group14_sliderB
@@ -14464,27 +17295,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group14_sliderB.cm  &
-   adams_id = 9004401  &
+   adams_id = 9005001  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group14_sliderB.B1  &
-   adams_id = 9006505  &
+   adams_id = 9007137  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group14_sliderB.B2  &
-   adams_id = 9006506  &
+   adams_id = 9007138  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group14_sliderB.FMARKER_9004508  &
-   adams_id = 9004508
+   floating_marker_name = .test_analysis_1.Upper_DP_Group14_sliderB.FMARKER_9005108  &
+   adams_id = 9005108
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group14_sliderB  &
@@ -14494,7 +17325,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group14_sliderB.Upper_DP_Group14_sliderBgraphic  &
-   adams_id = 3387  &
+   adams_id = 5683  &
    center_marker = .test_analysis_1.Upper_DP_Group14_sliderB.B2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -14509,7 +17340,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group14_sliderB.ghole  &
-   adams_id = 3191  &
+   adams_id = 5478  &
    center_marker = .test_analysis_1.Upper_DP_Group14_sliderB.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -14527,9 +17358,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group15_A  &
-   adams_id = 9004600  &
-   location = 278.573178953, 0.0, 1450.3014766847  &
-   orientation = 90.0d, 63.2296293404d, 270.0d
+   adams_id = 9005200  &
+   location = 253.0311190925, 0.0, 1436.7457586822  &
+   orientation = 90.0d, 59.9577845498d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group15_A
@@ -14538,25 +17369,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group15_A.end_A  &
-   adams_id = 9004600  &
+   adams_id = 9005200  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group15_A.cm  &
-   adams_id = 9006507  &
+   adams_id = 9007139  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group15_A.gmark1  &
-   adams_id = 9006508  &
+   adams_id = 9007140  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group15_A.end_beamA  &
-   adams_id = 9006509  &
+   adams_id = 9007141  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -14564,8 +17395,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group15_A  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group15_A.cm  &
-   ixx = 53.8655360846  &
-   iyy = 53.8655360846  &
+   ixx = 105.0618254756  &
+   iyy = 105.0618254756  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -14575,7 +17406,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group15_A.cyl1  &
-   adams_id = 3388  &
+   adams_id = 5684  &
    center_marker = .test_analysis_1.Upper_DP_Group15_A.end_A  &
    angle_extent = 360.0  &
    length = -1.0  &
@@ -14589,7 +17420,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group15_A.cyl1a  &
-   adams_id = 3389  &
+   adams_id = 5685  &
    center_marker = .test_analysis_1.Upper_DP_Group15_A.end_A  &
    angle_extent = 6.0  &
    length = -1.0  &
@@ -14603,7 +17434,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group15_A.cyl2  &
-   adams_id = 3390  &
+   adams_id = 5686  &
    center_marker = .test_analysis_1.Upper_DP_Group15_A.gmark1  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -14617,7 +17448,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group15_A.cyl2a  &
-   adams_id = 3391  &
+   adams_id = 5687  &
    center_marker = .test_analysis_1.Upper_DP_Group15_A.gmark1  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -14637,9 +17468,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group15_B  &
-   adams_id = 9004700  &
-   location = 271.6539106776, 0.0, 1446.8107927747  &
-   orientation = 90.0d, 61.9352386488d, 270.0d
+   adams_id = 9005300  &
+   location = 246.3222706641, 0.0, 1432.8658096699  &
+   orientation = 90.0d, 58.626726659d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group15_B
@@ -14648,19 +17479,19 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group15_B.end_B  &
-   adams_id = 9006510  &
+   adams_id = 9007142  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group15_B.cm  &
-   adams_id = 9004700  &
+   adams_id = 9005300  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group15_B.end_beamB  &
-   adams_id = 9006511  &
+   adams_id = 9007143  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -14668,8 +17499,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group15_B  &
    mass = 11.5258405181  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group15_B.cm  &
-   ixx = 294.0966081325  &
-   iyy = 294.0966081325  &
+   ixx = 703.2414069608  &
+   iyy = 703.2414069608  &
    izz = 0.4102158729  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -14679,7 +17510,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group15_B.cyl1  &
-   adams_id = 3392  &
+   adams_id = 5688  &
    center_marker = .test_analysis_1.Upper_DP_Group15_B.end_B  &
    angle_extent = 360.0  &
    length = -15.5  &
@@ -14693,7 +17524,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group15_B.cyl1a  &
-   adams_id = 3393  &
+   adams_id = 5689  &
    center_marker = .test_analysis_1.Upper_DP_Group15_B.end_B  &
    angle_extent = 6.0  &
    length = -15.5  &
@@ -14707,7 +17538,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group15_B.rub1  &
-   adams_id = 3192  &
+   adams_id = 5479  &
    center_marker = .test_analysis_1.Upper_DP_Group15_B.cm  &
    radius = 0.25  &
    segment_count = 16
@@ -14724,9 +17555,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group15_sliderA  &
-   adams_id = 9004601  &
-   location = 278.573178953, 0.0, 1450.3014766847  &
-   orientation = 90.0d, 63.2296293404d, 270.0d
+   adams_id = 9005201  &
+   location = 253.0311190925, 0.0, 1436.7457586822  &
+   orientation = 90.0d, 59.9577845498d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group15_sliderA
@@ -14735,27 +17566,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group15_sliderA.cm  &
-   adams_id = 9004601  &
+   adams_id = 9005201  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group15_sliderA.A1  &
-   adams_id = 9006515  &
+   adams_id = 9007147  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group15_sliderA.A2  &
-   adams_id = 9006516  &
+   adams_id = 9007148  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group15_sliderA.FMARKER_9004807  &
-   adams_id = 9004807
+   floating_marker_name = .test_analysis_1.Upper_DP_Group15_sliderA.FMARKER_9005407  &
+   adams_id = 9005407
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group15_sliderA  &
@@ -14765,7 +17596,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group15_sliderA.Upper_DP_Group15_sliderAgraphic  &
-   adams_id = 3398  &
+   adams_id = 5694  &
    center_marker = .test_analysis_1.Upper_DP_Group15_sliderA.A2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -14780,7 +17611,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group15_sliderA.ghole  &
-   adams_id = 3193  &
+   adams_id = 5480  &
    center_marker = .test_analysis_1.Upper_DP_Group15_sliderA.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -14798,9 +17629,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group15_C  &
-   adams_id = 9004800  &
-   location = 251.2248130898, 0.0, 1435.7147591163  &
-   orientation = 90.0d, 60.6039345074d, 270.0d
+   adams_id = 9005400  &
+   location = 226.5643969582, 0.0, 1420.6137728084  &
+   orientation = 90.0d, 57.3362717156d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group15_C
@@ -14809,25 +17640,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group15_C.gmark2  &
-   adams_id = 9006514  &
-   location = 0.0, 0.0, 7.7499800707  &
+   adams_id = 9007146  &
+   location = 0.0, 0.0, 7.7500703757  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group15_C.end_C  &
-   adams_id = 9004800  &
+   adams_id = 9005400  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group15_C.cm  &
-   adams_id = 9006512  &
-   location = 0.0, 0.0, 3.0117580811  &
+   adams_id = 9007144  &
+   location = 0.0, 0.0, 3.0118166167  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group15_C.end_beamC  &
-   adams_id = 9006513  &
+   adams_id = 9007145  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -14835,8 +17666,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group15_C  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group15_C.cm  &
-   ixx = 53.8652633534  &
-   iyy = 53.8652633534  &
+   ixx = 105.0627885723  &
+   iyy = 105.0627885723  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -14846,7 +17677,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group15_C.cyl1a  &
-   adams_id = 3396  &
+   adams_id = 5692  &
    center_marker = .test_analysis_1.Upper_DP_Group15_C.end_C  &
    angle_extent = 6.0  &
    length = 1.0  &
@@ -14860,7 +17691,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group15_C.cyl1  &
-   adams_id = 3397  &
+   adams_id = 5693  &
    center_marker = .test_analysis_1.Upper_DP_Group15_C.end_C  &
    angle_extent = 360.0  &
    length = 1.0  &
@@ -14874,7 +17705,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group15_C.cyl2  &
-   adams_id = 3394  &
+   adams_id = 5690  &
    center_marker = .test_analysis_1.Upper_DP_Group15_C.gmark2  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -14888,7 +17719,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group15_C.cyl2a  &
-   adams_id = 3395  &
+   adams_id = 5691  &
    center_marker = .test_analysis_1.Upper_DP_Group15_C.gmark2  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -14908,9 +17739,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group15_sliderB  &
-   adams_id = 9004701  &
-   location = 264.8151836876, 0.0, 1443.1646560307  &
-   orientation = 90.0d, 61.9352386488d, 270.0d
+   adams_id = 9005301  &
+   location = 239.7053691882, 0.0, 1428.8310711581  &
+   orientation = 90.0d, 58.626726659d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group15_sliderB
@@ -14919,27 +17750,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group15_sliderB.cm  &
-   adams_id = 9004701  &
+   adams_id = 9005301  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group15_sliderB.B1  &
-   adams_id = 9006517  &
+   adams_id = 9007149  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group15_sliderB.B2  &
-   adams_id = 9006518  &
+   adams_id = 9007150  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group15_sliderB.FMARKER_9004808  &
-   adams_id = 9004808
+   floating_marker_name = .test_analysis_1.Upper_DP_Group15_sliderB.FMARKER_9005408  &
+   adams_id = 9005408
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group15_sliderB  &
@@ -14949,7 +17780,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group15_sliderB.Upper_DP_Group15_sliderBgraphic  &
-   adams_id = 3399  &
+   adams_id = 5695  &
    center_marker = .test_analysis_1.Upper_DP_Group15_sliderB.B2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -14964,7 +17795,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group15_sliderB.ghole  &
-   adams_id = 3194  &
+   adams_id = 5481  &
    center_marker = .test_analysis_1.Upper_DP_Group15_sliderB.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -14982,9 +17813,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group16_A  &
-   adams_id = 9004900  &
-   location = 251.2246547626, 0.0, 1435.7146683126  &
-   orientation = 90.0d, 59.7183884023d, 270.0d
+   adams_id = 9005500  &
+   location = 226.5645518999, 0.0, 1420.6138740009  &
+   orientation = 90.0d, 56.3923450602d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group16_A
@@ -14993,25 +17824,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group16_A.end_A  &
-   adams_id = 9004900  &
+   adams_id = 9005500  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group16_A.cm  &
-   adams_id = 9006519  &
+   adams_id = 9007151  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group16_A.gmark1  &
-   adams_id = 9006520  &
+   adams_id = 9007152  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group16_A.end_beamA  &
-   adams_id = 9006521  &
+   adams_id = 9007153  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -15019,8 +17850,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group16_A  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group16_A.cm  &
-   ixx = 53.8655360846  &
-   iyy = 53.8655360846  &
+   ixx = 105.0618254756  &
+   iyy = 105.0618254756  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -15030,7 +17861,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group16_A.cyl1  &
-   adams_id = 3400  &
+   adams_id = 5696  &
    center_marker = .test_analysis_1.Upper_DP_Group16_A.end_A  &
    angle_extent = 360.0  &
    length = -1.0  &
@@ -15044,7 +17875,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group16_A.cyl1a  &
-   adams_id = 3401  &
+   adams_id = 5697  &
    center_marker = .test_analysis_1.Upper_DP_Group16_A.end_A  &
    angle_extent = 6.0  &
    length = -1.0  &
@@ -15058,7 +17889,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group16_A.cyl2  &
-   adams_id = 3402  &
+   adams_id = 5698  &
    center_marker = .test_analysis_1.Upper_DP_Group16_A.gmark1  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -15072,7 +17903,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group16_A.cyl2a  &
-   adams_id = 3403  &
+   adams_id = 5699  &
    center_marker = .test_analysis_1.Upper_DP_Group16_A.gmark1  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -15092,9 +17923,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group16_B  &
-   adams_id = 9005000  &
-   location = 244.5320677657, 0.0, 1431.8067170435  &
-   orientation = 90.0d, 58.3963135312d, 270.0d
+   adams_id = 9005600  &
+   location = 220.1098671358, 0.0, 1416.324148543  &
+   orientation = 90.0d, 55.0610303175d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group16_B
@@ -15103,19 +17934,19 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group16_B.end_B  &
-   adams_id = 9006522  &
+   adams_id = 9007154  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group16_B.cm  &
-   adams_id = 9005000  &
+   adams_id = 9005600  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group16_B.end_beamB  &
-   adams_id = 9006523  &
+   adams_id = 9007155  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -15123,8 +17954,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group16_B  &
    mass = 11.5258405181  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group16_B.cm  &
-   ixx = 294.0966081325  &
-   iyy = 294.0966081325  &
+   ixx = 703.2414069608  &
+   iyy = 703.2414069608  &
    izz = 0.4102158729  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -15134,7 +17965,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group16_B.cyl1  &
-   adams_id = 3404  &
+   adams_id = 5700  &
    center_marker = .test_analysis_1.Upper_DP_Group16_B.end_B  &
    angle_extent = 360.0  &
    length = -15.5  &
@@ -15148,7 +17979,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group16_B.cyl1a  &
-   adams_id = 3405  &
+   adams_id = 5701  &
    center_marker = .test_analysis_1.Upper_DP_Group16_B.end_B  &
    angle_extent = 6.0  &
    length = -15.5  &
@@ -15162,7 +17993,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group16_B.rub1  &
-   adams_id = 3195  &
+   adams_id = 5482  &
    center_marker = .test_analysis_1.Upper_DP_Group16_B.cm  &
    radius = 0.25  &
    segment_count = 16
@@ -15179,9 +18010,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group16_sliderA  &
-   adams_id = 9004901  &
-   location = 251.2246547626, 0.0, 1435.7146683126  &
-   orientation = 90.0d, 59.7183884023d, 270.0d
+   adams_id = 9005501  &
+   location = 226.5645518999, 0.0, 1420.6138740009  &
+   orientation = 90.0d, 56.3923450602d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group16_sliderA
@@ -15190,27 +18021,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group16_sliderA.cm  &
-   adams_id = 9004901  &
+   adams_id = 9005501  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group16_sliderA.A1  &
-   adams_id = 9006527  &
+   adams_id = 9007159  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group16_sliderA.A2  &
-   adams_id = 9006528  &
+   adams_id = 9007160  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group16_sliderA.FMARKER_9005107  &
-   adams_id = 9005107
+   floating_marker_name = .test_analysis_1.Upper_DP_Group16_sliderA.FMARKER_9005707  &
+   adams_id = 9005707
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group16_sliderA  &
@@ -15220,7 +18051,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group16_sliderA.Upper_DP_Group16_sliderAgraphic  &
-   adams_id = 3410  &
+   adams_id = 5706  &
    center_marker = .test_analysis_1.Upper_DP_Group16_sliderA.A2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -15235,7 +18066,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group16_sliderA.ghole  &
-   adams_id = 3196  &
+   adams_id = 5483  &
    center_marker = .test_analysis_1.Upper_DP_Group16_sliderA.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -15253,9 +18084,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group16_C  &
-   adams_id = 9005100  &
-   location = 224.8254472644, 0.0, 1419.472456896  &
-   orientation = 90.0d, 57.0807383254d, 270.0d
+   adams_id = 9005700  &
+   location = 201.1535635532, 0.0, 1402.8648610983  &
+   orientation = 90.0d, 53.7518270564d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group16_C
@@ -15264,25 +18095,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group16_C.gmark2  &
-   adams_id = 9006526  &
-   location = 0.0, 0.0, 7.750059695  &
+   adams_id = 9007158  &
+   location = 0.0, 0.0, 7.7502466807  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group16_C.end_C  &
-   adams_id = 9005100  &
+   adams_id = 9005700  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group16_C.cm  &
-   adams_id = 9006524  &
-   location = 0.0, 0.0, 3.0118096935  &
+   adams_id = 9007156  &
+   location = 0.0, 0.0, 3.0119308974  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group16_C.end_beamC  &
-   adams_id = 9006525  &
+   adams_id = 9007157  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -15290,8 +18121,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group16_C  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group16_C.cm  &
-   ixx = 53.8663530144  &
-   iyy = 53.8663530144  &
+   ixx = 105.065201398  &
+   iyy = 105.065201398  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -15301,7 +18132,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group16_C.cyl1a  &
-   adams_id = 3408  &
+   adams_id = 5704  &
    center_marker = .test_analysis_1.Upper_DP_Group16_C.end_C  &
    angle_extent = 6.0  &
    length = 1.0  &
@@ -15315,7 +18146,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group16_C.cyl1  &
-   adams_id = 3409  &
+   adams_id = 5705  &
    center_marker = .test_analysis_1.Upper_DP_Group16_C.end_C  &
    angle_extent = 360.0  &
    length = 1.0  &
@@ -15329,7 +18160,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group16_C.cyl2  &
-   adams_id = 3406  &
+   adams_id = 5702  &
    center_marker = .test_analysis_1.Upper_DP_Group16_C.gmark2  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -15343,7 +18174,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group16_C.cyl2a  &
-   adams_id = 3407  &
+   adams_id = 5703  &
    center_marker = .test_analysis_1.Upper_DP_Group16_C.gmark2  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -15363,9 +18194,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group16_sliderB  &
-   adams_id = 9005001  &
-   location = 237.9314453216, 0.0, 1427.7454015731  &
-   orientation = 90.0d, 58.3963135312d, 270.0d
+   adams_id = 9005601  &
+   location = 213.7567074384, 0.0, 1411.8856959006  &
+   orientation = 90.0d, 55.0610303175d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group16_sliderB
@@ -15374,27 +18205,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group16_sliderB.cm  &
-   adams_id = 9005001  &
+   adams_id = 9005601  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group16_sliderB.B1  &
-   adams_id = 9006529  &
+   adams_id = 9007161  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group16_sliderB.B2  &
-   adams_id = 9006530  &
+   adams_id = 9007162  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group16_sliderB.FMARKER_9005108  &
-   adams_id = 9005108
+   floating_marker_name = .test_analysis_1.Upper_DP_Group16_sliderB.FMARKER_9005708  &
+   adams_id = 9005708
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group16_sliderB  &
@@ -15404,7 +18235,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group16_sliderB.Upper_DP_Group16_sliderBgraphic  &
-   adams_id = 3411  &
+   adams_id = 5707  &
    center_marker = .test_analysis_1.Upper_DP_Group16_sliderB.B2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -15419,7 +18250,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group16_sliderB.ghole  &
-   adams_id = 3197  &
+   adams_id = 5484  &
    center_marker = .test_analysis_1.Upper_DP_Group16_sliderB.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -15437,9 +18268,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group17_A  &
-   adams_id = 9005200  &
-   location = 224.8256262504, 0.0, 1419.4725749365  &
-   orientation = 90.0d, 56.1577662194d, 270.0d
+   adams_id = 9005800  &
+   location = 201.1540064446, 0.0, 1402.8651908485  &
+   orientation = 90.0d, 52.8684630833d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group17_A
@@ -15448,25 +18279,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group17_A.end_A  &
-   adams_id = 9005200  &
+   adams_id = 9005800  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group17_A.cm  &
-   adams_id = 9006531  &
+   adams_id = 9007163  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group17_A.gmark1  &
-   adams_id = 9006532  &
+   adams_id = 9007164  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group17_A.end_beamA  &
-   adams_id = 9006533  &
+   adams_id = 9007165  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -15474,8 +18305,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group17_A  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group17_A.cm  &
-   ixx = 53.8655360846  &
-   iyy = 53.8655360846  &
+   ixx = 105.0618254756  &
+   iyy = 105.0618254756  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -15485,7 +18316,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group17_A.cyl1  &
-   adams_id = 3412  &
+   adams_id = 5708  &
    center_marker = .test_analysis_1.Upper_DP_Group17_A.end_A  &
    angle_extent = 360.0  &
    length = -1.0  &
@@ -15499,7 +18330,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group17_A.cyl1a  &
-   adams_id = 3413  &
+   adams_id = 5709  &
    center_marker = .test_analysis_1.Upper_DP_Group17_A.end_A  &
    angle_extent = 6.0  &
    length = -1.0  &
@@ -15513,7 +18344,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group17_A.cyl2  &
-   adams_id = 3414  &
+   adams_id = 5710  &
    center_marker = .test_analysis_1.Upper_DP_Group17_A.gmark1  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -15527,7 +18358,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group17_A.cyl2a  &
-   adams_id = 3415  &
+   adams_id = 5711  &
    center_marker = .test_analysis_1.Upper_DP_Group17_A.gmark1  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -15547,9 +18378,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group17_B  &
-   adams_id = 9005300  &
-   location = 218.3885305668, 0.0, 1415.1564402368  &
-   orientation = 90.0d, 54.8197482834d, 270.0d
+   adams_id = 9005900  &
+   location = 194.9751073934, 0.0, 1398.186777652  &
+   orientation = 90.0d, 51.4904077607d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group17_B
@@ -15558,19 +18389,19 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group17_B.end_B  &
-   adams_id = 9006534  &
+   adams_id = 9007166  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group17_B.cm  &
-   adams_id = 9005300  &
+   adams_id = 9005900  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group17_B.end_beamB  &
-   adams_id = 9006535  &
+   adams_id = 9007167  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -15578,8 +18409,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group17_B  &
    mass = 11.5258405181  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group17_B.cm  &
-   ixx = 294.0966081325  &
-   iyy = 294.0966081325  &
+   ixx = 703.2414069608  &
+   iyy = 703.2414069608  &
    izz = 0.4102158729  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -15589,7 +18420,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group17_B.cyl1  &
-   adams_id = 3416  &
+   adams_id = 5712  &
    center_marker = .test_analysis_1.Upper_DP_Group17_B.end_B  &
    angle_extent = 360.0  &
    length = -15.5  &
@@ -15603,7 +18434,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group17_B.cyl1a  &
-   adams_id = 3417  &
+   adams_id = 5713  &
    center_marker = .test_analysis_1.Upper_DP_Group17_B.end_B  &
    angle_extent = 6.0  &
    length = -15.5  &
@@ -15617,7 +18448,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group17_B.rub1  &
-   adams_id = 3198  &
+   adams_id = 5485  &
    center_marker = .test_analysis_1.Upper_DP_Group17_B.cm  &
    radius = 0.25  &
    segment_count = 16
@@ -15634,9 +18465,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group17_sliderA  &
-   adams_id = 9005201  &
-   location = 224.8256262504, 0.0, 1419.4725749365  &
-   orientation = 90.0d, 56.1577662194d, 270.0d
+   adams_id = 9005801  &
+   location = 201.1540064446, 0.0, 1402.8651908485  &
+   orientation = 90.0d, 52.8684630833d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group17_sliderA
@@ -15645,27 +18476,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group17_sliderA.cm  &
-   adams_id = 9005201  &
+   adams_id = 9005801  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group17_sliderA.A1  &
-   adams_id = 9006539  &
+   adams_id = 9007171  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group17_sliderA.A2  &
-   adams_id = 9006540  &
+   adams_id = 9007172  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group17_sliderA.FMARKER_9005407  &
-   adams_id = 9005407
+   floating_marker_name = .test_analysis_1.Upper_DP_Group17_sliderA.FMARKER_9006007  &
+   adams_id = 9006007
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group17_sliderA  &
@@ -15675,7 +18506,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group17_sliderA.Upper_DP_Group17_sliderAgraphic  &
-   adams_id = 3422  &
+   adams_id = 5718  &
    center_marker = .test_analysis_1.Upper_DP_Group17_sliderA.A2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -15690,7 +18521,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group17_sliderA.ghole  &
-   adams_id = 3199  &
+   adams_id = 5486  &
    center_marker = .test_analysis_1.Upper_DP_Group17_sliderA.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -15708,9 +18539,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group17_C  &
-   adams_id = 9005400  &
-   location = 199.4877982186, 0.0, 1401.6191503539  &
-   orientation = 90.0d, 53.5262911445d, 270.0d
+   adams_id = 9006000  &
+   location = 176.8935072244, 0.0, 1383.5729753726  &
+   orientation = 90.0d, 50.1823233112d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group17_C
@@ -15719,25 +18550,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group17_C.gmark2  &
-   adams_id = 9006538  &
-   location = 0.0, 0.0, 7.7502353429  &
+   adams_id = 9007170  &
+   location = 0.0, 0.0, 7.7503467624  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group17_C.end_C  &
-   adams_id = 9005400  &
+   adams_id = 9006000  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group17_C.cm  &
-   adams_id = 9006536  &
-   location = 0.0, 0.0, 3.0119235483  &
+   adams_id = 9007168  &
+   location = 0.0, 0.0, 3.0119957703  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group17_C.end_beamC  &
-   adams_id = 9006537  &
+   adams_id = 9007169  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -15745,8 +18576,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group17_C  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group17_C.cm  &
-   ixx = 53.868756841  &
-   iyy = 53.868756841  &
+   ixx = 105.0665711177  &
+   iyy = 105.0665711177  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -15756,7 +18587,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group17_C.cyl1a  &
-   adams_id = 3420  &
+   adams_id = 5716  &
    center_marker = .test_analysis_1.Upper_DP_Group17_C.end_C  &
    angle_extent = 6.0  &
    length = 1.0  &
@@ -15770,7 +18601,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group17_C.cyl1  &
-   adams_id = 3421  &
+   adams_id = 5717  &
    center_marker = .test_analysis_1.Upper_DP_Group17_C.end_C  &
    angle_extent = 360.0  &
    length = 1.0  &
@@ -15784,7 +18615,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group17_C.cyl2  &
-   adams_id = 3418  &
+   adams_id = 5714  &
    center_marker = .test_analysis_1.Upper_DP_Group17_C.gmark2  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -15798,7 +18629,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group17_C.cyl2a  &
-   adams_id = 3419  &
+   adams_id = 5715  &
    center_marker = .test_analysis_1.Upper_DP_Group17_C.gmark2  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -15818,9 +18649,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group17_sliderB  &
-   adams_id = 9005301  &
-   location = 212.0541182078, 0.0, 1410.6912728194  &
-   orientation = 90.0d, 54.8197482834d, 270.0d
+   adams_id = 9005901  &
+   location = 188.9107019601, 0.0, 1393.361273871  &
+   orientation = 90.0d, 51.4904077607d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group17_sliderB
@@ -15829,27 +18660,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group17_sliderB.cm  &
-   adams_id = 9005301  &
+   adams_id = 9005901  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group17_sliderB.B1  &
-   adams_id = 9006541  &
+   adams_id = 9007173  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group17_sliderB.B2  &
-   adams_id = 9006542  &
+   adams_id = 9007174  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group17_sliderB.FMARKER_9005408  &
-   adams_id = 9005408
+   floating_marker_name = .test_analysis_1.Upper_DP_Group17_sliderB.FMARKER_9006008  &
+   adams_id = 9006008
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group17_sliderB  &
@@ -15859,7 +18690,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group17_sliderB.Upper_DP_Group17_sliderBgraphic  &
-   adams_id = 3423  &
+   adams_id = 5719  &
    center_marker = .test_analysis_1.Upper_DP_Group17_sliderB.B2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -15874,7 +18705,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group17_sliderB.ghole  &
-   adams_id = 3200  &
+   adams_id = 5487  &
    center_marker = .test_analysis_1.Upper_DP_Group17_sliderB.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -15892,9 +18723,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group18_A  &
-   adams_id = 9005500  &
-   location = 199.4882669537, 0.0, 1401.619502463  &
-   orientation = 90.0d, 52.6181983845d, 270.0d
+   adams_id = 9006100  &
+   location = 176.8942344842, 0.0, 1383.5735912417  &
+   orientation = 90.0d, 49.3099274336d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group18_A
@@ -15903,25 +18734,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group18_A.end_A  &
-   adams_id = 9005500  &
+   adams_id = 9006100  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group18_A.cm  &
-   adams_id = 9006543  &
+   adams_id = 9007175  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group18_A.gmark1  &
-   adams_id = 9006544  &
+   adams_id = 9007176  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group18_A.end_beamA  &
-   adams_id = 9006545  &
+   adams_id = 9007177  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -15929,8 +18760,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group18_A  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group18_A.cm  &
-   ixx = 53.8655360846  &
-   iyy = 53.8655360846  &
+   ixx = 105.0618254756  &
+   iyy = 105.0618254756  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -15940,7 +18771,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group18_A.cyl1  &
-   adams_id = 3424  &
+   adams_id = 5720  &
    center_marker = .test_analysis_1.Upper_DP_Group18_A.end_A  &
    angle_extent = 360.0  &
    length = -1.0  &
@@ -15954,7 +18785,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group18_A.cyl1a  &
-   adams_id = 3425  &
+   adams_id = 5721  &
    center_marker = .test_analysis_1.Upper_DP_Group18_A.end_A  &
    angle_extent = 6.0  &
    length = -1.0  &
@@ -15968,7 +18799,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group18_A.cyl2  &
-   adams_id = 3426  &
+   adams_id = 5722  &
    center_marker = .test_analysis_1.Upper_DP_Group18_A.gmark1  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -15982,7 +18813,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group18_A.cyl2a  &
-   adams_id = 3427  &
+   adams_id = 5723  &
    center_marker = .test_analysis_1.Upper_DP_Group18_A.gmark1  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -16002,9 +18833,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group18_B  &
-   adams_id = 9005600  &
-   location = 193.3298471839, 0.0, 1396.914133718  &
-   orientation = 90.0d, 51.2522171071d, 270.0d
+   adams_id = 9006200  &
+   location = 171.0175201039, 0.0, 1378.5205907356  &
+   orientation = 90.0d, 47.9875578187d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group18_B
@@ -16013,19 +18844,19 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group18_B.end_B  &
-   adams_id = 9006546  &
+   adams_id = 9007178  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group18_B.cm  &
-   adams_id = 9005600  &
+   adams_id = 9006200  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group18_B.end_beamB  &
-   adams_id = 9006547  &
+   adams_id = 9007179  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -16033,8 +18864,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group18_B  &
    mass = 11.5258405181  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group18_B.cm  &
-   ixx = 294.0966081325  &
-   iyy = 294.0966081325  &
+   ixx = 703.2414069608  &
+   iyy = 703.2414069608  &
    izz = 0.4102158729  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -16044,7 +18875,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group18_B.cyl1  &
-   adams_id = 3428  &
+   adams_id = 5724  &
    center_marker = .test_analysis_1.Upper_DP_Group18_B.end_B  &
    angle_extent = 360.0  &
    length = -15.5  &
@@ -16058,7 +18889,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group18_B.cyl1a  &
-   adams_id = 3429  &
+   adams_id = 5725  &
    center_marker = .test_analysis_1.Upper_DP_Group18_B.end_B  &
    angle_extent = 6.0  &
    length = -15.5  &
@@ -16072,7 +18903,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group18_B.rub1  &
-   adams_id = 3201  &
+   adams_id = 5488  &
    center_marker = .test_analysis_1.Upper_DP_Group18_B.cm  &
    radius = 0.25  &
    segment_count = 16
@@ -16089,9 +18920,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group18_sliderA  &
-   adams_id = 9005501  &
-   location = 199.4882669537, 0.0, 1401.619502463  &
-   orientation = 90.0d, 52.6181983845d, 270.0d
+   adams_id = 9006101  &
+   location = 176.8942344842, 0.0, 1383.5735912417  &
+   orientation = 90.0d, 49.3099274336d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group18_sliderA
@@ -16100,27 +18931,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group18_sliderA.cm  &
-   adams_id = 9005501  &
+   adams_id = 9006101  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group18_sliderA.A1  &
-   adams_id = 9006551  &
+   adams_id = 9007183  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group18_sliderA.A2  &
-   adams_id = 9006552  &
+   adams_id = 9007184  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group18_sliderA.FMARKER_9005707  &
-   adams_id = 9005707
+   floating_marker_name = .test_analysis_1.Upper_DP_Group18_sliderA.FMARKER_9006307  &
+   adams_id = 9006307
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group18_sliderA  &
@@ -16130,7 +18961,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group18_sliderA.Upper_DP_Group18_sliderAgraphic  &
-   adams_id = 3434  &
+   adams_id = 5730  &
    center_marker = .test_analysis_1.Upper_DP_Group18_sliderA.A2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -16145,7 +18976,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group18_sliderA.ghole  &
-   adams_id = 3202  &
+   adams_id = 5489  &
    center_marker = .test_analysis_1.Upper_DP_Group18_sliderA.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -16163,9 +18994,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group18_C  &
-   adams_id = 9005700  &
-   location = 175.308912077, 0.0, 1382.2255296467  &
-   orientation = 90.0d, 49.9466497537d, 270.0d
+   adams_id = 9006300  &
+   location = 153.8674760967, 0.0, 1362.8237933807  &
+   orientation = 90.0d, 46.6247942441d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group18_C
@@ -16174,25 +19005,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group18_C.gmark2  &
-   adams_id = 9006550  &
-   location = 0.0, 0.0, 7.75035241  &
+   adams_id = 9007182  &
+   location = 0.0, 0.0, 7.7504937686  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group18_C.end_C  &
-   adams_id = 9005700  &
+   adams_id = 9006300  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group18_C.cm  &
-   adams_id = 9006548  &
-   location = 0.0, 0.0, 3.011999431  &
+   adams_id = 9007180  &
+   location = 0.0, 0.0, 3.0120910595  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group18_C.end_beamC  &
-   adams_id = 9006549  &
+   adams_id = 9007181  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -16200,8 +19031,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group18_C  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group18_C.cm  &
-   ixx = 53.87035902  &
-   iyy = 53.87035902  &
+   ixx = 105.0685831085  &
+   iyy = 105.0685831085  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -16211,7 +19042,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group18_C.cyl1a  &
-   adams_id = 3432  &
+   adams_id = 5728  &
    center_marker = .test_analysis_1.Upper_DP_Group18_C.end_C  &
    angle_extent = 6.0  &
    length = 1.0  &
@@ -16225,7 +19056,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group18_C.cyl1  &
-   adams_id = 3433  &
+   adams_id = 5729  &
    center_marker = .test_analysis_1.Upper_DP_Group18_C.end_C  &
    angle_extent = 360.0  &
    length = 1.0  &
@@ -16239,7 +19070,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group18_C.cyl2  &
-   adams_id = 3430  &
+   adams_id = 5726  &
    center_marker = .test_analysis_1.Upper_DP_Group18_C.gmark2  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -16253,7 +19084,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group18_C.cyl2a  &
-   adams_id = 3431  &
+   adams_id = 5727  &
    center_marker = .test_analysis_1.Upper_DP_Group18_C.gmark2  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -16273,9 +19104,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group18_sliderB  &
-   adams_id = 9005601  &
-   location = 187.2855547346, 0.0, 1392.0634606938  &
-   orientation = 90.0d, 51.2522171071d, 270.0d
+   adams_id = 9006201  &
+   location = 165.259273967, 0.0, 1373.3335779704  &
+   orientation = 90.0d, 47.9875578187d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group18_sliderB
@@ -16284,27 +19115,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group18_sliderB.cm  &
-   adams_id = 9005601  &
+   adams_id = 9006201  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group18_sliderB.B1  &
-   adams_id = 9006553  &
+   adams_id = 9007185  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group18_sliderB.B2  &
-   adams_id = 9006554  &
+   adams_id = 9007186  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group18_sliderB.FMARKER_9005708  &
-   adams_id = 9005708
+   floating_marker_name = .test_analysis_1.Upper_DP_Group18_sliderB.FMARKER_9006308  &
+   adams_id = 9006308
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group18_sliderB  &
@@ -16314,7 +19145,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group18_sliderB.Upper_DP_Group18_sliderBgraphic  &
-   adams_id = 3435  &
+   adams_id = 5731  &
    center_marker = .test_analysis_1.Upper_DP_Group18_sliderB.B2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -16329,7 +19160,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group18_sliderB.ghole  &
-   adams_id = 3203  &
+   adams_id = 5490  &
    center_marker = .test_analysis_1.Upper_DP_Group18_sliderB.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -16347,9 +19178,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group19_A  &
-   adams_id = 9005800  &
-   location = 175.3096546526, 0.0, 1382.2261636846  &
-   orientation = 90.0d, 49.0793655664d, 270.0d
+   adams_id = 9006400  &
+   location = 153.8684321607, 0.0, 1362.8247113167  &
+   orientation = 90.0d, 45.7055483088d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group19_A
@@ -16358,25 +19189,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group19_A.end_A  &
-   adams_id = 9005800  &
+   adams_id = 9006400  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group19_A.cm  &
-   adams_id = 9006555  &
+   adams_id = 9007187  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group19_A.gmark1  &
-   adams_id = 9006556  &
+   adams_id = 9007188  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group19_A.end_beamA  &
-   adams_id = 9006557  &
+   adams_id = 9007189  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -16384,8 +19215,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group19_A  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group19_A.cm  &
-   ixx = 53.8655360846  &
-   iyy = 53.8655360846  &
+   ixx = 105.0618254756  &
+   iyy = 105.0618254756  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -16395,7 +19226,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group19_A.cyl1  &
-   adams_id = 3436  &
+   adams_id = 5732  &
    center_marker = .test_analysis_1.Upper_DP_Group19_A.end_A  &
    angle_extent = 360.0  &
    length = -1.0  &
@@ -16409,7 +19240,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group19_A.cyl1a  &
-   adams_id = 3437  &
+   adams_id = 5733  &
    center_marker = .test_analysis_1.Upper_DP_Group19_A.end_A  &
    angle_extent = 6.0  &
    length = -1.0  &
@@ -16423,7 +19254,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group19_A.cyl2  &
-   adams_id = 3438  &
+   adams_id = 5734  &
    center_marker = .test_analysis_1.Upper_DP_Group19_A.gmark1  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -16437,7 +19268,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group19_A.cyl2a  &
-   adams_id = 3439  &
+   adams_id = 5735  &
    center_marker = .test_analysis_1.Upper_DP_Group19_A.gmark1  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -16457,9 +19288,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group19_B  &
-   adams_id = 9005900  &
-   location = 169.4533116092, 0.0, 1377.1495473986  &
-   orientation = 90.0d, 47.7450676758d, 270.0d
+   adams_id = 9006500  &
+   location = 148.3209330575, 0.0, 1357.4121823668  &
+   orientation = 90.0d, 44.437835358d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group19_B
@@ -16468,19 +19299,19 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group19_B.end_B  &
-   adams_id = 9006558  &
+   adams_id = 9007190  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group19_B.cm  &
-   adams_id = 9005900  &
+   adams_id = 9006500  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group19_B.end_beamB  &
-   adams_id = 9006559  &
+   adams_id = 9007191  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -16488,8 +19319,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group19_B  &
    mass = 11.5258405181  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group19_B.cm  &
-   ixx = 294.0966081325  &
-   iyy = 294.0966081325  &
+   ixx = 703.2414069608  &
+   iyy = 703.2414069608  &
    izz = 0.4102158729  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -16499,7 +19330,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group19_B.cyl1  &
-   adams_id = 3440  &
+   adams_id = 5736  &
    center_marker = .test_analysis_1.Upper_DP_Group19_B.end_B  &
    angle_extent = 360.0  &
    length = -15.5  &
@@ -16513,7 +19344,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group19_B.cyl1a  &
-   adams_id = 3441  &
+   adams_id = 5737  &
    center_marker = .test_analysis_1.Upper_DP_Group19_B.end_B  &
    angle_extent = 6.0  &
    length = -15.5  &
@@ -16527,7 +19358,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group19_B.rub1  &
-   adams_id = 3204  &
+   adams_id = 5491  &
    center_marker = .test_analysis_1.Upper_DP_Group19_B.cm  &
    radius = 0.25  &
    segment_count = 16
@@ -16544,9 +19375,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group19_sliderA  &
-   adams_id = 9005801  &
-   location = 175.3096546526, 0.0, 1382.2261636846  &
-   orientation = 90.0d, 49.0793655664d, 270.0d
+   adams_id = 9006401  &
+   location = 153.8684321607, 0.0, 1362.8247113167  &
+   orientation = 90.0d, 45.7055483088d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group19_sliderA
@@ -16555,27 +19386,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group19_sliderA.cm  &
-   adams_id = 9005801  &
+   adams_id = 9006401  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group19_sliderA.A1  &
-   adams_id = 9006563  &
+   adams_id = 9007195  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group19_sliderA.A2  &
-   adams_id = 9006564  &
+   adams_id = 9007196  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group19_sliderA.FMARKER_9006007  &
-   adams_id = 9006007
+   floating_marker_name = .test_analysis_1.Upper_DP_Group19_sliderA.FMARKER_9006607  &
+   adams_id = 9006607
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group19_sliderA  &
@@ -16585,7 +19416,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group19_sliderA.Upper_DP_Group19_sliderAgraphic  &
-   adams_id = 3446  &
+   adams_id = 5742  &
    center_marker = .test_analysis_1.Upper_DP_Group19_sliderA.A2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -16600,7 +19431,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group19_sliderA.ghole  &
-   adams_id = 3205  &
+   adams_id = 5492  &
    center_marker = .test_analysis_1.Upper_DP_Group19_sliderA.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -16618,9 +19449,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group19_C  &
-   adams_id = 9006000  &
-   location = 152.3702453622, 0.0, 1361.379890509  &
-   orientation = 90.0d, 46.3780737658d, 270.0d
+   adams_id = 9006600  &
+   location = 132.1744929159, 0.0, 1340.6843318838  &
+   orientation = 90.0d, 43.0847090268d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group19_C
@@ -16629,25 +19460,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group19_C.gmark2  &
-   adams_id = 9006562  &
-   location = 0.0, 0.0, 7.7504893215  &
+   adams_id = 9007194  &
+   location = 0.0, 0.0, 7.7506229983  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group19_C.end_C  &
-   adams_id = 9006000  &
+   adams_id = 9006600  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group19_C.cm  &
-   adams_id = 9006560  &
-   location = 0.0, 0.0, 3.012088177  &
+   adams_id = 9007192  &
+   location = 0.0, 0.0, 3.0121748261  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group19_C.end_beamC  &
-   adams_id = 9006561  &
+   adams_id = 9007193  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -16655,8 +19486,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group19_C  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group19_C.cm  &
-   ixx = 53.8722328525  &
-   iyy = 53.8722328525  &
+   ixx = 105.0703518671  &
+   iyy = 105.0703518671  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -16666,7 +19497,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group19_C.cyl1a  &
-   adams_id = 3444  &
+   adams_id = 5740  &
    center_marker = .test_analysis_1.Upper_DP_Group19_C.end_C  &
    angle_extent = 6.0  &
    length = 1.0  &
@@ -16680,7 +19511,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group19_C.cyl1  &
-   adams_id = 3445  &
+   adams_id = 5741  &
    center_marker = .test_analysis_1.Upper_DP_Group19_C.end_C  &
    angle_extent = 360.0  &
    length = 1.0  &
@@ -16694,7 +19525,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group19_C.cyl2  &
-   adams_id = 3442  &
+   adams_id = 5738  &
    center_marker = .test_analysis_1.Upper_DP_Group19_C.gmark2  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -16708,7 +19539,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group19_C.cyl2a  &
-   adams_id = 3443  &
+   adams_id = 5739  &
    center_marker = .test_analysis_1.Upper_DP_Group19_C.gmark2  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -16728,9 +19559,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group19_sliderB  &
-   adams_id = 9005901  &
-   location = 163.7170697194, 0.0, 1371.9382108156  &
-   orientation = 90.0d, 47.7450676758d, 270.0d
+   adams_id = 9006501  &
+   location = 142.8948868765, 0.0, 1351.878600991  &
+   orientation = 90.0d, 44.437835358d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group19_sliderB
@@ -16739,27 +19570,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group19_sliderB.cm  &
-   adams_id = 9005901  &
+   adams_id = 9006501  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group19_sliderB.B1  &
-   adams_id = 9006565  &
+   adams_id = 9007197  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group19_sliderB.B2  &
-   adams_id = 9006566  &
+   adams_id = 9007198  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group19_sliderB.FMARKER_9006008  &
-   adams_id = 9006008
+   floating_marker_name = .test_analysis_1.Upper_DP_Group19_sliderB.FMARKER_9006608  &
+   adams_id = 9006608
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group19_sliderB  &
@@ -16769,7 +19600,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group19_sliderB.Upper_DP_Group19_sliderBgraphic  &
-   adams_id = 3447  &
+   adams_id = 5743  &
    center_marker = .test_analysis_1.Upper_DP_Group19_sliderB.B2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -16784,7 +19615,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group19_sliderB.ghole  &
-   adams_id = 3206  &
+   adams_id = 5493  &
    center_marker = .test_analysis_1.Upper_DP_Group19_sliderB.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -16802,9 +19633,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group20_A  &
-   adams_id = 9006100  &
-   location = 152.3712185039, 0.0, 1361.3808331761  &
-   orientation = 90.0d, 45.4704446491d, 270.0d
+   adams_id = 9006700  &
+   location = 132.1756510346, 0.0, 1340.6855899286  &
+   orientation = 90.0d, 42.1758568684d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group20_A
@@ -16813,25 +19644,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_A.end_A  &
-   adams_id = 9006100  &
+   adams_id = 9006700  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_A.cm  &
-   adams_id = 9006567  &
+   adams_id = 9007199  &
    location = 0.0, 0.0, -3.0117709993  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_A.gmark1  &
-   adams_id = 9006568  &
+   adams_id = 9007200  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_A.end_beamA  &
-   adams_id = 9006569  &
+   adams_id = 9007201  &
    location = 0.0, 0.0, -1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -16839,8 +19670,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group20_A  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group20_A.cm  &
-   ixx = 53.8655360846  &
-   iyy = 53.8655360846  &
+   ixx = 105.0618254756  &
+   iyy = 105.0618254756  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -16850,7 +19681,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group20_A.cyl1  &
-   adams_id = 3448  &
+   adams_id = 5744  &
    center_marker = .test_analysis_1.Upper_DP_Group20_A.end_A  &
    angle_extent = 360.0  &
    length = -1.0  &
@@ -16864,7 +19695,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group20_A.cyl1a  &
-   adams_id = 3449  &
+   adams_id = 5745  &
    center_marker = .test_analysis_1.Upper_DP_Group20_A.end_A  &
    angle_extent = 6.0  &
    length = -1.0  &
@@ -16878,7 +19709,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group20_A.cyl2  &
-   adams_id = 3450  &
+   adams_id = 5746  &
    center_marker = .test_analysis_1.Upper_DP_Group20_A.gmark1  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -16892,7 +19723,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group20_A.cyl2a  &
-   adams_id = 3451  &
+   adams_id = 5747  &
    center_marker = .test_analysis_1.Upper_DP_Group20_A.gmark1  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -16912,9 +19743,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group20_B  &
-   adams_id = 9006200  &
-   location = 146.8459564643, 0.0, 1355.9455679447  &
-   orientation = 90.0d, 44.2035584536d, 270.0d
+   adams_id = 9006800  &
+   location = 126.9718099962, 0.0, 1334.9416908118  &
+   orientation = 90.0d, 40.8459393839d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group20_B
@@ -16923,19 +19754,19 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_B.end_B  &
-   adams_id = 9006570  &
+   adams_id = 9007202  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_B.cm  &
-   adams_id = 9006200  &
+   adams_id = 9006800  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_B.end_beamB  &
-   adams_id = 9006571  &
+   adams_id = 9007203  &
    location = 0.0, 0.0, -7.75  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -16943,8 +19774,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group20_B  &
    mass = 11.5258405181  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group20_B.cm  &
-   ixx = 294.0966081325  &
-   iyy = 294.0966081325  &
+   ixx = 703.2414069608  &
+   iyy = 703.2414069608  &
    izz = 0.4102158729  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -16954,7 +19785,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group20_B.cyl1  &
-   adams_id = 3452  &
+   adams_id = 5748  &
    center_marker = .test_analysis_1.Upper_DP_Group20_B.end_B  &
    angle_extent = 360.0  &
    length = -15.5  &
@@ -16968,7 +19799,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group20_B.cyl1a  &
-   adams_id = 3453  &
+   adams_id = 5749  &
    center_marker = .test_analysis_1.Upper_DP_Group20_B.end_B  &
    angle_extent = 6.0  &
    length = -15.5  &
@@ -16982,7 +19813,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group20_B.rub1  &
-   adams_id = 3207  &
+   adams_id = 5494  &
    center_marker = .test_analysis_1.Upper_DP_Group20_B.cm  &
    radius = 0.25  &
    segment_count = 16
@@ -16999,9 +19830,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group20_sliderA  &
-   adams_id = 9006101  &
-   location = 152.3712185039, 0.0, 1361.3808331761  &
-   orientation = 90.0d, 45.4704446491d, 270.0d
+   adams_id = 9006701  &
+   location = 132.1756510346, 0.0, 1340.6855899286  &
+   orientation = 90.0d, 42.1758568684d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group20_sliderA
@@ -17010,27 +19841,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_sliderA.cm  &
-   adams_id = 9006101  &
+   adams_id = 9006701  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_sliderA.A1  &
-   adams_id = 9006575  &
+   adams_id = 9007207  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_sliderA.A2  &
-   adams_id = 9006576  &
+   adams_id = 9007208  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group20_sliderA.FMARKER_9006311  &
-   adams_id = 9006311
+   floating_marker_name = .test_analysis_1.Upper_DP_Group20_sliderA.FMARKER_9006911  &
+   adams_id = 9006911
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group20_sliderA  &
@@ -17040,7 +19871,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group20_sliderA.Upper_DP_Group20_sliderAgraphic  &
-   adams_id = 3458  &
+   adams_id = 5754  &
    center_marker = .test_analysis_1.Upper_DP_Group20_sliderA.A2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -17055,7 +19886,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group20_sliderA.ghole  &
-   adams_id = 3208  &
+   adams_id = 5495  &
    center_marker = .test_analysis_1.Upper_DP_Group20_sliderA.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -17073,9 +19904,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group20_C  &
-   adams_id = 9006300  &
-   location = 130.768955542, 0.0, 1339.1510173281  &
-   orientation = 90.0d, 42.8414097042d, 270.0d
+   adams_id = 9006900  &
+   location = 111.9000177592, 0.0, 1317.238979027  &
+   orientation = 90.0d, 39.5397150678d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group20_C
@@ -17084,25 +19915,25 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_C.gmark2  &
-   adams_id = 9006574  &
-   location = 0.0, 0.0, 7.7506311204  &
+   adams_id = 9007206  &
+   location = 0.0, 0.0, 7.7507369126  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_C.end_C  &
-   adams_id = 9006300  &
+   adams_id = 9006900  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_C.cm  &
-   adams_id = 9006572  &
-   location = 0.0, 0.0, 3.0121800908  &
+   adams_id = 9007204  &
+   location = 0.0, 0.0, 3.0122486652  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_C.end_beamC  &
-   adams_id = 9006573  &
+   adams_id = 9007205  &
    location = 0.0, 0.0, 1.0  &
    orientation = 0.0d, 90.0d, 90.0d
 !
@@ -17110,8 +19941,8 @@ part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group20_C  &
    mass = 7.743482937  &
    center_of_mass_marker = .test_analysis_1.Upper_DP_Group20_C.cm  &
-   ixx = 53.8741736447  &
-   iyy = 53.8741736447  &
+   ixx = 105.071911053  &
+   iyy = 105.071911053  &
    izz = 0.3323288305  &
    ixy = 0.0  &
    izx = 0.0  &
@@ -17121,7 +19952,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group20_C.cyl1a  &
-   adams_id = 3456  &
+   adams_id = 5752  &
    center_marker = .test_analysis_1.Upper_DP_Group20_C.end_C  &
    angle_extent = 6.0  &
    length = 1.0  &
@@ -17135,7 +19966,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group20_C.cyl1  &
-   adams_id = 3457  &
+   adams_id = 5753  &
    center_marker = .test_analysis_1.Upper_DP_Group20_C.end_C  &
    angle_extent = 360.0  &
    length = 1.0  &
@@ -17149,7 +19980,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group20_C.cyl2  &
-   adams_id = 3454  &
+   adams_id = 5750  &
    center_marker = .test_analysis_1.Upper_DP_Group20_C.gmark2  &
    angle_extent = 360.0  &
    length = -6.75  &
@@ -17163,7 +19994,7 @@ geometry attributes  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group20_C.cyl2a  &
-   adams_id = 3455  &
+   adams_id = 5751  &
    center_marker = .test_analysis_1.Upper_DP_Group20_C.gmark2  &
    angle_extent = 6.0  &
    length = -6.75  &
@@ -17183,9 +20014,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group20_sliderB  &
-   adams_id = 9006201  &
-   location = 141.4425818591, 0.0, 1350.3898463107  &
-   orientation = 90.0d, 44.2035584536d, 270.0d
+   adams_id = 9006801  &
+   location = 121.9030980522, 0.0, 1329.0790413059  &
+   orientation = 90.0d, 40.8459393839d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group20_sliderB
@@ -17194,27 +20025,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_sliderB.cm  &
-   adams_id = 9006201  &
+   adams_id = 9006801  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_sliderB.B1  &
-   adams_id = 9006577  &
+   adams_id = 9007209  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_sliderB.B2  &
-   adams_id = 9006578  &
+   adams_id = 9007210  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group20_sliderB.FMARKER_9006312  &
-   adams_id = 9006312
+   floating_marker_name = .test_analysis_1.Upper_DP_Group20_sliderB.FMARKER_9006912  &
+   adams_id = 9006912
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group20_sliderB  &
@@ -17224,7 +20055,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group20_sliderB.Upper_DP_Group20_sliderBgraphic  &
-   adams_id = 3459  &
+   adams_id = 5755  &
    center_marker = .test_analysis_1.Upper_DP_Group20_sliderB.B2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -17239,7 +20070,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group20_sliderB.ghole  &
-   adams_id = 3209  &
+   adams_id = 5496  &
    center_marker = .test_analysis_1.Upper_DP_Group20_sliderB.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -17257,9 +20088,9 @@ defaults coordinate_system  &
 !
 part create rigid_body name_and_position  &
    part_name = .test_analysis_1.Upper_DP_Group20_sliderC  &
-   adams_id = 9006301  &
-   location = 130.768955542, 0.0, 1339.1510173281  &
-   orientation = 90.0d, 42.8414097042d, 270.0d
+   adams_id = 9006901  &
+   location = 111.9000177592, 0.0, 1317.238979027  &
+   orientation = 90.0d, 39.5397150678d, 270.0d
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.Upper_DP_Group20_sliderC
@@ -17268,27 +20099,27 @@ defaults coordinate_system  &
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_sliderC.cm  &
-   adams_id = 9006301  &
+   adams_id = 9006901  &
    location = 0.0, 0.0, 0.0  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_sliderC.C1  &
-   adams_id = 9006579  &
+   adams_id = 9007211  &
    location = 0.0, 0.0, 0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 marker create  &
    marker_name = .test_analysis_1.Upper_DP_Group20_sliderC.C2  &
-   adams_id = 9006580  &
+   adams_id = 9007212  &
    location = 0.0, 0.0, -0.3  &
    orientation = 0.0d, 0.0d, 0.0d
 !
 ! ****** Floating Markers for current part ******
 !
 floating_marker create  &
-   floating_marker_name = .test_analysis_1.Upper_DP_Group20_sliderC.FMARKER_9006313  &
-   adams_id = 9006313
+   floating_marker_name = .test_analysis_1.Upper_DP_Group20_sliderC.FMARKER_9006913  &
+   adams_id = 9006913
 !
 part create rigid_body mass_properties  &
    part_name = .test_analysis_1.Upper_DP_Group20_sliderC  &
@@ -17298,7 +20129,7 @@ part create rigid_body mass_properties  &
 !
 geometry create shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group20_sliderC.Upper_DP_Group20_sliderCgraphic  &
-   adams_id = 3460  &
+   adams_id = 5756  &
    center_marker = .test_analysis_1.Upper_DP_Group20_sliderC.C2  &
    angle_extent = 360.0  &
    length = 0.6  &
@@ -17313,7 +20144,7 @@ geometry attributes  &
 !
 geometry create curve circle  &
    circle_name = .test_analysis_1.Upper_DP_Group20_sliderC.ghole  &
-   adams_id = 3210  &
+   adams_id = 5497  &
    center_marker = .test_analysis_1.Upper_DP_Group20_sliderC.cm  &
    radius = 0.54175  &
    segment_count = 24
@@ -17351,7 +20182,23 @@ part create equation differential_equation  &
    static_hold = on
 !
 part create equation differential_equation  &
-   differential_equation_name = .test_analysis_1.example_stabilizer_02_A_WZ_integral  &
+   differential_equation_name = .test_analysis_1.BitOffset  &
+   adams_id = 9000011  &
+   initial_condition = 3.0  &
+   function = ""  &
+   implicit = off  &
+   static_hold = off
+!
+part create equation differential_equation  &
+   differential_equation_name = .test_analysis_1.test_pdc_01_TrueMD  &
+   adams_id = 9000012  &
+   initial_condition = 2000.0  &
+   function = ""  &
+   implicit = off  &
+   static_hold = on
+!
+part create equation differential_equation  &
+   differential_equation_name = .test_analysis_1.example_motor_02_A_WZ_integral  &
    adams_id = 9000200  &
    initial_condition = 0.0  &
    function = ""  &
@@ -17359,8 +20206,32 @@ part create equation differential_equation  &
    static_hold = on
 !
 part create equation differential_equation  &
-   differential_equation_name = .test_analysis_1.example_stabilizer_02_B_WZ_integral  &
+   differential_equation_name = .test_analysis_1.example_motor_02_B_WZ_integral  &
    adams_id = 9000300  &
+   initial_condition = 0.0  &
+   function = ""  &
+   implicit = off  &
+   static_hold = on
+!
+part create equation differential_equation  &
+   differential_equation_name = .test_analysis_1.example_motor_02_C_WZ_integral  &
+   adams_id = 9000500  &
+   initial_condition = 0.0  &
+   function = ""  &
+   implicit = off  &
+   static_hold = on
+!
+part create equation differential_equation  &
+   differential_equation_name = .test_analysis_1.example_stabilizer_03_A_WZ_integral  &
+   adams_id = 9000800  &
+   initial_condition = 0.0  &
+   function = ""  &
+   implicit = off  &
+   static_hold = on
+!
+part create equation differential_equation  &
+   differential_equation_name = .test_analysis_1.example_stabilizer_03_B_WZ_integral  &
+   adams_id = 9000900  &
    initial_condition = 0.0  &
    function = ""  &
    implicit = off  &
@@ -17376,7 +20247,7 @@ part create equation differential_equation  &
 !
 part create equation differential_equation  &
    differential_equation_name = .test_analysis_1.TOS_VZ_integral  &
-   adams_id = 9000301  &
+   adams_id = 9000901  &
    initial_condition = 0.0  &
    function = ""  &
    implicit = off  &
@@ -17384,7 +20255,7 @@ part create equation differential_equation  &
 !
 part create equation differential_equation  &
    differential_equation_name = .test_analysis_1.StringSpeedFilter  &
-   adams_id = 9000302  &
+   adams_id = 9000902  &
    initial_condition = 0.0  &
    function = ""  &
    implicit = off  &
@@ -17392,7 +20263,7 @@ part create equation differential_equation  &
 !
 part create equation differential_equation  &
    differential_equation_name = .test_analysis_1.StringSpeedError  &
-   adams_id = 9000303  &
+   adams_id = 9000903  &
    initial_condition = 0.0  &
    function = ""  &
    implicit = off  &
@@ -17400,7 +20271,7 @@ part create equation differential_equation  &
 !
 part create equation differential_equation  &
    differential_equation_name = .test_analysis_1.StringSpeedErrorRate  &
-   adams_id = 9000304  &
+   adams_id = 9000904  &
    initial_condition = 0.0  &
    function = ""  &
    implicit = on  &
@@ -17424,7 +20295,7 @@ part create equation differential_equation  &
 !
 part create equation differential_equation  &
    differential_equation_name = .test_analysis_1.BitForceFilter  &
-   adams_id = 9000305  &
+   adams_id = 9000905  &
    initial_condition = 0.0  &
    function = ""  &
    implicit = off  &
@@ -17432,7 +20303,7 @@ part create equation differential_equation  &
 !
 part create equation differential_equation  &
    differential_equation_name = .test_analysis_1.BitTorqueFilter  &
-   adams_id = 9000306  &
+   adams_id = 9000906  &
    initial_condition = 0.0  &
    function = ""  &
    implicit = off  &
@@ -17440,7 +20311,7 @@ part create equation differential_equation  &
 !
 part create equation differential_equation  &
    differential_equation_name = .test_analysis_1.BitForceError  &
-   adams_id = 9000307  &
+   adams_id = 9000907  &
    initial_condition = 0.0  &
    function = ""  &
    implicit = off  &
@@ -17449,14 +20320,14 @@ part create equation differential_equation  &
 part create equation differential_equation  &
    differential_equation_name = .test_analysis_1.HookLoadLatch  &
    adams_id = 101  &
-   initial_condition = 8.8868573805E+04  &
+   initial_condition = -1.5343585002E+04  &
    function = ""  &
    implicit = off  &
    static_hold = off
 !
 part create equation differential_equation  &
    differential_equation_name = .test_analysis_1.filtered_Surface_MSE  &
-   adams_id = 9000308  &
+   adams_id = 9000908  &
    initial_condition = 0.0  &
    function = ""  &
    implicit = off  &
@@ -17464,7 +20335,7 @@ part create equation differential_equation  &
 !
 part create equation differential_equation  &
    differential_equation_name = .test_analysis_1.filtered_Bottom_MSE  &
-   adams_id = 9000309  &
+   adams_id = 9000909  &
    initial_condition = 0.0  &
    function = ""  &
    implicit = off  &
@@ -17518,7 +20389,7 @@ part create equation linear_state_equation  &
 !
 constraint create higher_pair_contact point_curve  &
    point_curve_name = .test_analysis_1.PTCV_Hole_Bottom1  &
-   adams_id = 9006303  &
+   adams_id = 9006903  &
    i_marker_name = .test_analysis_1.Hole_Bottom.A1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_3002291  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
@@ -17526,7 +20397,7 @@ constraint create higher_pair_contact point_curve  &
 !
 constraint create higher_pair_contact point_curve  &
    point_curve_name = .test_analysis_1.PTCV_Hole_Bottom2  &
-   adams_id = 9006304  &
+   adams_id = 9006904  &
    i_marker_name = .test_analysis_1.Hole_Bottom.A2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_3002292  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
@@ -17549,819 +20420,885 @@ constraint create higher_pair_contact point_curve  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_example_stabilizer_02_A1  &
+   point_curve_name = .test_analysis_1.PTCV_example_motor_02_A1  &
    adams_id = 9000201  &
-   i_marker_name = .test_analysis_1.example_stabilizer_02_sliderA.A1  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000302  &
+   i_marker_name = .test_analysis_1.example_motor_02_sliderA.A1  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000701  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_example_stabilizer_02_A2  &
+   point_curve_name = .test_analysis_1.PTCV_example_motor_02_A2  &
    adams_id = 9000202  &
-   i_marker_name = .test_analysis_1.example_stabilizer_02_sliderA.A2  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000303  &
+   i_marker_name = .test_analysis_1.example_motor_02_sliderA.A2  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000702  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_example_stabilizer_02_B1  &
+   point_curve_name = .test_analysis_1.PTCV_example_motor_02_B1  &
    adams_id = 9000301  &
-   i_marker_name = .test_analysis_1.example_stabilizer_02_sliderB.B1  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000304  &
+   i_marker_name = .test_analysis_1.example_motor_02_sliderB.B1  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000703  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_example_stabilizer_02_B2  &
+   point_curve_name = .test_analysis_1.PTCV_example_motor_02_B2  &
    adams_id = 9000302  &
-   i_marker_name = .test_analysis_1.example_stabilizer_02_sliderB.B2  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000305  &
+   i_marker_name = .test_analysis_1.example_motor_02_sliderB.B2  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000704  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group1_A1  &
-   adams_id = 9000401  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group1_sliderA.A1  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000601  &
-   ref_marker_name = .test_analysis_1.ground.adrill_origin  &
-   curve_name = .test_analysis_1.test_hole
-!
-constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group1_A2  &
-   adams_id = 9000402  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group1_sliderA.A2  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000602  &
-   ref_marker_name = .test_analysis_1.ground.adrill_origin  &
-   curve_name = .test_analysis_1.test_hole
-!
-constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group1_B1  &
+   point_curve_name = .test_analysis_1.PTCV_example_motor_02_C1  &
    adams_id = 9000501  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group1_sliderB.B1  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000603  &
+   i_marker_name = .test_analysis_1.example_motor_02_sliderC.C1  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000705  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group1_B2  &
+   point_curve_name = .test_analysis_1.PTCV_example_motor_02_C2  &
    adams_id = 9000502  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group1_sliderB.B2  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000604  &
+   i_marker_name = .test_analysis_1.example_motor_02_sliderC.C2  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000706  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group2_A1  &
-   adams_id = 9000701  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group2_sliderA.A1  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000901  &
-   ref_marker_name = .test_analysis_1.ground.adrill_origin  &
-   curve_name = .test_analysis_1.test_hole
-!
-constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group2_A2  &
-   adams_id = 9000702  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group2_sliderA.A2  &
+   point_curve_name = .test_analysis_1.PTCV_example_stabilizer_03_A1  &
+   adams_id = 9000801  &
+   i_marker_name = .test_analysis_1.example_stabilizer_03_sliderA.A1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000902  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group2_B1  &
-   adams_id = 9000801  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group2_sliderB.B1  &
+   point_curve_name = .test_analysis_1.PTCV_example_stabilizer_03_A2  &
+   adams_id = 9000802  &
+   i_marker_name = .test_analysis_1.example_stabilizer_03_sliderA.A2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000903  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group2_B2  &
-   adams_id = 9000802  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group2_sliderB.B2  &
+   point_curve_name = .test_analysis_1.PTCV_example_stabilizer_03_B1  &
+   adams_id = 9000901  &
+   i_marker_name = .test_analysis_1.example_stabilizer_03_sliderB.B1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000904  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group3_A1  &
+   point_curve_name = .test_analysis_1.PTCV_example_stabilizer_03_B2  &
+   adams_id = 9000902  &
+   i_marker_name = .test_analysis_1.example_stabilizer_03_sliderB.B2  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000905  &
+   ref_marker_name = .test_analysis_1.ground.adrill_origin  &
+   curve_name = .test_analysis_1.test_hole
+!
+constraint create higher_pair_contact point_curve  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group1_A1  &
    adams_id = 9001001  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group3_sliderA.A1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group1_sliderA.A1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001201  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group3_A2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group1_A2  &
    adams_id = 9001002  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group3_sliderA.A2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group1_sliderA.A2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001202  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group3_B1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group1_B1  &
    adams_id = 9001101  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group3_sliderB.B1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group1_sliderB.B1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001203  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group3_B2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group1_B2  &
    adams_id = 9001102  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group3_sliderB.B2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group1_sliderB.B2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001204  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group4_A1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group2_A1  &
    adams_id = 9001301  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group4_sliderA.A1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group2_sliderA.A1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001501  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group4_A2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group2_A2  &
    adams_id = 9001302  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group4_sliderA.A2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group2_sliderA.A2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001502  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group4_B1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group2_B1  &
    adams_id = 9001401  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group4_sliderB.B1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group2_sliderB.B1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001503  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group4_B2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group2_B2  &
    adams_id = 9001402  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group4_sliderB.B2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group2_sliderB.B2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001504  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group5_A1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group3_A1  &
    adams_id = 9001601  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group5_sliderA.A1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group3_sliderA.A1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001801  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group5_A2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group3_A2  &
    adams_id = 9001602  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group5_sliderA.A2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group3_sliderA.A2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001802  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group5_B1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group3_B1  &
    adams_id = 9001701  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group5_sliderB.B1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group3_sliderB.B1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001803  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group5_B2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group3_B2  &
    adams_id = 9001702  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group5_sliderB.B2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group3_sliderB.B2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001804  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group6_A1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group4_A1  &
    adams_id = 9001901  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group6_sliderA.A1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group4_sliderA.A1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002101  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group6_A2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group4_A2  &
    adams_id = 9001902  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group6_sliderA.A2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group4_sliderA.A2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002102  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group6_B1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group4_B1  &
    adams_id = 9002001  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group6_sliderB.B1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group4_sliderB.B1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002103  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group6_B2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group4_B2  &
    adams_id = 9002002  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group6_sliderB.B2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group4_sliderB.B2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002104  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group7_A1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group5_A1  &
    adams_id = 9002201  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group7_sliderA.A1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group5_sliderA.A1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002401  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group7_A2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group5_A2  &
    adams_id = 9002202  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group7_sliderA.A2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group5_sliderA.A2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002402  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group7_B1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group5_B1  &
    adams_id = 9002301  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group7_sliderB.B1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group5_sliderB.B1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002403  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group7_B2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group5_B2  &
    adams_id = 9002302  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group7_sliderB.B2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group5_sliderB.B2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002404  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group8_A1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group6_A1  &
    adams_id = 9002501  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group8_sliderA.A1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group6_sliderA.A1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002701  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group8_A2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group6_A2  &
    adams_id = 9002502  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group8_sliderA.A2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group6_sliderA.A2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002702  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group8_B1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group6_B1  &
    adams_id = 9002601  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group8_sliderB.B1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group6_sliderB.B1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002703  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group8_B2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group6_B2  &
    adams_id = 9002602  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group8_sliderB.B2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group6_sliderB.B2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002704  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group9_A1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group7_A1  &
    adams_id = 9002801  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group9_sliderA.A1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group7_sliderA.A1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003001  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group9_A2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group7_A2  &
    adams_id = 9002802  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group9_sliderA.A2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group7_sliderA.A2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003002  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group9_B1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group7_B1  &
    adams_id = 9002901  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group9_sliderB.B1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group7_sliderB.B1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003003  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group9_B2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group7_B2  &
    adams_id = 9002902  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group9_sliderB.B2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group7_sliderB.B2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003004  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group10_A1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group8_A1  &
    adams_id = 9003101  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group10_sliderA.A1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group8_sliderA.A1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003301  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group10_A2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group8_A2  &
    adams_id = 9003102  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group10_sliderA.A2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group8_sliderA.A2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003302  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group10_B1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group8_B1  &
    adams_id = 9003201  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group10_sliderB.B1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group8_sliderB.B1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003303  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group10_B2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group8_B2  &
    adams_id = 9003202  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group10_sliderB.B2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group8_sliderB.B2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003304  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group11_A1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group9_A1  &
    adams_id = 9003401  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group11_sliderA.A1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group9_sliderA.A1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003601  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group11_A2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group9_A2  &
    adams_id = 9003402  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group11_sliderA.A2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group9_sliderA.A2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003602  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group11_B1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group9_B1  &
    adams_id = 9003501  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group11_sliderB.B1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group9_sliderB.B1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003603  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group11_B2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group9_B2  &
    adams_id = 9003502  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group11_sliderB.B2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group9_sliderB.B2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003604  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group12_A1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group10_A1  &
    adams_id = 9003701  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group12_sliderA.A1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group10_sliderA.A1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003901  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group12_A2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group10_A2  &
    adams_id = 9003702  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group12_sliderA.A2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group10_sliderA.A2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003902  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group12_B1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group10_B1  &
    adams_id = 9003801  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group12_sliderB.B1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group10_sliderB.B1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003903  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group12_B2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group10_B2  &
    adams_id = 9003802  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group12_sliderB.B2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group10_sliderB.B2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003904  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group13_A1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group11_A1  &
    adams_id = 9004001  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group13_sliderA.A1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group11_sliderA.A1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004201  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group13_A2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group11_A2  &
    adams_id = 9004002  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group13_sliderA.A2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group11_sliderA.A2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004202  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group13_B1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group11_B1  &
    adams_id = 9004101  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group13_sliderB.B1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group11_sliderB.B1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004203  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group13_B2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group11_B2  &
    adams_id = 9004102  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group13_sliderB.B2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group11_sliderB.B2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004204  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group14_A1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group12_A1  &
    adams_id = 9004301  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group14_sliderA.A1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group12_sliderA.A1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004501  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group14_A2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group12_A2  &
    adams_id = 9004302  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group14_sliderA.A2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group12_sliderA.A2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004502  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group14_B1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group12_B1  &
    adams_id = 9004401  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group14_sliderB.B1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group12_sliderB.B1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004503  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group14_B2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group12_B2  &
    adams_id = 9004402  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group14_sliderB.B2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group12_sliderB.B2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004504  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group15_A1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group13_A1  &
    adams_id = 9004601  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group15_sliderA.A1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group13_sliderA.A1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004801  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group15_A2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group13_A2  &
    adams_id = 9004602  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group15_sliderA.A2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group13_sliderA.A2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004802  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group15_B1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group13_B1  &
    adams_id = 9004701  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group15_sliderB.B1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group13_sliderB.B1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004803  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group15_B2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group13_B2  &
    adams_id = 9004702  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group15_sliderB.B2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group13_sliderB.B2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004804  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group16_A1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group14_A1  &
    adams_id = 9004901  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group16_sliderA.A1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group14_sliderA.A1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005101  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group16_A2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group14_A2  &
    adams_id = 9004902  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group16_sliderA.A2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group14_sliderA.A2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005102  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group16_B1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group14_B1  &
    adams_id = 9005001  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group16_sliderB.B1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group14_sliderB.B1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005103  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group16_B2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group14_B2  &
    adams_id = 9005002  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group16_sliderB.B2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group14_sliderB.B2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005104  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group17_A1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group15_A1  &
    adams_id = 9005201  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group17_sliderA.A1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group15_sliderA.A1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005401  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group17_A2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group15_A2  &
    adams_id = 9005202  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group17_sliderA.A2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group15_sliderA.A2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005402  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group17_B1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group15_B1  &
    adams_id = 9005301  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group17_sliderB.B1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group15_sliderB.B1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005403  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group17_B2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group15_B2  &
    adams_id = 9005302  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group17_sliderB.B2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group15_sliderB.B2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005404  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group18_A1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group16_A1  &
    adams_id = 9005501  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group18_sliderA.A1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group16_sliderA.A1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005701  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group18_A2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group16_A2  &
    adams_id = 9005502  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group18_sliderA.A2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group16_sliderA.A2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005702  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group18_B1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group16_B1  &
    adams_id = 9005601  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group18_sliderB.B1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group16_sliderB.B1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005703  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group18_B2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group16_B2  &
    adams_id = 9005602  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group18_sliderB.B2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group16_sliderB.B2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005704  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group19_A1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group17_A1  &
    adams_id = 9005801  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group19_sliderA.A1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group17_sliderA.A1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006001  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group19_A2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group17_A2  &
    adams_id = 9005802  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group19_sliderA.A2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group17_sliderA.A2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006002  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group19_B1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group17_B1  &
    adams_id = 9005901  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group19_sliderB.B1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group17_sliderB.B1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006003  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group19_B2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group17_B2  &
    adams_id = 9005902  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group19_sliderB.B2  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group17_sliderB.B2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006004  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group20_A1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group18_A1  &
    adams_id = 9006101  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group20_sliderA.A1  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group18_sliderA.A1  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006301  &
+   ref_marker_name = .test_analysis_1.ground.adrill_origin  &
+   curve_name = .test_analysis_1.test_hole
+!
+constraint create higher_pair_contact point_curve  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group18_A2  &
+   adams_id = 9006102  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group18_sliderA.A2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006302  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group20_A2  &
-   adams_id = 9006102  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group20_sliderA.A2  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group18_B1  &
+   adams_id = 9006201  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group18_sliderB.B1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006303  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group20_B1  &
-   adams_id = 9006201  &
-   i_marker_name = .test_analysis_1.Upper_DP_Group20_sliderB.B1  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group18_B2  &
+   adams_id = 9006202  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group18_sliderB.B2  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006304  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group19_A1  &
+   adams_id = 9006401  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group19_sliderA.A1  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006601  &
+   ref_marker_name = .test_analysis_1.ground.adrill_origin  &
+   curve_name = .test_analysis_1.test_hole
+!
+constraint create higher_pair_contact point_curve  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group19_A2  &
+   adams_id = 9006402  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group19_sliderA.A2  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006602  &
+   ref_marker_name = .test_analysis_1.ground.adrill_origin  &
+   curve_name = .test_analysis_1.test_hole
+!
+constraint create higher_pair_contact point_curve  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group19_B1  &
+   adams_id = 9006501  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group19_sliderB.B1  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006603  &
+   ref_marker_name = .test_analysis_1.ground.adrill_origin  &
+   curve_name = .test_analysis_1.test_hole
+!
+constraint create higher_pair_contact point_curve  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group19_B2  &
+   adams_id = 9006502  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group19_sliderB.B2  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006604  &
+   ref_marker_name = .test_analysis_1.ground.adrill_origin  &
+   curve_name = .test_analysis_1.test_hole
+!
+constraint create higher_pair_contact point_curve  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group20_A1  &
+   adams_id = 9006701  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group20_sliderA.A1  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006902  &
+   ref_marker_name = .test_analysis_1.ground.adrill_origin  &
+   curve_name = .test_analysis_1.test_hole
+!
+constraint create higher_pair_contact point_curve  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group20_A2  &
+   adams_id = 9006702  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group20_sliderA.A2  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006903  &
+   ref_marker_name = .test_analysis_1.ground.adrill_origin  &
+   curve_name = .test_analysis_1.test_hole
+!
+constraint create higher_pair_contact point_curve  &
+   point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group20_B1  &
+   adams_id = 9006801  &
+   i_marker_name = .test_analysis_1.Upper_DP_Group20_sliderB.B1  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006904  &
+   ref_marker_name = .test_analysis_1.ground.adrill_origin  &
+   curve_name = .test_analysis_1.test_hole
+!
+constraint create higher_pair_contact point_curve  &
    point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group20_B2  &
-   adams_id = 9006202  &
+   adams_id = 9006802  &
    i_marker_name = .test_analysis_1.Upper_DP_Group20_sliderB.B2  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006305  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006905  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
    point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group20_C1  &
-   adams_id = 9006301  &
+   adams_id = 9006901  &
    i_marker_name = .test_analysis_1.Upper_DP_Group20_sliderC.C1  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006306  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006906  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 constraint create higher_pair_contact point_curve  &
    point_curve_name = .test_analysis_1.PTCV_Upper_DP_Group20_C2  &
-   adams_id = 9006302  &
+   adams_id = 9006902  &
    i_marker_name = .test_analysis_1.Upper_DP_Group20_sliderC.C2  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006307  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006907  &
    ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    curve_name = .test_analysis_1.test_hole
 !
 !----------------------------------- Joints -----------------------------------!
 !
 !
+constraint create joint revolute  &
+   joint_name = .test_analysis_1.MotorBend_rev  &
+   adams_id = 9006701  &
+   i_marker_name = .test_analysis_1.example_motor_02_B.bendrev1  &
+   j_marker_name = .test_analysis_1.example_motor_02_B2.bendrev2
+!
+constraint create joint revolute  &
+   joint_name = .test_analysis_1.motor_bearing  &
+   adams_id = 9006702  &
+   i_marker_name = .test_analysis_1.example_motor_02_R.motor_bearing_R  &
+   j_marker_name = .test_analysis_1.example_motor_02_A.motor_bearing_A
+!
 constraint create joint fixed  &
    joint_name = .test_analysis_1.connector_2to1  &
-   adams_id = 9000202  &
+   adams_id = 9000700  &
    i_marker_name = .test_analysis_1.test_pdc_01.end_B  &
-   j_marker_name = .test_analysis_1.example_stabilizer_02_B.end_B1
+   j_marker_name = .test_analysis_1.example_motor_02_R.end_R
 !
 constraint create joint fixed  &
    joint_name = .test_analysis_1.connector_3to2  &
-   adams_id = 9000400  &
-   i_marker_name = .test_analysis_1.example_stabilizer_02_B.end_B2  &
+   adams_id = 9000802  &
+   i_marker_name = .test_analysis_1.example_motor_02_D.end_D  &
+   j_marker_name = .test_analysis_1.example_stabilizer_03_B.end_B1
+!
+constraint create joint fixed  &
+   joint_name = .test_analysis_1.connector_4to3  &
+   adams_id = 9001000  &
+   i_marker_name = .test_analysis_1.example_stabilizer_03_B.end_B2  &
    j_marker_name = .test_analysis_1.Upper_DP_Group1_A.end_A
 !
 constraint create joint fixed  &
-   joint_name = .test_analysis_1.internal3_2to1  &
-   adams_id = 9000700  &
+   joint_name = .test_analysis_1.internal4_2to1  &
+   adams_id = 9001300  &
    i_marker_name = .test_analysis_1.Upper_DP_Group1_C.end_C  &
    j_marker_name = .test_analysis_1.Upper_DP_Group2_A.end_A
 !
 constraint create joint fixed  &
-   joint_name = .test_analysis_1.internal3_3to2  &
-   adams_id = 9001000  &
+   joint_name = .test_analysis_1.internal4_3to2  &
+   adams_id = 9001600  &
    i_marker_name = .test_analysis_1.Upper_DP_Group2_C.end_C  &
    j_marker_name = .test_analysis_1.Upper_DP_Group3_A.end_A
 !
 constraint create joint fixed  &
-   joint_name = .test_analysis_1.internal3_4to3  &
-   adams_id = 9001300  &
+   joint_name = .test_analysis_1.internal4_4to3  &
+   adams_id = 9001900  &
    i_marker_name = .test_analysis_1.Upper_DP_Group3_C.end_C  &
    j_marker_name = .test_analysis_1.Upper_DP_Group4_A.end_A
 !
 constraint create joint fixed  &
-   joint_name = .test_analysis_1.internal3_5to4  &
-   adams_id = 9001600  &
+   joint_name = .test_analysis_1.internal4_5to4  &
+   adams_id = 9002200  &
    i_marker_name = .test_analysis_1.Upper_DP_Group4_C.end_C  &
    j_marker_name = .test_analysis_1.Upper_DP_Group5_A.end_A
 !
 constraint create joint fixed  &
-   joint_name = .test_analysis_1.internal3_6to5  &
-   adams_id = 9001900  &
+   joint_name = .test_analysis_1.internal4_6to5  &
+   adams_id = 9002500  &
    i_marker_name = .test_analysis_1.Upper_DP_Group5_C.end_C  &
    j_marker_name = .test_analysis_1.Upper_DP_Group6_A.end_A
 !
 constraint create joint fixed  &
-   joint_name = .test_analysis_1.internal3_7to6  &
-   adams_id = 9002200  &
+   joint_name = .test_analysis_1.internal4_7to6  &
+   adams_id = 9002800  &
    i_marker_name = .test_analysis_1.Upper_DP_Group6_C.end_C  &
    j_marker_name = .test_analysis_1.Upper_DP_Group7_A.end_A
 !
 constraint create joint fixed  &
-   joint_name = .test_analysis_1.internal3_8to7  &
-   adams_id = 9002500  &
+   joint_name = .test_analysis_1.internal4_8to7  &
+   adams_id = 9003100  &
    i_marker_name = .test_analysis_1.Upper_DP_Group7_C.end_C  &
    j_marker_name = .test_analysis_1.Upper_DP_Group8_A.end_A
 !
 constraint create joint fixed  &
-   joint_name = .test_analysis_1.internal3_9to8  &
-   adams_id = 9002800  &
+   joint_name = .test_analysis_1.internal4_9to8  &
+   adams_id = 9003400  &
    i_marker_name = .test_analysis_1.Upper_DP_Group8_C.end_C  &
    j_marker_name = .test_analysis_1.Upper_DP_Group9_A.end_A
 !
 constraint create joint fixed  &
-   joint_name = .test_analysis_1.internal3_10to9  &
-   adams_id = 9003100  &
+   joint_name = .test_analysis_1.internal4_10to9  &
+   adams_id = 9003700  &
    i_marker_name = .test_analysis_1.Upper_DP_Group9_C.end_C  &
    j_marker_name = .test_analysis_1.Upper_DP_Group10_A.end_A
 !
 constraint create joint fixed  &
-   joint_name = .test_analysis_1.internal3_11to10  &
-   adams_id = 9003400  &
+   joint_name = .test_analysis_1.internal4_11to10  &
+   adams_id = 9004000  &
    i_marker_name = .test_analysis_1.Upper_DP_Group10_C.end_C  &
    j_marker_name = .test_analysis_1.Upper_DP_Group11_A.end_A
 !
 constraint create joint fixed  &
-   joint_name = .test_analysis_1.internal3_12to11  &
-   adams_id = 9003700  &
+   joint_name = .test_analysis_1.internal4_12to11  &
+   adams_id = 9004300  &
    i_marker_name = .test_analysis_1.Upper_DP_Group11_C.end_C  &
    j_marker_name = .test_analysis_1.Upper_DP_Group12_A.end_A
 !
 constraint create joint fixed  &
-   joint_name = .test_analysis_1.internal3_13to12  &
-   adams_id = 9004000  &
+   joint_name = .test_analysis_1.internal4_13to12  &
+   adams_id = 9004600  &
    i_marker_name = .test_analysis_1.Upper_DP_Group12_C.end_C  &
    j_marker_name = .test_analysis_1.Upper_DP_Group13_A.end_A
 !
 constraint create joint fixed  &
-   joint_name = .test_analysis_1.internal3_14to13  &
-   adams_id = 9004300  &
+   joint_name = .test_analysis_1.internal4_14to13  &
+   adams_id = 9004900  &
    i_marker_name = .test_analysis_1.Upper_DP_Group13_C.end_C  &
    j_marker_name = .test_analysis_1.Upper_DP_Group14_A.end_A
 !
 constraint create joint fixed  &
-   joint_name = .test_analysis_1.internal3_15to14  &
-   adams_id = 9004600  &
+   joint_name = .test_analysis_1.internal4_15to14  &
+   adams_id = 9005200  &
    i_marker_name = .test_analysis_1.Upper_DP_Group14_C.end_C  &
    j_marker_name = .test_analysis_1.Upper_DP_Group15_A.end_A
 !
 constraint create joint fixed  &
-   joint_name = .test_analysis_1.internal3_16to15  &
-   adams_id = 9004900  &
+   joint_name = .test_analysis_1.internal4_16to15  &
+   adams_id = 9005500  &
    i_marker_name = .test_analysis_1.Upper_DP_Group15_C.end_C  &
    j_marker_name = .test_analysis_1.Upper_DP_Group16_A.end_A
 !
 constraint create joint fixed  &
-   joint_name = .test_analysis_1.internal3_17to16  &
-   adams_id = 9005200  &
+   joint_name = .test_analysis_1.internal4_17to16  &
+   adams_id = 9005800  &
    i_marker_name = .test_analysis_1.Upper_DP_Group16_C.end_C  &
    j_marker_name = .test_analysis_1.Upper_DP_Group17_A.end_A
 !
 constraint create joint fixed  &
-   joint_name = .test_analysis_1.internal3_18to17  &
-   adams_id = 9005500  &
+   joint_name = .test_analysis_1.internal4_18to17  &
+   adams_id = 9006100  &
    i_marker_name = .test_analysis_1.Upper_DP_Group17_C.end_C  &
    j_marker_name = .test_analysis_1.Upper_DP_Group18_A.end_A
 !
 constraint create joint fixed  &
-   joint_name = .test_analysis_1.internal3_19to18  &
-   adams_id = 9005800  &
+   joint_name = .test_analysis_1.internal4_19to18  &
+   adams_id = 9006400  &
    i_marker_name = .test_analysis_1.Upper_DP_Group18_C.end_C  &
    j_marker_name = .test_analysis_1.Upper_DP_Group19_A.end_A
 !
 constraint create joint fixed  &
-   joint_name = .test_analysis_1.internal3_20to19  &
-   adams_id = 9006100  &
+   joint_name = .test_analysis_1.internal4_20to19  &
+   adams_id = 9006700  &
    i_marker_name = .test_analysis_1.Upper_DP_Group19_C.end_C  &
    j_marker_name = .test_analysis_1.Upper_DP_Group20_A.end_A
 !
@@ -18369,11 +21306,70 @@ constraint create joint fixed  &
 !
 !
 force create element_like beam  &
-   beam_name = .test_analysis_1.BeamAB_Upper_DP_Group1  &
+   beam_name = .test_analysis_1.BeamAB_example_motor_02  &
    adams_id = 1  &
+   i_marker_name = .test_analysis_1.example_motor_02_A.end_beam1A  &
+   j_marker_name = .test_analysis_1.example_motor_02_B.end_beam1B  &
+   length = 3.055  &
+   area_of_cross_section = 0.3436509664  &
+   y_shear_area_ratio = 0.0  &
+   z_shear_area_ratio = 0.0  &
+   youngs_modulus = 4.32E+09  &
+   shear_modulus = 1.6632E+09  &
+   ixx = 1.9391699107E-02  &
+   iyy = 9.6958495534E-03  &
+   izz = 9.6958495534E-03  &
+   damping_ratio = 1.0E-02  &
+   formulation = string
+!
+force attributes  &
+   force_name = .test_analysis_1.BeamAB_example_motor_02  &
+   color = RED
+!
+force create element_like beam  &
+   beam_name = .test_analysis_1.BeamBC_example_motor_02  &
+   adams_id = 2  &
+   i_marker_name = .test_analysis_1.example_motor_02_B2.end_beam2B  &
+   j_marker_name = .test_analysis_1.example_motor_02_C.end_beam2C  &
+   length = 7.1274551419  &
+   area_of_cross_section = 0.3436509664  &
+   y_shear_area_ratio = 0.0  &
+   z_shear_area_ratio = 0.0  &
+   youngs_modulus = 4.32E+09  &
+   shear_modulus = 1.6632E+09  &
+   ixx = 1.9391699107E-02  &
+   iyy = 9.6958495534E-03  &
+   izz = 9.6958495534E-03  &
+   damping_ratio = 1.0E-02  &
+   formulation = string
+!
+force create element_like beam  &
+   beam_name = .test_analysis_1.BeamCD_example_motor_02  &
+   adams_id = 3  &
+   i_marker_name = .test_analysis_1.example_motor_02_C.end_beam3C  &
+   j_marker_name = .test_analysis_1.example_motor_02_D.end_beam3D  &
+   length = 7.1274169549  &
+   area_of_cross_section = 0.3436509664  &
+   y_shear_area_ratio = 0.0  &
+   z_shear_area_ratio = 0.0  &
+   youngs_modulus = 4.32E+09  &
+   shear_modulus = 1.6632E+09  &
+   ixx = 1.9391699107E-02  &
+   iyy = 9.6958495534E-03  &
+   izz = 9.6958495534E-03  &
+   damping_ratio = 1.0E-02  &
+   formulation = string
+!
+force attributes  &
+   force_name = .test_analysis_1.BeamCD_example_motor_02  &
+   color = RED
+!
+force create element_like beam  &
+   beam_name = .test_analysis_1.BeamAB_Upper_DP_Group1  &
+   adams_id = 4  &
    i_marker_name = .test_analysis_1.Upper_DP_Group1_A.end_beamA  &
    j_marker_name = .test_analysis_1.Upper_DP_Group1_B.end_beamB  &
-   length = 14.4993201893  &
+   length = 14.4992553371  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -18391,10 +21387,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamBC_Upper_DP_Group1  &
-   adams_id = 2  &
+   adams_id = 5  &
    i_marker_name = .test_analysis_1.Upper_DP_Group1_B.end_beamB  &
    j_marker_name = .test_analysis_1.Upper_DP_Group1_C.end_beamC  &
-   length = 14.4985362186  &
+   length = 14.4984068404  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -18412,10 +21408,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamAB_Upper_DP_Group2  &
-   adams_id = 3  &
+   adams_id = 6  &
    i_marker_name = .test_analysis_1.Upper_DP_Group2_A.end_beamA  &
    j_marker_name = .test_analysis_1.Upper_DP_Group2_B.end_beamB  &
-   length = 14.499250677  &
+   length = 14.4991864238  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -18433,10 +21429,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamBC_Upper_DP_Group2  &
-   adams_id = 4  &
+   adams_id = 7  &
    i_marker_name = .test_analysis_1.Upper_DP_Group2_B.end_beamB  &
    j_marker_name = .test_analysis_1.Upper_DP_Group2_C.end_beamC  &
-   length = 14.4983976242  &
+   length = 14.4982733257  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -18454,10 +21450,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamAB_Upper_DP_Group3  &
-   adams_id = 5  &
+   adams_id = 8  &
    i_marker_name = .test_analysis_1.Upper_DP_Group3_A.end_beamA  &
    j_marker_name = .test_analysis_1.Upper_DP_Group3_B.end_beamB  &
-   length = 14.4991818761  &
+   length = 14.4991220818  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -18475,10 +21471,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamBC_Upper_DP_Group3  &
-   adams_id = 6  &
+   adams_id = 9  &
    i_marker_name = .test_analysis_1.Upper_DP_Group3_B.end_beamB  &
    j_marker_name = .test_analysis_1.Upper_DP_Group3_C.end_beamC  &
-   length = 14.498264917  &
+   length = 14.4981707914  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -18496,10 +21492,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamAB_Upper_DP_Group4  &
-   adams_id = 7  &
+   adams_id = 10  &
    i_marker_name = .test_analysis_1.Upper_DP_Group4_A.end_beamA  &
    j_marker_name = .test_analysis_1.Upper_DP_Group4_B.end_beamB  &
-   length = 14.4991183138  &
+   length = 14.4990774909  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -18517,10 +21513,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamBC_Upper_DP_Group4  &
-   adams_id = 8  &
+   adams_id = 11  &
    i_marker_name = .test_analysis_1.Upper_DP_Group4_B.end_beamB  &
    j_marker_name = .test_analysis_1.Upper_DP_Group4_C.end_beamC  &
-   length = 14.498165738  &
+   length = 14.4980889612  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -18538,10 +21534,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamAB_Upper_DP_Group5  &
-   adams_id = 9  &
+   adams_id = 12  &
    i_marker_name = .test_analysis_1.Upper_DP_Group5_A.end_beamA  &
    j_marker_name = .test_analysis_1.Upper_DP_Group5_B.end_beamB  &
-   length = 14.4990747524  &
+   length = 14.4990289521  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -18559,10 +21555,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamBC_Upper_DP_Group5  &
-   adams_id = 10  &
+   adams_id = 13  &
    i_marker_name = .test_analysis_1.Upper_DP_Group5_B.end_beamB  &
    j_marker_name = .test_analysis_1.Upper_DP_Group5_C.end_beamC  &
-   length = 14.4980821352  &
+   length = 14.497952975  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -18580,10 +21576,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamAB_Upper_DP_Group6  &
-   adams_id = 11  &
+   adams_id = 14  &
    i_marker_name = .test_analysis_1.Upper_DP_Group6_A.end_beamA  &
    j_marker_name = .test_analysis_1.Upper_DP_Group6_B.end_beamB  &
-   length = 14.4990246709  &
+   length = 14.4989479002  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -18601,10 +21597,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamBC_Upper_DP_Group6  &
-   adams_id = 12  &
+   adams_id = 15  &
    i_marker_name = .test_analysis_1.Upper_DP_Group6_B.end_beamB  &
    j_marker_name = .test_analysis_1.Upper_DP_Group6_C.end_beamC  &
-   length = 14.4979417459  &
+   length = 14.4977788449  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -18622,10 +21618,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamAB_Upper_DP_Group7  &
-   adams_id = 13  &
+   adams_id = 16  &
    i_marker_name = .test_analysis_1.Upper_DP_Group7_A.end_beamA  &
    j_marker_name = .test_analysis_1.Upper_DP_Group7_B.end_beamB  &
-   length = 14.4989412679  &
+   length = 14.4978936998  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -18643,10 +21639,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamBC_Upper_DP_Group7  &
-   adams_id = 14  &
+   adams_id = 17  &
    i_marker_name = .test_analysis_1.Upper_DP_Group7_B.end_beamB  &
    j_marker_name = .test_analysis_1.Upper_DP_Group7_C.end_beamC  &
-   length = 14.4976816754  &
+   length = 14.4968066125  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -18664,10 +21660,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamAB_Upper_DP_Group8  &
-   adams_id = 15  &
+   adams_id = 18  &
    i_marker_name = .test_analysis_1.Upper_DP_Group8_A.end_beamA  &
    j_marker_name = .test_analysis_1.Upper_DP_Group8_B.end_beamB  &
-   length = 14.497956624  &
+   length = 14.4981140742  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -18685,10 +21681,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamBC_Upper_DP_Group8  &
-   adams_id = 16  &
+   adams_id = 19  &
    i_marker_name = .test_analysis_1.Upper_DP_Group8_B.end_beamB  &
    j_marker_name = .test_analysis_1.Upper_DP_Group8_C.end_beamC  &
-   length = 14.4968096365  &
+   length = 14.4969411592  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -18706,10 +21702,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamAB_Upper_DP_Group9  &
-   adams_id = 17  &
+   adams_id = 20  &
    i_marker_name = .test_analysis_1.Upper_DP_Group9_A.end_beamA  &
    j_marker_name = .test_analysis_1.Upper_DP_Group9_B.end_beamB  &
-   length = 14.4981588871  &
+   length = 14.4982577268  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -18727,10 +21723,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamBC_Upper_DP_Group9  &
-   adams_id = 18  &
+   adams_id = 21  &
    i_marker_name = .test_analysis_1.Upper_DP_Group9_B.end_beamB  &
    j_marker_name = .test_analysis_1.Upper_DP_Group9_C.end_beamC  &
-   length = 14.4969451506  &
+   length = 14.4971503066  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -18748,10 +21744,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamAB_Upper_DP_Group10  &
-   adams_id = 19  &
+   adams_id = 22  &
    i_marker_name = .test_analysis_1.Upper_DP_Group10_A.end_beamA  &
    j_marker_name = .test_analysis_1.Upper_DP_Group10_B.end_beamB  &
-   length = 14.4982668898  &
+   length = 14.4982896443  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -18769,10 +21765,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamBC_Upper_DP_Group10  &
-   adams_id = 20  &
+   adams_id = 23  &
    i_marker_name = .test_analysis_1.Upper_DP_Group10_B.end_beamB  &
    j_marker_name = .test_analysis_1.Upper_DP_Group10_C.end_beamC  &
-   length = 14.4971896764  &
+   length = 14.4973689332  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -18790,10 +21786,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamAB_Upper_DP_Group11  &
-   adams_id = 21  &
+   adams_id = 24  &
    i_marker_name = .test_analysis_1.Upper_DP_Group11_A.end_beamA  &
    j_marker_name = .test_analysis_1.Upper_DP_Group11_B.end_beamB  &
-   length = 14.4982572365  &
+   length = 14.4984896277  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -18811,10 +21807,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamBC_Upper_DP_Group11  &
-   adams_id = 22  &
+   adams_id = 25  &
    i_marker_name = .test_analysis_1.Upper_DP_Group11_B.end_beamB  &
    j_marker_name = .test_analysis_1.Upper_DP_Group11_C.end_beamC  &
-   length = 14.4974611247  &
+   length = 14.4976328166  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -18832,10 +21828,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamAB_Upper_DP_Group12  &
-   adams_id = 23  &
+   adams_id = 26  &
    i_marker_name = .test_analysis_1.Upper_DP_Group12_A.end_beamA  &
    j_marker_name = .test_analysis_1.Upper_DP_Group12_B.end_beamB  &
-   length = 14.4985026718  &
+   length = 14.4985833414  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -18853,10 +21849,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamBC_Upper_DP_Group12  &
-   adams_id = 24  &
+   adams_id = 27  &
    i_marker_name = .test_analysis_1.Upper_DP_Group12_B.end_beamB  &
    j_marker_name = .test_analysis_1.Upper_DP_Group12_C.end_beamC  &
-   length = 14.497655758  &
+   length = 14.4979513239  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -18874,10 +21870,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamAB_Upper_DP_Group13  &
-   adams_id = 25  &
+   adams_id = 28  &
    i_marker_name = .test_analysis_1.Upper_DP_Group13_A.end_beamA  &
    j_marker_name = .test_analysis_1.Upper_DP_Group13_B.end_beamB  &
-   length = 14.4985594546  &
+   length = 14.4987496964  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -18895,10 +21891,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamBC_Upper_DP_Group13  &
-   adams_id = 26  &
+   adams_id = 29  &
    i_marker_name = .test_analysis_1.Upper_DP_Group13_B.end_beamB  &
    j_marker_name = .test_analysis_1.Upper_DP_Group13_C.end_beamC  &
-   length = 14.498013985  &
+   length = 14.4982664315  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -18916,10 +21912,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamAB_Upper_DP_Group14  &
-   adams_id = 27  &
+   adams_id = 30  &
    i_marker_name = .test_analysis_1.Upper_DP_Group14_A.end_beamA  &
    j_marker_name = .test_analysis_1.Upper_DP_Group14_B.end_beamB  &
-   length = 14.4987863856  &
+   length = 14.4989450515  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -18937,10 +21933,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamBC_Upper_DP_Group14  &
-   adams_id = 28  &
+   adams_id = 31  &
    i_marker_name = .test_analysis_1.Upper_DP_Group14_B.end_beamB  &
    j_marker_name = .test_analysis_1.Upper_DP_Group14_C.end_beamC  &
-   length = 14.4982496348  &
+   length = 14.4984348735  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -18958,10 +21954,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamAB_Upper_DP_Group15  &
-   adams_id = 29  &
+   adams_id = 32  &
    i_marker_name = .test_analysis_1.Upper_DP_Group15_A.end_beamA  &
    j_marker_name = .test_analysis_1.Upper_DP_Group15_B.end_beamB  &
-   length = 14.4989921192  &
+   length = 14.4990362442  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -18979,10 +21975,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamBC_Upper_DP_Group15  &
-   adams_id = 30  &
+   adams_id = 33  &
    i_marker_name = .test_analysis_1.Upper_DP_Group15_B.end_beamB  &
    j_marker_name = .test_analysis_1.Upper_DP_Group15_C.end_beamC  &
-   length = 14.4984313074  &
+   length = 14.4987497637  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -19000,10 +21996,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamAB_Upper_DP_Group16  &
-   adams_id = 31  &
+   adams_id = 34  &
    i_marker_name = .test_analysis_1.Upper_DP_Group16_A.end_beamA  &
    j_marker_name = .test_analysis_1.Upper_DP_Group16_B.end_beamB  &
-   length = 14.4990591623  &
+   length = 14.4991680076  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -19021,10 +22017,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamBC_Upper_DP_Group16  &
-   adams_id = 32  &
+   adams_id = 35  &
    i_marker_name = .test_analysis_1.Upper_DP_Group16_B.end_beamB  &
    j_marker_name = .test_analysis_1.Upper_DP_Group16_C.end_beamC  &
-   length = 14.4987413112  &
+   length = 14.4989308895  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -19042,10 +22038,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamAB_Upper_DP_Group17  &
-   adams_id = 33  &
+   adams_id = 36  &
    i_marker_name = .test_analysis_1.Upper_DP_Group17_A.end_beamA  &
    j_marker_name = .test_analysis_1.Upper_DP_Group17_B.end_beamB  &
-   length = 14.4991916998  &
+   length = 14.4992044502  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -19063,10 +22059,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamBC_Upper_DP_Group17  &
-   adams_id = 34  &
+   adams_id = 37  &
    i_marker_name = .test_analysis_1.Upper_DP_Group17_B.end_beamB  &
    j_marker_name = .test_analysis_1.Upper_DP_Group17_C.end_beamC  &
-   length = 14.4989649591  &
+   length = 14.4992230635  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -19084,10 +22080,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamAB_Upper_DP_Group18  &
-   adams_id = 35  &
+   adams_id = 38  &
    i_marker_name = .test_analysis_1.Upper_DP_Group18_A.end_beamA  &
    j_marker_name = .test_analysis_1.Upper_DP_Group18_B.end_beamB  &
-   length = 14.4992410771  &
+   length = 14.4994317403  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -19105,10 +22101,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamBC_Upper_DP_Group18  &
-   adams_id = 36  &
+   adams_id = 39  &
    i_marker_name = .test_analysis_1.Upper_DP_Group18_B.end_beamB  &
    j_marker_name = .test_analysis_1.Upper_DP_Group18_C.end_beamC  &
-   length = 14.4992582761  &
+   length = 14.4993862412  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -19126,10 +22122,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamAB_Upper_DP_Group19  &
-   adams_id = 37  &
+   adams_id = 40  &
    i_marker_name = .test_analysis_1.Upper_DP_Group19_A.end_beamA  &
    j_marker_name = .test_analysis_1.Upper_DP_Group19_B.end_beamB  &
-   length = 14.499427276  &
+   length = 14.4996146723  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -19147,10 +22143,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamBC_Upper_DP_Group19  &
-   adams_id = 38  &
+   adams_id = 41  &
    i_marker_name = .test_analysis_1.Upper_DP_Group19_B.end_beamB  &
    j_marker_name = .test_analysis_1.Upper_DP_Group19_C.end_beamC  &
-   length = 14.4993841258  &
+   length = 14.4997037897  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -19168,10 +22164,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamAB_Upper_DP_Group20  &
-   adams_id = 39  &
+   adams_id = 42  &
    i_marker_name = .test_analysis_1.Upper_DP_Group20_A.end_beamA  &
    j_marker_name = .test_analysis_1.Upper_DP_Group20_B.end_beamB  &
-   length = 14.4996424529  &
+   length = 14.4996628081  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -19189,10 +22185,10 @@ force attributes  &
 !
 force create element_like beam  &
    beam_name = .test_analysis_1.BeamBC_Upper_DP_Group20  &
-   adams_id = 40  &
+   adams_id = 43  &
    i_marker_name = .test_analysis_1.Upper_DP_Group20_B.end_beamB  &
    j_marker_name = .test_analysis_1.Upper_DP_Group20_C.end_beamC  &
-   length = 14.4996747257  &
+   length = 14.5000271888  &
    area_of_cross_section = 4.9126655121E-02  &
    y_shear_area_ratio = 0.0  &
    z_shear_area_ratio = 0.0  &
@@ -19222,7 +22218,7 @@ force create element_like bushing  &
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Hole_Bottom_ROPcontrol  &
-   adams_id = 9006301  &
+   adams_id = 9006901  &
    i_marker_name = .test_analysis_1.Hole_Bottom.gref1  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_3002294  &
    ref_marker_name = .test_analysis_1.Hole_Bottom.cm  &
@@ -19244,397 +22240,426 @@ force create direct general_force  &
    routine = "adrill_solver::BitForces"
 !
 force create direct general_force  &
-   general_force_name = .test_analysis_1.example_stabilizer_02_contactA  &
+   general_force_name = .test_analysis_1.example_motor_02_contactA  &
    adams_id = 9000200  &
-   i_marker_name = .test_analysis_1.example_stabilizer_02_B.barrelA1  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000310  &
-   ref_marker_name = .test_analysis_1.example_stabilizer_02_sliderA.cm  &
-   user_function = 1.05, 5.0E-03, 0.6979166667, 75.0, 0.63859375, 1.2  &
+   i_marker_name = .test_analysis_1.example_motor_02_A.stab_center  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000713  &
+   ref_marker_name = .test_analysis_1.example_motor_02_sliderA.cm  &
+   user_function = 1.05, 5.0E-03, 10.0, 561.038961039, 10.0, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
-   general_force_name = .test_analysis_1.example_stabilizer_02_contactB  &
+   general_force_name = .test_analysis_1.example_motor_02_contactB  &
    adams_id = 9000300  &
-   i_marker_name = .test_analysis_1.example_stabilizer_02_B.barrelB1  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000311  &
-   ref_marker_name = .test_analysis_1.example_stabilizer_02_sliderB.cm  &
-   user_function = 1.05, 5.0E-03, 0.6979166667, 75.0, 0.63859375, 1.2  &
+   i_marker_name = .test_analysis_1.example_motor_02_B.benddir1  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000714  &
+   ref_marker_name = .test_analysis_1.example_motor_02_sliderB.cm  &
+   user_function = 1.05, 5.0E-03, 0.6667, 561.038961039, 2.5345711667, 1.2  &
+   routine = "adrill_solver::StringForces"
+!
+force create direct general_force  &
+   general_force_name = .test_analysis_1.example_motor_02_contactC  &
+   adams_id = 9000500  &
+   i_marker_name = .test_analysis_1.example_motor_02_C.cm  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000715  &
+   ref_marker_name = .test_analysis_1.example_motor_02_sliderC.cm  &
+   user_function = 1.05, 5.0E-03, 0.6667, 561.038961039, 2.5345711667, 1.2  &
+   routine = "adrill_solver::StringForces"
+!
+force create direct general_force  &
+   general_force_name = .test_analysis_1.example_stabilizer_03_contactA  &
+   adams_id = 9000800  &
+   i_marker_name = .test_analysis_1.example_stabilizer_03_B.barrelA1  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000910  &
+   ref_marker_name = .test_analysis_1.example_stabilizer_03_sliderA.cm  &
+   user_function = 1.05, 5.0E-03, 0.6979166667, 561.038961039, 0.63859375,  &
+                   1.2  &
+   routine = "adrill_solver::StringForces"
+!
+force create direct general_force  &
+   general_force_name = .test_analysis_1.example_stabilizer_03_contactB  &
+   adams_id = 9000900  &
+   i_marker_name = .test_analysis_1.example_stabilizer_03_B.barrelB1  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000911  &
+   ref_marker_name = .test_analysis_1.example_stabilizer_03_sliderB.cm  &
+   user_function = 1.05, 5.0E-03, 0.6979166667, 561.038961039, 0.63859375,  &
+                   1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group1_contactA  &
-   adams_id = 9000400  &
+   adams_id = 9001000  &
    i_marker_name = .test_analysis_1.Upper_DP_Group1_A.end_A  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000609  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001209  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group1_sliderA.cm  &
-   user_function = 1.05, 5.0E-03, 0.5833, 75.0, 10.3333333333, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5833, 561.038961039, 10.3333333333, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group1_contactB  &
-   adams_id = 9000500  &
+   adams_id = 9001100  &
    i_marker_name = .test_analysis_1.Upper_DP_Group1_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000610  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001210  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group1_sliderB.cm  &
-   user_function = 1.05, 5.0E-03, 0.5, 75.0, 5.1666666667, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5, 561.038961039, 5.1666666667, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group2_contactA  &
-   adams_id = 9000700  &
+   adams_id = 9001300  &
    i_marker_name = .test_analysis_1.Upper_DP_Group2_A.end_A  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000909  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001509  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group2_sliderA.cm  &
-   user_function = 1.05, 5.0E-03, 0.5833, 75.0, 10.3333333333, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5833, 561.038961039, 10.3333333333, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group2_contactB  &
-   adams_id = 9000800  &
+   adams_id = 9001400  &
    i_marker_name = .test_analysis_1.Upper_DP_Group2_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000910  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001510  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group2_sliderB.cm  &
-   user_function = 1.05, 5.0E-03, 0.5, 75.0, 5.1666666667, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5, 561.038961039, 5.1666666667, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group3_contactA  &
-   adams_id = 9001000  &
+   adams_id = 9001600  &
    i_marker_name = .test_analysis_1.Upper_DP_Group3_A.end_A  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001209  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001809  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group3_sliderA.cm  &
-   user_function = 1.05, 5.0E-03, 0.5833, 75.0, 10.3333333333, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5833, 561.038961039, 10.3333333333, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group3_contactB  &
-   adams_id = 9001100  &
+   adams_id = 9001700  &
    i_marker_name = .test_analysis_1.Upper_DP_Group3_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001210  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001810  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group3_sliderB.cm  &
-   user_function = 1.05, 5.0E-03, 0.5, 75.0, 5.1666666667, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5, 561.038961039, 5.1666666667, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group4_contactA  &
-   adams_id = 9001300  &
+   adams_id = 9001900  &
    i_marker_name = .test_analysis_1.Upper_DP_Group4_A.end_A  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001509  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002109  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group4_sliderA.cm  &
-   user_function = 1.05, 5.0E-03, 0.5833, 75.0, 10.3333333333, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5833, 561.038961039, 10.3333333333, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group4_contactB  &
-   adams_id = 9001400  &
+   adams_id = 9002000  &
    i_marker_name = .test_analysis_1.Upper_DP_Group4_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001510  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002110  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group4_sliderB.cm  &
-   user_function = 1.05, 5.0E-03, 0.5, 75.0, 5.1666666667, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5, 561.038961039, 5.1666666667, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group5_contactA  &
-   adams_id = 9001600  &
+   adams_id = 9002200  &
    i_marker_name = .test_analysis_1.Upper_DP_Group5_A.end_A  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001809  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002409  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group5_sliderA.cm  &
-   user_function = 1.05, 5.0E-03, 0.5833, 75.0, 10.3333333333, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5833, 561.038961039, 10.3333333333, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group5_contactB  &
-   adams_id = 9001700  &
+   adams_id = 9002300  &
    i_marker_name = .test_analysis_1.Upper_DP_Group5_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001810  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002410  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group5_sliderB.cm  &
-   user_function = 1.05, 5.0E-03, 0.5, 75.0, 5.1666666667, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5, 561.038961039, 5.1666666667, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group6_contactA  &
-   adams_id = 9001900  &
+   adams_id = 9002500  &
    i_marker_name = .test_analysis_1.Upper_DP_Group6_A.end_A  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002109  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002709  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group6_sliderA.cm  &
-   user_function = 1.05, 5.0E-03, 0.5833, 75.0, 10.3333333333, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5833, 561.038961039, 10.3333333333, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group6_contactB  &
-   adams_id = 9002000  &
+   adams_id = 9002600  &
    i_marker_name = .test_analysis_1.Upper_DP_Group6_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002110  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002710  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group6_sliderB.cm  &
-   user_function = 1.05, 5.0E-03, 0.5, 75.0, 5.1666666667, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5, 561.038961039, 5.1666666667, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group7_contactA  &
-   adams_id = 9002200  &
+   adams_id = 9002800  &
    i_marker_name = .test_analysis_1.Upper_DP_Group7_A.end_A  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002409  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003009  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group7_sliderA.cm  &
-   user_function = 1.05, 5.0E-03, 0.5833, 75.0, 10.3333333333, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5833, 561.038961039, 10.3333333333, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group7_contactB  &
-   adams_id = 9002300  &
+   adams_id = 9002900  &
    i_marker_name = .test_analysis_1.Upper_DP_Group7_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002410  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003010  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group7_sliderB.cm  &
-   user_function = 1.05, 5.0E-03, 0.5, 75.0, 5.1666666667, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5, 561.038961039, 5.1666666667, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group8_contactA  &
-   adams_id = 9002500  &
+   adams_id = 9003100  &
    i_marker_name = .test_analysis_1.Upper_DP_Group8_A.end_A  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002709  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003309  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group8_sliderA.cm  &
-   user_function = 1.05, 5.0E-03, 0.5833, 75.0, 10.3333333333, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5833, 561.038961039, 10.3333333333, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group8_contactB  &
-   adams_id = 9002600  &
+   adams_id = 9003200  &
    i_marker_name = .test_analysis_1.Upper_DP_Group8_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002710  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003310  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group8_sliderB.cm  &
-   user_function = 1.05, 5.0E-03, 0.5, 75.0, 5.1666666667, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5, 561.038961039, 5.1666666667, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group9_contactA  &
-   adams_id = 9002800  &
+   adams_id = 9003400  &
    i_marker_name = .test_analysis_1.Upper_DP_Group9_A.end_A  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003009  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003609  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group9_sliderA.cm  &
-   user_function = 1.05, 5.0E-03, 0.5833, 75.0, 10.3333333333, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5833, 561.038961039, 10.3333333333, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group9_contactB  &
-   adams_id = 9002900  &
+   adams_id = 9003500  &
    i_marker_name = .test_analysis_1.Upper_DP_Group9_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003010  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003610  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group9_sliderB.cm  &
-   user_function = 1.05, 5.0E-03, 0.5, 75.0, 5.1666666667, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5, 561.038961039, 5.1666666667, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group10_contactA  &
-   adams_id = 9003100  &
+   adams_id = 9003700  &
    i_marker_name = .test_analysis_1.Upper_DP_Group10_A.end_A  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003309  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003909  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group10_sliderA.cm  &
-   user_function = 1.05, 5.0E-03, 0.5833, 75.0, 10.3333333333, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5833, 561.038961039, 10.3333333333, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group10_contactB  &
-   adams_id = 9003200  &
+   adams_id = 9003800  &
    i_marker_name = .test_analysis_1.Upper_DP_Group10_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003310  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003910  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group10_sliderB.cm  &
-   user_function = 1.05, 5.0E-03, 0.5, 75.0, 5.1666666667, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5, 561.038961039, 5.1666666667, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group11_contactA  &
-   adams_id = 9003400  &
+   adams_id = 9004000  &
    i_marker_name = .test_analysis_1.Upper_DP_Group11_A.end_A  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003609  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004209  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group11_sliderA.cm  &
-   user_function = 1.05, 5.0E-03, 0.5833, 75.0, 10.3333333333, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5833, 561.038961039, 10.3333333333, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group11_contactB  &
-   adams_id = 9003500  &
+   adams_id = 9004100  &
    i_marker_name = .test_analysis_1.Upper_DP_Group11_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003610  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004210  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group11_sliderB.cm  &
-   user_function = 1.05, 5.0E-03, 0.5, 75.0, 5.1666666667, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5, 561.038961039, 5.1666666667, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group12_contactA  &
-   adams_id = 9003700  &
+   adams_id = 9004300  &
    i_marker_name = .test_analysis_1.Upper_DP_Group12_A.end_A  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003909  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004509  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group12_sliderA.cm  &
-   user_function = 1.05, 5.0E-03, 0.5833, 75.0, 10.3333333333, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5833, 561.038961039, 10.3333333333, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group12_contactB  &
-   adams_id = 9003800  &
+   adams_id = 9004400  &
    i_marker_name = .test_analysis_1.Upper_DP_Group12_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003910  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004510  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group12_sliderB.cm  &
-   user_function = 1.05, 5.0E-03, 0.5, 75.0, 5.1666666667, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5, 561.038961039, 5.1666666667, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group13_contactA  &
-   adams_id = 9004000  &
+   adams_id = 9004600  &
    i_marker_name = .test_analysis_1.Upper_DP_Group13_A.end_A  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004209  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004809  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group13_sliderA.cm  &
-   user_function = 1.05, 5.0E-03, 0.5833, 75.0, 10.3333333333, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5833, 561.038961039, 10.3333333333, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group13_contactB  &
-   adams_id = 9004100  &
+   adams_id = 9004700  &
    i_marker_name = .test_analysis_1.Upper_DP_Group13_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004210  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004810  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group13_sliderB.cm  &
-   user_function = 1.05, 5.0E-03, 0.5, 75.0, 5.1666666667, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5, 561.038961039, 5.1666666667, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group14_contactA  &
-   adams_id = 9004300  &
+   adams_id = 9004900  &
    i_marker_name = .test_analysis_1.Upper_DP_Group14_A.end_A  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004509  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005109  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group14_sliderA.cm  &
-   user_function = 1.05, 5.0E-03, 0.5833, 75.0, 10.3333333333, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5833, 561.038961039, 10.3333333333, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group14_contactB  &
-   adams_id = 9004400  &
+   adams_id = 9005000  &
    i_marker_name = .test_analysis_1.Upper_DP_Group14_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004510  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005110  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group14_sliderB.cm  &
-   user_function = 1.05, 5.0E-03, 0.5, 75.0, 5.1666666667, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5, 561.038961039, 5.1666666667, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group15_contactA  &
-   adams_id = 9004600  &
+   adams_id = 9005200  &
    i_marker_name = .test_analysis_1.Upper_DP_Group15_A.end_A  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004809  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005409  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group15_sliderA.cm  &
-   user_function = 1.05, 5.0E-03, 0.5833, 75.0, 10.3333333333, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5833, 561.038961039, 10.3333333333, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group15_contactB  &
-   adams_id = 9004700  &
+   adams_id = 9005300  &
    i_marker_name = .test_analysis_1.Upper_DP_Group15_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004810  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005410  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group15_sliderB.cm  &
-   user_function = 1.05, 5.0E-03, 0.5, 75.0, 5.1666666667, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5, 561.038961039, 5.1666666667, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group16_contactA  &
-   adams_id = 9004900  &
+   adams_id = 9005500  &
    i_marker_name = .test_analysis_1.Upper_DP_Group16_A.end_A  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005109  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005709  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group16_sliderA.cm  &
-   user_function = 1.05, 5.0E-03, 0.5833, 75.0, 10.3333333333, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5833, 561.038961039, 10.3333333333, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group16_contactB  &
-   adams_id = 9005000  &
+   adams_id = 9005600  &
    i_marker_name = .test_analysis_1.Upper_DP_Group16_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005110  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005710  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group16_sliderB.cm  &
-   user_function = 1.05, 5.0E-03, 0.5, 75.0, 5.1666666667, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5, 561.038961039, 5.1666666667, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group17_contactA  &
-   adams_id = 9005200  &
+   adams_id = 9005800  &
    i_marker_name = .test_analysis_1.Upper_DP_Group17_A.end_A  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005409  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006009  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group17_sliderA.cm  &
-   user_function = 1.05, 5.0E-03, 0.5833, 75.0, 10.3333333333, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5833, 561.038961039, 10.3333333333, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group17_contactB  &
-   adams_id = 9005300  &
+   adams_id = 9005900  &
    i_marker_name = .test_analysis_1.Upper_DP_Group17_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005410  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006010  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group17_sliderB.cm  &
-   user_function = 1.05, 5.0E-03, 0.5, 75.0, 5.1666666667, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5, 561.038961039, 5.1666666667, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group18_contactA  &
-   adams_id = 9005500  &
+   adams_id = 9006100  &
    i_marker_name = .test_analysis_1.Upper_DP_Group18_A.end_A  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005709  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006309  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group18_sliderA.cm  &
-   user_function = 1.05, 5.0E-03, 0.5833, 75.0, 10.3333333333, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5833, 561.038961039, 10.3333333333, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group18_contactB  &
-   adams_id = 9005600  &
+   adams_id = 9006200  &
    i_marker_name = .test_analysis_1.Upper_DP_Group18_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005710  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006310  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group18_sliderB.cm  &
-   user_function = 1.05, 5.0E-03, 0.5, 75.0, 5.1666666667, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5, 561.038961039, 5.1666666667, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group19_contactA  &
-   adams_id = 9005800  &
+   adams_id = 9006400  &
    i_marker_name = .test_analysis_1.Upper_DP_Group19_A.end_A  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006009  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006609  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group19_sliderA.cm  &
-   user_function = 1.05, 5.0E-03, 0.5833, 75.0, 10.3333333333, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5833, 561.038961039, 10.3333333333, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group19_contactB  &
-   adams_id = 9005900  &
+   adams_id = 9006500  &
    i_marker_name = .test_analysis_1.Upper_DP_Group19_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006010  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006610  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group19_sliderB.cm  &
-   user_function = 1.05, 5.0E-03, 0.5, 75.0, 5.1666666667, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5, 561.038961039, 5.1666666667, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group20_contactA  &
-   adams_id = 9006100  &
+   adams_id = 9006700  &
    i_marker_name = .test_analysis_1.Upper_DP_Group20_A.end_A  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006314  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006914  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group20_sliderA.cm  &
-   user_function = 1.05, 5.0E-03, 0.5833, 75.0, 10.3333333333, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5833, 561.038961039, 10.3333333333, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group20_contactB  &
-   adams_id = 9006200  &
+   adams_id = 9006800  &
    i_marker_name = .test_analysis_1.Upper_DP_Group20_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006315  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006915  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group20_sliderB.cm  &
-   user_function = 1.05, 5.0E-03, 0.5, 75.0, 5.1666666667, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5, 561.038961039, 5.1666666667, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group20_contactC  &
-   adams_id = 9006300  &
+   adams_id = 9006900  &
    i_marker_name = .test_analysis_1.Upper_DP_Group20_C.end_C  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006316  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006916  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group20_sliderC.cm  &
-   user_function = 1.05, 5.0E-03, 0.5833, 75.0, 5.1666666667, 1.2  &
+   user_function = 1.05, 5.0E-03, 0.5833, 561.038961039, 5.1666666667, 1.2  &
    routine = "adrill_solver::StringForces"
 !
 force create direct general_force  &
    general_force_name = .test_analysis_1.Upper_DP_Group20_TOSdamper  &
-   adams_id = 9006302  &
+   adams_id = 9006902  &
    i_marker_name = .test_analysis_1.Upper_DP_Group20_C.end_C  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006320  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006920  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group20_sliderC.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -19644,13 +22669,33 @@ force create direct general_force  &
    z_torque_function = ""
 !
 force create direct single_component_force  &
-   single_component_force_name = .test_analysis_1.topdrive  &
+   single_component_force_name = .test_analysis_1.MotorBend  &
    adams_id = 1  &
+   type_of_freedom = rotational  &
+   i_marker_name = .test_analysis_1.example_motor_02_B.bendrev1  &
+   j_marker_name = .test_analysis_1.example_motor_02_B2.bendrev2  &
+   action_only = off  &
+   function = ""
+!
+force create direct single_component_force  &
+   single_component_force_name = .test_analysis_1.topdrive  &
+   adams_id = 1003  &
    type_of_freedom = rotational  &
    i_marker_name = .test_analysis_1.Upper_DP_Group20_C.end_C  &
    j_marker_name = .test_analysis_1.Upper_DP_Group20_C.end_C  &
    action_only = on  &
    function = ""
+!
+force create direct single_component_force  &
+   single_component_force_name = .test_analysis_1.motor_drive  &
+   adams_id = 1002  &
+   type_of_freedom = rotational  &
+   i_marker_name = .test_analysis_1.example_motor_02_R.motor_bearing_R  &
+   j_marker_name = .test_analysis_1.example_motor_02_A.motor_bearing_A  &
+   action_only = off  &
+   user_function = 900.0, 400.0, 0.16, 0.0, 0.165, -20.667, 1.493E+04,  &
+                   2.24E+04, 1102.0, 1101.0  &
+   routine = "adrill_solver::MotorTrq"
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.test_pdc_01_sliderA_locator  &
@@ -19664,33 +22709,86 @@ force create direct force_vector  &
    z_force_function = ""
 !
 force create direct force_vector  &
-   force_vector_name = .test_analysis_1.example_stabilizer_02_sliderA_locator  &
-   adams_id = 9000220  &
-   i_marker_name = .test_analysis_1.example_stabilizer_02_B.barrelA1  &
-   j_floating_marker_name =   &
-                            .test_analysis_1.example_stabilizer_02_sliderA.FMARKER_9000308  &
-   ref_marker_name = .test_analysis_1.example_stabilizer_02_B.barrelA1  &
+   force_vector_name = .test_analysis_1.test_pdc_01_sliderA_aligner  &
+   adams_id = 9006931  &
+   i_marker_name = .test_analysis_1.test_pdc_01_sliderA.down_ref  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000106  &
+   ref_marker_name = .test_analysis_1.ground.adrill_origin  &
    x_force_function = ""  &
    y_force_function = ""  &
    z_force_function = ""
 !
 force create direct force_vector  &
-   force_vector_name = .test_analysis_1.example_stabilizer_02_sliderB_locator  &
-   adams_id = 9000320  &
-   i_marker_name = .test_analysis_1.example_stabilizer_02_B.barrelB1  &
+   force_vector_name = .test_analysis_1.example_motor_02_sliderA_locator  &
+   adams_id = 9000220  &
+   i_marker_name = .test_analysis_1.example_motor_02_A.stab_center  &
    j_floating_marker_name =   &
-                            .test_analysis_1.example_stabilizer_02_sliderB.FMARKER_9000309  &
-   ref_marker_name = .test_analysis_1.example_stabilizer_02_B.barrelB1  &
+                            .test_analysis_1.example_motor_02_sliderA.FMARKER_9000710  &
+   ref_marker_name = .test_analysis_1.example_motor_02_A.stab_center  &
+   x_force_function = ""  &
+   y_force_function = ""  &
+   z_force_function = ""
+!
+force create direct force_vector  &
+   force_vector_name = .test_analysis_1.example_motor_02_sliderB_locator  &
+   adams_id = 9000320  &
+   i_marker_name = .test_analysis_1.example_motor_02_B.benddir1  &
+   j_floating_marker_name =   &
+                            .test_analysis_1.example_motor_02_sliderB.FMARKER_9000711  &
+   ref_marker_name = .test_analysis_1.example_motor_02_B.benddir1  &
+   x_force_function = ""  &
+   y_force_function = ""  &
+   z_force_function = ""
+!
+force create direct force_vector  &
+   force_vector_name = .test_analysis_1.example_motor_02_sliderC_locator  &
+   adams_id = 9000520  &
+   i_marker_name = .test_analysis_1.example_motor_02_C.cm  &
+   j_floating_marker_name =   &
+                            .test_analysis_1.example_motor_02_sliderC.FMARKER_9000712  &
+   ref_marker_name = .test_analysis_1.example_motor_02_C.cm  &
+   x_force_function = ""  &
+   y_force_function = ""  &
+   z_force_function = ""
+!
+force create direct force_vector  &
+   force_vector_name = .test_analysis_1.example_motor_02_sliderA_aligner  &
+   adams_id = 9006932  &
+   i_marker_name = .test_analysis_1.example_motor_02_sliderA.down_ref  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000716  &
+   ref_marker_name = .test_analysis_1.ground.adrill_origin  &
+   x_force_function = ""  &
+   y_force_function = ""  &
+   z_force_function = ""
+!
+force create direct force_vector  &
+   force_vector_name = .test_analysis_1.example_stabilizer_03_sliderA_locator  &
+   adams_id = 9000820  &
+   i_marker_name = .test_analysis_1.example_stabilizer_03_B.barrelA1  &
+   j_floating_marker_name =   &
+                            .test_analysis_1.example_stabilizer_03_sliderA.FMARKER_9000908  &
+   ref_marker_name = .test_analysis_1.example_stabilizer_03_B.barrelA1  &
+   x_force_function = ""  &
+   y_force_function = ""  &
+   z_force_function = ""
+!
+force create direct force_vector  &
+   force_vector_name = .test_analysis_1.example_stabilizer_03_sliderB_locator  &
+   adams_id = 9000920  &
+   i_marker_name = .test_analysis_1.example_stabilizer_03_B.barrelB1  &
+   j_floating_marker_name =   &
+                            .test_analysis_1.example_stabilizer_03_sliderB.FMARKER_9000909  &
+   ref_marker_name = .test_analysis_1.example_stabilizer_03_B.barrelB1  &
    x_force_function = ""  &
    y_force_function = ""  &
    z_force_function = ""
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group1_sliderA_locator  &
-   adams_id = 9000420  &
+   adams_id = 9001020  &
    i_marker_name = .test_analysis_1.Upper_DP_Group1_A.end_A  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group1_sliderA.FMARKER_9000607  &
+                            .test_analysis_1.Upper_DP_Group1_sliderA.FMARKER_9001207  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group1_A.end_A  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -19698,10 +22796,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group1_sliderB_locator  &
-   adams_id = 9000520  &
+   adams_id = 9001120  &
    i_marker_name = .test_analysis_1.Upper_DP_Group1_B.cm  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group1_sliderB.FMARKER_9000608  &
+                            .test_analysis_1.Upper_DP_Group1_sliderB.FMARKER_9001208  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group1_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -19709,9 +22807,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group1_fluidmassA  &
-   adams_id = 9000430  &
+   adams_id = 9001030  &
    i_marker_name = .test_analysis_1.Upper_DP_Group1_A.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000611  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001211  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group1_A.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -19719,9 +22817,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group1_fluidmassC  &
-   adams_id = 9000630  &
+   adams_id = 9001230  &
    i_marker_name = .test_analysis_1.Upper_DP_Group1_C.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000612  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001212  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group1_C.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -19729,9 +22827,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group1_fluidmassB  &
-   adams_id = 9000530  &
+   adams_id = 9001130  &
    i_marker_name = .test_analysis_1.Upper_DP_Group1_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000613  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001213  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group1_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -19739,10 +22837,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group2_sliderA_locator  &
-   adams_id = 9000720  &
+   adams_id = 9001320  &
    i_marker_name = .test_analysis_1.Upper_DP_Group2_A.end_A  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group2_sliderA.FMARKER_9000907  &
+                            .test_analysis_1.Upper_DP_Group2_sliderA.FMARKER_9001507  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group2_A.end_A  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -19750,10 +22848,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group2_sliderB_locator  &
-   adams_id = 9000820  &
+   adams_id = 9001420  &
    i_marker_name = .test_analysis_1.Upper_DP_Group2_B.cm  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group2_sliderB.FMARKER_9000908  &
+                            .test_analysis_1.Upper_DP_Group2_sliderB.FMARKER_9001508  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group2_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -19761,9 +22859,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group2_fluidmassA  &
-   adams_id = 9000730  &
+   adams_id = 9001330  &
    i_marker_name = .test_analysis_1.Upper_DP_Group2_A.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000911  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001511  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group2_A.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -19771,9 +22869,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group2_fluidmassC  &
-   adams_id = 9000930  &
+   adams_id = 9001530  &
    i_marker_name = .test_analysis_1.Upper_DP_Group2_C.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000912  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001512  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group2_C.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -19781,9 +22879,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group2_fluidmassB  &
-   adams_id = 9000830  &
+   adams_id = 9001430  &
    i_marker_name = .test_analysis_1.Upper_DP_Group2_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000913  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001513  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group2_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -19791,10 +22889,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group3_sliderA_locator  &
-   adams_id = 9001020  &
+   adams_id = 9001620  &
    i_marker_name = .test_analysis_1.Upper_DP_Group3_A.end_A  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group3_sliderA.FMARKER_9001207  &
+                            .test_analysis_1.Upper_DP_Group3_sliderA.FMARKER_9001807  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group3_A.end_A  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -19802,10 +22900,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group3_sliderB_locator  &
-   adams_id = 9001120  &
+   adams_id = 9001720  &
    i_marker_name = .test_analysis_1.Upper_DP_Group3_B.cm  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group3_sliderB.FMARKER_9001208  &
+                            .test_analysis_1.Upper_DP_Group3_sliderB.FMARKER_9001808  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group3_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -19813,9 +22911,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group3_fluidmassA  &
-   adams_id = 9001030  &
+   adams_id = 9001630  &
    i_marker_name = .test_analysis_1.Upper_DP_Group3_A.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001211  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001811  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group3_A.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -19823,9 +22921,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group3_fluidmassC  &
-   adams_id = 9001230  &
+   adams_id = 9001830  &
    i_marker_name = .test_analysis_1.Upper_DP_Group3_C.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001212  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001812  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group3_C.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -19833,9 +22931,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group3_fluidmassB  &
-   adams_id = 9001130  &
+   adams_id = 9001730  &
    i_marker_name = .test_analysis_1.Upper_DP_Group3_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001213  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001813  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group3_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -19843,10 +22941,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group4_sliderA_locator  &
-   adams_id = 9001320  &
+   adams_id = 9001920  &
    i_marker_name = .test_analysis_1.Upper_DP_Group4_A.end_A  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group4_sliderA.FMARKER_9001507  &
+                            .test_analysis_1.Upper_DP_Group4_sliderA.FMARKER_9002107  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group4_A.end_A  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -19854,10 +22952,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group4_sliderB_locator  &
-   adams_id = 9001420  &
+   adams_id = 9002020  &
    i_marker_name = .test_analysis_1.Upper_DP_Group4_B.cm  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group4_sliderB.FMARKER_9001508  &
+                            .test_analysis_1.Upper_DP_Group4_sliderB.FMARKER_9002108  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group4_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -19865,9 +22963,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group4_fluidmassA  &
-   adams_id = 9001330  &
+   adams_id = 9001930  &
    i_marker_name = .test_analysis_1.Upper_DP_Group4_A.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001511  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002111  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group4_A.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -19875,9 +22973,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group4_fluidmassC  &
-   adams_id = 9001530  &
+   adams_id = 9002130  &
    i_marker_name = .test_analysis_1.Upper_DP_Group4_C.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001512  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002112  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group4_C.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -19885,9 +22983,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group4_fluidmassB  &
-   adams_id = 9001430  &
+   adams_id = 9002030  &
    i_marker_name = .test_analysis_1.Upper_DP_Group4_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001513  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002113  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group4_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -19895,10 +22993,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group5_sliderA_locator  &
-   adams_id = 9001620  &
+   adams_id = 9002220  &
    i_marker_name = .test_analysis_1.Upper_DP_Group5_A.end_A  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group5_sliderA.FMARKER_9001807  &
+                            .test_analysis_1.Upper_DP_Group5_sliderA.FMARKER_9002407  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group5_A.end_A  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -19906,10 +23004,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group5_sliderB_locator  &
-   adams_id = 9001720  &
+   adams_id = 9002320  &
    i_marker_name = .test_analysis_1.Upper_DP_Group5_B.cm  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group5_sliderB.FMARKER_9001808  &
+                            .test_analysis_1.Upper_DP_Group5_sliderB.FMARKER_9002408  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group5_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -19917,9 +23015,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group5_fluidmassA  &
-   adams_id = 9001630  &
+   adams_id = 9002230  &
    i_marker_name = .test_analysis_1.Upper_DP_Group5_A.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001811  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002411  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group5_A.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -19927,9 +23025,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group5_fluidmassC  &
-   adams_id = 9001830  &
+   adams_id = 9002430  &
    i_marker_name = .test_analysis_1.Upper_DP_Group5_C.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001812  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002412  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group5_C.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -19937,9 +23035,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group5_fluidmassB  &
-   adams_id = 9001730  &
+   adams_id = 9002330  &
    i_marker_name = .test_analysis_1.Upper_DP_Group5_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001813  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002413  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group5_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -19947,10 +23045,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group6_sliderA_locator  &
-   adams_id = 9001920  &
+   adams_id = 9002520  &
    i_marker_name = .test_analysis_1.Upper_DP_Group6_A.end_A  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group6_sliderA.FMARKER_9002107  &
+                            .test_analysis_1.Upper_DP_Group6_sliderA.FMARKER_9002707  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group6_A.end_A  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -19958,10 +23056,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group6_sliderB_locator  &
-   adams_id = 9002020  &
+   adams_id = 9002620  &
    i_marker_name = .test_analysis_1.Upper_DP_Group6_B.cm  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group6_sliderB.FMARKER_9002108  &
+                            .test_analysis_1.Upper_DP_Group6_sliderB.FMARKER_9002708  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group6_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -19969,9 +23067,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group6_fluidmassA  &
-   adams_id = 9001930  &
+   adams_id = 9002530  &
    i_marker_name = .test_analysis_1.Upper_DP_Group6_A.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002111  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002711  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group6_A.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -19979,9 +23077,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group6_fluidmassC  &
-   adams_id = 9002130  &
+   adams_id = 9002730  &
    i_marker_name = .test_analysis_1.Upper_DP_Group6_C.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002112  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002712  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group6_C.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -19989,9 +23087,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group6_fluidmassB  &
-   adams_id = 9002030  &
+   adams_id = 9002630  &
    i_marker_name = .test_analysis_1.Upper_DP_Group6_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002113  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002713  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group6_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -19999,10 +23097,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group7_sliderA_locator  &
-   adams_id = 9002220  &
+   adams_id = 9002820  &
    i_marker_name = .test_analysis_1.Upper_DP_Group7_A.end_A  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group7_sliderA.FMARKER_9002407  &
+                            .test_analysis_1.Upper_DP_Group7_sliderA.FMARKER_9003007  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group7_A.end_A  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20010,10 +23108,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group7_sliderB_locator  &
-   adams_id = 9002320  &
+   adams_id = 9002920  &
    i_marker_name = .test_analysis_1.Upper_DP_Group7_B.cm  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group7_sliderB.FMARKER_9002408  &
+                            .test_analysis_1.Upper_DP_Group7_sliderB.FMARKER_9003008  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group7_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20021,9 +23119,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group7_fluidmassA  &
-   adams_id = 9002230  &
+   adams_id = 9002830  &
    i_marker_name = .test_analysis_1.Upper_DP_Group7_A.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002411  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003011  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group7_A.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20031,9 +23129,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group7_fluidmassC  &
-   adams_id = 9002430  &
+   adams_id = 9003030  &
    i_marker_name = .test_analysis_1.Upper_DP_Group7_C.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002412  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003012  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group7_C.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20041,9 +23139,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group7_fluidmassB  &
-   adams_id = 9002330  &
+   adams_id = 9002930  &
    i_marker_name = .test_analysis_1.Upper_DP_Group7_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002413  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003013  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group7_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20051,10 +23149,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group8_sliderA_locator  &
-   adams_id = 9002520  &
+   adams_id = 9003120  &
    i_marker_name = .test_analysis_1.Upper_DP_Group8_A.end_A  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group8_sliderA.FMARKER_9002707  &
+                            .test_analysis_1.Upper_DP_Group8_sliderA.FMARKER_9003307  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group8_A.end_A  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20062,10 +23160,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group8_sliderB_locator  &
-   adams_id = 9002620  &
+   adams_id = 9003220  &
    i_marker_name = .test_analysis_1.Upper_DP_Group8_B.cm  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group8_sliderB.FMARKER_9002708  &
+                            .test_analysis_1.Upper_DP_Group8_sliderB.FMARKER_9003308  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group8_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20073,9 +23171,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group8_fluidmassA  &
-   adams_id = 9002530  &
+   adams_id = 9003130  &
    i_marker_name = .test_analysis_1.Upper_DP_Group8_A.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002711  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003311  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group8_A.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20083,9 +23181,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group8_fluidmassC  &
-   adams_id = 9002730  &
+   adams_id = 9003330  &
    i_marker_name = .test_analysis_1.Upper_DP_Group8_C.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002712  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003312  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group8_C.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20093,9 +23191,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group8_fluidmassB  &
-   adams_id = 9002630  &
+   adams_id = 9003230  &
    i_marker_name = .test_analysis_1.Upper_DP_Group8_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002713  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003313  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group8_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20103,10 +23201,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group9_sliderA_locator  &
-   adams_id = 9002820  &
+   adams_id = 9003420  &
    i_marker_name = .test_analysis_1.Upper_DP_Group9_A.end_A  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group9_sliderA.FMARKER_9003007  &
+                            .test_analysis_1.Upper_DP_Group9_sliderA.FMARKER_9003607  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group9_A.end_A  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20114,10 +23212,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group9_sliderB_locator  &
-   adams_id = 9002920  &
+   adams_id = 9003520  &
    i_marker_name = .test_analysis_1.Upper_DP_Group9_B.cm  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group9_sliderB.FMARKER_9003008  &
+                            .test_analysis_1.Upper_DP_Group9_sliderB.FMARKER_9003608  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group9_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20125,9 +23223,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group9_fluidmassA  &
-   adams_id = 9002830  &
+   adams_id = 9003430  &
    i_marker_name = .test_analysis_1.Upper_DP_Group9_A.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003011  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003611  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group9_A.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20135,9 +23233,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group9_fluidmassC  &
-   adams_id = 9003030  &
+   adams_id = 9003630  &
    i_marker_name = .test_analysis_1.Upper_DP_Group9_C.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003012  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003612  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group9_C.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20145,9 +23243,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group9_fluidmassB  &
-   adams_id = 9002930  &
+   adams_id = 9003530  &
    i_marker_name = .test_analysis_1.Upper_DP_Group9_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003013  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003613  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group9_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20155,10 +23253,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group10_sliderA_locator  &
-   adams_id = 9003120  &
+   adams_id = 9003720  &
    i_marker_name = .test_analysis_1.Upper_DP_Group10_A.end_A  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group10_sliderA.FMARKER_9003307  &
+                            .test_analysis_1.Upper_DP_Group10_sliderA.FMARKER_9003907  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group10_A.end_A  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20166,10 +23264,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group10_sliderB_locator  &
-   adams_id = 9003220  &
+   adams_id = 9003820  &
    i_marker_name = .test_analysis_1.Upper_DP_Group10_B.cm  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group10_sliderB.FMARKER_9003308  &
+                            .test_analysis_1.Upper_DP_Group10_sliderB.FMARKER_9003908  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group10_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20177,9 +23275,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group10_fluidmassA  &
-   adams_id = 9003130  &
+   adams_id = 9003730  &
    i_marker_name = .test_analysis_1.Upper_DP_Group10_A.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003311  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003911  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group10_A.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20187,9 +23285,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group10_fluidmassC  &
-   adams_id = 9003330  &
+   adams_id = 9003930  &
    i_marker_name = .test_analysis_1.Upper_DP_Group10_C.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003312  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003912  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group10_C.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20197,9 +23295,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group10_fluidmassB  &
-   adams_id = 9003230  &
+   adams_id = 9003830  &
    i_marker_name = .test_analysis_1.Upper_DP_Group10_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003313  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003913  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group10_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20207,10 +23305,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group11_sliderA_locator  &
-   adams_id = 9003420  &
+   adams_id = 9004020  &
    i_marker_name = .test_analysis_1.Upper_DP_Group11_A.end_A  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group11_sliderA.FMARKER_9003607  &
+                            .test_analysis_1.Upper_DP_Group11_sliderA.FMARKER_9004207  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group11_A.end_A  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20218,10 +23316,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group11_sliderB_locator  &
-   adams_id = 9003520  &
+   adams_id = 9004120  &
    i_marker_name = .test_analysis_1.Upper_DP_Group11_B.cm  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group11_sliderB.FMARKER_9003608  &
+                            .test_analysis_1.Upper_DP_Group11_sliderB.FMARKER_9004208  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group11_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20229,9 +23327,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group11_fluidmassA  &
-   adams_id = 9003430  &
+   adams_id = 9004030  &
    i_marker_name = .test_analysis_1.Upper_DP_Group11_A.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003611  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004211  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group11_A.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20239,9 +23337,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group11_fluidmassC  &
-   adams_id = 9003630  &
+   adams_id = 9004230  &
    i_marker_name = .test_analysis_1.Upper_DP_Group11_C.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003612  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004212  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group11_C.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20249,9 +23347,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group11_fluidmassB  &
-   adams_id = 9003530  &
+   adams_id = 9004130  &
    i_marker_name = .test_analysis_1.Upper_DP_Group11_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003613  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004213  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group11_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20259,10 +23357,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group12_sliderA_locator  &
-   adams_id = 9003720  &
+   adams_id = 9004320  &
    i_marker_name = .test_analysis_1.Upper_DP_Group12_A.end_A  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group12_sliderA.FMARKER_9003907  &
+                            .test_analysis_1.Upper_DP_Group12_sliderA.FMARKER_9004507  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group12_A.end_A  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20270,10 +23368,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group12_sliderB_locator  &
-   adams_id = 9003820  &
+   adams_id = 9004420  &
    i_marker_name = .test_analysis_1.Upper_DP_Group12_B.cm  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group12_sliderB.FMARKER_9003908  &
+                            .test_analysis_1.Upper_DP_Group12_sliderB.FMARKER_9004508  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group12_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20281,9 +23379,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group12_fluidmassA  &
-   adams_id = 9003730  &
+   adams_id = 9004330  &
    i_marker_name = .test_analysis_1.Upper_DP_Group12_A.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003911  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004511  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group12_A.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20291,9 +23389,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group12_fluidmassC  &
-   adams_id = 9003930  &
+   adams_id = 9004530  &
    i_marker_name = .test_analysis_1.Upper_DP_Group12_C.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003912  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004512  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group12_C.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20301,9 +23399,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group12_fluidmassB  &
-   adams_id = 9003830  &
+   adams_id = 9004430  &
    i_marker_name = .test_analysis_1.Upper_DP_Group12_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003913  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004513  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group12_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20311,10 +23409,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group13_sliderA_locator  &
-   adams_id = 9004020  &
+   adams_id = 9004620  &
    i_marker_name = .test_analysis_1.Upper_DP_Group13_A.end_A  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group13_sliderA.FMARKER_9004207  &
+                            .test_analysis_1.Upper_DP_Group13_sliderA.FMARKER_9004807  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group13_A.end_A  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20322,10 +23420,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group13_sliderB_locator  &
-   adams_id = 9004120  &
+   adams_id = 9004720  &
    i_marker_name = .test_analysis_1.Upper_DP_Group13_B.cm  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group13_sliderB.FMARKER_9004208  &
+                            .test_analysis_1.Upper_DP_Group13_sliderB.FMARKER_9004808  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group13_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20333,9 +23431,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group13_fluidmassA  &
-   adams_id = 9004030  &
+   adams_id = 9004630  &
    i_marker_name = .test_analysis_1.Upper_DP_Group13_A.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004211  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004811  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group13_A.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20343,9 +23441,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group13_fluidmassC  &
-   adams_id = 9004230  &
+   adams_id = 9004830  &
    i_marker_name = .test_analysis_1.Upper_DP_Group13_C.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004212  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004812  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group13_C.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20353,9 +23451,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group13_fluidmassB  &
-   adams_id = 9004130  &
+   adams_id = 9004730  &
    i_marker_name = .test_analysis_1.Upper_DP_Group13_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004213  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004813  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group13_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20363,10 +23461,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group14_sliderA_locator  &
-   adams_id = 9004320  &
+   adams_id = 9004920  &
    i_marker_name = .test_analysis_1.Upper_DP_Group14_A.end_A  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group14_sliderA.FMARKER_9004507  &
+                            .test_analysis_1.Upper_DP_Group14_sliderA.FMARKER_9005107  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group14_A.end_A  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20374,10 +23472,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group14_sliderB_locator  &
-   adams_id = 9004420  &
+   adams_id = 9005020  &
    i_marker_name = .test_analysis_1.Upper_DP_Group14_B.cm  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group14_sliderB.FMARKER_9004508  &
+                            .test_analysis_1.Upper_DP_Group14_sliderB.FMARKER_9005108  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group14_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20385,9 +23483,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group14_fluidmassA  &
-   adams_id = 9004330  &
+   adams_id = 9004930  &
    i_marker_name = .test_analysis_1.Upper_DP_Group14_A.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004511  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005111  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group14_A.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20395,9 +23493,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group14_fluidmassC  &
-   adams_id = 9004530  &
+   adams_id = 9005130  &
    i_marker_name = .test_analysis_1.Upper_DP_Group14_C.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004512  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005112  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group14_C.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20405,9 +23503,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group14_fluidmassB  &
-   adams_id = 9004430  &
+   adams_id = 9005030  &
    i_marker_name = .test_analysis_1.Upper_DP_Group14_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004513  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005113  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group14_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20415,10 +23513,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group15_sliderA_locator  &
-   adams_id = 9004620  &
+   adams_id = 9005220  &
    i_marker_name = .test_analysis_1.Upper_DP_Group15_A.end_A  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group15_sliderA.FMARKER_9004807  &
+                            .test_analysis_1.Upper_DP_Group15_sliderA.FMARKER_9005407  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group15_A.end_A  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20426,10 +23524,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group15_sliderB_locator  &
-   adams_id = 9004720  &
+   adams_id = 9005320  &
    i_marker_name = .test_analysis_1.Upper_DP_Group15_B.cm  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group15_sliderB.FMARKER_9004808  &
+                            .test_analysis_1.Upper_DP_Group15_sliderB.FMARKER_9005408  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group15_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20437,9 +23535,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group15_fluidmassA  &
-   adams_id = 9004630  &
+   adams_id = 9005230  &
    i_marker_name = .test_analysis_1.Upper_DP_Group15_A.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004811  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005411  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group15_A.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20447,9 +23545,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group15_fluidmassC  &
-   adams_id = 9004830  &
+   adams_id = 9005430  &
    i_marker_name = .test_analysis_1.Upper_DP_Group15_C.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004812  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005412  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group15_C.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20457,9 +23555,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group15_fluidmassB  &
-   adams_id = 9004730  &
+   adams_id = 9005330  &
    i_marker_name = .test_analysis_1.Upper_DP_Group15_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004813  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005413  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group15_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20467,10 +23565,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group16_sliderA_locator  &
-   adams_id = 9004920  &
+   adams_id = 9005520  &
    i_marker_name = .test_analysis_1.Upper_DP_Group16_A.end_A  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group16_sliderA.FMARKER_9005107  &
+                            .test_analysis_1.Upper_DP_Group16_sliderA.FMARKER_9005707  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group16_A.end_A  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20478,10 +23576,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group16_sliderB_locator  &
-   adams_id = 9005020  &
+   adams_id = 9005620  &
    i_marker_name = .test_analysis_1.Upper_DP_Group16_B.cm  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group16_sliderB.FMARKER_9005108  &
+                            .test_analysis_1.Upper_DP_Group16_sliderB.FMARKER_9005708  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group16_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20489,9 +23587,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group16_fluidmassA  &
-   adams_id = 9004930  &
+   adams_id = 9005530  &
    i_marker_name = .test_analysis_1.Upper_DP_Group16_A.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005111  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005711  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group16_A.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20499,9 +23597,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group16_fluidmassC  &
-   adams_id = 9005130  &
+   adams_id = 9005730  &
    i_marker_name = .test_analysis_1.Upper_DP_Group16_C.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005112  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005712  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group16_C.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20509,9 +23607,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group16_fluidmassB  &
-   adams_id = 9005030  &
+   adams_id = 9005630  &
    i_marker_name = .test_analysis_1.Upper_DP_Group16_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005113  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005713  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group16_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20519,10 +23617,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group17_sliderA_locator  &
-   adams_id = 9005220  &
+   adams_id = 9005820  &
    i_marker_name = .test_analysis_1.Upper_DP_Group17_A.end_A  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group17_sliderA.FMARKER_9005407  &
+                            .test_analysis_1.Upper_DP_Group17_sliderA.FMARKER_9006007  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group17_A.end_A  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20530,10 +23628,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group17_sliderB_locator  &
-   adams_id = 9005320  &
+   adams_id = 9005920  &
    i_marker_name = .test_analysis_1.Upper_DP_Group17_B.cm  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group17_sliderB.FMARKER_9005408  &
+                            .test_analysis_1.Upper_DP_Group17_sliderB.FMARKER_9006008  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group17_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20541,9 +23639,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group17_fluidmassA  &
-   adams_id = 9005230  &
+   adams_id = 9005830  &
    i_marker_name = .test_analysis_1.Upper_DP_Group17_A.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005411  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006011  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group17_A.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20551,9 +23649,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group17_fluidmassC  &
-   adams_id = 9005430  &
+   adams_id = 9006030  &
    i_marker_name = .test_analysis_1.Upper_DP_Group17_C.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005412  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006012  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group17_C.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20561,9 +23659,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group17_fluidmassB  &
-   adams_id = 9005330  &
+   adams_id = 9005930  &
    i_marker_name = .test_analysis_1.Upper_DP_Group17_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005413  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006013  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group17_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20571,10 +23669,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group18_sliderA_locator  &
-   adams_id = 9005520  &
+   adams_id = 9006120  &
    i_marker_name = .test_analysis_1.Upper_DP_Group18_A.end_A  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group18_sliderA.FMARKER_9005707  &
+                            .test_analysis_1.Upper_DP_Group18_sliderA.FMARKER_9006307  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group18_A.end_A  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20582,10 +23680,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group18_sliderB_locator  &
-   adams_id = 9005620  &
+   adams_id = 9006220  &
    i_marker_name = .test_analysis_1.Upper_DP_Group18_B.cm  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group18_sliderB.FMARKER_9005708  &
+                            .test_analysis_1.Upper_DP_Group18_sliderB.FMARKER_9006308  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group18_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20593,9 +23691,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group18_fluidmassA  &
-   adams_id = 9005530  &
+   adams_id = 9006130  &
    i_marker_name = .test_analysis_1.Upper_DP_Group18_A.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005711  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006311  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group18_A.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20603,9 +23701,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group18_fluidmassC  &
-   adams_id = 9005730  &
+   adams_id = 9006330  &
    i_marker_name = .test_analysis_1.Upper_DP_Group18_C.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005712  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006312  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group18_C.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20613,9 +23711,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group18_fluidmassB  &
-   adams_id = 9005630  &
+   adams_id = 9006230  &
    i_marker_name = .test_analysis_1.Upper_DP_Group18_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005713  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006313  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group18_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20623,10 +23721,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group19_sliderA_locator  &
-   adams_id = 9005820  &
+   adams_id = 9006420  &
    i_marker_name = .test_analysis_1.Upper_DP_Group19_A.end_A  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group19_sliderA.FMARKER_9006007  &
+                            .test_analysis_1.Upper_DP_Group19_sliderA.FMARKER_9006607  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group19_A.end_A  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20634,10 +23732,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group19_sliderB_locator  &
-   adams_id = 9005920  &
+   adams_id = 9006520  &
    i_marker_name = .test_analysis_1.Upper_DP_Group19_B.cm  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group19_sliderB.FMARKER_9006008  &
+                            .test_analysis_1.Upper_DP_Group19_sliderB.FMARKER_9006608  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group19_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20645,9 +23743,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group19_fluidmassA  &
-   adams_id = 9005830  &
+   adams_id = 9006430  &
    i_marker_name = .test_analysis_1.Upper_DP_Group19_A.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006011  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006611  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group19_A.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20655,9 +23753,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group19_fluidmassC  &
-   adams_id = 9006030  &
+   adams_id = 9006630  &
    i_marker_name = .test_analysis_1.Upper_DP_Group19_C.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006012  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006612  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group19_C.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20665,9 +23763,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group19_fluidmassB  &
-   adams_id = 9005930  &
+   adams_id = 9006530  &
    i_marker_name = .test_analysis_1.Upper_DP_Group19_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006013  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006613  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group19_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20675,10 +23773,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group20_sliderA_locator  &
-   adams_id = 9006120  &
+   adams_id = 9006720  &
    i_marker_name = .test_analysis_1.Upper_DP_Group20_A.end_A  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group20_sliderA.FMARKER_9006311  &
+                            .test_analysis_1.Upper_DP_Group20_sliderA.FMARKER_9006911  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group20_A.end_A  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20686,10 +23784,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group20_sliderB_locator  &
-   adams_id = 9006220  &
+   adams_id = 9006820  &
    i_marker_name = .test_analysis_1.Upper_DP_Group20_B.cm  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group20_sliderB.FMARKER_9006312  &
+                            .test_analysis_1.Upper_DP_Group20_sliderB.FMARKER_9006912  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group20_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20697,10 +23795,10 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group20_sliderC_locator  &
-   adams_id = 9006320  &
+   adams_id = 9006920  &
    i_marker_name = .test_analysis_1.Upper_DP_Group20_C.end_C  &
    j_floating_marker_name =   &
-                            .test_analysis_1.Upper_DP_Group20_sliderC.FMARKER_9006313  &
+                            .test_analysis_1.Upper_DP_Group20_sliderC.FMARKER_9006913  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group20_C.end_C  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20708,9 +23806,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group20_fluidmassA  &
-   adams_id = 9006130  &
+   adams_id = 9006730  &
    i_marker_name = .test_analysis_1.Upper_DP_Group20_A.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006317  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006917  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group20_A.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20718,9 +23816,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group20_fluidmassC  &
-   adams_id = 9006330  &
+   adams_id = 9006930  &
    i_marker_name = .test_analysis_1.Upper_DP_Group20_C.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006318  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006918  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group20_C.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20728,9 +23826,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group20_fluidmassB  &
-   adams_id = 9006230  &
+   adams_id = 9006830  &
    i_marker_name = .test_analysis_1.Upper_DP_Group20_B.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006319  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006919  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group20_B.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20738,9 +23836,9 @@ force create direct force_vector  &
 !
 force create direct force_vector  &
    force_vector_name = .test_analysis_1.TOSLoad  &
-   adams_id = 9006331  &
+   adams_id = 9006933  &
    i_marker_name = .test_analysis_1.Upper_DP_Group20_C.end_C  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006321  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006921  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group20_sliderC.cm  &
    x_force_function = ""  &
    y_force_function = ""  &
@@ -20748,7 +23846,7 @@ force create direct force_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Hole_Bottom_damper  &
-   adams_id = 9006311  &
+   adams_id = 9006911  &
    i_marker_name = .test_analysis_1.Hole_Bottom.cm  &
    j_floating_marker_name = .test_analysis_1.ground.FMARKER_3002293  &
    ref_marker_name = .test_analysis_1.Hole_Bottom.cm  &
@@ -20767,30 +23865,60 @@ force create direct torque_vector  &
    z_torque_function = ""
 !
 force create direct torque_vector  &
-   torque_vector_name = .test_analysis_1.example_stabilizer_02_sliderA_damper  &
+   torque_vector_name = .test_analysis_1.example_motor_02_sliderA_damper  &
    adams_id = 9000210  &
-   i_marker_name = .test_analysis_1.example_stabilizer_02_sliderA.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000306  &
-   ref_marker_name = .test_analysis_1.example_stabilizer_02_sliderA.cm  &
+   i_marker_name = .test_analysis_1.example_motor_02_sliderA.cm  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000707  &
+   ref_marker_name = .test_analysis_1.example_motor_02_sliderA.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
    z_torque_function = ""
 !
 force create direct torque_vector  &
-   torque_vector_name = .test_analysis_1.example_stabilizer_02_sliderB_damper  &
+   torque_vector_name = .test_analysis_1.example_motor_02_sliderB_damper  &
    adams_id = 9000310  &
-   i_marker_name = .test_analysis_1.example_stabilizer_02_sliderB.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000307  &
-   ref_marker_name = .test_analysis_1.example_stabilizer_02_sliderB.cm  &
+   i_marker_name = .test_analysis_1.example_motor_02_sliderB.cm  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000708  &
+   ref_marker_name = .test_analysis_1.example_motor_02_sliderB.cm  &
+   x_torque_function = ""  &
+   y_torque_function = ""  &
+   z_torque_function = ""
+!
+force create direct torque_vector  &
+   torque_vector_name = .test_analysis_1.example_motor_02_sliderC_damper  &
+   adams_id = 9000510  &
+   i_marker_name = .test_analysis_1.example_motor_02_sliderC.cm  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000709  &
+   ref_marker_name = .test_analysis_1.example_motor_02_sliderC.cm  &
+   x_torque_function = ""  &
+   y_torque_function = ""  &
+   z_torque_function = ""
+!
+force create direct torque_vector  &
+   torque_vector_name = .test_analysis_1.example_stabilizer_03_sliderA_damper  &
+   adams_id = 9000810  &
+   i_marker_name = .test_analysis_1.example_stabilizer_03_sliderA.cm  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000906  &
+   ref_marker_name = .test_analysis_1.example_stabilizer_03_sliderA.cm  &
+   x_torque_function = ""  &
+   y_torque_function = ""  &
+   z_torque_function = ""
+!
+force create direct torque_vector  &
+   torque_vector_name = .test_analysis_1.example_stabilizer_03_sliderB_damper  &
+   adams_id = 9000910  &
+   i_marker_name = .test_analysis_1.example_stabilizer_03_sliderB.cm  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000907  &
+   ref_marker_name = .test_analysis_1.example_stabilizer_03_sliderB.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
    z_torque_function = ""
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group1_sliderA_damper  &
-   adams_id = 9000410  &
+   adams_id = 9001010  &
    i_marker_name = .test_analysis_1.Upper_DP_Group1_sliderA.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000605  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001205  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group1_sliderA.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -20798,9 +23926,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group1_sliderB_damper  &
-   adams_id = 9000510  &
+   adams_id = 9001110  &
    i_marker_name = .test_analysis_1.Upper_DP_Group1_sliderB.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000606  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001206  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group1_sliderB.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -20808,9 +23936,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group2_sliderA_damper  &
-   adams_id = 9000710  &
+   adams_id = 9001310  &
    i_marker_name = .test_analysis_1.Upper_DP_Group2_sliderA.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000905  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001505  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group2_sliderA.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -20818,9 +23946,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group2_sliderB_damper  &
-   adams_id = 9000810  &
+   adams_id = 9001410  &
    i_marker_name = .test_analysis_1.Upper_DP_Group2_sliderB.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9000906  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001506  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group2_sliderB.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -20828,9 +23956,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group3_sliderA_damper  &
-   adams_id = 9001010  &
+   adams_id = 9001610  &
    i_marker_name = .test_analysis_1.Upper_DP_Group3_sliderA.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001205  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001805  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group3_sliderA.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -20838,9 +23966,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group3_sliderB_damper  &
-   adams_id = 9001110  &
+   adams_id = 9001710  &
    i_marker_name = .test_analysis_1.Upper_DP_Group3_sliderB.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001206  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001806  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group3_sliderB.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -20848,9 +23976,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group4_sliderA_damper  &
-   adams_id = 9001310  &
+   adams_id = 9001910  &
    i_marker_name = .test_analysis_1.Upper_DP_Group4_sliderA.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001505  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002105  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group4_sliderA.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -20858,9 +23986,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group4_sliderB_damper  &
-   adams_id = 9001410  &
+   adams_id = 9002010  &
    i_marker_name = .test_analysis_1.Upper_DP_Group4_sliderB.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001506  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002106  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group4_sliderB.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -20868,9 +23996,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group5_sliderA_damper  &
-   adams_id = 9001610  &
+   adams_id = 9002210  &
    i_marker_name = .test_analysis_1.Upper_DP_Group5_sliderA.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001805  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002405  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group5_sliderA.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -20878,9 +24006,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group5_sliderB_damper  &
-   adams_id = 9001710  &
+   adams_id = 9002310  &
    i_marker_name = .test_analysis_1.Upper_DP_Group5_sliderB.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9001806  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002406  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group5_sliderB.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -20888,9 +24016,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group6_sliderA_damper  &
-   adams_id = 9001910  &
+   adams_id = 9002510  &
    i_marker_name = .test_analysis_1.Upper_DP_Group6_sliderA.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002105  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002705  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group6_sliderA.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -20898,9 +24026,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group6_sliderB_damper  &
-   adams_id = 9002010  &
+   adams_id = 9002610  &
    i_marker_name = .test_analysis_1.Upper_DP_Group6_sliderB.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002106  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002706  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group6_sliderB.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -20908,9 +24036,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group7_sliderA_damper  &
-   adams_id = 9002210  &
+   adams_id = 9002810  &
    i_marker_name = .test_analysis_1.Upper_DP_Group7_sliderA.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002405  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003005  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group7_sliderA.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -20918,9 +24046,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group7_sliderB_damper  &
-   adams_id = 9002310  &
+   adams_id = 9002910  &
    i_marker_name = .test_analysis_1.Upper_DP_Group7_sliderB.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002406  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003006  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group7_sliderB.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -20928,9 +24056,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group8_sliderA_damper  &
-   adams_id = 9002510  &
+   adams_id = 9003110  &
    i_marker_name = .test_analysis_1.Upper_DP_Group8_sliderA.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002705  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003305  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group8_sliderA.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -20938,9 +24066,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group8_sliderB_damper  &
-   adams_id = 9002610  &
+   adams_id = 9003210  &
    i_marker_name = .test_analysis_1.Upper_DP_Group8_sliderB.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9002706  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003306  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group8_sliderB.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -20948,9 +24076,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group9_sliderA_damper  &
-   adams_id = 9002810  &
+   adams_id = 9003410  &
    i_marker_name = .test_analysis_1.Upper_DP_Group9_sliderA.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003005  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003605  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group9_sliderA.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -20958,9 +24086,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group9_sliderB_damper  &
-   adams_id = 9002910  &
+   adams_id = 9003510  &
    i_marker_name = .test_analysis_1.Upper_DP_Group9_sliderB.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003006  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003606  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group9_sliderB.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -20968,9 +24096,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group10_sliderA_damper  &
-   adams_id = 9003110  &
+   adams_id = 9003710  &
    i_marker_name = .test_analysis_1.Upper_DP_Group10_sliderA.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003305  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003905  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group10_sliderA.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -20978,9 +24106,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group10_sliderB_damper  &
-   adams_id = 9003210  &
+   adams_id = 9003810  &
    i_marker_name = .test_analysis_1.Upper_DP_Group10_sliderB.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003306  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003906  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group10_sliderB.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -20988,9 +24116,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group11_sliderA_damper  &
-   adams_id = 9003410  &
+   adams_id = 9004010  &
    i_marker_name = .test_analysis_1.Upper_DP_Group11_sliderA.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003605  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004205  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group11_sliderA.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -20998,9 +24126,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group11_sliderB_damper  &
-   adams_id = 9003510  &
+   adams_id = 9004110  &
    i_marker_name = .test_analysis_1.Upper_DP_Group11_sliderB.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003606  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004206  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group11_sliderB.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -21008,9 +24136,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group12_sliderA_damper  &
-   adams_id = 9003710  &
+   adams_id = 9004310  &
    i_marker_name = .test_analysis_1.Upper_DP_Group12_sliderA.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003905  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004505  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group12_sliderA.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -21018,9 +24146,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group12_sliderB_damper  &
-   adams_id = 9003810  &
+   adams_id = 9004410  &
    i_marker_name = .test_analysis_1.Upper_DP_Group12_sliderB.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9003906  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004506  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group12_sliderB.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -21028,9 +24156,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group13_sliderA_damper  &
-   adams_id = 9004010  &
+   adams_id = 9004610  &
    i_marker_name = .test_analysis_1.Upper_DP_Group13_sliderA.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004205  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004805  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group13_sliderA.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -21038,9 +24166,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group13_sliderB_damper  &
-   adams_id = 9004110  &
+   adams_id = 9004710  &
    i_marker_name = .test_analysis_1.Upper_DP_Group13_sliderB.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004206  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004806  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group13_sliderB.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -21048,9 +24176,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group14_sliderA_damper  &
-   adams_id = 9004310  &
+   adams_id = 9004910  &
    i_marker_name = .test_analysis_1.Upper_DP_Group14_sliderA.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004505  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005105  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group14_sliderA.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -21058,9 +24186,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group14_sliderB_damper  &
-   adams_id = 9004410  &
+   adams_id = 9005010  &
    i_marker_name = .test_analysis_1.Upper_DP_Group14_sliderB.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004506  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005106  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group14_sliderB.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -21068,9 +24196,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group15_sliderA_damper  &
-   adams_id = 9004610  &
+   adams_id = 9005210  &
    i_marker_name = .test_analysis_1.Upper_DP_Group15_sliderA.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004805  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005405  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group15_sliderA.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -21078,9 +24206,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group15_sliderB_damper  &
-   adams_id = 9004710  &
+   adams_id = 9005310  &
    i_marker_name = .test_analysis_1.Upper_DP_Group15_sliderB.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9004806  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005406  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group15_sliderB.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -21088,9 +24216,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group16_sliderA_damper  &
-   adams_id = 9004910  &
+   adams_id = 9005510  &
    i_marker_name = .test_analysis_1.Upper_DP_Group16_sliderA.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005105  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005705  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group16_sliderA.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -21098,9 +24226,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group16_sliderB_damper  &
-   adams_id = 9005010  &
+   adams_id = 9005610  &
    i_marker_name = .test_analysis_1.Upper_DP_Group16_sliderB.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005106  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005706  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group16_sliderB.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -21108,9 +24236,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group17_sliderA_damper  &
-   adams_id = 9005210  &
+   adams_id = 9005810  &
    i_marker_name = .test_analysis_1.Upper_DP_Group17_sliderA.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005405  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006005  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group17_sliderA.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -21118,9 +24246,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group17_sliderB_damper  &
-   adams_id = 9005310  &
+   adams_id = 9005910  &
    i_marker_name = .test_analysis_1.Upper_DP_Group17_sliderB.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005406  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006006  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group17_sliderB.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -21128,9 +24256,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group18_sliderA_damper  &
-   adams_id = 9005510  &
+   adams_id = 9006110  &
    i_marker_name = .test_analysis_1.Upper_DP_Group18_sliderA.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005705  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006305  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group18_sliderA.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -21138,9 +24266,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group18_sliderB_damper  &
-   adams_id = 9005610  &
+   adams_id = 9006210  &
    i_marker_name = .test_analysis_1.Upper_DP_Group18_sliderB.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9005706  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006306  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group18_sliderB.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -21148,9 +24276,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group19_sliderA_damper  &
-   adams_id = 9005810  &
+   adams_id = 9006410  &
    i_marker_name = .test_analysis_1.Upper_DP_Group19_sliderA.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006005  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006605  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group19_sliderA.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -21158,9 +24286,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group19_sliderB_damper  &
-   adams_id = 9005910  &
+   adams_id = 9006510  &
    i_marker_name = .test_analysis_1.Upper_DP_Group19_sliderB.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006006  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006606  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group19_sliderB.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -21168,9 +24296,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group20_sliderA_damper  &
-   adams_id = 9006110  &
+   adams_id = 9006710  &
    i_marker_name = .test_analysis_1.Upper_DP_Group20_sliderA.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006308  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006908  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group20_sliderA.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -21178,9 +24306,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group20_sliderB_damper  &
-   adams_id = 9006210  &
+   adams_id = 9006810  &
    i_marker_name = .test_analysis_1.Upper_DP_Group20_sliderB.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006309  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006909  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group20_sliderB.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -21188,9 +24316,9 @@ force create direct torque_vector  &
 !
 force create direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group20_sliderC_damper  &
-   adams_id = 9006310  &
+   adams_id = 9006910  &
    i_marker_name = .test_analysis_1.Upper_DP_Group20_sliderC.cm  &
-   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006310  &
+   j_floating_marker_name = .test_analysis_1.ground.FMARKER_9006910  &
    ref_marker_name = .test_analysis_1.Upper_DP_Group20_sliderC.cm  &
    x_torque_function = ""  &
    y_torque_function = ""  &
@@ -21203,10 +24331,11 @@ output_control create request  &
    request_name = .test_analysis_1.test_pdc_01_Motion  &
    adams_id = 1  &
    component_names = "Measured_Depth", "Radial_Displacement",  &
-                     "Radial_Velocity", "", "Orbiting_Angular_Velocity",  &
-                     "Bending_Moment", "Torque", "Axial_Load", "", ""  &
-   component_labels = "(ft)", "(ft)", "(ft/sec)", "", "(RPM)", "(Kft-lbf)",  &
-                      "(Kft-lbf)", "(Klbf)"  &
+                     "Radial_Velocity", "Axial_Angular_Velocity",  &
+                     "Orbiting_Angular_Velocity", "Bending_Moment",  &
+                     "Twisting_Moment", "Axial_Load"  &
+   component_labels = "(ft)", "(ft)", "(ft/sec)", "(RPM)", "(RPM)",  &
+                      "(Kft-lbf)", "(Kft-lbf)", "(Klbf)"  &
    results_name = "test_pdc_01_Motion"  &
    user_function = -1.0, 9.000005E+06, 9.000001E+06, -0.1660421644  &
    routine = "adrill_solver::MotionOut"
@@ -21216,45 +24345,119 @@ output_control create request  &
    adams_id = 2  &
    comment = "test_pdc_01 Motion Output"  &
    component_names = "Radial_Displacement_X", "Radial_Displacement_Y",  &
-                     "Rotational_Speed", "", "", "", "", "", "", ""  &
-   component_labels = "(ft)", "(ft)", "(RPM)"  &
+                     "Rotational_Speed", "Bit_True_MD", "Bit_True_Vaxial",  &
+                     "Bit_True_ROP"  &
+   component_labels = "(ft)", "(ft)", "(RPM)", "(ft)", "(ft/sec)", "(ft/hr)"  &
    results_name = "test_pdc_01_Motion"  &
    f1 = ""  &
    f2 = ""  &
-   f3 = ""
+   f3 = ""  &
+   f4 = ""  &
+   f5 = ""  &
+   f6 = ""
 !
 output_control create request  &
-   request_name = .test_analysis_1.example_stabilizer_02_Motion  &
+   request_name = .test_analysis_1.test_pdc_01_sliderA_aligned  &
    adams_id = 3  &
+   component_names = "Inclination", "Azimuth", "Force_UP_or_N",  &
+                     "Force_RIGHT_or_E", "Force_Magnitude",  &
+                     "Force_Direction", "Toolface_Direction"  &
+   component_labels = "deg", "deg", "lbf", "lbf", "lbf", "deg", "deg"  &
+   results_name = "test_pdc_01_sliderA_aligned"  &
+   f1 = ""  &
+   f2 = ""  &
+   f3 = ""  &
+   f4 = ""  &
+   f5 = ""  &
+   f6 = ""  &
+   f7 = ""
+!
+output_control create request  &
+   request_name = .test_analysis_1.Motor_EndLoads  &
+   adams_id = 4  &
+   component_names = "Force_X|U|N", "Force_Y|R|E", "Planar_FM",  &
+                     "Planar_Theta"  &
+   component_labels = "(LBF)", "(LBF)", "(LBF)", "(DEG)"  &
+   results_name = "Motor_EndLoads"  &
+   f1 = ""  &
+   f2 = ""  &
+   f3 = ""  &
+   f4 = ""
+!
+output_control create request  &
+   request_name = .test_analysis_1.example_motor_02_Motion  &
+   adams_id = 5  &
+   component_names = "Measured_Depth", "Radial_Displacement",  &
+                     "Radial_Velocity", "Radial_Contact_Load",  &
+                     "Orbiting_Angular_Velocity", "Bending_Moment",  &
+                     "Twisting_Moment", "Axial_Load"  &
+   component_labels = "(ft)", "(ft)", "(ft/sec)", "(lbf)", "(RPM)",  &
+                      "(Kft-lbf)", "(Kft-lbf)", "(Klbf)"  &
+   results_name = "example_motor_02_Motion"  &
+   user_function = 9.0007E+06, 9.0002E+06, 9.000201E+06, -7.6081019624  &
+   routine = "adrill_solver::MotionOut"
+!
+output_control create request  &
+   request_name = .test_analysis_1.example_motor_02_Motion2  &
+   adams_id = 6  &
+   comment = "example_motor_02 Motion Output"  &
+   component_names = "Radial_Displacement_X", "Radial_Displacement_Y",  &
+                     "Rotational_Speed", "Hinge_Moment"  &
+   component_labels = "(ft)", "(ft)", "(RPM)", "(ft-lbf)"  &
+   results_name = "example_motor_02_Motion"  &
+   f1 = ""  &
+   f2 = ""  &
+   f3 = ""  &
+   f4 = ""
+!
+output_control create request  &
+   request_name = .test_analysis_1.example_motor_02_sliderA_aligned  &
+   adams_id = 7  &
+   component_names = "Inclination", "Azimuth", "Force_UP_or_N",  &
+                     "Force_RIGHT_or_E", "Force_Magnitude",  &
+                     "Force_Direction", "Toolface_Direction"  &
+   component_labels = "deg", "deg", "lbf", "lbf", "lbf", "deg", "deg"  &
+   results_name = "example_motor_02_sliderA_aligned"  &
+   f1 = ""  &
+   f2 = ""  &
+   f3 = ""  &
+   f4 = ""  &
+   f5 = ""  &
+   f6 = ""  &
+   f7 = ""
+!
+output_control create request  &
+   request_name = .test_analysis_1.example_stabilizer_03_Motion  &
+   adams_id = 8  &
    component_names = "Measured_Depth", "Radial_Displacement",  &
                      "Radial_Velocity", "Radial_Contact_Load",  &
                      "Orbiting_Angular_Velocity", "Bending_Moment", "Torque",  &
                      "Axial_Load", "", ""  &
    component_labels = "(ft)", "(ft)", "(ft/sec)", "(lbf)", "(RPM)",  &
                       "(Kft-lbf)", "(Kft-lbf)", "(Klbf)"  &
-   results_name = "example_stabilizer_02_Motion"  &
-   user_function = 9.000202E+06, 9.0002E+06, 9.000201E+06, -1.4993688639  &
+   results_name = "example_stabilizer_03_Motion"  &
+   user_function = 9.000802E+06, 9.0008E+06, 9.000801E+06, -30.4193046019  &
    routine = "adrill_solver::MotionOut"
 !
 output_control create request  &
-   request_name = .test_analysis_1.example_stabilizer_02_Motion2  &
-   adams_id = 4  &
-   comment = "example_stabilizer_02 Motion Output"  &
+   request_name = .test_analysis_1.example_stabilizer_03_Motion2  &
+   adams_id = 9  &
+   comment = "example_stabilizer_03 Motion Output"  &
    component_names = "Radial_Displacement_X", "Radial_Displacement_Y",  &
                      "Rotational_Speed", "", "", "", "", "", "", ""  &
    component_labels = "(ft)", "(ft)", "(RPM)"  &
-   results_name = "example_stabilizer_02_Motion"  &
+   results_name = "example_stabilizer_03_Motion"  &
    f1 = ""  &
    f2 = ""  &
    f3 = ""
 !
 output_control create request  &
    request_name = .test_analysis_1.equivalent_pipe1_TorsionStates  &
-   adams_id = 5  &
+   adams_id = 10  &
    comment = "equivalent_pipe1 Torsion States Output"  &
    component_names = "top_disp", "upr_mid_disp", "lwr_mid_disp",  &
                      "bottom_disp", "top_vel", "upr_mid_vel", "lwr_mid_vel",  &
-                     "bottom_vel", "", ""  &
+                     "bottom_vel"  &
    component_labels = "(radians)", "(radians)", "(radians)", "(radians)",  &
                       "(rad/sec)", "(rad/sec)", "(rad/sec)", "(rad/sec)"  &
    results_name = "equivalent_pipe1_TorsionStates"  &
@@ -21269,11 +24472,11 @@ output_control create request  &
 !
 output_control create request  &
    request_name = .test_analysis_1.equivalent_pipe1_AxialStates  &
-   adams_id = 6  &
+   adams_id = 11  &
    comment = "equivalent_pipe1 Axial States Output"  &
    component_names = "top_disp", "upr_mid_disp", "lwr_mid_disp",  &
                      "bottom_disp", "top_vel", "upr_mid_vel", "lwr_mid_vel",  &
-                     "bottom_vel", "", ""  &
+                     "bottom_vel"  &
    component_labels = "(ft)", "(ft)", "(ft)", "(ft)", "(ft/sec)", "(ft/sec)",  &
                       "(ft/sec)", "(ft/sec)"  &
    results_name = "equivalent_pipe1_AxialStates"  &
@@ -21287,13 +24490,13 @@ output_control create request  &
    f8 = ""
 !
 output_control create request  &
-   request_name = .test_analysis_1.top_drive  &
-   adams_id = 7  &
-   comment = "_:cmdRPM:surfRPM:TOSRPM:_:cmdTrq:true_Trq:_"  &
-   component_names = "Input_RPM", "Surface_RPM", "Top_of_String_RPM",  &
-                     "Surface_Torque", "True_Torque", "", "", "", "", ""  &
-   component_labels = "(RPM)", "(RPM)", "(RPM)", "(kft-lbf)", "(kft-lbf)"  &
-   results_name = "top_drive_data"  &
+   request_name = .test_analysis_1.motor_drive_data  &
+   adams_id = 12  &
+   comment = "_:motRPM:motTRQ:topTRQ:_:FlowRate:filter_w:_"  &
+   component_names = "Motor_RPM", "Motor_Torque", "", "Flow_Rate",  &
+                     "Filtered_Rotational_Speed", "", "", "", "", "", ""  &
+   component_labels = "(RPM)", "(Kft-lbf)", "(Kft-lbf)", "(GPM)", "(RPM)"  &
+   results_name = "Motor_Drive_Data"  &
    f1 = ""  &
    f2 = ""  &
    f3 = ""  &
@@ -21301,12 +24504,28 @@ output_control create request  &
    f5 = ""
 !
 output_control create request  &
+   request_name = .test_analysis_1.top_drive  &
+   adams_id = 13  &
+   comment = "_:cmdRPM:surfRPM:TOSRPM:_:cmdTrq:true_Trq:_"  &
+   component_names = "Command_RPM", "Surface_RPM", "Top_of_String_RPM",  &
+                     "Surface_Torque", "True_Torque", "Surface_Rotation"  &
+   component_labels = "(RPM)", "(RPM)", "(RPM)", "(kft-lbf)", "(kft-lbf)",  &
+                      "(deg)"  &
+   results_name = "top_drive_data"  &
+   f1 = ""  &
+   f2 = ""  &
+   f3 = ""  &
+   f4 = ""  &
+   f5 = ""  &
+   f6 = ""
+!
+output_control create request  &
    request_name = .test_analysis_1.ROP_controls  &
-   adams_id = 8  &
+   adams_id = 14  &
    comment = "_:cmd_ROP:BOH_V:MD:_:cmd_WOB:true_WOB:HookLoad"  &
    component_names = "Input_ROP", "Bottom_of_Hole_Velocity",  &
                      "Measured_Depth", "Input_WOB", "Downhole_WOB",  &
-                     "HookLoad", "", "", "", ""  &
+                     "HookLoad"  &
    component_labels = "(ft/hr)", "(ft/hr)", "(ft)", "(klbf)", "(klbf)",  &
                       "(klbf)"  &
    results_name = "ROP_controls"  &
@@ -21319,17 +24538,42 @@ output_control create request  &
 !
 output_control create request  &
    request_name = .test_analysis_1.MSE_Motion  &
-   adams_id = 9  &
+   adams_id = 15  &
    comment = "Surface:AtBit"  &
    component_names = "Instantaneous_Surface_MSE", "Instantaneous_Bottom_MSE",  &
-                     "Filtered_Surface_MSE", "Filtered_Bottom_MSE", "", "",  &
-                     "", "", "", ""  &
+                     "Filtered_Surface_MSE", "Filtered_Bottom_MSE"  &
    component_labels = "(psi)", "(psi)", "(psi)", "(psi)"  &
    results_name = "MSE"  &
    f1 = ""  &
    f2 = ""  &
    f3 = ""  &
    f4 = ""
+!
+output_control create request  &
+   request_name = .test_analysis_1.bitloads_aligned  &
+   adams_id = 16  &
+   component_names = "Inclination", "Azimuth", "Force_UP_or_N",  &
+                     "Force_RIGHT_or_E", "Force_Magnitude"  &
+   component_labels = "(deg)", "(deg)", "(lbf)", "(lbf)", "(lbf)"  &
+   results_name = "bitloads_aligned"  &
+   f1 = ""  &
+   f2 = ""  &
+   f3 = ""  &
+   f4 = ""  &
+   f5 = ""
+!
+output_control create request  &
+   request_name = .test_analysis_1.bitloads_aligned2  &
+   adams_id = 17  &
+   component_names = "Force_Direction", "Hole_Curvature_Mag",  &
+                     "Hole_Curvature_Dir", "RefZero", "AvgFX", "AvgFY",  &
+                     "AvgFM", "AvgFdir"  &
+   component_labels = "(deg)", "(deg/100ft)", "(deg)", "(lbf)", "(lbf)",  &
+                      "(lbf)", "(lbf)", "(deg)"  &
+   results_name = "bitloads_aligned"  &
+   user_function = 8002.0, 9001.0, 2287.3973538343, 9.000001E+06, 1001.0,  &
+                   9.0007E+06, 9.000001E+06  &
+   routine = "adrillX10D::FIXLOAD"
 !
 !----------------------------- Simulation Scripts -----------------------------!
 !
@@ -21357,7 +24601,7 @@ VARIABLE/1102 &
 ! Command WOB:
 ! Note: Unit of weight is lbf 
 VARIABLE/9106 &
-, FUNCTION=STEP(TIME,30.0,0,30.0+15.0,50.0)
+, FUNCTION=STEP(TIME,30.0,0,30.0+15.0,5.0E+04)
 !
 ! Command ROP:
 ! Note: Factors of 1/3600 used to convert from ft/hr 
@@ -21411,7 +24655,7 @@ force create body gravitational  &
    gravity_field_name = Local_Gravity  &
    x_component_gravity = 0.0  &
    y_component_gravity = 0.0  &
-   z_component_gravity = 27.2604183673
+   z_component_gravity = -4.6663898754
 !
 !----------------------------- Analysis settings ------------------------------!
 !
@@ -21516,11 +24760,11 @@ variable create  &
 !
 variable create  &
    variable_name = .test_analysis_1.FileVerion  &
-   real_value = 1.0
+   real_value = 2.0
 !
 variable create  &
    variable_name = .test_analysis_1.topDrivesubHeader  &
-   string_value = "TOP_DRIVE"
+   string_value = "ROTARY_RPM"
 !
 variable create  &
    variable_name = .test_analysis_1.pumpFlowsubHeader  &
@@ -21528,11 +24772,11 @@ variable create  &
 !
 variable create  &
    variable_name = .test_analysis_1.muddensity_cnvt  &
-   real_value = 1.0
+   real_value = 7.4805194805
 !
 variable create  &
    variable_name = .test_analysis_1.wob_cnvt  &
-   real_value = 1.0
+   real_value = 1000.0
 !
 variable create  &
    variable_name = .test_analysis_1.DriveType  &
@@ -21544,7 +24788,7 @@ variable create  &
 !
 variable create  &
    variable_name = .test_analysis_1.bottom_depth  &
-   real_value = 1372.01
+   real_value = 1343.09
 !
 variable create  &
    variable_name = .test_analysis_1.bottom_clearance  &
@@ -21580,7 +24824,7 @@ variable create  &
 !
 variable create  &
    variable_name = .test_analysis_1.MudDensity  &
-   real_value = 75.0
+   real_value = 561.038961039
 !
 variable create  &
    variable_name = .test_analysis_1.Impact_Penetration  &
@@ -21632,7 +24876,7 @@ variable create  &
 !
 variable create  &
    variable_name = .test_analysis_1.WeightOnBit  &
-   real_value = 50.0
+   real_value = 5.0E+04
 !
 variable create  &
    variable_name = .test_analysis_1.WOB_Ramp  &
@@ -21692,34 +24936,35 @@ variable create  &
 !
 variable create  &
    variable_name = .test_analysis_1.BouyancyFac  &
-   real_value = 0.8469387755
+   real_value = -0.1449774715
 !
 variable create  &
    variable_name = .test_analysis_1.ntools  &
-   integer_value = 4
+   integer_value = 5
 !
 variable create  &
    variable_name = .test_analysis_1.string_list  &
-   string_value = "pdc_bit", "stabilizer", "drillpipe",  &
+   string_value = "pdc_bit", "motor", "stabilizer", "drillpipe",  &
                   "equivalent_upper_string"
 !
 variable create  &
    variable_name = .test_analysis_1.nameList  &
-   string_value = "test_pdc_01", "example_stabilizer_02", "Upper_DP_Group",  &
-                  "equivalent_pipe"
+   string_value = "test_pdc_01", "example_motor_02", "example_stabilizer_03",  &
+                  "Upper_DP_Group", "equivalent_pipe"
 !
 variable create  &
    variable_name = .test_analysis_1.compPropFile  &
-   string_value = "test_pdc.pdc", "example_stabilizer.sta",  &
-                  "test_drillpipe.pip", "test_eus.pip"
+   string_value = "test_pdc.pdc", "example_motor.mot",  &
+                  "example_stabilizer.sta", "test_drillpipe.pip",  &
+                  "test_eus.pip"
 !
 variable create  &
    variable_name = .test_analysis_1.measureList  &
-   string_value = "yes", "yes", "no", "no"
+   string_value = "yes", "yes", "yes", "no", "no"
 !
 variable create  &
    variable_name = .test_analysis_1.colorList  &
-   string_value = "Default", "Default", "Default", "Default"
+   string_value = "Default", "Default", "Default", "Default", "Default"
 !
 variable create  &
    variable_name = .test_analysis_1.jointList  &
@@ -21731,7 +24976,7 @@ variable create  &
 !
 variable create  &
    variable_name = .test_analysis_1.nprops  &
-   integer_value = 4
+   integer_value = 5
 !
 variable create  &
    variable_name = .test_analysis_1.TopDriveFileOpen  &
@@ -21863,25 +25108,25 @@ variable create  &
 !
 variable create  &
    variable_name = .test_analysis_1.sliderCMvarvec  &
-   integer_value = 9000001, 9000201, 9000301, 9000401, 9000501, 9000701,  &
-                   9000801, 9001001, 9001101, 9001301, 9001401, 9001601,  &
-                   9001701, 9001901, 9002001, 9002201, 9002301, 9002501,  &
-                   9002601, 9002801, 9002901, 9003101, 9003201, 9003401,  &
-                   9003501, 9003701, 9003801, 9004001, 9004101, 9004301,  &
-                   9004401, 9004601, 9004701, 9004901, 9005001, 9005201,  &
-                   9005301, 9005501, 9005601, 9005801, 9005901, 9006101,  &
-                   9006201, 9006301
+   integer_value = 9000001, 9000201, 9000301, 9000501, 9000801, 9000901,  &
+                   9001001, 9001101, 9001301, 9001401, 9001601, 9001701,  &
+                   9001901, 9002001, 9002201, 9002301, 9002501, 9002601,  &
+                   9002801, 9002901, 9003101, 9003201, 9003401, 9003501,  &
+                   9003701, 9003801, 9004001, 9004101, 9004301, 9004401,  &
+                   9004601, 9004701, 9004901, 9005001, 9005201, 9005301,  &
+                   9005501, 9005601, 9005801, 9005901, 9006101, 9006201,  &
+                   9006401, 9006501, 9006701, 9006801, 9006901
 !
 variable create  &
    variable_name = .test_analysis_1.FixedJvarvec  &
-   integer_value = 9000202, 9000400, 9000700, 9001000, 9001300, 9001600,  &
-                   9001900, 9002200, 9002500, 9002800, 9003100, 9003400,  &
-                   9003700, 9004000, 9004300, 9004600, 9004900, 9005200,  &
-                   9005500, 9005800, 9006100
+   integer_value = 9000700, 9000802, 9001000, 9001300, 9001600, 9001900,  &
+                   9002200, 9002500, 9002800, 9003100, 9003400, 9003700,  &
+                   9004000, 9004300, 9004600, 9004900, 9005200, 9005500,  &
+                   9005800, 9006100, 9006400, 9006700
 !
 variable create  &
    variable_name = .test_analysis_1.BaseID  &
-   integer_value = 9006400
+   integer_value = 9007000
 !
 variable create  &
    variable_name = .test_analysis_1.joint_Count  &
@@ -21928,24 +25173,12 @@ variable create  &
    object_value = (NONE)
 !
 variable create  &
+   variable_name = .test_analysis_1.bit_oriented_slider  &
+   object_value = (NONE)
+!
+variable create  &
    variable_name = .test_analysis_1.CloseBitfile  &
    integer_value = 1
-!
-variable create  &
-   variable_name = .test_analysis_1.bottom_MD  &
-   real_value = 1379.7582621128
-!
-variable create  &
-   variable_name = .test_analysis_1.bottom_loc  &
-   real_value = 136.0391631871, 0.0, 1344.8340793674
-!
-variable create  &
-   variable_name = .test_analysis_1.offset_MD  &
-   real_value = 1372.0075916572
-!
-variable create  &
-   variable_name = .test_analysis_1.offset_loc  &
-   real_value = 130.768955542, 0.0, 1339.1510173281
 !
 variable create  &
    variable_name = .test_analysis_1.string_top_marker  &
@@ -21956,7 +25189,7 @@ variable create  &
    integer_value = 1
 !
 variable create  &
-   variable_name = .test_analysis_1.ReadStafile  &
+   variable_name = .test_analysis_1.ReadLntfile  &
    integer_value = 1
 !
 variable create  &
@@ -21964,7 +25197,86 @@ variable create  &
    object_value = (NONE)
 !
 variable create  &
-   variable_name = .test_analysis_1.example_stabilizer_02_stabilizer_mass  &
+   variable_name = .test_analysis_1.Dlength  &
+   real_value = 5.7025
+!
+variable create  &
+   variable_name = .test_analysis_1.example_motor_02_motor_mass  &
+   units = "mass"  &
+   real_value = 10.0081891916
+!
+variable create  &
+   variable_name = .test_analysis_1.bendrevK  &
+   real_value = 5.2577121083E+07
+!
+variable create  &
+   variable_name = .test_analysis_1.YoungsModulus  &
+   units = "pressure"  &
+   real_value = 4.32E+09
+!
+variable create  &
+   variable_name = .test_analysis_1.ShearModulus  &
+   units = "pressure"  &
+   real_value = 1.6632E+09
+!
+variable create  &
+   variable_name = .test_analysis_1.MaxFlow  &
+   real_value = 900.0
+!
+variable create  &
+   variable_name = .test_analysis_1.MinFlow  &
+   real_value = 400.0
+!
+variable create  &
+   variable_name = .test_analysis_1.NORmaxRPM_A  &
+   real_value = 0.16
+!
+variable create  &
+   variable_name = .test_analysis_1.NORmaxRPM_B  &
+   real_value = 0.0
+!
+variable create  &
+   variable_name = .test_analysis_1.NORminRPM_A  &
+   real_value = 0.165
+!
+variable create  &
+   variable_name = .test_analysis_1.NORminRPM_B  &
+   real_value = -20.667
+!
+variable create  &
+   variable_name = .test_analysis_1.NORmaxTrq  &
+   real_value = 1.493E+04
+!
+variable create  &
+   variable_name = .test_analysis_1.StallTrq  &
+   real_value = 2.24E+04
+!
+variable create  &
+   variable_name = .test_analysis_1.CloseLntfile  &
+   integer_value = 1
+!
+variable create  &
+   variable_name = .test_analysis_1.ReadStafile  &
+   integer_value = 1
+!
+variable create  &
+   variable_name = .test_analysis_1.bottom_MD  &
+   real_value = 1350.8378973844
+!
+variable create  &
+   variable_name = .test_analysis_1.bottom_loc  &
+   real_value = 116.8342370616, 0.0, 1323.2162194074
+!
+variable create  &
+   variable_name = .test_analysis_1.offset_MD  &
+   real_value = 1343.0871160939
+!
+variable create  &
+   variable_name = .test_analysis_1.offset_loc  &
+   real_value = 111.9000177592, 0.0, 1317.238979027
+!
+variable create  &
+   variable_name = .test_analysis_1.example_stabilizer_03_stabilizer_mass  &
    real_value = 22.4508185341
 !
 variable create  &
@@ -21989,26 +25301,16 @@ variable create  &
 !
 variable create  &
    variable_name = .test_analysis_1.last_pipe  &
-   real_value = 3.0
+   real_value = 4.0
 !
 variable create  &
    variable_name = .test_analysis_1.TrueMudDensity  &
-   real_value = 2.331
+   real_value = 17.4370909091
 !
 variable create  &
    variable_name = .test_analysis_1.Upper_DP_Group1_drillpipe_mass  &
    units = "mass"  &
    real_value = 27.0128063921
-!
-variable create  &
-   variable_name = .test_analysis_1.YoungsModulus  &
-   units = "pressure"  &
-   real_value = 4.32E+09
-!
-variable create  &
-   variable_name = .test_analysis_1.ShearModulus  &
-   units = "pressure"  &
-   real_value = 1.6632E+09
 !
 variable create  &
    variable_name = .test_analysis_1.Upper_DP_Group2_drillpipe_mass  &
@@ -22159,46 +25461,47 @@ variable create  &
 !
 variable create  &
    variable_name = .test_analysis_1.partCMoffsets  &
-   real_value = 0.0, 4.0651534179, 10.3218957897, 22.8094449803,  &
-                35.2966846471, 41.3217574977, 53.8092371756, 66.2963830696,  &
-                72.3216189583, 84.8090298386, 97.296085674, 103.3214851328,  &
-                115.8088324963, 128.2958204363, 134.3213785051,  &
-                146.8086822583, 159.2956156766, 165.3212898621,  &
-                177.8085436441, 190.2953824537, 196.3211589411,  &
-                208.8083318223, 221.2949745361, 227.3206707035,  &
-                239.8070415685, 252.2928441494, 258.3184754697,  &
-                270.8050396688, 283.2909016151, 289.3162358094,  &
-                301.8029112197, 314.2889290782, 320.3139914879,  &
-                332.8006829018, 345.2868779301, 351.3116267704,  &
-                363.7985371537, 376.2848515417, 382.309331811,  &
-                394.7963148291, 407.282907814, 413.3070296645,  &
-                425.7942250967, 438.2810050401, 444.3047631887,  &
-                456.7921545922, 469.2790079384, 475.3025396762,  &
-                487.7900054819, 500.2771129956, 506.3002838969,  &
-                518.7878865461, 531.2750979953, 537.2980171481,  &
-                549.7856768566, 562.2731089472, 568.2957304181,  &
-                580.7835676269, 593.2710535145, 599.2933688848,  &
-                611.7814034474, 624.2690866859
+   real_value = 0.0, 1.0076534179, 2.1320206336, 4.7384577112, 9.7794784412,  &
+                18.332558583, 26.8856005378, 32.9850248916, 39.2417668216,  &
+                51.7292511595, 64.2164032913, 70.2416281972, 82.7290436246,  &
+                95.2161051963, 101.2414937035, 113.7288448323, 126.215836073,  &
+                132.2413844066, 144.7286908983, 157.215628802,  &
+                163.2412965011, 175.7285545425, 188.2154012558,  &
+                194.2411693617, 206.7283481723, 219.2150728345,  &
+                225.2407864732, 237.727108181, 250.2129074438,  &
+                256.2385587975, 268.7250829576, 281.2109452362,  &
+                287.2363027834, 299.7229696802, 312.2089694231,  &
+                318.2340382535, 330.720758973, 343.2068741783, 349.231648408,  &
+                361.7185477005, 374.2048675647, 380.2293427886,  &
+                392.7163497839, 405.2028885629, 411.2270314796,  &
+                423.714194828, 436.2009683558, 442.224769187, 454.7121150966,  &
+                467.1989757663, 473.2225323671, 485.7099776771,  &
+                498.1970800668, 504.2202782646, 516.7078554039,  &
+                529.1950295995, 535.2180003491, 547.7056267983,  &
+                560.193028005, 566.2156672131, 578.7035056661,  &
+                591.1909896127, 597.2133324582, 609.7013394539,  &
+                622.189054531, 628.2111009448, 640.6991724936, 653.1871244594
 !
 variable create  &
    variable_name = .test_analysis_1.sliderCMoffsets  &
-   real_value = -0.5131699811, 3.3331534178, 4.7971534178, 7.3101247911,  &
-                22.8094449801, 38.3099864981, 53.8092371751, 69.3098479592,  &
-                84.8090298339, 100.3097141405, 115.8088324346,  &
-                131.3096074118, 146.8086821642, 162.3095187921,  &
-                177.8085434188, 193.3093881034, 208.808328325, 224.309054849,  &
-                239.806937288, 255.3065684793, 270.804656757, 286.3040167416,  &
-                301.802211737, 317.3014388027, 332.7996138695,  &
-                348.2987305473, 363.7971616484, 379.2960902635,  &
-                394.7945717989, 410.2934648183, 425.7921790982,  &
-                441.2909137921, 456.789837715, 472.288379371, 487.7873673898,  &
-                503.2858238964, 518.784942728, 534.2832534468, 549.782418579,  &
-                565.2806312251, 580.7799860397, 596.2779395313,  &
-                611.7775166607, 627.2771158702
+   real_value = -0.5131699811, 2.3195206336, 6.9288827112, 18.3325585826,  &
+                32.2530248906, 33.7170248906, 36.2299958214, 51.7292511584,  &
+                67.2298571975, 82.7290436202, 98.2297227093, 113.7288447726,  &
+                129.2296133087, 144.7286907996, 160.2295254224,  &
+                175.728554339, 191.2293984776, 206.728345613, 222.2291693085,  &
+                237.7269833098, 253.226637675, 268.724679228, 284.2240644844,  &
+                299.7222500567, 315.221456985, 330.7196657019,  &
+                346.2187113943, 361.717128669, 377.2160501866,  &
+                392.7145555724, 408.2134086338, 423.7120843801,  &
+                439.2108741285, 454.7097503534, 470.2083230476,  &
+                485.7072871781, 501.2057841414, 516.7048800087,  &
+                532.2031890691, 547.7023162257, 563.2005168261,  &
+                578.6998773947, 594.1978629219, 609.6974121852,  &
+                625.1953318416, 640.6949226655, 656.1948804111
 !
 variable create  &
    variable_name = .test_analysis_1.TotalMass  &
-   real_value = 3682.8318437345
+   real_value = 3868.3601144285
 !
 variable create  &
    variable_name = .test_analysis_1.addmass  &
@@ -22216,6 +25519,10 @@ variable modify  &
    object_value = .test_analysis_1.Upper_DP_Group20_C.end_C
 !
 variable modify  &
+   variable_name = .test_analysis_1.bit_oriented_slider  &
+   object_value = .test_analysis_1.test_pdc_01_sliderA
+!
+variable modify  &
    variable_name = .test_analysis_1.string_top_marker  &
    object_value = .test_analysis_1.Upper_DP_Group20_C.end_C
 !
@@ -22230,7 +25537,13 @@ variable modify  &
 variable modify  &
    variable_name = .test_analysis_1.AllStringParts  &
    object_value = .test_analysis_1.test_pdc_01,  &
-                  .test_analysis_1.example_stabilizer_02_B,  &
+                  .test_analysis_1.example_motor_02_R,  &
+                  .test_analysis_1.example_motor_02_A,  &
+                  .test_analysis_1.example_motor_02_B,  &
+                  .test_analysis_1.example_motor_02_B2,  &
+                  .test_analysis_1.example_motor_02_C,  &
+                  .test_analysis_1.example_motor_02_D,  &
+                  .test_analysis_1.example_stabilizer_03_B,  &
                   .test_analysis_1.Upper_DP_Group1_A,  &
                   .test_analysis_1.Upper_DP_Group1_B,  &
                   .test_analysis_1.Upper_DP_Group1_C,  &
@@ -22295,8 +25608,11 @@ variable modify  &
 variable modify  &
    variable_name = .test_analysis_1.AllSliderParts  &
    object_value = .test_analysis_1.test_pdc_01_sliderA,  &
-                  .test_analysis_1.example_stabilizer_02_sliderA,  &
-                  .test_analysis_1.example_stabilizer_02_sliderB,  &
+                  .test_analysis_1.example_motor_02_sliderA,  &
+                  .test_analysis_1.example_motor_02_sliderB,  &
+                  .test_analysis_1.example_motor_02_sliderC,  &
+                  .test_analysis_1.example_stabilizer_03_sliderA,  &
+                  .test_analysis_1.example_stabilizer_03_sliderB,  &
                   .test_analysis_1.Upper_DP_Group1_sliderA,  &
                   .test_analysis_1.Upper_DP_Group1_sliderB,  &
                   .test_analysis_1.Upper_DP_Group2_sliderA,  &
@@ -22351,6 +25667,14 @@ data_element modify variable  &
    function = "WZ(.test_analysis_1.test_pdc_01.LateralRef,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.test_pdc_01_sliderA.cm)"
 !
 data_element modify variable  &
+   variable_name = .test_analysis_1.test_pdc_01_sliderA_toolface  &
+   function = "AZ(.test_analysis_1.test_pdc_01.LateralRef,.test_analysis_1.test_pdc_01_sliderA.cm)*RTOD"
+!
+data_element modify variable  &
+   variable_name = .test_analysis_1.example_motor_02_sliderA_toolface  &
+   function = "AZ(.test_analysis_1.example_motor_02_A.stab_center,.test_analysis_1.example_motor_02_sliderA.cm)*RTOD"
+!
+data_element modify variable  &
    variable_name = .test_analysis_1.drive_torque_command  &
    function = "VARVAL(.test_analysis_1.PropGain)*DIF1(.test_analysis_1.StringSpeedError)+VARVAL(.test_analysis_1.IntGain)*DIF(.test_analysis_1.StringSpeedError)+VARVAL(.test_analysis_1.DerivGain)*DIF1(.test_analysis_1.StringSpeedErrorRate)"
 !
@@ -22388,7 +25712,7 @@ data_element modify variable  &
 !
 data_element modify variable  &
    variable_name = .test_analysis_1.g_hat  &
-   function = "27.2604183673"
+   function = "-4.6663898754"
 !
 data_element modify variable  &
    variable_name = .test_analysis_1.Command_String_Speed  &
@@ -22420,11 +25744,19 @@ data_element modify variable  &
 !
 data_element modify variable  &
    variable_name = .test_analysis_1.Command_WOB  &
-   function = "STEP(TIME,30.0,0,30.0+15.0,50.0)"
+   function = "STEP(TIME,30.0,0,30.0+15.0,5.0E+04)"
 !
 data_element modify variable  &
    variable_name = .test_analysis_1.BitMD  &
    function = "DIF(.test_analysis_1.integrated_ROP)"
+!
+data_element modify variable  &
+   variable_name = .test_analysis_1.Surface_AZ  &
+   function = "ARYVAL(.test_analysis_1.Epipe1TorsionStates,1)*180/PI"
+!
+data_element modify variable  &
+   variable_name = .test_analysis_1.Surface_WZ  &
+   function = "ARYVAL(.test_analysis_1.Epipe1TorsionStates,5)*180/PI"
 !
 data_element modify variable  &
    variable_name = .test_analysis_1.ROPmdepth  &
@@ -22460,12 +25792,34 @@ part modify equation differential_equation  &
    function = "WZ(.test_analysis_1.test_pdc_01.LateralRef,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.test_pdc_01_sliderA.cm)"
 !
 part modify equation differential_equation  &
-   differential_equation_name = .test_analysis_1.example_stabilizer_02_A_WZ_integral  &
-   function = "WZ(.test_analysis_1.example_stabilizer_02_B.barrelA1,.test_analysis_1.example_stabilizer_02_sliderA.cm,.test_analysis_1.example_stabilizer_02_sliderA.cm)"
+   differential_equation_name = .test_analysis_1.BitOffset  &
+   function = "IF(MODE-5: 0,",  &
+              "DIF(.test_analysis_1.BitOffset)-DZ(.test_analysis_1.Hole_Bottom.gref1,.test_analysis_1.test_pdc_01.end,.test_analysis_1.Hole_Bottom.gref1),",  &
+              "0 )"
 !
 part modify equation differential_equation  &
-   differential_equation_name = .test_analysis_1.example_stabilizer_02_B_WZ_integral  &
-   function = "WZ(.test_analysis_1.example_stabilizer_02_B.barrelB1,.test_analysis_1.example_stabilizer_02_sliderB.cm,.test_analysis_1.example_stabilizer_02_sliderB.cm)"
+   differential_equation_name = .test_analysis_1.test_pdc_01_TrueMD  &
+   function = "VZ(.test_analysis_1.test_pdc_01.LateralRef,.test_analysis_1.ground.adrill_origin,.test_analysis_1.test_pdc_01_sliderA.cm)"
+!
+part modify equation differential_equation  &
+   differential_equation_name = .test_analysis_1.example_motor_02_A_WZ_integral  &
+   function = "WZ(.test_analysis_1.example_motor_02_A.stab_center,.test_analysis_1.example_motor_02_sliderA.cm,.test_analysis_1.example_motor_02_sliderA.cm)"
+!
+part modify equation differential_equation  &
+   differential_equation_name = .test_analysis_1.example_motor_02_B_WZ_integral  &
+   function = "WZ(.test_analysis_1.example_motor_02_B.benddir1,.test_analysis_1.example_motor_02_sliderB.cm,.test_analysis_1.example_motor_02_sliderB.cm)"
+!
+part modify equation differential_equation  &
+   differential_equation_name = .test_analysis_1.example_motor_02_C_WZ_integral  &
+   function = "WZ(.test_analysis_1.example_motor_02_C.cm,.test_analysis_1.example_motor_02_sliderC.cm,.test_analysis_1.example_motor_02_sliderC.cm)"
+!
+part modify equation differential_equation  &
+   differential_equation_name = .test_analysis_1.example_stabilizer_03_A_WZ_integral  &
+   function = "WZ(.test_analysis_1.example_stabilizer_03_B.barrelA1,.test_analysis_1.example_stabilizer_03_sliderA.cm,.test_analysis_1.example_stabilizer_03_sliderA.cm)"
+!
+part modify equation differential_equation  &
+   differential_equation_name = .test_analysis_1.example_stabilizer_03_B_WZ_integral  &
+   function = "WZ(.test_analysis_1.example_stabilizer_03_B.barrelB1,.test_analysis_1.example_stabilizer_03_sliderB.cm,.test_analysis_1.example_stabilizer_03_sliderB.cm)"
 !
 part modify equation differential_equation  &
    differential_equation_name = .test_analysis_1.TOS_WZ_integral  &
@@ -22489,7 +25843,9 @@ part modify equation differential_equation  &
 !
 part modify equation differential_equation  &
    differential_equation_name = .test_analysis_1.MotorSpeedFilter  &
-   function = "0"
+   function = "1.0/5.0E-02 *",  &
+              "(WZ(.test_analysis_1.example_motor_02_R.motor_bearing_R,.test_analysis_1.example_motor_02_A.motor_bearing_A,.test_analysis_1.example_motor_02_A.motor_bearing_A)",  &
+              "-DIF(.test_analysis_1.MotorSpeedFilter))"
 !
 part modify equation differential_equation  &
    differential_equation_name = .test_analysis_1.Intg_Motor_Speed  &
@@ -22510,7 +25866,7 @@ part modify equation differential_equation  &
 part modify equation differential_equation  &
    differential_equation_name = .test_analysis_1.HookLoadLatch  &
    function = "IF(MODE-5: 0,",  &
-              "-DIF(.test_analysis_1.HookLoadLatch)-1E7*(DZ(.test_analysis_1.Upper_DP_Group20_C.end_C,.test_analysis_1.ground.adrill_origin,.test_analysis_1.ground.adrill_origin)-1339.1510173281),",  &
+              "-DIF(.test_analysis_1.HookLoadLatch)-1E7*(DZ(.test_analysis_1.Upper_DP_Group20_C.end_C,.test_analysis_1.ground.adrill_origin,.test_analysis_1.ground.adrill_origin)-1317.238979027),",  &
               "0 )"
 !
 part modify equation differential_equation  &
@@ -22522,6 +25878,11 @@ part modify equation differential_equation  &
    function = "1.0/10.0*(VARVAL(.test_analysis_1.Bottom_MSE)-DIF(.test_analysis_1.filtered_Bottom_MSE))"
 !
 force modify direct single_component_force  &
+   single_component_force_name = .test_analysis_1.MotorBend  &
+   function = "-5.2577121083E+07*(-STEP(TIME,1.0,0,10.0,1.5D)+AZ(.test_analysis_1.example_motor_02_B.bendrev1,.test_analysis_1.example_motor_02_B2.bendrev2))+",  &
+              "-1.0515424217E+06*WZ(.test_analysis_1.example_motor_02_B.bendrev1,.test_analysis_1.example_motor_02_B2.bendrev2,.test_analysis_1.example_motor_02_B2.bendrev2)"
+!
+force modify direct single_component_force  &
    single_component_force_name = .test_analysis_1.topdrive  &
    function = "MIN(ARYVAL(.test_analysis_1.Epipe1TorsionOutput,1),3.5E+04)"
 !
@@ -22529,22 +25890,59 @@ force modify direct force_vector  &
    force_vector_name = .test_analysis_1.test_pdc_01_sliderA_locator  &
    x_force_function = "0"  &
    y_force_function = "0"  &
-   z_force_function = "-1E5*DZ(.test_analysis_1.test_pdc_01.LateralRef,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.test_pdc_01_sliderA.cm)",  &
-              "-1E4*VZ(.test_analysis_1.test_pdc_01.LateralRef,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.test_pdc_01_sliderA.cm)"
+   z_force_function = "-5E5*DZ(.test_analysis_1.test_pdc_01.LateralRef,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.test_pdc_01_sliderA.cm)",  &
+              "-5E4*VZ(.test_analysis_1.test_pdc_01.LateralRef,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.test_pdc_01_sliderA.cm)"
 !
 force modify direct force_vector  &
-   force_vector_name = .test_analysis_1.example_stabilizer_02_sliderA_locator  &
-   x_force_function = "0"  &
+   force_vector_name = .test_analysis_1.test_pdc_01_sliderA_aligner  &
+   x_force_function = "STEP(ACOS(DZ(.test_analysis_1.test_pdc_01_sliderA.tangent_ref,",  &
+              ".test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.ground.adrill_origin)),0.045,0.01,0.055, 0)"  &
    y_force_function = "0"  &
-   z_force_function = "-1E5*DZ(.test_analysis_1.example_stabilizer_02_B.barrelA1,.test_analysis_1.example_stabilizer_02_sliderA.cm,.test_analysis_1.example_stabilizer_02_sliderA.cm)",  &
-              "-1E4*VZ(.test_analysis_1.example_stabilizer_02_B.barrelA1,.test_analysis_1.example_stabilizer_02_sliderA.cm,.test_analysis_1.example_stabilizer_02_sliderA.cm)"
+   z_force_function = "STEP(ACOS(DZ(.test_analysis_1.test_pdc_01_sliderA.tangent_ref,",  &
+              ".test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.ground.adrill_origin)),0.045,0,0.055, 0.01)"
 !
 force modify direct force_vector  &
-   force_vector_name = .test_analysis_1.example_stabilizer_02_sliderB_locator  &
+   force_vector_name = .test_analysis_1.example_motor_02_sliderA_locator  &
    x_force_function = "0"  &
    y_force_function = "0"  &
-   z_force_function = "-1E5*DZ(.test_analysis_1.example_stabilizer_02_B.barrelB1,.test_analysis_1.example_stabilizer_02_sliderB.cm,.test_analysis_1.example_stabilizer_02_sliderB.cm)",  &
-              "-1E4*VZ(.test_analysis_1.example_stabilizer_02_B.barrelB1,.test_analysis_1.example_stabilizer_02_sliderB.cm,.test_analysis_1.example_stabilizer_02_sliderB.cm)"
+   z_force_function = "-5E5*DZ(.test_analysis_1.example_motor_02_A.stab_center,.test_analysis_1.example_motor_02_sliderA.cm,.test_analysis_1.example_motor_02_sliderA.cm)",  &
+              "-5E4*VZ(.test_analysis_1.example_motor_02_A.stab_center,.test_analysis_1.example_motor_02_sliderA.cm,.test_analysis_1.example_motor_02_sliderA.cm)"
+!
+force modify direct force_vector  &
+   force_vector_name = .test_analysis_1.example_motor_02_sliderB_locator  &
+   x_force_function = "0"  &
+   y_force_function = "0"  &
+   z_force_function = "-1E5*DZ(.test_analysis_1.example_motor_02_B.benddir1,.test_analysis_1.example_motor_02_sliderB.cm,.test_analysis_1.example_motor_02_sliderB.cm)",  &
+              "-1E4*VZ(.test_analysis_1.example_motor_02_B.benddir1,.test_analysis_1.example_motor_02_sliderB.cm,.test_analysis_1.example_motor_02_sliderB.cm)"
+!
+force modify direct force_vector  &
+   force_vector_name = .test_analysis_1.example_motor_02_sliderC_locator  &
+   x_force_function = "0"  &
+   y_force_function = "0"  &
+   z_force_function = "-1E5*DZ(.test_analysis_1.example_motor_02_C.cm,.test_analysis_1.example_motor_02_sliderC.cm,.test_analysis_1.example_motor_02_sliderC.cm)",  &
+              "-1E4*VZ(.test_analysis_1.example_motor_02_C.cm,.test_analysis_1.example_motor_02_sliderC.cm,.test_analysis_1.example_motor_02_sliderC.cm)"
+!
+force modify direct force_vector  &
+   force_vector_name = .test_analysis_1.example_motor_02_sliderA_aligner  &
+   x_force_function = "STEP(ACOS(DZ(.test_analysis_1.example_motor_02_sliderA.tangent_ref,",  &
+              ".test_analysis_1.example_motor_02_sliderA.cm,.test_analysis_1.ground.adrill_origin)),0.045,0.01,0.055, 0)"  &
+   y_force_function = "0"  &
+   z_force_function = "STEP(ACOS(DZ(.test_analysis_1.example_motor_02_sliderA.tangent_ref,",  &
+              ".test_analysis_1.example_motor_02_sliderA.cm,.test_analysis_1.ground.adrill_origin)),0.045,0,0.055, 0.01)"
+!
+force modify direct force_vector  &
+   force_vector_name = .test_analysis_1.example_stabilizer_03_sliderA_locator  &
+   x_force_function = "0"  &
+   y_force_function = "0"  &
+   z_force_function = "-1E5*DZ(.test_analysis_1.example_stabilizer_03_B.barrelA1,.test_analysis_1.example_stabilizer_03_sliderA.cm,.test_analysis_1.example_stabilizer_03_sliderA.cm)",  &
+              "-1E4*VZ(.test_analysis_1.example_stabilizer_03_B.barrelA1,.test_analysis_1.example_stabilizer_03_sliderA.cm,.test_analysis_1.example_stabilizer_03_sliderA.cm)"
+!
+force modify direct force_vector  &
+   force_vector_name = .test_analysis_1.example_stabilizer_03_sliderB_locator  &
+   x_force_function = "0"  &
+   y_force_function = "0"  &
+   z_force_function = "-1E5*DZ(.test_analysis_1.example_stabilizer_03_B.barrelB1,.test_analysis_1.example_stabilizer_03_sliderB.cm,.test_analysis_1.example_stabilizer_03_sliderB.cm)",  &
+              "-1E4*VZ(.test_analysis_1.example_stabilizer_03_B.barrelB1,.test_analysis_1.example_stabilizer_03_sliderB.cm,.test_analysis_1.example_stabilizer_03_sliderB.cm)"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group1_sliderA_locator  &
@@ -22562,20 +25960,20 @@ force modify direct force_vector  &
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group1_fluidmassA  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group1_A.cm,0,.test_analysis_1.Upper_DP_Group1_A.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group1_A.cm,0,.test_analysis_1.Upper_DP_Group1_A.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group1_A.cm,0,.test_analysis_1.Upper_DP_Group1_A.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group1_A.cm,0,.test_analysis_1.Upper_DP_Group1_A.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group1_fluidmassC  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group1_C.cm,0,.test_analysis_1.Upper_DP_Group1_C.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group1_C.cm,0,.test_analysis_1.Upper_DP_Group1_C.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group1_C.cm,0,.test_analysis_1.Upper_DP_Group1_C.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group1_C.cm,0,.test_analysis_1.Upper_DP_Group1_C.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group1_fluidmassB  &
-   x_force_function = "-3.1523503623*ACCX(.test_analysis_1.Upper_DP_Group1_B.cm,0,.test_analysis_1.Upper_DP_Group1_B.cm)"  &
-   y_force_function = "-3.1523503623*ACCY(.test_analysis_1.Upper_DP_Group1_B.cm,0,.test_analysis_1.Upper_DP_Group1_B.cm)"  &
+   x_force_function = "-23.5812182946*ACCX(.test_analysis_1.Upper_DP_Group1_B.cm,0,.test_analysis_1.Upper_DP_Group1_B.cm)"  &
+   y_force_function = "-23.5812182946*ACCY(.test_analysis_1.Upper_DP_Group1_B.cm,0,.test_analysis_1.Upper_DP_Group1_B.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
@@ -22594,20 +25992,20 @@ force modify direct force_vector  &
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group2_fluidmassA  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group2_A.cm,0,.test_analysis_1.Upper_DP_Group2_A.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group2_A.cm,0,.test_analysis_1.Upper_DP_Group2_A.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group2_A.cm,0,.test_analysis_1.Upper_DP_Group2_A.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group2_A.cm,0,.test_analysis_1.Upper_DP_Group2_A.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group2_fluidmassC  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group2_C.cm,0,.test_analysis_1.Upper_DP_Group2_C.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group2_C.cm,0,.test_analysis_1.Upper_DP_Group2_C.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group2_C.cm,0,.test_analysis_1.Upper_DP_Group2_C.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group2_C.cm,0,.test_analysis_1.Upper_DP_Group2_C.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group2_fluidmassB  &
-   x_force_function = "-3.1523503623*ACCX(.test_analysis_1.Upper_DP_Group2_B.cm,0,.test_analysis_1.Upper_DP_Group2_B.cm)"  &
-   y_force_function = "-3.1523503623*ACCY(.test_analysis_1.Upper_DP_Group2_B.cm,0,.test_analysis_1.Upper_DP_Group2_B.cm)"  &
+   x_force_function = "-23.5812182946*ACCX(.test_analysis_1.Upper_DP_Group2_B.cm,0,.test_analysis_1.Upper_DP_Group2_B.cm)"  &
+   y_force_function = "-23.5812182946*ACCY(.test_analysis_1.Upper_DP_Group2_B.cm,0,.test_analysis_1.Upper_DP_Group2_B.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
@@ -22626,20 +26024,20 @@ force modify direct force_vector  &
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group3_fluidmassA  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group3_A.cm,0,.test_analysis_1.Upper_DP_Group3_A.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group3_A.cm,0,.test_analysis_1.Upper_DP_Group3_A.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group3_A.cm,0,.test_analysis_1.Upper_DP_Group3_A.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group3_A.cm,0,.test_analysis_1.Upper_DP_Group3_A.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group3_fluidmassC  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group3_C.cm,0,.test_analysis_1.Upper_DP_Group3_C.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group3_C.cm,0,.test_analysis_1.Upper_DP_Group3_C.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group3_C.cm,0,.test_analysis_1.Upper_DP_Group3_C.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group3_C.cm,0,.test_analysis_1.Upper_DP_Group3_C.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group3_fluidmassB  &
-   x_force_function = "-3.1523503623*ACCX(.test_analysis_1.Upper_DP_Group3_B.cm,0,.test_analysis_1.Upper_DP_Group3_B.cm)"  &
-   y_force_function = "-3.1523503623*ACCY(.test_analysis_1.Upper_DP_Group3_B.cm,0,.test_analysis_1.Upper_DP_Group3_B.cm)"  &
+   x_force_function = "-23.5812182946*ACCX(.test_analysis_1.Upper_DP_Group3_B.cm,0,.test_analysis_1.Upper_DP_Group3_B.cm)"  &
+   y_force_function = "-23.5812182946*ACCY(.test_analysis_1.Upper_DP_Group3_B.cm,0,.test_analysis_1.Upper_DP_Group3_B.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
@@ -22658,20 +26056,20 @@ force modify direct force_vector  &
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group4_fluidmassA  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group4_A.cm,0,.test_analysis_1.Upper_DP_Group4_A.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group4_A.cm,0,.test_analysis_1.Upper_DP_Group4_A.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group4_A.cm,0,.test_analysis_1.Upper_DP_Group4_A.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group4_A.cm,0,.test_analysis_1.Upper_DP_Group4_A.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group4_fluidmassC  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group4_C.cm,0,.test_analysis_1.Upper_DP_Group4_C.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group4_C.cm,0,.test_analysis_1.Upper_DP_Group4_C.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group4_C.cm,0,.test_analysis_1.Upper_DP_Group4_C.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group4_C.cm,0,.test_analysis_1.Upper_DP_Group4_C.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group4_fluidmassB  &
-   x_force_function = "-3.1523503623*ACCX(.test_analysis_1.Upper_DP_Group4_B.cm,0,.test_analysis_1.Upper_DP_Group4_B.cm)"  &
-   y_force_function = "-3.1523503623*ACCY(.test_analysis_1.Upper_DP_Group4_B.cm,0,.test_analysis_1.Upper_DP_Group4_B.cm)"  &
+   x_force_function = "-23.5812182946*ACCX(.test_analysis_1.Upper_DP_Group4_B.cm,0,.test_analysis_1.Upper_DP_Group4_B.cm)"  &
+   y_force_function = "-23.5812182946*ACCY(.test_analysis_1.Upper_DP_Group4_B.cm,0,.test_analysis_1.Upper_DP_Group4_B.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
@@ -22690,20 +26088,20 @@ force modify direct force_vector  &
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group5_fluidmassA  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group5_A.cm,0,.test_analysis_1.Upper_DP_Group5_A.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group5_A.cm,0,.test_analysis_1.Upper_DP_Group5_A.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group5_A.cm,0,.test_analysis_1.Upper_DP_Group5_A.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group5_A.cm,0,.test_analysis_1.Upper_DP_Group5_A.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group5_fluidmassC  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group5_C.cm,0,.test_analysis_1.Upper_DP_Group5_C.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group5_C.cm,0,.test_analysis_1.Upper_DP_Group5_C.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group5_C.cm,0,.test_analysis_1.Upper_DP_Group5_C.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group5_C.cm,0,.test_analysis_1.Upper_DP_Group5_C.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group5_fluidmassB  &
-   x_force_function = "-3.1523503623*ACCX(.test_analysis_1.Upper_DP_Group5_B.cm,0,.test_analysis_1.Upper_DP_Group5_B.cm)"  &
-   y_force_function = "-3.1523503623*ACCY(.test_analysis_1.Upper_DP_Group5_B.cm,0,.test_analysis_1.Upper_DP_Group5_B.cm)"  &
+   x_force_function = "-23.5812182946*ACCX(.test_analysis_1.Upper_DP_Group5_B.cm,0,.test_analysis_1.Upper_DP_Group5_B.cm)"  &
+   y_force_function = "-23.5812182946*ACCY(.test_analysis_1.Upper_DP_Group5_B.cm,0,.test_analysis_1.Upper_DP_Group5_B.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
@@ -22722,20 +26120,20 @@ force modify direct force_vector  &
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group6_fluidmassA  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group6_A.cm,0,.test_analysis_1.Upper_DP_Group6_A.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group6_A.cm,0,.test_analysis_1.Upper_DP_Group6_A.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group6_A.cm,0,.test_analysis_1.Upper_DP_Group6_A.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group6_A.cm,0,.test_analysis_1.Upper_DP_Group6_A.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group6_fluidmassC  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group6_C.cm,0,.test_analysis_1.Upper_DP_Group6_C.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group6_C.cm,0,.test_analysis_1.Upper_DP_Group6_C.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group6_C.cm,0,.test_analysis_1.Upper_DP_Group6_C.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group6_C.cm,0,.test_analysis_1.Upper_DP_Group6_C.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group6_fluidmassB  &
-   x_force_function = "-3.1523503623*ACCX(.test_analysis_1.Upper_DP_Group6_B.cm,0,.test_analysis_1.Upper_DP_Group6_B.cm)"  &
-   y_force_function = "-3.1523503623*ACCY(.test_analysis_1.Upper_DP_Group6_B.cm,0,.test_analysis_1.Upper_DP_Group6_B.cm)"  &
+   x_force_function = "-23.5812182946*ACCX(.test_analysis_1.Upper_DP_Group6_B.cm,0,.test_analysis_1.Upper_DP_Group6_B.cm)"  &
+   y_force_function = "-23.5812182946*ACCY(.test_analysis_1.Upper_DP_Group6_B.cm,0,.test_analysis_1.Upper_DP_Group6_B.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
@@ -22754,20 +26152,20 @@ force modify direct force_vector  &
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group7_fluidmassA  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group7_A.cm,0,.test_analysis_1.Upper_DP_Group7_A.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group7_A.cm,0,.test_analysis_1.Upper_DP_Group7_A.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group7_A.cm,0,.test_analysis_1.Upper_DP_Group7_A.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group7_A.cm,0,.test_analysis_1.Upper_DP_Group7_A.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group7_fluidmassC  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group7_C.cm,0,.test_analysis_1.Upper_DP_Group7_C.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group7_C.cm,0,.test_analysis_1.Upper_DP_Group7_C.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group7_C.cm,0,.test_analysis_1.Upper_DP_Group7_C.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group7_C.cm,0,.test_analysis_1.Upper_DP_Group7_C.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group7_fluidmassB  &
-   x_force_function = "-3.1523503623*ACCX(.test_analysis_1.Upper_DP_Group7_B.cm,0,.test_analysis_1.Upper_DP_Group7_B.cm)"  &
-   y_force_function = "-3.1523503623*ACCY(.test_analysis_1.Upper_DP_Group7_B.cm,0,.test_analysis_1.Upper_DP_Group7_B.cm)"  &
+   x_force_function = "-23.5812182946*ACCX(.test_analysis_1.Upper_DP_Group7_B.cm,0,.test_analysis_1.Upper_DP_Group7_B.cm)"  &
+   y_force_function = "-23.5812182946*ACCY(.test_analysis_1.Upper_DP_Group7_B.cm,0,.test_analysis_1.Upper_DP_Group7_B.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
@@ -22786,20 +26184,20 @@ force modify direct force_vector  &
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group8_fluidmassA  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group8_A.cm,0,.test_analysis_1.Upper_DP_Group8_A.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group8_A.cm,0,.test_analysis_1.Upper_DP_Group8_A.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group8_A.cm,0,.test_analysis_1.Upper_DP_Group8_A.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group8_A.cm,0,.test_analysis_1.Upper_DP_Group8_A.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group8_fluidmassC  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group8_C.cm,0,.test_analysis_1.Upper_DP_Group8_C.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group8_C.cm,0,.test_analysis_1.Upper_DP_Group8_C.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group8_C.cm,0,.test_analysis_1.Upper_DP_Group8_C.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group8_C.cm,0,.test_analysis_1.Upper_DP_Group8_C.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group8_fluidmassB  &
-   x_force_function = "-3.1523503623*ACCX(.test_analysis_1.Upper_DP_Group8_B.cm,0,.test_analysis_1.Upper_DP_Group8_B.cm)"  &
-   y_force_function = "-3.1523503623*ACCY(.test_analysis_1.Upper_DP_Group8_B.cm,0,.test_analysis_1.Upper_DP_Group8_B.cm)"  &
+   x_force_function = "-23.5812182946*ACCX(.test_analysis_1.Upper_DP_Group8_B.cm,0,.test_analysis_1.Upper_DP_Group8_B.cm)"  &
+   y_force_function = "-23.5812182946*ACCY(.test_analysis_1.Upper_DP_Group8_B.cm,0,.test_analysis_1.Upper_DP_Group8_B.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
@@ -22818,20 +26216,20 @@ force modify direct force_vector  &
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group9_fluidmassA  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group9_A.cm,0,.test_analysis_1.Upper_DP_Group9_A.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group9_A.cm,0,.test_analysis_1.Upper_DP_Group9_A.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group9_A.cm,0,.test_analysis_1.Upper_DP_Group9_A.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group9_A.cm,0,.test_analysis_1.Upper_DP_Group9_A.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group9_fluidmassC  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group9_C.cm,0,.test_analysis_1.Upper_DP_Group9_C.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group9_C.cm,0,.test_analysis_1.Upper_DP_Group9_C.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group9_C.cm,0,.test_analysis_1.Upper_DP_Group9_C.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group9_C.cm,0,.test_analysis_1.Upper_DP_Group9_C.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group9_fluidmassB  &
-   x_force_function = "-3.1523503623*ACCX(.test_analysis_1.Upper_DP_Group9_B.cm,0,.test_analysis_1.Upper_DP_Group9_B.cm)"  &
-   y_force_function = "-3.1523503623*ACCY(.test_analysis_1.Upper_DP_Group9_B.cm,0,.test_analysis_1.Upper_DP_Group9_B.cm)"  &
+   x_force_function = "-23.5812182946*ACCX(.test_analysis_1.Upper_DP_Group9_B.cm,0,.test_analysis_1.Upper_DP_Group9_B.cm)"  &
+   y_force_function = "-23.5812182946*ACCY(.test_analysis_1.Upper_DP_Group9_B.cm,0,.test_analysis_1.Upper_DP_Group9_B.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
@@ -22850,20 +26248,20 @@ force modify direct force_vector  &
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group10_fluidmassA  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group10_A.cm,0,.test_analysis_1.Upper_DP_Group10_A.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group10_A.cm,0,.test_analysis_1.Upper_DP_Group10_A.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group10_A.cm,0,.test_analysis_1.Upper_DP_Group10_A.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group10_A.cm,0,.test_analysis_1.Upper_DP_Group10_A.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group10_fluidmassC  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group10_C.cm,0,.test_analysis_1.Upper_DP_Group10_C.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group10_C.cm,0,.test_analysis_1.Upper_DP_Group10_C.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group10_C.cm,0,.test_analysis_1.Upper_DP_Group10_C.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group10_C.cm,0,.test_analysis_1.Upper_DP_Group10_C.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group10_fluidmassB  &
-   x_force_function = "-3.1523503623*ACCX(.test_analysis_1.Upper_DP_Group10_B.cm,0,.test_analysis_1.Upper_DP_Group10_B.cm)"  &
-   y_force_function = "-3.1523503623*ACCY(.test_analysis_1.Upper_DP_Group10_B.cm,0,.test_analysis_1.Upper_DP_Group10_B.cm)"  &
+   x_force_function = "-23.5812182946*ACCX(.test_analysis_1.Upper_DP_Group10_B.cm,0,.test_analysis_1.Upper_DP_Group10_B.cm)"  &
+   y_force_function = "-23.5812182946*ACCY(.test_analysis_1.Upper_DP_Group10_B.cm,0,.test_analysis_1.Upper_DP_Group10_B.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
@@ -22882,20 +26280,20 @@ force modify direct force_vector  &
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group11_fluidmassA  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group11_A.cm,0,.test_analysis_1.Upper_DP_Group11_A.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group11_A.cm,0,.test_analysis_1.Upper_DP_Group11_A.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group11_A.cm,0,.test_analysis_1.Upper_DP_Group11_A.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group11_A.cm,0,.test_analysis_1.Upper_DP_Group11_A.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group11_fluidmassC  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group11_C.cm,0,.test_analysis_1.Upper_DP_Group11_C.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group11_C.cm,0,.test_analysis_1.Upper_DP_Group11_C.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group11_C.cm,0,.test_analysis_1.Upper_DP_Group11_C.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group11_C.cm,0,.test_analysis_1.Upper_DP_Group11_C.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group11_fluidmassB  &
-   x_force_function = "-3.1523503623*ACCX(.test_analysis_1.Upper_DP_Group11_B.cm,0,.test_analysis_1.Upper_DP_Group11_B.cm)"  &
-   y_force_function = "-3.1523503623*ACCY(.test_analysis_1.Upper_DP_Group11_B.cm,0,.test_analysis_1.Upper_DP_Group11_B.cm)"  &
+   x_force_function = "-23.5812182946*ACCX(.test_analysis_1.Upper_DP_Group11_B.cm,0,.test_analysis_1.Upper_DP_Group11_B.cm)"  &
+   y_force_function = "-23.5812182946*ACCY(.test_analysis_1.Upper_DP_Group11_B.cm,0,.test_analysis_1.Upper_DP_Group11_B.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
@@ -22914,20 +26312,20 @@ force modify direct force_vector  &
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group12_fluidmassA  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group12_A.cm,0,.test_analysis_1.Upper_DP_Group12_A.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group12_A.cm,0,.test_analysis_1.Upper_DP_Group12_A.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group12_A.cm,0,.test_analysis_1.Upper_DP_Group12_A.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group12_A.cm,0,.test_analysis_1.Upper_DP_Group12_A.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group12_fluidmassC  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group12_C.cm,0,.test_analysis_1.Upper_DP_Group12_C.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group12_C.cm,0,.test_analysis_1.Upper_DP_Group12_C.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group12_C.cm,0,.test_analysis_1.Upper_DP_Group12_C.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group12_C.cm,0,.test_analysis_1.Upper_DP_Group12_C.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group12_fluidmassB  &
-   x_force_function = "-3.1523503623*ACCX(.test_analysis_1.Upper_DP_Group12_B.cm,0,.test_analysis_1.Upper_DP_Group12_B.cm)"  &
-   y_force_function = "-3.1523503623*ACCY(.test_analysis_1.Upper_DP_Group12_B.cm,0,.test_analysis_1.Upper_DP_Group12_B.cm)"  &
+   x_force_function = "-23.5812182946*ACCX(.test_analysis_1.Upper_DP_Group12_B.cm,0,.test_analysis_1.Upper_DP_Group12_B.cm)"  &
+   y_force_function = "-23.5812182946*ACCY(.test_analysis_1.Upper_DP_Group12_B.cm,0,.test_analysis_1.Upper_DP_Group12_B.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
@@ -22946,20 +26344,20 @@ force modify direct force_vector  &
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group13_fluidmassA  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group13_A.cm,0,.test_analysis_1.Upper_DP_Group13_A.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group13_A.cm,0,.test_analysis_1.Upper_DP_Group13_A.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group13_A.cm,0,.test_analysis_1.Upper_DP_Group13_A.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group13_A.cm,0,.test_analysis_1.Upper_DP_Group13_A.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group13_fluidmassC  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group13_C.cm,0,.test_analysis_1.Upper_DP_Group13_C.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group13_C.cm,0,.test_analysis_1.Upper_DP_Group13_C.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group13_C.cm,0,.test_analysis_1.Upper_DP_Group13_C.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group13_C.cm,0,.test_analysis_1.Upper_DP_Group13_C.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group13_fluidmassB  &
-   x_force_function = "-3.1523503623*ACCX(.test_analysis_1.Upper_DP_Group13_B.cm,0,.test_analysis_1.Upper_DP_Group13_B.cm)"  &
-   y_force_function = "-3.1523503623*ACCY(.test_analysis_1.Upper_DP_Group13_B.cm,0,.test_analysis_1.Upper_DP_Group13_B.cm)"  &
+   x_force_function = "-23.5812182946*ACCX(.test_analysis_1.Upper_DP_Group13_B.cm,0,.test_analysis_1.Upper_DP_Group13_B.cm)"  &
+   y_force_function = "-23.5812182946*ACCY(.test_analysis_1.Upper_DP_Group13_B.cm,0,.test_analysis_1.Upper_DP_Group13_B.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
@@ -22978,20 +26376,20 @@ force modify direct force_vector  &
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group14_fluidmassA  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group14_A.cm,0,.test_analysis_1.Upper_DP_Group14_A.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group14_A.cm,0,.test_analysis_1.Upper_DP_Group14_A.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group14_A.cm,0,.test_analysis_1.Upper_DP_Group14_A.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group14_A.cm,0,.test_analysis_1.Upper_DP_Group14_A.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group14_fluidmassC  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group14_C.cm,0,.test_analysis_1.Upper_DP_Group14_C.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group14_C.cm,0,.test_analysis_1.Upper_DP_Group14_C.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group14_C.cm,0,.test_analysis_1.Upper_DP_Group14_C.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group14_C.cm,0,.test_analysis_1.Upper_DP_Group14_C.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group14_fluidmassB  &
-   x_force_function = "-3.1523503623*ACCX(.test_analysis_1.Upper_DP_Group14_B.cm,0,.test_analysis_1.Upper_DP_Group14_B.cm)"  &
-   y_force_function = "-3.1523503623*ACCY(.test_analysis_1.Upper_DP_Group14_B.cm,0,.test_analysis_1.Upper_DP_Group14_B.cm)"  &
+   x_force_function = "-23.5812182946*ACCX(.test_analysis_1.Upper_DP_Group14_B.cm,0,.test_analysis_1.Upper_DP_Group14_B.cm)"  &
+   y_force_function = "-23.5812182946*ACCY(.test_analysis_1.Upper_DP_Group14_B.cm,0,.test_analysis_1.Upper_DP_Group14_B.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
@@ -23010,20 +26408,20 @@ force modify direct force_vector  &
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group15_fluidmassA  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group15_A.cm,0,.test_analysis_1.Upper_DP_Group15_A.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group15_A.cm,0,.test_analysis_1.Upper_DP_Group15_A.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group15_A.cm,0,.test_analysis_1.Upper_DP_Group15_A.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group15_A.cm,0,.test_analysis_1.Upper_DP_Group15_A.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group15_fluidmassC  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group15_C.cm,0,.test_analysis_1.Upper_DP_Group15_C.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group15_C.cm,0,.test_analysis_1.Upper_DP_Group15_C.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group15_C.cm,0,.test_analysis_1.Upper_DP_Group15_C.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group15_C.cm,0,.test_analysis_1.Upper_DP_Group15_C.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group15_fluidmassB  &
-   x_force_function = "-3.1523503623*ACCX(.test_analysis_1.Upper_DP_Group15_B.cm,0,.test_analysis_1.Upper_DP_Group15_B.cm)"  &
-   y_force_function = "-3.1523503623*ACCY(.test_analysis_1.Upper_DP_Group15_B.cm,0,.test_analysis_1.Upper_DP_Group15_B.cm)"  &
+   x_force_function = "-23.5812182946*ACCX(.test_analysis_1.Upper_DP_Group15_B.cm,0,.test_analysis_1.Upper_DP_Group15_B.cm)"  &
+   y_force_function = "-23.5812182946*ACCY(.test_analysis_1.Upper_DP_Group15_B.cm,0,.test_analysis_1.Upper_DP_Group15_B.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
@@ -23042,20 +26440,20 @@ force modify direct force_vector  &
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group16_fluidmassA  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group16_A.cm,0,.test_analysis_1.Upper_DP_Group16_A.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group16_A.cm,0,.test_analysis_1.Upper_DP_Group16_A.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group16_A.cm,0,.test_analysis_1.Upper_DP_Group16_A.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group16_A.cm,0,.test_analysis_1.Upper_DP_Group16_A.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group16_fluidmassC  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group16_C.cm,0,.test_analysis_1.Upper_DP_Group16_C.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group16_C.cm,0,.test_analysis_1.Upper_DP_Group16_C.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group16_C.cm,0,.test_analysis_1.Upper_DP_Group16_C.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group16_C.cm,0,.test_analysis_1.Upper_DP_Group16_C.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group16_fluidmassB  &
-   x_force_function = "-3.1523503623*ACCX(.test_analysis_1.Upper_DP_Group16_B.cm,0,.test_analysis_1.Upper_DP_Group16_B.cm)"  &
-   y_force_function = "-3.1523503623*ACCY(.test_analysis_1.Upper_DP_Group16_B.cm,0,.test_analysis_1.Upper_DP_Group16_B.cm)"  &
+   x_force_function = "-23.5812182946*ACCX(.test_analysis_1.Upper_DP_Group16_B.cm,0,.test_analysis_1.Upper_DP_Group16_B.cm)"  &
+   y_force_function = "-23.5812182946*ACCY(.test_analysis_1.Upper_DP_Group16_B.cm,0,.test_analysis_1.Upper_DP_Group16_B.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
@@ -23074,20 +26472,20 @@ force modify direct force_vector  &
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group17_fluidmassA  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group17_A.cm,0,.test_analysis_1.Upper_DP_Group17_A.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group17_A.cm,0,.test_analysis_1.Upper_DP_Group17_A.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group17_A.cm,0,.test_analysis_1.Upper_DP_Group17_A.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group17_A.cm,0,.test_analysis_1.Upper_DP_Group17_A.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group17_fluidmassC  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group17_C.cm,0,.test_analysis_1.Upper_DP_Group17_C.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group17_C.cm,0,.test_analysis_1.Upper_DP_Group17_C.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group17_C.cm,0,.test_analysis_1.Upper_DP_Group17_C.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group17_C.cm,0,.test_analysis_1.Upper_DP_Group17_C.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group17_fluidmassB  &
-   x_force_function = "-3.1523503623*ACCX(.test_analysis_1.Upper_DP_Group17_B.cm,0,.test_analysis_1.Upper_DP_Group17_B.cm)"  &
-   y_force_function = "-3.1523503623*ACCY(.test_analysis_1.Upper_DP_Group17_B.cm,0,.test_analysis_1.Upper_DP_Group17_B.cm)"  &
+   x_force_function = "-23.5812182946*ACCX(.test_analysis_1.Upper_DP_Group17_B.cm,0,.test_analysis_1.Upper_DP_Group17_B.cm)"  &
+   y_force_function = "-23.5812182946*ACCY(.test_analysis_1.Upper_DP_Group17_B.cm,0,.test_analysis_1.Upper_DP_Group17_B.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
@@ -23106,20 +26504,20 @@ force modify direct force_vector  &
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group18_fluidmassA  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group18_A.cm,0,.test_analysis_1.Upper_DP_Group18_A.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group18_A.cm,0,.test_analysis_1.Upper_DP_Group18_A.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group18_A.cm,0,.test_analysis_1.Upper_DP_Group18_A.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group18_A.cm,0,.test_analysis_1.Upper_DP_Group18_A.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group18_fluidmassC  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group18_C.cm,0,.test_analysis_1.Upper_DP_Group18_C.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group18_C.cm,0,.test_analysis_1.Upper_DP_Group18_C.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group18_C.cm,0,.test_analysis_1.Upper_DP_Group18_C.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group18_C.cm,0,.test_analysis_1.Upper_DP_Group18_C.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group18_fluidmassB  &
-   x_force_function = "-3.1523503623*ACCX(.test_analysis_1.Upper_DP_Group18_B.cm,0,.test_analysis_1.Upper_DP_Group18_B.cm)"  &
-   y_force_function = "-3.1523503623*ACCY(.test_analysis_1.Upper_DP_Group18_B.cm,0,.test_analysis_1.Upper_DP_Group18_B.cm)"  &
+   x_force_function = "-23.5812182946*ACCX(.test_analysis_1.Upper_DP_Group18_B.cm,0,.test_analysis_1.Upper_DP_Group18_B.cm)"  &
+   y_force_function = "-23.5812182946*ACCY(.test_analysis_1.Upper_DP_Group18_B.cm,0,.test_analysis_1.Upper_DP_Group18_B.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
@@ -23138,20 +26536,20 @@ force modify direct force_vector  &
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group19_fluidmassA  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group19_A.cm,0,.test_analysis_1.Upper_DP_Group19_A.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group19_A.cm,0,.test_analysis_1.Upper_DP_Group19_A.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group19_A.cm,0,.test_analysis_1.Upper_DP_Group19_A.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group19_A.cm,0,.test_analysis_1.Upper_DP_Group19_A.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group19_fluidmassC  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group19_C.cm,0,.test_analysis_1.Upper_DP_Group19_C.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group19_C.cm,0,.test_analysis_1.Upper_DP_Group19_C.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group19_C.cm,0,.test_analysis_1.Upper_DP_Group19_C.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group19_C.cm,0,.test_analysis_1.Upper_DP_Group19_C.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group19_fluidmassB  &
-   x_force_function = "-3.1523503623*ACCX(.test_analysis_1.Upper_DP_Group19_B.cm,0,.test_analysis_1.Upper_DP_Group19_B.cm)"  &
-   y_force_function = "-3.1523503623*ACCY(.test_analysis_1.Upper_DP_Group19_B.cm,0,.test_analysis_1.Upper_DP_Group19_B.cm)"  &
+   x_force_function = "-23.5812182946*ACCX(.test_analysis_1.Upper_DP_Group19_B.cm,0,.test_analysis_1.Upper_DP_Group19_B.cm)"  &
+   y_force_function = "-23.5812182946*ACCY(.test_analysis_1.Upper_DP_Group19_B.cm,0,.test_analysis_1.Upper_DP_Group19_B.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
@@ -23177,20 +26575,20 @@ force modify direct force_vector  &
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group20_fluidmassA  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group20_A.cm,0,.test_analysis_1.Upper_DP_Group20_A.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group20_A.cm,0,.test_analysis_1.Upper_DP_Group20_A.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group20_A.cm,0,.test_analysis_1.Upper_DP_Group20_A.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group20_A.cm,0,.test_analysis_1.Upper_DP_Group20_A.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group20_fluidmassC  &
-   x_force_function = "-1.5761751812*ACCX(.test_analysis_1.Upper_DP_Group20_C.cm,0,.test_analysis_1.Upper_DP_Group20_C.cm)"  &
-   y_force_function = "-1.5761751812*ACCY(.test_analysis_1.Upper_DP_Group20_C.cm,0,.test_analysis_1.Upper_DP_Group20_C.cm)"  &
+   x_force_function = "-11.7906091473*ACCX(.test_analysis_1.Upper_DP_Group20_C.cm,0,.test_analysis_1.Upper_DP_Group20_C.cm)"  &
+   y_force_function = "-11.7906091473*ACCY(.test_analysis_1.Upper_DP_Group20_C.cm,0,.test_analysis_1.Upper_DP_Group20_C.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
    force_vector_name = .test_analysis_1.Upper_DP_Group20_fluidmassB  &
-   x_force_function = "-3.1523503623*ACCX(.test_analysis_1.Upper_DP_Group20_B.cm,0,.test_analysis_1.Upper_DP_Group20_B.cm)"  &
-   y_force_function = "-3.1523503623*ACCY(.test_analysis_1.Upper_DP_Group20_B.cm,0,.test_analysis_1.Upper_DP_Group20_B.cm)"  &
+   x_force_function = "-23.5812182946*ACCX(.test_analysis_1.Upper_DP_Group20_B.cm,0,.test_analysis_1.Upper_DP_Group20_B.cm)"  &
+   y_force_function = "-23.5812182946*ACCY(.test_analysis_1.Upper_DP_Group20_B.cm,0,.test_analysis_1.Upper_DP_Group20_B.cm)"  &
    z_force_function = "0"
 !
 force modify direct force_vector  &
@@ -23209,19 +26607,37 @@ force modify direct torque_vector  &
    torque_vector_name = .test_analysis_1.test_pdc_01_sliderA_damper  &
    x_torque_function = "0"  &
    y_torque_function = "0"  &
-   z_torque_function = "-10*WZ(.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.ground.adrill_origin,.test_analysis_1.test_pdc_01_sliderA.cm)"
+   z_torque_function = "-5.0*WZ(.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.ground.adrill_origin,.test_analysis_1.test_pdc_01_sliderA.cm)"
 !
 force modify direct torque_vector  &
-   torque_vector_name = .test_analysis_1.example_stabilizer_02_sliderA_damper  &
+   torque_vector_name = .test_analysis_1.example_motor_02_sliderA_damper  &
    x_torque_function = "0"  &
    y_torque_function = "0"  &
-   z_torque_function = "-10*WZ(.test_analysis_1.example_stabilizer_02_sliderA.cm,.test_analysis_1.ground.adrill_origin,.test_analysis_1.example_stabilizer_02_sliderA.cm)"
+   z_torque_function = "-5.0*WZ(.test_analysis_1.example_motor_02_sliderA.cm,.test_analysis_1.ground.adrill_origin,.test_analysis_1.example_motor_02_sliderA.cm)"
 !
 force modify direct torque_vector  &
-   torque_vector_name = .test_analysis_1.example_stabilizer_02_sliderB_damper  &
+   torque_vector_name = .test_analysis_1.example_motor_02_sliderB_damper  &
    x_torque_function = "0"  &
    y_torque_function = "0"  &
-   z_torque_function = "-10*WZ(.test_analysis_1.example_stabilizer_02_sliderB.cm,.test_analysis_1.ground.adrill_origin,.test_analysis_1.example_stabilizer_02_sliderB.cm)"
+   z_torque_function = "-10*WZ(.test_analysis_1.example_motor_02_sliderB.cm,.test_analysis_1.ground.adrill_origin,.test_analysis_1.example_motor_02_sliderB.cm)"
+!
+force modify direct torque_vector  &
+   torque_vector_name = .test_analysis_1.example_motor_02_sliderC_damper  &
+   x_torque_function = "0"  &
+   y_torque_function = "0"  &
+   z_torque_function = "-10*WZ(.test_analysis_1.example_motor_02_sliderC.cm,.test_analysis_1.ground.adrill_origin,.test_analysis_1.example_motor_02_sliderC.cm)"
+!
+force modify direct torque_vector  &
+   torque_vector_name = .test_analysis_1.example_stabilizer_03_sliderA_damper  &
+   x_torque_function = "0"  &
+   y_torque_function = "0"  &
+   z_torque_function = "-10*WZ(.test_analysis_1.example_stabilizer_03_sliderA.cm,.test_analysis_1.ground.adrill_origin,.test_analysis_1.example_stabilizer_03_sliderA.cm)"
+!
+force modify direct torque_vector  &
+   torque_vector_name = .test_analysis_1.example_stabilizer_03_sliderB_damper  &
+   x_torque_function = "0"  &
+   y_torque_function = "0"  &
+   z_torque_function = "-10*WZ(.test_analysis_1.example_stabilizer_03_sliderB.cm,.test_analysis_1.ground.adrill_origin,.test_analysis_1.example_stabilizer_03_sliderB.cm)"
 !
 force modify direct torque_vector  &
    torque_vector_name = .test_analysis_1.Upper_DP_Group1_sliderA_damper  &
@@ -23492,13 +26908,58 @@ output_control modify request  &
    request_name = .test_analysis_1.test_pdc_01_Motion2  &
    f1 = "DX(.test_analysis_1.test_pdc_01.LateralRef,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.test_pdc_01_sliderA.cm)"  &
    f2 = "DY(.test_analysis_1.test_pdc_01.LateralRef,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.test_pdc_01_sliderA.cm)"  &
-   f3 = "WZ(.test_analysis_1.test_pdc_01.LateralRef,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.test_pdc_01_sliderA.cm)*30/PI"
+   f3 = "WZ(.test_analysis_1.test_pdc_01.LateralRef,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.test_pdc_01_sliderA.cm)*30/PI"  &
+   f4 = "DIF(.test_analysis_1.test_pdc_01_TrueMD)-DIF(.test_analysis_1.BitOffset)"  &
+   f5 = "DIF1(.test_analysis_1.test_pdc_01_TrueMD)"  &
+   f6 = "DIF1(.test_analysis_1.test_pdc_01_TrueMD)*3600"
 !
 output_control modify request  &
-   request_name = .test_analysis_1.example_stabilizer_02_Motion2  &
-   f1 = "DX(.test_analysis_1.example_stabilizer_02_B.barrelA1,.test_analysis_1.example_stabilizer_02_sliderA.cm,.test_analysis_1.example_stabilizer_02_sliderA.cm)"  &
-   f2 = "DY(.test_analysis_1.example_stabilizer_02_B.barrelA1,.test_analysis_1.example_stabilizer_02_sliderA.cm,.test_analysis_1.example_stabilizer_02_sliderA.cm)"  &
-   f3 = "WZ(.test_analysis_1.example_stabilizer_02_B.barrelA1,.test_analysis_1.example_stabilizer_02_sliderA.cm,.test_analysis_1.example_stabilizer_02_sliderA.cm)*30/PI"
+   request_name = .test_analysis_1.test_pdc_01_sliderA_aligned  &
+   f1 = "ACOS(DZ(.test_analysis_1.test_pdc_01_sliderA.tangent_ref,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.ground.adrill_origin))*RTOD"  &
+   f2 = "MOD(ATAN2(DX(.test_analysis_1.test_pdc_01_sliderA.tangent_ref,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.ground.adrill_origin),",  &
+              " DY(.test_analysis_1.test_pdc_01_sliderA.tangent_ref,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.ground.adrill_origin))+2*PI,",  &
+              " 2*PI)*RTOD"  &
+   f3 = "0"  &
+   f4 = "0"  &
+   f5 = "0"  &
+   f6 = "0"  &
+   f7 = "AZ(.test_analysis_1.test_pdc_01.LateralRef,.test_analysis_1.test_pdc_01_sliderA.cm)*RTOD"
+!
+output_control modify request  &
+   request_name = .test_analysis_1.Motor_EndLoads  &
+   f1 = "FX(.test_analysis_1.test_pdc_01.end_B,.test_analysis_1.example_motor_02_R.end_R,.test_analysis_1.example_motor_02_sliderA.cm)"  &
+   f2 = "FY(.test_analysis_1.test_pdc_01.end_B,.test_analysis_1.example_motor_02_R.end_R,.test_analysis_1.example_motor_02_sliderA.cm)"  &
+   f3 = "SQRT(FX(.test_analysis_1.test_pdc_01.end_B,.test_analysis_1.example_motor_02_R.end_R,.test_analysis_1.example_motor_02_sliderA.cm)**2 +",  &
+              "FY(.test_analysis_1.test_pdc_01.end_B,.test_analysis_1.example_motor_02_R.end_R,.test_analysis_1.example_motor_02_sliderA.cm)**2)"  &
+   f4 = "MOD(2*PI+ATAN2(FY(.test_analysis_1.test_pdc_01.end_B,.test_analysis_1.example_motor_02_R.end_R,.test_analysis_1.example_motor_02_sliderA.cm),",  &
+              "FX(.test_analysis_1.test_pdc_01.end_B,.test_analysis_1.example_motor_02_R.end_R,.test_analysis_1.example_motor_02_sliderA.cm)),2*PI)*RTOD"
+!
+output_control modify request  &
+   request_name = .test_analysis_1.example_motor_02_Motion2  &
+   f1 = "DX(.test_analysis_1.example_motor_02_A.stab_center,.test_analysis_1.example_motor_02_sliderA.cm,.test_analysis_1.example_motor_02_sliderA.cm)"  &
+   f2 = "DY(.test_analysis_1.example_motor_02_A.stab_center,.test_analysis_1.example_motor_02_sliderA.cm,.test_analysis_1.example_motor_02_sliderA.cm)"  &
+   f3 = "WZ(.test_analysis_1.example_motor_02_A.stab_center,.test_analysis_1.example_motor_02_sliderA.cm,.test_analysis_1.example_motor_02_sliderA.cm)*30/PI"  &
+   f4 = "SFORCE(.test_analysis_1.MotorBend, 0, 8, .test_analysis_1.example_motor_02_B2.bendrev2)"
+!
+output_control modify request  &
+   request_name = .test_analysis_1.example_motor_02_sliderA_aligned  &
+   f1 = "ACOS(DZ(.test_analysis_1.example_motor_02_sliderA.tangent_ref,.test_analysis_1.example_motor_02_sliderA.cm,.test_analysis_1.ground.adrill_origin))*RTOD"  &
+   f2 = "MOD(ATAN2(DX(.test_analysis_1.example_motor_02_sliderA.tangent_ref,.test_analysis_1.example_motor_02_sliderA.cm,.test_analysis_1.ground.adrill_origin),",  &
+              " DY(.test_analysis_1.example_motor_02_sliderA.tangent_ref,.test_analysis_1.example_motor_02_sliderA.cm,.test_analysis_1.ground.adrill_origin))+2*PI,",  &
+              " 2*PI)*RTOD"  &
+   f3 = "GFORCE(.test_analysis_1.example_motor_02_contactA,1,2,.test_analysis_1.example_motor_02_sliderA.cm)"  &
+   f4 = "GFORCE(.test_analysis_1.example_motor_02_contactA,1,3,.test_analysis_1.example_motor_02_sliderA.cm)"  &
+   f5 = "GFORCE(.test_analysis_1.example_motor_02_contactA,1,1,.test_analysis_1.example_motor_02_sliderA.cm)"  &
+   f6 = "STEP(GFORCE(.test_analysis_1.example_motor_02_contactA,1,1,.test_analysis_1.example_motor_02_sliderA.cm),2,0,5,",  &
+              " MOD(ATAN2(GFORCE(.test_analysis_1.example_motor_02_contactA,1,3,.test_analysis_1.example_motor_02_sliderA.cm),",  &
+              " GFORCE(.test_analysis_1.example_motor_02_contactA,1,2,.test_analysis_1.example_motor_02_sliderA.cm))+2*PI,2*PI)*RTOD)"  &
+   f7 = "AZ(.test_analysis_1.example_motor_02_A.stab_center,.test_analysis_1.example_motor_02_sliderA.cm)*RTOD"
+!
+output_control modify request  &
+   request_name = .test_analysis_1.example_stabilizer_03_Motion2  &
+   f1 = "DX(.test_analysis_1.example_stabilizer_03_B.barrelA1,.test_analysis_1.example_stabilizer_03_sliderA.cm,.test_analysis_1.example_stabilizer_03_sliderA.cm)"  &
+   f2 = "DY(.test_analysis_1.example_stabilizer_03_B.barrelA1,.test_analysis_1.example_stabilizer_03_sliderA.cm,.test_analysis_1.example_stabilizer_03_sliderA.cm)"  &
+   f3 = "WZ(.test_analysis_1.example_stabilizer_03_B.barrelA1,.test_analysis_1.example_stabilizer_03_sliderA.cm,.test_analysis_1.example_stabilizer_03_sliderA.cm)*30/PI"
 !
 output_control modify request  &
    request_name = .test_analysis_1.equivalent_pipe1_TorsionStates  &
@@ -23523,12 +26984,21 @@ output_control modify request  &
    f8 = "ARYVAL(.test_analysis_1.Epipe1AxialStates,8)"
 !
 output_control modify request  &
+   request_name = .test_analysis_1.motor_drive_data  &
+   f1 = "WZ(.test_analysis_1.example_motor_02_R.motor_bearing_R,.test_analysis_1.example_motor_02_A.motor_bearing_A,.test_analysis_1.example_motor_02_A.motor_bearing_A)*30/PI"  &
+   f2 = "SFORCE(.test_analysis_1.motor_drive,0,8,.test_analysis_1.example_motor_02_A.motor_bearing_A)/1000"  &
+   f3 = "SFORCE(.test_analysis_1.topdrive,0,8,.test_analysis_1.TOS_direction_marker)/1000"  &
+   f4 = "VARVAL(.test_analysis_1.motor_GPM)"  &
+   f5 = "VARVAL(.test_analysis_1.motor_RPM)"
+!
+output_control modify request  &
    request_name = .test_analysis_1.top_drive  &
    f1 = "VARVAL(.test_analysis_1.Command_String_Speed)*30/PI"  &
-   f2 = "ARYVAL(.test_analysis_1.Epipe1TorsionStates,5)*30/PI"  &
+   f2 = "VARVAL(.test_analysis_1.Surface_WZ)/6"  &
    f3 = "ARYVAL(.test_analysis_1.Epipe1TorsionStates,8)*30/PI"  &
    f4 = "VARVAL(.test_analysis_1.drive_torque_command)/1000"  &
-   f5 = "SFORCE(.test_analysis_1.topdrive,0,8,.test_analysis_1.TOS_direction_marker)/1000"
+   f5 = "SFORCE(.test_analysis_1.topdrive,0,8,.test_analysis_1.TOS_direction_marker)/1000"  &
+   f6 = "VARVAL(.test_analysis_1.Surface_AZ)"
 !
 output_control modify request  &
    request_name = .test_analysis_1.ROP_controls  &
@@ -23545,6 +27015,17 @@ output_control modify request  &
    f2 = "VARVAL(.test_analysis_1.Bottom_MSE)"  &
    f3 = "DIF(.test_analysis_1.filtered_Surface_MSE)"  &
    f4 = "DIF(.test_analysis_1.filtered_Bottom_MSE)"
+!
+output_control modify request  &
+   request_name = .test_analysis_1.bitloads_aligned  &
+   f1 = "ACOS(DZ(.test_analysis_1.test_pdc_01_sliderA.tangent_ref,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.ground.adrill_origin))*RTOD"  &
+   f2 = "MOD(ATAN2(DX(.test_analysis_1.test_pdc_01_sliderA.tangent_ref,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.ground.adrill_origin),",  &
+              " DY(.test_analysis_1.test_pdc_01_sliderA.tangent_ref,.test_analysis_1.test_pdc_01_sliderA.cm,.test_analysis_1.ground.adrill_origin))+2*PI,",  &
+              " 2*PI)*RTOD"  &
+   f3 = "JOINT(.test_analysis_1.connector_2to1,1,2,.test_analysis_1.test_pdc_01_sliderA.cm)"  &
+   f4 = "JOINT(.test_analysis_1.connector_2to1,1,3,.test_analysis_1.test_pdc_01_sliderA.cm)"  &
+   f5 = "SQRT(JOINT(.test_analysis_1.connector_2to1,1,2,.test_analysis_1.test_pdc_01_sliderA.cm)**2+",  &
+              "JOINT(.test_analysis_1.connector_2to1,1,3,.test_analysis_1.test_pdc_01_sliderA.cm)**2)"
 !
 !--------------------------- Expression definitions ---------------------------!
 !
@@ -23747,6 +27228,10 @@ force modify direct force_vector  &
    i_marker_name = ("test_pdc_01" // ".LateralRef")  &
    ref_marker_name = ("test_pdc_01" // ".LateralRef")
 !
+part modify equation differential_equation  &
+   differential_equation_name = .test_analysis_1.test_pdc_01_TrueMD  &
+   initial_condition = (.test_analysis_1.initial_bitMD)
+!
 force modify direct general_force  &
    general_force_name = .test_analysis_1.test_pdc_01_contactA  &
    i_marker_name = ("test_pdc_01" // ".LateralRef")  &
@@ -23768,126 +27253,458 @@ force modify direct general_force  &
       1.05  &
    routine = "adrill_solver::BitForces"
 !
+force modify direct force_vector  &
+   force_vector_name = .test_analysis_1.test_pdc_01_sliderA_aligner  &
+   i_marker_name = (".test_analysis_1.test_pdc_01_sliderA" // ".down_ref")
+!
+variable modify  &
+   variable_name = .test_analysis_1.bit_oriented_slider  &
+   object_value = ("test_pdc_01" // "_sliderA")
+!
 marker modify  &
-   marker_name = .test_analysis_1.example_stabilizer_02_B.barrelA1  &
+   marker_name = .test_analysis_1.example_motor_02_R.cm  &
+   location =   &
+      0.0,  &
+      0.0,  &
+      (-1.5 / 8)  &
+   relative_to = .test_analysis_1.example_motor_02_R
+!
+defaults coordinate_system  &
+   default_coordinate_system = .test_analysis_1.ground
+!
+marker modify  &
+   marker_name = .test_analysis_1.example_motor_02_R.motor_bearing_R  &
+   location =   &
+      0.0,  &
+      0.0,  &
+      (-1.5 / 4)  &
+   relative_to = .test_analysis_1.example_motor_02_R
+!
+defaults coordinate_system  &
+   default_coordinate_system = .test_analysis_1.ground
+!
+geometry modify shape cylinder  &
+   cylinder_name = .test_analysis_1.example_motor_02_R.cyl1  &
+   center_marker = ("example_motor_02" // "_R.end_R")  &
+   length = (-(1.5 / 4))  &
+   radius = (0.6667 / 2)
+!
+marker modify  &
+   marker_name = .test_analysis_1.example_motor_02_A.stab_center  &
+   location =   &
+      0.0,  &
+      0.0,  &
+      (-1.5 * 3 / 4)  &
+   relative_to = .test_analysis_1.example_motor_02_A
+!
+defaults coordinate_system  &
+   default_coordinate_system = .test_analysis_1.ground
+!
+marker modify  &
+   marker_name = .test_analysis_1.example_motor_02_A.cm  &
+   location =   &
+      0.0,  &
+      0.0,  &
+      (-1.5 * 5 / 8)  &
+   relative_to = .test_analysis_1.example_motor_02_A
+!
+defaults coordinate_system  &
+   default_coordinate_system = .test_analysis_1.ground
+!
+geometry modify shape cylinder  &
+   cylinder_name = .test_analysis_1.example_motor_02_A.cyl1  &
+   center_marker = ("example_motor_02" // "_A.end_A")  &
+   length = (-(1.5 * 3 / 4 + 0.4583 / 2))  &
+   radius = (0.6667 / 2)
+!
+marker modify  &
+   marker_name = .test_analysis_1.example_motor_02_A.end_beam1A  &
+   location =   &
+      0.0,  &
+      0.0,  &
+      (-1.5 / 2)  &
+   relative_to = .test_analysis_1.example_motor_02_A
+!
+defaults coordinate_system  &
+   default_coordinate_system = .test_analysis_1.ground
+!
+marker modify  &
+   marker_name = .test_analysis_1.example_motor_02_A.stabref  &
+   location =   &
+      0.0,  &
+      0.0,  &
+      (-1.5 * 3 / 4 - 0.4583 / 2)  &
+   relative_to = .test_analysis_1.example_motor_02_A
+!
+defaults coordinate_system  &
+   default_coordinate_system = .test_analysis_1.ground
+!
+part modify rigid_body mass_properties  &
+   part_name = .test_analysis_1.example_motor_02_A  &
+   mass = (0.5351581996 * 18.7662345279)  &
+   ixx = (0.111408209 * 18.7662345279)  &
+   iyy = (0.111408209 * 18.7662345279)  &
+   izz = (3.7747699684E-02 * 18.7662345279)
+!
+marker modify  &
+   marker_name = .test_analysis_1.example_motor_02_B.cm  &
+   location =   &
+      0.0,  &
+      0.0,  &
+      (-(6.11 - 1.5 - 0.4583 / 2) / 2)  &
+   relative_to = .test_analysis_1.example_motor_02_B
+!
+defaults coordinate_system  &
+   default_coordinate_system = .test_analysis_1.ground
+!
+geometry modify shape cylinder  &
+   cylinder_name = .test_analysis_1.example_motor_02_B.cyl1  &
+   center_marker = ("example_motor_02" // "_B.end_B")  &
+   length = (-(6.11 - 1.5 - 0.4583 / 2))  &
+   radius = (0.6667 / 2)
+!
+marker modify  &
+   marker_name = .test_analysis_1.example_motor_02_B.benddir1  &
+   location =   &
+      0.0,  &
+      0.0,  &
+      (-(6.11 - 1.5 - 0.4583 / 2))  &
+   relative_to = .test_analysis_1.example_motor_02_B
+!
+defaults coordinate_system  &
+   default_coordinate_system = .test_analysis_1.ground
+!
+part modify rigid_body mass_properties  &
+   part_name = .test_analysis_1.example_motor_02_B  &
+   center_of_mass_marker = ("example_motor_02" // "_B.cm")  &
+   mass = (1.5054833361 * 18.7662345279)  &
+   ixx = (2.450226515 * 18.7662345279)  &
+   iyy = (2.450226515 * 18.7662345279)  &
+   izz = (8.4952125032E-02 * 18.7662345279)
+!
+marker modify  &
+   marker_name = .test_analysis_1.example_motor_02_B2.cm  &
+   location =   &
+      0.0,  &
+      0.0,  &
+      (-(28.92 - 6.11) / 8)  &
+   relative_to = .test_analysis_1.example_motor_02_B2
+!
+defaults coordinate_system  &
+   default_coordinate_system = .test_analysis_1.ground
+!
+geometry modify shape cylinder  &
+   cylinder_name = .test_analysis_1.example_motor_02_B2.cyl2  &
+   center_marker = ("example_motor_02" // "_B2.benddir2")  &
+   length = (-(28.92 - 6.11) / 4)  &
+   radius = (0.6667 / 2)
+!
+part modify rigid_body mass_properties  &
+   part_name = .test_analysis_1.example_motor_02_B2  &
+   center_of_mass_marker = ("example_motor_02" // "_B2.cm")  &
+   mass = (1.9596696359 * 18.7662345279)  &
+   ixx = (5.3657513572 * 18.7662345279)  &
+   iyy = (5.3657513572 * 18.7662345279)  &
+   izz = (0.1105811642 * 18.7662345279)
+!
+geometry modify shape cylinder  &
+   cylinder_name = .test_analysis_1.example_motor_02_C.cyl1  &
+   radius = (0.6667 / 2)
+!
+part modify rigid_body mass_properties  &
+   part_name = .test_analysis_1.example_motor_02_C  &
+   mass = (3.9193392717 * 18.7662345279)  &
+   ixx = (42.5942673654 * 18.7662345279)  &
+   iyy = (42.5942673654 * 18.7662345279)  &
+   izz = (0.2211623283 * 18.7662345279)
+!
+variable modify  &
+   variable_name = .test_analysis_1.Dlength  &
+   real_value = ((28.92 - 6.11) / 4)
+!
+geometry modify shape cylinder  &
+   cylinder_name = .test_analysis_1.example_motor_02_D.cyl1  &
+   radius = (0.6667 / 2)
+!
+part modify rigid_body mass_properties  &
+   part_name = .test_analysis_1.example_motor_02_D  &
+   mass = (1.9596696359 * 18.7662345279)  &
+   ixx = (5.3657513572 * 18.7662345279)  &
+   iyy = (5.3657513572 * 18.7662345279)  &
+   izz = (0.1105811642 * 18.7662345279)
+!
+geometry modify shape cylinder  &
+   cylinder_name = .test_analysis_1.example_motor_02_sliderA.example_motor_02_sliderAgraphic  &
+   center_marker = ("example_motor_02" // "_sliderA.A2")
+!
+geometry modify curve circle  &
+   circle_name = .test_analysis_1.example_motor_02_sliderA.ghole  &
+   center_marker = ("example_motor_02" // "_sliderA.cm")
+!
+geometry modify shape cylinder  &
+   cylinder_name = .test_analysis_1.example_motor_02_sliderB.example_motor_02_sliderBgraphic  &
+   center_marker = ("example_motor_02" // "_sliderB.B2")
+!
+geometry modify curve circle  &
+   circle_name = .test_analysis_1.example_motor_02_sliderB.ghole  &
+   center_marker = ("example_motor_02" // "_sliderB.cm")
+!
+geometry modify shape cylinder  &
+   cylinder_name = .test_analysis_1.example_motor_02_sliderC.example_motor_02_sliderCgraphic  &
+   center_marker = ("example_motor_02" // "_sliderC.C2")
+!
+geometry modify curve circle  &
+   circle_name = .test_analysis_1.example_motor_02_sliderC.ghole  &
+   center_marker = ("example_motor_02" // "_sliderC.cm")
+!
+constraint modify higher_pair_contact point_curve  &
+   point_curve_name = .test_analysis_1.PTCV_example_motor_02_A1  &
+   i_marker_name = ("example_motor_02" // "_sliderA.A1")
+!
+constraint modify higher_pair_contact point_curve  &
+   point_curve_name = .test_analysis_1.PTCV_example_motor_02_A2  &
+   i_marker_name = ("example_motor_02" // "_sliderA.A2")
+!
+constraint modify higher_pair_contact point_curve  &
+   point_curve_name = .test_analysis_1.PTCV_example_motor_02_B1  &
+   i_marker_name = ("example_motor_02" // "_sliderB.B1")
+!
+constraint modify higher_pair_contact point_curve  &
+   point_curve_name = .test_analysis_1.PTCV_example_motor_02_B2  &
+   i_marker_name = ("example_motor_02" // "_sliderB.B2")
+!
+constraint modify higher_pair_contact point_curve  &
+   point_curve_name = .test_analysis_1.PTCV_example_motor_02_C1  &
+   i_marker_name = ("example_motor_02" // "_sliderC.C1")
+!
+constraint modify higher_pair_contact point_curve  &
+   point_curve_name = .test_analysis_1.PTCV_example_motor_02_C2  &
+   i_marker_name = ("example_motor_02" // "_sliderC.C2")
+!
+force modify direct torque_vector  &
+   torque_vector_name = .test_analysis_1.example_motor_02_sliderA_damper  &
+   i_marker_name = ("example_motor_02" // "_sliderA.cm")  &
+   ref_marker_name = ("example_motor_02" // "_sliderA.cm")
+!
+force modify direct torque_vector  &
+   torque_vector_name = .test_analysis_1.example_motor_02_sliderB_damper  &
+   i_marker_name = ("example_motor_02" // "_sliderB.cm")  &
+   ref_marker_name = ("example_motor_02" // "_sliderB.cm")
+!
+force modify direct torque_vector  &
+   torque_vector_name = .test_analysis_1.example_motor_02_sliderC_damper  &
+   i_marker_name = ("example_motor_02" // "_sliderC.cm")  &
+   ref_marker_name = ("example_motor_02" // "_sliderC.cm")
+!
+force modify direct force_vector  &
+   force_vector_name = .test_analysis_1.example_motor_02_sliderA_locator  &
+   i_marker_name = ("example_motor_02" // "_A.stab_center")  &
+   ref_marker_name = ("example_motor_02" // "_A.stab_center")
+!
+force modify direct force_vector  &
+   force_vector_name = .test_analysis_1.example_motor_02_sliderB_locator  &
+   i_marker_name = ("example_motor_02" // "_B.benddir1")  &
+   ref_marker_name = ("example_motor_02" // "_B.benddir1")
+!
+force modify direct force_vector  &
+   force_vector_name = .test_analysis_1.example_motor_02_sliderC_locator  &
+   i_marker_name = ("example_motor_02" // "_C.cm")  &
+   ref_marker_name = ("example_motor_02" // "_C.cm")
+!
+variable modify  &
+   variable_name = .test_analysis_1.ShearModulus  &
+   real_value = (0.385 * .test_analysis_1.YoungsModulus)
+!
+force modify element_like beam  &
+   beam_name = .test_analysis_1.BeamAB_example_motor_02  &
+   area_of_cross_section = ((0.6667**2 - 8.33E-02**2) * PI / 4)  &
+   youngs_modulus = (.test_analysis_1.YoungsModulus)  &
+   shear_modulus = (.test_analysis_1.ShearModulus)  &
+   ixx = ((0.6667**4 - 8.33E-02**4) * PI / 32)  &
+   iyy = ((0.6667**4 - 8.33E-02**4) * PI / 64)  &
+   izz = ((0.6667**4 - 8.33E-02**4) * PI / 64)
+!
+force modify element_like beam  &
+   beam_name = .test_analysis_1.BeamBC_example_motor_02  &
+   area_of_cross_section = ((0.6667**2 - 8.33E-02**2) * PI / 4)  &
+   youngs_modulus = (.test_analysis_1.YoungsModulus)  &
+   shear_modulus = (.test_analysis_1.ShearModulus)  &
+   ixx = ((0.6667**4 - 8.33E-02**4) * PI / 32)  &
+   iyy = ((0.6667**4 - 8.33E-02**4) * PI / 64)  &
+   izz = ((0.6667**4 - 8.33E-02**4) * PI / 64)
+!
+force modify element_like beam  &
+   beam_name = .test_analysis_1.BeamCD_example_motor_02  &
+   area_of_cross_section = ((0.6667**2 - 8.33E-02**2) * PI / 4)  &
+   youngs_modulus = (.test_analysis_1.YoungsModulus)  &
+   shear_modulus = (.test_analysis_1.ShearModulus)  &
+   ixx = ((0.6667**4 - 8.33E-02**4) * PI / 32)  &
+   iyy = ((0.6667**4 - 8.33E-02**4) * PI / 64)  &
+   izz = ((0.6667**4 - 8.33E-02**4) * PI / 64)
+!
+force modify direct general_force  &
+   general_force_name = .test_analysis_1.example_motor_02_contactA  &
+   i_marker_name = ("example_motor_02" // "_A.stab_center")  &
+   ref_marker_name = ("example_motor_02" // "_sliderA.cm")  &
+   user_function =   &
+      (.test_analysis_1.Impact_Exponent),  &
+      (.test_analysis_1.Impact_Penetration),  &
+      10.0,  &
+      561.038961039,  &
+      (1.5 * 10.0 * 2 / 3),  &
+      1.2  &
+   routine = "adrill_solver::StringForces"
+!
+force modify direct general_force  &
+   general_force_name = .test_analysis_1.example_motor_02_contactB  &
+   i_marker_name = ("example_motor_02" // "_B.benddir1")  &
+   ref_marker_name = ("example_motor_02" // "_sliderB.cm")  &
+   user_function =   &
+      (.test_analysis_1.Impact_Exponent),  &
+      (.test_analysis_1.Impact_Penetration),  &
+      0.6667,  &
+      561.038961039,  &
+      ((28.92 - 6.11) / 3 * 0.6667 / 2),  &
+      1.2  &
+   routine = "adrill_solver::StringForces"
+!
+force modify direct general_force  &
+   general_force_name = .test_analysis_1.example_motor_02_contactC  &
+   i_marker_name = ("example_motor_02" // "_C.CM")  &
+   ref_marker_name = ("example_motor_02" // "_sliderC.cm")  &
+   user_function =   &
+      (.test_analysis_1.Impact_Exponent),  &
+      (.test_analysis_1.Impact_Penetration),  &
+      0.6667,  &
+      561.038961039,  &
+      ((28.92 - 6.11) / 3 * 0.6667 / 2),  &
+      1.2  &
+   routine = "adrill_solver::StringForces"
+!
+force modify direct force_vector  &
+   force_vector_name = .test_analysis_1.example_motor_02_sliderA_aligner  &
+   i_marker_name = (".test_analysis_1.example_motor_02_sliderA" // ".down_ref")
+!
+marker modify  &
+   marker_name = .test_analysis_1.example_stabilizer_03_B.barrelA1  &
    location =   &
       0.0,  &
       0.0,  &
       (-1.83 / 10)  &
-   relative_to = .test_analysis_1.example_stabilizer_02_B
+   relative_to = .test_analysis_1.example_stabilizer_03_B
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.ground
 !
 marker modify  &
-   marker_name = .test_analysis_1.example_stabilizer_02_B.barrelB1  &
+   marker_name = .test_analysis_1.example_stabilizer_03_B.barrelB1  &
    location =   &
       0.0,  &
       0.0,  &
       (-9 * 1.83 / 10)  &
-   relative_to = .test_analysis_1.example_stabilizer_02_B
+   relative_to = .test_analysis_1.example_stabilizer_03_B
 !
 defaults coordinate_system  &
    default_coordinate_system = .test_analysis_1.ground
 !
 geometry modify shape cylinder  &
-   cylinder_name = .test_analysis_1.example_stabilizer_02_B.cyl2  &
-   center_marker = ("example_stabilizer_02" // "_B.barrelA")  &
+   cylinder_name = .test_analysis_1.example_stabilizer_03_B.cyl2  &
+   center_marker = ("example_stabilizer_03" // "_B.barrelA")  &
    radius = (0.5383333333 / 2)
 !
 geometry modify shape cylinder  &
-   cylinder_name = .test_analysis_1.example_stabilizer_02_B.cyl1  &
+   cylinder_name = .test_analysis_1.example_stabilizer_03_B.cyl1  &
    radius = (0.5383333333 / 2)
 !
 geometry modify shape cylinder  &
-   cylinder_name = .test_analysis_1.example_stabilizer_02_B.cyl11  &
+   cylinder_name = .test_analysis_1.example_stabilizer_03_B.cyl11  &
    radius = (0.5383333333 / 2)
 !
 geometry modify shape cylinder  &
-   cylinder_name = .test_analysis_1.example_stabilizer_02_sliderA.example_stabilizer_02_sliderAgraphic  &
-   center_marker = ("example_stabilizer_02" // "_sliderA.A2")
+   cylinder_name = .test_analysis_1.example_stabilizer_03_sliderA.example_stabilizer_03_sliderAgraphic  &
+   center_marker = ("example_stabilizer_03" // "_sliderA.A2")
 !
 geometry modify curve circle  &
-   circle_name = .test_analysis_1.example_stabilizer_02_sliderA.ghole  &
-   center_marker = ("example_stabilizer_02" // "_sliderA.cm")
+   circle_name = .test_analysis_1.example_stabilizer_03_sliderA.ghole  &
+   center_marker = ("example_stabilizer_03" // "_sliderA.cm")
 !
 geometry modify shape cylinder  &
-   cylinder_name = .test_analysis_1.example_stabilizer_02_sliderB.example_stabilizer_02_sliderBgraphic  &
-   center_marker = ("example_stabilizer_02" // "_sliderB.B2")
+   cylinder_name = .test_analysis_1.example_stabilizer_03_sliderB.example_stabilizer_03_sliderBgraphic  &
+   center_marker = ("example_stabilizer_03" // "_sliderB.B2")
 !
 geometry modify curve circle  &
-   circle_name = .test_analysis_1.example_stabilizer_02_sliderB.ghole  &
-   center_marker = ("example_stabilizer_02" // "_sliderB.cm")
+   circle_name = .test_analysis_1.example_stabilizer_03_sliderB.ghole  &
+   center_marker = ("example_stabilizer_03" // "_sliderB.cm")
 !
 constraint modify higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_example_stabilizer_02_A1  &
-   i_marker_name = ("example_stabilizer_02" // "_sliderA.A1")
+   point_curve_name = .test_analysis_1.PTCV_example_stabilizer_03_A1  &
+   i_marker_name = ("example_stabilizer_03" // "_sliderA.A1")
 !
 constraint modify higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_example_stabilizer_02_A2  &
-   i_marker_name = ("example_stabilizer_02" // "_sliderA.A2")
+   point_curve_name = .test_analysis_1.PTCV_example_stabilizer_03_A2  &
+   i_marker_name = ("example_stabilizer_03" // "_sliderA.A2")
 !
 constraint modify higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_example_stabilizer_02_B1  &
-   i_marker_name = ("example_stabilizer_02" // "_sliderB.B1")
+   point_curve_name = .test_analysis_1.PTCV_example_stabilizer_03_B1  &
+   i_marker_name = ("example_stabilizer_03" // "_sliderB.B1")
 !
 constraint modify higher_pair_contact point_curve  &
-   point_curve_name = .test_analysis_1.PTCV_example_stabilizer_02_B2  &
-   i_marker_name = ("example_stabilizer_02" // "_sliderB.B2")
+   point_curve_name = .test_analysis_1.PTCV_example_stabilizer_03_B2  &
+   i_marker_name = ("example_stabilizer_03" // "_sliderB.B2")
 !
 force modify direct torque_vector  &
-   torque_vector_name = .test_analysis_1.example_stabilizer_02_sliderA_damper  &
-   i_marker_name = ("example_stabilizer_02" // "_sliderA.cm")  &
-   ref_marker_name = ("example_stabilizer_02" // "_sliderA.cm")
+   torque_vector_name = .test_analysis_1.example_stabilizer_03_sliderA_damper  &
+   i_marker_name = ("example_stabilizer_03" // "_sliderA.cm")  &
+   ref_marker_name = ("example_stabilizer_03" // "_sliderA.cm")
 !
 force modify direct torque_vector  &
-   torque_vector_name = .test_analysis_1.example_stabilizer_02_sliderB_damper  &
-   i_marker_name = ("example_stabilizer_02" // "_sliderB.cm")  &
-   ref_marker_name = ("example_stabilizer_02" // "_sliderB.cm")
+   torque_vector_name = .test_analysis_1.example_stabilizer_03_sliderB_damper  &
+   i_marker_name = ("example_stabilizer_03" // "_sliderB.cm")  &
+   ref_marker_name = ("example_stabilizer_03" // "_sliderB.cm")
 !
 force modify direct force_vector  &
-   force_vector_name = .test_analysis_1.example_stabilizer_02_sliderA_locator  &
-   i_marker_name = ("example_stabilizer_02" // "_B.barrelA1")  &
-   ref_marker_name = ("example_stabilizer_02" // "_B.barrelA1")
+   force_vector_name = .test_analysis_1.example_stabilizer_03_sliderA_locator  &
+   i_marker_name = ("example_stabilizer_03" // "_B.barrelA1")  &
+   ref_marker_name = ("example_stabilizer_03" // "_B.barrelA1")
 !
 force modify direct force_vector  &
-   force_vector_name = .test_analysis_1.example_stabilizer_02_sliderB_locator  &
-   i_marker_name = ("example_stabilizer_02" // "_B.barrelB1")  &
-   ref_marker_name = ("example_stabilizer_02" // "_B.barrelB1")
+   force_vector_name = .test_analysis_1.example_stabilizer_03_sliderB_locator  &
+   i_marker_name = ("example_stabilizer_03" // "_B.barrelB1")  &
+   ref_marker_name = ("example_stabilizer_03" // "_B.barrelB1")
 !
 force modify direct general_force  &
-   general_force_name = .test_analysis_1.example_stabilizer_02_contactA  &
-   i_marker_name = ("example_stabilizer_02" // "_B.barrelA1")  &
-   ref_marker_name = ("example_stabilizer_02" // "_sliderA.cm")  &
+   general_force_name = .test_analysis_1.example_stabilizer_03_contactA  &
+   i_marker_name = ("example_stabilizer_03" // "_B.barrelA1")  &
+   ref_marker_name = ("example_stabilizer_03" // "_sliderA.cm")  &
    user_function =   &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.6979166667,  &
-      75.0,  &
+      561.038961039,  &
       (1.83 * 0.6979166667 / 2),  &
       1.2  &
    routine = "adrill_solver::StringForces"
 !
 force modify direct general_force  &
-   general_force_name = .test_analysis_1.example_stabilizer_02_contactB  &
-   i_marker_name = ("example_stabilizer_02" // "_B.barrelB1")  &
-   ref_marker_name = ("example_stabilizer_02" // "_sliderB.cm")  &
+   general_force_name = .test_analysis_1.example_stabilizer_03_contactB  &
+   i_marker_name = ("example_stabilizer_03" // "_B.barrelB1")  &
+   ref_marker_name = ("example_stabilizer_03" // "_sliderB.cm")  &
    user_function =   &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.6979166667,  &
-      75.0,  &
+      561.038961039,  &
       (1.83 * 0.6979166667 / 2),  &
       1.2  &
    routine = "adrill_solver::StringForces"
 !
 variable modify  &
    variable_name = .test_analysis_1.last_pipe  &
-   real_value = (4 - 1)
+   real_value = (5 - 1)
 !
 variable modify  &
    variable_name = .test_analysis_1.TrueMudDensity  &
-   real_value = (75.0 * 3.108E-02)
+   real_value = (561.038961039 * 3.108E-02)
 !
 geometry modify shape cylinder  &
    cylinder_name = .test_analysis_1.Upper_DP_Group1_A.cyl1  &
@@ -24020,10 +27837,6 @@ force modify direct force_vector  &
    i_marker_name = ("Upper_DP_Group" // 1 // "_B.cm")  &
    ref_marker_name = ("Upper_DP_Group" // 1 // "_B.cm")
 !
-variable modify  &
-   variable_name = .test_analysis_1.ShearModulus  &
-   real_value = (0.385 * .test_analysis_1.YoungsModulus)
-!
 force modify element_like beam  &
    beam_name = .test_analysis_1.BeamAB_Upper_DP_Group1  &
    area_of_cross_section = ((0.4167**2 - 0.3333**2) * PI / 4)  &
@@ -24050,7 +27863,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5833,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 * 2 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -24063,7 +27876,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -24240,7 +28053,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5833,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 * 2 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -24253,7 +28066,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -24430,7 +28243,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5833,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 * 2 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -24443,7 +28256,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -24620,7 +28433,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5833,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 * 2 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -24633,7 +28446,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -24810,7 +28623,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5833,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 * 2 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -24823,7 +28636,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -25000,7 +28813,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5833,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 * 2 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -25013,7 +28826,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -25190,7 +29003,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5833,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 * 2 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -25203,7 +29016,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -25380,7 +29193,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5833,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 * 2 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -25393,7 +29206,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -25570,7 +29383,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5833,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 * 2 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -25583,7 +29396,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -25760,7 +29573,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5833,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 * 2 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -25773,7 +29586,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -25950,7 +29763,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5833,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 * 2 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -25963,7 +29776,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -26140,7 +29953,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5833,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 * 2 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -26153,7 +29966,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -26330,7 +30143,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5833,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 * 2 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -26343,7 +30156,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -26520,7 +30333,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5833,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 * 2 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -26533,7 +30346,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -26710,7 +30523,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5833,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 * 2 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -26723,7 +30536,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -26900,7 +30713,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5833,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 * 2 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -26913,7 +30726,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -27090,7 +30903,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5833,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 * 2 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -27103,7 +30916,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -27280,7 +31093,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5833,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 * 2 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -27293,7 +31106,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -27470,7 +31283,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5833,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 * 2 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -27483,7 +31296,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -27686,7 +31499,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5833,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 * 2 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -27699,7 +31512,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"
@@ -27716,7 +31529,7 @@ force modify direct general_force  &
       (.test_analysis_1.Impact_Exponent),  &
       (.test_analysis_1.Impact_Penetration),  &
       0.5833,  &
-      75.0,  &
+      561.038961039,  &
       (31.0 * 0.5 / 3),  &
       1.2  &
    routine = "adrill_solver::StringForces"

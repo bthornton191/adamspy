@@ -88,6 +88,33 @@ class DrillSolverSettings():
         # Initialize filename instance variable
         self.filename = ''
 
+    def add_funnel_step(self, maxit, stab, error, imbal, tlim, alim, clear_existing=False):
+        """Adds a ramp to the specified ramp parameter.
+        
+        Parameters
+        ----------
+        maxit : int
+            Specifies the maximum number of iterations allowed for finding static equilibrium
+        stab : float
+            Specifies the fraction of the mass and damping matrices (subsets of the equilibrium Jacobian matrix) Adams Solver (C++) adds to the stiffness matrix (a subset of the equilibrium Jacobian matrix) during static simulations performed using static analyses.
+        error : float
+            Specifies the relative correction convergence threshold.
+        imbal : float
+            Specifies the equation imbalance convergence threshold.
+        tlim : float
+            Specifies the maximum translational increment allowed per iteration.
+        alim : float
+            Specifies the maximum angular increment allowed per iteration during a static or quasi-static equilibrium analysis.
+
+        """
+        if clear_existing:
+            self.parameters['Funnel'] = [[], [], [], [], [], []]
+        
+        for i, param in enumerate([maxit, stab, error, imbal, tlim, alim]):
+            self.parameters['Funnel'][i].append(param)
+            
+        self.parameters['_Funnel'] = zip(*self.parameters['Funnel'])  
+
     def write_to_file(self, filename, directory=None, cdb=None):
         """Creates a solver settings file from the DrillSolverSettings object.
         
@@ -145,7 +172,6 @@ class DrillSolverSettings():
 
         # Return the name of the file that was written
         return self.filename
-
 
     def validate(self):
         """
