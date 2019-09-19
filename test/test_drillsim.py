@@ -167,9 +167,10 @@ class Test_DrillSim(unittest.TestCase):
         # Create a solver settings object
         self.solver_settings = adripy.DrillSolverSettings(TEST_SOLVER_SETTINGS_NAME)
 
-        # If the "existing" drill sim doesn't exit, create it
-        if not os.path.exists(TEST_EXISTING_DRILLSIM_DIRECTORY):
-            create_existing_drillsim()
+        # If the "existing" drill sims don't exit, create them
+        for directory in [TEST_EXISTING_DRILLSIM_DIRECTORY, TEST_EXISTING_UNBUILT_DRILLSIM_DIRECTORY]:
+            if not os.path.exists(directory):
+                create_existing_drillsim(directory)
 
         drill_sim = DrillSim.read_from_directory(TEST_EXISTING_DRILLSIM_DIRECTORY)
         if drill_sim.built is False:
@@ -194,6 +195,28 @@ class Test_DrillSim(unittest.TestCase):
         # Replace files
         os.remove(drill_sim.acf_filename)
         os.rename(drill_sim.acf_filename + '.tmp', drill_sim.acf_filename)
+        os.remove(drill_sim.solver_settings.filename)
+        os.rename(drill_sim.solver_settings.filename + '.tmp', drill_sim.solver_settings.filename)
+
+        # Assert no failures
+        self.assertListEqual(failures, [])
+
+    def test_modify_solver_settings_before_build(self):
+        # Load the drill sim
+        drill_sim = DrillSim.read_from_directory(TEST_EXISTING_UNBUILT_DRILLSIM_DIRECTORY)
+        
+        # Backup the drill sim's acf file and ssf files
+        shutil.copyfile(drill_sim.solver_settings.filename, drill_sim.solver_settings.filename + '.tmp')
+
+        # Read in the new solver settings
+        new_solver_settings = adripy.DrillSolverSettings.read_from_file(TEST_SOLVER_SETTINGS_FILE)
+        
+        # Update the drill sim with the new solver setings
+        drill_sim.modify_solver_settings(new_solver_settings)
+
+        failures = check_file_contents(drill_sim.solver_settings.filename , EXPECTED_DRILLSIM_SSF_TEXT_AFTER_SSF_CHANGE)
+
+        # Replace files
         os.remove(drill_sim.solver_settings.filename)
         os.rename(drill_sim.solver_settings.filename + '.tmp', drill_sim.solver_settings.filename)
 
@@ -521,7 +544,7 @@ class Test_DrillSim(unittest.TestCase):
         for file in glob.glob(os.path.join(TEST_EXISTING_UNBUILT_DRILLSIM_DIRECTORY, '*.acf')) + glob.glob(os.path.join(TEST_EXISTING_UNBUILT_DRILLSIM_DIRECTORY, '*.adm')):
             os.remove(file)
 
-def create_existing_drillsim():
+def create_existing_drillsim(directory):
     # Create a test config file containing the test database
     adripy.create_cfg_file(TEST_CONFIG_FILENAME, [TEST_DATABASE_PATH, TEST_NEW_DATABASE_PATH])
 
@@ -566,11 +589,10 @@ def create_existing_drillsim():
     # Create a solver settings object
     solver_settings = adripy.DrillSolverSettings(TEST_SOLVER_SETTINGS_NAME)
 
-    if os.path.exists(TEST_EXISTING_DRILLSIM_DIRECTORY):
-        shutil.rmtree(TEST_EXISTING_DRILLSIM_DIRECTORY, ignore_errors=True)
+    if os.path.exists(directory):
+        shutil.rmtree(directory, ignore_errors=True)
 
-    drill_sim = adripy.DrillSim(drill_string, event, solver_settings, TEST_EXISTING_DRILLSIM_DIRECTORY, TEST_ANALYSIS_NAME)
-    drill_sim.build()
+    drill_sim = adripy.DrillSim(drill_string, event, solver_settings, directory, TEST_ANALYSIS_NAME)
 
 if __name__ == '__main__':
     unittest.main()

@@ -2080,6 +2080,53 @@ sim/dyn, end=100.0, dtout=5.0E-02
 stop
 """
 
+EXPECTED_DRILLSIM_SSF_TEXT_AFTER_SSF_CHANGE = """$ ==================================================================
+$ This is an Adams Drill solver settings file (.ssf)
+$ When this file is specified under 'Adams Solver Parameters' on the
+$ 'Run Simulation' tab of an Adams Drill Excel workbook, then the values
+$ specified here will override the Adams defaults.
+$------------------------------------------------------------------------STATICS
+[STATICS]
+$ Sometimes, a standard preliminary static simulation will not be possible,
+$ so we will need to do a static funnel which runs multiple static simulations
+$ with increasingly tighter settings.
+$ 'Equilibirum_Mehtod' options: 'Standard' or 'Static_Funnel'
+ Equilibrium_Method  =  'Static_Funnel'
+$ 
+$ Settings for 'Standard' equilibrium method:
+ Maxit  =  500.0
+ Stability  =  5.0
+ Error  =  1.0
+ Imbalance  =  1.0
+ Tlimit  =  0.5
+ Alimit  =  1.0
+$ 
+$ Settings for 'Static_Funnel' equilibrium method:
+$ Alimit is in degrees
+(FUNNEL)
+{Maxit  Stability  Error  Imbalance  Tlimit  Alimit}
+500   0.01   0.01   0.01   1   2
+500   0.001   0.001   0.001   1   2
+500   0.0005   0.0005   0.0005   1   2
+$ 
+$-----------------------------------------------------------------------DYNAMICS
+[DYNAMICS]
+$ Integratror options: GSTIFF or HHT
+ Integrator  =  'HHT'
+$ 
+$ Formulation options: I3 or SI2 (I3 is only valid for HHT)
+ Formulation  =  'I3'
+$ 
+$ Corrector Options: Original or Modified
+ Corrector  =  'Original'
+ Error  =  2e-05
+ HMax  =  0.005
+ Alpha  =  -0.25
+$---------------------------------------------------------------------EXECUTABLE
+[EXECUTABLE]
+ Thread_Count  =  4
+"""
+
 TEST_EXPECTED_ACF_AFTER_FUNNEL_MOD = """
 file/model=test
 !

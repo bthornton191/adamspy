@@ -541,6 +541,9 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         If the DrillSim.built is True, Only the static equilibrium funnel and the integrator error are modified
 
         """        
+        # Remove the current solver settings file
+        os.remove(self.solver_settings.filename)
+
         # Check if this drill sim has already been built
         if self.built:
             # If already built, update the funnel
@@ -558,7 +561,6 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
             self.solver_settings = new_solver_settings
         
         # Write the modified solver settings
-        os.remove(self.solver_settings.filename)
         self.solver_settings.write_to_file(self.analysis_name, directory=self.directory)    
 
     def _add_adm_splines(self):
