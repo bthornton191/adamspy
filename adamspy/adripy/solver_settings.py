@@ -110,7 +110,7 @@ class DrillSolverSettings():
         if clear_existing:
             self.parameters['Funnel'] = [[], [], [], [], [], []]
         
-        for i, param in enumerate([maxit, stab, error, imbal, tlim, alim]):
+        for i, param in enumerate([int(maxit), stab, error, imbal, tlim, alim]):
             self.parameters['Funnel'][i].append(param)
             
         self.parameters['_Funnel'] = zip(*self.parameters['Funnel'])  

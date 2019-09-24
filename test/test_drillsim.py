@@ -312,7 +312,7 @@ class Test_DrillSim(unittest.TestCase):
         drill_sim.build()
         adm_file = os.path.join(TEST_WORKING_DIRECTORY, TEST_ANALYSIS_NAME + '.adm')
         n_adm_lines = len(open(adm_file,'r').readlines())
-        expected_n_adm_lines = 12556
+        expected_n_adm_lines = 12538
         self.assertEqual(n_adm_lines, expected_n_adm_lines)
 
     def test_write_tiem_orbit_files_event_filename(self):

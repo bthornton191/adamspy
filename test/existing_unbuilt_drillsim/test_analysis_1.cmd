@@ -170,20 +170,14 @@ data_element create variable  &
    function = ""
 !
 data_element create variable  &
-   variable_name = .test_analysis_1.Surface_MSE  &
+   variable_name = .test_analysis_1.Bottom_MSE  &
    adams_id = 70039  &
    initial_condition = 0.0  &
    function = ""
 !
 data_element create variable  &
-   variable_name = .test_analysis_1.Bottom_MSE  &
-   adams_id = 70040  &
-   initial_condition = 0.0  &
-   function = ""
-!
-data_element create variable  &
    variable_name = .test_analysis_1.dummy_DGSE_input  &
-   adams_id = 70041  &
+   adams_id = 70040  &
    function = ""
 !
 data_element create array u_input_array  &
@@ -24332,8 +24326,8 @@ output_control create request  &
    adams_id = 1  &
    component_names = "Measured_Depth", "Radial_Displacement",  &
                      "Radial_Velocity", "Axial_Angular_Velocity",  &
-                     "Orbiting_Angular_Velocity", "Bending_Moment",  &
-                     "Twisting_Moment", "Axial_Load"  &
+                     "Orbiting_Angular_Velocity", "Bending_Moment", "Torque",  &
+                     "Axial_Load"  &
    component_labels = "(ft)", "(ft)", "(ft/sec)", "(RPM)", "(RPM)",  &
                       "(Kft-lbf)", "(Kft-lbf)", "(Klbf)"  &
    results_name = "test_pdc_01_Motion"  &
@@ -24389,8 +24383,8 @@ output_control create request  &
    adams_id = 5  &
    component_names = "Measured_Depth", "Radial_Displacement",  &
                      "Radial_Velocity", "Radial_Contact_Load",  &
-                     "Orbiting_Angular_Velocity", "Bending_Moment",  &
-                     "Twisting_Moment", "Axial_Load"  &
+                     "Orbiting_Angular_Velocity", "Bending_Moment", "Torque",  &
+                     "Axial_Load"  &
    component_labels = "(ft)", "(ft)", "(ft/sec)", "(lbf)", "(RPM)",  &
                       "(Kft-lbf)", "(Kft-lbf)", "(Klbf)"  &
    results_name = "example_motor_02_Motion"  &
@@ -24507,7 +24501,7 @@ output_control create request  &
    request_name = .test_analysis_1.top_drive  &
    adams_id = 13  &
    comment = "_:cmdRPM:surfRPM:TOSRPM:_:cmdTrq:true_Trq:_"  &
-   component_names = "Command_RPM", "Surface_RPM", "Top_of_String_RPM",  &
+   component_names = "Input_RPM", "Surface_RPM", "Top_of_String_RPM",  &
                      "Surface_Torque", "True_Torque", "Surface_Rotation"  &
    component_labels = "(RPM)", "(RPM)", "(RPM)", "(kft-lbf)", "(kft-lbf)",  &
                       "(deg)"  &
@@ -24522,32 +24516,22 @@ output_control create request  &
 output_control create request  &
    request_name = .test_analysis_1.ROP_controls  &
    adams_id = 14  &
-   comment = "_:cmd_ROP:BOH_V:MD:_:cmd_WOB:true_WOB:HookLoad"  &
    component_names = "Input_ROP", "Bottom_of_Hole_Velocity",  &
                      "Measured_Depth", "Input_WOB", "Downhole_WOB",  &
                      "HookLoad"  &
    component_labels = "(ft/hr)", "(ft/hr)", "(ft)", "(klbf)", "(klbf)",  &
                       "(klbf)"  &
    results_name = "ROP_controls"  &
-   f1 = ""  &
-   f2 = ""  &
-   f3 = ""  &
-   f4 = ""  &
-   f5 = ""  &
-   f6 = ""
+   f2 = ""
 !
 output_control create request  &
    request_name = .test_analysis_1.MSE_Motion  &
    adams_id = 15  &
-   comment = "Surface:AtBit"  &
    component_names = "Instantaneous_Surface_MSE", "Instantaneous_Bottom_MSE",  &
                      "Filtered_Surface_MSE", "Filtered_Bottom_MSE"  &
    component_labels = "(psi)", "(psi)", "(psi)", "(psi)"  &
    results_name = "MSE"  &
-   f1 = ""  &
-   f2 = ""  &
-   f3 = ""  &
-   f4 = ""
+   f2 = ""
 !
 output_control create request  &
    request_name = .test_analysis_1.bitloads_aligned  &
@@ -25763,13 +25747,6 @@ data_element modify variable  &
    function = "DIF(.test_analysis_1.integrated_BOHV)"
 !
 data_element modify variable  &
-   variable_name = .test_analysis_1.Surface_MSE  &
-   function = "VARVAL(.test_analysis_1.Command_WOB)/117.8511151185",  &
-              " +ARYVAL(.test_analysis_1.Epipe1TorsionStates,5)* ",  &
-              "SFORCE(.test_analysis_1.topdrive,0,8,.test_analysis_1.TOS_direction_marker)/117.8511151185",  &
-              "/ MAX(1E-2,ARYVAL(.test_analysis_1.Epipe1AxialStates,5))"
-!
-data_element modify variable  &
    variable_name = .test_analysis_1.Bottom_MSE  &
    function = "DIF(.test_analysis_1.BitForceFilter)/117.8511151185",  &
               " +VARVAL(.test_analysis_1.Bit_omega)*DIF(.test_analysis_1.BitTorqueFilter)/117.8511151185",  &
@@ -25871,7 +25848,7 @@ part modify equation differential_equation  &
 !
 part modify equation differential_equation  &
    differential_equation_name = .test_analysis_1.filtered_Surface_MSE  &
-   function = "1.0/10.0*(VARVAL(.test_analysis_1.Surface_MSE)-DIF(.test_analysis_1.filtered_Surface_MSE))"
+   function = "0"
 !
 part modify equation differential_equation  &
    differential_equation_name = .test_analysis_1.filtered_Bottom_MSE  &
@@ -27002,19 +26979,11 @@ output_control modify request  &
 !
 output_control modify request  &
    request_name = .test_analysis_1.ROP_controls  &
-   f1 = "DIF1(.test_analysis_1.integrated_ROP)*3600"  &
-   f2 = "DIF1(.test_analysis_1.integrated_BOHV)*3600"  &
-   f3 = "DIF(.test_analysis_1.integrated_BOHV) "  &
-   f4 = "VARVAL(.test_analysis_1.Command_WOB)/1000"  &
-   f5 = "JOINT(.test_analysis_1.connector_2to1,0,4,.test_analysis_1.test_pdc_01.end_B)/1000"  &
-   f6 = "-VARVAL(.test_analysis_1.hookload_command)/1000"
+   f2 = "0"
 !
 output_control modify request  &
    request_name = .test_analysis_1.MSE_Motion  &
-   f1 = "VARVAL(.test_analysis_1.Surface_MSE)"  &
-   f2 = "VARVAL(.test_analysis_1.Bottom_MSE)"  &
-   f3 = "DIF(.test_analysis_1.filtered_Surface_MSE)"  &
-   f4 = "DIF(.test_analysis_1.filtered_Bottom_MSE)"
+   f2 = "0"
 !
 output_control modify request  &
    request_name = .test_analysis_1.bitloads_aligned  &

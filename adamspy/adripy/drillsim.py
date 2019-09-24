@@ -249,16 +249,16 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         startupinfo = subprocess.STARTUPINFO()
         startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW        
         self.run_proc = subprocess.Popen('"{}" ru-s "{}"'.format(os.environ['ADAMS_LAUNCH_COMMAND'], self.acf_filename), cwd=self.directory, startupinfo=startupinfo)
-        
-        # Wait for the process to complete before moving on.
-        if wait:
-            self.run_proc.wait()
 
         self.msg_filename = f'{self.analysis_name}.msg'
         self.res_filename = f'{self.analysis_name}.res'
 
         # Flag this simulation as solved
         self.solved = True
+        
+        # Wait for the process to complete before moving on.
+        if wait:
+            self.run_proc.wait()
     
     def write_tiem_orbit_files(self):
         """Writes the solver settings and event files and publishes the string file to the simulation directory.
@@ -519,13 +519,11 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
             Duration of the simulation
 
         """
-        if self.solved and not use_acf:
-            duration = get_simdur_from_msg(os.path.join(self.directory, self.msg_filename))
-        elif self.built:
-            duration = get_simdur_from_acf(os.path.join(self.directory, self.acf_filename))
+        if use_acf is True:
+            duration = get_simdur_from_acf(os.path.join(self.directory, self.acf_filename)) if self.built is True else None
         else:
-            duration = None
-        
+            duration = get_simdur_from_msg(os.path.join(self.directory, self.msg_filename)) if self.solved is True else 0
+                    
         return duration       
 
     def modify_solver_settings(self, new_solver_settings):
