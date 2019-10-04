@@ -64,7 +64,7 @@ def get_simdur_from_acf(acf_file):
 	
 	# Raise an error if no duration found
 	if not found:
-		raise RuntimeError('No simulation end time was found in the specified message file!')
+		raise RuntimeError('No simulation end time was found in the specified acf file!')
 		
 	return duration
 
