@@ -6,6 +6,9 @@ import subprocess
 import time
 
 import thornpy
+import numpy as np
+import matplotlib.pyplot as plt
+
 from .constants import TO_PARAMETER_PATTERN, TO_LENGTH_PARAM, ADRILL_IDS, ADRILL_PLUGIN_VAR, ACF_FUNNEL_PATTERN, ACF_INTEGRATOR_ERROR_PATTERN
 from . import TMPLT_ENV
 
@@ -1248,6 +1251,77 @@ def modify_acf_solver_settings(acf_file, statics=None, error=None):
     # Replace the existing acf file with the temporary
     os.remove(acf_file)
     os.rename(acf_file + '._tmp_', acf_file)   
+
+def motor_curve(stall_torque, max_torque, max_rpm, min_rpm, save_filename=None):    
+    """Returns data to generate a theoretical motor curve.
+    
+    Parameters
+    ----------
+    stall_torque : float
+        Torque at which the motor stalls (klbf-ft)
+    max_torque : float
+        Maximum operating torque (klbf-ft)
+    max_rpm : float
+        Maximum operating motor speed
+    min_rpm : float
+        Minimum operating motor speed
+    save_filename : bool, optional
+        If True, motor curve will be saved to file `filename`, by default None
+    
+    Returns
+    -------
+    list
+        Rpm points in normal operating range
+    list
+        Rpm points in extended stall range range
+    list
+        Torque points in normal operating range
+    list
+        Torque points in extended stall range range
+
+    Example
+    -------
+    This example plots the motor curve with a dashed line for the extended stall range.
+    >>> import matplotlib.pyplot as plt
+    >>> stall_torque = 20
+    >>> max_torque = 15
+    >>> max_rpm = 100
+    >>> min_rpm = 80
+    >>> nor_rpm, esr_rpm, nor_torque, esr_torque = motor_curve(stall_torque, max_torque, max_rpm, min_rpm)
+    >>> plt.plot([rpm + min_rpm for rpm in nor_rpm], nor_torque)
+    >>> plt.plot(esr_rpm, esr_torque, linestyle='--')        
+    >>> plt.show()
+
+    """
+    free_rpm = max_rpm - min_rpm
+    
+    a_nor = -max_torque/(free_rpm**2)
+    b_nor = 0
+    c_nor = max_torque
+    
+    a_esr = (stall_torque - max_torque)/(min_rpm**2)
+    b_esr = 2*(max_torque - stall_torque)/min_rpm
+    c_esr = stall_torque    
+    
+    w_nor = np.arange(0,free_rpm+1,1)
+    w_esr = np.arange(0,min_rpm,1)
+    
+    q_nor = a_nor*w_nor**2 + b_nor*w_nor + c_nor
+    q_esr = a_esr*w_esr**2 + b_esr*w_esr + c_esr
+        
+    if save_filename is not None:        
+        with open(save_filename,'w') as fid:
+            fid.write('RPM, Torque (klbf-ft)\n')
+            
+            for rpm, torque in zip(w_esr, q_esr):
+                # For each rpm and torque datapoin in the extended stall range, write the data point
+                fid.write('{},{}\n'.format(rpm, torque))
+
+            for rpm, torque in zip(w_nor, q_nor):
+                # For each rpm and torque datapoin in the normal operating range, write the data point and shift the rpm value by the rpm at max torque
+                fid.write('{},{}\n'.format(rpm+min_rpm, torque))   
+
+    return list(w_nor), list(w_esr), list(q_nor), list(q_esr)
 
 class TiemOrbitSyntaxError(Exception):
     pass
