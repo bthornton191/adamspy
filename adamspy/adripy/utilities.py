@@ -7,7 +7,6 @@ import time
 
 import thornpy
 import numpy as np
-import matplotlib.pyplot as plt
 
 from .constants import TO_PARAMETER_PATTERN, TO_LENGTH_PARAM, ADRILL_IDS, ADRILL_PLUGIN_VAR, ACF_FUNNEL_PATTERN, ACF_INTEGRATOR_ERROR_PATTERN
 from . import TMPLT_ENV
@@ -1252,7 +1251,7 @@ def modify_acf_solver_settings(acf_file, statics=None, error=None):
     os.remove(acf_file)
     os.rename(acf_file + '._tmp_', acf_file)   
 
-def motor_curve(stall_torque, max_torque, max_rpm, min_rpm, save_filename=None):    
+def get_motor_curve(stall_torque, max_torque, max_rpm, min_rpm, save_filename=None):    
     """Returns data to generate a theoretical motor curve.
     
     Parameters
@@ -1287,7 +1286,7 @@ def motor_curve(stall_torque, max_torque, max_rpm, min_rpm, save_filename=None):
     >>> max_torque = 15
     >>> max_rpm = 100
     >>> min_rpm = 80
-    >>> nor_rpm, esr_rpm, nor_torque, esr_torque = motor_curve(stall_torque, max_torque, max_rpm, min_rpm)
+    >>> nor_rpm, esr_rpm, nor_torque, esr_torque = get_motor_curve(stall_torque, max_torque, max_rpm, min_rpm)
     >>> plt.plot([rpm + min_rpm for rpm in nor_rpm], nor_torque)
     >>> plt.plot(esr_rpm, esr_torque, linestyle='--')        
     >>> plt.show()
@@ -1321,7 +1320,206 @@ def motor_curve(stall_torque, max_torque, max_rpm, min_rpm, save_filename=None):
                 # For each rpm and torque datapoin in the normal operating range, write the data point and shift the rpm value by the rpm at max torque
                 fid.write('{},{}\n'.format(rpm+min_rpm, torque))   
 
-    return list(w_nor), list(w_esr), list(q_nor), list(q_esr)
+    return list(w_nor), list(w_esr), list(q_nor), list(q_esr)    
+    
+def get_motor_coefficients(min_rpms, max_rpms, flows):
+    """Returns the motor coefficients used in the Adams Drill motor model.
+    
+    Parameters
+    ----------
+    min_rpms : list
+        List of the minimum operating motor speeds for each flow rate.
+    max_rpms : list
+        List of the maximum operating motor speeds for each flow rate.
+    flows : list
+        List of corresponding flow rates
+    
+    Returns
+    -------
+    float
+        NOR Max (No Load) RPM A
+    float
+        NOR Max (No Load) RPM B
+    float
+        NOR Min (Max dP) RPM A
+    float
+        NOR Min (Max dP) RPM A
+
+    """
+    [nor_min_rpm_a, nor_min_rpm_b] = np.polyfit(flows, min_rpms, 1)
+    [nor_max_rpm_a, nor_max_rpm_b] = np.polyfit(flows, max_rpms, 1)
+
+    return nor_max_rpm_a, nor_max_rpm_b, nor_min_rpm_a, nor_min_rpm_b
+
+class MotorModel():
+    def __init__(self, min_rpms, max_rpms, flows, stall_torque, max_torque):
+        """Initializes an Adams Motor Model
+        
+        Parameters
+        ----------
+        min_rpms : list
+            List of the minimum operating motor speeds for each flow rate.
+        max_rpms : list
+            List of the maximum operating motor speeds for each flow rate.
+        flows : list
+            List of corresponding flow rates
+        stall_torque : float
+            Torque at which the motor stalls (klbf-ft)
+        max_torque : float
+            Maximum operating torque (klbf-ft)
+
+        """
+        nor_max_rpm_a, nor_max_rpm_b, nor_min_rpm_a, nor_min_rpm_b = get_motor_coefficients(min_rpms, max_rpms, flows)
+        self.nor_max_rpm_a = nor_max_rpm_a
+        self.nor_max_rpm_b = nor_max_rpm_b
+        self.nor_min_rpm_a = nor_min_rpm_a
+        self.nor_min_rpm_b = nor_min_rpm_b
+        self.max_torque = max_torque
+        self.stall_torque = stall_torque
+    
+    def degrade_motor(self, degradation):
+        """Degrades the motor by `degradation` (in place)
+        
+        Parameters
+        ----------
+        degradation : float
+            Motor degradation factor
+            
+        """
+        self.nor_max_rpm_a *= degradation
+        self.nor_max_rpm_b *= degradation
+        self.nor_min_rpm_a *= degradation
+        self.nor_min_rpm_b *= degradation
+        self.max_torque *= degradation
+        self.stall_torque *= degradation
+
+    def get_torque(self, rpm, flow, degradation=1):
+        """Gets the motor output torque given a motor rpm and flow rate.
+        
+        Parameters
+        ----------
+        rpm : float
+            Motor rpm
+        flow : float
+            Motor flow rate
+        degradation : float
+            Motor degradation factor (default is 1 which means there is no degradation)
+
+        Returns
+        -------
+        float
+            Motor output torque
+        
+        Raises
+        ------
+        MotorModelError
+            Raised if the rpm given is greater than the motors maximum output rpm.
+
+        """
+        nor_min_rpm_a = self.nor_min_rpm_a*degradation
+        nor_min_rpm_b = self.nor_min_rpm_b*degradation
+        nor_max_rpm_a = self.nor_max_rpm_a*degradation
+        nor_max_rpm_b = self.nor_max_rpm_b*degradation
+        max_torque = self.max_torque*degradation
+        stall_torque = self.stall_torque*degradation
+        
+
+        min_rpm = np.polyval([nor_min_rpm_a, nor_min_rpm_b], flow)*degradation
+        max_rpm = np.polyval([nor_max_rpm_a, nor_max_rpm_b], flow)*degradation
+
+        free_rpm = max_rpm - min_rpm
+        
+        if rpm < min_rpm:
+            a_coef = -max_torque/(free_rpm**2)
+            b_coef = 0
+            c_coef = max_torque
+        
+        elif rpm > max_rpm:
+            raise MotorModelError(f'The rpm provided is greater than the max rpm of {max_rpm}')
+
+        else:
+            a_coef = (stall_torque - max_torque)/(min_rpm**2)
+            b_coef = 2*(max_torque - stall_torque)/min_rpm
+            c_coef = stall_torque            
+        
+        return a_coef*rpm**2 + b_coef*rpm + c_coef
+    
+    def get_motor_curve(self, flow):
+        """Returns data t`o generate a theoretical motor curve.
+        
+        Parameters
+        ----------
+        flow : float
+            Flow rate at which to generate the motor curve
+        
+        Returns
+        -------
+        list
+            Rpm points in normal operating range
+        list
+            Rpm points in extended stall range range
+        list
+            Torque points in normal operating range
+        list
+            Torque points in extended stall range range
+
+        Example
+        -------
+        This example plots the motor curve with a dashed line for the extended stall range.
+        >>> import matplotlib.pyplot as plt
+        >>> stall_torque = 20
+        >>> max_torque = 15
+        >>> max_rpms = [80, 100, 120]
+        >>> min_rpm = [50, 70, 90]
+        >>> flows = [400, 500, 600]
+        >>> motor_model = MotorModel(min_rpms, max_rpms, flows, stall_torque, max_torque)
+        >>> nor_rpm, esr_rpm, nor_torque, esr_torque = motor_model.get_motor_curve(550)
+        >>> plt.plot([rpm + min_rpm for rpm in nor_rpm], nor_torque)
+        >>> plt.plot(esr_rpm, esr_torque, linestyle='--')        
+        >>> plt.show()
+
+        """   
+        min_rpm = np.polyval([self.nor_min_rpm_a, self.nor_min_rpm_b], flow)
+        max_rpm = np.polyval([self.nor_max_rpm_a, self.nor_max_rpm_b], flow)
+
+        nor_rpm, esr_rpm, nor_torque, esr_torque =  get_motor_curve(self.stall_torque, self.max_torque, max_rpm, min_rpm)
+
+        return min_rpm, max_rpm, nor_rpm, esr_rpm, nor_torque, esr_torque
+
+    @classmethod
+    def build_from_coeffs(cls, nor_max_rpm_a, nor_max_rpm_b, nor_min_rpm_a, nor_min_rpm_b, max_torque, stall_torque):
+        """Used to build a motor model if you already know the motor coefficients.
+        
+        Parameters
+        ----------
+        nor_max_rpm_a : float
+            nor_max_rpm_a
+        nor_max_rpm_b : float
+            nor_max_rpm_b
+        nor_min_rpm_a : float
+            nor_min_rpm_a
+        nor_min_rpm_b : float
+            nor_min_rpm_b
+        max_torque : float
+            max_torque
+        stall_torque : float
+            stall_torque
+        
+        Returns
+        -------
+        MotorModel
+            A :obj:`MotorModel` object
+
+        """
+        motor_model = cls([0, 1], [0, 1], [1, 2], stall_torque, max_torque)
+        motor_model.nor_max_rpm_a = nor_max_rpm_a
+        motor_model.nor_max_rpm_b = nor_max_rpm_b
+        motor_model.nor_min_rpm_a = nor_min_rpm_a
+        motor_model.nor_min_rpm_b = nor_min_rpm_b
+        return motor_model
+
+class MotorModelError(Exception):
+    pass
 
 class TiemOrbitSyntaxError(Exception):
     pass

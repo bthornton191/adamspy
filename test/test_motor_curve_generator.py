@@ -1,6 +1,6 @@
 import unittest
 
-from adamspy.adripy.utilities import motor_curve
+from adamspy.adripy.utilities import get_motor_curve
 
 import matplotlib.pyplot as plt
 
