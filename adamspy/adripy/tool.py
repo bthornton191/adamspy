@@ -18,7 +18,7 @@ class DrillTool():
     property_file : str
         Tiem Orbit file representing the drill tool.
     name : str
-        Name of the tools
+        Name of the tool.
     tool_type : str
         Type of the tool.
     extension : str

@@ -292,7 +292,7 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         >>> reqs_to_read = {}
         >>> reqs_to_read['MSE'] = ['Instantaneous_Bottom_MSE', 'Filtered_Surface_MSE']
         >>> reqs_to_read['ROP_controls'] = ['Command_ROP', 'True_WOB']
-        >>> results, units = drillsim.get_results(result_file, reqs_to_get, t_min, t_max)
+        >>> results, units = drillsim.read_results(reqs_to_read, t_min, t_max)
         >>> results['MSE']['Instantaneous_Bottom_MSE']
         [5000.5621, 5000.8913, ]
 
@@ -471,6 +471,7 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
             num = (stop-start)/step
             if not num.is_integer():
                 raise ValueError('(stop-start)/step must be a whole number.')
+            num = int(num)
             index = list(linspace(start, stop, num, endpoint=endpoint, dtype=float))
             return index  
 

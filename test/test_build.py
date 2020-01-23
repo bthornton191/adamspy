@@ -67,8 +67,8 @@ class Test_Build(unittest.TestCase):
     def tearDownClass(cls):
         adripy.remove_cdb_from_cfg(TEST_DATABASE_NAME, os.environ['ADRILL_USER_CFG'])
         # Remove all the files in the working directory
-        # for file in glob.glob(os.path.join(TEST_WORKING_DIRECTORY, '*')):
-        #     os.remove(file)
+        for file in glob.glob(os.path.join(TEST_WORKING_DIRECTORY, '*')):
+            os.remove(file)
 
 if __name__ == '__main__':
     unittest.main()

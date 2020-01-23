@@ -75,6 +75,9 @@ def get_results(result_file, reqs_to_get=None, t_min=None, t_max=None, return_un
 					for req_comp in reqs_to_return[req]:
 						req_id = int(req_ids[req][req_comp])
 						reqs_to_return[req][req_comp].append(float(step_data[req_id]))
+			
+			elif t_max is not None and t_step > t_max:
+				break
 	
 	# Add the time list to the return dict
 	reqs_to_return['time'] = time
