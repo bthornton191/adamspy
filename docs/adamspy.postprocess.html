@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.postprocess package &mdash; adamspy 0.8.29 documentation</title>
+  <title>adamspy.postprocess package &mdash; adamspy 0.9.0 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.8.29
+                0.9.0
               </div>
             
           
@@ -188,10 +188,10 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>result_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Filename of an Adams results (.res) file</li>
-<li><strong>reqs_to_get</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Dictionary of requests to extract (the default is None, which gets all results)</li>
-<li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>optional</em>) – Minimum time for which to extract results (the default is None)</li>
-<li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>optional</em>) – Maximum time for which to extract results (the default is None)</li>
+<li><strong>result_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Filename of an Adams results (.res) file</li>
+<li><strong>reqs_to_get</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – Dictionary of requests to extract (the default is None, which gets all results)</li>
+<li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><em>optional</em>) – Minimum time for which to extract results (the default is None)</li>
+<li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><em>optional</em>) – Maximum time for which to extract results (the default is None)</li>
 </ul>
 </td>
 </tr>
@@ -229,12 +229,12 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>result_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Filename of the results file</li>
-<li><strong>reqs_to_keep</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Dictionary of requests and request components that should be saved.</li>
-<li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>optional</em>) – Start time of period of interest (default is None which uses the first time step)</li>
-<li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>optional</em>) – End time of period of interest (default is None which uses the last time step)</li>
-<li><strong>new_result_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Name that will be given to the new results file. (Default is None which adds a ‘_shrunk’ suffix to <cite>result_file</cite> if in_place=False or uses <cite>result_file</cite> if in_place=True.)</li>
-<li><strong>in_place</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, existing file will be deleted.</li>
+<li><strong>result_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Filename of the results file</li>
+<li><strong>reqs_to_keep</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – Dictionary of requests and request components that should be saved.</li>
+<li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><em>optional</em>) – Start time of period of interest (default is None which uses the first time step)</li>
+<li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><em>optional</em>) – End time of period of interest (default is None which uses the last time step)</li>
+<li><strong>new_result_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Name that will be given to the new results file. (Default is None which adds a ‘_shrunk’ suffix to <cite>result_file</cite> if in_place=False or uses <cite>result_file</cite> if in_place=True.)</li>
+<li><strong>in_place</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, existing file will be deleted.</li>
 </ul>
 </td>
 </tr>
@@ -255,11 +255,11 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>res_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Filepath to an Adams Results file.</li>
-<li><strong>cmd_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Adams View command (.cmd) file. If given, this will be loaded before the results file.  This is necessary to view animations.</li>
-<li><strong>wait</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – If <cite>True</cite>, code execution will freeze until the postprocessor is closed. (the default is False)</li>
-<li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>optional</em>) – If <cite>wait`=`False</cite>, code execution will freeze until the postprocessor has started loading the results file or until <cite>timeout</cite> secodns have elapsed.</li>
-<li><strong>_terminate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – If <cite>True</cite>, the PostProcessor will close immediately.  This is for testing purposes.</li>
+<li><strong>res_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Filepath to an Adams Results file.</li>
+<li><strong>cmd_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – Adams View command (.cmd) file. If given, this will be loaded before the results file.  This is necessary to view animations.</li>
+<li><strong>wait</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – If <cite>True</cite>, code execution will freeze until the postprocessor is closed. (the default is False)</li>
+<li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><em>optional</em>) – If <cite>wait`=`False</cite>, code execution will freeze until the postprocessor has started loading the results file or until <cite>timeout</cite> secodns have elapsed.</li>
+<li><strong>_terminate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – If <cite>True</cite>, the PostProcessor will close immediately.  This is for testing purposes.</li>
 </ul>
 </td>
 </tr>

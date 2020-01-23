@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.drillsim &mdash; adamspy 0.8.29 documentation</title>
+  <title>adamspy.adripy.drillsim &mdash; adamspy 0.9.0 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.8.29
+                0.9.0
               </div>
             
           
@@ -439,7 +439,7 @@
 <span class="sd">        &gt;&gt;&gt; reqs_to_read = {}</span>
 <span class="sd">        &gt;&gt;&gt; reqs_to_read[&#39;MSE&#39;] = [&#39;Instantaneous_Bottom_MSE&#39;, &#39;Filtered_Surface_MSE&#39;]</span>
 <span class="sd">        &gt;&gt;&gt; reqs_to_read[&#39;ROP_controls&#39;] = [&#39;Command_ROP&#39;, &#39;True_WOB&#39;]</span>
-<span class="sd">        &gt;&gt;&gt; results, units = drillsim.get_results(result_file, reqs_to_get, t_min, t_max)</span>
+<span class="sd">        &gt;&gt;&gt; results, units = drillsim.read_results(reqs_to_read, t_min, t_max)</span>
 <span class="sd">        &gt;&gt;&gt; results[&#39;MSE&#39;][&#39;Instantaneous_Bottom_MSE&#39;]</span>
 <span class="sd">        [5000.5621, 5000.8913, ]</span>
 
@@ -618,6 +618,7 @@
             <span class="n">num</span> <span class="o">=</span> <span class="p">(</span><span class="n">stop</span><span class="o">-</span><span class="n">start</span><span class="p">)</span><span class="o">/</span><span class="n">step</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">num</span><span class="o">.</span><span class="n">is_integer</span><span class="p">():</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;(stop-start)/step must be a whole number.&#39;</span><span class="p">)</span>
+            <span class="n">num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
             <span class="n">index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">linspace</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">num</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">))</span>
             <span class="k">return</span> <span class="n">index</span>  
 

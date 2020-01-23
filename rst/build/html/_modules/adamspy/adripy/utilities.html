@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.utilities &mdash; adamspy 0.8.29 documentation</title>
+  <title>adamspy.adripy.utilities &mdash; adamspy 0.9.0 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.8.29
+                0.9.0
               </div>
             
           
@@ -153,6 +153,8 @@
 <span class="kn">import</span> <span class="nn">time</span>
 
 <span class="kn">import</span> <span class="nn">thornpy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
 <span class="kn">from</span> <span class="nn">.constants</span> <span class="k">import</span> <span class="n">TO_PARAMETER_PATTERN</span><span class="p">,</span> <span class="n">TO_LENGTH_PARAM</span><span class="p">,</span> <span class="n">ADRILL_IDS</span><span class="p">,</span> <span class="n">ADRILL_PLUGIN_VAR</span><span class="p">,</span> <span class="n">ACF_FUNNEL_PATTERN</span><span class="p">,</span> <span class="n">ACF_INTEGRATOR_ERROR_PATTERN</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">TMPLT_ENV</span>
 
@@ -1395,6 +1397,276 @@
     <span class="c1"># Replace the existing acf file with the temporary</span>
     <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">acf_file</span><span class="p">)</span>
     <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">acf_file</span> <span class="o">+</span> <span class="s1">&#39;._tmp_&#39;</span><span class="p">,</span> <span class="n">acf_file</span><span class="p">)</span>   </div>
+
+<div class="viewcode-block" id="get_motor_curve"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.utilities.get_motor_curve">[docs]</a><span class="k">def</span> <span class="nf">get_motor_curve</span><span class="p">(</span><span class="n">stall_torque</span><span class="p">,</span> <span class="n">max_torque</span><span class="p">,</span> <span class="n">max_rpm</span><span class="p">,</span> <span class="n">min_rpm</span><span class="p">,</span> <span class="n">save_filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>    
+    <span class="sd">&quot;&quot;&quot;Returns data to generate a theoretical motor curve.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    stall_torque : float</span>
+<span class="sd">        Torque at which the motor stalls (klbf-ft)</span>
+<span class="sd">    max_torque : float</span>
+<span class="sd">        Maximum operating torque (klbf-ft)</span>
+<span class="sd">    max_rpm : float</span>
+<span class="sd">        Maximum operating motor speed</span>
+<span class="sd">    min_rpm : float</span>
+<span class="sd">        Minimum operating motor speed</span>
+<span class="sd">    save_filename : bool, optional</span>
+<span class="sd">        If True, motor curve will be saved to file `filename`, by default None</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list</span>
+<span class="sd">        Rpm points in normal operating range</span>
+<span class="sd">    list</span>
+<span class="sd">        Rpm points in extended stall range range</span>
+<span class="sd">    list</span>
+<span class="sd">        Torque points in normal operating range</span>
+<span class="sd">    list</span>
+<span class="sd">        Torque points in extended stall range range</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    This example plots the motor curve with a dashed line for the extended stall range.</span>
+<span class="sd">    &gt;&gt;&gt; import matplotlib.pyplot as plt</span>
+<span class="sd">    &gt;&gt;&gt; stall_torque = 20</span>
+<span class="sd">    &gt;&gt;&gt; max_torque = 15</span>
+<span class="sd">    &gt;&gt;&gt; max_rpm = 100</span>
+<span class="sd">    &gt;&gt;&gt; min_rpm = 80</span>
+<span class="sd">    &gt;&gt;&gt; nor_rpm, esr_rpm, nor_torque, esr_torque = get_motor_curve(stall_torque, max_torque, max_rpm, min_rpm)</span>
+<span class="sd">    &gt;&gt;&gt; plt.plot([rpm + min_rpm for rpm in nor_rpm], nor_torque)</span>
+<span class="sd">    &gt;&gt;&gt; plt.plot(esr_rpm, esr_torque, linestyle=&#39;--&#39;)        </span>
+<span class="sd">    &gt;&gt;&gt; plt.show()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">free_rpm</span> <span class="o">=</span> <span class="n">max_rpm</span> <span class="o">-</span> <span class="n">min_rpm</span>
+    
+    <span class="n">a_nor</span> <span class="o">=</span> <span class="o">-</span><span class="n">max_torque</span><span class="o">/</span><span class="p">(</span><span class="n">free_rpm</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">b_nor</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">c_nor</span> <span class="o">=</span> <span class="n">max_torque</span>
+    
+    <span class="n">a_esr</span> <span class="o">=</span> <span class="p">(</span><span class="n">stall_torque</span> <span class="o">-</span> <span class="n">max_torque</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">min_rpm</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">b_esr</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">max_torque</span> <span class="o">-</span> <span class="n">stall_torque</span><span class="p">)</span><span class="o">/</span><span class="n">min_rpm</span>
+    <span class="n">c_esr</span> <span class="o">=</span> <span class="n">stall_torque</span>    
+    
+    <span class="n">w_nor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">free_rpm</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">w_esr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">min_rpm</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="n">q_nor</span> <span class="o">=</span> <span class="n">a_nor</span><span class="o">*</span><span class="n">w_nor</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">b_nor</span><span class="o">*</span><span class="n">w_nor</span> <span class="o">+</span> <span class="n">c_nor</span>
+    <span class="n">q_esr</span> <span class="o">=</span> <span class="n">a_esr</span><span class="o">*</span><span class="n">w_esr</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">b_esr</span><span class="o">*</span><span class="n">w_esr</span> <span class="o">+</span> <span class="n">c_esr</span>
+        
+    <span class="k">if</span> <span class="n">save_filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>        
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">save_filename</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+            <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;RPM, Torque (klbf-ft)</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            
+            <span class="k">for</span> <span class="n">rpm</span><span class="p">,</span> <span class="n">torque</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">w_esr</span><span class="p">,</span> <span class="n">q_esr</span><span class="p">):</span>
+                <span class="c1"># For each rpm and torque datapoin in the extended stall range, write the data point</span>
+                <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">,</span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rpm</span><span class="p">,</span> <span class="n">torque</span><span class="p">))</span>
+
+            <span class="k">for</span> <span class="n">rpm</span><span class="p">,</span> <span class="n">torque</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">w_nor</span><span class="p">,</span> <span class="n">q_nor</span><span class="p">):</span>
+                <span class="c1"># For each rpm and torque datapoin in the normal operating range, write the data point and shift the rpm value by the rpm at max torque</span>
+                <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">,</span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rpm</span><span class="o">+</span><span class="n">min_rpm</span><span class="p">,</span> <span class="n">torque</span><span class="p">))</span>   
+
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">w_nor</span><span class="p">),</span> <span class="nb">list</span><span class="p">(</span><span class="n">w_esr</span><span class="p">),</span> <span class="nb">list</span><span class="p">(</span><span class="n">q_nor</span><span class="p">),</span> <span class="nb">list</span><span class="p">(</span><span class="n">q_esr</span><span class="p">)</span>    </div>
+    
+<div class="viewcode-block" id="get_motor_coefficients"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.utilities.get_motor_coefficients">[docs]</a><span class="k">def</span> <span class="nf">get_motor_coefficients</span><span class="p">(</span><span class="n">min_rpms</span><span class="p">,</span> <span class="n">max_rpms</span><span class="p">,</span> <span class="n">flows</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns the motor coefficients used in the Adams Drill motor model.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    min_rpms : list</span>
+<span class="sd">        List of the minimum operating motor speeds for each flow rate.</span>
+<span class="sd">    max_rpms : list</span>
+<span class="sd">        List of the maximum operating motor speeds for each flow rate.</span>
+<span class="sd">    flows : list</span>
+<span class="sd">        List of corresponding flow rates</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        NOR Max (No Load) RPM A</span>
+<span class="sd">    float</span>
+<span class="sd">        NOR Max (No Load) RPM B</span>
+<span class="sd">    float</span>
+<span class="sd">        NOR Min (Max dP) RPM A</span>
+<span class="sd">    float</span>
+<span class="sd">        NOR Min (Max dP) RPM A</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="p">[</span><span class="n">nor_min_rpm_a</span><span class="p">,</span> <span class="n">nor_min_rpm_b</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">flows</span><span class="p">,</span> <span class="n">min_rpms</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="p">[</span><span class="n">nor_max_rpm_a</span><span class="p">,</span> <span class="n">nor_max_rpm_b</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">flows</span><span class="p">,</span> <span class="n">max_rpms</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">nor_max_rpm_a</span><span class="p">,</span> <span class="n">nor_max_rpm_b</span><span class="p">,</span> <span class="n">nor_min_rpm_a</span><span class="p">,</span> <span class="n">nor_min_rpm_b</span></div>
+
+<div class="viewcode-block" id="MotorModel"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.utilities.MotorModel">[docs]</a><span class="k">class</span> <span class="nc">MotorModel</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">min_rpms</span><span class="p">,</span> <span class="n">max_rpms</span><span class="p">,</span> <span class="n">flows</span><span class="p">,</span> <span class="n">stall_torque</span><span class="p">,</span> <span class="n">max_torque</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initializes an Adams Motor Model</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        min_rpms : list</span>
+<span class="sd">            List of the minimum operating motor speeds for each flow rate.</span>
+<span class="sd">        max_rpms : list</span>
+<span class="sd">            List of the maximum operating motor speeds for each flow rate.</span>
+<span class="sd">        flows : list</span>
+<span class="sd">            List of corresponding flow rates</span>
+<span class="sd">        stall_torque : float</span>
+<span class="sd">            Torque at which the motor stalls (klbf-ft)</span>
+<span class="sd">        max_torque : float</span>
+<span class="sd">            Maximum operating torque (klbf-ft)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">nor_max_rpm_a</span><span class="p">,</span> <span class="n">nor_max_rpm_b</span><span class="p">,</span> <span class="n">nor_min_rpm_a</span><span class="p">,</span> <span class="n">nor_min_rpm_b</span> <span class="o">=</span> <span class="n">get_motor_coefficients</span><span class="p">(</span><span class="n">min_rpms</span><span class="p">,</span> <span class="n">max_rpms</span><span class="p">,</span> <span class="n">flows</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nor_max_rpm_a</span> <span class="o">=</span> <span class="n">nor_max_rpm_a</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nor_max_rpm_b</span> <span class="o">=</span> <span class="n">nor_max_rpm_b</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nor_min_rpm_a</span> <span class="o">=</span> <span class="n">nor_min_rpm_a</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nor_min_rpm_b</span> <span class="o">=</span> <span class="n">nor_min_rpm_b</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_torque</span> <span class="o">=</span> <span class="n">max_torque</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stall_torque</span> <span class="o">=</span> <span class="n">stall_torque</span>
+    
+<div class="viewcode-block" id="MotorModel.degrade_motor"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.utilities.MotorModel.degrade_motor">[docs]</a>    <span class="k">def</span> <span class="nf">degrade_motor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">degradation</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Degrades the motor by `degradation` (in place)</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        degradation : float</span>
+<span class="sd">            Motor degradation factor</span>
+<span class="sd">            </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nor_max_rpm_a</span> <span class="o">*=</span> <span class="n">degradation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nor_max_rpm_b</span> <span class="o">*=</span> <span class="n">degradation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nor_min_rpm_a</span> <span class="o">*=</span> <span class="n">degradation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nor_min_rpm_b</span> <span class="o">*=</span> <span class="n">degradation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_torque</span> <span class="o">*=</span> <span class="n">degradation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stall_torque</span> <span class="o">*=</span> <span class="n">degradation</span></div>
+
+<div class="viewcode-block" id="MotorModel.get_torque"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.utilities.MotorModel.get_torque">[docs]</a>    <span class="k">def</span> <span class="nf">get_torque</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rpm</span><span class="p">,</span> <span class="n">flow</span><span class="p">,</span> <span class="n">degradation</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Gets the motor output torque given a motor rpm and flow rate.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        rpm : float</span>
+<span class="sd">            Motor rpm</span>
+<span class="sd">        flow : float</span>
+<span class="sd">            Motor flow rate</span>
+<span class="sd">        degradation : float</span>
+<span class="sd">            Motor degradation factor (default is 1 which means there is no degradation)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            Motor output torque</span>
+<span class="sd">        </span>
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        MotorModelError</span>
+<span class="sd">            Raised if the rpm given is greater than the motors maximum output rpm.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">nor_min_rpm_a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nor_min_rpm_a</span><span class="o">*</span><span class="n">degradation</span>
+        <span class="n">nor_min_rpm_b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nor_min_rpm_b</span><span class="o">*</span><span class="n">degradation</span>
+        <span class="n">nor_max_rpm_a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nor_max_rpm_a</span><span class="o">*</span><span class="n">degradation</span>
+        <span class="n">nor_max_rpm_b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nor_max_rpm_b</span><span class="o">*</span><span class="n">degradation</span>
+        <span class="n">max_torque</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_torque</span><span class="o">*</span><span class="n">degradation</span>
+        <span class="n">stall_torque</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stall_torque</span><span class="o">*</span><span class="n">degradation</span>
+        
+
+        <span class="n">min_rpm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyval</span><span class="p">([</span><span class="n">nor_min_rpm_a</span><span class="p">,</span> <span class="n">nor_min_rpm_b</span><span class="p">],</span> <span class="n">flow</span><span class="p">)</span><span class="o">*</span><span class="n">degradation</span>
+        <span class="n">max_rpm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyval</span><span class="p">([</span><span class="n">nor_max_rpm_a</span><span class="p">,</span> <span class="n">nor_max_rpm_b</span><span class="p">],</span> <span class="n">flow</span><span class="p">)</span><span class="o">*</span><span class="n">degradation</span>
+
+        <span class="n">free_rpm</span> <span class="o">=</span> <span class="n">max_rpm</span> <span class="o">-</span> <span class="n">min_rpm</span>
+        
+        <span class="k">if</span> <span class="n">rpm</span> <span class="o">&lt;</span> <span class="n">min_rpm</span><span class="p">:</span>
+            <span class="n">a_coef</span> <span class="o">=</span> <span class="o">-</span><span class="n">max_torque</span><span class="o">/</span><span class="p">(</span><span class="n">free_rpm</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">b_coef</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">c_coef</span> <span class="o">=</span> <span class="n">max_torque</span>
+        
+        <span class="k">elif</span> <span class="n">rpm</span> <span class="o">&gt;</span> <span class="n">max_rpm</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">MotorModelError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;The rpm provided is greater than the max rpm of </span><span class="si">{max_rpm}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">a_coef</span> <span class="o">=</span> <span class="p">(</span><span class="n">stall_torque</span> <span class="o">-</span> <span class="n">max_torque</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">min_rpm</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">b_coef</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">max_torque</span> <span class="o">-</span> <span class="n">stall_torque</span><span class="p">)</span><span class="o">/</span><span class="n">min_rpm</span>
+            <span class="n">c_coef</span> <span class="o">=</span> <span class="n">stall_torque</span>            
+        
+        <span class="k">return</span> <span class="n">a_coef</span><span class="o">*</span><span class="n">rpm</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">b_coef</span><span class="o">*</span><span class="n">rpm</span> <span class="o">+</span> <span class="n">c_coef</span></div>
+    
+<div class="viewcode-block" id="MotorModel.get_motor_curve"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.utilities.MotorModel.get_motor_curve">[docs]</a>    <span class="k">def</span> <span class="nf">get_motor_curve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flow</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns data t`o generate a theoretical motor curve.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        flow : float</span>
+<span class="sd">            Flow rate at which to generate the motor curve</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list</span>
+<span class="sd">            Rpm points in normal operating range</span>
+<span class="sd">        list</span>
+<span class="sd">            Rpm points in extended stall range range</span>
+<span class="sd">        list</span>
+<span class="sd">            Torque points in normal operating range</span>
+<span class="sd">        list</span>
+<span class="sd">            Torque points in extended stall range range</span>
+
+<span class="sd">        Example</span>
+<span class="sd">        -------</span>
+<span class="sd">        This example plots the motor curve with a dashed line for the extended stall range.</span>
+<span class="sd">        &gt;&gt;&gt; import matplotlib.pyplot as plt</span>
+<span class="sd">        &gt;&gt;&gt; stall_torque = 20</span>
+<span class="sd">        &gt;&gt;&gt; max_torque = 15</span>
+<span class="sd">        &gt;&gt;&gt; max_rpms = [80, 100, 120]</span>
+<span class="sd">        &gt;&gt;&gt; min_rpm = [50, 70, 90]</span>
+<span class="sd">        &gt;&gt;&gt; flows = [400, 500, 600]</span>
+<span class="sd">        &gt;&gt;&gt; motor_model = MotorModel(min_rpms, max_rpms, flows, stall_torque, max_torque)</span>
+<span class="sd">        &gt;&gt;&gt; nor_rpm, esr_rpm, nor_torque, esr_torque = motor_model.get_motor_curve(550)</span>
+<span class="sd">        &gt;&gt;&gt; plt.plot([rpm + min_rpm for rpm in nor_rpm], nor_torque)</span>
+<span class="sd">        &gt;&gt;&gt; plt.plot(esr_rpm, esr_torque, linestyle=&#39;--&#39;)        </span>
+<span class="sd">        &gt;&gt;&gt; plt.show()</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>   
+        <span class="n">min_rpm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyval</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">nor_min_rpm_a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nor_min_rpm_b</span><span class="p">],</span> <span class="n">flow</span><span class="p">)</span>
+        <span class="n">max_rpm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyval</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">nor_max_rpm_a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nor_max_rpm_b</span><span class="p">],</span> <span class="n">flow</span><span class="p">)</span>
+
+        <span class="n">nor_rpm</span><span class="p">,</span> <span class="n">esr_rpm</span><span class="p">,</span> <span class="n">nor_torque</span><span class="p">,</span> <span class="n">esr_torque</span> <span class="o">=</span>  <span class="n">get_motor_curve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stall_torque</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_torque</span><span class="p">,</span> <span class="n">max_rpm</span><span class="p">,</span> <span class="n">min_rpm</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">min_rpm</span><span class="p">,</span> <span class="n">max_rpm</span><span class="p">,</span> <span class="n">nor_rpm</span><span class="p">,</span> <span class="n">esr_rpm</span><span class="p">,</span> <span class="n">nor_torque</span><span class="p">,</span> <span class="n">esr_torque</span></div>
+
+<div class="viewcode-block" id="MotorModel.build_from_coeffs"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.utilities.MotorModel.build_from_coeffs">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">build_from_coeffs</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">nor_max_rpm_a</span><span class="p">,</span> <span class="n">nor_max_rpm_b</span><span class="p">,</span> <span class="n">nor_min_rpm_a</span><span class="p">,</span> <span class="n">nor_min_rpm_b</span><span class="p">,</span> <span class="n">max_torque</span><span class="p">,</span> <span class="n">stall_torque</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Used to build a motor model if you already know the motor coefficients.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        nor_max_rpm_a : float</span>
+<span class="sd">            nor_max_rpm_a</span>
+<span class="sd">        nor_max_rpm_b : float</span>
+<span class="sd">            nor_max_rpm_b</span>
+<span class="sd">        nor_min_rpm_a : float</span>
+<span class="sd">            nor_min_rpm_a</span>
+<span class="sd">        nor_min_rpm_b : float</span>
+<span class="sd">            nor_min_rpm_b</span>
+<span class="sd">        max_torque : float</span>
+<span class="sd">            max_torque</span>
+<span class="sd">        stall_torque : float</span>
+<span class="sd">            stall_torque</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        MotorModel</span>
+<span class="sd">            A :obj:`MotorModel` object</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">motor_model</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">stall_torque</span><span class="p">,</span> <span class="n">max_torque</span><span class="p">)</span>
+        <span class="n">motor_model</span><span class="o">.</span><span class="n">nor_max_rpm_a</span> <span class="o">=</span> <span class="n">nor_max_rpm_a</span>
+        <span class="n">motor_model</span><span class="o">.</span><span class="n">nor_max_rpm_b</span> <span class="o">=</span> <span class="n">nor_max_rpm_b</span>
+        <span class="n">motor_model</span><span class="o">.</span><span class="n">nor_min_rpm_a</span> <span class="o">=</span> <span class="n">nor_min_rpm_a</span>
+        <span class="n">motor_model</span><span class="o">.</span><span class="n">nor_min_rpm_b</span> <span class="o">=</span> <span class="n">nor_min_rpm_b</span>
+        <span class="k">return</span> <span class="n">motor_model</span></div></div>
+
+<div class="viewcode-block" id="MotorModelError"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.utilities.MotorModelError">[docs]</a><span class="k">class</span> <span class="nc">MotorModelError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span></div>
 
 <div class="viewcode-block" id="TiemOrbitSyntaxError"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.utilities.TiemOrbitSyntaxError">[docs]</a><span class="k">class</span> <span class="nc">TiemOrbitSyntaxError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
