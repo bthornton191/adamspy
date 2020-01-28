@@ -1,9 +1,10 @@
-import xml.etree.ElementTree as et
 import os
+import xml.etree.ElementTree as et
+import pickle
 SHRUNK_RES_SUFFIX = '_shrunk'
 XML_REF = 'http://www.mscsoftware.com/:xrf10'
 
-def get_results(result_file, reqs_to_get=None, t_min=None, t_max=None, return_units=False):
+def get_results(result_file, reqs_to_get=None, t_min=None, t_max=None, return_units=False, overwrite_pickle=False):
 	"""Gets results from an Adams results (.res) file.
 	
 	Example
@@ -43,50 +44,70 @@ def get_results(result_file, reqs_to_get=None, t_min=None, t_max=None, return_un
 		Dictionary defining units for each request. NOTE: This is only returned if `return_units=False`
 	
 	"""
-	# Parse the results file
-	res_tree = et.parse(result_file)
-	
-	# Loop over all the *Entity* nodes in the input tree, pick out the ones requested
-	# in `reqs_to_keep` and put their units and original ids into dictionaries
-	units, req_ids, reqs_to_get = _get_units_and_ids(res_tree, reqs_to_get)
+	pickle_filename = os.path.join(os.path.dirname(result_file), '.' + os.path.splitext(os.path.split(result_file)[-1])[0] + '.pkl')
+	units_pickle_filename = os.path.join(os.path.dirname(result_file), '.' + os.path.splitext(os.path.split(result_file)[-1])[0] + '_units.pkl')
 
-	# Initialize the output requests dictionary
-	reqs_to_return = {req : {req_comp : [] for req_comp in reqs_to_get[req]} for req in reqs_to_get}
-	time = []
+	if overwrite_pickle is False and os.path.isfile(pickle_filename) and (os.path.isfile(units_pickle_filename) or return_units is False):
+		# Load from a pickle file
+		with open(pickle_filename, 'rb') as fid:
+			reqs_to_return = pickle.load(fid)
 
-	# Make a list of all the data nodes that represent dynamic sims
-	dyn_data_nodes = [node for node in res_tree.iter('{'+XML_REF+'}Data') if 'dynamic_' in node.attrib.get('name')]
+		if return_units is True:
+			with open(units_pickle_filename, 'rb') as fid:
+				units = pickle.load(fid)
 
-	for data_node in dyn_data_nodes:
-		# For each dynamic data node
+	else:
+		# Parse the results file
+		res_tree = et.parse(result_file)
+		
+		# Loop over all the *Entity* nodes in the input tree, pick out the ones requested
+		# in `reqs_to_keep` and put their units and original ids into dictionaries
+		units, req_ids, reqs_to_get = _get_units_and_ids(res_tree, reqs_to_get)
 
-		for step_node in data_node:
-			# For each step (only one) in the model input data, put the
-			# old step data into a list
-			step_data = step_node.text.replace('\n',' ').split(' ')
-			
-			t_step = round(float(step_data[1]),3)
-			if (t_min is None or t_step >= t_min) and (t_max is None or t_step <= t_max):
-				# If the time falls within the desired time range, add to the time list
-				time.append(t_step)
+		# Initialize the output requests dictionary
+		reqs_to_return = {req : {req_comp : [] for req_comp in reqs_to_get[req]} for req in reqs_to_get}
+		time = []
 
-				# Add to the req_comp list
-				for req in reqs_to_return:
-					for req_comp in reqs_to_return[req]:
-						req_id = int(req_ids[req][req_comp])
-						reqs_to_return[req][req_comp].append(float(step_data[req_id]))
-			
-			elif t_max is not None and t_step > t_max:
-				break
-	
-	# Add the time list to the return dict
-	reqs_to_return['time'] = time
+		# Make a list of all the data nodes that represent dynamic sims
+		dyn_data_nodes = [node for node in res_tree.iter('{'+XML_REF+'}Data') if 'dynamic_' in node.attrib.get('name')]
+
+		for data_node in dyn_data_nodes:
+			# For each dynamic data node
+
+			for step_node in data_node:
+				# For each step (only one) in the model input data, put the
+				# old step data into a list
+				step_data = step_node.text.replace('\n',' ').split(' ')
+				
+				t_step = round(float(step_data[1]),3)
+				if (t_min is None or t_step >= t_min) and (t_max is None or t_step <= t_max):
+					# If the time falls within the desired time range, add to the time list
+					time.append(t_step)
+
+					# Add to the req_comp list
+					for req in reqs_to_return:
+						for req_comp in reqs_to_return[req]:
+							req_id = int(req_ids[req][req_comp])
+							reqs_to_return[req][req_comp].append(float(step_data[req_id]))
+				
+				elif t_max is not None and t_step > t_max:
+					break
+		
+		# Add the time list to the return dict
+		reqs_to_return['time'] = time
+
+		# Write to a pickle file
+		with open(pickle_filename, 'wb') as fid:
+			pickle.dump(reqs_to_return, fid)
+		
+		if return_units is True:
+			with open(units_pickle_filename, 'wb') as fid:
+				pickle.dump(units, fid)
 
 	if return_units:
 		return reqs_to_return, units
 	else:
 		return reqs_to_return
-
 
 def shrink_results(result_file, reqs_to_keep=None, t_min=None, t_max=None, new_result_file=None, in_place=False):	
 	"""Shrinks a results file by eliminating unwanted data.

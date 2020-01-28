@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.postprocess.xml &mdash; adamspy 0.9.0 documentation</title>
+  <title>adamspy.postprocess.xml &mdash; adamspy 0.9.1 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.9.0
+                0.9.1
               </div>
             
           
@@ -147,12 +147,13 @@
            <div itemprop="articleBody">
             
   <h1>Source code for adamspy.postprocess.xml</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">et</span>
-<span class="kn">import</span> <span class="nn">os</span>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">et</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
 <span class="n">SHRUNK_RES_SUFFIX</span> <span class="o">=</span> <span class="s1">&#39;_shrunk&#39;</span>
 <span class="n">XML_REF</span> <span class="o">=</span> <span class="s1">&#39;http://www.mscsoftware.com/:xrf10&#39;</span>
 
-<div class="viewcode-block" id="get_results"><a class="viewcode-back" href="../../../adamspy.postprocess.html#adamspy.postprocess.xml.get_results">[docs]</a><span class="k">def</span> <span class="nf">get_results</span><span class="p">(</span><span class="n">result_file</span><span class="p">,</span> <span class="n">reqs_to_get</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_units</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="get_results"><a class="viewcode-back" href="../../../adamspy.postprocess.html#adamspy.postprocess.xml.get_results">[docs]</a><span class="k">def</span> <span class="nf">get_results</span><span class="p">(</span><span class="n">result_file</span><span class="p">,</span> <span class="n">reqs_to_get</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_units</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">overwrite_pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 	<span class="sd">&quot;&quot;&quot;Gets results from an Adams results (.res) file.</span>
 <span class="sd">	</span>
 <span class="sd">	Example</span>
@@ -192,50 +193,70 @@
 <span class="sd">		Dictionary defining units for each request. NOTE: This is only returned if `return_units=False`</span>
 <span class="sd">	</span>
 <span class="sd">	&quot;&quot;&quot;</span>
-	<span class="c1"># Parse the results file</span>
-	<span class="n">res_tree</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">result_file</span><span class="p">)</span>
-	
-	<span class="c1"># Loop over all the *Entity* nodes in the input tree, pick out the ones requested</span>
-	<span class="c1"># in `reqs_to_keep` and put their units and original ids into dictionaries</span>
-	<span class="n">units</span><span class="p">,</span> <span class="n">req_ids</span><span class="p">,</span> <span class="n">reqs_to_get</span> <span class="o">=</span> <span class="n">_get_units_and_ids</span><span class="p">(</span><span class="n">res_tree</span><span class="p">,</span> <span class="n">reqs_to_get</span><span class="p">)</span>
+	<span class="n">pickle_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">result_file</span><span class="p">),</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">result_file</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.pkl&#39;</span><span class="p">)</span>
+	<span class="n">units_pickle_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">result_file</span><span class="p">),</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">result_file</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_units.pkl&#39;</span><span class="p">)</span>
 
-	<span class="c1"># Initialize the output requests dictionary</span>
-	<span class="n">reqs_to_return</span> <span class="o">=</span> <span class="p">{</span><span class="n">req</span> <span class="p">:</span> <span class="p">{</span><span class="n">req_comp</span> <span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">req_comp</span> <span class="ow">in</span> <span class="n">reqs_to_get</span><span class="p">[</span><span class="n">req</span><span class="p">]}</span> <span class="k">for</span> <span class="n">req</span> <span class="ow">in</span> <span class="n">reqs_to_get</span><span class="p">}</span>
-	<span class="n">time</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="k">if</span> <span class="n">overwrite_pickle</span> <span class="ow">is</span> <span class="kc">False</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">pickle_filename</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">units_pickle_filename</span><span class="p">)</span> <span class="ow">or</span> <span class="n">return_units</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">):</span>
+		<span class="c1"># Load from a pickle file</span>
+		<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pickle_filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+			<span class="n">reqs_to_return</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fid</span><span class="p">)</span>
 
-	<span class="c1"># Make a list of all the data nodes that represent dynamic sims</span>
-	<span class="n">dyn_data_nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">node</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">res_tree</span><span class="o">.</span><span class="n">iter</span><span class="p">(</span><span class="s1">&#39;{&#39;</span><span class="o">+</span><span class="n">XML_REF</span><span class="o">+</span><span class="s1">&#39;}Data&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;dynamic_&#39;</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)]</span>
+		<span class="k">if</span> <span class="n">return_units</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+			<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">units_pickle_filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+				<span class="n">units</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fid</span><span class="p">)</span>
 
-	<span class="k">for</span> <span class="n">data_node</span> <span class="ow">in</span> <span class="n">dyn_data_nodes</span><span class="p">:</span>
-		<span class="c1"># For each dynamic data node</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="c1"># Parse the results file</span>
+		<span class="n">res_tree</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">result_file</span><span class="p">)</span>
+		
+		<span class="c1"># Loop over all the *Entity* nodes in the input tree, pick out the ones requested</span>
+		<span class="c1"># in `reqs_to_keep` and put their units and original ids into dictionaries</span>
+		<span class="n">units</span><span class="p">,</span> <span class="n">req_ids</span><span class="p">,</span> <span class="n">reqs_to_get</span> <span class="o">=</span> <span class="n">_get_units_and_ids</span><span class="p">(</span><span class="n">res_tree</span><span class="p">,</span> <span class="n">reqs_to_get</span><span class="p">)</span>
 
-		<span class="k">for</span> <span class="n">step_node</span> <span class="ow">in</span> <span class="n">data_node</span><span class="p">:</span>
-			<span class="c1"># For each step (only one) in the model input data, put the</span>
-			<span class="c1"># old step data into a list</span>
-			<span class="n">step_data</span> <span class="o">=</span> <span class="n">step_node</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
-			
-			<span class="n">t_step</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">step_data</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span><span class="mi">3</span><span class="p">)</span>
-			<span class="k">if</span> <span class="p">(</span><span class="n">t_min</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">t_step</span> <span class="o">&gt;=</span> <span class="n">t_min</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">t_max</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">t_step</span> <span class="o">&lt;=</span> <span class="n">t_max</span><span class="p">):</span>
-				<span class="c1"># If the time falls within the desired time range, add to the time list</span>
-				<span class="n">time</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t_step</span><span class="p">)</span>
+		<span class="c1"># Initialize the output requests dictionary</span>
+		<span class="n">reqs_to_return</span> <span class="o">=</span> <span class="p">{</span><span class="n">req</span> <span class="p">:</span> <span class="p">{</span><span class="n">req_comp</span> <span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">req_comp</span> <span class="ow">in</span> <span class="n">reqs_to_get</span><span class="p">[</span><span class="n">req</span><span class="p">]}</span> <span class="k">for</span> <span class="n">req</span> <span class="ow">in</span> <span class="n">reqs_to_get</span><span class="p">}</span>
+		<span class="n">time</span> <span class="o">=</span> <span class="p">[]</span>
 
-				<span class="c1"># Add to the req_comp list</span>
-				<span class="k">for</span> <span class="n">req</span> <span class="ow">in</span> <span class="n">reqs_to_return</span><span class="p">:</span>
-					<span class="k">for</span> <span class="n">req_comp</span> <span class="ow">in</span> <span class="n">reqs_to_return</span><span class="p">[</span><span class="n">req</span><span class="p">]:</span>
-						<span class="n">req_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">req_ids</span><span class="p">[</span><span class="n">req</span><span class="p">][</span><span class="n">req_comp</span><span class="p">])</span>
-						<span class="n">reqs_to_return</span><span class="p">[</span><span class="n">req</span><span class="p">][</span><span class="n">req_comp</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">step_data</span><span class="p">[</span><span class="n">req_id</span><span class="p">]))</span>
-			
-			<span class="k">elif</span> <span class="n">t_max</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">t_step</span> <span class="o">&gt;</span> <span class="n">t_max</span><span class="p">:</span>
-				<span class="k">break</span>
-	
-	<span class="c1"># Add the time list to the return dict</span>
-	<span class="n">reqs_to_return</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
+		<span class="c1"># Make a list of all the data nodes that represent dynamic sims</span>
+		<span class="n">dyn_data_nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">node</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">res_tree</span><span class="o">.</span><span class="n">iter</span><span class="p">(</span><span class="s1">&#39;{&#39;</span><span class="o">+</span><span class="n">XML_REF</span><span class="o">+</span><span class="s1">&#39;}Data&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;dynamic_&#39;</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)]</span>
+
+		<span class="k">for</span> <span class="n">data_node</span> <span class="ow">in</span> <span class="n">dyn_data_nodes</span><span class="p">:</span>
+			<span class="c1"># For each dynamic data node</span>
+
+			<span class="k">for</span> <span class="n">step_node</span> <span class="ow">in</span> <span class="n">data_node</span><span class="p">:</span>
+				<span class="c1"># For each step (only one) in the model input data, put the</span>
+				<span class="c1"># old step data into a list</span>
+				<span class="n">step_data</span> <span class="o">=</span> <span class="n">step_node</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+				
+				<span class="n">t_step</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">step_data</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span><span class="mi">3</span><span class="p">)</span>
+				<span class="k">if</span> <span class="p">(</span><span class="n">t_min</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">t_step</span> <span class="o">&gt;=</span> <span class="n">t_min</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">t_max</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">t_step</span> <span class="o">&lt;=</span> <span class="n">t_max</span><span class="p">):</span>
+					<span class="c1"># If the time falls within the desired time range, add to the time list</span>
+					<span class="n">time</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t_step</span><span class="p">)</span>
+
+					<span class="c1"># Add to the req_comp list</span>
+					<span class="k">for</span> <span class="n">req</span> <span class="ow">in</span> <span class="n">reqs_to_return</span><span class="p">:</span>
+						<span class="k">for</span> <span class="n">req_comp</span> <span class="ow">in</span> <span class="n">reqs_to_return</span><span class="p">[</span><span class="n">req</span><span class="p">]:</span>
+							<span class="n">req_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">req_ids</span><span class="p">[</span><span class="n">req</span><span class="p">][</span><span class="n">req_comp</span><span class="p">])</span>
+							<span class="n">reqs_to_return</span><span class="p">[</span><span class="n">req</span><span class="p">][</span><span class="n">req_comp</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">step_data</span><span class="p">[</span><span class="n">req_id</span><span class="p">]))</span>
+				
+				<span class="k">elif</span> <span class="n">t_max</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">t_step</span> <span class="o">&gt;</span> <span class="n">t_max</span><span class="p">:</span>
+					<span class="k">break</span>
+		
+		<span class="c1"># Add the time list to the return dict</span>
+		<span class="n">reqs_to_return</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
+
+		<span class="c1"># Write to a pickle file</span>
+		<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pickle_filename</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+			<span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">reqs_to_return</span><span class="p">,</span> <span class="n">fid</span><span class="p">)</span>
+		
+		<span class="k">if</span> <span class="n">return_units</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+			<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">units_pickle_filename</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+				<span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">units</span><span class="p">,</span> <span class="n">fid</span><span class="p">)</span>
 
 	<span class="k">if</span> <span class="n">return_units</span><span class="p">:</span>
 		<span class="k">return</span> <span class="n">reqs_to_return</span><span class="p">,</span> <span class="n">units</span>
 	<span class="k">else</span><span class="p">:</span>
 		<span class="k">return</span> <span class="n">reqs_to_return</span></div>
-
 
 <div class="viewcode-block" id="shrink_results"><a class="viewcode-back" href="../../../adamspy.postprocess.html#adamspy.postprocess.xml.shrink_results">[docs]</a><span class="k">def</span> <span class="nf">shrink_results</span><span class="p">(</span><span class="n">result_file</span><span class="p">,</span> <span class="n">reqs_to_keep</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">new_result_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">in_place</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>	
 	<span class="sd">&quot;&quot;&quot;Shrinks a results file by eliminating unwanted data.</span>

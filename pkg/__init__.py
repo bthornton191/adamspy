@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.9.0'
-version_notes = 'minor bug fixes and dependency updates for vulerability.'
-date = 'January 23rd, 2020'
+version = '0.9.1'
+version_notes = 'Support for pickling adams results files'
+date = 'January 28th, 2020'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'
