@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.9.1'
+version = '0.9.2'
 version_notes = 'Support for pickling adams results files'
-date = 'January 28th, 2020'
+date = 'February 25th, 2020'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'

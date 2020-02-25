@@ -14,3 +14,5 @@ test/files/ppt.loq
 test/existing_drillsim/test_analysis_1.msg.cached
 test/existing_drillsim/test_analysis_1.res.cached
 test/files/aviewAS.cmd
+test/files/.test_analysis_1_units.pkl
+test/files/.test_analysis_1.pkl

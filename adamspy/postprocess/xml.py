@@ -3,8 +3,12 @@ import xml.etree.ElementTree as et
 import pickle
 SHRUNK_RES_SUFFIX = '_shrunk'
 XML_REF = 'http://www.mscsoftware.com/:xrf10'
+STEPMAP_TAG = 'StepMap'
+ENTITY_TAG = 'Entity'
+COMPONENT_TAG = 'Component'
+STEP_TAG = '{' + XML_REF + '}' + 'Step'
 
-def get_results(result_file, reqs_to_get=None, t_min=None, t_max=None, return_units=False, overwrite_pickle=False):
+def get_results(result_file, reqs_to_get=None, t_min=None, t_max=None, return_units=False, overwrite_pickle=True, use_iterparse=False):
 	"""Gets results from an Adams results (.res) file.
 	
 	Example
@@ -56,7 +60,7 @@ def get_results(result_file, reqs_to_get=None, t_min=None, t_max=None, return_un
 			with open(units_pickle_filename, 'rb') as fid:
 				units = pickle.load(fid)
 
-	else:
+	elif use_iterparse is False:
 		# Parse the results file
 		res_tree = et.parse(result_file)
 		
@@ -71,43 +75,67 @@ def get_results(result_file, reqs_to_get=None, t_min=None, t_max=None, return_un
 		# Make a list of all the data nodes that represent dynamic sims
 		dyn_data_nodes = [node for node in res_tree.iter('{'+XML_REF+'}Data') if 'dynamic_' in node.attrib.get('name')]
 
+		del res_tree
+
 		for data_node in dyn_data_nodes:
 			# For each dynamic data node
 
-			for step_node in data_node:
-				# For each step (only one) in the model input data, put the
-				# old step data into a list
-				step_data = step_node.text.replace('\n',' ').split(' ')
-				
-				t_step = round(float(step_data[1]),3)
-				if (t_min is None or t_step >= t_min) and (t_max is None or t_step <= t_max):
-					# If the time falls within the desired time range, add to the time list
-					time.append(t_step)
-
-					# Add to the req_comp list
-					for req in reqs_to_return:
-						for req_comp in reqs_to_return[req]:
-							req_id = int(req_ids[req][req_comp])
-							reqs_to_return[req][req_comp].append(float(step_data[req_id]))
-				
-				elif t_max is not None and t_step > t_max:
-					break
+			_process_data_node(data_node, reqs_to_return, time, req_ids, t_max, t_min)
 		
-		# Add the time list to the return dict
-		reqs_to_return['time'] = time
-
-		# Write to a pickle file
-		with open(pickle_filename, 'wb') as fid:
-			pickle.dump(reqs_to_return, fid)
+	else:
 		
-		if return_units is True:
-			with open(units_pickle_filename, 'wb') as fid:
-				pickle.dump(units, fid)
+		# Loop over all the *Entity* nodes in the input tree, pick out the ones requested
+		# in `reqs_to_keep` and put their units and original ids into dictionaries
+		units, req_ids, reqs_to_get = _get_units_and_ids(et.parse(result_file), reqs_to_get)
+
+		# Initialize the output requests dictionary
+		reqs_to_return = {req : {req_comp : [] for req_comp in reqs_to_get[req]} for req in reqs_to_get}
+		time = []
+
+		# Parse the results file using iterparse
+		for _event, data_node in et.iterparse(result_file):
+			# For each node
+
+			if data_node.tag == '{'+XML_REF+'}Data' and 'dynamic_' in data_node.attrib.get('name'):
+
+				# If the node is a dynamic data node, process it
+				_process_data_node(data_node, reqs_to_return, time, req_ids, t_max, t_min)
+		
+	# Add the time list to the return dict
+	reqs_to_return['time'] = time
+
+	# Write to a pickle file
+	with open(pickle_filename, 'wb') as fid:
+		pickle.dump(reqs_to_return, fid)
+	
+	if return_units is True:
+		with open(units_pickle_filename, 'wb') as fid:
+			pickle.dump(units, fid)
 
 	if return_units:
 		return reqs_to_return, units
 	else:
 		return reqs_to_return
+
+def _process_data_node(data_node, reqs_to_return : dict, time : list, req_ids : dict, t_max : float, t_min : float):
+	for step_node in data_node:
+		# For each step (only one) in the model input data, put the
+		# old step data into a list
+		step_data = step_node.text.replace('\n',' ').split(' ')
+		
+		t_step = round(float(step_data[1]),3)
+		if (t_min is None or t_step >= t_min) and (t_max is None or t_step <= t_max):
+			# If the time falls within the desired time range, add to the time list
+			time.append(t_step)
+
+			# Add to the req_comp list
+			for req in reqs_to_return:
+				for req_comp in reqs_to_return[req]:
+					req_id = int(req_ids[req][req_comp])
+					reqs_to_return[req][req_comp].append(float(step_data[req_id]))
+		
+		elif t_max is not None and t_step > t_max:
+			break
 
 def shrink_results(result_file, reqs_to_keep=None, t_min=None, t_max=None, new_result_file=None, in_place=False):	
 	"""Shrinks a results file by eliminating unwanted data.
@@ -352,4 +380,88 @@ def _get_units_and_ids(tree, reqs=None):
 					requests[request][req_comp] = comp.attrib['id']
 					
 	return units, req_ids, requests
-	
+		
+def get_stepmap_dictionary(file_name):
+    """
+    Create dictionary where keys are result names and values are indices of components. 
+    
+    Note
+    ----
+    Res names must be full, like: 
+    * time.time
+    * part_2_xform.fx
+    * part_3_xform.accy
+    
+    Parameters
+    ----------
+    file_name : str
+        Results (.res) file
+        
+    Returns
+    -------
+    dict
+        Step map
+
+    """
+    step_dict = {}
+
+    for _event, elem in et.iterparse(file_name):
+
+        if STEPMAP_TAG in elem.tag:
+            ent_name = ''
+            for el in elem.iter():
+                if ENTITY_TAG in el.tag:
+                    # found a new entity - hold onto this name:
+                    ent_name = el.get('name')
+
+                if COMPONENT_TAG in el.tag:
+                    # form complete comp name:
+                    comp_name = '{}.{}'.format(ent_name, el.get('name'))
+                    el_id = el.get('id')
+                    step_dict[comp_name] = int(el_id)
+
+    return step_dict
+
+def get_component(res_file, comp_name):
+    """Returns the numeric data in `res_file` associated with the result component `comp_name`.
+    
+    Parameters
+    ----------
+    res_file : str
+        Result (.res) file
+    comp_name : str
+        Name of result component
+    
+    Returns
+    -------
+    list
+        List of values from the result (.res) file.
+
+    Raises
+    ------
+    ValueError
+        Raised if `comp_name` not found in `res_file`.
+
+    """
+    comp_dict = get_stepmap_dictionary(res_file)
+    
+    # Check if the requested component is in the results and raise an error if not.
+    if comp_name not in comp_dict.keys():
+        raise ValueError(f'{comp_name} was not found in {res_file}!')
+    
+    comp_id = comp_dict[comp_name] - 1 
+    
+    res = []
+    for _event, elem in et.iterparse(res_file):
+        step_data = []
+        if elem.tag == STEP_TAG:
+            lines = elem.text.splitlines()
+            for line in lines:
+                step_data.extend([float(val) for val in line.split()])
+                
+                # Free up memory:
+                elem.clear()
+
+            res.append(step_data[comp_id])
+
+    return res
