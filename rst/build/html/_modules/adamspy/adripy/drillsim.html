@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.drillsim &mdash; adamspy 0.9.2 documentation</title>
+  <title>adamspy.adripy.drillsim &mdash; adamspy 0.9.3 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.9.2
+                0.9.3
               </div>
             
           
@@ -352,7 +352,7 @@
 
         <span class="c1"># loop through the requested signal types</span>
         <span class="k">for</span> <span class="n">sig_type</span> <span class="ow">in</span> <span class="n">sig_types</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">pason_inputs</span><span class="p">[</span><span class="n">sig_type</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">clean_pason</span><span class="p">(</span><span class="n">pason_data</span><span class="p">,</span> <span class="n">sig_type</span><span class="p">,</span> <span class="n">t_min</span><span class="p">,</span> <span class="n">t_max</span><span class="p">,</span> <span class="n">show_plot</span><span class="o">=</span><span class="n">show_plots</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pason_inputs</span><span class="p">[</span><span class="n">sig_type</span><span class="p">],</span> <span class="n">_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">clean_pason</span><span class="p">(</span><span class="n">pason_data</span><span class="p">,</span> <span class="n">sig_type</span><span class="p">,</span> <span class="n">t_min</span><span class="p">,</span> <span class="n">t_max</span><span class="p">,</span> <span class="n">show_plot</span><span class="o">=</span><span class="n">show_plots</span><span class="p">)</span>
         
         <span class="c1"># Get the index for the start of the requested time range</span>
         <span class="n">i_min</span> <span class="o">=</span> <span class="n">argmax</span><span class="p">(</span><span class="n">pason_data</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="o">&gt;=</span><span class="n">t_min</span><span class="p">)</span>

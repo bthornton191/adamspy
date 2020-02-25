@@ -205,7 +205,7 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
 
         # loop through the requested signal types
         for sig_type in sig_types:
-            self.pason_inputs[sig_type] = self.clean_pason(pason_data, sig_type, t_min, t_max, show_plot=show_plots)
+            self.pason_inputs[sig_type], _time = self.clean_pason(pason_data, sig_type, t_min, t_max, show_plot=show_plots)
         
         # Get the index for the start of the requested time range
         i_min = argmax(pason_data.data.index>=t_min)

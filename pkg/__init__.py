@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.9.2'
-version_notes = 'Support for pickling adams results files'
+version = '0.9.3'
+version_notes = 'minor change to DrillSim.pason_inputs'
 date = 'February 25th, 2020'
 # ---------------------
 author = 'Ben Thornton'
