@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.postprocess package &mdash; adamspy 0.9.3 documentation</title>
+  <title>adamspy.postprocess package &mdash; adamspy 0.9.5 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.9.3
+                0.9.5
               </div>
             
           
@@ -86,6 +86,8 @@
               <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">adamspy.postprocess package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-adamspy.postprocess.animation">adamspy.postprocess.animation module</a></li>
+<li><a class="reference internal" href="#module-adamspy.postprocess.ppt">adamspy.postprocess.ppt module</a></li>
 <li><a class="reference internal" href="#module-adamspy.postprocess.xml">adamspy.postprocess.xml module</a></li>
 <li><a class="reference internal" href="#module-adamspy.postprocess">Module contents</a></li>
 </ul>
@@ -158,6 +160,40 @@
 <h1>adamspy.postprocess package<a class="headerlink" href="#adamspy-postprocess-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-adamspy.postprocess.animation">
+<span id="adamspy-postprocess-animation-module"></span><h2>adamspy.postprocess.animation module<a class="headerlink" href="#module-adamspy.postprocess.animation" title="Permalink to this headline">¶</a></h2>
+<p>Code for generating animations automatically in Adams View</p>
+<dl class="function">
+<dt id="adamspy.postprocess.animation.create_animation">
+<code class="descclassname">adamspy.postprocess.animation.</code><code class="descname">create_animation</code><span class="sig-paren">(</span><em>model_file: str</em>, <em>res_file: str</em>, <em>model_name: str</em>, <em>analysis_name: str</em>, <em>timeout=60</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/animation.html#create_animation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.animation.create_animation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an animation from the given model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>model_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Adams View model (.cmd) file</li>
+<li><strong>res_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Adams results (.res) file</li>
+<li><strong>model_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Name of the model</li>
+<li><strong>analysis_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Name of the analysis</li>
+<li><strong>wait</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – If <cite>True</cite>, code execution will freeze until the animation script completes and the postprocessor closes. (the default is True)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-adamspy.postprocess.ppt">
+<span id="adamspy-postprocess-ppt-module"></span><h2>adamspy.postprocess.ppt module<a class="headerlink" href="#module-adamspy.postprocess.ppt" title="Permalink to this headline">¶</a></h2>
+<p>This module is for sending scripts through Adams/PPT</p>
+<dl class="function">
+<dt id="adamspy.postprocess.ppt.get_lunar_results">
+<code class="descclassname">adamspy.postprocess.ppt.</code><code class="descname">get_lunar_results</code><span class="sig-paren">(</span><em>res_files</em>, <em>reqs_to_get</em>, <em>t_min</em>, <em>t_max</em>, <em>output_file</em>, <em>_just_write_script=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/ppt.html#get_lunar_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.ppt.get_lunar_results" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 <div class="section" id="module-adamspy.postprocess.xml">
 <span id="adamspy-postprocess-xml-module"></span><h2>adamspy.postprocess.xml module<a class="headerlink" href="#module-adamspy.postprocess.xml" title="Permalink to this headline">¶</a></h2>

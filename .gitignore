@@ -3,7 +3,9 @@
 /build
 /adamspy.egg-info
 /dist
-*.res
+**.res
+**.gra
+**.req
 *aview.lo?
 demo*.py
 /_test_drill.cfg
@@ -16,3 +18,7 @@ test/existing_drillsim/test_analysis_1.res.cached
 test/files/aviewAS.cmd
 test/files/.test_analysis_1_units.pkl
 test/files/.test_analysis_1.pkl
+**.avi
+**.mpg
+/test/files/generic_model/aview.py
+/test/files/generic_model/aview.py.bak

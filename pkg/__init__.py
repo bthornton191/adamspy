@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.9.3'
-version_notes = 'minor change to DrillSim.pason_inputs'
-date = 'February 25th, 2020'
+version = '0.9.5'
+version_notes = 'added a lunar post processing script'
+date = 'March 3rd, 2020'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'

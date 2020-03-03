@@ -8,6 +8,10 @@ os.environ['ADAMS_LAUNCH_COMMAND'] = os.path.join('C:\\', 'Program Files', 'MSC.
 
 from adamspy.adripy.constants import DATABASE_INFO
 
+TEST_EXISTING_GENERIC_CMD_MODEL = os.path.join(os.getcwd(), 'test', 'files', 'generic_model', 'generic_model.cmd')
+TEST_EXISTING_GENERIC_RES_FILE = os.path.join(os.getcwd(), 'test', 'files', 'generic_model', 'generic_model.res')
+TEST_EXISTING_GENERIC_RES_FILE_ANALYSIS_NAME = 'generic_model'
+
 EXISTING_CDB_NAME = '_EXISTING_DATABASE_1'
 EXISTING_CDB_PATH = os.path.join('C:\\', EXISTING_CDB_NAME + '.cdb')
 NEW_CDB_NAME = '_NEW_DATABASE'

@@ -1,0 +1,5 @@
+
+file/model=generic_model
+! Insert ACF commands here:
+SIMULATE/DYNAMIC, END=20.0, DTOUT=0.1
+stop

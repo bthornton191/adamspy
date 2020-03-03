@@ -281,7 +281,7 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         abs_str_file = self.string.write_to_file(directory=self.directory, publish=True)   
         self.string_filename = os.path.relpath(abs_str_file, self.directory)
     
-    def read_results(self, reqs_to_read=None, t_min=None, t_max=None, shrink_results_file=False, overwrite_pickle=False):
+    def read_results(self, reqs_to_read=None, t_min=None, t_max=None, shrink_results_file=False, overwrite_pickle=False, use_iterparse=False):
         """Reads results from the results file.
         
         Example
@@ -308,7 +308,7 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
             If True, the results file will be rewritten to include only the requests in `reqs_to_read` and the time period between `t_max` and `t_min`.
         
         """
-        self.results, self.results_units = get_results(os.path.join(self.directory, self.res_filename), reqs_to_read, t_min, t_max, return_units=True, overwrite_pickle=overwrite_pickle)
+        self.results, self.results_units = get_results(os.path.join(self.directory, self.res_filename), reqs_to_read, t_min, t_max, return_units=True, overwrite_pickle=overwrite_pickle, use_iterparse=use_iterparse)
 
         if shrink_results_file and any([reqs_to_read is not None, t_min is not None, t_max is not None]):
             shrink_results(os.path.join(self.directory, self.res_filename), reqs_to_keep=reqs_to_read, t_min=t_min, t_max=t_max, in_place=True)
