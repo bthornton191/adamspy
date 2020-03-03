@@ -14,7 +14,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/bthornton191/adamspy",
     packages=setuptools.find_packages(exclude=['test', 'pkg']),
-    package_data={'adamspy.adripy': ['templates/*']},
+    package_data={'adamspy.adripy': ['templates/*'], 'adamspy.postprocess': ['aview_scripts/*']},
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

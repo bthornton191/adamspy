@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.9.5'
-version_notes = 'added a lunar post processing script'
+version = '0.9.6'
+version_notes = 'minor bug'
 date = 'March 3rd, 2020'
 # ---------------------
 author = 'Ben Thornton'

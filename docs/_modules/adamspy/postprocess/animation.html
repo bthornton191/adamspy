@@ -1,0 +1,321 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>adamspy.postprocess.animation &mdash; adamspy 0.9.6 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> adamspy
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.9.6
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">adamspy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../postprocess.html">adamspy.postprocess</a> &raquo;</li>
+        
+      <li>adamspy.postprocess.animation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for adamspy.postprocess.animation</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Code for generating animations automatically in Adams View</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">AVIEW_AFTERSTART_FILENAME</span>
+
+<span class="n">LOG_COMPLETE_PATTERN</span> <span class="o">=</span> <span class="s1">&#39; &gt;&gt; quit conf=no&#39;</span>
+
+<div class="viewcode-block" id="create_animation"><a class="viewcode-back" href="../../../adamspy.postprocess.html#adamspy.postprocess.animation.create_animation">[docs]</a><span class="k">def</span> <span class="nf">create_animation</span><span class="p">(</span><span class="n">model_file</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">res_file</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">model_name</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">analysis_name</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">60</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Creates an animation from the given model.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model_file : str</span>
+<span class="sd">        Adams View model (.cmd) file</span>
+<span class="sd">    res_file : str</span>
+<span class="sd">        Adams results (.res) file</span>
+<span class="sd">    model_name : str</span>
+<span class="sd">        Name of the model</span>
+<span class="sd">    analysis_name : str</span>
+<span class="sd">        Name of the analysis</span>
+<span class="sd">    wait : bool, optional</span>
+<span class="sd">        If `True`, code execution will freeze until the animation script completes and the postprocessor closes. (the default is True)    </span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Determine the directory, relative results filename, and pptAS name</span>
+    <span class="n">directory</span><span class="p">,</span> <span class="n">res_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">res_file</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">directory</span><span class="p">:</span>
+        <span class="n">directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>    
+
+    <span class="n">ppt_as_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">AVIEW_AFTERSTART_FILENAME</span><span class="p">)</span>
+
+    <span class="c1"># Write aviewAS.cmd</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">ppt_as_filename</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+        <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">CMD_CODE</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;model_file&#39;</span><span class="p">:</span> <span class="n">model_file</span><span class="p">,</span> <span class="s1">&#39;res_file&#39;</span><span class="p">:</span> <span class="n">res_file</span><span class="p">,</span> <span class="s1">&#39;model_name&#39;</span><span class="p">:</span> <span class="n">model_name</span><span class="p">,</span> <span class="s1">&#39;analysis_name&#39;</span><span class="p">:</span> <span class="n">analysis_name</span><span class="p">,</span> <span class="s1">&#39;mov_filename&#39;</span><span class="p">:</span> <span class="n">analysis_name</span><span class="p">}))</span>
+
+    <span class="c1"># Set the ppt.log filename</span>
+    <span class="n">ppt_log_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s1">&#39;aview.log&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Remove aview.log</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">ppt_log_file</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">ppt_log_file</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">PermissionError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+    <span class="c1"># Run the postprocessor</span>
+    <span class="n">startupinfo</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">STARTUPINFO</span><span class="p">()</span>
+    <span class="n">startupinfo</span><span class="o">.</span><span class="n">dwFlags</span> <span class="o">|=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">STARTF_USESHOWWINDOW</span>        
+    <span class="n">_ppt_proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="s1">&#39;&quot;</span><span class="si">{}</span><span class="s1">&quot; aview ru-s i&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADAMS_LAUNCH_COMMAND&#39;</span><span class="p">]),</span> <span class="n">cwd</span><span class="o">=</span><span class="n">directory</span><span class="p">,</span> <span class="n">startupinfo</span><span class="o">=</span><span class="n">startupinfo</span><span class="p">)</span>
+    
+    <span class="c1"># Wait for process to complete</span>
+    <span class="n">_wait</span><span class="p">(</span><span class="n">ppt_log_file</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+
+    <span class="c1"># Remove the pptAS file</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">ppt_as_filename</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">PermissionError</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">analysis_name</span> <span class="o">+</span> <span class="s1">&#39;.avi&#39;</span><span class="p">)</span></div>
+
+<span class="k">def</span> <span class="nf">_wait</span><span class="p">(</span><span class="n">log_file</span><span class="p">,</span> <span class="n">sleep_time</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">60</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Waits for the log file to write the last line of the macro</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    log_file : str</span>
+<span class="sd">        filename of log file</span>
+<span class="sd">    sleep_time : float, optional</span>
+<span class="sd">        Time between checks, by default 0.2</span>
+<span class="sd">    timeout : int, optional</span>
+<span class="sd">        During after which to time out, by default 60</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">timeout</span><span class="o">/</span><span class="n">sleep_time</span><span class="p">)):</span>
+        
+        <span class="n">ppt_log_file_exists</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">log_file</span><span class="p">)</span>       
+
+        <span class="k">if</span> <span class="n">ppt_log_file_exists</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="c1"># If ppt.log exists, open it and see if the results have been loaded</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">log_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+                <span class="n">text</span> <span class="o">=</span> <span class="n">fid</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">LOG_COMPLETE_PATTERN</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+                <span class="k">break</span>
+                
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">sleep_time</span><span class="p">)</span>
+
+<span class="n">CMD_CODE</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">!</span>
+<span class="s1">def com echo=on</span>
+<span class="s1">file command read file_name = &quot;</span><span class="si">{model_file}</span><span class="s1">&quot;</span>
+<span class="s1">file results read model_name = </span><span class="si">{model_name}</span><span class="s1"> file_name = &quot;</span><span class="si">{res_file}</span><span class="s1">&quot; </span>
+<span class="s1">interface plot window open</span>
+<span class="s1">interface window undisplay window = .gui.main</span>
+<span class="s1">!</span>
+<span class="s1">!</span>
+<span class="s1">interface plot window page_display page=.gui.ppt_main.sash1.sash2.gfx.page_1</span>
+<span class="s1">!****** These commands create the animation movie file.</span>
+<span class="s1">! !</span>
+<span class="s1"> if cond=(&quot;animation&quot; !=&quot;&quot;)</span>
+<span class="s1">   interface plot window set_mode mode=Animation</span>
+<span class="s1"> else</span>
+<span class="s1">   interface plot window set_mode=plotting</span>
+<span class="s1"> end</span>
+
+<span class="s1"> interface plot window load_view analysis=.</span><span class="si">{model_name}</span><span class="s1">.</span><span class="si">{analysis_name}</span><span class="s1"></span>
+
+<span class="s1"> color modify &amp;</span>
+<span class="s1">   color=Background &amp;</span>
+<span class="s1">   red=1.0 &amp;</span>
+<span class="s1">   green=1.0 &amp;</span>
+<span class="s1">   blue=1.0</span>
+<span class="s1"> !</span>
+<span class="s1"> view manage orient view=iso up_axis=(.MDI.up_axis) forward_axis=(.MDI.forward_axis)</span>
+<span class="s1"> view zoom auto=on</span>
+<span class="s1">!</span>
+<span class="s1"> animation modify increment=10 animation_name=.animation_1</span>
+<span class="s1"> animation record start image_type = avi avi_compression = yes avi_frames_per_sec = 10 image_prefix = &quot;</span><span class="si">{mov_filename}</span><span class="s1">.avi&quot; avi_keyframe_every = 500 avi_quality = 75</span>
+<span class="s1"> defaults animation_settings loop=play_once</span>
+<span class="s1"> animation play page_name=.gui.ppt_main.sash1.sash2.gfx.page_1</span>
+<span class="s1"> animation record stop </span>
+<span class="s1">!</span>
+
+<span class="s1">quit conf=no</span>
+<span class="s1">&#39;&#39;&#39;</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Ben Thornton
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
