@@ -1110,7 +1110,7 @@ def add_splines_to_adm(adm_file, splines):
         code_block[param] += ", X={}\n".format(str(splines[param][1]).replace('[','').replace(']',''))
         
         val_string = ''
-        for val in splines[param][0]:
+        for val in splines[param]:
             val_string += '{:1.2f},'.format(val)
         val_string = val_string[:-1]
         code_block[param] += ", Y={}\n".format(val_string)
