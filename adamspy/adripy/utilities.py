@@ -1107,7 +1107,7 @@ def add_splines_to_adm(adm_file, splines):
         code_block[param] += "!                          adams_view_name='{}_Spline'\n".format(param.upper())
         code_block[param] += "SPLINE/{:d}\n".format(ADRILL_IDS[param]['spline'])
         code_block[param] += ", LINEAR_EXTRAPOLATE\n"
-        code_block[param] += ", X={}\n".format(str(splines[param][1]).replace('[','').replace(']',''))
+        code_block[param] += ", X={}\n".format(str(splines['time']).replace('[','').replace(']',''))
         
         val_string = ''
         for val in splines[param]:
