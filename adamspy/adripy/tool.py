@@ -272,7 +272,7 @@ class DrillTool():
 
             if TO_PARAMETER_PATTERN.match(line):                
                 # If the line matches the pattern of a parameter definition
-                [current_parameter, value] = line.replace('\n','').replace(' ','').split('=')
+                [current_parameter, value] = line.replace('\n','').replace(' ','').replace('\t','').split('=')
 
                 if current_parameter.lower() == parameter_to_change.lower():
                     # If the parameter is the parameter to be changed

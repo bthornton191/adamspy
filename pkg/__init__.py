@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.9.6'
+version = '0.9.7'
 version_notes = 'minor bug'
-date = 'March 3rd, 2020'
+date = 'March 4th, 2020'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'
