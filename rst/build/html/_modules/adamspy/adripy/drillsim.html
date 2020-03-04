@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.drillsim &mdash; adamspy 0.9.9 documentation</title>
+  <title>adamspy.adripy.drillsim &mdash; adamspy 0.9.10 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.9.9
+                0.9.10
               </div>
             
           
@@ -518,8 +518,8 @@
                 <span class="n">t_max</span> <span class="o">=</span> <span class="n">time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
             <span class="n">i_min</span> <span class="o">=</span> <span class="n">argmax</span><span class="p">(</span><span class="n">array</span><span class="p">(</span><span class="n">time</span><span class="p">)</span><span class="o">&gt;=</span><span class="n">t_min</span><span class="p">)</span>
             <span class="n">i_max</span> <span class="o">=</span> <span class="n">argmax</span><span class="p">(</span><span class="n">array</span><span class="p">(</span><span class="n">time</span><span class="p">)</span><span class="o">&gt;=</span><span class="n">t_max</span><span class="p">)</span>
-            <span class="n">signal</span> <span class="o">=</span> <span class="n">signal</span><span class="p">[</span><span class="n">i_min</span><span class="p">:</span><span class="n">i_max</span><span class="p">]</span>
-            <span class="n">time</span> <span class="o">=</span> <span class="n">time</span><span class="p">[</span><span class="n">i_min</span><span class="p">:</span><span class="n">i_max</span><span class="p">]</span> <span class="o">-</span> <span class="n">time</span><span class="p">[</span><span class="n">i_min</span><span class="p">]</span>
+            <span class="n">signal</span> <span class="o">=</span> <span class="n">signal</span><span class="p">[</span><span class="n">i_min</span><span class="p">:</span><span class="n">i_max</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">time</span> <span class="o">=</span> <span class="n">time</span><span class="p">[</span><span class="n">i_min</span><span class="p">:</span><span class="n">i_max</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">time</span><span class="p">[</span><span class="n">i_min</span><span class="p">]</span>
             <span class="k">return</span> <span class="n">signal</span><span class="p">,</span> <span class="n">time</span>   
 
         <span class="k">if</span> <span class="n">sig_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;rpm&#39;</span><span class="p">,</span> <span class="s1">&#39;gpm&#39;</span><span class="p">]:</span>
@@ -619,7 +619,7 @@
             <span class="k">if</span> <span class="ow">not</span> <span class="n">num</span><span class="o">.</span><span class="n">is_integer</span><span class="p">():</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;(stop-start)/step must be a whole number.&#39;</span><span class="p">)</span>
             <span class="n">num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
-            <span class="n">index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">linspace</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">num</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">))</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">linspace</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">num</span> <span class="k">if</span> <span class="n">endpoint</span> <span class="ow">is</span> <span class="kc">False</span> <span class="k">else</span> <span class="n">num</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">))</span>
             <span class="k">return</span> <span class="n">index</span>  
 
         <span class="c1"># Check that the correct sig_type was passed.</span>

@@ -371,8 +371,8 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
                 t_max = time[-1]
             i_min = argmax(array(time)>=t_min)
             i_max = argmax(array(time)>=t_max)
-            signal = signal[i_min:i_max]
-            time = time[i_min:i_max] - time[i_min]
+            signal = signal[i_min:i_max+1]
+            time = time[i_min:i_max+1] - time[i_min]
             return signal, time   
 
         if sig_type in ['rpm', 'gpm']:
@@ -472,7 +472,7 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
             if not num.is_integer():
                 raise ValueError('(stop-start)/step must be a whole number.')
             num = int(num)
-            index = list(linspace(start, stop, num, endpoint=endpoint, dtype=float))
+            index = list(linspace(start, stop, num if endpoint is False else num+1, endpoint=endpoint, dtype=float))
             return index  
 
         # Check that the correct sig_type was passed.
