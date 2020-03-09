@@ -263,7 +263,7 @@ class DrillString():
             :class:`DrillTool` object that has been renamed and needs to have its 'Name' and 'Property_File' entries updates.
         """
 
-        for tool in self.tools:
+        for tool in self.tools + [self.top_drive]:
             if tool['DrillTool'] is renamed_tool:
                 tool['Name'] = renamed_tool.name
                 ext = tool['DrillTool'].extension

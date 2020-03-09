@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.string &mdash; adamspy 0.9.10 documentation</title>
+  <title>adamspy.adripy.string &mdash; adamspy 0.9.12 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.9.10
+                0.9.12
               </div>
             
           
@@ -410,7 +410,7 @@
 <span class="sd">            :class:`DrillTool` object that has been renamed and needs to have its &#39;Name&#39; and &#39;Property_File&#39; entries updates.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tools</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tools</span> <span class="o">+</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">top_drive</span><span class="p">]:</span>
             <span class="k">if</span> <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;DrillTool&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="n">renamed_tool</span><span class="p">:</span>
                 <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">renamed_tool</span><span class="o">.</span><span class="n">name</span>
                 <span class="n">ext</span> <span class="o">=</span> <span class="n">tool</span><span class="p">[</span><span class="s1">&#39;DrillTool&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">extension</span>

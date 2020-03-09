@@ -21,7 +21,7 @@ TMPLT_ENV = jinja2.Environment(
     lstrip_blocks=True
 )
 
-def get_lunar_results(res_files, reqs_to_get, t_min, t_max, output_file, _just_write_script=False):
+def get_lunar_results(res_files, reqs_to_get, t_min, t_max, output_file, _just_write_script=False, timeout=300):
     
     template = TMPLT_ENV.from_string(open(os.path.join(os.path.dirname(__file__), 'aview_scripts', SCRIPT_NAME)).read())
     
@@ -43,7 +43,7 @@ def get_lunar_results(res_files, reqs_to_get, t_min, t_max, output_file, _just_w
         subprocess.Popen('"{}" aview ru-s b {}'.format(os.environ['ADAMS_LAUNCH_COMMAND'], SCRIPT_NAME), cwd=working_directory, startupinfo=startupinfo)
 
         # Wait for complete
-        _wait(os.path.join(working_directory, LOG_NAME))
+        _wait(os.path.join(working_directory, LOG_NAME), timeout=timeout)
 
         os.remove(os.path.join(working_directory, SCRIPT_NAME))
 
@@ -56,7 +56,7 @@ def get_lunar_results(res_files, reqs_to_get, t_min, t_max, output_file, _just_w
 
         return res_output_files
 
-def _wait(log_file, sleep_time=0.2, timeout=60):
+def _wait(log_file, sleep_time=0.2, timeout=300):
     """Waits for the log file to write the last line of the macro
     
     Parameters
@@ -66,7 +66,7 @@ def _wait(log_file, sleep_time=0.2, timeout=60):
     sleep_time : float, optional
         Time between checks, by default 0.2
     timeout : int, optional
-        During after which to time out, by default 60
+        During after which to time out, by default 300
 
     """    
 
