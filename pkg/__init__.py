@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.10.3'
-version_notes = 'Uploaded to pip'
+version = '0.10.4'
+version_notes = 'Removed tompy'
 date = 'April 17th, 2020'
 # ---------------------
 author = 'Ben Thornton'

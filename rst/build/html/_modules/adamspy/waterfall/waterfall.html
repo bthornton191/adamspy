@@ -1,0 +1,354 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>adamspy.waterfall.waterfall &mdash; adamspy 0.10.4 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> adamspy
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.10.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">adamspy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../waterfall.html">adamspy.waterfall</a> &raquo;</li>
+        
+      <li>adamspy.waterfall.waterfall</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for adamspy.waterfall.waterfall</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">cm</span>  
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.signal.windows</span> <span class="k">import</span> <span class="n">hann</span><span class="p">,</span> <span class="n">hamming</span><span class="p">,</span> <span class="n">blackman</span><span class="p">,</span> <span class="n">boxcar</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">get_res_data</span>
+
+<div class="viewcode-block" id="fft_watefall"><a class="viewcode-back" href="../../../adamspy.waterfall.html#adamspy.waterfall.waterfall.fft_watefall">[docs]</a><span class="k">def</span> <span class="nf">fft_watefall</span><span class="p">(</span><span class="n">res_file</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">comp</span><span class="p">,</span> <span class="n">percent_overlap</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">n_fft</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">t_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">input_res</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">input_comp</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">input_conversion_factor</span><span class="o">=</span><span class="mi">60</span><span class="o">/</span><span class="mi">360</span><span class="p">,</span> <span class="n">input_unit</span><span class="o">=</span><span class="s1">&#39;RPM&#39;</span><span class="p">,</span> <span class="n">response_unit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">response_conversion_factor</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">psd</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">z_scale</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Genenerates a waterfall plot from data in an Adams result or request file.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    res_file : str</span>
+<span class="sd">        File name of Adams result (.res) or request (.req) file.</span>
+<span class="sd">    res : str</span>
+<span class="sd">        Name of the result in the adams dataset</span>
+<span class="sd">    comp : str</span>
+<span class="sd">        Name of the result component in the Adams dataset</span>
+<span class="sd">    percent_overlap : int, optional</span>
+<span class="sd">        Percent overlap for the FFT waterfall, by default 50</span>
+<span class="sd">    n_fft : int, optional</span>
+<span class="sd">        Number of points used in each FFT, by default 1024</span>
+<span class="sd">    window : str, optional</span>
+<span class="sd">        Type of window used for each FFT, by default &#39;hanning&#39;</span>
+<span class="sd">    t_min : float, optional</span>
+<span class="sd">        Start time if cropping data, by default None</span>
+<span class="sd">    t_max : float, optional</span>
+<span class="sd">        End time if cropping data, by default None</span>
+<span class="sd">    input_res : str, optional</span>
+<span class="sd">        Name of the result to use as the input speed.  If none is given the x axis of the waterfall plot will be time, by default None</span>
+<span class="sd">    input_comp : str, optional</span>
+<span class="sd">        Name of the result component to use as the input speed., by default None</span>
+<span class="sd">    input_conversion_factor : float, optional</span>
+<span class="sd">        Conversion factor applied to input signal, by default 60/360 (deg/s to RPM)</span>
+<span class="sd">    response_unit : str, optional</span>
+<span class="sd">        Text to display on the response signal y axis, by default None</span>
+<span class="sd">    input_unit : str, optional</span>
+<span class="sd">        Text to display on the input signal y axis, by default None</span>
+<span class="sd">    conversion_factor : float, optional</span>
+<span class="sd">        Conversion factor applied to response signal, by default 1</span>
+<span class="sd">    psd : bool, optional</span>
+<span class="sd">        If True FFT will output in PSD. If False FFT will output Magnitude , by default False</span>
+<span class="sd">    z_scale : str, optional</span>
+<span class="sd">        The scaling of the values in the spec. &#39;linear&#39; is no scaling. &#39;dB&#39; returns the values in dB scale. `psd` is True, this is dB power (10 * log10). Otherwise this is dB amplitude (20 * log10). by default &#39;linear&#39;</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Figure</span>
+<span class="sd">        Waterfall plot</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    
+    <span class="n">time</span><span class="p">,</span> <span class="n">sig</span><span class="p">,</span> <span class="n">num</span> <span class="o">=</span> <span class="n">get_res_data</span><span class="p">(</span><span class="n">res_file</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">comp</span><span class="p">,</span> <span class="n">t_min</span><span class="o">=</span><span class="n">t_min</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="n">t_max</span><span class="p">)</span>
+
+    <span class="c1"># Convert to other unis (for converting to Gs)</span>
+    <span class="k">if</span> <span class="n">response_conversion_factor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">sig</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="o">*</span><span class="n">response_conversion_factor</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">sig</span><span class="p">]</span>
+    
+    <span class="n">check_num_points</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">n_fft</span><span class="p">)</span>
+
+    <span class="n">t_s</span> <span class="o">=</span> <span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">time</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">f_s</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">t_s</span>
+    
+    <span class="n">_fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">sig</span><span class="p">)</span>
+    <span class="c1"># plt.grid()</span>
+
+    <span class="c1"># Pxx, freqs, bins, im = ax2.specgram(sig, NFFT=n_fft, Fs=f_s, noverlap=percent_overlap/100*n_fft, window=get_window(window))</span>
+    <span class="n">Pxx</span><span class="p">,</span> <span class="n">freqs</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">im</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">specgram</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">NFFT</span><span class="o">=</span><span class="n">n_fft</span><span class="p">,</span> <span class="n">Fs</span><span class="o">=</span><span class="n">f_s</span><span class="p">,</span> <span class="n">noverlap</span><span class="o">=</span><span class="n">percent_overlap</span><span class="o">/</span><span class="mi">100</span><span class="o">*</span><span class="n">n_fft</span><span class="p">,</span> <span class="n">detrend</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;magnitude&#39;</span> <span class="k">if</span> <span class="n">psd</span> <span class="ow">is</span> <span class="kc">False</span> <span class="k">else</span> <span class="s1">&#39;psd&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">z_scale</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;nipy_spectral&#39;</span><span class="p">)</span>
+    <span class="c1"># The `specgram` method returns 4 objects. They are:</span>
+    <span class="c1"># - Pxx: the periodogram</span>
+    <span class="c1"># - freqs: the frequency vector</span>
+    <span class="c1"># - bins: the centers of the time bins</span>
+    <span class="c1"># - im: the matplotlib.image.AxesImage instance representing the data in the plot</span>
+    <span class="n">_fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="c1"># ----------------</span>
+    <span class="c1"># Signal</span>
+    <span class="c1"># ----------------</span>
+    <span class="n">x_wtrfl</span><span class="p">,</span> <span class="n">y_wtrfl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">bins</span><span class="o">+</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">freqs</span><span class="p">)</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span> <span class="k">if</span> <span class="n">input_res</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">sig</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">response_unit</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> | </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;cust_&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">),</span> <span class="n">comp</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">response_unit</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>        
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> | </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;cust_&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span> <span class="n">comp</span><span class="p">))</span>    
+
+    <span class="k">if</span> <span class="n">input_res</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># ----------------</span>
+        <span class="c1"># 3D FFT</span>
+        <span class="c1"># ----------------        </span>
+        <span class="n">wtrfl_surf</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">x_wtrfl</span><span class="p">,</span> <span class="n">y_wtrfl</span><span class="p">,</span> <span class="n">Pxx</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;nipy_spectral&#39;</span><span class="p">),</span> <span class="n">extend</span><span class="o">=</span><span class="s1">&#39;min&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># wtrfl_fig.colorbar(wtrfl_surf)</span>
+
+    <span class="k">else</span><span class="p">:</span>        
+        <span class="c1"># ----------------</span>
+        <span class="c1"># Order Chart</span>
+        <span class="c1"># ----------------</span>
+        <span class="n">_t</span><span class="p">,</span> <span class="n">input_sig</span><span class="p">,</span> <span class="n">_n</span> <span class="o">=</span> <span class="n">get_res_data</span><span class="p">(</span><span class="n">res_file</span><span class="p">,</span> <span class="n">input_res</span><span class="p">,</span> <span class="n">input_comp</span><span class="p">,</span> <span class="n">t_min</span><span class="o">=</span><span class="n">t_min</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="n">t_max</span><span class="p">)</span>
+        <span class="n">input_sig_rpm</span> <span class="o">=</span> <span class="p">[</span><span class="nb">abs</span><span class="p">(</span><span class="n">v</span><span class="o">*</span><span class="n">input_conversion_factor</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">input_sig</span><span class="p">]</span>
+        <span class="n">input_bins</span> <span class="o">=</span> <span class="p">[</span><span class="nb">abs</span><span class="p">(</span><span class="n">input_sig_rpm</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">time</span><span class="o">&gt;=</span><span class="n">t_bn</span><span class="o">+</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">])])</span> <span class="k">for</span> <span class="n">t_bn</span> <span class="ow">in</span> <span class="n">bins</span><span class="p">]</span>
+        <span class="n">x_order</span><span class="p">,</span> <span class="n">y_order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">input_bins</span><span class="p">,</span> <span class="n">freqs</span><span class="p">)</span>
+        
+        <span class="c1"># Plot Input Signal</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">input_sig_rpm</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">input_unit</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Input Speed&#39;</span><span class="p">)</span>
+
+        <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Plot Order Waterfall</span>
+        <span class="n">wtrfl_surf</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">x_order</span><span class="p">,</span> <span class="n">y_order</span><span class="p">,</span> <span class="n">Pxx</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;nipy_spectral&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">extend</span><span class="o">=</span><span class="s1">&#39;min&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">input_unit</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">psd</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">cbar</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">wtrfl_surf</span><span class="p">)</span>
+            <span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{response_unit}</span><span class="s1">^2/Hz&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">response_unit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">cbar</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">wtrfl_surf</span><span class="p">)</span>
+            <span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="n">response_unit</span><span class="p">)</span>
+
+    <span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;dt: {n_fft*t_s}&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">fig</span></div>
+
+<div class="viewcode-block" id="check_num_points"><a class="viewcode-back" href="../../../adamspy.waterfall.html#adamspy.waterfall.waterfall.check_num_points">[docs]</a><span class="k">def</span> <span class="nf">check_num_points</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">n_fft</span><span class="p">):</span>    
+    <span class="k">if</span> <span class="n">num</span> <span class="o">&lt;</span> <span class="n">n_fft</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">pow_2</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">2</span><span class="o">**</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)][::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">num</span> <span class="o">&gt;=</span> <span class="n">pow_2</span><span class="p">:</span>
+                <span class="n">suggested_n</span> <span class="o">=</span> <span class="n">pow_2</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;n_fft (</span><span class="si">{n_fft}</span><span class="s1">) must be less than the number of points in the signal (</span><span class="si">{num}</span><span class="s1">). Try </span><span class="si">{suggested_n}</span><span class="s1">.&#39;</span><span class="p">)</span>        
+        
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;n_fft (</span><span class="si">{n_fft}</span><span class="s1">) must be less than the number of points in the signal (</span><span class="si">{num}</span><span class="s1">).&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="get_window"><a class="viewcode-back" href="../../../adamspy.waterfall.html#adamspy.waterfall.waterfall.get_window">[docs]</a><span class="k">def</span> <span class="nf">get_window</span><span class="p">(</span><span class="n">window</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">window</span> <span class="o">==</span> <span class="s1">&#39;hanning&#39;</span><span class="p">:</span>
+        <span class="n">win</span> <span class="o">=</span> <span class="n">hann</span>
+    <span class="k">elif</span> <span class="n">window</span> <span class="o">==</span> <span class="s1">&#39;hamming&#39;</span><span class="p">:</span>
+        <span class="n">win</span> <span class="o">=</span> <span class="n">hamming</span>
+    <span class="k">elif</span> <span class="n">window</span> <span class="o">==</span> <span class="s1">&#39;blackman&#39;</span><span class="p">:</span>
+        <span class="n">win</span> <span class="o">=</span> <span class="n">blackman</span>
+    <span class="k">elif</span> <span class="n">window</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;rectangular&#39;</span><span class="p">,</span> <span class="s1">&#39;boxcar&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+        <span class="n">win</span> <span class="o">=</span> <span class="n">boxcar</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{window}</span><span class="s1"> not recognized as a window!&#39;</span><span class="p">)</span>    
+    <span class="k">return</span> <span class="n">win</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Ben Thornton
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
