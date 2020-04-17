@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.postprocess package &mdash; adamspy 0.9.12 documentation</title>
+  <title>adamspy.postprocess package &mdash; adamspy 0.10.3 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.9.12
+                0.10.3
               </div>
             
           
@@ -85,6 +85,7 @@
               <!-- Local TOC -->
               <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">adamspy.postprocess package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#module-adamspy.postprocess.animation">adamspy.postprocess.animation module</a></li>
 <li><a class="reference internal" href="#module-adamspy.postprocess.ppt">adamspy.postprocess.ppt module</a></li>
@@ -158,6 +159,17 @@
             
   <div class="section" id="adamspy-postprocess-package">
 <h1>adamspy.postprocess package<a class="headerlink" href="#adamspy-postprocess-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="adamspy.postprocess.analysis.html">adamspy.postprocess.analysis package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="adamspy.postprocess.analysis.html#module-adamspy.postprocess.analysis">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
@@ -189,9 +201,21 @@
 <div class="section" id="module-adamspy.postprocess.ppt">
 <span id="adamspy-postprocess-ppt-module"></span><h2>adamspy.postprocess.ppt module<a class="headerlink" href="#module-adamspy.postprocess.ppt" title="Permalink to this headline">¶</a></h2>
 <p>This module is for sending scripts through Adams/PPT</p>
+<dl class="exception">
+<dt id="adamspy.postprocess.ppt.AviewError">
+<em class="property">exception </em><code class="descclassname">adamspy.postprocess.ppt.</code><code class="descname">AviewError</code><a class="reference internal" href="_modules/adamspy/postprocess/ppt.html#AviewError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.ppt.AviewError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+<p>Raise this error to if a known error occurs in the log file.</p>
+</dd></dl>
+
 <dl class="function">
 <dt id="adamspy.postprocess.ppt.get_lunar_results">
 <code class="descclassname">adamspy.postprocess.ppt.</code><code class="descname">get_lunar_results</code><span class="sig-paren">(</span><em>res_files</em>, <em>reqs_to_get</em>, <em>t_min</em>, <em>t_max</em>, <em>output_file</em>, <em>_just_write_script=False</em>, <em>timeout=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/ppt.html#get_lunar_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.ppt.get_lunar_results" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="adamspy.postprocess.ppt.get_results">
+<code class="descclassname">adamspy.postprocess.ppt.</code><code class="descname">get_results</code><span class="sig-paren">(</span><em>res_file</em>, <em>reqs_to_get</em>, <em>t_min=None</em>, <em>t_max=None</em>, <em>_just_write_script=False</em>, <em>timeout=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/ppt.html#get_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.ppt.get_results" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>

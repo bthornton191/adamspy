@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.postprocess.ppt &mdash; adamspy 0.9.12 documentation</title>
+  <title>adamspy.postprocess.ppt &mdash; adamspy 0.10.3 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.9.12
+                0.10.3
               </div>
             
           
@@ -156,10 +156,14 @@
 <span class="kn">import</span> <span class="nn">time</span>
 
 <span class="kn">import</span> <span class="nn">jinja2</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">genfromtxt</span>
 
 <span class="n">LOG_COMPLETE_PATTERN</span> <span class="o">=</span> <span class="s1">&#39;! Command file is exhausted, batch run is finished.&#39;</span>
 
-<span class="n">SCRIPT_NAME</span> <span class="o">=</span> <span class="s1">&#39;_get_lunar_results.py&#39;</span>
+<span class="n">LUNAR_SCRIPT_NAME</span> <span class="o">=</span> <span class="s1">&#39;_get_lunar_results.py&#39;</span>
+<span class="n">GET_RESULTS_SCRIPT_NAME</span> <span class="o">=</span> <span class="s1">&#39;_get_results.py&#39;</span>
+<span class="n">TEMP_OUTPUT_FILENAME</span> <span class="o">=</span> <span class="s1">&#39;_results_.tmp&#39;</span>
+
 <span class="n">LOG_NAME</span> <span class="o">=</span> <span class="s1">&#39;aview.log&#39;</span>
 
 <span class="n">TMPLT_ENV</span> <span class="o">=</span> <span class="n">jinja2</span><span class="o">.</span><span class="n">Environment</span><span class="p">(</span>
@@ -170,31 +174,75 @@
     <span class="n">lstrip_blocks</span><span class="o">=</span><span class="kc">True</span>
 <span class="p">)</span>
 
-<div class="viewcode-block" id="get_lunar_results"><a class="viewcode-back" href="../../../adamspy.postprocess.html#adamspy.postprocess.ppt.get_lunar_results">[docs]</a><span class="k">def</span> <span class="nf">get_lunar_results</span><span class="p">(</span><span class="n">res_files</span><span class="p">,</span> <span class="n">reqs_to_get</span><span class="p">,</span> <span class="n">t_min</span><span class="p">,</span> <span class="n">t_max</span><span class="p">,</span> <span class="n">output_file</span><span class="p">,</span> <span class="n">_just_write_script</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">300</span><span class="p">):</span>
+<span class="n">_TIMEOUT</span> <span class="o">=</span> <span class="mi">300</span>
+<span class="n">LOG_FILE_ERROR_PATTERN</span> <span class="o">=</span> <span class="s1">&#39;! </span><span class="se">\\</span><span class="s1">S*Error: &#39;</span>
+
+<div class="viewcode-block" id="get_results"><a class="viewcode-back" href="../../../adamspy.postprocess.html#adamspy.postprocess.ppt.get_results">[docs]</a><span class="k">def</span> <span class="nf">get_results</span><span class="p">(</span><span class="n">res_file</span><span class="p">,</span> <span class="n">reqs_to_get</span><span class="p">,</span> <span class="n">t_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_just_write_script</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">_TIMEOUT</span><span class="p">):</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="n">TMPLT_ENV</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;aview_scripts&#39;</span><span class="p">,</span> <span class="n">GET_RESULTS_SCRIPT_NAME</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+    <span class="n">working_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">res_file</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">working_directory</span><span class="p">,</span> <span class="n">GET_RESULTS_SCRIPT_NAME</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+        <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">({</span><span class="s1">&#39;res_file&#39;</span><span class="p">:</span> <span class="n">res_file</span><span class="p">,</span> <span class="s1">&#39;reqs_to_get&#39;</span><span class="p">:</span> <span class="n">reqs_to_get</span><span class="p">,</span> <span class="s1">&#39;t_min&#39;</span><span class="p">:</span> <span class="n">t_min</span><span class="p">,</span> <span class="s1">&#39;t_max&#39;</span><span class="p">:</span> <span class="n">t_max</span><span class="p">,</span> <span class="s1">&#39;output_file&#39;</span><span class="p">:</span> <span class="n">TEMP_OUTPUT_FILENAME</span><span class="p">}))</span>
+
+    <span class="k">if</span> <span class="n">_just_write_script</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="c1"># Delete the aview.log file</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">working_directory</span><span class="p">,</span> <span class="n">LOG_NAME</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">except</span> <span class="ne">PermissionError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="c1"># Run the postprocessor</span>
+        <span class="n">startupinfo</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">STARTUPINFO</span><span class="p">()</span>
+        <span class="n">startupinfo</span><span class="o">.</span><span class="n">dwFlags</span> <span class="o">|=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">STARTF_USESHOWWINDOW</span>        
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="s1">&#39;&quot;</span><span class="si">{}</span><span class="s1">&quot; aview ru-s b </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADAMS_LAUNCH_COMMAND&#39;</span><span class="p">],</span> <span class="n">GET_RESULTS_SCRIPT_NAME</span><span class="p">),</span> <span class="n">cwd</span><span class="o">=</span><span class="n">working_directory</span><span class="p">,</span> <span class="n">startupinfo</span><span class="o">=</span><span class="n">startupinfo</span><span class="p">)</span>
+
+        <span class="c1"># Wait for complete</span>
+        <span class="n">_wait</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">working_directory</span><span class="p">,</span> <span class="n">LOG_NAME</span><span class="p">),</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+
+        <span class="c1"># Check the log file for errors</span>
+        <span class="n">_get_log_errors</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">working_directory</span><span class="p">,</span> <span class="n">LOG_NAME</span><span class="p">))</span>
+
+        <span class="c1"># Read and return the results</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">genfromtxt</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">working_directory</span><span class="p">,</span> <span class="n">TEMP_OUTPUT_FILENAME</span><span class="p">),</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">working_directory</span><span class="p">,</span> <span class="n">GET_RESULTS_SCRIPT_NAME</span><span class="p">))</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">working_directory</span><span class="p">,</span> <span class="n">TEMP_OUTPUT_FILENAME</span><span class="p">))</span>
+
+        <span class="n">output_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])}</span>
+        <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">reqs_to_get</span><span class="p">:</span>
+            <span class="n">output_dict</span><span class="p">[</span><span class="n">res</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">comp</span> <span class="ow">in</span> <span class="n">reqs_to_get</span><span class="p">[</span><span class="n">res</span><span class="p">]:</span>
+                <span class="n">output_dict</span><span class="p">[</span><span class="n">res</span><span class="p">][</span><span class="n">comp</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{res}</span><span class="s1">_</span><span class="si">{comp}</span><span class="s1">&#39;</span><span class="p">])</span>
+        
+        <span class="k">return</span> <span class="n">output_dict</span></div>
+
+<div class="viewcode-block" id="get_lunar_results"><a class="viewcode-back" href="../../../adamspy.postprocess.html#adamspy.postprocess.ppt.get_lunar_results">[docs]</a><span class="k">def</span> <span class="nf">get_lunar_results</span><span class="p">(</span><span class="n">res_files</span><span class="p">,</span> <span class="n">reqs_to_get</span><span class="p">,</span> <span class="n">t_min</span><span class="p">,</span> <span class="n">t_max</span><span class="p">,</span> <span class="n">output_file</span><span class="p">,</span> <span class="n">_just_write_script</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">_TIMEOUT</span><span class="p">):</span>
     
-    <span class="n">template</span> <span class="o">=</span> <span class="n">TMPLT_ENV</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;aview_scripts&#39;</span><span class="p">,</span> <span class="n">SCRIPT_NAME</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="n">TMPLT_ENV</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;aview_scripts&#39;</span><span class="p">,</span> <span class="n">LUNAR_SCRIPT_NAME</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
     
     <span class="n">working_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">res_files</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">working_directory</span><span class="p">,</span> <span class="n">SCRIPT_NAME</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">working_directory</span><span class="p">,</span> <span class="n">LUNAR_SCRIPT_NAME</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
         <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">({</span><span class="s1">&#39;res_files&#39;</span><span class="p">:</span> <span class="n">res_files</span><span class="p">,</span> <span class="s1">&#39;reqs_to_get&#39;</span><span class="p">:</span> <span class="n">reqs_to_get</span><span class="p">,</span> <span class="s1">&#39;t_min&#39;</span><span class="p">:</span> <span class="n">t_min</span><span class="p">,</span> <span class="s1">&#39;t_max&#39;</span><span class="p">:</span> <span class="n">t_max</span><span class="p">,</span> <span class="s1">&#39;output_suffix&#39;</span><span class="p">:</span> <span class="n">output_file</span><span class="p">}))</span>
 
     <span class="k">if</span> <span class="n">_just_write_script</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
         <span class="c1"># Delete the aview.log file</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">working_directory</span><span class="p">,</span> <span class="s1">&#39;aview.log&#39;</span><span class="p">))</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">working_directory</span><span class="p">,</span> <span class="n">LOG_NAME</span><span class="p">))</span>
         <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
             <span class="k">pass</span>
 
         <span class="c1"># Run the postprocessor</span>
         <span class="n">startupinfo</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">STARTUPINFO</span><span class="p">()</span>
         <span class="n">startupinfo</span><span class="o">.</span><span class="n">dwFlags</span> <span class="o">|=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">STARTF_USESHOWWINDOW</span>        
-        <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="s1">&#39;&quot;</span><span class="si">{}</span><span class="s1">&quot; aview ru-s b </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADAMS_LAUNCH_COMMAND&#39;</span><span class="p">],</span> <span class="n">SCRIPT_NAME</span><span class="p">),</span> <span class="n">cwd</span><span class="o">=</span><span class="n">working_directory</span><span class="p">,</span> <span class="n">startupinfo</span><span class="o">=</span><span class="n">startupinfo</span><span class="p">)</span>
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="s1">&#39;&quot;</span><span class="si">{}</span><span class="s1">&quot; aview ru-s b </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADAMS_LAUNCH_COMMAND&#39;</span><span class="p">],</span> <span class="n">LUNAR_SCRIPT_NAME</span><span class="p">),</span> <span class="n">cwd</span><span class="o">=</span><span class="n">working_directory</span><span class="p">,</span> <span class="n">startupinfo</span><span class="o">=</span><span class="n">startupinfo</span><span class="p">)</span>
 
         <span class="c1"># Wait for complete</span>
         <span class="n">_wait</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">working_directory</span><span class="p">,</span> <span class="n">LOG_NAME</span><span class="p">),</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
 
-        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">working_directory</span><span class="p">,</span> <span class="n">SCRIPT_NAME</span><span class="p">))</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">working_directory</span><span class="p">,</span> <span class="n">LUNAR_SCRIPT_NAME</span><span class="p">))</span>
 
         <span class="c1"># Make a list of the files that are written</span>
         <span class="n">res_output_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">output_file</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_time&#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">output_file</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
@@ -231,6 +279,28 @@
                 <span class="k">break</span>
                 
         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">sleep_time</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_get_log_errors</span><span class="p">(</span><span class="n">log_file</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Checks the log file for errors of the type AviewError.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    log_file : str</span>
+<span class="sd">        Filename of aview log file (usulally aview.log)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">log_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">fid</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+    
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">LOG_FILE_ERROR_PATTERN</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">AviewError</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>        
+
+<div class="viewcode-block" id="AviewError"><a class="viewcode-back" href="../../../adamspy.postprocess.html#adamspy.postprocess.ppt.AviewError">[docs]</a><span class="k">class</span> <span class="nc">AviewError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Raise this error to if a known error occurs in the log file.</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
 </pre></div>
 
            </div>

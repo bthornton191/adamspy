@@ -1,6 +1,13 @@
 adamspy.postprocess package
 ===========================
 
+Subpackages
+-----------
+
+.. toctree::
+
+    adamspy.postprocess.analysis
+
 Submodules
 ----------
 

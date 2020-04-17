@@ -1,9 +1,9 @@
 import os
 
 import numpy as np
-import Adams
+import Adams        #pylint: disable=import-error
 
-def get_lunar_results(res_files, reqs_to_get, t_min, t_max, output_file):
+def get_lunar_results(res_files, reqs_to_get, t_min, t_max, output_file): 
 
     res_dict = {}
 
@@ -54,7 +54,7 @@ def get_lunar_results(res_files, reqs_to_get, t_min, t_max, output_file):
 
         # Delete the model and results
         mod.destroy()      
-                
+
 if __name__ == 'aview_main':
     
     Adams.execute_cmd('def com echo=on')

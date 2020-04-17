@@ -22,3 +22,7 @@ test/files/.test_analysis_1.pkl
 **.mpg
 /test/files/generic_model/aview.py
 /test/files/generic_model/aview.py.bak
+/test/files/aview.py
+/test/files/aview.py.bak
+/test/files/waterfall_files/aview.py
+/test/files/waterfall_files/aview.py.bak

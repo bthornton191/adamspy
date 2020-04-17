@@ -3,7 +3,7 @@ import os
 from adamspy.postprocess import xml
 from adamspy.postprocess import launch_ppt
 from adamspy.postprocess import _get_model_name_from_cmd
-from adamspy.postprocess.ppt import get_lunar_results, SCRIPT_NAME
+from adamspy.postprocess.ppt import get_lunar_results, LUNAR_SCRIPT_NAME, get_results
 
 from test import *
 
@@ -31,6 +31,31 @@ class Test_ShrinkResults(unittest.TestCase):
         # Delete shrunk results file
         if os.path.exists(TEST_EXISTING_RES_FILE.replace('.res', '') + xml.SHRUNK_RES_SUFFIX +'.res'):
             os.remove(TEST_EXISTING_RES_FILE.replace('.res', '') + xml.SHRUNK_RES_SUFFIX +'.res')
+
+class Test_GetResultsPPT(unittest.TestCase):
+
+    TEST_REQUEST_FILE = os.path.join(os.getcwd(), 'test', 'files', 'test_request_file.req')
+    def setUp(self):
+        return
+
+    def test_get_request(self):
+        reqs_to_get = {'response_1_disp': ['X', 'MAG', 'R2', 'AMAG']}
+        results = get_results(self.TEST_REQUEST_FILE, reqs_to_get)
+        expected_results = {
+            'time': [13.0, 13.001000000000001, 13.002, 13.003, 13.004, 13.004999999999999, 13.006],
+            'response_1_disp': {
+                'X': [3.5, 3.4999599999999997, 3.4999599999999997, 3.4999599999999997, 3.4999599999999997, 3.4999499999999997, 3.4999499999999997],
+                'MAG': [3.500000000008821, 3.499960000008402, 3.4999600000085374, 3.4999600000085365, 3.499960000008617, 3.4999500000086563, 3.4999500000085777],
+                'R2': [2.3997399999999995e-07, 1.80854e-06, 1.6657699999999998e-06, 1.5456599999999998e-06, 1.44435e-06, 1.3732599999999998e-06, 1.3368999999999999e-06],
+                'AMAG': [38.76307707729096, 88.32065382287432, 85.85459677245011, 84.106517786495, 82.52081848120751, 81.60156028408772, 81.61501704525708]
+                }
+            }
+
+        self.assertDictEqual(results, expected_results)
+
+    def tearDown(self):
+        return
+
 
 class Test_GetResults(unittest.TestCase):
 
@@ -114,7 +139,7 @@ class Test_GetResultsAview(unittest.TestCase):
         get_lunar_results(self.res_files, self.reqs_to_get, self.t_min, self.t_max, self.output_file, _just_write_script=True)
         directory = os.path.dirname(self.res_files[0])
         
-        failures = check_file_contents(os.path.join(directory, SCRIPT_NAME), EXPECTED_LUNAR_PYTHON_SCRIPT.format(**{'reqs_to_get': self.reqs_to_get, 'res_files': self.res_files, 'output_file': self.output_file, 't_min': self.t_min, 't_max': self.t_max}))
+        failures = check_file_contents(os.path.join(directory, LUNAR_SCRIPT_NAME), EXPECTED_LUNAR_PYTHON_SCRIPT.format(**{'reqs_to_get': self.reqs_to_get, 'res_files': self.res_files, 'output_file': self.output_file, 't_min': self.t_min, 't_max': self.t_max}))
         self.assertListEqual(failures, [])
 
     def test_lunar_y_file(self):

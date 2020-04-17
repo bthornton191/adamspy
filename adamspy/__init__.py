@@ -12,4 +12,5 @@ adamspy
     Functions for manipulating adams files and data
 """
 from . import adripy
+from . import waterfall
 name = 'adamspy'

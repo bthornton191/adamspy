@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.9.12'
-version_notes = 'minor change'
-date = 'March 9th, 2020'
+version = '0.10.3'
+version_notes = 'Uploaded to pip'
+date = 'April 17th, 2020'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'

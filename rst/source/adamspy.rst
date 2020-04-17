@@ -8,6 +8,7 @@ Subpackages
 
     adamspy.adripy
     adamspy.postprocess
+    adamspy.waterfall
 
 Submodules
 ----------
