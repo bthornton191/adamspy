@@ -19,6 +19,14 @@ adamspy.postprocess.animation module
     :undoc-members:
     :show-inheritance:
 
+adamspy.postprocess.exported module
+-----------------------------------
+
+.. automodule:: adamspy.postprocess.exported
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 adamspy.postprocess.ppt module
 ------------------------------
 

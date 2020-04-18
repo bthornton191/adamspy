@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.10.5'
-version_notes = 'added order fan lines to waterfalls'
-date = 'April 17th, 2020'
+version = '0.11.0'
+version_notes = 'Added funciton for reading adams exported spreadsheets, minor changes to waterfall.py'
+date = 'April 18th, 2020'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'

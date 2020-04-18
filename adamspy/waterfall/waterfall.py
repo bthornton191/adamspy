@@ -128,18 +128,19 @@ def fft_watefall(res_file, res, comp, percent_overlap=50, n_fft=1024, t_min=None
         axes[1].set_xlabel('Time (s)')
         axes[1].set_ylabel(input_unit)
         axes[1].set_title('Input Speed')
-
         axes[1].grid(True)
 
         # Plot Order Waterfall
-        wtrfl_surf = axes[2].contourf(x_order, y_order, Pxx, 250, cmap=cm.get_cmap('nipy_spectral', 100), extend='min')
+        if f_range is not None:
+            i_min = np.argmax(freqs>=f_range[0])
+            i_max = np.argmax(freqs>=f_range[1])
+        else:
+            i_min = len(freqs)
+            i_max = len(freqs)
+
+        wtrfl_surf = axes[2].contourf(x_order[i_min:i_max], y_order[i_min:i_max], Pxx[i_min:i_max], 250, cmap=cm.get_cmap('nipy_spectral', 100), extend='min')
         axes[2].set_xlabel(input_unit)
         axes[2].set_ylabel('Frequency (Hz)')
-        # axes[2].grid(True)
-
-        # Set axis limits
-        if f_range is not None:
-            axes[2].set_ylim(f_range[0], f_range[1])
 
         # Add order lines
         if orders is not None:
@@ -198,18 +199,12 @@ def _add_order_lines(ax, orders, input_unit):
     ax.autoscale(False)
 
     for order in orders:        
-        x_coords = list(ax.get_xlim())
-        y_coords = [x*input_to_hz*order for x in x_coords]
-
-        label_x_coord = [x_coords[-1] + ax.get_xlim()[-1]*0.01]
-        label_y_coord = [y_coords[-1] + ax.get_ylim()[-1]*0.01]
+        x_coords = [0, ax.get_xlim()[-1]]
+        y_coords = [0, x_coords[-1]*input_to_hz*order]
 
         if y_coords[-1] > ax.get_ylim()[-1]:
             y_coords[-1] = ax.get_ylim()[-1]
             x_coords[-1] = y_coords[-1]/input_to_hz/order
-
-            label_x_coord = [x_coords[-1] + ax.get_xlim()[-1]*0.01]
-            label_y_coord = [y_coords[-1] + ax.get_ylim()[-1]*0.1]
 
         # Add line
         ax.plot(x_coords, y_coords, color='white', linestyle='-', linewidth=2, alpha=.75)
@@ -241,25 +236,6 @@ def _get_conversion_to_hz(input_unit):
         input_to_hz = 1/360
 
     return input_to_hz
-
-
-# def _clean_sig(sig, n_sigma):
-#     def _get_nans(arr):
-#         return np.isnan(arr), lambda z: z.nonzero()[0]
-
-#     new_sig = []
-#     for _i, point in enumerate(sig):
-#         if point > np.std(sig)*n_sigma:
-#             new_sig.append(np.nan)
-#         else:
-#             new_sig.append(point)
-    
-#     new_sig = np.array(new_sig)
-
-#     i_nans, nan_func = _get_nans(new_sig)
-#     new_sig[i_nans] = np.interp(nan_func(i_nans), nan_func(~i_nans), new_sig[~i_nans])
-
-#     return list(new_sig)
 
 def _clean_sig(sig, n_sigma):
     sig = np.array(sig)

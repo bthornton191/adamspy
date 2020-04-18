@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.postprocess package &mdash; adamspy 0.10.5 documentation</title>
+  <title>adamspy.postprocess package &mdash; adamspy 0.11.0 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.10.5
+                0.11.0
               </div>
             
           
@@ -88,6 +88,7 @@
 <li><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#module-adamspy.postprocess.animation">adamspy.postprocess.animation module</a></li>
+<li><a class="reference internal" href="#module-adamspy.postprocess.exported">adamspy.postprocess.exported module</a></li>
 <li><a class="reference internal" href="#module-adamspy.postprocess.ppt">adamspy.postprocess.ppt module</a></li>
 <li><a class="reference internal" href="#module-adamspy.postprocess.xml">adamspy.postprocess.xml module</a></li>
 <li><a class="reference internal" href="#module-adamspy.postprocess">Module contents</a></li>
@@ -191,6 +192,33 @@
 <li><strong>analysis_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Name of the analysis</li>
 <li><strong>wait</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – If <cite>True</cite>, code execution will freeze until the animation script completes and the postprocessor closes. (the default is True)</li>
 </ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-adamspy.postprocess.exported">
+<span id="adamspy-postprocess-exported-module"></span><h2>adamspy.postprocess.exported module<a class="headerlink" href="#module-adamspy.postprocess.exported" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="adamspy.postprocess.exported.import_spreadsheet">
+<code class="descclassname">adamspy.postprocess.exported.</code><code class="descname">import_spreadsheet</code><span class="sig-paren">(</span><em>filename</em>, <em>output_type='dict'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/exported.html#import_spreadsheet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.exported.import_spreadsheet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads data from a file generated in Adams View using File&gt;Export&gt;Spreadsheet.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Name of file.</li>
+<li><strong>output_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Type of object to return.  Default is ‘DataFrame’ which returns a pandas <cite>:obj:DataFrame</cite> object.  You can also select ‘dict’.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Pandas <cite>:obj:Dataframe</cite> if <cite>output_type</cite> is ‘DataFrame’ or <cite>:obj:dict</cite> if <cite>output_type</cite> is ‘dict’</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">DataFrame or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a></p>
 </td>
 </tr>
 </tbody>
