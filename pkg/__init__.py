@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.11.0'
-version_notes = 'Added funciton for reading adams exported spreadsheets, minor changes to waterfall.py'
+version = '0.11.1'
+version_notes = 'Documentation'
 date = 'April 18th, 2020'
 # ---------------------
 author = 'Ben Thornton'
