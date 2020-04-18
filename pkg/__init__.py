@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.10.4'
-version_notes = 'Removed tompy'
+version = '0.10.5'
+version_notes = 'added order fan lines to waterfalls'
 date = 'April 17th, 2020'
 # ---------------------
 author = 'Ben Thornton'
