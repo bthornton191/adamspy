@@ -27,6 +27,14 @@ adamspy.postprocess.exported module
     :undoc-members:
     :show-inheritance:
 
+adamspy.postprocess.msg module
+------------------------------
+
+.. automodule:: adamspy.postprocess.msg
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 adamspy.postprocess.ppt module
 ------------------------------
 
