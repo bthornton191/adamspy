@@ -1,5 +1,5 @@
 # ---------------------
-version = '0.12.0'
+version = '0.12.1'
 version_notes = 'Added function for getting mode table from msg file'
 date = 'April 19th, 2020'
 # ---------------------

@@ -1,0 +1,290 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>adamspy.postprocess.msg &mdash; adamspy 0.12.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> adamspy
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.12.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">adamspy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../postprocess.html">adamspy.postprocess</a> &raquo;</li>
+        
+      <li>adamspy.postprocess.msg</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for adamspy.postprocess.msg</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;This module contains tools for extracing data from the message file.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">EIG_HEADER_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;^</span><span class="se">\\</span><span class="s1">s*E I G E N V A L U E S  at time = [</span><span class="se">\\</span><span class="s1">d+-</span><span class="se">\\</span><span class="s1">.E]+</span><span class="se">\\</span><span class="s1">s*$&#39;</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span><span class="p">)</span>
+<span class="n">EIG_END_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;^</span><span class="se">\\</span><span class="s1">s*$&#39;</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span><span class="p">)</span>
+
+<span class="n">OFFSET</span> <span class="o">=</span> <span class="mi">1</span>
+
+<div class="viewcode-block" id="get_modes"><a class="viewcode-back" href="../../../adamspy.postprocess.html#adamspy.postprocess.msg.get_modes">[docs]</a><span class="k">def</span> <span class="nf">get_modes</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">,</span> <span class="n">i_analysis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">underdamped_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sort_by_wn</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Gets the modes from an Adams Solver message file.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filename : str</span>
+<span class="sd">        Name of Adams Solver message (.msg) file.</span>
+<span class="sd">    output_type : str, optional</span>
+<span class="sd">        If &#39;DataFrame&#39;, returns a pandas `:obj:pd.DataFrame` if &#39;dict&#39;, returns a `:obj:dict`. (Default is &#39;dict&#39;)</span>
+<span class="sd">    i_analysis : int, (optional)</span>
+<span class="sd">        If the Adams Solver message (.msg) file contains multiple eigensolutions, this specifies which one to get. (Default is 0 which takes the first analysis)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    `:obj:pd.DataFrame` or `:obj:dict`</span>
+<span class="sd">        Table of modes</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">temp_file</span> <span class="o">=</span> <span class="n">_write_temp_file</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">i_analysis</span><span class="o">=</span><span class="n">i_analysis</span><span class="p">)</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">temp_file</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">delim_whitespace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">temp_file</span><span class="p">)</span>
+
+    <span class="n">data</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>    
+    <span class="n">data</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Real(cycles/second)&#39;</span><span class="p">:</span> <span class="s1">&#39;Real&#39;</span><span class="p">,</span> <span class="s1">&#39;Imag.(cycles/second)&#39;</span><span class="p">:</span> <span class="s1">&#39;Imag&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>    
+
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Wn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Real&#39;</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Imag&#39;</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>    
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;zeta&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Real&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Wn&#39;</span><span class="p">]</span>    
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Wd&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Wn&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;zeta&#39;</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+    
+    <span class="k">if</span> <span class="n">underdamped_only</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="c1"># Drop the critically/overdamped modes</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Imag&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">sort_by_wn</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="c1"># Sort by Wn</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;Wn&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="n">data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s1">&#39;Number&#39;</span><span class="p">:</span> <span class="s1">&#39;Aview Number&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;Mode&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">output_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;dict&#39;</span><span class="p">:</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s1">&#39;list&#39;</span><span class="p">)</span>        
+
+    <span class="k">return</span> <span class="n">data</span></div>
+
+<span class="k">def</span> <span class="nf">_write_temp_file</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">i_analysis</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+
+    <span class="n">temp_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.tmp&#39;</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">temp_filename</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid_out</span><span class="p">:</span>        
+
+        <span class="n">start_line</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">end_line</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i_line</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">fid</span><span class="p">):</span>
+
+            <span class="k">if</span> <span class="n">start_line</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">EIG_HEADER_PATTERN</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="ow">and</span> <span class="n">counter</span><span class="o">==</span><span class="n">i_analysis</span><span class="p">:</span>
+                <span class="c1"># If we&#39;ve found the eigenvalue table, </span>
+                <span class="n">start_line</span> <span class="o">=</span> <span class="n">i_line</span>
+                <span class="n">fid_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;+/-&#39;</span><span class="p">,</span> <span class="s1">&#39;   &#39;</span><span class="p">))</span>
+            
+            <span class="k">elif</span> <span class="n">start_line</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">EIG_HEADER_PATTERN</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="ow">and</span> <span class="n">counter</span><span class="o">&lt;</span><span class="n">i_analysis</span><span class="p">:</span>
+                <span class="c1"># If we found an eigenvalue table, but not the one we&#39;re looking for, increase the counter</span>
+                <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+            
+            <span class="k">elif</span> <span class="n">start_line</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">EIG_END_PATTERN</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
+                <span class="c1"># If we&#39;ve reached the first blank line since the table started, break from the loop</span>
+                <span class="n">end_line</span> <span class="o">=</span> <span class="n">i_line</span>
+                <span class="k">break</span>
+                
+            <span class="k">elif</span> <span class="n">start_line</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># If we&#39;re in the table, write the line</span>
+                <span class="n">fid_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;+/-&#39;</span><span class="p">,</span> <span class="s1">&#39;   &#39;</span><span class="p">))</span>
+        
+        <span class="c1"># Raise exceptions if lines not found</span>
+        <span class="k">if</span> <span class="n">start_line</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">end_line</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>          
+            <span class="k">if</span> <span class="n">counter</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Only found </span><span class="si">{counter}</span><span class="s1"> analys&#39;</span> <span class="o">+</span> <span class="s1">&#39;is&#39;</span> <span class="k">if</span> <span class="n">counter</span><span class="o">==</span><span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;es&#39;</span> <span class="o">+</span> <span class="n">f</span><span class="s1">&#39;, but {i_analysis+1} expected!&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;No modal table found!&#39;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">temp_filename</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Ben Thornton
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
