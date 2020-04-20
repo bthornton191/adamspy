@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.waterfall package &mdash; adamspy 0.12.1 documentation</title>
+  <title>adamspy.waterfall package &mdash; adamspy 0.12.2 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.12.1
+                0.12.2
               </div>
             
           
@@ -168,13 +168,13 @@
 
 <dl class="function">
 <dt id="adamspy.waterfall.waterfall.fft_watefall">
-<code class="descclassname">adamspy.waterfall.waterfall.</code><code class="descname">fft_watefall</code><span class="sig-paren">(</span><em>res_file</em>, <em>res</em>, <em>comp</em>, <em>percent_overlap=50</em>, <em>n_fft=1024</em>, <em>t_min=None</em>, <em>t_max=None</em>, <em>input_res=None</em>, <em>input_comp=None</em>, <em>input_conversion_factor=0.16666666666666666</em>, <em>input_unit='RPM'</em>, <em>response_unit=None</em>, <em>response_conversion_factor=1</em>, <em>psd=False</em>, <em>z_scale='linear'</em>, <em>orders=None</em>, <em>f_range=None</em>, <em>clean_sig=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/waterfall/waterfall.html#fft_watefall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.waterfall.waterfall.fft_watefall" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">adamspy.waterfall.waterfall.</code><code class="descname">fft_watefall</code><span class="sig-paren">(</span><em>res_file</em>, <em>res</em>, <em>comp</em>, <em>percent_overlap=50</em>, <em>n_fft=1024</em>, <em>t_min=None</em>, <em>t_max=None</em>, <em>input_res=None</em>, <em>input_comp=None</em>, <em>input_conversion_factor=0.16666666666666666</em>, <em>input_unit='RPM'</em>, <em>response_unit=None</em>, <em>response_conversion_factor=1</em>, <em>psd=False</em>, <em>z_scale='linear'</em>, <em>order_lines=None</em>, <em>f_range=None</em>, <em>clean_sig=None</em>, <em>return_order_cuts=None</em>, <em>title=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/waterfall/waterfall.html#fft_watefall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.waterfall.waterfall.fft_watefall" title="Permalink to this definition">¶</a></dt>
 <dd><p>Genenerates a waterfall plot from data in an Adams result or request file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>res_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – File name of Adams result (.res) or request (.req) file.</li>
 <li><strong>res</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Name of the result in the adams dataset</li>
 <li><strong>comp</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Name of the result component in the Adams dataset</li>
@@ -195,12 +195,6 @@
 <li><strong>f_range</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>, </em><em>optional</em>) – [mininum frequency, maximum frequency].  Only affects plot limits</li>
 <li><strong>clean_sig</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><em>optional</em>) – If given, removes data points that exceed <cite>clean_sig</cite> multiplied by the standard deviation of the signal.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Waterfall plot</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Figure</p>
 </td>
 </tr>
 </tbody>

@@ -14,10 +14,10 @@ FIGURE_FOLDER = os.path.join(os.getcwd(), 'test', 'files', 'waterfall_files', 'f
 class Test_Waterfall(unittest.TestCase):
 
     def setUp(self):
-        self.picture_file = os.path.join(FIGURE_FOLDER, f'{os.path.splitext(os.path.split(RESULTS_FILE)[-1])[0]}_{RESULT}_{RESULT_COMPONENT}.png')
+        self.picture_file = os.path.join(FIGURE_FOLDER, f'{os.path.splitext(os.path.split(RESULTS_FILE)[-1])[0]}_{RESULT}_{RESULT_COMPONENT}_.png')
         
         # Make waterfall
-        self.fig = waterfall.fft_watefall(RESULTS_FILE, RESULT, RESULT_COMPONENT, percent_overlap=75, n_fft=128, t_min=6.25, t_max=10, input_res='response_1_vel', input_comp='R3', response_unit='mm/s')
+        self.fig = waterfall.fft_watefall(RESULTS_FILE, RESULT, RESULT_COMPONENT, percent_overlap=75, n_fft=128, t_min=6.25, t_max=10, input_res='response_1_vel', input_comp='R3', response_unit='mm/s', order_lines=[1, 4, 10, 40, 63], title=RESULT, z_scale='dB', f_range=[0, 500])
         
     def test_human_approval(self):
         plt.show()     

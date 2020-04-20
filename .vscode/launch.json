@@ -9,14 +9,23 @@
             "type": "python",
             "request": "launch",
             "program": "${file}",
-            "console": "integratedTerminal"
+            "console": "integratedTerminal",
+            "justMyCode": false
         },
         {
             "name": "Python: Main File (Integrated Terminal)",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/main.py",
-            "console": "integratedTerminal"
+            "console": "integratedTerminal",
+            "justMyCode": false
+        },
+        {
+            "name": "Debug Tests",
+            "type": "python",
+            "request": "test",
+            "console": "integratedTerminal",
+            "justMyCode": false
         }
     ]
 }
