@@ -27,6 +27,14 @@ adamspy.postprocess.exported module
     :undoc-members:
     :show-inheritance:
 
+adamspy.postprocess.mode\_tables module
+---------------------------------------
+
+.. automodule:: adamspy.postprocess.mode_tables
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 adamspy.postprocess.msg module
 ------------------------------
 

@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; adamspy 0.12.2 documentation</title>
+  <title>Index &mdash; adamspy 0.13.0 documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                0.12.2
+                0.13.0
               </div>
             
           
@@ -206,6 +206,8 @@
 </li>
       <li><a href="adamspy.postprocess.html#module-adamspy.postprocess.exported">adamspy.postprocess.exported (module)</a>
 </li>
+      <li><a href="adamspy.postprocess.html#module-adamspy.postprocess.mode_tables">adamspy.postprocess.mode_tables (module)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="adamspy.postprocess.html#module-adamspy.postprocess.msg">adamspy.postprocess.msg (module)</a>
@@ -275,8 +277,6 @@
       <li><a href="adamspy.adripy.html#adamspy.adripy.utilities.cdbNotation_to_fullNotation">cdbNotation_to_fullNotation() (in module adamspy.adripy.utilities)</a>
 </li>
       <li><a href="adamspy.adripy.html#adamspy.adripy.string.DrillString.check_for_references">check_for_references() (adamspy.adripy.string.DrillString method)</a>
-</li>
-      <li><a href="adamspy.waterfall.html#adamspy.waterfall.waterfall.check_num_points">check_num_points() (in module adamspy.waterfall.waterfall)</a>
 </li>
       <li><a href="adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim.clean_pason">clean_pason() (adamspy.adripy.drillsim.DrillSim class method)</a>
 </li>
@@ -386,6 +386,8 @@
 </li>
       <li><a href="adamspy.postprocess.html#adamspy.postprocess.msg.get_modes">get_modes() (in module adamspy.postprocess.msg)</a>
 </li>
+      <li><a href="adamspy.postprocess.html#adamspy.postprocess.mode_tables.Modal.get_modes_where_parts_participate">get_modes_where_parts_participate() (adamspy.postprocess.mode_tables.Modal method)</a>
+</li>
       <li><a href="adamspy.adripy.html#adamspy.adripy.utilities.get_motor_coefficients">get_motor_coefficients() (in module adamspy.adripy.utilities)</a>
 </li>
       <li><a href="adamspy.adripy.html#adamspy.adripy.utilities.MotorModel.get_motor_curve">get_motor_curve() (adamspy.adripy.utilities.MotorModel method)</a>
@@ -396,10 +398,10 @@
       </ul></li>
       <li><a href="adamspy.html#adamspy.adamspy.get_n_threads">get_n_threads() (in module adamspy.adamspy)</a>
 </li>
-      <li><a href="adamspy.adripy.html#adamspy.adripy.utilities.get_number_of_tools">get_number_of_tools() (in module adamspy.adripy.utilities)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="adamspy.adripy.html#adamspy.adripy.utilities.get_number_of_tools">get_number_of_tools() (in module adamspy.adripy.utilities)</a>
+</li>
       <li><a href="adamspy.adripy.html#adamspy.adripy.tool.DrillTool.get_parameter_value">get_parameter_value() (adamspy.adripy.tool.DrillTool method)</a>
 </li>
       <li><a href="adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim.get_pason_inputs">get_pason_inputs() (adamspy.adripy.drillsim.DrillSim method)</a>
@@ -431,8 +433,6 @@
       <li><a href="adamspy.adripy.html#adamspy.adripy.utilities.MotorModel.get_torque">get_torque() (adamspy.adripy.utilities.MotorModel method)</a>
 </li>
       <li><a href="adamspy.adripy.html#adamspy.adripy.hole.DrillHole.get_tvd">get_tvd() (adamspy.adripy.hole.DrillHole method)</a>
-</li>
-      <li><a href="adamspy.waterfall.html#adamspy.waterfall.waterfall.get_window">get_window() (in module adamspy.waterfall.waterfall)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -472,14 +472,18 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="adamspy.postprocess.html#adamspy.postprocess.mode_tables.Modal">Modal (class in adamspy.postprocess.mode_tables)</a>
+</li>
+      <li><a href="adamspy.postprocess.html#adamspy.postprocess.mode_tables.Mode">Mode (class in adamspy.postprocess.mode_tables)</a>
+</li>
       <li><a href="adamspy.adripy.html#adamspy.adripy.utilities.modify_acf_solver_settings">modify_acf_solver_settings() (in module adamspy.adripy.utilities)</a>
 </li>
       <li><a href="adamspy.adripy.html#adamspy.adripy.tool.DrillTool.modify_parameter_value">modify_parameter_value() (adamspy.adripy.tool.DrillTool method)</a>
 </li>
-      <li><a href="adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim.modify_solver_settings">modify_solver_settings() (adamspy.adripy.drillsim.DrillSim method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim.modify_solver_settings">modify_solver_settings() (adamspy.adripy.drillsim.DrillSim method)</a>
+</li>
       <li><a href="adamspy.adripy.html#adamspy.adripy.hole.DrillHole.modify_table">modify_table() (adamspy.adripy.hole.DrillHole method)</a>
 </li>
       <li><a href="adamspy.adripy.html#adamspy.adripy.utilities.MotorModel">MotorModel (class in adamspy.adripy.utilities)</a>
@@ -516,6 +520,8 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="adamspy.postprocess.html#adamspy.postprocess.mode_tables.parse_table_file">parse_table_file() (in module adamspy.postprocess.mode_tables)</a>
+</li>
       <li><a href="adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim.pason_inputs">pason_inputs (adamspy.adripy.drillsim.DrillSim attribute)</a>
 </li>
       <li><a href="adamspy.adripy.html#adamspy.adripy.tool.DrillTool.property_file">property_file (adamspy.adripy.tool.DrillTool attribute)</a>

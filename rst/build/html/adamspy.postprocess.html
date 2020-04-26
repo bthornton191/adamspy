@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.postprocess package &mdash; adamspy 0.12.2 documentation</title>
+  <title>adamspy.postprocess package &mdash; adamspy 0.13.0 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.12.2
+                0.13.0
               </div>
             
           
@@ -89,6 +89,7 @@
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#module-adamspy.postprocess.animation">adamspy.postprocess.animation module</a></li>
 <li><a class="reference internal" href="#module-adamspy.postprocess.exported">adamspy.postprocess.exported module</a></li>
+<li><a class="reference internal" href="#module-adamspy.postprocess.mode_tables">adamspy.postprocess.mode_tables module</a></li>
 <li><a class="reference internal" href="#module-adamspy.postprocess.msg">adamspy.postprocess.msg module</a></li>
 <li><a class="reference internal" href="#module-adamspy.postprocess.ppt">adamspy.postprocess.ppt module</a></li>
 <li><a class="reference internal" href="#module-adamspy.postprocess.xml">adamspy.postprocess.xml module</a></li>
@@ -225,6 +226,53 @@
 </tbody>
 </table>
 </dd></dl>
+
+</div>
+<div class="section" id="module-adamspy.postprocess.mode_tables">
+<span id="adamspy-postprocess-mode-tables-module"></span><h2>adamspy.postprocess.mode_tables module<a class="headerlink" href="#module-adamspy.postprocess.mode_tables" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="adamspy.postprocess.mode_tables.Modal">
+<em class="property">class </em><code class="descclassname">adamspy.postprocess.mode_tables.</code><code class="descname">Modal</code><span class="sig-paren">(</span><em>modes: dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/mode_tables.html#Modal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.mode_tables.Modal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="adamspy.postprocess.mode_tables.Modal.get_modes_where_parts_participate">
+<code class="descname">get_modes_where_parts_participate</code><span class="sig-paren">(</span><em>part_suffix</em>, <em>table</em>, <em>column</em>, <em>threshold=0.9</em>, <em>sum_or_max='max'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/mode_tables.html#Modal.get_modes_where_parts_participate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.mode_tables.Modal.get_modes_where_parts_participate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary where the keys are mode numbers and the values are <cite>:obj:Mode</cite> objects in which any part with the suffix <cite>part_suffix</cite> has at least <cite>threshold</cite> percent of the total.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>part_suffix</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Suffix of parts to check for</li>
+<li><strong>table</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Table type. Options are ‘coords’, ‘kinetic_energy’, ‘strain_energy’, ‘dissipative_energy’</li>
+<li><strong>column</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Column name from the table</li>
+<li><strong>threshold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – Part’s value must be greater than <cite>threshold</cite> multiplied the sum or max (depending on <cite>sum_or_max</cite> value) of the column in the table to be considered participating</li>
+<li><strong>sum_or_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Must be ‘sum’ or ‘max’</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Dictionary where the keys are mode numbers and the values are <cite>:obj:Mode</cite> objects</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="adamspy.postprocess.mode_tables.Mode">
+<em class="property">class </em><code class="descclassname">adamspy.postprocess.mode_tables.</code><code class="descname">Mode</code><span class="sig-paren">(</span><em>scalars: dict</em>, <em>tables: dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/mode_tables.html#Mode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.mode_tables.Mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="adamspy.postprocess.mode_tables.parse_table_file">
+<code class="descclassname">adamspy.postprocess.mode_tables.</code><code class="descname">parse_table_file</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/mode_tables.html#parse_table_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.mode_tables.parse_table_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </div>
 <div class="section" id="module-adamspy.postprocess.msg">

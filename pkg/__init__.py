@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.12.2'
-version_notes = 'Outsources waterfall logic to thornpy'
+version = '0.13.0'
+version_notes = 'Added module for parsing modal tables from Adams Linear'
 date = 'April 20th, 2020'
 # ---------------------
 author = 'Ben Thornton'
