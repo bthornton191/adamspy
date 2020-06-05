@@ -55,7 +55,7 @@ def get_lunar_results(res_files, reqs_to_get, t_min, t_max, output_file):
         # Delete the model and results
         mod.destroy()      
 
-if __name__ == 'aview_main':
+if __name__ in ['aview_main', '__main__']:
     
     Adams.execute_cmd('def com echo=on')
 

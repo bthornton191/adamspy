@@ -119,7 +119,7 @@ class AviewError(Exception):
     """
     pass
             
-if __name__ == 'aview_main':
+if __name__ in ['aview_main', '__main__']:
     
     Adams.execute_cmd('def com echo=on')
 
