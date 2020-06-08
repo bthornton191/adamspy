@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.14.0'
-version_notes = 'Fixed aview python name space'
-date = 'June 20th, 2020'
+version = '0.15.0'
+version_notes = 'Upgraded thornpy to get latest waterfall plots that allow adjusting limits of color bar'
+date = 'June 8th, 2020'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'

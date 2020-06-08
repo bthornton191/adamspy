@@ -7,7 +7,7 @@ from . import get_res_data
 
 from thornpy.signal import fft_watefall as _fft_waterfall
 
-def fft_watefall(res_file, res, comp, percent_overlap=50, n_fft=1024, t_min=None, t_max=None, input_res=None, input_comp=None, input_conversion_factor=60/360, input_unit='RPM', response_unit=None, response_conversion_factor=1, psd=False, z_scale='linear', order_lines=None, f_range=None, clean_sig=None, return_order_cuts=None, title=None):
+def fft_watefall(res_file, res, comp, percent_overlap=50, n_fft=1024, t_min=None, t_max=None, input_res=None, input_comp=None, input_conversion_factor=60/360, input_unit='RPM', response_unit=None, response_conversion_factor=1, psd=False, z_scale='linear', order_lines=None, f_range=None, clean_sig=None, return_order_cuts=None, title=None, vmin=None, vmax=None):
     """Genenerates a waterfall plot from data in an Adams result or request file.
     
     Parameters
@@ -53,7 +53,9 @@ def fft_watefall(res_file, res, comp, percent_overlap=50, n_fft=1024, t_min=None
     
     Returns
     -------
-
+    Figure
+        Waterfall plot
+        
     """    
     time, sig, _ = get_res_data(res_file, res, comp, t_min=t_min, t_max=t_max)
 
@@ -62,6 +64,6 @@ def fft_watefall(res_file, res, comp, percent_overlap=50, n_fft=1024, t_min=None
     else:
         input_sig = None
         
-    waterfall = _fft_waterfall(time, sig, percent_overlap=percent_overlap, n_fft=n_fft, title=title, t_min=t_min, t_max=t_max, input_sig=input_sig, input_conversion_factor=input_conversion_factor, input_unit=input_unit, response_unit=response_unit, response_conversion_factor=response_conversion_factor, psd=psd, z_scale=z_scale, order_lines=order_lines, f_range=f_range, clean_sig=clean_sig, return_order_cuts=return_order_cuts)
+    waterfall = _fft_waterfall(time, sig, percent_overlap=percent_overlap, n_fft=n_fft, title=title, t_min=t_min, t_max=t_max, input_sig=input_sig, input_conversion_factor=input_conversion_factor, input_unit=input_unit, response_unit=response_unit, response_conversion_factor=response_conversion_factor, psd=psd, z_scale=z_scale, order_lines=order_lines, f_range=f_range, clean_sig=clean_sig, return_order_cuts=return_order_cuts, vmin=vmin, vmax=vmax)
 
     return waterfall
