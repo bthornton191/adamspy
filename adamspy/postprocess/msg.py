@@ -9,8 +9,10 @@ import numpy as np
 
 EIG_HEADER_PATTERN = re.compile('^\\s*E I G E N V A L U E S  at time = [\\d+-\\.E]+\\s*$', flags=re.MULTILINE)
 EIG_END_PATTERN = re.compile('^\\s*$', flags=re.MULTILINE)
+TIMESTAMP_PATTERN = re.compile('^\\s+(\\d\\.\\d{5}E[\\+\\-]\\d{2})\\s+\\d\\.\\d{5}E[\\+\\-]\\d{2}(?:\\s+\\d+){2}\\s+\\d\\s+(\\d+[\\.:]\\d{2})\\s*$', flags=re.MULTILINE)
 
 OFFSET = 1
+
 
 def get_modes(filename, output_type='dict', i_analysis=0, underdamped_only=True, sort_by_wn=True):
     """Gets the modes from an Adams Solver message file.
@@ -59,6 +61,38 @@ def get_modes(filename, output_type='dict', i_analysis=0, underdamped_only=True,
         data = data.to_dict('list')        
 
     return data
+
+def get_timestamps(filename):
+    """Returns a list of timestamps from the Adams message (.msg) file.  Each timestamp in the list is a list where the first element is the simulation time and the second element is the cpu time.
+
+    Parameters
+    ----------
+    filename : str
+        Filename of message file
+
+    Returns
+    -------
+    list
+        List of timestamps where each timestamp in the list is a list where the first element is the simulation time and the second element is the cpu time.
+        
+    """
+    with open(filename, 'r') as fid:
+        msg_text = fid.read()
+        return [[float(timestamp[0]), convert_cpu_time(timestamp[1])] for timestamp in TIMESTAMP_PATTERN.findall(msg_text)]
+
+def convert_cpu_time(time_string):
+    time_list = time_string.split(':')
+
+    if len(time_list) == 1:
+        cpu_sec = float(time_list[0])
+
+    elif len(time_list) == 2:
+        cpu_sec = float(time_list[0])*60 + float(time_list[1])
+
+    elif len(time_list) == 3:
+        cpu_sec = float(time_list[0])*60*60 + float(time_list[1])*60 + float(time_list[2])
+    
+    return cpu_sec
 
 def _write_temp_file(filename, i_analysis=0):
 

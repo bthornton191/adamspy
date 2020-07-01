@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.postprocess package &mdash; adamspy 0.15.0 documentation</title>
+  <title>adamspy.postprocess package &mdash; adamspy 0.16.0 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.15.0
+                0.16.0
               </div>
             
           
@@ -279,6 +279,11 @@
 <span id="adamspy-postprocess-msg-module"></span><h2>adamspy.postprocess.msg module<a class="headerlink" href="#module-adamspy.postprocess.msg" title="Permalink to this headline">¶</a></h2>
 <p>This module contains tools for extracing data from the message file.</p>
 <dl class="function">
+<dt id="adamspy.postprocess.msg.convert_cpu_time">
+<code class="descclassname">adamspy.postprocess.msg.</code><code class="descname">convert_cpu_time</code><span class="sig-paren">(</span><em>time_string</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/msg.html#convert_cpu_time"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.msg.convert_cpu_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
 <dt id="adamspy.postprocess.msg.get_modes">
 <code class="descclassname">adamspy.postprocess.msg.</code><code class="descname">get_modes</code><span class="sig-paren">(</span><em>filename</em>, <em>output_type='dict'</em>, <em>i_analysis=0</em>, <em>underdamped_only=True</em>, <em>sort_by_wn=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/msg.html#get_modes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.msg.get_modes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the modes from an Adams Solver message file.</p>
@@ -298,6 +303,24 @@
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">obj:pd.DataFrame` or <cite>:obj:dict</cite></p>
 </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="adamspy.postprocess.msg.get_timestamps">
+<code class="descclassname">adamspy.postprocess.msg.</code><code class="descname">get_timestamps</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/msg.html#get_timestamps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.msg.get_timestamps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of timestamps from the Adams message (.msg) file.  Each timestamp in the list is a list where the first element is the simulation time and the second element is the cpu time.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Filename of message file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of timestamps where each timestamp in the list is a list where the first element is the simulation time and the second element is the cpu time.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a></td>
 </tr>
 </tbody>
 </table>

@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.15.0'
-version_notes = 'Upgraded thornpy to get latest waterfall plots that allow adjusting limits of color bar'
-date = 'June 8th, 2020'
+version = '0.16.0'
+version_notes = 'Added a function to get timestamps from the message file'
+date = 'July 1st, 2020'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'

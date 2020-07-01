@@ -19,6 +19,7 @@ MarkupSafe==1.1.1
 matplotlib==3.0.3
 mccabe==0.6.1
 numpy==1.16.2
+opencv-python==4.2.0.34
 packaging==19.0
 pandas==0.24.2
 pkginfo==1.5.0.1
@@ -38,7 +39,7 @@ snowballstemmer==1.2.1
 Sphinx==1.8.5
 sphinx-rtd-theme==0.4.3
 sphinxcontrib-websupport==1.1.0
-thornpy==0.5.2
+thornpy==0.5.5
 tqdm==4.31.1
 twine==1.13.0
 typed-ast==1.4.1
