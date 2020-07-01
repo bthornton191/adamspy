@@ -10,9 +10,8 @@ import numpy as np
 EIG_HEADER_PATTERN = re.compile('^\\s*E I G E N V A L U E S  at time = [\\d+-\\.E]+\\s*$', flags=re.MULTILINE)
 EIG_END_PATTERN = re.compile('^\\s*$', flags=re.MULTILINE)
 TIMESTAMP_PATTERN = re.compile('^\\s+(\\d\\.\\d{5}E[\\+\\-]\\d{2})\\s+\\d\\.\\d{5}E[\\+\\-]\\d{2}(?:\\s+\\d+){2}\\s+\\d\\s+(\\d+[\\.:]\\d{2})\\s*$', flags=re.MULTILINE)
-
+FINISH_PATTERN = re.compile('^Finished -----\\s*$', flags=re.MULTILINE)
 OFFSET = 1
-
 
 def get_modes(filename, output_type='dict', i_analysis=0, underdamped_only=True, sort_by_wn=True):
     """Gets the modes from an Adams Solver message file.
@@ -79,6 +78,17 @@ def get_timestamps(filename):
     with open(filename, 'r') as fid:
         msg_text = fid.read()
         return [[float(timestamp[0]), convert_cpu_time(timestamp[1])] for timestamp in TIMESTAMP_PATTERN.findall(msg_text)]
+
+def check_if_finished(filename):
+    with open(filename, 'r') as fid:
+        msg_text = fid.read()
+
+    if FINISH_PATTERN.findall(msg_text) != []:
+        found = True
+    else:
+        found = False
+    
+    return found
 
 def convert_cpu_time(time_string):
     time_list = time_string.split(':')

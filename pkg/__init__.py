@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.16.0'
-version_notes = 'Added a function to get timestamps from the message file'
+version = '0.17.0'
+version_notes = 'Added a function to check if a message file is finished'
 date = 'July 1st, 2020'
 # ---------------------
 author = 'Ben Thornton'
