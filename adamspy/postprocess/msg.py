@@ -11,6 +11,7 @@ EIG_HEADER_PATTERN = re.compile('^\\s*E I G E N V A L U E S  at time = [\\d+-\\.
 EIG_END_PATTERN = re.compile('^\\s*$', flags=re.MULTILINE)
 TIMESTAMP_PATTERN = re.compile('^\\s+(\\d\\.\\d{5}E[\\+\\-]\\d{2})\\s+\\d\\.\\d{5}E[\\+\\-]\\d{2}(?:\\s+\\d+){2}\\s+\\d\\s+(\\d+[\\.:]\\d{2})\\s*$', flags=re.MULTILINE)
 FINISH_PATTERN = re.compile('^Finished -----\\s*$', flags=re.MULTILINE)
+ERROR_PATTERN = re.compile('^---- START: ERROR ----\\s*$')
 OFFSET = 1
 
 def get_modes(filename, output_type='dict', i_analysis=0, underdamped_only=True, sort_by_wn=True):
@@ -84,6 +85,17 @@ def check_if_finished(filename):
         msg_text = fid.read()
 
     if FINISH_PATTERN.findall(msg_text) != []:
+        found = True
+    else:
+        found = False
+    
+    return found
+
+def check_for_errors(filename):
+    with open(filename, 'r') as fid:
+        msg_text = fid.read()
+
+    if ERROR_PATTERN.findall(msg_text) != []:
         found = True
     else:
         found = False
