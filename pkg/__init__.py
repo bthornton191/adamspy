@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.18.0'
-version_notes = 'Added a function to check if a message file has errors'
+version = '0.19.0'
+version_notes = 'minor bug fix'
 date = 'July 1st, 2020'
 # ---------------------
 author = 'Ben Thornton'

@@ -9,7 +9,7 @@ import numpy as np
 
 EIG_HEADER_PATTERN = re.compile('^\\s*E I G E N V A L U E S  at time = [\\d+-\\.E]+\\s*$', flags=re.MULTILINE)
 EIG_END_PATTERN = re.compile('^\\s*$', flags=re.MULTILINE)
-TIMESTAMP_PATTERN = re.compile('^\\s+(\\d\\.\\d{5}E[\\+\\-]\\d{2})\\s+\\d\\.\\d{5}E[\\+\\-]\\d{2}(?:\\s+\\d+){2}\\s+\\d\\s+(\\d+[\\.:]\\d{2})\\s*$', flags=re.MULTILINE)
+TIMESTAMP_PATTERN = re.compile('^\\s+(\\d\\.\\d{5}E[\\+\\-]\\d{2})\\s+\\d\\.\\d{5}E[\\+\\-]\\d{2}(?:\\s+\\d+){2}\\s+\\d\\s+(\\d+(?:[\\.:]\\d{2}){1,2}))\\s*$', flags=re.MULTILINE)
 FINISH_PATTERN = re.compile('^Finished -----\\s*$', flags=re.MULTILINE)
 ERROR_PATTERN = re.compile('^---- START: ERROR ----\\s*$')
 OFFSET = 1
