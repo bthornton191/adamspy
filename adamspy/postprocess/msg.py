@@ -9,7 +9,7 @@ import numpy as np
 
 EIG_HEADER_PATTERN = re.compile('^\\s*E I G E N V A L U E S  at time = [\\d+-\\.E]+\\s*$', flags=re.MULTILINE)
 EIG_END_PATTERN = re.compile('^\\s*$', flags=re.MULTILINE)
-TIMESTAMP_PATTERN = re.compile('^\\s+(\\d\\.\\d{5}E[\\+\\-]\\d{2})\\s+\\d\\.\\d{5}E[\\+\\-]\\d{2}(?:\\s+\\d+){2}\\s+\\d\\s+(\\d+(?:[\\.:]\\d{2}){1,2})\\s*$', flags=re.MULTILINE)
+TIMESTAMP_PATTERN = re.compile('^\\s+(\\d\\.\\d{5}E[\\+\\-]\\d{2})\\s+(\\d\\.\\d{5}E[\\+\\-]\\d{2})\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+(?:[\\.:]\\d{2}){1,2})\\s*$', flags=re.MULTILINE)
 FINISH_PATTERN = re.compile('^Finished -----\\s*$', flags=re.MULTILINE)
 ERROR_PATTERN = re.compile('^---- START: ERROR ----\\s*$')
 OFFSET = 1
@@ -63,7 +63,7 @@ def get_modes(filename, output_type='dict', i_analysis=0, underdamped_only=True,
     return data
 
 def get_timestamps(filename):
-    """Returns a list of timestamps from the Adams message (.msg) file.  Each timestamp in the list is a list where the first element is the simulation time and the second element is the cpu time.
+    """Returns a list of timestamps from the Adams message (.msg) file.  Each timestamp in the list is a list  as follows [simulation time, step size, Function evaluations, cumulative steps taken, integration order, simulation time]
 
     Parameters
     ----------
@@ -73,12 +73,12 @@ def get_timestamps(filename):
     Returns
     -------
     list
-        List of timestamps where each timestamp in the list is a list where the first element is the simulation time and the second element is the cpu time.
+        List of timestamps where each timestamp in the list is a list as follows [simulation time, step size, Function evaluations, cumulative steps taken, integration order, simulation time].
         
     """
     with open(filename, 'r') as fid:
         msg_text = fid.read()
-        return [[float(timestamp[0]), convert_cpu_time(timestamp[1])] for timestamp in TIMESTAMP_PATTERN.findall(msg_text)]
+        return [[float(timestamp[0]), float(timestamp[1]), int(timestamp[2]), int(timestamp[3]), int(timestamp[4]), convert_cpu_time(timestamp[5])] for timestamp in TIMESTAMP_PATTERN.findall(msg_text)]
 
 def check_if_finished(filename):
     with open(filename, 'r') as fid:

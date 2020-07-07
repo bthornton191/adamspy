@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.postprocess package &mdash; adamspy 0.20.0 documentation</title>
+  <title>adamspy.postprocess package &mdash; adamspy 0.21.0 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.20.0
+                0.21.0
               </div>
             
           
@@ -321,14 +321,14 @@
 <dl class="function">
 <dt id="adamspy.postprocess.msg.get_timestamps">
 <code class="descclassname">adamspy.postprocess.msg.</code><code class="descname">get_timestamps</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/msg.html#get_timestamps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.msg.get_timestamps" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a list of timestamps from the Adams message (.msg) file.  Each timestamp in the list is a list where the first element is the simulation time and the second element is the cpu time.</p>
+<dd><p>Returns a list of timestamps from the Adams message (.msg) file.  Each timestamp in the list is a list  as follows [simulation time, step size, Function evaluations, cumulative steps taken, integration order, simulation time]</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Filename of message file</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of timestamps where each timestamp in the list is a list where the first element is the simulation time and the second element is the cpu time.</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of timestamps where each timestamp in the list is a list as follows [simulation time, step size, Function evaluations, cumulative steps taken, integration order, simulation time].</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a></td>
 </tr>

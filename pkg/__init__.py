@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.20.0'
-version_notes = 'minor bug fix'
-date = 'July 1st, 2020'
+version = '0.21.0'
+version_notes = 'changed get_timestamps to include all columns in the .msg file timestamp table'
+date = 'July 7th, 2020'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'
