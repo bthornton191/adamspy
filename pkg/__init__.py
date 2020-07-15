@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.21.0'
-version_notes = 'changed get_timestamps to include all columns in the .msg file timestamp table'
-date = 'July 7th, 2020'
+version = '0.22.0'
+version_notes = 'added function to get runtime summary from message file'
+date = 'July 15th, 2020'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'

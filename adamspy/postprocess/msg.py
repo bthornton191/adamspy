@@ -11,6 +11,7 @@ EIG_HEADER_PATTERN = re.compile('^\\s*E I G E N V A L U E S  at time = [\\d+-\\.
 EIG_END_PATTERN = re.compile('^\\s*$', flags=re.MULTILINE)
 TIMESTAMP_PATTERN = re.compile('^\\s+(\\d\\.\\d{5}E[\\+\\-]\\d{2})\\s+(\\d\\.\\d{5}E[\\+\\-]\\d{2})\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+(?:[\\.:]\\d{2}){1,2})\\s*$', flags=re.MULTILINE)
 FINISH_PATTERN = re.compile('^Finished -----\\s*$', flags=re.MULTILINE)
+RUNTIME_SUMMARY_PATTERN = re.compile('^Elapsed time = (\\d+\\.\\d{2})s,  CPU time = (\\d+\\.\\d{2})s,  (\\d+\\.\\d{2})%\\s*$', flags=re.MULTILINE)
 ERROR_PATTERN = re.compile('^---- START: ERROR ----\\s*$')
 OFFSET = 1
 
@@ -78,7 +79,26 @@ def get_timestamps(filename):
     """
     with open(filename, 'r') as fid:
         msg_text = fid.read()
-        return [[float(timestamp[0]), float(timestamp[1]), int(timestamp[2]), int(timestamp[3]), int(timestamp[4]), convert_cpu_time(timestamp[5])] for timestamp in TIMESTAMP_PATTERN.findall(msg_text)]
+    return [[float(timestamp[0]), float(timestamp[1]), int(timestamp[2]), int(timestamp[3]), int(timestamp[4]), convert_cpu_time(timestamp[5])] for timestamp in TIMESTAMP_PATTERN.findall(msg_text)]
+
+def get_runtime_summary(filename):
+    """Returns a list of timestamps from the Adams message (.msg) file.  Each timestamp in the list is a list  as follows [elapsed time, cpu time, percent speedup]
+
+    Parameters
+    ----------
+    filename : str
+        Filename of message file
+
+    Returns
+    -------
+    list
+        List of timestamps where each timestamp in the list is a list as follows [elapsed time, cpu time, percent speedup].
+        
+    """
+    with open(filename, 'r') as fid:
+        msg_text = fid.read()
+    runtime_summary = RUNTIME_SUMMARY_PATTERN.findall(msg_text)[-1]
+    return [float(runtime_summary[0]), float(runtime_summary[1]), float(runtime_summary[2])]
 
 def check_if_finished(filename):
     with open(filename, 'r') as fid:

@@ -1,7 +1,7 @@
 import os
 import unittest
 
-from adamspy.postprocess.msg import TIMESTAMP_PATTERN, get_timestamps, check_if_finished
+from adamspy.postprocess.msg import TIMESTAMP_PATTERN, get_timestamps, check_if_finished, get_runtime_summary
 
 TEST_TIMESTAMP = '''Simulation      Step        Function    Cumulative   Integration     CPU
        Time         Size       Evaluations  Steps Taken    Order        time
@@ -33,6 +33,10 @@ class Test_Msg(unittest.TestCase):
     def test_check_if_unfinished(self):
         finished = check_if_finished(TEST_UNFINISHED_MSG_FILE)
         self.assertFalse(finished)
+
+    def test_runtime_summary(self):
+        runtime_summary = get_runtime_summary(TEST_MSG_FILE)
+        self.assertListEqual(runtime_summary, [41.95, 102.98, 245.48])
 
     def tearDown(self):
         return
