@@ -100,6 +100,7 @@ TEST_EXISTING_RES_FILE = os.path.join(os.getcwd(), 'test', 'files', 'test_analys
 TEST_EXISTING_CMD_FILE = os.path.join(os.getcwd(), 'test', 'files', 'test_analysis_1.cmd')
 TEST_EXPECTED_MODNAME_IN_CMD = 'test_analysis_1'
 
+TEST_CMD_XMT = os.path.join(os.getcwd(), 'test', 'files', 'test_cmd_with_xmt.cmd')
 
 TEST_REQUEST_TIME_MIN = 20
 TEST_REQUEST_TIME_MAX = 22

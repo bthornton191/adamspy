@@ -4,6 +4,8 @@ import os
 import re
 import subprocess
 
+XMT_PATTERN = re.compile('\\s*file_name\\s*=\\s*"?.+\\.xmt_txt"?\\s*')
+
 def get_simdur_from_msg(msg_file):
 	"""Reads an Adams message file (.msg) and returns the total duration of the simulation.
 	
@@ -67,6 +69,19 @@ def get_simdur_from_acf(acf_file):
 		raise RuntimeError('No simulation end time was found in the specified acf file!')
 		
 	return duration
+
+def modify_xmt_path(cmd_file, new_xmt_path):
+	with open(cmd_file, 'r') as fid_in, open(cmd_file.replace('.cmd', '.tmp'), 'w') as fid_out:
+		for line in fid_in:
+			if XMT_PATTERN.match(line) is None:
+				fid_out.write(line)
+			else:
+				line_parts = line.split('"')
+				fid_out.write('"'.join([line_parts[0], new_xmt_path, line_parts[-1]]))
+				original_path = line_parts[1]
+	os.remove(cmd_file)
+	os.rename(cmd_file.replace('.cmd', '.tmp'), cmd_file)
+	return original_path
 
 def get_n_threads(adm_file):
 	"""Searches `adm_file` for the NTHREADS statement and returns its value.

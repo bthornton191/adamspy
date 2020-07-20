@@ -3,7 +3,7 @@ import time
 import shutil
 import unittest
 
-from adamspy.adamspy import set_n_threads, get_n_threads, solve
+from adamspy.adamspy import set_n_threads, get_n_threads, solve, XMT_PATTERN, modify_xmt_path
 
 from test import *
 
@@ -101,3 +101,25 @@ class Test_Solve(unittest.TestCase):
                     pass
                 except PermissionError:
                     pass
+
+class Test_CMD(unittest.TestCase):
+
+    def setUp(self):
+        return
+
+    def test_xmt_pattern(self):
+        xmt_line = '   file_name = "FRS3EQ_case1_LAUL.xmt_txt"  &'
+        match = XMT_PATTERN.match(xmt_line)
+
+        self.assertTrue(bool(match))
+    
+    def test_modify_xmt_path(self):
+        path_to_change_to = os.path.join('path', 'to', 'bogus.xmt_txt')
+        original_path = modify_xmt_path(TEST_CMD_XMT, path_to_change_to)
+        new_path = modify_xmt_path(TEST_CMD_XMT, original_path)
+
+        self.assertListEqual([original_path, new_path], ['FRS3EQ_case1_LAUL.xmt_txt', path_to_change_to])
+
+    def tearDown(self):
+        return
+        

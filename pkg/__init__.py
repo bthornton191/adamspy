@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.22.0'
-version_notes = 'added function to get runtime summary from message file'
-date = 'July 15th, 2020'
+version = '0.24.0'
+version_notes = 'added function to modify the path to the .xmt_txt file in an Adams View command (.cmd) file.'
+date = 'July 20th, 2020'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'
