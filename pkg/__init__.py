@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.25.0'
-version_notes = 'added function to modify the path to the .xmt_txt file in an Adams View command (.cmd) file.'
+version = '0.26.0'
+version_notes = 'updated version'
 date = 'August 31st, 2020'
 # ---------------------
 author = 'Ben Thornton'
