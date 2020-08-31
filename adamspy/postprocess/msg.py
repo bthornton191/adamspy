@@ -12,7 +12,7 @@ EIG_END_PATTERN = re.compile('^\\s*$', flags=re.MULTILINE)
 TIMESTAMP_PATTERN = re.compile('^\\s+(\\d\\.\\d{5}E[\\+\\-]\\d{2})\\s+(\\d\\.\\d{5}E[\\+\\-]\\d{2})\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+(?:[\\.:]\\d{2}){1,2})\\s*$', flags=re.MULTILINE)
 FINISH_PATTERN = re.compile('^Finished -----\\s*$', flags=re.MULTILINE)
 RUNTIME_SUMMARY_PATTERN = re.compile('^Elapsed time = (\\d+\\.\\d{2})s,  CPU time = (\\d+\\.\\d{2})s,  (\\d+\\.\\d{2})%\\s*$', flags=re.MULTILINE)
-ERROR_PATTERN = re.compile('^---- START: ERROR ----\\s*$')
+ERROR_PATTERN = re.compile('^---- START: ERROR ----\\s*$', flags=re.MULTILINE)
 OFFSET = 1
 
 def get_modes(filename, output_type='dict', i_analysis=0, underdamped_only=True, sort_by_wn=True):

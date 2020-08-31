@@ -24,8 +24,12 @@ def write_results(file,  reqs_to_get, output_file, t_min=None, t_max=None):     
     # Initialize a dictionary for the results 
     res_dict = {}
         
-    # Load Results
-    Adams.execute_cmd(f'file {get_result_file_type(file)} read file_name="{file}"')
+    # Load Results    
+    if os.path.exists(os.path.splitext(file)[0] + '.adm'):
+        Adams.execute_cmd('file adams_data_set  read file_name="{}"'.format(os.path.splitext(file)[0] + '.adm'))
+        Adams.execute_cmd('file {} read file_name="{}" model_name={}'.format(get_result_file_type(file), file, os.path.splitext(os.path.split(file)[-1])[0]))
+    else:
+        Adams.execute_cmd('file {} read file_name="{}"'.format(get_result_file_type(file), file))
 
     # Get the model object
     mod = Adams.Models.get([mn for mn in Adams.Models][0])
@@ -46,7 +50,7 @@ def write_results(file,  reqs_to_get, output_file, t_min=None, t_max=None):     
         print(f'res_comps={res_comps}')
         
         # Get the result object handle
-        res = ans.results.get(res_name) if get_result_file_type(file) is 'results' else get_req_from_comment(res_name, ans)
+        res = ans.results.get(res_name) if get_result_file_type(file) is 'results' or res_name in ans.results.keys() else get_req_from_comment(res_name, ans)
 
         for res_comp in res_comps:
 
