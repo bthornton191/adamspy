@@ -29,12 +29,28 @@ def edit_results(file, reqs_to_edit, output_file):                             #
         time_key = 'time'
     else:
         time_key = None
+        
+    print('----- START: DEBUG MESSAGE ----')
+    print(f'time_key = {time_key}')
+    print('----- STOP : DEBUG MESSAGE ----')
 
     if time_key is not None:
         time = ans.results.get('TIME').values
         _time_np = np.round(np.asarray(time), 10)
-        i_min = np.argmax(_time_np >= reqs_to_edit[time_key][0])            
+        i_min = np.argmax(_time_np >= reqs_to_edit[time_key][0])
+        
+        print('----- START: DEBUG MESSAGE ----')
+        print(f'reqs_to_edit[time_key][-1] = {reqs_to_edit[time_key][-1]}')
+        print('----- STOP : DEBUG MESSAGE ----')
+    
         i_max = np.argmax(_time_np > reqs_to_edit[time_key][-1])
+
+        print('----- START: DEBUG MESSAGE ----')
+        print(f'i_min = {i_min}')
+        print(f't_min = {time[i_min]}')
+        print(f'i_max = {i_max}')
+        print(f't_max = {time[i_max]}')
+        print('----- STOP : DEBUG MESSAGE ----')
 
     for (req_to_edit, cmps_to_edit) in [(req, cmps) for req, cmps in reqs_to_edit.items() if req != time_key]:
         

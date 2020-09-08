@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.27.0'
-version_notes = 'added functions for manually removing spikes in Adams results (.res) files.'
+version = '0.27.1'
+version_notes = 'Added some debugging messages.'
 date = 'September 8th, 2020'
 # ---------------------
 author = 'Ben Thornton'
