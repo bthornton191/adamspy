@@ -1,0 +1,5 @@
+
+file/model=test_analysis_with_spikes
+! Insert ACF commands here:
+SIMULATE/DYNAMIC, END=2.0, DTOUT=1.0E-02
+stop

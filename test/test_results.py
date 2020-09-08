@@ -1,11 +1,15 @@
 import unittest
 import os
+import shutil
+import glob
 from adamspy.postprocess import xml
 from adamspy.postprocess import launch_ppt
 from adamspy.postprocess import _get_model_name_from_cmd
-from adamspy.postprocess.ppt import get_lunar_results, LUNAR_SCRIPT_NAME, get_results
+from adamspy.postprocess.ppt import get_lunar_results, LUNAR_SCRIPT_NAME, get_results, edit_results
 
 from test import *
+
+import numpy as np
 
 class Test_ShrinkResults(unittest.TestCase):
 
@@ -163,6 +167,59 @@ class Test_GetResultsAview(unittest.TestCase):
                 pass
             except PermissionError:
                 pass
+
+
+class Test_EditResults(unittest.TestCase):
+
+    def setUp(self):        
+        self.temp_ans_dir = TEST_EXISTING_GENERIC_ANS_DIR + '_tmp'        
+        self._setup_files()
+        self.res_to_edit = glob.glob(os.path.join(self.temp_ans_dir, '*.res'))[0]
+
+    def test_edit_results(self):
+        """Tests that edit_results works when time is **NOT** included in the reqs_to_edit dictionary.
+
+        """
+        reqs_to_edit = {
+            'JOINT_1': {
+                'FY': list(np.ones(201))
+            }
+        }
+
+        edit_results(self.res_to_edit, reqs_to_edit)
+        self.assertEqual(0,1)
+
+    def test_edit_results_with_time(self):
+        """Tests that edit_results works when time **IS** included in the reqs_to_edit dictionary.
+        
+        """
+        reqs_to_edit = {
+            'TIME': list(np.round(np.arange(5, 10.1, .1), 10)),
+            'JOINT_1': {
+                'FY': list(np.ones(51))
+            }
+        }
+
+        edit_results(self.res_to_edit, reqs_to_edit)
+        self.assertEqual(0,1)
+
+    def tearDown(self):
+        """Deletes the temporary working directory.
+
+        """
+        shutil.rmtree(self.temp_ans_dir)
+    
+    def _setup_files(self):
+        """Copies the test analysis files to a temporary working directory
+
+        """
+        if os.path.exists(self.temp_ans_dir) is True:
+            shutil.rmtree(self.temp_ans_dir)
+
+        os.makedirs(self.temp_ans_dir)
+        
+        for file in glob.glob(os.path.join(TEST_EXISTING_GENERIC_ANS_DIR, '*')):
+            shutil.copyfile(file, os.path.join(self.temp_ans_dir, os.path.split(file)[-1]))   
 
 EXPECTED_LUNAR_Y_FILES = [
     '''

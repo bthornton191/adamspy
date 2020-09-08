@@ -8,11 +8,15 @@ import time
 
 import jinja2
 from numpy import genfromtxt
+import matplotlib.pyplot as plt
+from thornpy.signal import manually_clean_sig
+
 
 LOG_COMPLETE_PATTERN = '! Command file is exhausted, batch run is finished.'
 
 LUNAR_SCRIPT_NAME = '_get_lunar_results.py'
 GET_RESULTS_SCRIPT_NAME = '_get_results.py'
+EDIT_RESULTS_SCRIPT_NAME = '_edit_results.py'
 TEMP_OUTPUT_FILENAME = '_results_.tmp'
 
 LOG_NAME = 'aview.log'
@@ -33,7 +37,7 @@ def get_results(res_file, reqs_to_get, t_min=None, t_max=None, _just_write_scrip
     working_directory = os.path.dirname(res_file)
 
     with open(os.path.join(working_directory, GET_RESULTS_SCRIPT_NAME), 'w') as fid:
-        fid.write(template.render({'res_file': res_file, 'reqs_to_get': reqs_to_get, 't_min': t_min, 't_max': t_max, 'output_file': TEMP_OUTPUT_FILENAME}))
+        fid.write(template.render({'res_file': os.path.split(res_file)[-1], 'reqs_to_get': reqs_to_get, 't_min': t_min, 't_max': t_max, 'output_file': TEMP_OUTPUT_FILENAME}))
 
     if _just_write_script is False:
         # Delete the aview.log file
@@ -68,6 +72,39 @@ def get_results(res_file, reqs_to_get, t_min=None, t_max=None, _just_write_scrip
                 output_dict[res][comp] = list(data[f'{res}_{comp}'])
         
         return output_dict
+
+def write_results(res_file, input_dict):
+    # TODO
+    return
+
+def edit_results(res_file, input_dict, new_res_file=None, _just_write_script=False, timeout=_TIMEOUT):
+    template = TMPLT_ENV.from_string(open(os.path.join(os.path.dirname(__file__), 'aview_scripts', EDIT_RESULTS_SCRIPT_NAME)).read())
+    working_directory = os.path.dirname(res_file)
+
+    new_res_file = os.path.split(res_file)[-1] if new_res_file is None else os.path.split(new_res_file)[-1]
+
+    with open(os.path.join(working_directory, EDIT_RESULTS_SCRIPT_NAME), 'w') as fid:
+        fid.write(template.render({'res_file': os.path.split(res_file)[-1], 'reqs_to_edit': input_dict, 'output_file': new_res_file}))
+
+    if _just_write_script is False:
+        # Delete the aview.log file
+        try:
+            os.remove(os.path.join(working_directory, LOG_NAME))
+        except FileNotFoundError:
+            pass
+        except PermissionError:
+            pass
+
+        # Run the postprocessor
+        startupinfo = subprocess.STARTUPINFO()
+        startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW        
+        subprocess.Popen('"{}" aview ru-s b {}'.format(os.environ['ADAMS_LAUNCH_COMMAND'], EDIT_RESULTS_SCRIPT_NAME), cwd=working_directory, startupinfo=startupinfo)
+
+        # Wait for complete
+        _wait(os.path.join(working_directory, LOG_NAME), timeout=timeout)
+
+        # Check the log file for errors
+        _get_log_errors(os.path.join(working_directory, LOG_NAME))
 
 def get_lunar_results(res_files, reqs_to_get, t_min, t_max, output_file, _just_write_script=False, timeout=_TIMEOUT):
     
@@ -147,6 +184,23 @@ def _get_log_errors(log_file):
         if re.search(LOG_FILE_ERROR_PATTERN, line):
             raise AviewError(line[2:])        
 
+def manually_remove_spikes(res_file, reqs_to_clean, t_min=None, t_max=None, _just_write_script=False, timeout=_TIMEOUT, inplace=False):
+    results = get_results(res_file, reqs_to_clean, t_min=t_min, t_max=t_max, _just_write_script=_just_write_script, timeout=timeout)
+    
+    time_sig = results['time']
+    
+    # Remove the spikes
+    for res, res_comps in results.items():
+        if res != 'time':        
+            for res_comp, values in res_comps.items(): #pylint: disable=no-member
+                results[res][res_comp] = manually_clean_sig(time_sig, values)
+
+    # Update the analysis files
+    edit_results(res_file, results)
+
+    # Return the cleaned results
+    return results
+    
 class AviewError(Exception):
     """Raise this error to if a known error occurs in the log file.
     

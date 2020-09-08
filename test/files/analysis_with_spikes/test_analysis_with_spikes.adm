@@ -1,0 +1,175 @@
+Adams View model name: test_analysis_with_spikes
+!
+!-------------------------------- SYSTEM UNITS ---------------------------------
+!
+UNITS/
+, FORCE = POUND_FORCE
+, MASS = POUND_MASS
+, LENGTH = INCH
+, TIME = SECOND
+!
+!----------------------------------- PARTS -------------------------------------
+!
+!----------------------------------- Ground ------------------------------------
+!
+!                            adams_view_name='ground'
+PART/1
+, GROUND
+!
+!                           adams_view_name='MARKER_5'
+MARKER/5
+, PART = 1
+!
+!                          adams_view_name='MARKER_10'
+MARKER/10
+, PART = 1
+, QP = 12, 0, 0
+, REULER = 270D, 90D, 180D
+!
+!                          adams_view_name='MARKER_14'
+MARKER/14
+, PART = 1
+!
+!------------------------------------ Part -------------------------------------
+!
+!                            adams_view_name='PART_2'
+PART/2
+, MASS = 0.2249795587
+, CM = 11
+, IP = 0.7699990204, 0.7665580576, 0.0057844999
+!
+!                           adams_view_name='MARKER_1'
+MARKER/1
+, PART = 2
+, REULER = 90D, 0D, 0D
+!
+!                           adams_view_name='MARKER_2'
+MARKER/2
+, PART = 2
+, QP = 0, 6, 0
+, REULER = 90D, 0D, 0D
+!
+!                           adams_view_name='MARKER_6'
+MARKER/6
+, PART = 2
+!
+!                           adams_view_name='MARKER_7'
+MARKER/7
+, PART = 2
+, QP = 0, 6, 0
+!
+!                              adams_view_name='cm'
+MARKER/11
+, PART = 2
+, QP = 0, 3, 0
+, REULER = 180D, 90D, 90D
+!
+!                          adams_view_name='MARKER_13'
+MARKER/13
+, PART = 2
+!
+!------------------------------------ Part -------------------------------------
+!
+!                            adams_view_name='PART_3'
+PART/3
+, MASS = 0.4862494147
+, CM = 12
+, IP = 7.731451846, 7.723928542, 0.0125884023
+!
+!                           adams_view_name='MARKER_3'
+MARKER/3
+, PART = 3
+, QP = 0, 6, 0
+, REULER = 333.4349488D, 0D, 0D
+!
+!                           adams_view_name='MARKER_4'
+MARKER/4
+, PART = 3
+, QP = 12, 0, 0
+, REULER = 333.4349488D, 0D, 0D
+!
+!                           adams_view_name='MARKER_8'
+MARKER/8
+, PART = 3
+, QP = 0, 6, 0
+!
+!                           adams_view_name='MARKER_9'
+MARKER/9
+, PART = 3
+, QP = 12, 0, 0
+, REULER = 270D, 90D, 180D
+!
+!                              adams_view_name='cm'
+MARKER/12
+, PART = 3
+, QP = 6, 3, 0
+, REULER = 243.4349488D, 90.00000002D, 90.0000005D
+!
+!------------------------------ DYNAMIC GRAPHICS -------------------------------
+!
+!                   adams_view_name='SFORCE_1_force_graphic_1'
+GRAPHICS/1
+, FORCE
+, ETYPE = SFORCE
+, EID = 1
+, EMARKER = 13
+!
+!                   adams_view_name='JOINT_1_force_graphic_1'
+GRAPHICS/2
+, FORCE
+, ETYPE = JOINT
+, EID = 1
+, EMARKER = 6
+!
+!-------------------------------- CONSTRAINTS ----------------------------------
+!
+!                           adams_view_name='JOINT_1'
+JOINT/1
+, REVOLUTE
+, I = 5
+, J = 6
+!
+!                           adams_view_name='JOINT_2'
+JOINT/2
+, REVOLUTE
+, I = 7
+, J = 8
+!
+!                           adams_view_name='JOINT_3'
+JPRIM/1
+, INLINE
+, I = 9
+, J = 10
+!
+!                           adams_view_name='MOTION_1'
+MOTION/1
+, ROTATIONAL
+, JOINT = 1
+, FUNCTION = 30.0d * time
+!
+!----------------------------------- FORCES ------------------------------------
+!
+!                         adams_view_name='torque_spike'
+SFORCE/1
+, ROTATIONAL
+, I = 13
+, J = 14
+, ACTIONONLY
+, FUNCTION = (step(time, 1, 0, 1.01, 1) - step(time, 1.01, 0, 1.02, 1))*10
+!
+!------------------------------ DATA STRUCTURES --------------------------------
+!
+!                            adams_view_name='torque'
+VARIABLE/1
+, FUNCTION = MOTION(1,0,8,0)
+!
+!----------------------------- ANALYSIS SETTINGS -------------------------------
+!
+OUTPUT/
+, REQSAVE
+, GRSAVE
+!
+RESULTS/
+, XRF
+!
+END

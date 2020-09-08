@@ -5,7 +5,6 @@ bleach==3.1.0
 certifi==2019.3.9
 chardet==3.0.4
 colorama==0.4.1
-corvapy==0.0.1
 cycler==0.10.0
 docutils==0.14
 dripy==0.0.14
@@ -39,7 +38,7 @@ snowballstemmer==1.2.1
 Sphinx==1.8.5
 sphinx-rtd-theme==0.4.3
 sphinxcontrib-websupport==1.1.0
-thornpy==0.5.5
+thornpy==0.5.8
 tqdm==4.31.1
 twine==1.13.0
 typed-ast==1.4.1

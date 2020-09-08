@@ -7,6 +7,9 @@
 **.gra
 **.req
 *aview.lo?
+*aview.py
+**.bak
+**adamsctl*.bat
 demo*.py
 /_test_drill.cfg
 /test/example_working_directory/**
@@ -26,3 +29,5 @@ test/files/.test_analysis_1.pkl
 /test/files/aview.py.bak
 /test/files/waterfall_files/aview.py
 /test/files/waterfall_files/aview.py.bak
+/env2
+test/files/generic_model/_edit_results.py
