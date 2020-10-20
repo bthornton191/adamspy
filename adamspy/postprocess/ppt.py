@@ -9,7 +9,7 @@ import time
 import jinja2
 from numpy import genfromtxt
 import matplotlib.pyplot as plt
-from thornpy.signal import manually_clean_sig
+from thornpy.signal import manually_clean_sig, remove_data_point
 
 
 LOG_COMPLETE_PATTERN = '! Command file is exhausted, batch run is finished.'
@@ -184,16 +184,45 @@ def _get_log_errors(log_file):
         if re.search(LOG_FILE_ERROR_PATTERN, line):
             raise AviewError(line[2:])        
 
-def manually_remove_spikes(res_file, reqs_to_clean, t_min=None, t_max=None, _just_write_script=False, timeout=_TIMEOUT, inplace=False):
+def manually_remove_spikes(res_file, reqs_to_clean, t_min=None, t_max=None, _just_write_script=False, timeout=_TIMEOUT, _inplace=False):
+    """Allows the user to manually scan through the result sets to pick out points to eliminate.
+
+    Parameters
+    ----------
+    res_file : str
+        Adams Results (.res) filename 
+    reqs_to_clean : dict
+        Nested dictionary of result sets and result components to clean
+    t_min : float, optional
+        Minumum simulation time to clean, by default None
+    t_max : float, optional
+        Maximum simulation time to clean, by default None
+    timeout : float, optional
+        Number of seconds to wait for results to load before timing out, by default _TIMEOUT
+
+    Returns
+    -------
+    dict
+        Nested dictionary of cleaned results
+        
+    """
     results = get_results(res_file, reqs_to_clean, t_min=t_min, t_max=t_max, _just_write_script=_just_write_script, timeout=timeout)
     
     time_sig = results['time']
     
     # Remove the spikes
-    for res, res_comps in results.items():
-        if res != 'time':        
-            for res_comp, values in res_comps.items(): #pylint: disable=no-member
-                results[res][res_comp] = manually_clean_sig(time_sig, values)
+    for (res, res_comps) in [(r, rc) for r, rc in results.items() if r != 'time']:
+        for res_comp, values in res_comps.items(): #pylint: disable=no-member
+            results[res][res_comp], i_mod = manually_clean_sig(time_sig, values, indices=True)
+
+            # If a modification was made to the signal, make that modification to the rest of the signals
+            if i_mod != []:
+
+                # Loop over all the other results
+                for (other_res, other_res_comps) in [(r, rc) for r, rc in results.items() if r != 'time']:
+                    for (other_res_comp, other_values) in [(rc, v) for rc, v in other_res_comps.items() if not (other_res == res and rc == res_comp)]: #pylint: disable=no-member
+                        for i in i_mod:
+                            results[other_res][other_res_comp] = remove_data_point(time_sig, other_values, i)
 
     # Update the analysis files
     edit_results(res_file, results)

@@ -21,6 +21,12 @@ class Test_ManuallyRemoveSpikes(unittest.TestCase):
         results = manually_remove_spikes(self.res_to_edit, results_to_clean)
                 
         self.assertLess(max(results['torque']['Q']), .01)
+
+    def test_spike_removed_from_other_result_comps(self):
+        results_to_clean = {'torque': ['Q'], 'torque_spike': ['FX', 'FY', 'FZ', 'TX', 'TY', 'TZ']}
+        results = manually_remove_spikes(self.res_to_edit, results_to_clean)
+        
+        self.assertTrue(all([max(results['torque']['Q']) < .01, max(results['torque_spike']['TZ']) < .01]))
         
     def tearDown(self):
         """Deletes the temporary working directory.

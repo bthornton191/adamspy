@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.waterfall package &mdash; adamspy 0.27.1 documentation</title>
+  <title>adamspy.waterfall package &mdash; adamspy 0.27.2 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.27.1
+                0.27.2
               </div>
             
           
@@ -170,25 +170,25 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>res_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – File name of Adams result (.res) or request (.req) file.</li>
-<li><strong>res</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Name of the result in the adams dataset</li>
-<li><strong>comp</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Name of the result component in the Adams dataset</li>
-<li><strong>percent_overlap</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – Percent overlap for the FFT waterfall, by default 50</li>
-<li><strong>n_fft</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – Number of points used in each FFT, by default 1024</li>
-<li><strong>window</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – Type of window used for each FFT, by default ‘hanning’</li>
-<li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><em>optional</em>) – Start time if cropping data, by default None</li>
-<li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><em>optional</em>) – End time if cropping data, by default None</li>
-<li><strong>input_res</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – Name of the result to use as the input speed.  If none is given the x axis of the waterfall plot will be time, by default None</li>
-<li><strong>input_comp</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – Name of the result component to use as the input speed., by default None</li>
-<li><strong>input_conversion_factor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><em>optional</em>) – Conversion factor applied to input signal, by default 60/360 (deg/s to RPM)</li>
-<li><strong>response_unit</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – Text to display on the response signal y axis, by default None</li>
-<li><strong>input_unit</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – Text to display on the input signal y axis, by default None</li>
-<li><strong>conversion_factor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><em>optional</em>) – Conversion factor applied to response signal, by default 1</li>
-<li><strong>psd</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – If True FFT will output in PSD. If False FFT will output Magnitude , by default False</li>
-<li><strong>z_scale</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – The scaling of the values in the spec. ‘linear’ is no scaling. ‘dB’ returns the values in dB scale. <cite>psd</cite> is True, this is dB power (10 * log10). Otherwise this is dB amplitude (20 * log10). by default ‘linear’</li>
-<li><strong>orders</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>, </em><em>optional</em>) – Adds order fans to the waterfall plots at each order in the list.  Only used if <cite>input_comp</cite> is given.</li>
-<li><strong>f_range</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>, </em><em>optional</em>) – [mininum frequency, maximum frequency].  Only affects plot limits</li>
-<li><strong>clean_sig</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><em>optional</em>) – If given, removes data points that exceed <cite>clean_sig</cite> multiplied by the standard deviation of the signal.</li>
+<li><strong>res_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – File name of Adams result (.res) or request (.req) file.</li>
+<li><strong>res</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Name of the result in the adams dataset</li>
+<li><strong>comp</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Name of the result component in the Adams dataset</li>
+<li><strong>percent_overlap</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em>, </em><em>optional</em>) – Percent overlap for the FFT waterfall, by default 50</li>
+<li><strong>n_fft</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em>, </em><em>optional</em>) – Number of points used in each FFT, by default 1024</li>
+<li><strong>window</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>optional</em>) – Type of window used for each FFT, by default ‘hanning’</li>
+<li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – Start time if cropping data, by default None</li>
+<li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – End time if cropping data, by default None</li>
+<li><strong>input_res</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>optional</em>) – Name of the result to use as the input speed.  If none is given the x axis of the waterfall plot will be time, by default None</li>
+<li><strong>input_comp</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>optional</em>) – Name of the result component to use as the input speed., by default None</li>
+<li><strong>input_conversion_factor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – Conversion factor applied to input signal, by default 60/360 (deg/s to RPM)</li>
+<li><strong>response_unit</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>optional</em>) – Text to display on the response signal y axis, by default None</li>
+<li><strong>input_unit</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>optional</em>) – Text to display on the input signal y axis, by default None</li>
+<li><strong>conversion_factor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – Conversion factor applied to response signal, by default 1</li>
+<li><strong>psd</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em>, </em><em>optional</em>) – If True FFT will output in PSD. If False FFT will output Magnitude , by default False</li>
+<li><strong>z_scale</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>optional</em>) – The scaling of the values in the spec. ‘linear’ is no scaling. ‘dB’ returns the values in dB scale. <cite>psd</cite> is True, this is dB power (10 * log10). Otherwise this is dB amplitude (20 * log10). by default ‘linear’</li>
+<li><strong>orders</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>, </em><em>optional</em>) – Adds order fans to the waterfall plots at each order in the list.  Only used if <cite>input_comp</cite> is given.</li>
+<li><strong>f_range</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>, </em><em>optional</em>) – [mininum frequency, maximum frequency].  Only affects plot limits</li>
+<li><strong>clean_sig</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – If given, removes data points that exceed <cite>clean_sig</cite> multiplied by the standard deviation of the signal.</li>
 </ul>
 </td>
 </tr>

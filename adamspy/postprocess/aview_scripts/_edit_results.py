@@ -37,13 +37,13 @@ def edit_results(file, reqs_to_edit, output_file):                             #
     if time_key is not None:
         time = ans.results.get('TIME').values
         _time_np = np.round(np.asarray(time), 10)
-        i_min = np.argmax(_time_np >= reqs_to_edit[time_key][0])
+        i_min = np.argmax(_time_np >= float(np.round(reqs_to_edit[time_key][0], 10)))
         
         print('----- START: DEBUG MESSAGE ----')
         print(f'reqs_to_edit[time_key][-1] = {reqs_to_edit[time_key][-1]}')
         print('----- STOP : DEBUG MESSAGE ----')
     
-        i_max = np.argmax(_time_np > reqs_to_edit[time_key][-1])
+        i_max = np.argmax(_time_np > float(np.round(reqs_to_edit[time_key][-1], 10)))
 
         print('----- START: DEBUG MESSAGE ----')
         print(f'i_min = {i_min}')
