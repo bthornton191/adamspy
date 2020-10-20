@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.postprocess.ppt &mdash; adamspy 0.27.4 documentation</title>
+  <title>adamspy.postprocess.ppt &mdash; adamspy 0.27.5 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.27.4
+                0.27.5
               </div>
             
           
@@ -416,6 +416,9 @@
     
     <span class="n">time_sig</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span>
 
+    <span class="c1"># Create a flag indicating if the results have been modified and need to be rewritten</span>
+    <span class="n">results_modified</span> <span class="o">=</span> <span class="kc">False</span>
+
     <span class="k">for</span> <span class="n">batch_to_check</span> <span class="ow">in</span> <span class="n">reqs_to_check</span><span class="p">:</span>
         
         <span class="c1"># Make a list/batch of values to clean</span>
@@ -436,8 +439,12 @@
                     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">i_mod</span><span class="p">:</span>
                         <span class="n">results</span><span class="p">[</span><span class="n">res</span><span class="p">][</span><span class="n">res_comp</span><span class="p">]</span> <span class="o">=</span> <span class="n">remove_data_point</span><span class="p">(</span><span class="n">time_sig</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
 
-    <span class="c1"># Update the analysis files</span>
-    <span class="n">edit_results</span><span class="p">(</span><span class="n">res_file</span><span class="p">,</span> <span class="n">results</span><span class="p">)</span>
+            <span class="c1"># Flag that the results have been modified</span>
+            <span class="n">results_modified</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="c1"># If the results were modified, update the analysis files</span>
+    <span class="k">if</span> <span class="n">results_modified</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">edit_results</span><span class="p">(</span><span class="n">res_file</span><span class="p">,</span> <span class="n">results</span><span class="p">)</span>
 
     <span class="c1"># Return the cleaned results</span>
     <span class="k">return</span> <span class="n">results</span></div>

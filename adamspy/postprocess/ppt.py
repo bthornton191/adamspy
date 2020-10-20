@@ -267,6 +267,9 @@ def manually_remove_spikes_batch(res_file, reqs_to_clean, reqs_to_check=None, t_
     
     time_sig = results['time']
 
+    # Create a flag indicating if the results have been modified and need to be rewritten
+    results_modified = False
+
     for batch_to_check in reqs_to_check:
         
         # Make a list/batch of values to clean
@@ -287,8 +290,12 @@ def manually_remove_spikes_batch(res_file, reqs_to_clean, reqs_to_check=None, t_
                     for i in i_mod:
                         results[res][res_comp] = remove_data_point(time_sig, values, i)
 
-    # Update the analysis files
-    edit_results(res_file, results)
+            # Flag that the results have been modified
+            results_modified = True
+
+    # If the results were modified, update the analysis files
+    if results_modified is True:
+        edit_results(res_file, results)
 
     # Return the cleaned results
     return results
