@@ -184,7 +184,7 @@ def _get_log_errors(log_file):
         if re.search(LOG_FILE_ERROR_PATTERN, line):
             raise AviewError(line[2:])        
 
-def manually_remove_spikes(res_file, reqs_to_clean, t_min=None, t_max=None, _just_write_script=False, timeout=_TIMEOUT, _inplace=False):
+def manually_remove_spikes(res_file, reqs_to_clean, reqs_to_check=None, t_min=None, t_max=None, _just_write_script=False, timeout=_TIMEOUT, _inplace=False):
     """Allows the user to manually scan through the result sets to pick out points to eliminate.
 
     Parameters
@@ -206,13 +206,16 @@ def manually_remove_spikes(res_file, reqs_to_clean, t_min=None, t_max=None, _jus
         Nested dictionary of cleaned results
         
     """
+    if reqs_to_check is None:
+        reqs_to_check = reqs_to_clean
+
     results = get_results(res_file, reqs_to_clean, t_min=t_min, t_max=t_max, _just_write_script=_just_write_script, timeout=timeout)
     
     time_sig = results['time']
     
     # Remove the spikes
-    for (res, res_comps) in [(r, rc) for r, rc in results.items() if r != 'time']:
-        for res_comp, values in res_comps.items(): #pylint: disable=no-member
+    for (res, res_comps) in [(r, rc) for r, rc in results.items() if r in reqs_to_check]:
+        for (res_comp, values) in [(rc, v) for rc, v in res_comps.items() if rc in reqs_to_check[res]]:
             results[res][res_comp], i_mod = manually_clean_sig(time_sig, values, indices=True)
 
             # If a modification was made to the signal, make that modification to the rest of the signals

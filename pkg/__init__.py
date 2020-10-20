@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.27.2'
-version_notes = 'Updated manually_remove_spikes to remove the data point from all results specified in reqs_to_clean'
+version = '0.27.3'
+version_notes = 'Updated manually_remove_spikes to allow the user to define reqs_to_clean separately from reqs_to_check'
 date = 'October 20th, 2020'
 # ---------------------
 author = 'Ben Thornton'

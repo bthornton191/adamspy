@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.postprocess.ppt &mdash; adamspy 0.27.2 documentation</title>
+  <title>adamspy.postprocess.ppt &mdash; adamspy 0.27.3 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.27.2
+                0.27.3
               </div>
             
           
@@ -333,7 +333,7 @@
         <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">LOG_FILE_ERROR_PATTERN</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
             <span class="k">raise</span> <span class="n">AviewError</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>        
 
-<div class="viewcode-block" id="manually_remove_spikes"><a class="viewcode-back" href="../../../adamspy.postprocess.html#adamspy.postprocess.ppt.manually_remove_spikes">[docs]</a><span class="k">def</span> <span class="nf">manually_remove_spikes</span><span class="p">(</span><span class="n">res_file</span><span class="p">,</span> <span class="n">reqs_to_clean</span><span class="p">,</span> <span class="n">t_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_just_write_script</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">_TIMEOUT</span><span class="p">,</span> <span class="n">_inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="manually_remove_spikes"><a class="viewcode-back" href="../../../adamspy.postprocess.html#adamspy.postprocess.ppt.manually_remove_spikes">[docs]</a><span class="k">def</span> <span class="nf">manually_remove_spikes</span><span class="p">(</span><span class="n">res_file</span><span class="p">,</span> <span class="n">reqs_to_clean</span><span class="p">,</span> <span class="n">reqs_to_check</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_just_write_script</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">_TIMEOUT</span><span class="p">,</span> <span class="n">_inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Allows the user to manually scan through the result sets to pick out points to eliminate.</span>
 
 <span class="sd">    Parameters</span>
@@ -355,13 +355,16 @@
 <span class="sd">        Nested dictionary of cleaned results</span>
 <span class="sd">        </span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">reqs_to_check</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">reqs_to_check</span> <span class="o">=</span> <span class="n">reqs_to_clean</span>
+
     <span class="n">results</span> <span class="o">=</span> <span class="n">get_results</span><span class="p">(</span><span class="n">res_file</span><span class="p">,</span> <span class="n">reqs_to_clean</span><span class="p">,</span> <span class="n">t_min</span><span class="o">=</span><span class="n">t_min</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="n">t_max</span><span class="p">,</span> <span class="n">_just_write_script</span><span class="o">=</span><span class="n">_just_write_script</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
     
     <span class="n">time_sig</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span>
     
     <span class="c1"># Remove the spikes</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">res_comps</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">r</span><span class="p">,</span> <span class="n">rc</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">rc</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">r</span> <span class="o">!=</span> <span class="s1">&#39;time&#39;</span><span class="p">]:</span>
-        <span class="k">for</span> <span class="n">res_comp</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">res_comps</span><span class="o">.</span><span class="n">items</span><span class="p">():</span> <span class="c1">#pylint: disable=no-member</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">res_comps</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">r</span><span class="p">,</span> <span class="n">rc</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">rc</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">reqs_to_check</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">res_comp</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">rc</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">rc</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">res_comps</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">rc</span> <span class="ow">in</span> <span class="n">reqs_to_check</span><span class="p">[</span><span class="n">res</span><span class="p">]]:</span>
             <span class="n">results</span><span class="p">[</span><span class="n">res</span><span class="p">][</span><span class="n">res_comp</span><span class="p">],</span> <span class="n">i_mod</span> <span class="o">=</span> <span class="n">manually_clean_sig</span><span class="p">(</span><span class="n">time_sig</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
             <span class="c1"># If a modification was made to the signal, make that modification to the rest of the signals</span>
