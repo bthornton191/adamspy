@@ -5,7 +5,7 @@ import unittest
 
 import matplotlib.pyplot as plt
 
-from adamspy.postprocess.ppt import manually_remove_spikes
+from adamspy.postprocess.ppt import manually_remove_spikes, manually_remove_spikes_batch
 
 TEST_ANALYSIS_DIR = os.path.join('test', 'files', 'analysis_with_spikes')
 
@@ -34,6 +34,37 @@ class Test_ManuallyRemoveSpikes(unittest.TestCase):
         results = manually_remove_spikes(self.res_to_edit, results_to_clean, reqs_to_check=results_to_check)
         
         self.assertTrue(all([max(results['torque']['Q']) < .01, max(results['torque_spike']['TZ']) < .01]))
+
+    def test_spike_removed_from_results_batch(self):
+        results_to_clean = {
+            'torque':       ['Q'], 
+            'torque_spike': ['TX', 'TY', 'TZ'], 
+            'PART_2_XFORM': ['X', 'Y', 'Z', 'VX', 'VY', 'VZ', 'ACCX', 'ACCY', 'ACCZ'], 
+            'PART_3_XFORM': ['X', 'Y', 'Z', 'VX', 'VY', 'VZ', 'ACCX', 'ACCY', 'ACCZ']
+            }
+
+        results_to_check = [
+            {
+                # 'torque': ['Q'],
+                'torque_spike': ['TX', 'TY', 'TZ']
+            },
+            {
+                'PART_2_XFORM': ['X', 'Y', 'Z'],
+                'PART_3_XFORM': ['X', 'Y', 'Z']
+            },
+            {
+                'PART_2_XFORM': ['VX', 'VY', 'VZ'],
+                'PART_3_XFORM': ['VX', 'VY', 'VZ']
+            },
+            {
+                'PART_2_XFORM': ['ACCX', 'ACCY', 'ACCZ'],
+                'PART_3_XFORM': ['ACCX', 'ACCY', 'ACCZ']
+            }
+        ]
+
+        results = manually_remove_spikes_batch(self.res_to_edit, results_to_clean, results_to_check)
+                
+        self.assertLess(max(results['torque']['Q']), .01)
         
     def tearDown(self):
         """Deletes the temporary working directory.

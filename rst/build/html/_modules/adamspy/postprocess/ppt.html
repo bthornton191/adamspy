@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.postprocess.ppt &mdash; adamspy 0.27.3 documentation</title>
+  <title>adamspy.postprocess.ppt &mdash; adamspy 0.27.4 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.27.3
+                0.27.4
               </div>
             
           
@@ -153,12 +153,13 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">subprocess</span> <span class="k">import</span> <span class="n">DETACHED_PROCESS</span>
 <span class="kn">import</span> <span class="nn">time</span>
 
 <span class="kn">import</span> <span class="nn">jinja2</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">genfromtxt</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">thornpy.signal</span> <span class="k">import</span> <span class="n">manually_clean_sig</span><span class="p">,</span> <span class="n">remove_data_point</span>
+<span class="kn">from</span> <span class="nn">thornpy.signal</span> <span class="k">import</span> <span class="n">manually_clean_sig</span><span class="p">,</span> <span class="n">remove_data_point</span><span class="p">,</span> <span class="n">manually_clean_sigs</span>
 
 
 <span class="n">LOG_COMPLETE_PATTERN</span> <span class="o">=</span> <span class="s1">&#39;! Command file is exhausted, batch run is finished.&#39;</span>
@@ -340,8 +341,10 @@
 <span class="sd">    ----------</span>
 <span class="sd">    res_file : str</span>
 <span class="sd">        Adams Results (.res) filename </span>
-<span class="sd">    reqs_to_clean : dict</span>
+<span class="sd">    reqs_to_clean : dict, optional</span>
 <span class="sd">        Nested dictionary of result sets and result components to clean</span>
+<span class="sd">    reqs_to_check : dict</span>
+<span class="sd">        Nested dictionary of result sets and result components to check for spikes, by default same as reqs_to_clean</span>
 <span class="sd">    t_min : float, optional</span>
 <span class="sd">        Minumum simulation time to clean, by default None</span>
 <span class="sd">    t_max : float, optional</span>
@@ -375,6 +378,63 @@
                     <span class="k">for</span> <span class="p">(</span><span class="n">other_res_comp</span><span class="p">,</span> <span class="n">other_values</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">rc</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">rc</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">other_res_comps</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">other_res</span> <span class="o">==</span> <span class="n">res</span> <span class="ow">and</span> <span class="n">rc</span> <span class="o">==</span> <span class="n">res_comp</span><span class="p">)]:</span> <span class="c1">#pylint: disable=no-member</span>
                         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">i_mod</span><span class="p">:</span>
                             <span class="n">results</span><span class="p">[</span><span class="n">other_res</span><span class="p">][</span><span class="n">other_res_comp</span><span class="p">]</span> <span class="o">=</span> <span class="n">remove_data_point</span><span class="p">(</span><span class="n">time_sig</span><span class="p">,</span> <span class="n">other_values</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+
+    <span class="c1"># Update the analysis files</span>
+    <span class="n">edit_results</span><span class="p">(</span><span class="n">res_file</span><span class="p">,</span> <span class="n">results</span><span class="p">)</span>
+
+    <span class="c1"># Return the cleaned results</span>
+    <span class="k">return</span> <span class="n">results</span></div>
+
+<div class="viewcode-block" id="manually_remove_spikes_batch"><a class="viewcode-back" href="../../../adamspy.postprocess.html#adamspy.postprocess.ppt.manually_remove_spikes_batch">[docs]</a><span class="k">def</span> <span class="nf">manually_remove_spikes_batch</span><span class="p">(</span><span class="n">res_file</span><span class="p">,</span> <span class="n">reqs_to_clean</span><span class="p">,</span> <span class="n">reqs_to_check</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_just_write_script</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">_TIMEOUT</span><span class="p">,</span> <span class="n">_inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Similar to `manually_remove_spikes`, but allows user to plot the signals in batches.  Instead of passing a dictionary for the `reqs_to_check` argument, pass a list of dictionaries and the results in each dictionary in the list will be plotted together.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    res_file : str</span>
+<span class="sd">        Adams Results (.res) filename </span>
+<span class="sd">    reqs_to_clean : dict</span>
+<span class="sd">        Nested dictionary of result sets and result components to clean</span>
+<span class="sd">    reqs_to_check : list of dicts</span>
+<span class="sd">        list of nested dictionary of result sets and result components to check for spikes, by default same as reqs_to_clean</span>
+<span class="sd">    t_min : float, optional</span>
+<span class="sd">        Minumum simulation time to clean, by default None</span>
+<span class="sd">    t_max : float, optional</span>
+<span class="sd">        Maximum simulation time to clean, by default None</span>
+<span class="sd">    timeout : float, optional</span>
+<span class="sd">        Number of seconds to wait for results to load before timing out, by default _TIMEOUT</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Nested dictionary of cleaned results</span>
+<span class="sd">        </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">reqs_to_check</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">reqs_to_check</span> <span class="o">=</span> <span class="p">[</span><span class="n">reqs_to_clean</span><span class="p">]</span>
+
+    <span class="n">results</span> <span class="o">=</span> <span class="n">get_results</span><span class="p">(</span><span class="n">res_file</span><span class="p">,</span> <span class="n">reqs_to_clean</span><span class="p">,</span> <span class="n">t_min</span><span class="o">=</span><span class="n">t_min</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="n">t_max</span><span class="p">,</span> <span class="n">_just_write_script</span><span class="o">=</span><span class="n">_just_write_script</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+    
+    <span class="n">time_sig</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">batch_to_check</span> <span class="ow">in</span> <span class="n">reqs_to_check</span><span class="p">:</span>
+        
+        <span class="c1"># Make a list/batch of values to clean</span>
+        <span class="n">values_to_check</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">res_comps</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">r</span><span class="p">,</span> <span class="n">rc</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">rc</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">batch_to_check</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">res_comp</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">rc</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">rc</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">res_comps</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">rc</span> <span class="ow">in</span> <span class="n">batch_to_check</span><span class="p">[</span><span class="n">res</span><span class="p">]]:</span>
+                
+                <span class="n">values_to_check</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+
+        <span class="n">_</span><span class="p">,</span> <span class="n">i_mod</span> <span class="o">=</span> <span class="n">manually_clean_sigs</span><span class="p">(</span><span class="n">time_sig</span><span class="p">,</span> <span class="n">values_to_check</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># If a modification was made to the signal, make that modification to the rest of the signals</span>
+        <span class="k">if</span> <span class="n">i_mod</span> <span class="o">!=</span> <span class="p">[]:</span>
+            
+            <span class="c1"># Loop over all the results</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">res_comps</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">r</span><span class="p">,</span> <span class="n">rc</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">rc</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">r</span> <span class="o">!=</span> <span class="s1">&#39;time&#39;</span><span class="p">]:</span>
+                <span class="k">for</span> <span class="p">(</span><span class="n">res_comp</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span> <span class="ow">in</span> <span class="n">res_comps</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">i_mod</span><span class="p">:</span>
+                        <span class="n">results</span><span class="p">[</span><span class="n">res</span><span class="p">][</span><span class="n">res_comp</span><span class="p">]</span> <span class="o">=</span> <span class="n">remove_data_point</span><span class="p">(</span><span class="n">time_sig</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
 
     <span class="c1"># Update the analysis files</span>
     <span class="n">edit_results</span><span class="p">(</span><span class="n">res_file</span><span class="p">,</span> <span class="n">results</span><span class="p">)</span>

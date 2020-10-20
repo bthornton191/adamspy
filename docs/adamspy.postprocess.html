@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.postprocess package &mdash; adamspy 0.27.3 documentation</title>
+  <title>adamspy.postprocess package &mdash; adamspy 0.27.4 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.27.3
+                0.27.4
               </div>
             
           
@@ -390,7 +390,36 @@
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>res_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Adams Results (.res) filename</li>
+<li><strong>reqs_to_clean</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a><em>, </em><em>optional</em>) – Nested dictionary of result sets and result components to clean</li>
+<li><strong>reqs_to_check</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Nested dictionary of result sets and result components to check for spikes, by default same as reqs_to_clean</li>
+<li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – Minumum simulation time to clean, by default None</li>
+<li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – Maximum simulation time to clean, by default None</li>
+<li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – Number of seconds to wait for results to load before timing out, by default _TIMEOUT</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Nested dictionary of cleaned results</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="adamspy.postprocess.ppt.manually_remove_spikes_batch">
+<code class="descclassname">adamspy.postprocess.ppt.</code><code class="descname">manually_remove_spikes_batch</code><span class="sig-paren">(</span><em>res_file</em>, <em>reqs_to_clean</em>, <em>reqs_to_check=None</em>, <em>t_min=None</em>, <em>t_max=None</em>, <em>_just_write_script=False</em>, <em>timeout=300</em>, <em>_inplace=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/ppt.html#manually_remove_spikes_batch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.ppt.manually_remove_spikes_batch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Similar to <cite>manually_remove_spikes</cite>, but allows user to plot the signals in batches.  Instead of passing a dictionary for the <cite>reqs_to_check</cite> argument, pass a list of dictionaries and the results in each dictionary in the list will be plotted together.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>res_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Adams Results (.res) filename</li>
 <li><strong>reqs_to_clean</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Nested dictionary of result sets and result components to clean</li>
+<li><strong>reqs_to_check</strong> (<em>list of dicts</em>) – list of nested dictionary of result sets and result components to check for spikes, by default same as reqs_to_clean</li>
 <li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – Minumum simulation time to clean, by default None</li>
 <li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – Maximum simulation time to clean, by default None</li>
 <li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – Number of seconds to wait for results to load before timing out, by default _TIMEOUT</li>

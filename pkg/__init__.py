@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.27.3'
-version_notes = 'Updated manually_remove_spikes to allow the user to define reqs_to_clean separately from reqs_to_check'
+version = '0.27.4'
+version_notes = 'Added manually_remove_spikes_batch similar to manually_remove_spikes but allows user to look at multiple signals in one plot.'
 date = 'October 20th, 2020'
 # ---------------------
 author = 'Ben Thornton'
