@@ -140,7 +140,7 @@ def set_n_threads(adm_file, n_threads):
 	os.remove(adm_file)
 	os.rename(adm_file + '.tmp', adm_file)
 
-def solve(acf_file, wait=False):
+def solve(acf_file, wait=False, use_adams_car=False):
 	"""Runs Adams Solver to solve the model specified in `acf_file`
 	
 	Parameters
@@ -150,7 +150,12 @@ def solve(acf_file, wait=False):
 
 	"""	
 	file = os.path.split(acf_file)[-1]
-	command = '"{}" ru-s "{}"'.format(os.environ['ADAMS_LAUNCH_COMMAND'], file)
+	
+	if use_adams_car is False:
+		command = '"{}" ru-s "{}"'.format(os.environ['ADAMS_LAUNCH_COMMAND'], file)
+	else:
+		command = '"{}" acar ru-solver "{}"'.format(os.environ['ADAMS_LAUNCH_COMMAND'], file)
+		
 	startupinfo = subprocess.STARTUPINFO()
 	startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
 	cwd = os.path.dirname(acf_file) if os.path.dirname(acf_file) != '' else os.getcwd()
