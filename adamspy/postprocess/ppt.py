@@ -11,6 +11,7 @@ import jinja2
 from numpy import genfromtxt
 import matplotlib.pyplot as plt
 from thornpy.signal import manually_clean_sig, remove_data_point, manually_clean_sigs, low_pass
+from thornpy.signal import _clean_sig as clean_sig
 
 
 LOG_COMPLETE_PATTERN = '! Command file is exhausted, batch run is finished.'
@@ -311,7 +312,10 @@ def filter_results(res_file, reqs_to_clean, freq_cutoff, N_filter=5, reqs_to_che
     for res_name, res_comps in results.items():
         filtered_results[res_name] = {}
         for res_comp, values in res_comps.items():
-            filtered_results[res_name][res_comp], _ = low_pass(values, time_sig, freq_cutoff, N=N_filter)
+
+            cleaned_sig, _, _ = clean_sig(values, 3)
+            
+            filtered_results[res_name][res_comp], _ = low_pass(cleaned_sig, time_sig, freq_cutoff, N=N_filter)
 
     # Return the cleaned results
     if return_raw is True:

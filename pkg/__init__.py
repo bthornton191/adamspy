@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.29.1'
-version_notes = 'Fixed bug'
+version = '0.29.2'
+version_notes = 'added peak elimination'
 date = 'December 21st, 2020'
 # ---------------------
 author = 'Ben Thornton'

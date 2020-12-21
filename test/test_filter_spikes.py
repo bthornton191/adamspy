@@ -10,7 +10,6 @@ from adamspy.postprocess.ppt import manually_remove_spikes, filter_results, get_
 
 TEST_ANALYSIS_DIR = os.path.join('test', 'files', 'real_analysis_with_spikes')
 
-
 LOWER_TORQUE_MEAS_NAME = 'clutch_torque_lower'
 UPPER_TORQUE_MEAS_NAME = 'clutch_torque_upper'
 UPPER_SPRING_STRESS_MEAS = {f'spring_stress_U{el+2}': ['Q'] for el in range(30)}
@@ -18,12 +17,12 @@ LOWER_SPRING_STRESS_MEAS = {f'spring_stress_L{el+2}': ['Q'] for el in range(28)}
 SPRING_STRESS_MEAS = {**LOWER_SPRING_STRESS_MEAS, **UPPER_SPRING_STRESS_MEAS}
 MEASURES = {**SPRING_STRESS_MEAS, LOWER_TORQUE_MEAS_NAME: ['Q'], UPPER_TORQUE_MEAS_NAME: ['Q']}
 
-class Test_ManuallyRemoveSpikes(unittest.TestCase):
+class Test_FilterSpikes(unittest.TestCase):
 
     def setUp(self):
         self.temp_ans_dir = TEST_ANALYSIS_DIR + '_tmp'        
         self._setup_files()
-        self.res_to_edit =os.path.join(self.temp_ans_dir, 'FRS5_doe_8_LAUL_analysis.res')
+        self.res_to_edit = glob.glob(os.path.join(self.temp_ans_dir, '*.res'))[0]
 
     def test_filter_spikes(self):
         filtered_results, raw_results = filter_results(self.res_to_edit, MEASURES, 20, return_raw=True)       

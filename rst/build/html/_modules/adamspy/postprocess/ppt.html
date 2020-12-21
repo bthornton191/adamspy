@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.postprocess.ppt &mdash; adamspy 0.29.1 documentation</title>
+  <title>adamspy.postprocess.ppt &mdash; adamspy 0.29.2 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.29.1
+                0.29.2
               </div>
             
           
@@ -160,6 +160,7 @@
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">genfromtxt</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">thornpy.signal</span> <span class="k">import</span> <span class="n">manually_clean_sig</span><span class="p">,</span> <span class="n">remove_data_point</span><span class="p">,</span> <span class="n">manually_clean_sigs</span><span class="p">,</span> <span class="n">low_pass</span>
+<span class="kn">from</span> <span class="nn">thornpy.signal</span> <span class="k">import</span> <span class="n">_clean_sig</span> <span class="k">as</span> <span class="n">clean_sig</span>
 
 
 <span class="n">LOG_COMPLETE_PATTERN</span> <span class="o">=</span> <span class="s1">&#39;! Command file is exhausted, batch run is finished.&#39;</span>
@@ -460,7 +461,10 @@
     <span class="k">for</span> <span class="n">res_name</span><span class="p">,</span> <span class="n">res_comps</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">filtered_results</span><span class="p">[</span><span class="n">res_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">res_comp</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">res_comps</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">filtered_results</span><span class="p">[</span><span class="n">res_name</span><span class="p">][</span><span class="n">res_comp</span><span class="p">],</span> <span class="n">_</span> <span class="o">=</span> <span class="n">low_pass</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">time_sig</span><span class="p">,</span> <span class="n">freq_cutoff</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="n">N_filter</span><span class="p">)</span>
+
+            <span class="n">cleaned_sig</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">clean_sig</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+            
+            <span class="n">filtered_results</span><span class="p">[</span><span class="n">res_name</span><span class="p">][</span><span class="n">res_comp</span><span class="p">],</span> <span class="n">_</span> <span class="o">=</span> <span class="n">low_pass</span><span class="p">(</span><span class="n">cleaned_sig</span><span class="p">,</span> <span class="n">time_sig</span><span class="p">,</span> <span class="n">freq_cutoff</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="n">N_filter</span><span class="p">)</span>
 
     <span class="c1"># Return the cleaned results</span>
     <span class="k">if</span> <span class="n">return_raw</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
