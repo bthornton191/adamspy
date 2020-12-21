@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.postprocess package &mdash; adamspy 0.28.0 documentation</title>
+  <title>adamspy.postprocess package &mdash; adamspy 0.29.0 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.28.0
+                0.29.0
               </div>
             
           
@@ -371,6 +371,36 @@
 <dd></dd></dl>
 
 <dl class="function">
+<dt id="adamspy.postprocess.ppt.filter_results">
+<code class="descclassname">adamspy.postprocess.ppt.</code><code class="descname">filter_results</code><span class="sig-paren">(</span><em>res_file</em>, <em>reqs_to_clean</em>, <em>freq_cutoff</em>, <em>N_filter=5</em>, <em>reqs_to_check=None</em>, <em>t_min=None</em>, <em>t_max=None</em>, <em>_just_write_script=False</em>, <em>timeout=300</em>, <em>_inplace=False</em>, <em>return_raw=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/ppt.html#filter_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.ppt.filter_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Similar to <cite>manually_remove_spikes</cite>, but allows user to plot the signals in batches.  Instead of passing a dictionary for the <cite>reqs_to_check</cite> argument, pass a list of dictionaries and the results in each dictionary in the list will be plotted together.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>res_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Adams Results (.res) filename</li>
+<li><strong>reqs_to_clean</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Nested dictionary of result sets and result components to clean</li>
+<li><strong>freq_cutoff</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – Cutoff freqency of filter in Hz</li>
+<li><strong>N_filter</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Order of filter</li>
+<li><strong>reqs_to_check</strong> (<em>list of dicts</em>) – list of nested dictionary of result sets and result components to check for spikes, by default same as reqs_to_clean</li>
+<li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – Minumum simulation time to clean, by default None</li>
+<li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – Maximum simulation time to clean, by default None</li>
+<li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – Number of seconds to wait for results to load before timing out, by default _TIMEOUT</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Nested dictionary of cleaned results</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="adamspy.postprocess.ppt.get_lunar_results">
 <code class="descclassname">adamspy.postprocess.ppt.</code><code class="descname">get_lunar_results</code><span class="sig-paren">(</span><em>res_files</em>, <em>reqs_to_get</em>, <em>t_min</em>, <em>t_max</em>, <em>output_file</em>, <em>_just_write_script=False</em>, <em>timeout=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/ppt.html#get_lunar_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.ppt.get_lunar_results" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -378,7 +408,46 @@
 <dl class="function">
 <dt id="adamspy.postprocess.ppt.get_results">
 <code class="descclassname">adamspy.postprocess.ppt.</code><code class="descname">get_results</code><span class="sig-paren">(</span><em>res_file</em>, <em>reqs_to_get</em>, <em>t_min=None</em>, <em>t_max=None</em>, <em>_just_write_script=False</em>, <em>timeout=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/ppt.html#get_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.ppt.get_results" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Gets results from an Adams results (.res) file.</p>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">result_file</span> <span class="o">=</span> <span class="s1">&#39;example.res&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t_min</span> <span class="o">=</span> <span class="mi">70</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t_max</span> <span class="o">=</span> <span class="mi">80</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reqs_to_get</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reqs_to_get</span><span class="p">[</span><span class="s1">&#39;MSE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Instantaneous_Bottom_MSE&#39;</span><span class="p">,</span> <span class="s1">&#39;Filtered_Surface_MSE&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reqs_to_get</span><span class="p">[</span><span class="s1">&#39;ROP_controls&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Command_ROP&#39;</span><span class="p">,</span> <span class="s1">&#39;True_WOB&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">requests</span><span class="p">,</span> <span class="n">units</span> <span class="o">=</span> <span class="n">get_results</span><span class="p">(</span><span class="n">result_file</span><span class="p">,</span> <span class="n">reqs_to_get</span><span class="p">,</span> <span class="n">t_min</span><span class="p">,</span> <span class="n">t_max</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This funciton only works with Requests.  It does not work with Result Sets.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This function only works with xml results files.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>result_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Filename of an Adams results (.res) file</li>
+<li><strong>reqs_to_get</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Dictionary of requests to extract (the default is None, which gets all results)</li>
+<li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – Minimum time for which to extract results (the default is None)</li>
+<li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – Maximum time for which to extract results (the default is None)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Dictionary of request data</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="function">
 <dt id="adamspy.postprocess.ppt.manually_remove_spikes">
@@ -507,7 +576,7 @@
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
 <li><em>dict</em> – Dictionary of request data</li>
-<li><em>dict</em> – Dictionary defining units for each request. NOTE: This is only returned if <cite>return_units=False</cite></li>
+<li><em>dict</em> – Dictionary defining units for each request. NOTE: This is only returned if <cite>return_units=True</cite></li>
 </ul>
 </p>
 </td>

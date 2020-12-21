@@ -45,7 +45,7 @@ def get_results(result_file, reqs_to_get=None, t_min=None, t_max=None, return_un
 	dict
 		Dictionary of request data
 	dict
-		Dictionary defining units for each request. NOTE: This is only returned if `return_units=False`
+		Dictionary defining units for each request. NOTE: This is only returned if `return_units=True`
 	
 	"""
 	pickle_filename = os.path.join(os.path.dirname(result_file), '.' + os.path.splitext(os.path.split(result_file)[-1])[0] + '.pkl')

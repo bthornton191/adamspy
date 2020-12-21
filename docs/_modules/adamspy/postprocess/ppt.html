@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.postprocess.ppt &mdash; adamspy 0.28.0 documentation</title>
+  <title>adamspy.postprocess.ppt &mdash; adamspy 0.29.0 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.28.0
+                0.29.0
               </div>
             
           
@@ -159,7 +159,7 @@
 <span class="kn">import</span> <span class="nn">jinja2</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">genfromtxt</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">thornpy.signal</span> <span class="k">import</span> <span class="n">manually_clean_sig</span><span class="p">,</span> <span class="n">remove_data_point</span><span class="p">,</span> <span class="n">manually_clean_sigs</span>
+<span class="kn">from</span> <span class="nn">thornpy.signal</span> <span class="k">import</span> <span class="n">manually_clean_sig</span><span class="p">,</span> <span class="n">remove_data_point</span><span class="p">,</span> <span class="n">manually_clean_sigs</span><span class="p">,</span> <span class="n">low_pass</span>
 
 
 <span class="n">LOG_COMPLETE_PATTERN</span> <span class="o">=</span> <span class="s1">&#39;! Command file is exhausted, batch run is finished.&#39;</span>
@@ -183,6 +183,43 @@
 <span class="n">LOG_FILE_ERROR_PATTERN</span> <span class="o">=</span> <span class="s1">&#39;! </span><span class="se">\\</span><span class="s1">S*Error: &#39;</span>
 
 <div class="viewcode-block" id="get_results"><a class="viewcode-back" href="../../../adamspy.postprocess.html#adamspy.postprocess.ppt.get_results">[docs]</a><span class="k">def</span> <span class="nf">get_results</span><span class="p">(</span><span class="n">res_file</span><span class="p">,</span> <span class="n">reqs_to_get</span><span class="p">,</span> <span class="n">t_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_just_write_script</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">_TIMEOUT</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Gets results from an Adams results (.res) file.</span>
+<span class="sd">	</span>
+<span class="sd">	Example</span>
+<span class="sd">	-------</span>
+<span class="sd">	&gt;&gt;&gt; result_file = &#39;example.res&#39;</span>
+<span class="sd">	&gt;&gt;&gt; t_min = 70</span>
+<span class="sd">	&gt;&gt;&gt; t_max = 80</span>
+<span class="sd">	&gt;&gt;&gt; reqs_to_get = {}</span>
+<span class="sd">	&gt;&gt;&gt; reqs_to_get[&#39;MSE&#39;] = [&#39;Instantaneous_Bottom_MSE&#39;, &#39;Filtered_Surface_MSE&#39;]</span>
+<span class="sd">	&gt;&gt;&gt; reqs_to_get[&#39;ROP_controls&#39;] = [&#39;Command_ROP&#39;, &#39;True_WOB&#39;]</span>
+<span class="sd">	&gt;&gt;&gt; requests, units = get_results(result_file, reqs_to_get, t_min, t_max)</span>
+
+<span class="sd">	Note</span>
+<span class="sd">	----</span>
+<span class="sd">	This funciton only works with Requests.  It does not work with Result Sets.</span>
+
+<span class="sd">	Note</span>
+<span class="sd">	----</span>
+<span class="sd">	This function only works with xml results files.</span>
+<span class="sd">	</span>
+<span class="sd">	Parameters</span>
+<span class="sd">	----------</span>
+<span class="sd">	result_file : str</span>
+<span class="sd">		Filename of an Adams results (.res) file</span>
+<span class="sd">	reqs_to_get : dict</span>
+<span class="sd">		Dictionary of requests to extract (the default is None, which gets all results)</span>
+<span class="sd">	t_min : float, optional</span>
+<span class="sd">		Minimum time for which to extract results (the default is None)</span>
+<span class="sd">	t_max : float, optional</span>
+<span class="sd">		Maximum time for which to extract results (the default is None)</span>
+<span class="sd">	</span>
+<span class="sd">	Returns</span>
+<span class="sd">	-------</span>
+<span class="sd">	dict</span>
+<span class="sd">		Dictionary of request data</span>
+<span class="sd">	</span>
+<span class="sd">	&quot;&quot;&quot;</span>
     <span class="n">template</span> <span class="o">=</span> <span class="n">TMPLT_ENV</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;aview_scripts&#39;</span><span class="p">,</span> <span class="n">GET_RESULTS_SCRIPT_NAME</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
     <span class="n">working_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">res_file</span><span class="p">)</span>
 
@@ -384,6 +421,52 @@
 
     <span class="c1"># Return the cleaned results</span>
     <span class="k">return</span> <span class="n">results</span></div>
+
+<div class="viewcode-block" id="filter_results"><a class="viewcode-back" href="../../../adamspy.postprocess.html#adamspy.postprocess.ppt.filter_results">[docs]</a><span class="k">def</span> <span class="nf">filter_results</span><span class="p">(</span><span class="n">res_file</span><span class="p">,</span> <span class="n">reqs_to_clean</span><span class="p">,</span> <span class="n">freq_cutoff</span><span class="p">,</span> <span class="n">N_filter</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">reqs_to_check</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_just_write_script</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">_TIMEOUT</span><span class="p">,</span> <span class="n">_inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">return_raw</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Similar to `manually_remove_spikes`, but allows user to plot the signals in batches.  Instead of passing a dictionary for the `reqs_to_check` argument, pass a list of dictionaries and the results in each dictionary in the list will be plotted together.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    res_file : str</span>
+<span class="sd">        Adams Results (.res) filename </span>
+<span class="sd">    reqs_to_clean : dict</span>
+<span class="sd">        Nested dictionary of result sets and result components to clean</span>
+<span class="sd">    freq_cutoff : float</span>
+<span class="sd">        Cutoff freqency of filter in Hz</span>
+<span class="sd">    N_filter : int</span>
+<span class="sd">        Order of filter</span>
+<span class="sd">    reqs_to_check : list of dicts</span>
+<span class="sd">        list of nested dictionary of result sets and result components to check for spikes, by default same as reqs_to_clean</span>
+<span class="sd">    t_min : float, optional</span>
+<span class="sd">        Minumum simulation time to clean, by default None</span>
+<span class="sd">    t_max : float, optional</span>
+<span class="sd">        Maximum simulation time to clean, by default None</span>
+<span class="sd">    timeout : float, optional</span>
+<span class="sd">        Number of seconds to wait for results to load before timing out, by default _TIMEOUT</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Nested dictionary of cleaned results</span>
+<span class="sd">        </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">reqs_to_check</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">reqs_to_check</span> <span class="o">=</span> <span class="p">[</span><span class="n">reqs_to_clean</span><span class="p">]</span>
+
+    <span class="n">results</span> <span class="o">=</span> <span class="n">get_results</span><span class="p">(</span><span class="n">res_file</span><span class="p">,</span> <span class="n">reqs_to_clean</span><span class="p">,</span> <span class="n">t_min</span><span class="o">=</span><span class="n">t_min</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="n">t_max</span><span class="p">,</span> <span class="n">_just_write_script</span><span class="o">=</span><span class="n">_just_write_script</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>    
+    <span class="n">time_sig</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+
+    <span class="n">filtered_results</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">res_name</span><span class="p">,</span> <span class="n">res_comps</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">filtered_results</span><span class="p">[</span><span class="n">res_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">res_comp</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">res_comps</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">filtered_results</span><span class="p">[</span><span class="n">res_name</span><span class="p">][</span><span class="n">res_comp</span><span class="p">],</span> <span class="n">_</span> <span class="o">=</span> <span class="n">low_pass</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">time_sig</span><span class="p">,</span> <span class="n">freq_cutoff</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="n">N_filter</span><span class="p">)</span>
+
+    <span class="c1"># Return the cleaned results</span>
+    <span class="k">if</span> <span class="n">return_raw</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">time_sig</span><span class="p">,</span> <span class="o">**</span><span class="n">filtered_results</span><span class="p">}</span> 
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">time_sig</span><span class="p">,</span> <span class="o">**</span><span class="n">filtered_results</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">time_sig</span><span class="p">,</span> <span class="o">**</span><span class="n">results</span><span class="p">}</span></div>
 
 <div class="viewcode-block" id="manually_remove_spikes_batch"><a class="viewcode-back" href="../../../adamspy.postprocess.html#adamspy.postprocess.ppt.manually_remove_spikes_batch">[docs]</a><span class="k">def</span> <span class="nf">manually_remove_spikes_batch</span><span class="p">(</span><span class="n">res_file</span><span class="p">,</span> <span class="n">reqs_to_clean</span><span class="p">,</span> <span class="n">reqs_to_check</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_just_write_script</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">_TIMEOUT</span><span class="p">,</span> <span class="n">_inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Similar to `manually_remove_spikes`, but allows user to plot the signals in batches.  Instead of passing a dictionary for the `reqs_to_check` argument, pass a list of dictionaries and the results in each dictionary in the list will be plotted together.</span>

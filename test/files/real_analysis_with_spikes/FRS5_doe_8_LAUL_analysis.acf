@@ -1,0 +1,59 @@
+
+file/model=FRS5_doe_8_LAUL_analysis
+accg/kgrav=0
+ENVIRONMENT/NAME=MDI_ADAMS_CONTACT_OUT, VALUE=off
+equil/stab=10, err=10, imb=10, tlim=2, alim=2D, maxit=1000
+sim/stat
+equil/stab=10, err=1, imb=1, tlim=2, alim=2D, maxit=500
+sim/stat
+equil/stab=1, err=1, imb=1, tlim=2, alim=2D, maxit=500
+sim/stat
+!
+VARIABLE/1001, FUNC= -step5(time,0,0,2,20*PI)
+int/hht, err=1E-7, hmax=2.5E-4, INTERPOLATE=on
+sim/dyn, end=1.5, dtout=.005
+sim/dyn, end=2.0, dtout=.005
+!
+deactivate/sensor, ID=1000
+!deactivate/contact, ID=57
+! load upper input shaft rotation
+VARIABLE/1001, FUNC= -step5(SENVAL(1000),0,0,2,20*PI)
+! sin-up input shaft rotation
+VARIABLE/1002, func=0
+! move the feed selector to the lower position, throw=16mm
+MOTION/4, FUNC = -16+STEP5(time,1.9,0,2,16)
+!
+sim/dyn, end=2.0, dtout=.005
+!
+VARIABLE/1001, FUNC= -step5(SENVAL(1000),0,0,2,20*PI) &
+ -STEP5(TIME,2.0,0,4,20*PI)
+sim/dyn, end=3.5, dtout=.005
+sim/dyn, end=4.0, dtout=.005
+!
+deactivate/sensor, ID=2001
+!deactivate/contact, ID=58
+!  upper + lower input shaft load rotation
+VARIABLE/1001, FUNC= -step5(SENVAL(1000),0,0,2,20*PI) &
+ -STEP5(SENVAL(2001),2.0,0,4,20*PI)
+!
+!
+! CONTINUE on lower side => no change to feed selector
+!                           deactivate the lower stop
+sim/dyn, end=4.0, dtout=.005
+deactivate/contact, ID=58
+! OR
+! switch back to upper side => move the feed selector
+!                           deactivate the upper stop
+!deactivate/contact, ID=57
+!MOTION/4, FUNC = STEP5(time,3.9,0,4,-16)
+!sim/dyn, end=4.0, dtout=.005
+!
+!  SpinUp to 200 rounds/minute over 0.1 secs!
+VARIABLE/1002, FUNCTION = IF(TIME-4.0: 0, 0, &
+ -PI*IF((TIME-4.0-.1):-3E4*(TIME-4.0)**4 + &
+  6E3*(TIME-4.0)**3, 3, 3+60*(TIME-4.0-.1)))
+!
+sim/dyn, dur=.5, dtout=.001
+sim/dyn, dur=.5, dtout=.001
+sim/dyn, dur=.5, dtout=.001
+stop
