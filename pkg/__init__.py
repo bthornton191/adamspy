@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.29.0'
-version_notes = 'Added a function to load filtered adams results'
+version = '0.29.1'
+version_notes = 'Fixed bug'
 date = 'December 21st, 2020'
 # ---------------------
 author = 'Ben Thornton'

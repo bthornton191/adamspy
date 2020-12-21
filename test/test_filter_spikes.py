@@ -26,7 +26,7 @@ class Test_ManuallyRemoveSpikes(unittest.TestCase):
         self.res_to_edit =os.path.join(self.temp_ans_dir, 'FRS5_doe_8_LAUL_analysis.res')
 
     def test_filter_spikes(self):
-        filtered_results, raw_results = filter_results(self.res_to_edit, MEASURES, 20)       
+        filtered_results, raw_results = filter_results(self.res_to_edit, MEASURES, 20, return_raw=True)       
         df_filt = convert_dict_to_df(filtered_results).set_index('time', drop=True)
         df_raw = convert_dict_to_df(raw_results).set_index('time', drop=True)
 

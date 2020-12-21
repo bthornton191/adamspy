@@ -315,9 +315,9 @@ def filter_results(res_file, reqs_to_clean, freq_cutoff, N_filter=5, reqs_to_che
 
     # Return the cleaned results
     if return_raw is True:
-        return {'time': time_sig, **filtered_results} 
-    else:
         return {'time': time_sig, **filtered_results}, {'time': time_sig, **results}
+    else:
+        return {'time': time_sig, **filtered_results} 
 
 def manually_remove_spikes_batch(res_file, reqs_to_clean, reqs_to_check=None, t_min=None, t_max=None, _just_write_script=False, timeout=_TIMEOUT, _inplace=False):
     """Similar to `manually_remove_spikes`, but allows user to plot the signals in batches.  Instead of passing a dictionary for the `reqs_to_check` argument, pass a list of dictionaries and the results in each dictionary in the list will be plotted together.
