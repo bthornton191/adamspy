@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.29.3'
-version_notes = 'made adams commands os independent'
+version = '0.29.5'
+version_notes = 'fixed bugs in adams commands for linux'
 date = 'March 12th, 2021'
 # ---------------------
 author = 'Ben Thornton'

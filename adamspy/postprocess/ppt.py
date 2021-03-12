@@ -88,14 +88,13 @@ def get_results(res_file, reqs_to_get, t_min=None, t_max=None, _just_write_scrip
             pass
 
         # Run the postprocessor
-        startupinfo = subprocess.STARTUPINFO()
-        startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW        
-
         if platform.system() == 'Windows':
+            startupinfo = subprocess.STARTUPINFO()
+            startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW        
             subprocess.Popen('"{}" aview ru-s b {}'.format(os.environ['ADAMS_LAUNCH_COMMAND'], GET_RESULTS_SCRIPT_NAME), cwd=working_directory, startupinfo=startupinfo)
         
         else:
-            subprocess.Popen('"{}" -c aview ru-standard b {} exit'.format(os.environ['ADAMS_LAUNCH_COMMAND'], GET_RESULTS_SCRIPT_NAME), cwd=working_directory, startupinfo=startupinfo)
+            subprocess.Popen([os.environ['ADAMS_LAUNCH_COMMAND'], '-c', 'aview', 'ru-standard', 'b', GET_RESULTS_SCRIPT_NAME, 'exit'], cwd=working_directory)            
 
         # Wait for complete
         _wait(os.path.join(working_directory, LOG_NAME), timeout=timeout)
@@ -139,15 +138,14 @@ def edit_results(res_file, input_dict, new_res_file=None, _just_write_script=Fal
         except PermissionError:
             pass
 
-        # Run the postprocessor
-        startupinfo = subprocess.STARTUPINFO()
-        startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW        
-
         if platform.system() == 'Windows':
+            # Run the postprocessor
+            startupinfo = subprocess.STARTUPINFO()
+            startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW        
             subprocess.Popen('"{}" aview ru-s b {}'.format(os.environ['ADAMS_LAUNCH_COMMAND'], EDIT_RESULTS_SCRIPT_NAME), cwd=working_directory, startupinfo=startupinfo)
         
         else:
-            subprocess.Popen('"{}" -c aview ru-s b {} exit'.format(os.environ['ADAMS_LAUNCH_COMMAND'], EDIT_RESULTS_SCRIPT_NAME), cwd=working_directory, startupinfo=startupinfo)
+            subprocess.Popen([os.environ['ADAMS_LAUNCH_COMMAND'], '-c', 'aview', 'ru-s', 'b', EDIT_RESULTS_SCRIPT_NAME, 'exit'], cwd=working_directory)
 
         # Wait for complete
         _wait(os.path.join(working_directory, LOG_NAME), timeout=timeout)
@@ -170,11 +168,15 @@ def get_lunar_results(res_files, reqs_to_get, t_min, t_max, output_file, _just_w
             os.remove(os.path.join(working_directory, LOG_NAME))
         except FileNotFoundError:
             pass
-
+        
         # Run the postprocessor
-        startupinfo = subprocess.STARTUPINFO()
-        startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW        
-        subprocess.Popen('"{}" aview ru-s b {}'.format(os.environ['ADAMS_LAUNCH_COMMAND'], LUNAR_SCRIPT_NAME), cwd=working_directory, startupinfo=startupinfo)
+        if platform.system() == 'Windows':
+            startupinfo = subprocess.STARTUPINFO()
+            startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW        
+            subprocess.Popen('"{}" aview ru-s b {}'.format(os.environ['ADAMS_LAUNCH_COMMAND'], LUNAR_SCRIPT_NAME), cwd=working_directory, startupinfo=startupinfo)
+        
+        else:
+            subprocess.Popen([os.environ['ADAMS_LAUNCH_COMMAND'], 'aview', 'ru-s', 'b', LUNAR_SCRIPT_NAME], cwd=working_directory)
 
         # Wait for complete
         _wait(os.path.join(working_directory, LOG_NAME), timeout=timeout)

@@ -151,23 +151,26 @@ def solve(acf_file, wait=False, use_adams_car=False):
 
 	"""	
 	file = os.path.split(acf_file)[-1]
+	cwd = os.path.dirname(acf_file) if os.path.dirname(acf_file) != '' else os.getcwd()
 	
 	if platform.system() == 'Windows':
+		startupinfo = subprocess.STARTUPINFO()
+		startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+
 		if use_adams_car is False:
 			command = '"{}" ru-s "{}"'.format(os.environ['ADAMS_LAUNCH_COMMAND'], file)
 		else:
 			command = '"{}" acar ru-solver "{}"'.format(os.environ['ADAMS_LAUNCH_COMMAND'], file)
+		
+		proc = subprocess.Popen(command, cwd=cwd, startupinfo=startupinfo)
 	
 	else:
 		if use_adams_car is False:
-			command = '"{}" -c ru-standard i "{}" exit'.format(os.environ['ADAMS_LAUNCH_COMMAND'], file)
+			command = [os.environ['ADAMS_LAUNCH_COMMAND'], '-c', 'ru-standard', 'i', file, 'exit']
 		else:
-			command = '"{}" -c acar ru-solver i "{}" exit'.format(os.environ['ADAMS_LAUNCH_COMMAND'], file)
+			command = [os.environ['ADAMS_LAUNCH_COMMAND'], '-c', 'acar', 'ru-solver', 'i', file, 'exit']
 		
-	startupinfo = subprocess.STARTUPINFO()
-	startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-	cwd = os.path.dirname(acf_file) if os.path.dirname(acf_file) != '' else os.getcwd()
-	proc = subprocess.Popen(command, cwd=cwd, startupinfo=startupinfo)
+		proc = subprocess.Popen(command, cwd=cwd)
 
 	if wait:
 		proc.wait()

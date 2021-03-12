@@ -69,14 +69,13 @@ def launch_ppt(res_file, cmd_file=None, wait=False, timeout=30, _terminate=False
             pass
 
     # Run the postprocessor
-    startupinfo = subprocess.STARTUPINFO()
-    startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW        
-
     if platform.system() == 'Windows':
+        startupinfo = subprocess.STARTUPINFO()
+        startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW        
         ppt_proc = subprocess.Popen('"{}" aview ru-s i'.format(os.environ['ADAMS_LAUNCH_COMMAND']), cwd=directory, startupinfo=startupinfo)
     
     else:
-        ppt_proc = subprocess.Popen('"{}" -c aview ru-s i'.format(os.environ['ADAMS_LAUNCH_COMMAND']), cwd=directory, startupinfo=startupinfo)
+        ppt_proc = subprocess.Popen([os.environ['ADAMS_LAUNCH_COMMAND'], '-c', 'aview', 'ru-s', 'i'], cwd=directory)
     
     # Terminate immediately or wait for the process to complete before moving on.
     if _terminate:

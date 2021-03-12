@@ -247,14 +247,14 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
             If True the application will wait for the process to complete before continuing.
 
         """                
-        startupinfo = subprocess.STARTUPINFO()
-        startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW        
         
         if platform.system() == 'Windows':
+            startupinfo = subprocess.STARTUPINFO()
+            startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW        
             self.run_proc = subprocess.Popen('"{}" ru-s "{}"'.format(os.environ['ADAMS_LAUNCH_COMMAND'], self.acf_filename), cwd=self.directory, startupinfo=startupinfo)
         
         else:
-            self.run_proc = subprocess.Popen('"{}" -c ru-standard i "{}" exit'.format(os.environ['ADAMS_LAUNCH_COMMAND'], self.acf_filename), cwd=self.directory, startupinfo=startupinfo)
+            self.run_proc = subprocess.Popen([os.environ['ADAMS_LAUNCH_COMMAND'], '-c', 'ru-standard', 'i', self.acf_filename, 'exit'], cwd=self.directory)
 
         self.msg_filename = f'{self.analysis_name}.msg'
         self.res_filename = f'{self.analysis_name}.res'
