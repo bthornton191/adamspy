@@ -4,7 +4,6 @@
 import os
 import subprocess
 import re
-from subprocess import DETACHED_PROCESS
 import time
 import platform
 
