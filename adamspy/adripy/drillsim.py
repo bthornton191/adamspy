@@ -3,6 +3,7 @@
 import os
 import subprocess
 import glob
+import platform
 
 from thornpy.signal import step_function, low_pass
 from numpy import linspace, argmax, array
@@ -248,7 +249,12 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         """                
         startupinfo = subprocess.STARTUPINFO()
         startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW        
-        self.run_proc = subprocess.Popen('"{}" ru-s "{}"'.format(os.environ['ADAMS_LAUNCH_COMMAND'], self.acf_filename), cwd=self.directory, startupinfo=startupinfo)
+        
+        if platform.system() == 'Windows':
+            self.run_proc = subprocess.Popen('"{}" ru-s "{}"'.format(os.environ['ADAMS_LAUNCH_COMMAND'], self.acf_filename), cwd=self.directory, startupinfo=startupinfo)
+        
+        else:
+            self.run_proc = subprocess.Popen('"{}" -c ru-standard i "{}" exit'.format(os.environ['ADAMS_LAUNCH_COMMAND'], self.acf_filename), cwd=self.directory, startupinfo=startupinfo)
 
         self.msg_filename = f'{self.analysis_name}.msg'
         self.res_filename = f'{self.analysis_name}.res'

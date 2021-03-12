@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.29.2'
-version_notes = 'added peak elimination'
-date = 'December 21st, 2020'
+version = '0.29.3'
+version_notes = 'made adams commands os independent'
+date = 'March 12th, 2021'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'

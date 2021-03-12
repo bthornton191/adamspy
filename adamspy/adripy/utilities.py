@@ -4,6 +4,7 @@ import os
 import re
 import subprocess
 import time
+import platform
 
 import thornpy
 import numpy as np
@@ -877,7 +878,12 @@ def build(string_file, solver_settings_file, working_directory, output_name=None
     # Run adams to generate adm, acf, cmd
     startupinfo = subprocess.STARTUPINFO()
     startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-    process = subprocess.Popen('"{}" aview ru-s b build.cmd'.format(os.environ['ADAMS_LAUNCH_COMMAND']), cwd=working_directory, startupinfo=startupinfo)
+    
+    if platform.system() == 'Windows':
+        process = subprocess.Popen('"{}" aview ru-s b build.cmd'.format(os.environ['ADAMS_LAUNCH_COMMAND']), cwd=working_directory, startupinfo=startupinfo)
+    
+    else:
+        process = subprocess.Popen('"{}" -c aview ru-standard b build.cmd exit'.format(os.environ['ADAMS_LAUNCH_COMMAND']), cwd=working_directory, startupinfo=startupinfo)
 
     adm_file = os.path.join(working_directory, adm_file)
     acf_file = os.path.join(working_directory, acf_file)

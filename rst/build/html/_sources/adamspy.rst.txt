@@ -6,6 +6,7 @@ Subpackages
 
 .. toctree::
 
+    adamspy.acar
     adamspy.adripy
     adamspy.postprocess
     adamspy.waterfall

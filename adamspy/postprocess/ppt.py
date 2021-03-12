@@ -6,6 +6,7 @@ import subprocess
 import re
 from subprocess import DETACHED_PROCESS
 import time
+import platform
 
 import jinja2
 from numpy import genfromtxt
@@ -90,7 +91,12 @@ def get_results(res_file, reqs_to_get, t_min=None, t_max=None, _just_write_scrip
         # Run the postprocessor
         startupinfo = subprocess.STARTUPINFO()
         startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW        
-        subprocess.Popen('"{}" aview ru-s b {}'.format(os.environ['ADAMS_LAUNCH_COMMAND'], GET_RESULTS_SCRIPT_NAME), cwd=working_directory, startupinfo=startupinfo)
+
+        if platform.system() == 'Windows':
+            subprocess.Popen('"{}" aview ru-s b {}'.format(os.environ['ADAMS_LAUNCH_COMMAND'], GET_RESULTS_SCRIPT_NAME), cwd=working_directory, startupinfo=startupinfo)
+        
+        else:
+            subprocess.Popen('"{}" -c aview ru-standard b {} exit'.format(os.environ['ADAMS_LAUNCH_COMMAND'], GET_RESULTS_SCRIPT_NAME), cwd=working_directory, startupinfo=startupinfo)
 
         # Wait for complete
         _wait(os.path.join(working_directory, LOG_NAME), timeout=timeout)
@@ -137,7 +143,12 @@ def edit_results(res_file, input_dict, new_res_file=None, _just_write_script=Fal
         # Run the postprocessor
         startupinfo = subprocess.STARTUPINFO()
         startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW        
-        subprocess.Popen('"{}" aview ru-s b {}'.format(os.environ['ADAMS_LAUNCH_COMMAND'], EDIT_RESULTS_SCRIPT_NAME), cwd=working_directory, startupinfo=startupinfo)
+
+        if platform.system() == 'Windows':
+            subprocess.Popen('"{}" aview ru-s b {}'.format(os.environ['ADAMS_LAUNCH_COMMAND'], EDIT_RESULTS_SCRIPT_NAME), cwd=working_directory, startupinfo=startupinfo)
+        
+        else:
+            subprocess.Popen('"{}" -c aview ru-s b {} exit'.format(os.environ['ADAMS_LAUNCH_COMMAND'], EDIT_RESULTS_SCRIPT_NAME), cwd=working_directory, startupinfo=startupinfo)
 
         # Wait for complete
         _wait(os.path.join(working_directory, LOG_NAME), timeout=timeout)

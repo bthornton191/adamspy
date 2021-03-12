@@ -5,6 +5,7 @@ import os
 import re
 import time
 import subprocess
+import platform
 
 from . import AVIEW_AFTERSTART_FILENAME
 
@@ -51,7 +52,12 @@ def create_animation(model_file : str, res_file : str, model_name : str, analysi
     # Run the postprocessor
     startupinfo = subprocess.STARTUPINFO()
     startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW        
-    _ppt_proc = subprocess.Popen('"{}" aview ru-s i'.format(os.environ['ADAMS_LAUNCH_COMMAND']), cwd=directory, startupinfo=startupinfo)
+
+    if platform.system() == 'Windows':
+        _ppt_proc = subprocess.Popen('"{}" aview ru-s i'.format(os.environ['ADAMS_LAUNCH_COMMAND']), cwd=directory, startupinfo=startupinfo)
+    
+    else:
+        _ppt_proc = subprocess.Popen('"{}" -c aview ru-standard i'.format(os.environ['ADAMS_LAUNCH_COMMAND']), cwd=directory, startupinfo=startupinfo)
     
     # Wait for process to complete
     _wait(ppt_log_file, timeout=timeout)

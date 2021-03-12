@@ -5,6 +5,7 @@ import os
 import subprocess
 import re
 import time
+import platform
 
 PPT_AFTERSTART_FILENAME = 'pptAS.cmd'
 AVIEW_AFTERSTART_FILENAME = 'aviewAS.cmd'
@@ -70,7 +71,12 @@ def launch_ppt(res_file, cmd_file=None, wait=False, timeout=30, _terminate=False
     # Run the postprocessor
     startupinfo = subprocess.STARTUPINFO()
     startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW        
-    ppt_proc = subprocess.Popen('"{}" aview ru-s i'.format(os.environ['ADAMS_LAUNCH_COMMAND']), cwd=directory, startupinfo=startupinfo)
+
+    if platform.system() == 'Windows':
+        ppt_proc = subprocess.Popen('"{}" aview ru-s i'.format(os.environ['ADAMS_LAUNCH_COMMAND']), cwd=directory, startupinfo=startupinfo)
+    
+    else:
+        ppt_proc = subprocess.Popen('"{}" -c aview ru-s i'.format(os.environ['ADAMS_LAUNCH_COMMAND']), cwd=directory, startupinfo=startupinfo)
     
     # Terminate immediately or wait for the process to complete before moving on.
     if _terminate:

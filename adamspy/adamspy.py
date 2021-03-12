@@ -3,6 +3,7 @@
 import os
 import re
 import subprocess
+import platform
 
 XMT_PATTERN = re.compile('\\s*file_name\\s*=\\s*"?.+\\.xmt_txt"?\\s*')
 
@@ -151,10 +152,17 @@ def solve(acf_file, wait=False, use_adams_car=False):
 	"""	
 	file = os.path.split(acf_file)[-1]
 	
-	if use_adams_car is False:
-		command = '"{}" ru-s "{}"'.format(os.environ['ADAMS_LAUNCH_COMMAND'], file)
+	if platform.system() == 'Windows':
+		if use_adams_car is False:
+			command = '"{}" ru-s "{}"'.format(os.environ['ADAMS_LAUNCH_COMMAND'], file)
+		else:
+			command = '"{}" acar ru-solver "{}"'.format(os.environ['ADAMS_LAUNCH_COMMAND'], file)
+	
 	else:
-		command = '"{}" acar ru-solver "{}"'.format(os.environ['ADAMS_LAUNCH_COMMAND'], file)
+		if use_adams_car is False:
+			command = '"{}" -c ru-standard i "{}" exit'.format(os.environ['ADAMS_LAUNCH_COMMAND'], file)
+		else:
+			command = '"{}" -c acar ru-solver i "{}" exit'.format(os.environ['ADAMS_LAUNCH_COMMAND'], file)
 		
 	startupinfo = subprocess.STARTUPINFO()
 	startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW

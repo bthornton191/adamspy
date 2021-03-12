@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.postprocess package &mdash; adamspy 0.29.2 documentation</title>
+  <title>adamspy.postprocess package &mdash; adamspy 0.29.3 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.29.2
+                0.29.3
               </div>
             
           
@@ -87,13 +87,13 @@
 <li><a class="reference internal" href="#">adamspy.postprocess package</a><ul>
 <li><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-adamspy.postprocess.animation">adamspy.postprocess.animation module</a></li>
-<li><a class="reference internal" href="#module-adamspy.postprocess.exported">adamspy.postprocess.exported module</a></li>
-<li><a class="reference internal" href="#module-adamspy.postprocess.mode_tables">adamspy.postprocess.mode_tables module</a></li>
-<li><a class="reference internal" href="#module-adamspy.postprocess.msg">adamspy.postprocess.msg module</a></li>
-<li><a class="reference internal" href="#module-adamspy.postprocess.ppt">adamspy.postprocess.ppt module</a></li>
-<li><a class="reference internal" href="#module-adamspy.postprocess.xml">adamspy.postprocess.xml module</a></li>
-<li><a class="reference internal" href="#module-adamspy.postprocess">Module contents</a></li>
+<li><a class="reference internal" href="#adamspy-postprocess-animation-module">adamspy.postprocess.animation module</a></li>
+<li><a class="reference internal" href="#adamspy-postprocess-exported-module">adamspy.postprocess.exported module</a></li>
+<li><a class="reference internal" href="#adamspy-postprocess-mode-tables-module">adamspy.postprocess.mode_tables module</a></li>
+<li><a class="reference internal" href="#adamspy-postprocess-msg-module">adamspy.postprocess.msg module</a></li>
+<li><a class="reference internal" href="#adamspy-postprocess-ppt-module">adamspy.postprocess.ppt module</a></li>
+<li><a class="reference internal" href="#adamspy-postprocess-xml-module">adamspy.postprocess.xml module</a></li>
+<li><a class="reference internal" href="#module-contents">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -167,7 +167,7 @@
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="adamspy.postprocess.analysis.html">adamspy.postprocess.analysis package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="adamspy.postprocess.analysis.html#module-adamspy.postprocess.analysis">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adamspy.postprocess.analysis.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -176,501 +176,26 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-adamspy.postprocess.animation">
-<span id="adamspy-postprocess-animation-module"></span><h2>adamspy.postprocess.animation module<a class="headerlink" href="#module-adamspy.postprocess.animation" title="Permalink to this headline">¶</a></h2>
-<p>Code for generating animations automatically in Adams View</p>
-<dl class="function">
-<dt id="adamspy.postprocess.animation.create_animation">
-<code class="descclassname">adamspy.postprocess.animation.</code><code class="descname">create_animation</code><span class="sig-paren">(</span><em>model_file: str</em>, <em>res_file: str</em>, <em>model_name: str</em>, <em>analysis_name: str</em>, <em>timeout=60</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/animation.html#create_animation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.animation.create_animation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates an animation from the given model.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>model_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Adams View model (.cmd) file</li>
-<li><strong>res_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Adams results (.res) file</li>
-<li><strong>model_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Name of the model</li>
-<li><strong>analysis_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Name of the analysis</li>
-<li><strong>wait</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em>, </em><em>optional</em>) – If <cite>True</cite>, code execution will freeze until the animation script completes and the postprocessor closes. (the default is True)</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
+<div class="section" id="adamspy-postprocess-animation-module">
+<h2>adamspy.postprocess.animation module<a class="headerlink" href="#adamspy-postprocess-animation-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-adamspy.postprocess.exported">
-<span id="adamspy-postprocess-exported-module"></span><h2>adamspy.postprocess.exported module<a class="headerlink" href="#module-adamspy.postprocess.exported" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="adamspy.postprocess.exported.import_spreadsheet">
-<code class="descclassname">adamspy.postprocess.exported.</code><code class="descname">import_spreadsheet</code><span class="sig-paren">(</span><em>filename</em>, <em>output_type='dict'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/exported.html#import_spreadsheet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.exported.import_spreadsheet" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads data from a file generated in Adams View using File&gt;Export&gt;Spreadsheet.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Name of file.</li>
-<li><strong>output_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Type of object to return.  Default is ‘DataFrame’ which returns a pandas <cite>:obj:DataFrame</cite> object.  You can also select ‘dict’.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Pandas <cite>:obj:Dataframe</cite> if <cite>output_type</cite> is ‘DataFrame’ or <cite>:obj:dict</cite> if <cite>output_type</cite> is ‘dict’</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">DataFrame or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
+<div class="section" id="adamspy-postprocess-exported-module">
+<h2>adamspy.postprocess.exported module<a class="headerlink" href="#adamspy-postprocess-exported-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-adamspy.postprocess.mode_tables">
-<span id="adamspy-postprocess-mode-tables-module"></span><h2>adamspy.postprocess.mode_tables module<a class="headerlink" href="#module-adamspy.postprocess.mode_tables" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="adamspy.postprocess.mode_tables.Modal">
-<em class="property">class </em><code class="descclassname">adamspy.postprocess.mode_tables.</code><code class="descname">Modal</code><span class="sig-paren">(</span><em>modes: dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/mode_tables.html#Modal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.mode_tables.Modal" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<dl class="method">
-<dt id="adamspy.postprocess.mode_tables.Modal.get_modes_where_parts_participate">
-<code class="descname">get_modes_where_parts_participate</code><span class="sig-paren">(</span><em>part_suffix</em>, <em>table</em>, <em>column</em>, <em>threshold=0.9</em>, <em>sum_or_max='max'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/mode_tables.html#Modal.get_modes_where_parts_participate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.mode_tables.Modal.get_modes_where_parts_participate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a dictionary where the keys are mode numbers and the values are <cite>:obj:Mode</cite> objects in which any part with the suffix <cite>part_suffix</cite> has at least <cite>threshold</cite> percent of the total.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>part_suffix</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Suffix of parts to check for</li>
-<li><strong>table</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Table type. Options are ‘coords’, ‘kinetic_energy’, ‘strain_energy’, ‘dissipative_energy’</li>
-<li><strong>column</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Column name from the table</li>
-<li><strong>threshold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – Part’s value must be greater than <cite>threshold</cite> multiplied the sum or max (depending on <cite>sum_or_max</cite> value) of the column in the table to be considered participating</li>
-<li><strong>sum_or_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Must be ‘sum’ or ‘max’</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Dictionary where the keys are mode numbers and the values are <cite>:obj:Mode</cite> objects</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="adamspy.postprocess.mode_tables.Mode">
-<em class="property">class </em><code class="descclassname">adamspy.postprocess.mode_tables.</code><code class="descname">Mode</code><span class="sig-paren">(</span><em>scalars: dict</em>, <em>tables: dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/mode_tables.html#Mode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.mode_tables.Mode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-</dd></dl>
-
-<dl class="function">
-<dt id="adamspy.postprocess.mode_tables.parse_table_file">
-<code class="descclassname">adamspy.postprocess.mode_tables.</code><code class="descname">parse_table_file</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/mode_tables.html#parse_table_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.mode_tables.parse_table_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<div class="section" id="adamspy-postprocess-mode-tables-module">
+<h2>adamspy.postprocess.mode_tables module<a class="headerlink" href="#adamspy-postprocess-mode-tables-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-adamspy.postprocess.msg">
-<span id="adamspy-postprocess-msg-module"></span><h2>adamspy.postprocess.msg module<a class="headerlink" href="#module-adamspy.postprocess.msg" title="Permalink to this headline">¶</a></h2>
-<p>This module contains tools for extracing data from the message file.</p>
-<dl class="function">
-<dt id="adamspy.postprocess.msg.check_for_errors">
-<code class="descclassname">adamspy.postprocess.msg.</code><code class="descname">check_for_errors</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/msg.html#check_for_errors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.msg.check_for_errors" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="adamspy.postprocess.msg.check_if_finished">
-<code class="descclassname">adamspy.postprocess.msg.</code><code class="descname">check_if_finished</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/msg.html#check_if_finished"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.msg.check_if_finished" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="adamspy.postprocess.msg.convert_cpu_time">
-<code class="descclassname">adamspy.postprocess.msg.</code><code class="descname">convert_cpu_time</code><span class="sig-paren">(</span><em>time_string</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/msg.html#convert_cpu_time"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.msg.convert_cpu_time" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="adamspy.postprocess.msg.get_modes">
-<code class="descclassname">adamspy.postprocess.msg.</code><code class="descname">get_modes</code><span class="sig-paren">(</span><em>filename</em>, <em>output_type='dict'</em>, <em>i_analysis=0</em>, <em>underdamped_only=True</em>, <em>sort_by_wn=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/msg.html#get_modes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.msg.get_modes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the modes from an Adams Solver message file.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Name of Adams Solver message (.msg) file.</li>
-<li><strong>output_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>optional</em>) – If ‘DataFrame’, returns a pandas <cite>:obj:pd.DataFrame</cite> if ‘dict’, returns a <cite>:obj:dict</cite>. (Default is ‘dict’)</li>
-<li><strong>i_analysis</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em>, </em><em>(</em><em>optional</em><em>)</em>) – If the Adams Solver message (.msg) file contains multiple eigensolutions, this specifies which one to get. (Default is 0 which takes the first analysis)</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>`</strong> – Table of modes</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">obj:pd.DataFrame` or <cite>:obj:dict</cite></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="adamspy.postprocess.msg.get_runtime_summary">
-<code class="descclassname">adamspy.postprocess.msg.</code><code class="descname">get_runtime_summary</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/msg.html#get_runtime_summary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.msg.get_runtime_summary" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a list of timestamps from the Adams message (.msg) file.  Each timestamp in the list is a list  as follows [elapsed time, cpu time, percent speedup]</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Filename of message file</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of timestamps where each timestamp in the list is a list as follows [elapsed time, cpu time, percent speedup].</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="adamspy.postprocess.msg.get_timestamps">
-<code class="descclassname">adamspy.postprocess.msg.</code><code class="descname">get_timestamps</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/msg.html#get_timestamps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.msg.get_timestamps" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a list of timestamps from the Adams message (.msg) file.  Each timestamp in the list is a list  as follows [simulation time, step size, Function evaluations, cumulative steps taken, integration order, simulation time]</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Filename of message file</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of timestamps where each timestamp in the list is a list as follows [simulation time, step size, Function evaluations, cumulative steps taken, integration order, simulation time].</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
+<div class="section" id="adamspy-postprocess-msg-module">
+<h2>adamspy.postprocess.msg module<a class="headerlink" href="#adamspy-postprocess-msg-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-adamspy.postprocess.ppt">
-<span id="adamspy-postprocess-ppt-module"></span><h2>adamspy.postprocess.ppt module<a class="headerlink" href="#module-adamspy.postprocess.ppt" title="Permalink to this headline">¶</a></h2>
-<p>This module is for sending scripts through Adams/PPT</p>
-<dl class="exception">
-<dt id="adamspy.postprocess.ppt.AviewError">
-<em class="property">exception </em><code class="descclassname">adamspy.postprocess.ppt.</code><code class="descname">AviewError</code><a class="reference internal" href="_modules/adamspy/postprocess/ppt.html#AviewError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.ppt.AviewError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
-<p>Raise this error to if a known error occurs in the log file.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="adamspy.postprocess.ppt.edit_results">
-<code class="descclassname">adamspy.postprocess.ppt.</code><code class="descname">edit_results</code><span class="sig-paren">(</span><em>res_file</em>, <em>input_dict</em>, <em>new_res_file=None</em>, <em>_just_write_script=False</em>, <em>timeout=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/ppt.html#edit_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.ppt.edit_results" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="adamspy.postprocess.ppt.filter_results">
-<code class="descclassname">adamspy.postprocess.ppt.</code><code class="descname">filter_results</code><span class="sig-paren">(</span><em>res_file</em>, <em>reqs_to_clean</em>, <em>freq_cutoff</em>, <em>N_filter=5</em>, <em>reqs_to_check=None</em>, <em>t_min=None</em>, <em>t_max=None</em>, <em>_just_write_script=False</em>, <em>timeout=300</em>, <em>_inplace=False</em>, <em>return_raw=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/ppt.html#filter_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.ppt.filter_results" title="Permalink to this definition">¶</a></dt>
-<dd><p>Similar to <cite>manually_remove_spikes</cite>, but allows user to plot the signals in batches.  Instead of passing a dictionary for the <cite>reqs_to_check</cite> argument, pass a list of dictionaries and the results in each dictionary in the list will be plotted together.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>res_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Adams Results (.res) filename</li>
-<li><strong>reqs_to_clean</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Nested dictionary of result sets and result components to clean</li>
-<li><strong>freq_cutoff</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – Cutoff freqency of filter in Hz</li>
-<li><strong>N_filter</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Order of filter</li>
-<li><strong>reqs_to_check</strong> (<em>list of dicts</em>) – list of nested dictionary of result sets and result components to check for spikes, by default same as reqs_to_clean</li>
-<li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – Minumum simulation time to clean, by default None</li>
-<li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – Maximum simulation time to clean, by default None</li>
-<li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – Number of seconds to wait for results to load before timing out, by default _TIMEOUT</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Nested dictionary of cleaned results</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="adamspy.postprocess.ppt.get_lunar_results">
-<code class="descclassname">adamspy.postprocess.ppt.</code><code class="descname">get_lunar_results</code><span class="sig-paren">(</span><em>res_files</em>, <em>reqs_to_get</em>, <em>t_min</em>, <em>t_max</em>, <em>output_file</em>, <em>_just_write_script=False</em>, <em>timeout=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/ppt.html#get_lunar_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.ppt.get_lunar_results" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="adamspy.postprocess.ppt.get_results">
-<code class="descclassname">adamspy.postprocess.ppt.</code><code class="descname">get_results</code><span class="sig-paren">(</span><em>res_file</em>, <em>reqs_to_get</em>, <em>t_min=None</em>, <em>t_max=None</em>, <em>_just_write_script=False</em>, <em>timeout=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/ppt.html#get_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.ppt.get_results" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets results from an Adams results (.res) file.</p>
-<p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">result_file</span> <span class="o">=</span> <span class="s1">&#39;example.res&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t_min</span> <span class="o">=</span> <span class="mi">70</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t_max</span> <span class="o">=</span> <span class="mi">80</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">reqs_to_get</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">reqs_to_get</span><span class="p">[</span><span class="s1">&#39;MSE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Instantaneous_Bottom_MSE&#39;</span><span class="p">,</span> <span class="s1">&#39;Filtered_Surface_MSE&#39;</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">reqs_to_get</span><span class="p">[</span><span class="s1">&#39;ROP_controls&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Command_ROP&#39;</span><span class="p">,</span> <span class="s1">&#39;True_WOB&#39;</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">requests</span><span class="p">,</span> <span class="n">units</span> <span class="o">=</span> <span class="n">get_results</span><span class="p">(</span><span class="n">result_file</span><span class="p">,</span> <span class="n">reqs_to_get</span><span class="p">,</span> <span class="n">t_min</span><span class="p">,</span> <span class="n">t_max</span><span class="p">)</span>
-</pre></div>
+<div class="section" id="adamspy-postprocess-ppt-module">
+<h2>adamspy.postprocess.ppt module<a class="headerlink" href="#adamspy-postprocess-ppt-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This funciton only works with Requests.  It does not work with Result Sets.</p>
+<div class="section" id="adamspy-postprocess-xml-module">
+<h2>adamspy.postprocess.xml module<a class="headerlink" href="#adamspy-postprocess-xml-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This function only works with xml results files.</p>
-</div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>result_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Filename of an Adams results (.res) file</li>
-<li><strong>reqs_to_get</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Dictionary of requests to extract (the default is None, which gets all results)</li>
-<li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – Minimum time for which to extract results (the default is None)</li>
-<li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – Maximum time for which to extract results (the default is None)</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Dictionary of request data</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="adamspy.postprocess.ppt.manually_remove_spikes">
-<code class="descclassname">adamspy.postprocess.ppt.</code><code class="descname">manually_remove_spikes</code><span class="sig-paren">(</span><em>res_file</em>, <em>reqs_to_clean</em>, <em>reqs_to_check=None</em>, <em>t_min=None</em>, <em>t_max=None</em>, <em>_just_write_script=False</em>, <em>timeout=300</em>, <em>_inplace=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/ppt.html#manually_remove_spikes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.ppt.manually_remove_spikes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Allows the user to manually scan through the result sets to pick out points to eliminate.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>res_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Adams Results (.res) filename</li>
-<li><strong>reqs_to_clean</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a><em>, </em><em>optional</em>) – Nested dictionary of result sets and result components to clean</li>
-<li><strong>reqs_to_check</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Nested dictionary of result sets and result components to check for spikes, by default same as reqs_to_clean</li>
-<li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – Minumum simulation time to clean, by default None</li>
-<li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – Maximum simulation time to clean, by default None</li>
-<li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – Number of seconds to wait for results to load before timing out, by default _TIMEOUT</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Nested dictionary of cleaned results</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="adamspy.postprocess.ppt.manually_remove_spikes_batch">
-<code class="descclassname">adamspy.postprocess.ppt.</code><code class="descname">manually_remove_spikes_batch</code><span class="sig-paren">(</span><em>res_file</em>, <em>reqs_to_clean</em>, <em>reqs_to_check=None</em>, <em>t_min=None</em>, <em>t_max=None</em>, <em>_just_write_script=False</em>, <em>timeout=300</em>, <em>_inplace=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/ppt.html#manually_remove_spikes_batch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.ppt.manually_remove_spikes_batch" title="Permalink to this definition">¶</a></dt>
-<dd><p>Similar to <cite>manually_remove_spikes</cite>, but allows user to plot the signals in batches.  Instead of passing a dictionary for the <cite>reqs_to_check</cite> argument, pass a list of dictionaries and the results in each dictionary in the list will be plotted together.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>res_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Adams Results (.res) filename</li>
-<li><strong>reqs_to_clean</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Nested dictionary of result sets and result components to clean</li>
-<li><strong>reqs_to_check</strong> (<em>list of dicts</em>) – list of nested dictionary of result sets and result components to check for spikes, by default same as reqs_to_clean</li>
-<li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – Minumum simulation time to clean, by default None</li>
-<li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – Maximum simulation time to clean, by default None</li>
-<li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – Number of seconds to wait for results to load before timing out, by default _TIMEOUT</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Nested dictionary of cleaned results</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="adamspy.postprocess.ppt.write_results">
-<code class="descclassname">adamspy.postprocess.ppt.</code><code class="descname">write_results</code><span class="sig-paren">(</span><em>res_file</em>, <em>input_dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/ppt.html#write_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.ppt.write_results" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="module-adamspy.postprocess.xml">
-<span id="adamspy-postprocess-xml-module"></span><h2>adamspy.postprocess.xml module<a class="headerlink" href="#module-adamspy.postprocess.xml" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="adamspy.postprocess.xml.get_component">
-<code class="descclassname">adamspy.postprocess.xml.</code><code class="descname">get_component</code><span class="sig-paren">(</span><em>res_file</em>, <em>comp_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/xml.html#get_component"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.xml.get_component" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the numeric data in <cite>res_file</cite> associated with the result component <cite>comp_name</cite>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>res_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Result (.res) file</li>
-<li><strong>comp_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Name of result component</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">List of values from the result (.res) file.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a></p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.9)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code></a> – Raised if <cite>comp_name</cite> not found in <cite>res_file</cite>.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="adamspy.postprocess.xml.get_results">
-<code class="descclassname">adamspy.postprocess.xml.</code><code class="descname">get_results</code><span class="sig-paren">(</span><em>result_file</em>, <em>reqs_to_get=None</em>, <em>t_min=None</em>, <em>t_max=None</em>, <em>return_units=False</em>, <em>overwrite_pickle=True</em>, <em>use_iterparse=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/xml.html#get_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.xml.get_results" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets results from an Adams results (.res) file.</p>
-<p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">result_file</span> <span class="o">=</span> <span class="s1">&#39;example.res&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t_min</span> <span class="o">=</span> <span class="mi">70</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t_max</span> <span class="o">=</span> <span class="mi">80</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">reqs_to_get</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">reqs_to_get</span><span class="p">[</span><span class="s1">&#39;MSE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Instantaneous_Bottom_MSE&#39;</span><span class="p">,</span> <span class="s1">&#39;Filtered_Surface_MSE&#39;</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">reqs_to_get</span><span class="p">[</span><span class="s1">&#39;ROP_controls&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Command_ROP&#39;</span><span class="p">,</span> <span class="s1">&#39;True_WOB&#39;</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">requests</span><span class="p">,</span> <span class="n">units</span> <span class="o">=</span> <span class="n">get_results</span><span class="p">(</span><span class="n">result_file</span><span class="p">,</span> <span class="n">reqs_to_get</span><span class="p">,</span> <span class="n">t_min</span><span class="p">,</span> <span class="n">t_max</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This funciton only works with Requests.  It does not work with Result Sets.</p>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This function only works with xml results files.</p>
-</div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>result_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Filename of an Adams results (.res) file</li>
-<li><strong>reqs_to_get</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Dictionary of requests to extract (the default is None, which gets all results)</li>
-<li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – Minimum time for which to extract results (the default is None)</li>
-<li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – Maximum time for which to extract results (the default is None)</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
-<li><em>dict</em> – Dictionary of request data</li>
-<li><em>dict</em> – Dictionary defining units for each request. NOTE: This is only returned if <cite>return_units=True</cite></li>
-</ul>
-</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="adamspy.postprocess.xml.get_stepmap_dictionary">
-<code class="descclassname">adamspy.postprocess.xml.</code><code class="descname">get_stepmap_dictionary</code><span class="sig-paren">(</span><em>file_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/xml.html#get_stepmap_dictionary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.xml.get_stepmap_dictionary" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create dictionary where keys are result names and values are indices of components.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Res names must be full, like:
-* time.time
-* part_2_xform.fx
-* part_3_xform.accy</p>
-</div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Results (.res) file</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Step map</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="adamspy.postprocess.xml.shrink_results">
-<code class="descclassname">adamspy.postprocess.xml.</code><code class="descname">shrink_results</code><span class="sig-paren">(</span><em>result_file</em>, <em>reqs_to_keep=None</em>, <em>t_min=None</em>, <em>t_max=None</em>, <em>new_result_file=None</em>, <em>in_place=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/xml.html#shrink_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.xml.shrink_results" title="Permalink to this definition">¶</a></dt>
-<dd><p>Shrinks a results file by eliminating unwanted data.</p>
-<p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">result_file</span> <span class="o">=</span> <span class="s1">&#39;example.res&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t_min</span> <span class="o">=</span> <span class="mi">70</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t_max</span> <span class="o">=</span> <span class="mi">80</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">reqs_to_keep</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">reqs_to_keep</span><span class="p">[</span><span class="s1">&#39;MSE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Instantaneous_Bottom_MSE&#39;</span><span class="p">,</span> <span class="s1">&#39;Filtered_Surface_MSE&#39;</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">reqs_to_keep</span><span class="p">[</span><span class="s1">&#39;ROP_controls&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Command_ROP&#39;</span><span class="p">,</span> <span class="s1">&#39;True_WOB&#39;</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">shrink_results</span><span class="p">(</span><span class="n">result_file</span><span class="p">,</span> <span class="n">reqs_to_keep</span><span class="p">,</span> <span class="n">t_min</span><span class="p">,</span> <span class="n">t_max</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This funciton only works with Requests.  It does not work with Result Sets.</p>
-</div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>result_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Filename of the results file</li>
-<li><strong>reqs_to_keep</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Dictionary of requests and request components that should be saved.</li>
-<li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – Start time of period of interest (default is None which uses the first time step)</li>
-<li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – End time of period of interest (default is None which uses the last time step)</li>
-<li><strong>new_result_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Name that will be given to the new results file. (Default is None which adds a ‘_shrunk’ suffix to <cite>result_file</cite> if in_place=False or uses <cite>result_file</cite> if in_place=True.)</li>
-<li><strong>in_place</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, existing file will be deleted.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</div>
-<div class="section" id="module-adamspy.postprocess">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-adamspy.postprocess" title="Permalink to this headline">¶</a></h2>
-<p>Package for working with Adams Results</p>
-<dl class="function">
-<dt id="adamspy.postprocess.launch_ppt">
-<code class="descclassname">adamspy.postprocess.</code><code class="descname">launch_ppt</code><span class="sig-paren">(</span><em>res_file</em>, <em>cmd_file=None</em>, <em>wait=False</em>, <em>timeout=30</em>, <em>_terminate=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess.html#launch_ppt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.launch_ppt" title="Permalink to this definition">¶</a></dt>
-<dd><p>Launches the Adams PostProcessor and reads in the specified results file.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>res_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Filepath to an Adams Results file.</li>
-<li><strong>cmd_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>optional</em>) – Adams View command (.cmd) file. If given, this will be loaded before the results file.  This is necessary to view animations.</li>
-<li><strong>wait</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em>, </em><em>optional</em>) – If <cite>True</cite>, code execution will freeze until the postprocessor is closed. (the default is False)</li>
-<li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><em>optional</em>) – If <cite>wait`=`False</cite>, code execution will freeze until the postprocessor has started loading the results file or until <cite>timeout</cite> secodns have elapsed.</li>
-<li><strong>_terminate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em>, </em><em>optional</em>) – If <cite>True</cite>, the PostProcessor will close immediately.  This is for testing purposes.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
+<div class="section" id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
