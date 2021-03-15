@@ -16,10 +16,10 @@ from thornpy.signal import _clean_sig as clean_sig
 
 LOG_COMPLETE_PATTERN = '! Command file is exhausted, batch run is finished.'
 
-LUNAR_SCRIPT_NAME = '_get_lunar_results.py'
-GET_RESULTS_SCRIPT_NAME = '_get_results.py'
-EDIT_RESULTS_SCRIPT_NAME = '_edit_results.py'
-TEMP_OUTPUT_FILENAME = '_results_.tmp'
+LUNAR_SCRIPT_NAME = '.get_lunar_results.py'
+GET_RESULTS_SCRIPT_NAME = '.get_results.py'
+EDIT_RESULTS_SCRIPT_NAME = '.edit_results.py'
+TEMP_OUTPUT_FILENAME = '.results.tmp'
 
 LOG_NAME = 'aview.log'
 
