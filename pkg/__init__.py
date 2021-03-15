@@ -1,5 +1,5 @@
 # ---------------------
-version = '0.29.6'
+version = '0.29.7'
 version_notes = 'fixed bugs in adams commands for linux'
 date = 'March 15th, 2021'
 # ---------------------

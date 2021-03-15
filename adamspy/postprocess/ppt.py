@@ -16,10 +16,10 @@ from thornpy.signal import _clean_sig as clean_sig
 
 LOG_COMPLETE_PATTERN = '! Command file is exhausted, batch run is finished.'
 
-LUNAR_SCRIPT_NAME = '.get_lunar_results.py'
-GET_RESULTS_SCRIPT_NAME = '.get_results.py'
-EDIT_RESULTS_SCRIPT_NAME = '.edit_results.py'
-TEMP_OUTPUT_FILENAME = '.results.tmp'
+LUNAR_SCRIPT_NAME = 'get_lunar_results.py'
+GET_RESULTS_SCRIPT_NAME = 'get_results.py'
+EDIT_RESULTS_SCRIPT_NAME = 'edit_results.py'
+TEMP_OUTPUT_FILENAME = 'results.tmp'
 
 LOG_NAME = 'aview.log'
 
@@ -75,8 +75,12 @@ def get_results(res_file, reqs_to_get, t_min=None, t_max=None, _just_write_scrip
     template = TMPLT_ENV.from_string(open(os.path.join(os.path.dirname(__file__), 'aview_scripts', GET_RESULTS_SCRIPT_NAME)).read())
     working_directory = os.path.dirname(res_file)
 
-    with open(os.path.join(working_directory, GET_RESULTS_SCRIPT_NAME), 'w') as fid:
-        fid.write(template.render({'res_file': os.path.split(res_file)[-1], 'reqs_to_get': reqs_to_get, 't_min': t_min, 't_max': t_max, 'output_file': TEMP_OUTPUT_FILENAME}))
+
+    script_filename = _get_unique_filename(GET_RESULTS_SCRIPT_NAME)
+    output_filename = _get_unique_filename(TEMP_OUTPUT_FILENAME)
+    
+    with open(os.path.join(working_directory, script_filename), 'w') as fid:
+        fid.write(template.render({'res_file': os.path.split(res_file)[-1], 'reqs_to_get': reqs_to_get, 't_min': t_min, 't_max': t_max, 'output_file': output_filename}))
 
     if _just_write_script is False:
         # Delete the aview.log file
@@ -91,10 +95,10 @@ def get_results(res_file, reqs_to_get, t_min=None, t_max=None, _just_write_scrip
         if platform.system() == 'Windows':
             startupinfo = subprocess.STARTUPINFO()
             startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW        
-            subprocess.Popen('"{}" aview ru-s b {}'.format(os.environ['ADAMS_LAUNCH_COMMAND'], GET_RESULTS_SCRIPT_NAME), cwd=working_directory, startupinfo=startupinfo)
+            subprocess.Popen('"{}" aview ru-s b {}'.format(os.environ['ADAMS_LAUNCH_COMMAND'], script_filename), cwd=working_directory, startupinfo=startupinfo)
         
         else:
-            subprocess.Popen([os.environ['ADAMS_LAUNCH_COMMAND'], '-c', 'aview', 'ru-standard', 'b', GET_RESULTS_SCRIPT_NAME, 'exit'], cwd=working_directory)            
+            subprocess.Popen([os.environ['ADAMS_LAUNCH_COMMAND'], '-c', 'aview', 'ru-standard', 'b', script_filename, 'exit'], cwd=working_directory)            
 
         # Wait for complete
         _wait(os.path.join(working_directory, LOG_NAME), timeout=timeout)
@@ -103,10 +107,10 @@ def get_results(res_file, reqs_to_get, t_min=None, t_max=None, _just_write_scrip
         _get_log_errors(os.path.join(working_directory, LOG_NAME))
 
         # Read and return the results
-        data = genfromtxt(os.path.join(working_directory, TEMP_OUTPUT_FILENAME), delimiter=',', names=True, dtype=None)
+        data = genfromtxt(os.path.join(working_directory, output_filename), delimiter=',', names=True, dtype=None)
 
-        os.remove(os.path.join(working_directory, GET_RESULTS_SCRIPT_NAME))
-        os.remove(os.path.join(working_directory, TEMP_OUTPUT_FILENAME))
+        os.remove(os.path.join(working_directory, script_filename))
+        os.remove(os.path.join(working_directory, output_filename))
 
         output_dict = {'time': list(data['time'])}
         for res in reqs_to_get:
@@ -126,7 +130,9 @@ def edit_results(res_file, input_dict, new_res_file=None, _just_write_script=Fal
 
     new_res_file = os.path.split(res_file)[-1] if new_res_file is None else os.path.split(new_res_file)[-1]
 
-    with open(os.path.join(working_directory, EDIT_RESULTS_SCRIPT_NAME), 'w') as fid:
+    script_name = _get_unique_filename(EDIT_RESULTS_SCRIPT_NAME)
+
+    with open(os.path.join(working_directory, script_name), 'w') as fid:
         fid.write(template.render({'res_file': os.path.split(res_file)[-1], 'reqs_to_edit': input_dict, 'output_file': new_res_file}))
 
     if _just_write_script is False:
@@ -142,10 +148,10 @@ def edit_results(res_file, input_dict, new_res_file=None, _just_write_script=Fal
             # Run the postprocessor
             startupinfo = subprocess.STARTUPINFO()
             startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW        
-            subprocess.Popen('"{}" aview ru-s b {}'.format(os.environ['ADAMS_LAUNCH_COMMAND'], EDIT_RESULTS_SCRIPT_NAME), cwd=working_directory, startupinfo=startupinfo)
+            subprocess.Popen('"{}" aview ru-s b {}'.format(os.environ['ADAMS_LAUNCH_COMMAND'], script_name), cwd=working_directory, startupinfo=startupinfo)
         
         else:
-            subprocess.Popen([os.environ['ADAMS_LAUNCH_COMMAND'], '-c', 'aview', 'ru-s', 'b', EDIT_RESULTS_SCRIPT_NAME, 'exit'], cwd=working_directory)
+            subprocess.Popen([os.environ['ADAMS_LAUNCH_COMMAND'], '-c', 'aview', 'ru-s', 'b', script_name, 'exit'], cwd=working_directory)
 
         # Wait for complete
         _wait(os.path.join(working_directory, LOG_NAME), timeout=timeout)
@@ -159,7 +165,9 @@ def get_lunar_results(res_files, reqs_to_get, t_min, t_max, output_file, _just_w
     
     working_directory = os.path.dirname(res_files[0])
 
-    with open(os.path.join(working_directory, LUNAR_SCRIPT_NAME), 'w') as fid:
+    script_name = _get_unique_filename(LUNAR_SCRIPT_NAME)
+
+    with open(os.path.join(working_directory, script_name), 'w') as fid:
         fid.write(template.render({'res_files': res_files, 'reqs_to_get': reqs_to_get, 't_min': t_min, 't_max': t_max, 'output_suffix': output_file}))
 
     if _just_write_script is False:
@@ -173,15 +181,15 @@ def get_lunar_results(res_files, reqs_to_get, t_min, t_max, output_file, _just_w
         if platform.system() == 'Windows':
             startupinfo = subprocess.STARTUPINFO()
             startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW        
-            subprocess.Popen('"{}" aview ru-s b {}'.format(os.environ['ADAMS_LAUNCH_COMMAND'], LUNAR_SCRIPT_NAME), cwd=working_directory, startupinfo=startupinfo)
+            subprocess.Popen('"{}" aview ru-s b {}'.format(os.environ['ADAMS_LAUNCH_COMMAND'], script_name), cwd=working_directory, startupinfo=startupinfo)
         
         else:
-            subprocess.Popen([os.environ['ADAMS_LAUNCH_COMMAND'], 'aview', 'ru-s', 'b', LUNAR_SCRIPT_NAME], cwd=working_directory)
+            subprocess.Popen([os.environ['ADAMS_LAUNCH_COMMAND'], 'aview', 'ru-s', 'b', script_name], cwd=working_directory)
 
         # Wait for complete
         _wait(os.path.join(working_directory, LOG_NAME), timeout=timeout)
 
-        os.remove(os.path.join(working_directory, LUNAR_SCRIPT_NAME))
+        os.remove(os.path.join(working_directory, script_name))
 
         # Make a list of the files that are written
         res_output_files = [os.path.splitext(output_file)[0] + '_time' + os.path.splitext(output_file)[-1]]
@@ -323,7 +331,7 @@ def filter_results(res_file, reqs_to_clean, freq_cutoff, N_filter=5, reqs_to_che
     filtered_results = {}
     for res_name, res_comps in results.items():
         filtered_results[res_name] = {}
-        for res_comp, values in res_comps.items():
+        for res_comp, values in res_comps.items():                                          # pylint: disable=no-member
 
             cleaned_sig, _, _ = clean_sig(values, 3)
             
@@ -399,6 +407,18 @@ def manually_remove_spikes_batch(res_file, reqs_to_clean, reqs_to_check=None, t_
     # Return the cleaned results
     return results
     
+def _get_unique_filename(filename):
+    if os.path.exists(filename):
+
+        for i in range(9999):
+            new_name, ext = os.path.splitext(filename)
+            new_name = new_name + f'_{i+1}'
+            if not os.path.exists(new_name + ext):
+                filename = new_name + ext
+                break    
+
+    return filename
+
 class AviewError(Exception):
     """Raise this error to if a known error occurs in the log file.
     
