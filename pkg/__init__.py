@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.29.7'
-version_notes = 'fixed bugs in adams commands for linux'
-date = 'March 15th, 2021'
+version = '0.29.8'
+version_notes = 'added a function to get log file errors'
+date = 'October 8th, 2021'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'

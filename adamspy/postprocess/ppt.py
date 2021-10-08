@@ -12,7 +12,7 @@ from numpy import genfromtxt
 import matplotlib.pyplot as plt
 from thornpy.signal import manually_clean_sig, remove_data_point, manually_clean_sigs, low_pass
 from thornpy.signal import _clean_sig as clean_sig
-
+from . import LOG_FILE_ERROR_PATTERN
 
 LOG_COMPLETE_PATTERN = '! Command file is exhausted, batch run is finished.'
 
@@ -32,11 +32,10 @@ TMPLT_ENV = jinja2.Environment(
 )
 
 _TIMEOUT = 300
-LOG_FILE_ERROR_PATTERN = '! \\S*Error: '
 
 def get_results(res_file, reqs_to_get, t_min=None, t_max=None, _just_write_script=False, timeout=_TIMEOUT):
     """Gets results from an Adams results (.res) file.
-	
+
 	Example
 	-------
 	>>> result_file = 'example.res'
@@ -54,7 +53,7 @@ def get_results(res_file, reqs_to_get, t_min=None, t_max=None, _just_write_scrip
 	Note
 	----
 	This function only works with xml results files.
-	
+
 	Parameters
 	----------
 	result_file : str
@@ -65,12 +64,12 @@ def get_results(res_file, reqs_to_get, t_min=None, t_max=None, _just_write_scrip
 		Minimum time for which to extract results (the default is None)
 	t_max : float, optional
 		Maximum time for which to extract results (the default is None)
-	
+
 	Returns
 	-------
 	dict
 		Dictionary of request data
-	
+
 	"""
     template = TMPLT_ENV.from_string(open(os.path.join(os.path.dirname(__file__), 'aview_scripts', GET_RESULTS_SCRIPT_NAME)).read())
     working_directory = os.path.dirname(res_file)
@@ -78,7 +77,7 @@ def get_results(res_file, reqs_to_get, t_min=None, t_max=None, _just_write_scrip
 
     script_filename = _get_unique_filename(GET_RESULTS_SCRIPT_NAME)
     output_filename = _get_unique_filename(TEMP_OUTPUT_FILENAME)
-    
+
     with open(os.path.join(working_directory, script_filename), 'w') as fid:
         fid.write(template.render({'res_file': os.path.split(res_file)[-1], 'reqs_to_get': reqs_to_get, 't_min': t_min, 't_max': t_max, 'output_file': output_filename}))
 
@@ -94,11 +93,11 @@ def get_results(res_file, reqs_to_get, t_min=None, t_max=None, _just_write_scrip
         # Run the postprocessor
         if platform.system() == 'Windows':
             startupinfo = subprocess.STARTUPINFO()
-            startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW        
+            startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
             subprocess.Popen('"{}" aview ru-s b {}'.format(os.environ['ADAMS_LAUNCH_COMMAND'], script_filename), cwd=working_directory, startupinfo=startupinfo)
-        
+
         else:
-            subprocess.Popen([os.environ['ADAMS_LAUNCH_COMMAND'], '-c', 'aview', 'ru-standard', 'b', script_filename, 'exit'], cwd=working_directory)            
+            subprocess.Popen([os.environ['ADAMS_LAUNCH_COMMAND'], '-c', 'aview', 'ru-standard', 'b', script_filename, 'exit'], cwd=working_directory)
 
         # Wait for complete
         _wait(os.path.join(working_directory, LOG_NAME), timeout=timeout)
@@ -117,7 +116,7 @@ def get_results(res_file, reqs_to_get, t_min=None, t_max=None, _just_write_scrip
             output_dict[res] = {}
             for comp in reqs_to_get[res]:
                 output_dict[res][comp] = list(data[f'{res}_{comp}'])
-        
+
         return output_dict
 
 def write_results(res_file, input_dict):
@@ -147,9 +146,9 @@ def edit_results(res_file, input_dict, new_res_file=None, _just_write_script=Fal
         if platform.system() == 'Windows':
             # Run the postprocessor
             startupinfo = subprocess.STARTUPINFO()
-            startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW        
+            startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
             subprocess.Popen('"{}" aview ru-s b {}'.format(os.environ['ADAMS_LAUNCH_COMMAND'], script_name), cwd=working_directory, startupinfo=startupinfo)
-        
+
         else:
             subprocess.Popen([os.environ['ADAMS_LAUNCH_COMMAND'], '-c', 'aview', 'ru-s', 'b', script_name, 'exit'], cwd=working_directory)
 
@@ -160,9 +159,9 @@ def edit_results(res_file, input_dict, new_res_file=None, _just_write_script=Fal
         _get_log_errors(os.path.join(working_directory, LOG_NAME))
 
 def get_lunar_results(res_files, reqs_to_get, t_min, t_max, output_file, _just_write_script=False, timeout=_TIMEOUT):
-    
+
     template = TMPLT_ENV.from_string(open(os.path.join(os.path.dirname(__file__), 'aview_scripts', LUNAR_SCRIPT_NAME)).read())
-    
+
     working_directory = os.path.dirname(res_files[0])
 
     script_name = _get_unique_filename(LUNAR_SCRIPT_NAME)
@@ -176,13 +175,13 @@ def get_lunar_results(res_files, reqs_to_get, t_min, t_max, output_file, _just_w
             os.remove(os.path.join(working_directory, LOG_NAME))
         except FileNotFoundError:
             pass
-        
+
         # Run the postprocessor
         if platform.system() == 'Windows':
             startupinfo = subprocess.STARTUPINFO()
-            startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW        
+            startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
             subprocess.Popen('"{}" aview ru-s b {}'.format(os.environ['ADAMS_LAUNCH_COMMAND'], script_name), cwd=working_directory, startupinfo=startupinfo)
-        
+
         else:
             subprocess.Popen([os.environ['ADAMS_LAUNCH_COMMAND'], 'aview', 'ru-s', 'b', script_name], cwd=working_directory)
 
@@ -202,7 +201,7 @@ def get_lunar_results(res_files, reqs_to_get, t_min, t_max, output_file, _just_w
 
 def _wait(log_file, sleep_time=0.2, timeout=300):
     """Waits for the log file to write the last line of the macro
-    
+
     Parameters
     ----------
     log_file : str
@@ -212,11 +211,11 @@ def _wait(log_file, sleep_time=0.2, timeout=300):
     timeout : int, optional
         During after which to time out, by default 300
 
-    """    
+    """
 
     for _i in range(int(timeout/sleep_time)):
-        
-        ppt_log_file_exists = os.path.exists(log_file)       
+
+        ppt_log_file_exists = os.path.exists(log_file)
 
         if ppt_log_file_exists is True:
             # If ppt.log exists, open it and see if the results have been loaded
@@ -224,12 +223,12 @@ def _wait(log_file, sleep_time=0.2, timeout=300):
                 text = fid.read()
             if re.search(LOG_COMPLETE_PATTERN, text):
                 break
-                
+
         time.sleep(sleep_time)
 
 def _get_log_errors(log_file):
     """Checks the log file for errors of the type AviewError.
-    
+
     Parameters
     ----------
     log_file : str
@@ -238,10 +237,10 @@ def _get_log_errors(log_file):
     """
     with open(log_file, 'r') as fid:
         lines = fid.readlines()
-    
+
     for line in lines:
         if re.search(LOG_FILE_ERROR_PATTERN, line):
-            raise AviewError(line[2:])        
+            raise AviewError(line[2:])
 
 def manually_remove_spikes(res_file, reqs_to_clean, reqs_to_check=None, t_min=None, t_max=None, _just_write_script=False, timeout=_TIMEOUT, _inplace=False):
     """Allows the user to manually scan through the result sets to pick out points to eliminate.
@@ -249,7 +248,7 @@ def manually_remove_spikes(res_file, reqs_to_clean, reqs_to_check=None, t_min=No
     Parameters
     ----------
     res_file : str
-        Adams Results (.res) filename 
+        Adams Results (.res) filename
     reqs_to_clean : dict, optional
         Nested dictionary of result sets and result components to clean
     reqs_to_check : dict
@@ -265,15 +264,15 @@ def manually_remove_spikes(res_file, reqs_to_clean, reqs_to_check=None, t_min=No
     -------
     dict
         Nested dictionary of cleaned results
-        
+
     """
     if reqs_to_check is None:
         reqs_to_check = reqs_to_clean
 
     results = get_results(res_file, reqs_to_clean, t_min=t_min, t_max=t_max, _just_write_script=_just_write_script, timeout=timeout)
-    
+
     time_sig = results['time']
-    
+
     # Remove the spikes
     for (res, res_comps) in [(r, rc) for r, rc in results.items() if r in reqs_to_check]:
         for (res_comp, values) in [(rc, v) for rc, v in res_comps.items() if rc in reqs_to_check[res]]:
@@ -300,7 +299,7 @@ def filter_results(res_file, reqs_to_clean, freq_cutoff, N_filter=5, reqs_to_che
     Parameters
     ----------
     res_file : str
-        Adams Results (.res) filename 
+        Adams Results (.res) filename
     reqs_to_clean : dict
         Nested dictionary of result sets and result components to clean
     freq_cutoff : float
@@ -320,12 +319,12 @@ def filter_results(res_file, reqs_to_clean, freq_cutoff, N_filter=5, reqs_to_che
     -------
     dict
         Nested dictionary of cleaned results
-        
+
     """
     if reqs_to_check is None:
         reqs_to_check = [reqs_to_clean]
 
-    results = get_results(res_file, reqs_to_clean, t_min=t_min, t_max=t_max, _just_write_script=_just_write_script, timeout=timeout)    
+    results = get_results(res_file, reqs_to_clean, t_min=t_min, t_max=t_max, _just_write_script=_just_write_script, timeout=timeout)
     time_sig = results.pop('time')
 
     filtered_results = {}
@@ -334,14 +333,14 @@ def filter_results(res_file, reqs_to_clean, freq_cutoff, N_filter=5, reqs_to_che
         for res_comp, values in res_comps.items():                                          # pylint: disable=no-member
 
             cleaned_sig, _, _ = clean_sig(values, 3)
-            
+
             filtered_results[res_name][res_comp], _ = low_pass(cleaned_sig, time_sig, freq_cutoff, N=N_filter)
 
     # Return the cleaned results
     if return_raw is True:
         return {'time': time_sig, **filtered_results}, {'time': time_sig, **results}
     else:
-        return {'time': time_sig, **filtered_results} 
+        return {'time': time_sig, **filtered_results}
 
 def manually_remove_spikes_batch(res_file, reqs_to_clean, reqs_to_check=None, t_min=None, t_max=None, _just_write_script=False, timeout=_TIMEOUT, _inplace=False):
     """Similar to `manually_remove_spikes`, but allows user to plot the signals in batches.  Instead of passing a dictionary for the `reqs_to_check` argument, pass a list of dictionaries and the results in each dictionary in the list will be plotted together.
@@ -349,7 +348,7 @@ def manually_remove_spikes_batch(res_file, reqs_to_clean, reqs_to_check=None, t_
     Parameters
     ----------
     res_file : str
-        Adams Results (.res) filename 
+        Adams Results (.res) filename
     reqs_to_clean : dict
         Nested dictionary of result sets and result components to clean
     reqs_to_check : list of dicts
@@ -365,32 +364,32 @@ def manually_remove_spikes_batch(res_file, reqs_to_clean, reqs_to_check=None, t_
     -------
     dict
         Nested dictionary of cleaned results
-        
+
     """
     if reqs_to_check is None:
         reqs_to_check = [reqs_to_clean]
 
     results = get_results(res_file, reqs_to_clean, t_min=t_min, t_max=t_max, _just_write_script=_just_write_script, timeout=timeout)
-    
+
     time_sig = results['time']
 
     # Create a flag indicating if the results have been modified and need to be rewritten
     results_modified = False
 
     for batch_to_check in reqs_to_check:
-        
+
         # Make a list/batch of values to clean
         values_to_check = []
         for (res, res_comps) in [(r, rc) for r, rc in results.items() if r in batch_to_check]:
             for (res_comp, values) in [(rc, v) for rc, v in res_comps.items() if rc in batch_to_check[res]]:
-                
+
                 values_to_check.append(values)
 
         _, i_mod = manually_clean_sigs(time_sig, values_to_check, indices=True)
 
         # If a modification was made to the signal, make that modification to the rest of the signals
         if i_mod != []:
-            
+
             # Loop over all the results
             for (res, res_comps) in [(r, rc) for r, rc in results.items() if r != 'time']:
                 for (res_comp, values) in res_comps.items():
@@ -406,7 +405,7 @@ def manually_remove_spikes_batch(res_file, reqs_to_clean, reqs_to_check=None, t_
 
     # Return the cleaned results
     return results
-    
+
 def _get_unique_filename(filename):
     if os.path.exists(filename):
 
@@ -415,12 +414,12 @@ def _get_unique_filename(filename):
             new_name = new_name + f'_{i+1}'
             if not os.path.exists(new_name + ext):
                 filename = new_name + ext
-                break    
+                break
 
     return filename
 
 class AviewError(Exception):
     """Raise this error to if a known error occurs in the log file.
-    
+
     """
     pass
