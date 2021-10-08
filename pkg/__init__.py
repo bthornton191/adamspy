@@ -1,5 +1,5 @@
 # ---------------------
-version = '0.29.8'
+version = '0.29.9'
 version_notes = 'added a function to get log file errors'
 date = 'October 8th, 2021'
 # ---------------------
