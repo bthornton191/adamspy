@@ -22,7 +22,7 @@ MarkupSafe==1.1.1
 matplotlib==3.0.3
 mccabe==0.6.1
 networkx==2.5
-numpy==1.16.2
+numpy==1.22.0
 opencv-python==4.2.0.34
 packaging==19.0
 pandas==0.24.2
