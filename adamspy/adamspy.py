@@ -6,6 +6,7 @@ import subprocess
 import platform
 
 XMT_PATTERN = re.compile('\\s*file_name\\s*=\\s*"?.+\\.xmt_txt"?\\s*')
+LOG_FILE_ERROR_PATTERN = '! \\S*Error: '
 
 def get_simdur_from_msg(msg_file):
 	"""Reads an Adams message file (.msg) and returns the total duration of the simulation.
@@ -177,5 +178,33 @@ def solve(acf_file, wait=False, use_adams_car=False):
 	
 	return proc
 
+def get_log_errors(log_file):
+	"""Checks the log file for errors of the type AviewError.
+	
+	Parameters
+	----------
+	log_file : str
+		Filename of aview log file (usulally aview.log)
+
+	"""
+	with open(log_file, 'r') as fid:
+		lines = fid.readlines()
+
+	errors = []
+	for line in lines:
+		if re.search(LOG_FILE_ERROR_PATTERN, line):
+			errors.append(line[2:])
+
+	if errors:
+		raise AviewError('\n'.join(errors))
+
+
 class AdmFileError(Exception):
+	pass
+
+
+class AviewError(Exception):
+	"""Raise this error to if a known error occurs in the log file.
+	
+	"""
 	pass

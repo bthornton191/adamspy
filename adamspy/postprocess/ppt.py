@@ -9,10 +9,10 @@ import platform
 
 import jinja2
 from numpy import genfromtxt
-import matplotlib.pyplot as plt
 from thornpy.signal import manually_clean_sig, remove_data_point, manually_clean_sigs, low_pass
 from thornpy.signal import _clean_sig as clean_sig
 
+from ..adamspy import get_log_errors
 
 LOG_COMPLETE_PATTERN = '! Command file is exhausted, batch run is finished.'
 
@@ -104,7 +104,7 @@ def get_results(res_file, reqs_to_get, t_min=None, t_max=None, _just_write_scrip
         _wait(os.path.join(working_directory, LOG_NAME), timeout=timeout)
 
         # Check the log file for errors
-        _get_log_errors(os.path.join(working_directory, LOG_NAME))
+        get_log_errors(os.path.join(working_directory, LOG_NAME))
 
         # Read and return the results
         data = genfromtxt(os.path.join(working_directory, output_filename), delimiter=',', names=True, dtype=None)
@@ -157,7 +157,7 @@ def edit_results(res_file, input_dict, new_res_file=None, _just_write_script=Fal
         _wait(os.path.join(working_directory, LOG_NAME), timeout=timeout)
 
         # Check the log file for errors
-        _get_log_errors(os.path.join(working_directory, LOG_NAME))
+        get_log_errors(os.path.join(working_directory, LOG_NAME))
 
 def get_lunar_results(res_files, reqs_to_get, t_min, t_max, output_file, _just_write_script=False, timeout=_TIMEOUT):
     
@@ -226,22 +226,6 @@ def _wait(log_file, sleep_time=0.2, timeout=300):
                 break
                 
         time.sleep(sleep_time)
-
-def _get_log_errors(log_file):
-    """Checks the log file for errors of the type AviewError.
-    
-    Parameters
-    ----------
-    log_file : str
-        Filename of aview log file (usulally aview.log)
-
-    """
-    with open(log_file, 'r') as fid:
-        lines = fid.readlines()
-    
-    for line in lines:
-        if re.search(LOG_FILE_ERROR_PATTERN, line):
-            raise AviewError(line[2:])        
 
 def manually_remove_spikes(res_file, reqs_to_clean, reqs_to_check=None, t_min=None, t_max=None, _just_write_script=False, timeout=_TIMEOUT, _inplace=False):
     """Allows the user to manually scan through the result sets to pick out points to eliminate.
@@ -418,9 +402,3 @@ def _get_unique_filename(filename):
                 break    
 
     return filename
-
-class AviewError(Exception):
-    """Raise this error to if a known error occurs in the log file.
-    
-    """
-    pass

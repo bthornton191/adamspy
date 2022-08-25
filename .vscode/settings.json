@@ -1,5 +1,4 @@
 {
-    "python.pythonPath": "env3\\Scripts\\python.exe",
     "python.testing.unittestArgs": [
         "-v",
         "-s",
