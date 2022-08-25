@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.29.9'
-version_notes = 'added a function to get log file errors'
+version = '0.29.10'
+version_notes = 'pusing'
 date = 'October 8th, 2021'
 # ---------------------
 author = 'Ben Thornton'

@@ -140,6 +140,6 @@ def get_log_errors(log_file):
     with open(log_file, 'r') as fid:
         lines = fid.readlines()
 
-    errors = [line for line in lines if re.search(LOG_FILE_ERROR_PATTERN, line)]
+    errors = [line for line in lines if re.search(LOG_FILE_ERROR_PATTERN, line, flags=re.I)]
 
     return errors
