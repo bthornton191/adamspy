@@ -196,7 +196,7 @@ def get_log_errors(log_file):
 			errors.append(line[2:])
 
 	if errors:
-		raise AviewError('\n'.join(errors))
+		raise AviewError(''.join(errors))
 
 
 class AdmFileError(Exception):

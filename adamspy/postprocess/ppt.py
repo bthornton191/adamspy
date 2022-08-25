@@ -32,7 +32,6 @@ TMPLT_ENV = jinja2.Environment(
 )
 
 _TIMEOUT = 300
-LOG_FILE_ERROR_PATTERN = '! \\S*Error: '
 
 def get_results(res_file, reqs_to_get, t_min=None, t_max=None, _just_write_script=False, timeout=_TIMEOUT):
     """Gets results from an Adams results (.res) file.
