@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.waterfall package &mdash; adamspy 0.29.13 documentation</title>
+  <title>adamspy.waterfall package &mdash; adamspy 0.29.14 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.29.13
+                0.29.14
               </div>
             
           
@@ -86,8 +86,8 @@
               <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">adamspy.waterfall package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#adamspy-waterfall-waterfall-module">adamspy.waterfall.waterfall module</a></li>
-<li><a class="reference internal" href="#module-contents">Module contents</a></li>
+<li><a class="reference internal" href="#module-adamspy.waterfall.waterfall">adamspy.waterfall.waterfall module</a></li>
+<li><a class="reference internal" href="#module-adamspy.waterfall">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -159,11 +159,57 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="adamspy-waterfall-waterfall-module">
-<h2>adamspy.waterfall.waterfall module<a class="headerlink" href="#adamspy-waterfall-waterfall-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-adamspy.waterfall.waterfall">
+<span id="adamspy-waterfall-waterfall-module"></span><h2>adamspy.waterfall.waterfall module<a class="headerlink" href="#module-adamspy.waterfall.waterfall" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="adamspy.waterfall.waterfall.fft_watefall">
+<code class="descclassname">adamspy.waterfall.waterfall.</code><code class="descname">fft_watefall</code><span class="sig-paren">(</span><em>res_file</em>, <em>res</em>, <em>comp</em>, <em>percent_overlap=50</em>, <em>n_fft=1024</em>, <em>t_min=None</em>, <em>t_max=None</em>, <em>input_res=None</em>, <em>input_comp=None</em>, <em>input_conversion_factor=0.16666666666666666</em>, <em>input_unit='RPM'</em>, <em>response_unit=None</em>, <em>response_conversion_factor=1</em>, <em>psd=False</em>, <em>z_scale='linear'</em>, <em>order_lines=None</em>, <em>f_range=None</em>, <em>clean_sig=None</em>, <em>return_order_cuts=None</em>, <em>title=None</em>, <em>vmin=None</em>, <em>vmax=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/waterfall/waterfall.html#fft_watefall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.waterfall.waterfall.fft_watefall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Genenerates a waterfall plot from data in an Adams result or request file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>res_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – File name of Adams result (.res) or request (.req) file.</li>
+<li><strong>res</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the result in the adams dataset</li>
+<li><strong>comp</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the result component in the Adams dataset</li>
+<li><strong>percent_overlap</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – Percent overlap for the FFT waterfall, by default 50</li>
+<li><strong>n_fft</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – Number of points used in each FFT, by default 1024</li>
+<li><strong>window</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Type of window used for each FFT, by default ‘hanning’</li>
+<li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – Start time if cropping data, by default None</li>
+<li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – End time if cropping data, by default None</li>
+<li><strong>input_res</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Name of the result to use as the input speed.  If none is given the x axis of the waterfall plot will be time, by default None</li>
+<li><strong>input_comp</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Name of the result component to use as the input speed., by default None</li>
+<li><strong>input_conversion_factor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – Conversion factor applied to input signal, by default 60/360 (deg/s to RPM)</li>
+<li><strong>response_unit</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Text to display on the response signal y axis, by default None</li>
+<li><strong>input_unit</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Text to display on the input signal y axis, by default None</li>
+<li><strong>conversion_factor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – Conversion factor applied to response signal, by default 1</li>
+<li><strong>psd</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True FFT will output in PSD. If False FFT will output Magnitude , by default False</li>
+<li><strong>z_scale</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – The scaling of the values in the spec. ‘linear’ is no scaling. ‘dB’ returns the values in dB scale. <cite>psd</cite> is True, this is dB power (10 * log10). Otherwise this is dB amplitude (20 * log10). by default ‘linear’</li>
+<li><strong>orders</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>, </em><em>optional</em>) – Adds order fans to the waterfall plots at each order in the list.  Only used if <cite>input_comp</cite> is given.</li>
+<li><strong>f_range</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>, </em><em>optional</em>) – [mininum frequency, maximum frequency].  Only affects plot limits</li>
+<li><strong>clean_sig</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – If given, removes data points that exceed <cite>clean_sig</cite> multiplied by the standard deviation of the signal.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Waterfall plot</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Figure</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
-<div class="section" id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-adamspy.waterfall">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-adamspy.waterfall" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="adamspy.waterfall.get_res_data">
+<code class="descclassname">adamspy.waterfall.</code><code class="descname">get_res_data</code><span class="sig-paren">(</span><em>res_file</em>, <em>res</em>, <em>comp</em>, <em>t_min=None</em>, <em>t_max=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/waterfall.html#get_res_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.waterfall.get_res_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 </div>
 

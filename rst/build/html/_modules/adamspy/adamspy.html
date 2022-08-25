@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adamspy &mdash; adamspy 0.29.13 documentation</title>
+  <title>adamspy.adamspy &mdash; adamspy 0.29.14 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.29.13
+                0.29.14
               </div>
             
           
@@ -156,174 +156,174 @@
 <span class="n">LOG_FILE_ERROR_PATTERN</span> <span class="o">=</span> <span class="s1">&#39;! </span><span class="se">\\</span><span class="s1">S*Error: &#39;</span>
 
 <div class="viewcode-block" id="get_simdur_from_msg"><a class="viewcode-back" href="../../adamspy.html#adamspy.adamspy.get_simdur_from_msg">[docs]</a><span class="k">def</span> <span class="nf">get_simdur_from_msg</span><span class="p">(</span><span class="n">msg_file</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;Reads an Adams message file (.msg) and returns the total duration of the simulation.</span>
-<span class="sd">	</span>
-<span class="sd">	Parameters</span>
-<span class="sd">	----------</span>
-<span class="sd">	msg_file : str</span>
-<span class="sd">		Filepath to an Adams message file (.msg)</span>
-<span class="sd">	</span>
-<span class="sd">	Raises</span>
-<span class="sd">	------</span>
-<span class="sd">	RuntimeError</span>
-<span class="sd">		Returned if no simulation end time was found in the specified message file</span>
-<span class="sd">	</span>
-<span class="sd">	Returns</span>
-<span class="sd">	-------</span>
-<span class="sd">	float</span>
-<span class="sd">		Total duration of the simulation</span>
+    <span class="sd">&quot;&quot;&quot;Reads an Adams message file (.msg) and returns the total duration of the simulation.</span>
 
-<span class="sd">	&quot;&quot;&quot;</span>
-	<span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
-	<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">msg_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
-		<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid</span><span class="p">:</span>
-			<span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39; *command: sim(ulate)?/dyn(anmic)?.*, *end *=.*&#39;</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()):</span>
-				<span class="n">duration</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;end *=&#39;</span><span class="p">,</span><span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
-				<span class="n">found</span><span class="o">=</span><span class="kc">True</span>
-	
-	<span class="c1"># Raise an error if no duration found</span>
-	<span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
-		<span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;No simulation end time was found in the specified message file!&#39;</span><span class="p">)</span>
-		
-	<span class="k">return</span> <span class="n">duration</span></div>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    msg_file : str</span>
+<span class="sd">        Filepath to an Adams message file (.msg)</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    RuntimeError</span>
+<span class="sd">        Returned if no simulation end time was found in the specified message file</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Total duration of the simulation</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">msg_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39; *command: sim(ulate)?/dyn(anmic)?.*, *end *=.*&#39;</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()):</span>
+                <span class="n">duration</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;end *=&#39;</span><span class="p">,</span><span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">found</span><span class="o">=</span><span class="kc">True</span>
+
+    <span class="c1"># Raise an error if no duration found</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;No simulation end time was found in the specified message file!&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">duration</span></div>
 
 <div class="viewcode-block" id="get_simdur_from_acf"><a class="viewcode-back" href="../../adamspy.html#adamspy.adamspy.get_simdur_from_acf">[docs]</a><span class="k">def</span> <span class="nf">get_simdur_from_acf</span><span class="p">(</span><span class="n">acf_file</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;Reads an Adams command file (.acf) and returns the total duration of the simulation.</span>
-<span class="sd">	</span>
-<span class="sd">	Parameters</span>
-<span class="sd">	----------</span>
-<span class="sd">	acf_file : str</span>
-<span class="sd">		Filepath to an Adams message file (.msg)</span>
-<span class="sd">	</span>
-<span class="sd">	Raises</span>
-<span class="sd">	------</span>
-<span class="sd">	RuntimeError</span>
-<span class="sd">		Returned if no simulation end time was found in the specified message file</span>
-<span class="sd">	</span>
-<span class="sd">	Returns</span>
-<span class="sd">	-------</span>
-<span class="sd">	float</span>
-<span class="sd">		Total duration of the simulation</span>
+    <span class="sd">&quot;&quot;&quot;Reads an Adams command file (.acf) and returns the total duration of the simulation.</span>
 
-<span class="sd">	&quot;&quot;&quot;</span>
-	<span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
-	<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">acf_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
-		<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid</span><span class="p">:</span>
-			<span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;sim(ulate)?/dyn(anmic)?.*, *end *=.*&#39;</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()):</span>
-				<span class="n">duration</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;end *=&#39;</span><span class="p">,</span><span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
-				<span class="n">found</span><span class="o">=</span><span class="kc">True</span>
-	
-	<span class="c1"># Raise an error if no duration found</span>
-	<span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
-		<span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;No simulation end time was found in the specified acf file!&#39;</span><span class="p">)</span>
-		
-	<span class="k">return</span> <span class="n">duration</span></div>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    acf_file : str</span>
+<span class="sd">        Filepath to an Adams message file (.msg)</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    RuntimeError</span>
+<span class="sd">        Returned if no simulation end time was found in the specified message file</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Total duration of the simulation</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">acf_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;sim(ulate)?/dyn(anmic)?.*, *end *=.*&#39;</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()):</span>
+                <span class="n">duration</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;end *=&#39;</span><span class="p">,</span><span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">found</span><span class="o">=</span><span class="kc">True</span>
+
+    <span class="c1"># Raise an error if no duration found</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;No simulation end time was found in the specified acf file!&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">duration</span></div>
 
 <div class="viewcode-block" id="modify_xmt_path"><a class="viewcode-back" href="../../adamspy.html#adamspy.adamspy.modify_xmt_path">[docs]</a><span class="k">def</span> <span class="nf">modify_xmt_path</span><span class="p">(</span><span class="n">cmd_file</span><span class="p">,</span> <span class="n">new_xmt_path</span><span class="p">):</span>
-	<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">cmd_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid_in</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">cmd_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.cmd&#39;</span><span class="p">,</span> <span class="s1">&#39;.tmp&#39;</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid_out</span><span class="p">:</span>
-		<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid_in</span><span class="p">:</span>
-			<span class="k">if</span> <span class="n">XMT_PATTERN</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-				<span class="n">fid_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
-			<span class="k">else</span><span class="p">:</span>
-				<span class="n">line_parts</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span>
-				<span class="n">fid_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">line_parts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">new_xmt_path</span><span class="p">,</span> <span class="n">line_parts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]))</span>
-				<span class="n">original_path</span> <span class="o">=</span> <span class="n">line_parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-	<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">cmd_file</span><span class="p">)</span>
-	<span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">cmd_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.cmd&#39;</span><span class="p">,</span> <span class="s1">&#39;.tmp&#39;</span><span class="p">),</span> <span class="n">cmd_file</span><span class="p">)</span>
-	<span class="k">return</span> <span class="n">original_path</span></div>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">cmd_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid_in</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">cmd_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.cmd&#39;</span><span class="p">,</span> <span class="s1">&#39;.tmp&#39;</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid_out</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid_in</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">XMT_PATTERN</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">fid_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">line_parts</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span>
+                <span class="n">fid_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">line_parts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">new_xmt_path</span><span class="p">,</span> <span class="n">line_parts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]))</span>
+                <span class="n">original_path</span> <span class="o">=</span> <span class="n">line_parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">cmd_file</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">cmd_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.cmd&#39;</span><span class="p">,</span> <span class="s1">&#39;.tmp&#39;</span><span class="p">),</span> <span class="n">cmd_file</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">original_path</span></div>
 
 <div class="viewcode-block" id="get_n_threads"><a class="viewcode-back" href="../../adamspy.html#adamspy.adamspy.get_n_threads">[docs]</a><span class="k">def</span> <span class="nf">get_n_threads</span><span class="p">(</span><span class="n">adm_file</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;Searches `adm_file` for the NTHREADS statement and returns its value.</span>
-<span class="sd">	</span>
-<span class="sd">	Parameters</span>
-<span class="sd">	----------</span>
-<span class="sd">	adm_file : str</span>
-<span class="sd">		Path to an Adams Dataset (.adm) file</span>
-<span class="sd">	</span>
-<span class="sd">	Returns</span>
-<span class="sd">	-------</span>
-<span class="sd">	int</span>
-<span class="sd">		Number of threads set `adm_file`</span>
+    <span class="sd">&quot;&quot;&quot;Searches `adm_file` for the NTHREADS statement and returns its value.</span>
 
-<span class="sd">	&quot;&quot;&quot;</span>
-	<span class="n">n_threads</span> <span class="o">=</span> <span class="mi">1</span>
-	<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">adm_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>		
-		<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid</span><span class="p">:</span>
-				
-			<span class="c1"># If at the NTHREADS statement, rewrite it</span>
-			<span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;^,[ </span><span class="se">\\</span><span class="s1">t]*nthreads[ </span><span class="se">\\</span><span class="s1">t]*=[ </span><span class="se">\\</span><span class="s1">t]*</span><span class="se">\\</span><span class="s1">d$&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">):</span>				
-				<span class="n">n_threads</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
-	
-	<span class="k">return</span> <span class="n">n_threads</span>		</div>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    adm_file : str</span>
+<span class="sd">        Path to an Adams Dataset (.adm) file</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    int</span>
+<span class="sd">        Number of threads set `adm_file`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n_threads</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">adm_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid</span><span class="p">:</span>
+
+            <span class="c1"># If at the NTHREADS statement, rewrite it</span>
+            <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;^,[ </span><span class="se">\\</span><span class="s1">t]*nthreads[ </span><span class="se">\\</span><span class="s1">t]*=[ </span><span class="se">\\</span><span class="s1">t]*</span><span class="se">\\</span><span class="s1">d$&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">):</span>
+                <span class="n">n_threads</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+
+    <span class="k">return</span> <span class="n">n_threads</span></div>
 
 <div class="viewcode-block" id="set_n_threads"><a class="viewcode-back" href="../../adamspy.html#adamspy.adamspy.set_n_threads">[docs]</a><span class="k">def</span> <span class="nf">set_n_threads</span><span class="p">(</span><span class="n">adm_file</span><span class="p">,</span> <span class="n">n_threads</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;Changes or creates the NTHREADS option on the PREFERENCES statement in `adm_file`.</span>
-<span class="sd">	</span>
-<span class="sd">	Parameters</span>
-<span class="sd">	----------</span>
-<span class="sd">	adm_file : str</span>
-<span class="sd">		File path to an Adams Dataset (.adm) file</span>
-<span class="sd">	n_threads : int</span>
-<span class="sd">		Number of threads to use when running the model specified in `adm_file`</span>
+    <span class="sd">&quot;&quot;&quot;Changes or creates the NTHREADS option on the PREFERENCES statement in `adm_file`.</span>
 
-<span class="sd">	&quot;&quot;&quot;</span>
-	<span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
-	<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">adm_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid_old</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">adm_file</span> <span class="o">+</span> <span class="s1">&#39;.tmp&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid_new</span><span class="p">:</span>
-		<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid_old</span><span class="p">:</span>
-				
-			<span class="c1"># If at the NTHREADS statement, rewrite it</span>
-			<span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;^,[ </span><span class="se">\\</span><span class="s1">t]*nthreads[ </span><span class="se">\\</span><span class="s1">t]*=[ </span><span class="se">\\</span><span class="s1">t]*</span><span class="se">\\</span><span class="s1">d$&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">):</span>
-				<span class="n">fid_new</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;, NTHREADS = </span><span class="si">{n_threads}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-				<span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    adm_file : str</span>
+<span class="sd">        File path to an Adams Dataset (.adm) file</span>
+<span class="sd">    n_threads : int</span>
+<span class="sd">        Number of threads to use when running the model specified in `adm_file`</span>
 
-			<span class="c1"># If the end is reached and the NTHREADS statement isn&#39;t found, create it</span>
-			<span class="k">elif</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;^end[ </span><span class="se">\\</span><span class="s1">t]*$&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
-				<span class="n">fid_new</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;PREFERENCES/</span><span class="se">\n</span><span class="s1">, NTHREADS = </span><span class="si">{n_threads}</span><span class="se">\n</span><span class="s1">!</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-				<span class="n">fid_new</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
-			
-			<span class="c1"># If at a normal line, write it</span>
-			<span class="k">else</span><span class="p">:</span>
-				<span class="n">fid_new</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
-		
-	<span class="c1"># Delete the old adm file and replace with modified</span>
-	<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">adm_file</span><span class="p">)</span>
-	<span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">adm_file</span> <span class="o">+</span> <span class="s1">&#39;.tmp&#39;</span><span class="p">,</span> <span class="n">adm_file</span><span class="p">)</span></div>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">adm_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid_old</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">adm_file</span> <span class="o">+</span> <span class="s1">&#39;.tmp&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid_new</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid_old</span><span class="p">:</span>
+
+            <span class="c1"># If at the NTHREADS statement, rewrite it</span>
+            <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;^,[ </span><span class="se">\\</span><span class="s1">t]*nthreads[ </span><span class="se">\\</span><span class="s1">t]*=[ </span><span class="se">\\</span><span class="s1">t]*</span><span class="se">\\</span><span class="s1">d$&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">):</span>
+                <span class="n">fid_new</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;, NTHREADS = </span><span class="si">{n_threads}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="c1"># If the end is reached and the NTHREADS statement isn&#39;t found, create it</span>
+            <span class="k">elif</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;^end[ </span><span class="se">\\</span><span class="s1">t]*$&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
+                <span class="n">fid_new</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;PREFERENCES/</span><span class="se">\n</span><span class="s1">, NTHREADS = </span><span class="si">{n_threads}</span><span class="se">\n</span><span class="s1">!</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="n">fid_new</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+            <span class="c1"># If at a normal line, write it</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">fid_new</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+    <span class="c1"># Delete the old adm file and replace with modified</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">adm_file</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">adm_file</span> <span class="o">+</span> <span class="s1">&#39;.tmp&#39;</span><span class="p">,</span> <span class="n">adm_file</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="solve"><a class="viewcode-back" href="../../adamspy.html#adamspy.adamspy.solve">[docs]</a><span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="n">acf_file</span><span class="p">,</span> <span class="n">wait</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">use_adams_car</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;Runs Adams Solver to solve the model specified in `acf_file`</span>
-<span class="sd">	</span>
-<span class="sd">	Parameters</span>
-<span class="sd">	----------</span>
-<span class="sd">	acf_file : str</span>
-<span class="sd">		Path to an Adams Command (.acf) File </span>
+    <span class="sd">&quot;&quot;&quot;Runs Adams Solver to solve the model specified in `acf_file`</span>
 
-<span class="sd">	&quot;&quot;&quot;</span>	
-	<span class="n">file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">acf_file</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-	<span class="n">cwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">acf_file</span><span class="p">)</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">acf_file</span><span class="p">)</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span> <span class="k">else</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
-	
-	<span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Windows&#39;</span><span class="p">:</span>
-		<span class="n">startupinfo</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">STARTUPINFO</span><span class="p">()</span>
-		<span class="n">startupinfo</span><span class="o">.</span><span class="n">dwFlags</span> <span class="o">|=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">STARTF_USESHOWWINDOW</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    acf_file : str</span>
+<span class="sd">        Path to an Adams Command (.acf) File</span>
 
-		<span class="k">if</span> <span class="n">use_adams_car</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
-			<span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;&quot;</span><span class="si">{}</span><span class="s1">&quot; ru-s &quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADAMS_LAUNCH_COMMAND&#39;</span><span class="p">],</span> <span class="n">file</span><span class="p">)</span>
-		<span class="k">else</span><span class="p">:</span>
-			<span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;&quot;</span><span class="si">{}</span><span class="s1">&quot; acar ru-solver &quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADAMS_LAUNCH_COMMAND&#39;</span><span class="p">],</span> <span class="n">file</span><span class="p">)</span>
-		
-		<span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="n">cwd</span><span class="p">,</span> <span class="n">startupinfo</span><span class="o">=</span><span class="n">startupinfo</span><span class="p">)</span>
-	
-	<span class="k">else</span><span class="p">:</span>
-		<span class="k">if</span> <span class="n">use_adams_car</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
-			<span class="n">command</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADAMS_LAUNCH_COMMAND&#39;</span><span class="p">],</span> <span class="s1">&#39;-c&#39;</span><span class="p">,</span> <span class="s1">&#39;ru-standard&#39;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="s1">&#39;exit&#39;</span><span class="p">]</span>
-		<span class="k">else</span><span class="p">:</span>
-			<span class="n">command</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADAMS_LAUNCH_COMMAND&#39;</span><span class="p">],</span> <span class="s1">&#39;-c&#39;</span><span class="p">,</span> <span class="s1">&#39;acar&#39;</span><span class="p">,</span> <span class="s1">&#39;ru-solver&#39;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="s1">&#39;exit&#39;</span><span class="p">]</span>
-		
-		<span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="n">cwd</span><span class="p">)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">acf_file</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">cwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">acf_file</span><span class="p">)</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">acf_file</span><span class="p">)</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span> <span class="k">else</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
 
-	<span class="k">if</span> <span class="n">wait</span><span class="p">:</span>
-		<span class="n">proc</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
-	
-	<span class="k">return</span> <span class="n">proc</span></div>
+    <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Windows&#39;</span><span class="p">:</span>
+        <span class="n">startupinfo</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">STARTUPINFO</span><span class="p">()</span>
+        <span class="n">startupinfo</span><span class="o">.</span><span class="n">dwFlags</span> <span class="o">|=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">STARTF_USESHOWWINDOW</span>
+
+        <span class="k">if</span> <span class="n">use_adams_car</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;&quot;</span><span class="si">{}</span><span class="s1">&quot; ru-s &quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADAMS_LAUNCH_COMMAND&#39;</span><span class="p">],</span> <span class="n">file</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;&quot;</span><span class="si">{}</span><span class="s1">&quot; acar ru-solver &quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADAMS_LAUNCH_COMMAND&#39;</span><span class="p">],</span> <span class="n">file</span><span class="p">)</span>
+
+        <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="n">cwd</span><span class="p">,</span> <span class="n">startupinfo</span><span class="o">=</span><span class="n">startupinfo</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">use_adams_car</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="n">command</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADAMS_LAUNCH_COMMAND&#39;</span><span class="p">],</span> <span class="s1">&#39;-c&#39;</span><span class="p">,</span> <span class="s1">&#39;ru-standard&#39;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="s1">&#39;exit&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">command</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADAMS_LAUNCH_COMMAND&#39;</span><span class="p">],</span> <span class="s1">&#39;-c&#39;</span><span class="p">,</span> <span class="s1">&#39;acar&#39;</span><span class="p">,</span> <span class="s1">&#39;ru-solver&#39;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="s1">&#39;exit&#39;</span><span class="p">]</span>
+
+        <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="n">cwd</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">wait</span><span class="p">:</span>
+        <span class="n">proc</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">proc</span></div>
 
 <div class="viewcode-block" id="get_log_errors"><a class="viewcode-back" href="../../adamspy.html#adamspy.adamspy.get_log_errors">[docs]</a><span class="k">def</span> <span class="nf">get_log_errors</span><span class="p">(</span><span class="n">log_file</span><span class="p">):</span>
 	<span class="sd">&quot;&quot;&quot;Checks the log file for errors of the type AviewError.</span>
@@ -343,11 +343,11 @@
 			<span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>
 
 	<span class="k">if</span> <span class="n">errors</span><span class="p">:</span>
-		<span class="k">raise</span> <span class="n">AviewError</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">errors</span><span class="p">))</span></div>
+		<span class="k">raise</span> <span class="n">AviewError</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">errors</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="AdmFileError"><a class="viewcode-back" href="../../adamspy.html#adamspy.adamspy.AdmFileError">[docs]</a><span class="k">class</span> <span class="nc">AdmFileError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-	<span class="k">pass</span></div>
+    <span class="k">pass</span></div>
 
 
 <div class="viewcode-block" id="AviewError"><a class="viewcode-back" href="../../adamspy.html#adamspy.adamspy.AviewError">[docs]</a><span class="k">class</span> <span class="nc">AviewError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>

@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.29.13'
-version_notes = 'merging'
+version = '0.29.14'
+version_notes = 'fixed merge errors'
 date = 'October 8th, 2021'
 # ---------------------
 author = 'Ben Thornton'

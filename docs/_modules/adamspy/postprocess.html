@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.postprocess &mdash; adamspy 0.29.13 documentation</title>
+  <title>adamspy.postprocess &mdash; adamspy 0.29.14 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.29.13
+                0.29.14
               </div>
             
           
@@ -158,10 +158,11 @@
 <span class="n">AVIEW_AFTERSTART_FILENAME</span> <span class="o">=</span> <span class="s1">&#39;aviewAS.cmd&#39;</span>
 <span class="n">RES_LOADED_PATTERN</span> <span class="o">=</span> <span class="s1">&#39;! File Name:.*</span><span class="si">{}</span><span class="s1">.*Time Steps:.*Start Time:.*Stop Time:.*(sec)&#39;</span>
 <span class="n">CMD_MODNAME_PATTERN</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;model create[ \t]+&amp;[ \t]*\n[ \t]*model_name[ \t]*=[ \t]*\w+[ \t]*&#39;</span>
+<span class="n">LOG_FILE_ERROR_PATTERN</span> <span class="o">=</span> <span class="s1">&#39;! </span><span class="se">\\</span><span class="s1">S*Error: &#39;</span>
 
 <div class="viewcode-block" id="launch_ppt"><a class="viewcode-back" href="../../adamspy.postprocess.html#adamspy.postprocess.launch_ppt">[docs]</a><span class="k">def</span> <span class="nf">launch_ppt</span><span class="p">(</span><span class="n">res_file</span><span class="p">,</span> <span class="n">cmd_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">wait</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">_terminate</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Launches the Adams PostProcessor and reads in the specified results file.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    res_file : str</span>
@@ -173,38 +174,38 @@
 <span class="sd">    timeout : float, optional</span>
 <span class="sd">        If `wait`=`False`, code execution will freeze until the postprocessor has started loading the results file or until `timeout` secodns have elapsed.</span>
 <span class="sd">    _terminate : bool, optional</span>
-<span class="sd">        If `True`, the PostProcessor will close immediately.  This is for testing purposes.  </span>
-<span class="sd">    </span>
-<span class="sd">    &quot;&quot;&quot;</span>    
+<span class="sd">        If `True`, the PostProcessor will close immediately.  This is for testing purposes.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Determine the directory, relative results filename, and pptAS name</span>
     <span class="n">directory</span><span class="p">,</span> <span class="n">res_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">res_file</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">directory</span><span class="p">:</span>
-        <span class="n">directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>    
+        <span class="n">directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
     <span class="n">ppt_as_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">AVIEW_AFTERSTART_FILENAME</span><span class="p">)</span>
 
-    
+
     <span class="c1"># Write the pptAS file</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">ppt_as_filename</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>        
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">ppt_as_filename</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">cmd_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">cmd_file</span><span class="p">)):</span>
             <span class="c1"># if the .cmd file is specified, get the model name from the cmd file</span>
             <span class="n">model_name</span> <span class="o">=</span> <span class="n">_get_model_name_from_cmd</span><span class="p">(</span><span class="n">cmd_file</span><span class="p">)</span>
-            
+
             <span class="c1"># Write the command to load the .cmd file</span>
             <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;file command read file_name=&quot;</span><span class="si">{cmd_file}</span><span class="s1">&quot;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
             <span class="c1"># Write the command to load the results file</span>
-            <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;file results read model_name=</span><span class="si">{model_name}</span><span class="s1"> file_name=&quot;</span><span class="si">{res_file}</span><span class="s1">&quot;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>   
+            <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;file results read model_name=</span><span class="si">{model_name}</span><span class="s1"> file_name=&quot;</span><span class="si">{res_file}</span><span class="s1">&quot;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
             <span class="c1"># Open the postprocess window</span>
             <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;interface plot window open&#39;</span><span class="p">)</span>
-        
+
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># if the .cmd file is not specified, write the command to load the results file</span>
-            <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;file results read file_name=&quot;</span><span class="si">{res_file}</span><span class="s1">&quot;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>    
+            <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;file results read file_name=&quot;</span><span class="si">{res_file}</span><span class="s1">&quot;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
             <span class="c1"># Open the postprocess window</span>
             <span class="n">fid</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;interface plot window open&#39;</span><span class="p">)</span>
-        
+
     <span class="c1"># Set the ppt.log filename</span>
     <span class="n">ppt_log_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s1">&#39;aview.log&#39;</span><span class="p">)</span>
 
@@ -218,12 +219,12 @@
     <span class="c1"># Run the postprocessor</span>
     <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Windows&#39;</span><span class="p">:</span>
         <span class="n">startupinfo</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">STARTUPINFO</span><span class="p">()</span>
-        <span class="n">startupinfo</span><span class="o">.</span><span class="n">dwFlags</span> <span class="o">|=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">STARTF_USESHOWWINDOW</span>        
+        <span class="n">startupinfo</span><span class="o">.</span><span class="n">dwFlags</span> <span class="o">|=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">STARTF_USESHOWWINDOW</span>
         <span class="n">ppt_proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="s1">&#39;&quot;</span><span class="si">{}</span><span class="s1">&quot; aview ru-s i&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADAMS_LAUNCH_COMMAND&#39;</span><span class="p">]),</span> <span class="n">cwd</span><span class="o">=</span><span class="n">directory</span><span class="p">,</span> <span class="n">startupinfo</span><span class="o">=</span><span class="n">startupinfo</span><span class="p">)</span>
-    
+
     <span class="k">else</span><span class="p">:</span>
         <span class="n">ppt_proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADAMS_LAUNCH_COMMAND&#39;</span><span class="p">],</span> <span class="s1">&#39;-c&#39;</span><span class="p">,</span> <span class="s1">&#39;aview&#39;</span><span class="p">,</span> <span class="s1">&#39;ru-s&#39;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">],</span> <span class="n">cwd</span><span class="o">=</span><span class="n">directory</span><span class="p">)</span>
-    
+
     <span class="c1"># Terminate immediately or wait for the process to complete before moving on.</span>
     <span class="k">if</span> <span class="n">_terminate</span><span class="p">:</span>
         <span class="n">ppt_proc</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
@@ -232,8 +233,8 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">sleep_time</span> <span class="o">=</span> <span class="mf">0.2</span>
         <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">timeout</span><span class="o">/</span><span class="n">sleep_time</span><span class="p">)):</span>
-            
-            <span class="n">ppt_log_file_exists</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">ppt_log_file</span><span class="p">)</span>       
+
+            <span class="n">ppt_log_file_exists</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">ppt_log_file</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">ppt_log_file_exists</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
                 <span class="c1"># If ppt.log exists, open it and see if the results have been loaded</span>
@@ -241,7 +242,7 @@
                     <span class="n">text</span> <span class="o">=</span> <span class="n">fid</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
                 <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">RES_LOADED_PATTERN</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">res_file</span><span class="p">),</span> <span class="n">text</span><span class="p">):</span>
                     <span class="k">break</span>
-                    
+
             <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">sleep_time</span><span class="p">)</span>
 
     <span class="c1"># Remove the pptAS file</span>
@@ -254,12 +255,12 @@
 
 <span class="k">def</span> <span class="nf">_get_model_name_from_cmd</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Gets the name of the model defined in the command file.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    filename : str</span>
 <span class="sd">        Filename of Adams View command (.cmd) file</span>
-<span class="sd">    </span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    str</span>
@@ -273,6 +274,22 @@
     <span class="n">mod_name</span> <span class="o">=</span> <span class="n">mod_name_block</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
 
     <span class="k">return</span> <span class="n">mod_name</span>
+
+<div class="viewcode-block" id="get_log_errors"><a class="viewcode-back" href="../../adamspy.postprocess.html#adamspy.postprocess.get_log_errors">[docs]</a><span class="k">def</span> <span class="nf">get_log_errors</span><span class="p">(</span><span class="n">log_file</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Checks the log file for errors of the type AviewError.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    log_file : str</span>
+<span class="sd">        Filename of aview log file (usulally aview.log)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">log_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">fid</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+
+    <span class="n">errors</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span> <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">LOG_FILE_ERROR_PATTERN</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">)]</span>
+
+    <span class="k">return</span> <span class="n">errors</span></div>
 </pre></div>
 
            </div>

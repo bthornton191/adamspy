@@ -401,5 +401,3 @@ def _get_unique_filename(filename):
                 break
 
     return filename
-<<<<<<< HEAD
-=======
