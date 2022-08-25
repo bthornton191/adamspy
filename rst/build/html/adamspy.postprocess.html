@@ -8,7 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
+<<<<<<< HEAD
   <title>adamspy.postprocess package &mdash; adamspy 0.29.8 documentation</title>
+=======
+  <title>adamspy.postprocess package &mdash; adamspy 0.29.10 documentation</title>
+>>>>>>> 4b9165c62d689cf5ae34e79ed1508db859439cad
   
 
   
@@ -58,7 +62,11 @@
             
             
               <div class="version">
+<<<<<<< HEAD
                 0.29.8
+=======
+                0.29.10
+>>>>>>> 4b9165c62d689cf5ae34e79ed1508db859439cad
               </div>
             
           
@@ -232,9 +240,25 @@
 <span id="adamspy-postprocess-mode-tables-module"></span><h2>adamspy.postprocess.mode_tables module<a class="headerlink" href="#module-adamspy.postprocess.mode_tables" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="adamspy.postprocess.mode_tables.Modal">
+<<<<<<< HEAD
 <em class="property">class </em><code class="descclassname">adamspy.postprocess.mode_tables.</code><code class="descname">Modal</code><span class="sig-paren">(</span><em>modes: dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/mode_tables.html#Modal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.mode_tables.Modal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="method">
+=======
+<em class="property">class </em><code class="descclassname">adamspy.postprocess.mode_tables.</code><code class="descname">Modal</code><span class="sig-paren">(</span><em>modes: Dict[int, adamspy.postprocess.mode_tables.Mode]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/mode_tables.html#Modal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.mode_tables.Modal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="adamspy.postprocess.mode_tables.Modal.filter_eigs">
+<code class="descname">filter_eigs</code><span class="sig-paren">(</span><em>wn_min</em>, <em>wn_max</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/mode_tables.html#Modal.filter_eigs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.mode_tables.Modal.filter_eigs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adamspy.postprocess.mode_tables.Modal.find_pairs">
+<code class="descname">find_pairs</code><span class="sig-paren">(</span><em>other: adamspy.postprocess.mode_tables.Modal</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/mode_tables.html#Modal.find_pairs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.mode_tables.Modal.find_pairs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+>>>>>>> 4b9165c62d689cf5ae34e79ed1508db859439cad
 <dt id="adamspy.postprocess.mode_tables.Modal.get_modes_where_parts_participate">
 <code class="descname">get_modes_where_parts_participate</code><span class="sig-paren">(</span><em>part_suffix</em>, <em>table</em>, <em>column</em>, <em>threshold=0.9</em>, <em>sum_or_max='max'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/mode_tables.html#Modal.get_modes_where_parts_participate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.mode_tables.Modal.get_modes_where_parts_participate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a dictionary where the keys are mode numbers and the values are <cite>:obj:Mode</cite> objects in which any part with the suffix <cite>part_suffix</cite> has at least <cite>threshold</cite> percent of the total.</p>
@@ -261,12 +285,33 @@
 </table>
 </dd></dl>
 
+<<<<<<< HEAD
+=======
+<dl class="method">
+<dt id="adamspy.postprocess.mode_tables.Modal.remove_duplicate_eigs">
+<code class="descname">remove_duplicate_eigs</code><span class="sig-paren">(</span><em>tolerance=0.001</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/mode_tables.html#Modal.remove_duplicate_eigs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.mode_tables.Modal.remove_duplicate_eigs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adamspy.postprocess.mode_tables.Modal.remove_zero_eigs">
+<code class="descname">remove_zero_eigs</code><span class="sig-paren">(</span><em>threshold=0.5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/mode_tables.html#Modal.remove_zero_eigs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.mode_tables.Modal.remove_zero_eigs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+>>>>>>> 4b9165c62d689cf5ae34e79ed1508db859439cad
 </dd></dl>
 
 <dl class="class">
 <dt id="adamspy.postprocess.mode_tables.Mode">
 <em class="property">class </em><code class="descclassname">adamspy.postprocess.mode_tables.</code><code class="descname">Mode</code><span class="sig-paren">(</span><em>scalars: dict</em>, <em>tables: dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/mode_tables.html#Mode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.mode_tables.Mode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<<<<<<< HEAD
+=======
+<dl class="method">
+<dt id="adamspy.postprocess.mode_tables.Mode.compare_coords">
+<code class="descname">compare_coords</code><span class="sig-paren">(</span><em>other_mode: adamspy.postprocess.mode_tables.Mode</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/mode_tables.html#Mode.compare_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.mode_tables.Mode.compare_coords" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+>>>>>>> 4b9165c62d689cf5ae34e79ed1508db859439cad
 </dd></dl>
 
 <dl class="function">
@@ -358,6 +403,16 @@
 <div class="section" id="module-adamspy.postprocess.ppt">
 <span id="adamspy-postprocess-ppt-module"></span><h2>adamspy.postprocess.ppt module<a class="headerlink" href="#module-adamspy.postprocess.ppt" title="Permalink to this headline">¶</a></h2>
 <p>This module is for sending scripts through Adams/PPT</p>
+<<<<<<< HEAD
+=======
+<dl class="exception">
+<dt id="adamspy.postprocess.ppt.AviewError">
+<em class="property">exception </em><code class="descclassname">adamspy.postprocess.ppt.</code><code class="descname">AviewError</code><a class="reference internal" href="_modules/adamspy/postprocess/ppt.html#AviewError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.ppt.AviewError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+<p>Raise this error to if a known error occurs in the log file.</p>
+</dd></dl>
+
+>>>>>>> 4b9165c62d689cf5ae34e79ed1508db859439cad
 <dl class="function">
 <dt id="adamspy.postprocess.ppt.edit_results">
 <code class="descclassname">adamspy.postprocess.ppt.</code><code class="descname">edit_results</code><span class="sig-paren">(</span><em>res_file</em>, <em>input_dict</em>, <em>new_res_file=None</em>, <em>_just_write_script=False</em>, <em>timeout=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/ppt.html#edit_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.ppt.edit_results" title="Permalink to this definition">¶</a></dt>
@@ -644,6 +699,23 @@
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-adamspy.postprocess" title="Permalink to this headline">¶</a></h2>
 <p>Package for working with Adams Results</p>
 <dl class="function">
+<<<<<<< HEAD
+=======
+<dt id="adamspy.postprocess.get_log_errors">
+<code class="descclassname">adamspy.postprocess.</code><code class="descname">get_log_errors</code><span class="sig-paren">(</span><em>log_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess.html#get_log_errors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.get_log_errors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks the log file for errors of the type AviewError.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>log_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Filename of aview log file (usulally aview.log)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+>>>>>>> 4b9165c62d689cf5ae34e79ed1508db859439cad
 <dt id="adamspy.postprocess.launch_ppt">
 <code class="descclassname">adamspy.postprocess.</code><code class="descname">launch_ppt</code><span class="sig-paren">(</span><em>res_file</em>, <em>cmd_file=None</em>, <em>wait=False</em>, <em>timeout=30</em>, <em>_terminate=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess.html#launch_ppt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.launch_ppt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Launches the Adams PostProcessor and reads in the specified results file.</p>

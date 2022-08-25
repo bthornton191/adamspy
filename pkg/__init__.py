@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.29.10'
-version_notes = 'fixed bugs in adams commands for linux'
-date = 'August 25th, 2022'
+version = '0.29.11'
+version_notes = 'merging'
+date = 'October 8th, 2021'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'
