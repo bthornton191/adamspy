@@ -1,5 +1,5 @@
 # ---------------------
-version = '0.29.11'
+version = '0.29.12'
 version_notes = 'merging'
 date = 'October 8th, 2021'
 # ---------------------
