@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adamspy &mdash; adamspy 0.29.14 documentation</title>
+  <title>adamspy.adamspy &mdash; adamspy 0.29.15 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.29.14
+                0.29.15
               </div>
             
           
@@ -339,7 +339,7 @@
 
 	<span class="n">errors</span> <span class="o">=</span> <span class="p">[]</span>
 	<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
-		<span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">LOG_FILE_ERROR_PATTERN</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+		<span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">LOG_FILE_ERROR_PATTERN</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">):</span>
 			<span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>
 
 	<span class="k">if</span> <span class="n">errors</span><span class="p">:</span>

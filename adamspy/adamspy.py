@@ -192,7 +192,7 @@ def get_log_errors(log_file):
 
 	errors = []
 	for line in lines:
-		if re.search(LOG_FILE_ERROR_PATTERN, line):
+		if re.search(LOG_FILE_ERROR_PATTERN, line, flags=re.IGNORECASE):
 			errors.append(line[2:])
 
 	if errors:
