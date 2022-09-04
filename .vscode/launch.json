@@ -25,7 +25,7 @@
             "type": "python",
             "request": "test",
             "console": "integratedTerminal",
-            "justMyCode": false
+            "justMyCode": true
         }
     ]
 }

@@ -12,9 +12,8 @@ from numpy import genfromtxt
 from thornpy.signal import manually_clean_sig, remove_data_point, manually_clean_sigs, low_pass
 from thornpy.signal import _clean_sig as clean_sig
 
-from ..adamspy import get_log_errors
+from ..adamspy import get_log_errors, LOG_COMPLETE_PATTERN
 
-LOG_COMPLETE_PATTERN = '! Command file is exhausted, batch run is finished.'
 
 LUNAR_SCRIPT_NAME = 'get_lunar_results.py'
 GET_RESULTS_SCRIPT_NAME = 'get_results.py'
@@ -36,44 +35,43 @@ _TIMEOUT = 300
 def get_results(res_file, reqs_to_get, t_min=None, t_max=None, _just_write_script=False, timeout=_TIMEOUT):
     """Gets results from an Adams results (.res) file.
 
-	Example
-	-------
-	>>> result_file = 'example.res'
-	>>> t_min = 70
-	>>> t_max = 80
-	>>> reqs_to_get = {}
-	>>> reqs_to_get['MSE'] = ['Instantaneous_Bottom_MSE', 'Filtered_Surface_MSE']
-	>>> reqs_to_get['ROP_controls'] = ['Command_ROP', 'True_WOB']
-	>>> requests, units = get_results(result_file, reqs_to_get, t_min, t_max)
+    Example
+    -------
+    >>> result_file = 'example.res'
+    >>> t_min = 70
+    >>> t_max = 80
+    >>> reqs_to_get = {}
+    >>> reqs_to_get['MSE'] = ['Instantaneous_Bottom_MSE', 'Filtered_Surface_MSE']
+    >>> reqs_to_get['ROP_controls'] = ['Command_ROP', 'True_WOB']
+    >>> requests, units = get_results(result_file, reqs_to_get, t_min, t_max)
 
-	Note
-	----
-	This funciton only works with Requests.  It does not work with Result Sets.
+    Note
+    ----
+    This funciton only works with Requests.  It does not work with Result Sets.
 
-	Note
-	----
-	This function only works with xml results files.
+    Note
+    ----
+    This function only works with xml results files.
 
-	Parameters
-	----------
-	result_file : str
-		Filename of an Adams results (.res) file
-	reqs_to_get : dict
-		Dictionary of requests to extract (the default is None, which gets all results)
-	t_min : float, optional
-		Minimum time for which to extract results (the default is None)
-	t_max : float, optional
-		Maximum time for which to extract results (the default is None)
+    Parameters
+    ----------
+    result_file : str
+        Filename of an Adams results (.res) file
+    reqs_to_get : dict
+        Dictionary of requests to extract (the default is None, which gets all results)
+    t_min : float, optional
+        Minimum time for which to extract results (the default is None)
+    t_max : float, optional
+        Maximum time for which to extract results (the default is None)
 
-	Returns
-	-------
-	dict
-		Dictionary of request data
+    Returns
+    -------
+    dict
+        Dictionary of request data
 
-	"""
+    """
     template = TMPLT_ENV.from_string(open(os.path.join(os.path.dirname(__file__), 'aview_scripts', GET_RESULTS_SCRIPT_NAME)).read())
     working_directory = os.path.dirname(res_file)
-
 
     script_filename = _get_unique_filename(GET_RESULTS_SCRIPT_NAME)
     output_filename = _get_unique_filename(TEMP_OUTPUT_FILENAME)

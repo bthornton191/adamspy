@@ -13,4 +13,6 @@ if __name__ == '__main__':
             os.system(r'call _update_docs.bat')
             os.system('git add -u docs/* rst/*')
             os.system('git commit -m "{}"'.format(pkg.version_notes))
+            os.system('git push --all origin')
             os.system('git tag v{}'.format(pkg.version))
+            os.system('git push origin v{}'.format(pkg.version))

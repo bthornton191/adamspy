@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.29.15'
-version_notes = 'fixed bug in get_log_errors'
-date = 'October 8th, 2021'
+version = '0.29.17'
+version_notes = 'added aviewpy'
+date = 'September 4th, 2022'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'

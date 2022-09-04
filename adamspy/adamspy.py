@@ -7,6 +7,8 @@ import platform
 
 XMT_PATTERN = re.compile('\\s*file_name\\s*=\\s*"?.+\\.xmt_txt"?\\s*')
 LOG_FILE_ERROR_PATTERN = '! \\S*Error: '
+LOG_COMPLETE_PATTERN = '! Command file is exhausted, batch run is finished.'
+
 
 def get_simdur_from_msg(msg_file):
     """Reads an Adams message file (.msg) and returns the total duration of the simulation.
@@ -31,14 +33,16 @@ def get_simdur_from_msg(msg_file):
     with open(msg_file, 'r') as fid:
         for line in fid:
             if re.match(' *command: sim(ulate)?/dyn(anmic)?.*, *end *=.*', line.lower()):
-                duration = float(re.split('end *=',line.lower().replace(' ',''))[-1].split(',')[0])
-                found=True
+                duration = float(re.split('end *=', line.lower().replace(' ', ''))[-1]
+                                 .split(',')[0])
+                found = True
 
     # Raise an error if no duration found
     if not found:
         raise RuntimeError('No simulation end time was found in the specified message file!')
 
     return duration
+
 
 def get_simdur_from_acf(acf_file):
     """Reads an Adams command file (.acf) and returns the total duration of the simulation.
@@ -63,14 +67,16 @@ def get_simdur_from_acf(acf_file):
     with open(acf_file, 'r') as fid:
         for line in fid:
             if re.match('sim(ulate)?/dyn(anmic)?.*, *end *=.*', line.lower()):
-                duration = float(re.split('end *=',line.lower().replace(' ',''))[-1].split(',')[0])
-                found=True
+                duration = float(re.split('end *=', line.lower().replace(' ', ''))[-1]
+                                 .split(',')[0])
+                found = True
 
     # Raise an error if no duration found
     if not found:
         raise RuntimeError('No simulation end time was found in the specified acf file!')
 
     return duration
+
 
 def modify_xmt_path(cmd_file, new_xmt_path):
     with open(cmd_file, 'r') as fid_in, open(cmd_file.replace('.cmd', '.tmp'), 'w') as fid_out:
@@ -84,6 +90,7 @@ def modify_xmt_path(cmd_file, new_xmt_path):
     os.remove(cmd_file)
     os.rename(cmd_file.replace('.cmd', '.tmp'), cmd_file)
     return original_path
+
 
 def get_n_threads(adm_file):
     """Searches `adm_file` for the NTHREADS statement and returns its value.
@@ -108,6 +115,7 @@ def get_n_threads(adm_file):
                 n_threads = int(line.split('=')[1].strip())
 
     return n_threads
+
 
 def set_n_threads(adm_file, n_threads):
     """Changes or creates the NTHREADS option on the PREFERENCES statement in `adm_file`.
@@ -141,6 +149,7 @@ def set_n_threads(adm_file, n_threads):
     # Delete the old adm file and replace with modified
     os.remove(adm_file)
     os.rename(adm_file + '.tmp', adm_file)
+
 
 def solve(acf_file, wait=False, use_adams_car=False):
     """Runs Adams Solver to solve the model specified in `acf_file`
@@ -178,25 +187,26 @@ def solve(acf_file, wait=False, use_adams_car=False):
 
     return proc
 
+
 def get_log_errors(log_file):
-	"""Checks the log file for errors of the type AviewError.
-	
-	Parameters
-	----------
-	log_file : str
-		Filename of aview log file (usulally aview.log)
+    """Checks the log file for errors of the type AviewError.
+    
+    Parameters
+    ----------
+    log_file : str
+        Filename of aview log file (usulally aview.log)
 
-	"""
-	with open(log_file, 'r') as fid:
-		lines = fid.readlines()
+    """
+    with open(log_file, 'r') as fid:
+        lines = fid.readlines()
 
-	errors = []
-	for line in lines:
-		if re.search(LOG_FILE_ERROR_PATTERN, line, flags=re.IGNORECASE):
-			errors.append(line[2:])
+    errors = []
+    for line in lines:
+        if re.search(LOG_FILE_ERROR_PATTERN, line, flags=re.IGNORECASE):
+            errors.append(line[2:])
 
-	if errors:
-		raise AviewError(''.join(errors))
+    if errors:
+        raise AviewError(''.join(errors))
 
 
 class AdmFileError(Exception):
@@ -204,7 +214,7 @@ class AdmFileError(Exception):
 
 
 class AviewError(Exception):
-	"""Raise this error to if a known error occurs in the log file.
-	
-	"""
-	pass
+    """Raise this error to if a known error occurs in the log file.
+    
+    """
+    pass
