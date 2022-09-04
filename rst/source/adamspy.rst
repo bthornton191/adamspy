@@ -8,6 +8,7 @@ Subpackages
 
     adamspy.acar
     adamspy.adripy
+    adamspy.aviewpy
     adamspy.postprocess
     adamspy.waterfall
 
