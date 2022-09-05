@@ -1,7 +1,8 @@
 import os
+from pathlib import Path
 import unittest
 
-from adamspy.postprocess.msg import TIMESTAMP_PATTERN, get_timestamps, check_if_finished, get_runtime_summary
+from adamspy.postprocess.msg import TIMESTAMP_PATTERN, check_for_errors, get_errors, get_timestamps, check_if_finished, get_runtime_summary
 
 TEST_TIMESTAMP = '''Simulation      Step        Function    Cumulative   Integration     CPU
        Time         Size       Evaluations  Steps Taken    Order        time
@@ -12,6 +13,7 @@ TEST_TIMESTAMP = '''Simulation      Step        Function    Cumulative   Integra
 
 TEST_MSG_FILE = os.path.join(os.getcwd(), 'test', 'files', 'test_analysis_1.msg')
 TEST_UNFINISHED_MSG_FILE = os.path.join(os.getcwd(), 'test', 'files', 'test_analysis_1_unfinished.msg')
+TEST_FILE_WITH_ERRORS = Path('test/files/test_file_with_errors.msg')
 
 class Test_Msg(unittest.TestCase):
 
@@ -37,6 +39,14 @@ class Test_Msg(unittest.TestCase):
     def test_runtime_summary(self):
         runtime_summary = get_runtime_summary(TEST_MSG_FILE)
         self.assertListEqual(runtime_summary, [41.95, 102.98, 245.48])
+    
+    def test_check_for_errors(self):
+        has_errors = check_for_errors(TEST_FILE_WITH_ERRORS)
+        self.assertTrue(has_errors)
+    
+    def test_get_all_errors(self):
+        errors = get_errors(TEST_FILE_WITH_ERRORS)
+        self.assertEqual(len(errors), 1385)
 
     def tearDown(self):
         return

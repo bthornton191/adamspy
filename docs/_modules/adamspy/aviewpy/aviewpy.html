@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.aviewpy.aviewpy &mdash; adamspy 0.29.17 documentation</title>
+  <title>adamspy.aviewpy.aviewpy &mdash; adamspy 0.29.18 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.29.17
+                0.29.18
               </div>
             
           
@@ -320,10 +320,13 @@
             <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">log_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
                 <span class="n">text</span> <span class="o">=</span> <span class="n">fid</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">LOG_COMPLETE_PATTERN</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
-                <span class="k">break</span>
+                
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">sleep_time</span><span class="p">)</span>
+                <span class="k">return</span>
 
         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">sleep_time</span><span class="p">)</span>
-    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">sleep_time</span><span class="p">)</span>
+    
+    <span class="k">raise</span> <span class="ne">TimeoutError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Process timed out before </span><span class="si">{log_file}</span><span class="s1"> indicated completion!&#39;</span><span class="p">)</span>
 </pre></div>
 
            </div>

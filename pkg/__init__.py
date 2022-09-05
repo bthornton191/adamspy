@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.29.17'
-version_notes = 'added aviewpy'
+version = '0.29.18'
+version_notes = 'added get_errors to msg.py'
 date = 'September 4th, 2022'
 # ---------------------
 author = 'Ben Thornton'

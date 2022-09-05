@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.postprocess.msg &mdash; adamspy 0.29.17 documentation</title>
+  <title>adamspy.postprocess.msg &mdash; adamspy 0.29.18 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.29.17
+                0.29.18
               </div>
             
           
@@ -162,6 +162,7 @@
 <span class="n">FINISH_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;^Finished -----</span><span class="se">\\</span><span class="s1">s*$&#39;</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span><span class="p">)</span>
 <span class="n">RUNTIME_SUMMARY_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;^Elapsed time = (</span><span class="se">\\</span><span class="s1">d+</span><span class="se">\\</span><span class="s1">.</span><span class="se">\\</span><span class="s1">d</span><span class="si">{2}</span><span class="s1">)s,  CPU time = (</span><span class="se">\\</span><span class="s1">d+</span><span class="se">\\</span><span class="s1">.</span><span class="se">\\</span><span class="s1">d</span><span class="si">{2}</span><span class="s1">)s,  (</span><span class="se">\\</span><span class="s1">d+</span><span class="se">\\</span><span class="s1">.</span><span class="se">\\</span><span class="s1">d</span><span class="si">{2}</span><span class="s1">)%</span><span class="se">\\</span><span class="s1">s*$&#39;</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span><span class="p">)</span>
 <span class="n">ERROR_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;^---- START: ERROR ----</span><span class="se">\\</span><span class="s1">s*$&#39;</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span><span class="p">)</span>
+<span class="n">FULL_ERROR_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;---- START: ERROR ----.*(?:.*</span><span class="se">\\</span><span class="s1">n)*?---- END: ERROR ----$&#39;</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span><span class="p">)</span>
 <span class="n">OFFSET</span> <span class="o">=</span> <span class="mi">1</span>
 
 <div class="viewcode-block" id="get_modes"><a class="viewcode-back" href="../../../adamspy.postprocess.html#adamspy.postprocess.msg.get_modes">[docs]</a><span class="k">def</span> <span class="nf">get_modes</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">,</span> <span class="n">i_analysis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">underdamped_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sort_by_wn</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
@@ -270,6 +271,14 @@
         <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
     
     <span class="k">return</span> <span class="n">found</span></div>
+
+
+<div class="viewcode-block" id="get_errors"><a class="viewcode-back" href="../../../adamspy.postprocess.html#adamspy.postprocess.msg.get_errors">[docs]</a><span class="k">def</span> <span class="nf">get_errors</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+        <span class="n">msg_text</span> <span class="o">=</span> <span class="n">fid</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">FULL_ERROR_PATTERN</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">msg_text</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="convert_cpu_time"><a class="viewcode-back" href="../../../adamspy.postprocess.html#adamspy.postprocess.msg.convert_cpu_time">[docs]</a><span class="k">def</span> <span class="nf">convert_cpu_time</span><span class="p">(</span><span class="n">time_string</span><span class="p">):</span>
     <span class="n">time_list</span> <span class="o">=</span> <span class="n">time_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>

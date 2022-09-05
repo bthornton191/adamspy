@@ -173,7 +173,10 @@ def _wait(log_file, sleep_time=0.2, timeout=300):
             with open(log_file, 'r') as fid:
                 text = fid.read()
             if re.search(LOG_COMPLETE_PATTERN, text):
-                break
+                
+                time.sleep(sleep_time)
+                return
 
         time.sleep(sleep_time)
-    time.sleep(sleep_time)
+    
+    raise TimeoutError(f'Process timed out before {log_file} indicated completion!')
