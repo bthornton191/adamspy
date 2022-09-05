@@ -14,6 +14,8 @@ FINISH_PATTERN = re.compile('^Finished -----\\s*$', flags=re.MULTILINE)
 RUNTIME_SUMMARY_PATTERN = re.compile('^Elapsed time = (\\d+\\.\\d{2})s,  CPU time = (\\d+\\.\\d{2})s,  (\\d+\\.\\d{2})%\\s*$', flags=re.MULTILINE)
 ERROR_PATTERN = re.compile('^---- START: ERROR ----\\s*$', flags=re.MULTILINE)
 FULL_ERROR_PATTERN = re.compile('---- START: ERROR ----.*(?:.*\\n)*?---- END: ERROR ----$', flags=re.MULTILINE)
+FULL_FORTRAN_ERROR_PATTERN = re.compile('-+ ERROR -+\\s*\\n(?:(?: +\\S+.*\\n)|\\s)+')
+CXX_PATTERN = re.compile('a *d *a *m *s *c\\+\\+ *s *o *l *v *e *r', flags=re.IGNORECASE)
 OFFSET = 1
 
 def get_modes(filename, output_type='dict', i_analysis=0, underdamped_only=True, sort_by_wn=True):
@@ -128,8 +130,17 @@ def get_errors(filename):
     with open(filename, 'r') as fid:
         msg_text = fid.read()
 
-    return FULL_ERROR_PATTERN.findall(msg_text)
+    if not uses_fortran_solver(filename):
+        return FULL_ERROR_PATTERN.findall(msg_text)
+    else:
+        return FULL_FORTRAN_ERROR_PATTERN.findall(msg_text)
 
+
+def uses_fortran_solver(filename):
+    with open(filename, 'r') as fid:
+        msg_text = fid.read()
+
+    return CXX_PATTERN.findall(msg_text) == []
 
 def convert_cpu_time(time_string):
     time_list = time_string.split(':')

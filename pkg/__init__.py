@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.29.18'
-version_notes = 'added get_errors to msg.py'
+version = '0.29.19'
+version_notes = 'added some fortran solver support'
 date = 'September 4th, 2022'
 # ---------------------
 author = 'Ben Thornton'
