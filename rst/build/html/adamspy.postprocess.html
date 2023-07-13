@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.postprocess package &mdash; adamspy 0.29.19 documentation</title>
+  <title>adamspy.postprocess package &mdash; adamspy 0.29.20 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.29.19
+                0.29.20
               </div>
             
           
@@ -188,11 +188,11 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>model_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Adams View model (.cmd) file</li>
-<li><strong>res_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Adams results (.res) file</li>
-<li><strong>model_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the model</li>
-<li><strong>analysis_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the analysis</li>
-<li><strong>wait</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If <cite>True</cite>, code execution will freeze until the animation script completes and the postprocessor closes. (the default is True)</li>
+<li><strong>model_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Adams View model (.cmd) file</li>
+<li><strong>res_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Adams results (.res) file</li>
+<li><strong>model_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of the model</li>
+<li><strong>analysis_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of the analysis</li>
+<li><strong>wait</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – If <cite>True</cite>, code execution will freeze until the animation script completes and the postprocessor closes. (the default is True)</li>
 </ul>
 </td>
 </tr>
@@ -212,15 +212,15 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of file.</li>
-<li><strong>output_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Type of object to return.  Default is ‘DataFrame’ which returns a pandas <cite>:obj:DataFrame</cite> object.  You can also select ‘dict’.</li>
+<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of file.</li>
+<li><strong>output_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Type of object to return.  Default is ‘DataFrame’ which returns a pandas <cite>:obj:DataFrame</cite> object.  You can also select ‘dict’.</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Pandas <cite>:obj:Dataframe</cite> if <cite>output_type</cite> is ‘DataFrame’ or <cite>:obj:dict</cite> if <cite>output_type</cite> is ‘dict’</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">DataFrame or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">DataFrame or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></p>
 </td>
 </tr>
 </tbody>
@@ -233,7 +233,7 @@
 <dl class="class">
 <dt id="adamspy.postprocess.mode_tables.Modal">
 <em class="property">class </em><code class="descclassname">adamspy.postprocess.mode_tables.</code><code class="descname">Modal</code><span class="sig-paren">(</span><em>modes: Dict[int, adamspy.postprocess.mode_tables.Mode]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/mode_tables.html#Modal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.mode_tables.Modal" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="method">
 <dt id="adamspy.postprocess.mode_tables.Modal.filter_eigs">
 <code class="descname">filter_eigs</code><span class="sig-paren">(</span><em>wn_min</em>, <em>wn_max</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/mode_tables.html#Modal.filter_eigs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.mode_tables.Modal.filter_eigs" title="Permalink to this definition">¶</a></dt>
@@ -253,18 +253,18 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>part_suffix</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Suffix of parts to check for</li>
-<li><strong>table</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Table type. Options are ‘coords’, ‘kinetic_energy’, ‘strain_energy’, ‘dissipative_energy’</li>
-<li><strong>column</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Column name from the table</li>
-<li><strong>threshold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Part’s value must be greater than <cite>threshold</cite> multiplied the sum or max (depending on <cite>sum_or_max</cite> value) of the column in the table to be considered participating</li>
-<li><strong>sum_or_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Must be ‘sum’ or ‘max’</li>
+<li><strong>part_suffix</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Suffix of parts to check for</li>
+<li><strong>table</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Table type. Options are ‘coords’, ‘kinetic_energy’, ‘strain_energy’, ‘dissipative_energy’</li>
+<li><strong>column</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Column name from the table</li>
+<li><strong>threshold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Part’s value must be greater than <cite>threshold</cite> multiplied the sum or max (depending on <cite>sum_or_max</cite> value) of the column in the table to be considered participating</li>
+<li><strong>sum_or_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Must be ‘sum’ or ‘max’</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Dictionary where the keys are mode numbers and the values are <cite>:obj:Mode</cite> objects</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></p>
 </td>
 </tr>
 </tbody>
@@ -286,7 +286,7 @@
 <dl class="class">
 <dt id="adamspy.postprocess.mode_tables.Mode">
 <em class="property">class </em><code class="descclassname">adamspy.postprocess.mode_tables.</code><code class="descname">Mode</code><span class="sig-paren">(</span><em>scalars: dict</em>, <em>tables: dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/mode_tables.html#Mode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.mode_tables.Mode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="method">
 <dt id="adamspy.postprocess.mode_tables.Mode.compare_coords">
 <code class="descname">compare_coords</code><span class="sig-paren">(</span><em>other_mode: adamspy.postprocess.mode_tables.Mode</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/mode_tables.html#Mode.compare_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.mode_tables.Mode.compare_coords" title="Permalink to this definition">¶</a></dt>
@@ -332,9 +332,11 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of Adams Solver message (.msg) file.</li>
-<li><strong>output_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – If ‘DataFrame’, returns a pandas <cite>:obj:pd.DataFrame</cite> if ‘dict’, returns a <cite>:obj:dict</cite>. (Default is ‘dict’)</li>
-<li><strong>i_analysis</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>(</em><em>optional</em><em>)</em>) – If the Adams Solver message (.msg) file contains multiple eigensolutions, this specifies which one to get. (Default is 0 which takes the first analysis)</li>
+<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of Adams Solver message (.msg) file.</li>
+<li><strong>output_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – If ‘DataFrame’, returns a pandas <cite>:obj:pd.DataFrame</cite> if ‘dict’, returns a <cite>:obj:dict</cite>.
+(Default is ‘dict’)</li>
+<li><strong>i_analysis</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>(</em><em>optional</em><em>)</em>) – If the Adams Solver message (.msg) file contains multiple eigensolutions,
+this specifies which one to get. (Default is 0 which takes the first analysis)</li>
 </ul>
 </td>
 </tr>
@@ -349,18 +351,38 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="adamspy.postprocess.msg.get_runtime_summary">
-<code class="descclassname">adamspy.postprocess.msg.</code><code class="descname">get_runtime_summary</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/msg.html#get_runtime_summary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.msg.get_runtime_summary" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a list of timestamps from the Adams message (.msg) file.  Each timestamp in the list is a list  as follows [elapsed time, cpu time, percent speedup]</p>
+<dt id="adamspy.postprocess.msg.get_process_id">
+<code class="descclassname">adamspy.postprocess.msg.</code><code class="descname">get_process_id</code><span class="sig-paren">(</span><em>filename: pathlib.Path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/msg.html#get_process_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.msg.get_process_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the process ID of the Adams job that generated the given message file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Filename of message file</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<em>Path</em>) – Path to the message file.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of timestamps where each timestamp in the list is a list as follows [elapsed time, cpu time, percent speedup].</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Process ID of the Adams job that generated the given message file.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="adamspy.postprocess.msg.get_runtime_summary">
+<code class="descclassname">adamspy.postprocess.msg.</code><code class="descname">get_runtime_summary</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/msg.html#get_runtime_summary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.msg.get_runtime_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of timestamps from the Adams message (.msg) file.  Each timestamp in the list
+is a list  as follows [elapsed time, cpu time, percent speedup]</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Filename of message file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of timestamps where each timestamp in the list is a list as follows [elapsed time, cpu
+time, percent speedup].</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a></td>
 </tr>
 </tbody>
 </table>
@@ -369,16 +391,20 @@
 <dl class="function">
 <dt id="adamspy.postprocess.msg.get_timestamps">
 <code class="descclassname">adamspy.postprocess.msg.</code><code class="descname">get_timestamps</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess/msg.html#get_timestamps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.msg.get_timestamps" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a list of timestamps from the Adams message (.msg) file.  Each timestamp in the list is a list  as follows [simulation time, step size, Function evaluations, cumulative steps taken, integration order, simulation time]</p>
+<dd><p>Returns a list of timestamps from the Adams message (.msg) file.  Each timestamp in the list
+is a list  as follows [simulation time, step size, Function evaluations, cumulative steps
+taken, integration order, simulation time]</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Filename of message file</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Filename of message file</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of timestamps where each timestamp in the list is a list as follows [simulation time, step size, Function evaluations, cumulative steps taken, integration order, simulation time].</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of timestamps where each timestamp in the list is a list as follows
+[simulation time, step size, Function evaluations, cumulative steps taken, integration
+order, simulation time].</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a></td>
 </tr>
 </tbody>
 </table>
@@ -407,21 +433,21 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>res_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Adams Results (.res) filename</li>
-<li><strong>reqs_to_clean</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Nested dictionary of result sets and result components to clean</li>
-<li><strong>freq_cutoff</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Cutoff freqency of filter in Hz</li>
-<li><strong>N_filter</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Order of filter</li>
+<li><strong>res_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Adams Results (.res) filename</li>
+<li><strong>reqs_to_clean</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Nested dictionary of result sets and result components to clean</li>
+<li><strong>freq_cutoff</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Cutoff freqency of filter in Hz</li>
+<li><strong>N_filter</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Order of filter</li>
 <li><strong>reqs_to_check</strong> (<em>list of dicts</em>) – list of nested dictionary of result sets and result components to check for spikes, by default same as reqs_to_clean</li>
-<li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – Minumum simulation time to clean, by default None</li>
-<li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – Maximum simulation time to clean, by default None</li>
-<li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – Number of seconds to wait for results to load before timing out, by default _TIMEOUT</li>
+<li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Minumum simulation time to clean, by default None</li>
+<li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Maximum simulation time to clean, by default None</li>
+<li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Number of seconds to wait for results to load before timing out, by default _TIMEOUT</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Nested dictionary of cleaned results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></p>
 </td>
 </tr>
 </tbody>
@@ -460,17 +486,17 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>result_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Filename of an Adams results (.res) file</li>
-<li><strong>reqs_to_get</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Dictionary of requests to extract (the default is None, which gets all results)</li>
-<li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – Minimum time for which to extract results (the default is None)</li>
-<li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – Maximum time for which to extract results (the default is None)</li>
+<li><strong>result_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Filename of an Adams results (.res) file</li>
+<li><strong>reqs_to_get</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Dictionary of requests to extract (the default is None, which gets all results)</li>
+<li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Minimum time for which to extract results (the default is None)</li>
+<li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Maximum time for which to extract results (the default is None)</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Dictionary of request data</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></p>
 </td>
 </tr>
 </tbody>
@@ -486,19 +512,19 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>res_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Adams Results (.res) filename</li>
-<li><strong>reqs_to_clean</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>, </em><em>optional</em>) – Nested dictionary of result sets and result components to clean</li>
-<li><strong>reqs_to_check</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Nested dictionary of result sets and result components to check for spikes, by default same as reqs_to_clean</li>
-<li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – Minumum simulation time to clean, by default None</li>
-<li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – Maximum simulation time to clean, by default None</li>
-<li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – Number of seconds to wait for results to load before timing out, by default _TIMEOUT</li>
+<li><strong>res_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Adams Results (.res) filename</li>
+<li><strong>reqs_to_clean</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>, </em><em>optional</em>) – Nested dictionary of result sets and result components to clean</li>
+<li><strong>reqs_to_check</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Nested dictionary of result sets and result components to check for spikes, by default same as reqs_to_clean</li>
+<li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Minumum simulation time to clean, by default None</li>
+<li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Maximum simulation time to clean, by default None</li>
+<li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Number of seconds to wait for results to load before timing out, by default _TIMEOUT</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Nested dictionary of cleaned results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></p>
 </td>
 </tr>
 </tbody>
@@ -514,19 +540,19 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>res_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Adams Results (.res) filename</li>
-<li><strong>reqs_to_clean</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Nested dictionary of result sets and result components to clean</li>
+<li><strong>res_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Adams Results (.res) filename</li>
+<li><strong>reqs_to_clean</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Nested dictionary of result sets and result components to clean</li>
 <li><strong>reqs_to_check</strong> (<em>list of dicts</em>) – list of nested dictionary of result sets and result components to check for spikes, by default same as reqs_to_clean</li>
-<li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – Minumum simulation time to clean, by default None</li>
-<li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – Maximum simulation time to clean, by default None</li>
-<li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – Number of seconds to wait for results to load before timing out, by default _TIMEOUT</li>
+<li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Minumum simulation time to clean, by default None</li>
+<li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Maximum simulation time to clean, by default None</li>
+<li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Number of seconds to wait for results to load before timing out, by default _TIMEOUT</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Nested dictionary of cleaned results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></p>
 </td>
 </tr>
 </tbody>
@@ -550,18 +576,18 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>res_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Result (.res) file</li>
-<li><strong>comp_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of result component</li>
+<li><strong>res_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Result (.res) file</li>
+<li><strong>comp_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of result component</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">List of values from the result (.res) file.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a></p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.10)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code></a> – Raised if <cite>comp_name</cite> not found in <cite>res_file</cite>.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.11)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code></a> – Raised if <cite>comp_name</cite> not found in <cite>res_file</cite>.</p>
 </td>
 </tr>
 </tbody>
@@ -595,10 +621,10 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>result_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Filename of an Adams results (.res) file</li>
-<li><strong>reqs_to_get</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Dictionary of requests to extract (the default is None, which gets all results)</li>
-<li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – Minimum time for which to extract results (the default is None)</li>
-<li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – Maximum time for which to extract results (the default is None)</li>
+<li><strong>result_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Filename of an Adams results (.res) file</li>
+<li><strong>reqs_to_get</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Dictionary of requests to extract (the default is None, which gets all results)</li>
+<li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Minimum time for which to extract results (the default is None)</li>
+<li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Maximum time for which to extract results (the default is None)</li>
 </ul>
 </td>
 </tr>
@@ -628,11 +654,11 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Results (.res) file</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Results (.res) file</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Step map</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></td>
 </tr>
 </tbody>
 </table>
@@ -661,12 +687,12 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>result_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Filename of the results file</li>
-<li><strong>reqs_to_keep</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Dictionary of requests and request components that should be saved.</li>
-<li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – Start time of period of interest (default is None which uses the first time step)</li>
-<li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – End time of period of interest (default is None which uses the last time step)</li>
-<li><strong>new_result_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name that will be given to the new results file. (Default is None which adds a ‘_shrunk’ suffix to <cite>result_file</cite> if in_place=False or uses <cite>result_file</cite> if in_place=True.)</li>
-<li><strong>in_place</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, existing file will be deleted.</li>
+<li><strong>result_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Filename of the results file</li>
+<li><strong>reqs_to_keep</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Dictionary of requests and request components that should be saved.</li>
+<li><strong>t_min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Start time of period of interest (default is None which uses the first time step)</li>
+<li><strong>t_max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – End time of period of interest (default is None which uses the last time step)</li>
+<li><strong>new_result_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name that will be given to the new results file. (Default is None which adds a ‘_shrunk’ suffix to <cite>result_file</cite> if in_place=False or uses <cite>result_file</cite> if in_place=True.)</li>
+<li><strong>in_place</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, existing file will be deleted.</li>
 </ul>
 </td>
 </tr>
@@ -680,13 +706,13 @@
 <p>Package for working with Adams Results</p>
 <dl class="function">
 <dt id="adamspy.postprocess.get_log_errors">
-<code class="descclassname">adamspy.postprocess.</code><code class="descname">get_log_errors</code><span class="sig-paren">(</span><em>log_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess.html#get_log_errors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.get_log_errors" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">adamspy.postprocess.</code><code class="descname">get_log_errors</code><span class="sig-paren">(</span><em>log_file: pathlib.Path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/postprocess.html#get_log_errors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.postprocess.get_log_errors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks the log file for errors of the type AviewError.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>log_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Filename of aview log file (usulally aview.log)</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>log_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Filename of aview log file (usulally aview.log)</td>
 </tr>
 </tbody>
 </table>
@@ -701,11 +727,11 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>res_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Filepath to an Adams Results file.</li>
-<li><strong>cmd_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Adams View command (.cmd) file. If given, this will be loaded before the results file.  This is necessary to view animations.</li>
-<li><strong>wait</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If <cite>True</cite>, code execution will freeze until the postprocessor is closed. (the default is False)</li>
-<li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – If <cite>wait`=`False</cite>, code execution will freeze until the postprocessor has started loading the results file or until <cite>timeout</cite> secodns have elapsed.</li>
-<li><strong>_terminate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If <cite>True</cite>, the PostProcessor will close immediately.  This is for testing purposes.</li>
+<li><strong>res_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Filepath to an Adams Results file.</li>
+<li><strong>cmd_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Adams View command (.cmd) file. If given, this will be loaded before the results file.  This is necessary to view animations.</li>
+<li><strong>wait</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – If <cite>True</cite>, code execution will freeze until the postprocessor is closed. (the default is False)</li>
+<li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – If <cite>wait`=`False</cite>, code execution will freeze until the postprocessor has started loading the results file or until <cite>timeout</cite> secodns have elapsed.</li>
+<li><strong>_terminate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – If <cite>True</cite>, the PostProcessor will close immediately.  This is for testing purposes.</li>
 </ul>
 </td>
 </tr>

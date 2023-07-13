@@ -2,6 +2,7 @@
 
 """
 import os
+from pathlib import Path
 import re
 
 import pandas as pd
@@ -16,7 +17,9 @@ ERROR_PATTERN = re.compile('^---- START: ERROR ----\\s*$', flags=re.MULTILINE)
 FULL_ERROR_PATTERN = re.compile('---- START: ERROR ----.*(?:.*\\n)*?---- END: ERROR ----$', flags=re.MULTILINE)
 FULL_FORTRAN_ERROR_PATTERN = re.compile('-+ ERROR -+\\s*\\n(?:(?: +\\S+.*\\n)|\\s)+')
 CXX_PATTERN = re.compile('a *d *a *m *s *c\\+\\+ *s *o *l *v *e *r', flags=re.IGNORECASE)
+PROCESS_ID_PATTERN = re.compile('^[^\\w]*Process ID:\\s*(\\d+)[^\\w]*$', flags=re.MULTILINE | re.IGNORECASE)
 OFFSET = 1
+
 
 def get_modes(filename, output_type='dict', i_analysis=0, underdamped_only=True, sort_by_wn=True):
     """Gets the modes from an Adams Solver message file.
@@ -26,9 +29,11 @@ def get_modes(filename, output_type='dict', i_analysis=0, underdamped_only=True,
     filename : str
         Name of Adams Solver message (.msg) file.
     output_type : str, optional
-        If 'DataFrame', returns a pandas `:obj:pd.DataFrame` if 'dict', returns a `:obj:dict`. (Default is 'dict')
+        If 'DataFrame', returns a pandas `:obj:pd.DataFrame` if 'dict', returns a `:obj:dict`. 
+        (Default is 'dict')
     i_analysis : int, (optional)
-        If the Adams Solver message (.msg) file contains multiple eigensolutions, this specifies which one to get. (Default is 0 which takes the first analysis)
+        If the Adams Solver message (.msg) file contains multiple eigensolutions, 
+        this specifies which one to get. (Default is 0 which takes the first analysis)
 
     Returns
     -------
@@ -67,7 +72,9 @@ def get_modes(filename, output_type='dict', i_analysis=0, underdamped_only=True,
     return data
 
 def get_timestamps(filename):
-    """Returns a list of timestamps from the Adams message (.msg) file.  Each timestamp in the list is a list  as follows [simulation time, step size, Function evaluations, cumulative steps taken, integration order, simulation time]
+    """Returns a list of timestamps from the Adams message (.msg) file.  Each timestamp in the list 
+    is a list  as follows [simulation time, step size, Function evaluations, cumulative steps 
+    taken, integration order, simulation time]
 
     Parameters
     ----------
@@ -77,15 +84,23 @@ def get_timestamps(filename):
     Returns
     -------
     list
-        List of timestamps where each timestamp in the list is a list as follows [simulation time, step size, Function evaluations, cumulative steps taken, integration order, simulation time].
+        List of timestamps where each timestamp in the list is a list as follows 
+        [simulation time, step size, Function evaluations, cumulative steps taken, integration 
+        order, simulation time].
         
     """
     with open(filename, 'r') as fid:
         msg_text = fid.read()
-    return [[float(timestamp[0]), float(timestamp[1]), int(timestamp[2]), int(timestamp[3]), int(timestamp[4]), convert_cpu_time(timestamp[5])] for timestamp in TIMESTAMP_PATTERN.findall(msg_text)]
+    return [[float(timestamp[0]),
+             float(timestamp[1]),
+             int(timestamp[2]),
+             int(timestamp[3]),
+             int(timestamp[4]),
+             convert_cpu_time(timestamp[5])] for timestamp in TIMESTAMP_PATTERN.findall(msg_text)]
 
 def get_runtime_summary(filename):
-    """Returns a list of timestamps from the Adams message (.msg) file.  Each timestamp in the list is a list  as follows [elapsed time, cpu time, percent speedup]
+    """Returns a list of timestamps from the Adams message (.msg) file.  Each timestamp in the list 
+    is a list  as follows [elapsed time, cpu time, percent speedup]
 
     Parameters
     ----------
@@ -95,7 +110,8 @@ def get_runtime_summary(filename):
     Returns
     -------
     list
-        List of timestamps where each timestamp in the list is a list as follows [elapsed time, cpu time, percent speedup].
+        List of timestamps where each timestamp in the list is a list as follows [elapsed time, cpu 
+        time, percent speedup].
         
     """
     with open(filename, 'r') as fid:
@@ -131,10 +147,11 @@ def get_errors(filename):
         msg_text = fid.read()
 
     if not uses_fortran_solver(filename):
-        return FULL_ERROR_PATTERN.findall(msg_text)
+        errors = FULL_ERROR_PATTERN.findall(msg_text)
     else:
-        return FULL_FORTRAN_ERROR_PATTERN.findall(msg_text)
+        errors = FULL_FORTRAN_ERROR_PATTERN.findall(msg_text)
 
+    return errors
 
 def uses_fortran_solver(filename):
     with open(filename, 'r') as fid:
@@ -186,10 +203,28 @@ def _write_temp_file(filename, i_analysis=0):
                 fid_out.write(line.replace('+/-', '   '))
         
         # Raise exceptions if lines not found
-        if start_line is None or end_line is None:          
+        if start_line is None or end_line is None:
             if counter > 0:
-                raise ValueError(f'Only found {counter} analys' + 'is' if counter==1 else 'es' + f', but {i_analysis+1} expected!')
+                raise ValueError(f'Only found {counter} '
+                                 + 'analysis' if counter == 1 else 'analyses'
+                                 + f', but {i_analysis+1} expected!')
             else:
                 raise Exception(f'No modal table found!')
     
     return temp_filename
+
+def get_process_id(filename: Path):
+    """Returns the process ID of the Adams job that generated the given message file.
+
+    Parameters
+    ----------
+    filename : Path
+        Path to the message file.
+
+    Returns
+    -------
+    int
+        Process ID of the Adams job that generated the given message file.
+
+    """
+    return next(int(p) for p in PROCESS_ID_PATTERN.findall(Path(filename).read_text()))

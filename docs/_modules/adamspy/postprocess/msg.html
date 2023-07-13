@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.postprocess.msg &mdash; adamspy 0.29.19 documentation</title>
+  <title>adamspy.postprocess.msg &mdash; adamspy 0.29.20 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.29.19
+                0.29.20
               </div>
             
           
@@ -151,6 +151,7 @@
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
 <span class="kn">import</span> <span class="nn">re</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -165,7 +166,9 @@
 <span class="n">FULL_ERROR_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;---- START: ERROR ----.*(?:.*</span><span class="se">\\</span><span class="s1">n)*?---- END: ERROR ----$&#39;</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span><span class="p">)</span>
 <span class="n">FULL_FORTRAN_ERROR_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;-+ ERROR -+</span><span class="se">\\</span><span class="s1">s*</span><span class="se">\\</span><span class="s1">n(?:(?: +</span><span class="se">\\</span><span class="s1">S+.*</span><span class="se">\\</span><span class="s1">n)|</span><span class="se">\\</span><span class="s1">s)+&#39;</span><span class="p">)</span>
 <span class="n">CXX_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;a *d *a *m *s *c</span><span class="se">\\</span><span class="s1">+</span><span class="se">\\</span><span class="s1">+ *s *o *l *v *e *r&#39;</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span>
+<span class="n">PROCESS_ID_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;^[^</span><span class="se">\\</span><span class="s1">w]*Process ID:</span><span class="se">\\</span><span class="s1">s*(</span><span class="se">\\</span><span class="s1">d+)[^</span><span class="se">\\</span><span class="s1">w]*$&#39;</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span>
 <span class="n">OFFSET</span> <span class="o">=</span> <span class="mi">1</span>
+
 
 <div class="viewcode-block" id="get_modes"><a class="viewcode-back" href="../../../adamspy.postprocess.html#adamspy.postprocess.msg.get_modes">[docs]</a><span class="k">def</span> <span class="nf">get_modes</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">,</span> <span class="n">i_analysis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">underdamped_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sort_by_wn</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Gets the modes from an Adams Solver message file.</span>
@@ -175,9 +178,11 @@
 <span class="sd">    filename : str</span>
 <span class="sd">        Name of Adams Solver message (.msg) file.</span>
 <span class="sd">    output_type : str, optional</span>
-<span class="sd">        If &#39;DataFrame&#39;, returns a pandas `:obj:pd.DataFrame` if &#39;dict&#39;, returns a `:obj:dict`. (Default is &#39;dict&#39;)</span>
+<span class="sd">        If &#39;DataFrame&#39;, returns a pandas `:obj:pd.DataFrame` if &#39;dict&#39;, returns a `:obj:dict`. </span>
+<span class="sd">        (Default is &#39;dict&#39;)</span>
 <span class="sd">    i_analysis : int, (optional)</span>
-<span class="sd">        If the Adams Solver message (.msg) file contains multiple eigensolutions, this specifies which one to get. (Default is 0 which takes the first analysis)</span>
+<span class="sd">        If the Adams Solver message (.msg) file contains multiple eigensolutions, </span>
+<span class="sd">        this specifies which one to get. (Default is 0 which takes the first analysis)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -216,7 +221,9 @@
     <span class="k">return</span> <span class="n">data</span></div>
 
 <div class="viewcode-block" id="get_timestamps"><a class="viewcode-back" href="../../../adamspy.postprocess.html#adamspy.postprocess.msg.get_timestamps">[docs]</a><span class="k">def</span> <span class="nf">get_timestamps</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns a list of timestamps from the Adams message (.msg) file.  Each timestamp in the list is a list  as follows [simulation time, step size, Function evaluations, cumulative steps taken, integration order, simulation time]</span>
+    <span class="sd">&quot;&quot;&quot;Returns a list of timestamps from the Adams message (.msg) file.  Each timestamp in the list </span>
+<span class="sd">    is a list  as follows [simulation time, step size, Function evaluations, cumulative steps </span>
+<span class="sd">    taken, integration order, simulation time]</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -226,15 +233,23 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    list</span>
-<span class="sd">        List of timestamps where each timestamp in the list is a list as follows [simulation time, step size, Function evaluations, cumulative steps taken, integration order, simulation time].</span>
+<span class="sd">        List of timestamps where each timestamp in the list is a list as follows </span>
+<span class="sd">        [simulation time, step size, Function evaluations, cumulative steps taken, integration </span>
+<span class="sd">        order, simulation time].</span>
 <span class="sd">        </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
         <span class="n">msg_text</span> <span class="o">=</span> <span class="n">fid</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-    <span class="k">return</span> <span class="p">[[</span><span class="nb">float</span><span class="p">(</span><span class="n">timestamp</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">timestamp</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">timestamp</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">timestamp</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">timestamp</span><span class="p">[</span><span class="mi">4</span><span class="p">]),</span> <span class="n">convert_cpu_time</span><span class="p">(</span><span class="n">timestamp</span><span class="p">[</span><span class="mi">5</span><span class="p">])]</span> <span class="k">for</span> <span class="n">timestamp</span> <span class="ow">in</span> <span class="n">TIMESTAMP_PATTERN</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">msg_text</span><span class="p">)]</span></div>
+    <span class="k">return</span> <span class="p">[[</span><span class="nb">float</span><span class="p">(</span><span class="n">timestamp</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+             <span class="nb">float</span><span class="p">(</span><span class="n">timestamp</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+             <span class="nb">int</span><span class="p">(</span><span class="n">timestamp</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
+             <span class="nb">int</span><span class="p">(</span><span class="n">timestamp</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span>
+             <span class="nb">int</span><span class="p">(</span><span class="n">timestamp</span><span class="p">[</span><span class="mi">4</span><span class="p">]),</span>
+             <span class="n">convert_cpu_time</span><span class="p">(</span><span class="n">timestamp</span><span class="p">[</span><span class="mi">5</span><span class="p">])]</span> <span class="k">for</span> <span class="n">timestamp</span> <span class="ow">in</span> <span class="n">TIMESTAMP_PATTERN</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">msg_text</span><span class="p">)]</span></div>
 
 <div class="viewcode-block" id="get_runtime_summary"><a class="viewcode-back" href="../../../adamspy.postprocess.html#adamspy.postprocess.msg.get_runtime_summary">[docs]</a><span class="k">def</span> <span class="nf">get_runtime_summary</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns a list of timestamps from the Adams message (.msg) file.  Each timestamp in the list is a list  as follows [elapsed time, cpu time, percent speedup]</span>
+    <span class="sd">&quot;&quot;&quot;Returns a list of timestamps from the Adams message (.msg) file.  Each timestamp in the list </span>
+<span class="sd">    is a list  as follows [elapsed time, cpu time, percent speedup]</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -244,7 +259,8 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    list</span>
-<span class="sd">        List of timestamps where each timestamp in the list is a list as follows [elapsed time, cpu time, percent speedup].</span>
+<span class="sd">        List of timestamps where each timestamp in the list is a list as follows [elapsed time, cpu </span>
+<span class="sd">        time, percent speedup].</span>
 <span class="sd">        </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
@@ -280,10 +296,11 @@
         <span class="n">msg_text</span> <span class="o">=</span> <span class="n">fid</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">uses_fortran_solver</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">FULL_ERROR_PATTERN</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">msg_text</span><span class="p">)</span>
+        <span class="n">errors</span> <span class="o">=</span> <span class="n">FULL_ERROR_PATTERN</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">msg_text</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">FULL_FORTRAN_ERROR_PATTERN</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">msg_text</span><span class="p">)</span></div>
+        <span class="n">errors</span> <span class="o">=</span> <span class="n">FULL_FORTRAN_ERROR_PATTERN</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">msg_text</span><span class="p">)</span>
 
+    <span class="k">return</span> <span class="n">errors</span></div>
 
 <div class="viewcode-block" id="uses_fortran_solver"><a class="viewcode-back" href="../../../adamspy.postprocess.html#adamspy.postprocess.msg.uses_fortran_solver">[docs]</a><span class="k">def</span> <span class="nf">uses_fortran_solver</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
@@ -335,13 +352,31 @@
                 <span class="n">fid_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;+/-&#39;</span><span class="p">,</span> <span class="s1">&#39;   &#39;</span><span class="p">))</span>
         
         <span class="c1"># Raise exceptions if lines not found</span>
-        <span class="k">if</span> <span class="n">start_line</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">end_line</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>          
+        <span class="k">if</span> <span class="n">start_line</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">end_line</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">counter</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Only found </span><span class="si">{counter}</span><span class="s1"> analys&#39;</span> <span class="o">+</span> <span class="s1">&#39;is&#39;</span> <span class="k">if</span> <span class="n">counter</span><span class="o">==</span><span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;es&#39;</span> <span class="o">+</span> <span class="n">f</span><span class="s1">&#39;, but {i_analysis+1} expected!&#39;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Only found </span><span class="si">{counter}</span><span class="s1"> &#39;</span>
+                                 <span class="o">+</span> <span class="s1">&#39;analysis&#39;</span> <span class="k">if</span> <span class="n">counter</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;analyses&#39;</span>
+                                 <span class="o">+</span> <span class="n">f</span><span class="s1">&#39;, but {i_analysis+1} expected!&#39;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;No modal table found!&#39;</span><span class="p">)</span>
     
     <span class="k">return</span> <span class="n">temp_filename</span>
+
+<div class="viewcode-block" id="get_process_id"><a class="viewcode-back" href="../../../adamspy.postprocess.html#adamspy.postprocess.msg.get_process_id">[docs]</a><span class="k">def</span> <span class="nf">get_process_id</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="n">Path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns the process ID of the Adams job that generated the given message file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filename : Path</span>
+<span class="sd">        Path to the message file.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    int</span>
+<span class="sd">        Process ID of the Adams job that generated the given message file.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">next</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">PROCESS_ID_PATTERN</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()))</span></div>
 </pre></div>
 
            </div>

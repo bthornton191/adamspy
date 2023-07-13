@@ -15,7 +15,7 @@ from ..adamspy import LOG_COMPLETE_PATTERN, get_log_errors
 START_SCRIPT_NAMES: List[str] = ['aviewBS.cmd', 'aview.cmd', 'aviewAS.cmd']
 
 
-def run_script(script_file: Path, cwd: Path = None, delete_log=True):
+def run_script(script_file: Path, cwd: Path = None, delete_log=True, timeout=300):
     """Runs the commands in `:arg:script_file` in an isolated Adams View session. Ignores any startup
     scripts (i.e. aviewBS.cmd, aview.cmd, aviewAS.cmd) in the working directory.
 
@@ -72,7 +72,7 @@ def run_script(script_file: Path, cwd: Path = None, delete_log=True):
             subprocess.Popen([os.environ['ADAMS_LAUNCH_COMMAND'], '-c', 'aview', 'ru-standard', 'b', script_file.name, 'exit'], cwd=cwd)
 
         # Wait for complete
-        _wait(log_file)
+        _wait(log_file, timeout=timeout)
 
         # Remove temporary startup files
         for file in (f for f in (*START_SCRIPT_NAMES, 'aview.log') if (cwd / f).exists()):

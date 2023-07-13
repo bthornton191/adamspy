@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.29.19'
-version_notes = 'added some fortran solver support'
-date = 'September 4th, 2022'
+version = '0.29.20'
+version_notes = 'refactoring of postprocess.msg module and added postprocess.msg.get_process_id'
+date = 'July 13th, 2023'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'

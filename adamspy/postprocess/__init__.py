@@ -2,6 +2,7 @@
 
 """
 import os
+from pathlib import Path
 import subprocess
 import re
 import time
@@ -128,7 +129,7 @@ def _get_model_name_from_cmd(filename):
 
     return mod_name
 
-def get_log_errors(log_file):
+def get_log_errors(log_file: Path):
     """Checks the log file for errors of the type AviewError.
 
     Parameters
@@ -137,9 +138,7 @@ def get_log_errors(log_file):
         Filename of aview log file (usulally aview.log)
 
     """
-    with open(log_file, 'r') as fid:
-        lines = fid.readlines()
-
+    lines = log_file.read_text(errors='ignore').split('\n')
     errors = [line for line in lines if re.search(LOG_FILE_ERROR_PATTERN, line, flags=re.I)]
 
     return errors

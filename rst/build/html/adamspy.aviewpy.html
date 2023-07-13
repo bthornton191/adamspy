@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.aviewpy package &mdash; adamspy 0.29.19 documentation</title>
+  <title>adamspy.aviewpy package &mdash; adamspy 0.29.20 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.29.19
+                0.29.20
               </div>
             
           
@@ -172,7 +172,7 @@ Moves them back on exit.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>cwd</strong> (<em>Path</em>) – Current working directory</li>
-<li><strong>scripts</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Names of scripts to move. Nonexistent files are ignored, by default [‘aviewBS.cmd’, ‘aview.cmd’, ‘aviewAS.cmd’]</li>
+<li><strong>scripts</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Names of scripts to move. Nonexistent files are ignored, by default [‘aviewBS.cmd’, ‘aview.cmd’, ‘aviewAS.cmd’]</li>
 </ul>
 </td>
 </tr>
@@ -190,7 +190,7 @@ scripts (i.e. aviewBS.cmd, aview.cmd, aviewAS.cmd) in the working directory.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>cmds</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – Commands to run (Adams View Command Language)</li>
+<li><strong>cmds</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – Commands to run (Adams View Command Language)</li>
 <li><strong>cwd</strong> (<em>Path</em>) – Working directory</li>
 </ul>
 </td>
@@ -201,7 +201,7 @@ scripts (i.e. aviewBS.cmd, aview.cmd, aviewAS.cmd) in the working directory.</p>
 
 <dl class="function">
 <dt id="adamspy.aviewpy.aviewpy.run_script">
-<code class="descclassname">adamspy.aviewpy.aviewpy.</code><code class="descname">run_script</code><span class="sig-paren">(</span><em>script_file: pathlib.Path</em>, <em>cwd: pathlib.Path = None</em>, <em>delete_log=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/aviewpy/aviewpy.html#run_script"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.aviewpy.aviewpy.run_script" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">adamspy.aviewpy.aviewpy.</code><code class="descname">run_script</code><span class="sig-paren">(</span><em>script_file: pathlib.Path</em>, <em>cwd: pathlib.Path = None</em>, <em>delete_log=True</em>, <em>timeout=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/aviewpy/aviewpy.html#run_script"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.aviewpy.aviewpy.run_script" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs the commands in <cite>:arg:script_file</cite> in an isolated Adams View session. Ignores any startup
 scripts (i.e. aviewBS.cmd, aview.cmd, aviewAS.cmd) in the working directory.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -209,7 +209,7 @@ scripts (i.e. aviewBS.cmd, aview.cmd, aviewAS.cmd) in the working directory.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>cmds</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – Commands to run (Adams View Command Language)</li>
+<li><strong>cmds</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – Commands to run (Adams View Command Language)</li>
 <li><strong>cwd</strong> (<em>Path</em>) – Working directory</li>
 </ul>
 </td>
