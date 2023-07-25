@@ -11,8 +11,5 @@ Available modules
 adamspy
     Functions for manipulating adams files and data
 """
-from . import adripy
-from . import waterfall
+from .adamspy import *
 name = 'adamspy'
-
-

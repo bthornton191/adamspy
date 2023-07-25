@@ -1,7 +1,6 @@
 """adripy is a set of python tools for manipulating MSC Adams Drill files and data.
 """
 #pylint: disable=wrong-import-position
-import os
 import jinja2
 
 TMPLT_ENV = jinja2.Environment(

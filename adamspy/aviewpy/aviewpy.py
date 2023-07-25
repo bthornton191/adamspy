@@ -96,7 +96,7 @@ def run_script(script_file: Path, cwd: Path = None, delete_log=True, timeout=300
     return log
 
 
-def run_commands(cmds: List[str], cwd: Path, delete_log=True):
+def run_commands(cmds: List[str], cwd: Path, delete_log=True, timeout=300):
     """Runs the commands in `:arg:cmds` in an isolated Adams View session. Ignores any startup
     scripts (i.e. aviewBS.cmd, aview.cmd, aviewAS.cmd) in the working directory.
 
@@ -112,7 +112,7 @@ def run_commands(cmds: List[str], cwd: Path, delete_log=True):
         fid.write('\n'.join(cmds))
         script_file = Path(fid.name)
 
-    return run_script(script_file, cwd, delete_log=delete_log)
+    return run_script(script_file, cwd, delete_log=delete_log, timeout=timeout)
 
 
 @contextmanager
