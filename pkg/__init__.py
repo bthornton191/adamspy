@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.30.0'
-version_notes = 'Changes to ui. `adamspy.waterfall` and `adamspy.adripy` must now be imported directly using (e.g `from adamspy import waterfall`). You can now replace `from adamspy.adamspy import *` with `from adamspy import *`'
-date = 'July 25th, 2023'
+version = '0.30.1'
+version_notes = 'Added option to supply mdi.bat path in `adamspy.aviewpy.run_script`'
+date = 'September 1st, 2023'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'

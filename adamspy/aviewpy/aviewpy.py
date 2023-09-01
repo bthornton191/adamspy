@@ -8,14 +8,14 @@ import shutil
 import subprocess
 from tempfile import NamedTemporaryFile, TemporaryDirectory
 import time
-from typing import List
+from typing import List, Union
 
 from ..adamspy import LOG_COMPLETE_PATTERN, get_log_errors
 
 START_SCRIPT_NAMES: List[str] = ['aviewBS.cmd', 'aview.cmd', 'aviewAS.cmd']
 
 
-def run_script(script_file: Path, cwd: Path = None, delete_log=True, timeout=300):
+def run_script(script_file: Path, cwd: Path = None, delete_log=True, timeout=300, mdi: Union[List,str]=None):
     """Runs the commands in `:arg:script_file` in an isolated Adams View session. Ignores any startup
     scripts (i.e. aviewBS.cmd, aview.cmd, aviewAS.cmd) in the working directory.
 
@@ -57,6 +57,11 @@ def run_script(script_file: Path, cwd: Path = None, delete_log=True, timeout=300
     # Delete the file
     log_file.unlink()
 
+    if mdi is None:
+        mdi = [os.environ['ADAMS_LAUNCH_COMMAND']]
+    elif isinstance(mdi, str):
+        mdi = [mdi]
+
     with no_start_scripts(cwd):
 
         # Change the log file name
@@ -66,10 +71,10 @@ def run_script(script_file: Path, cwd: Path = None, delete_log=True, timeout=300
         if system() == 'Windows':
             startupinfo = subprocess.STARTUPINFO()
             startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-            subprocess.Popen('"{}" aview ru-s b {}'.format(os.environ['ADAMS_LAUNCH_COMMAND'], script_file.name), cwd=cwd, startupinfo=startupinfo)
+            subprocess.Popen([*mdi, 'aview', 'ru-s', 'b', script_file.name], cwd=cwd, startupinfo=startupinfo)
 
         else:
-            subprocess.Popen([os.environ['ADAMS_LAUNCH_COMMAND'], '-c', 'aview', 'ru-standard', 'b', script_file.name, 'exit'], cwd=cwd)
+            subprocess.Popen([*mdi, '-c', 'aview', 'ru-standard', 'b', script_file.name, 'exit'], cwd=cwd)
 
         # Wait for complete
         _wait(log_file, timeout=timeout)
@@ -96,7 +101,7 @@ def run_script(script_file: Path, cwd: Path = None, delete_log=True, timeout=300
     return log
 
 
-def run_commands(cmds: List[str], cwd: Path, delete_log=True, timeout=300):
+def run_commands(cmds: List[str], cwd: Path, delete_log=True, timeout=300, mdi: Union[List,str]=None):
     """Runs the commands in `:arg:cmds` in an isolated Adams View session. Ignores any startup
     scripts (i.e. aviewBS.cmd, aview.cmd, aviewAS.cmd) in the working directory.
 
@@ -112,7 +117,7 @@ def run_commands(cmds: List[str], cwd: Path, delete_log=True, timeout=300):
         fid.write('\n'.join(cmds))
         script_file = Path(fid.name)
 
-    return run_script(script_file, cwd, delete_log=delete_log, timeout=timeout)
+    return run_script(script_file, cwd, delete_log=delete_log, timeout=timeout, mdi=mdi)
 
 
 @contextmanager

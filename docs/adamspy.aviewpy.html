@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.aviewpy package &mdash; adamspy 0.30.0 documentation</title>
+  <title>adamspy.aviewpy package &mdash; adamspy 0.30.1 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.30.0
+                0.30.1
               </div>
             
           
@@ -182,7 +182,7 @@ Moves them back on exit.</p>
 
 <dl class="function">
 <dt id="adamspy.aviewpy.aviewpy.run_commands">
-<code class="descclassname">adamspy.aviewpy.aviewpy.</code><code class="descname">run_commands</code><span class="sig-paren">(</span><em>cmds: List[str], cwd: pathlib.Path, delete_log=True, timeout=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/aviewpy/aviewpy.html#run_commands"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.aviewpy.aviewpy.run_commands" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">adamspy.aviewpy.aviewpy.</code><code class="descname">run_commands</code><span class="sig-paren">(</span><em>cmds: List[str], cwd: pathlib.Path, delete_log=True, timeout=300, mdi: Union[List[T], str] = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/aviewpy/aviewpy.html#run_commands"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.aviewpy.aviewpy.run_commands" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs the commands in <cite>:arg:cmds</cite> in an isolated Adams View session. Ignores any startup
 scripts (i.e. aviewBS.cmd, aview.cmd, aviewAS.cmd) in the working directory.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -201,7 +201,7 @@ scripts (i.e. aviewBS.cmd, aview.cmd, aviewAS.cmd) in the working directory.</p>
 
 <dl class="function">
 <dt id="adamspy.aviewpy.aviewpy.run_script">
-<code class="descclassname">adamspy.aviewpy.aviewpy.</code><code class="descname">run_script</code><span class="sig-paren">(</span><em>script_file: pathlib.Path</em>, <em>cwd: pathlib.Path = None</em>, <em>delete_log=True</em>, <em>timeout=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/aviewpy/aviewpy.html#run_script"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.aviewpy.aviewpy.run_script" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">adamspy.aviewpy.aviewpy.</code><code class="descname">run_script</code><span class="sig-paren">(</span><em>script_file: pathlib.Path, cwd: pathlib.Path = None, delete_log=True, timeout=300, mdi: Union[List[T], str] = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/aviewpy/aviewpy.html#run_script"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.aviewpy.aviewpy.run_script" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs the commands in <cite>:arg:script_file</cite> in an isolated Adams View session. Ignores any startup
 scripts (i.e. aviewBS.cmd, aview.cmd, aviewAS.cmd) in the working directory.</p>
 <table class="docutils field-list" frame="void" rules="none">

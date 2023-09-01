@@ -5,6 +5,7 @@ if __name__ == '__main__':
     if input('Have you staged your changes? (y/n)').lower().startswith('y'):
         if input('Have you updated the version number? The current version number is {} (y/n)'.format(pkg.version)).lower().startswith('y'):
             os.system(r'pip freeze > requirements.txt')
+            os.system(r'git add requirements.txt')
             os.system(r'rmdir /S /Q dist')
             os.system(r'rmdir /S /Q build')
             os.system(r'rmdir /S /Q adamspy.egg-info')
