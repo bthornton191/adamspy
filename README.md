@@ -1,4 +1,5 @@
 # adamspy
+![PyPI - Downloads](https://img.shields.io/pypi/v/adamspy)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/adamspy)
 
 Python tools for working with MSC/Adams data.
