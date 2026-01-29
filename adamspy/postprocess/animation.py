@@ -7,6 +7,8 @@ import time
 import subprocess
 import platform
 
+from ..adamspy import get_mdi
+
 from . import AVIEW_AFTERSTART_FILENAME
 
 LOG_COMPLETE_PATTERN = ' >> quit conf=no'
@@ -54,10 +56,10 @@ def create_animation(model_file : str, res_file : str, model_name : str, analysi
     if platform.system() == 'Windows':
         startupinfo = subprocess.STARTUPINFO()
         startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW        
-        _ppt_proc = subprocess.Popen('"{}" aview ru-s i'.format(os.environ['ADAMS_LAUNCH_COMMAND']), cwd=directory, startupinfo=startupinfo)
+        _ppt_proc = subprocess.Popen('"{}" aview ru-s i'.format(get_mdi()), cwd=directory, startupinfo=startupinfo)
     
     else:
-        _ppt_proc = subprocess.Popen([os.environ['ADAMS_LAUNCH_COMMAND'], '-c', 'aview', 'ru-standard', 'i'], cwd=directory)
+        _ppt_proc = subprocess.Popen([get_mdi(), '-c', 'aview', 'ru-standard', 'i'], cwd=directory)
     
     # Wait for process to complete
     _wait(ppt_log_file, timeout=timeout)

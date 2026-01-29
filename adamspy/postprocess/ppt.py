@@ -12,7 +12,7 @@ from numpy import genfromtxt
 from thornpy.signal import manually_clean_sig, remove_data_point, manually_clean_sigs, low_pass
 from thornpy.signal import _clean_sig as clean_sig
 
-from ..adamspy import get_log_errors, LOG_COMPLETE_PATTERN
+from ..adamspy import get_log_errors, LOG_COMPLETE_PATTERN, get_mdi
 
 
 LUNAR_SCRIPT_NAME = 'get_lunar_results.py'
@@ -92,10 +92,10 @@ def get_results(res_file, reqs_to_get, t_min=None, t_max=None, _just_write_scrip
         if platform.system() == 'Windows':
             startupinfo = subprocess.STARTUPINFO()
             startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-            subprocess.Popen('"{}" aview ru-s b {}'.format(os.environ['ADAMS_LAUNCH_COMMAND'], script_filename), cwd=working_directory, startupinfo=startupinfo)
+            subprocess.Popen('"{}" aview ru-s b {}'.format(get_mdi(), script_filename), cwd=working_directory, startupinfo=startupinfo)
 
         else:
-            subprocess.Popen([os.environ['ADAMS_LAUNCH_COMMAND'], '-c', 'aview', 'ru-standard', 'b', script_filename, 'exit'], cwd=working_directory)
+            subprocess.Popen([get_mdi(), '-c', 'aview', 'ru-standard', 'b', script_filename, 'exit'], cwd=working_directory)
 
         # Wait for complete
         _wait(os.path.join(working_directory, LOG_NAME), timeout=timeout)
@@ -145,10 +145,10 @@ def edit_results(res_file, input_dict, new_res_file=None, _just_write_script=Fal
             # Run the postprocessor
             startupinfo = subprocess.STARTUPINFO()
             startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-            subprocess.Popen('"{}" aview ru-s b {}'.format(os.environ['ADAMS_LAUNCH_COMMAND'], script_name), cwd=working_directory, startupinfo=startupinfo)
+            subprocess.Popen('"{}" aview ru-s b {}'.format(get_mdi(), script_name), cwd=working_directory, startupinfo=startupinfo)
 
         else:
-            subprocess.Popen([os.environ['ADAMS_LAUNCH_COMMAND'], '-c', 'aview', 'ru-s', 'b', script_name, 'exit'], cwd=working_directory)
+            subprocess.Popen([get_mdi(), '-c', 'aview', 'ru-s', 'b', script_name, 'exit'], cwd=working_directory)
 
         # Wait for complete
         _wait(os.path.join(working_directory, LOG_NAME), timeout=timeout)
@@ -178,10 +178,10 @@ def get_lunar_results(res_files, reqs_to_get, t_min, t_max, output_file, _just_w
         if platform.system() == 'Windows':
             startupinfo = subprocess.STARTUPINFO()
             startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-            subprocess.Popen('"{}" aview ru-s b {}'.format(os.environ['ADAMS_LAUNCH_COMMAND'], script_name), cwd=working_directory, startupinfo=startupinfo)
+            subprocess.Popen('"{}" aview ru-s b {}'.format(get_mdi(), script_name), cwd=working_directory, startupinfo=startupinfo)
 
         else:
-            subprocess.Popen([os.environ['ADAMS_LAUNCH_COMMAND'], 'aview', 'ru-s', 'b', script_name], cwd=working_directory)
+            subprocess.Popen([get_mdi(), 'aview', 'ru-s', 'b', script_name], cwd=working_directory)
 
         # Wait for complete
         _wait(os.path.join(working_directory, LOG_NAME), timeout=timeout)

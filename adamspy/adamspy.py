@@ -4,6 +4,7 @@ import os
 import re
 import subprocess
 import platform
+import warnings
 
 XMT_PATTERN = re.compile('\\s*file_name\\s*=\\s*"?.+\\.xmt_txt"?\\s*')
 LOG_FILE_ERROR_PATTERN = '! \\S*Error: '
@@ -168,17 +169,17 @@ def solve(acf_file, wait=False, use_adams_car=False):
         startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
 
         if use_adams_car is False:
-            command = '"{}" ru-s "{}"'.format(os.environ['ADAMS_LAUNCH_COMMAND'], file)
+            command = '"{}" ru-s "{}"'.format(get_mdi(), file)
         else:
-            command = '"{}" acar ru-solver "{}"'.format(os.environ['ADAMS_LAUNCH_COMMAND'], file)
+            command = '"{}" acar ru-solver "{}"'.format(get_mdi(), file)
 
         proc = subprocess.Popen(command, cwd=cwd, startupinfo=startupinfo)
 
     else:
         if use_adams_car is False:
-            command = [os.environ['ADAMS_LAUNCH_COMMAND'], '-c', 'ru-standard', 'i', file, 'exit']
+            command = [get_mdi(), '-c', 'ru-standard', 'i', file, 'exit']
         else:
-            command = [os.environ['ADAMS_LAUNCH_COMMAND'], '-c', 'acar', 'ru-solver', 'i', file, 'exit']
+            command = [get_mdi(), '-c', 'acar', 'ru-solver', 'i', file, 'exit']
 
         proc = subprocess.Popen(command, cwd=cwd)
 
@@ -207,6 +208,29 @@ def get_log_errors(log_file):
 
     if errors:
         raise AviewError(''.join(errors))
+
+
+def get_mdi():
+    """Returns the command to launch Adams MDI based on the OS.
+    
+    Returns
+    -------
+    str
+        Command to launch Adams MDI
+
+    """
+    mdi_ = os.environ.get('ADAMS_LAUNCH_COMMAND', None)
+    
+    if mdi_ is None:
+        mdi = 'mdi.bat' if platform.system() == 'Windows' else 'mdi'
+    elif os.path.isfile(mdi_) is False:
+        mdi = 'mdi.bat' if platform.system() == 'Windows' else 'mdi'
+        warnings.warn(f'ADAMS_LAUNCH_COMMAND is set to "{mdi_}", but this file does not exist.'
+                      f'Using "{mdi}" instead.')
+    else:
+        mdi = mdi_
+
+    return mdi
 
 
 class AdmFileError(Exception):

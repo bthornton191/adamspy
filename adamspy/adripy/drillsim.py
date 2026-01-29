@@ -13,7 +13,7 @@ from ..postprocess import launch_ppt
 from .string import DrillString
 from .event import DrillEvent
 from .solver_settings import DrillSolverSettings
-from ..adamspy import get_simdur_from_acf, get_simdur_from_msg
+from ..adamspy import get_mdi, get_simdur_from_acf, get_simdur_from_msg
 from . import modify_acf_solver_settings
 
 class DrillSim(): #pylint: disable=too-many-instance-attributes
@@ -251,10 +251,10 @@ class DrillSim(): #pylint: disable=too-many-instance-attributes
         if platform.system() == 'Windows':
             startupinfo = subprocess.STARTUPINFO()
             startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW        
-            self.run_proc = subprocess.Popen('"{}" ru-s "{}"'.format(os.environ['ADAMS_LAUNCH_COMMAND'], self.acf_filename), cwd=self.directory, startupinfo=startupinfo)
+            self.run_proc = subprocess.Popen('"{}" ru-s "{}"'.format(get_mdi(), self.acf_filename), cwd=self.directory, startupinfo=startupinfo)
         
         else:
-            self.run_proc = subprocess.Popen([os.environ['ADAMS_LAUNCH_COMMAND'], '-c', 'ru-standard', 'i', self.acf_filename, 'exit'], cwd=self.directory)
+            self.run_proc = subprocess.Popen([get_mdi(), '-c', 'ru-standard', 'i', self.acf_filename, 'exit'], cwd=self.directory)
 
         self.msg_filename = f'{self.analysis_name}.msg'
         self.res_filename = f'{self.analysis_name}.res'

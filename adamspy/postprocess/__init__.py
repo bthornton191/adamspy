@@ -8,6 +8,8 @@ import re
 import time
 import platform
 
+from ..adamspy import get_mdi
+
 PPT_AFTERSTART_FILENAME = 'pptAS.cmd'
 AVIEW_AFTERSTART_FILENAME = 'aviewAS.cmd'
 RES_LOADED_PATTERN = '! File Name:.*{}.*Time Steps:.*Start Time:.*Stop Time:.*(sec)'
@@ -74,10 +76,10 @@ def launch_ppt(res_file, cmd_file=None, wait=False, timeout=30, _terminate=False
     if platform.system() == 'Windows':
         startupinfo = subprocess.STARTUPINFO()
         startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-        ppt_proc = subprocess.Popen('"{}" aview ru-s i'.format(os.environ['ADAMS_LAUNCH_COMMAND']), cwd=directory, startupinfo=startupinfo)
+        ppt_proc = subprocess.Popen('"{}" aview ru-s i'.format(get_mdi()), cwd=directory, startupinfo=startupinfo)
 
     else:
-        ppt_proc = subprocess.Popen([os.environ['ADAMS_LAUNCH_COMMAND'], '-c', 'aview', 'ru-s', 'i'], cwd=directory)
+        ppt_proc = subprocess.Popen([get_mdi(), '-c', 'aview', 'ru-s', 'i'], cwd=directory)
 
     # Terminate immediately or wait for the process to complete before moving on.
     if _terminate:

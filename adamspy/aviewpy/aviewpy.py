@@ -10,7 +10,7 @@ from tempfile import NamedTemporaryFile, TemporaryDirectory
 import time
 from typing import List, Union
 
-from ..adamspy import LOG_COMPLETE_PATTERN, get_log_errors
+from ..adamspy import LOG_COMPLETE_PATTERN, get_log_errors, get_mdi
 
 START_SCRIPT_NAMES: List[str] = ['aviewBS.cmd', 'aview.cmd', 'aviewAS.cmd']
 
@@ -58,7 +58,7 @@ def run_script(script_file: Path, cwd: Path = None, delete_log=True, timeout=300
     log_file.unlink()
 
     if mdi is None:
-        mdi = [os.environ['ADAMS_LAUNCH_COMMAND']]
+        mdi = [get_mdi()]
     elif isinstance(mdi, str):
         mdi = [mdi]
 

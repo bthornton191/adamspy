@@ -6,6 +6,7 @@ import subprocess
 import time
 import platform
 
+from ..adamspy import get_mdi
 import thornpy
 import numpy as np
 
@@ -880,10 +881,10 @@ def build(string_file, solver_settings_file, working_directory, output_name=None
     if platform.system() == 'Windows':
         startupinfo = subprocess.STARTUPINFO()
         startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-        process = subprocess.Popen('"{}" aview ru-s b build.cmd'.format(os.environ['ADAMS_LAUNCH_COMMAND']), cwd=working_directory, startupinfo=startupinfo)
+        process = subprocess.Popen('"{}" aview ru-s b build.cmd'.format(get_mdi()), cwd=working_directory, startupinfo=startupinfo)
     
     else:
-        process = subprocess.Popen([os.environ['ADAMS_LAUNCH_COMMAND'], '-c', 'aview', 'ru-standard', 'b', 'build.cmd', 'exit'], cwd=working_directory)
+        process = subprocess.Popen([get_mdi(), '-c', 'aview', 'ru-standard', 'b', 'build.cmd', 'exit'], cwd=working_directory)
 
     adm_file = os.path.join(working_directory, adm_file)
     acf_file = os.path.join(working_directory, acf_file)
