@@ -2,6 +2,7 @@
 """
 import os
 import re
+import shutil
 import subprocess
 import platform
 import warnings
@@ -9,7 +10,7 @@ import warnings
 XMT_PATTERN = re.compile('\\s*file_name\\s*=\\s*"?.+\\.xmt_txt"?\\s*')
 LOG_FILE_ERROR_PATTERN = '! \\S*Error: '
 LOG_COMPLETE_PATTERN = '! Command file is exhausted, batch run is finished.'
-
+MDI_DEFAULT = 'mdi.bat' if platform.system().lower() == 'windows' else 'mdi'
 
 def get_simdur_from_msg(msg_file):
     """Reads an Adams message file (.msg) and returns the total duration of the simulation.
@@ -209,29 +210,80 @@ def get_log_errors(log_file):
     if errors:
         raise AviewError(''.join(errors))
 
-
 def get_mdi():
-    """Returns the command to launch Adams MDI based on the OS.
-    
+    """
+    Determine the command used to launch Adams MDI.
+
+    This function resolves the Adams MDI launcher using the following priority:
+    1. If the environment variable ``ADAMS_LAUNCH_COMMAND`` is set and refers to
+       an executable found on the system PATH, that value is used.
+    2. If ``ADAMS_LAUNCH_COMMAND`` is set but invalid, the default MDI launcher
+       is used if available, and a warning is issued.
+    3. If ``ADAMS_LAUNCH_COMMAND`` is not set, the default MDI launcher is used
+       if available.
+    4. If neither the environment variable nor the default launcher can be
+       resolved, an exception is raised.
+
+    The function never returns an empty string and will fail fast if no valid
+    MDI launcher can be found.
+
     Returns
     -------
     str
-        Command to launch Adams MDI
+        Command used to launch Adams MDI (e.g., ``mdi`` or ``mdi.bat``).
 
+    Raises
+    ------
+    FileNotFoundError
+        If ``ADAMS_LAUNCH_COMMAND`` is set but invalid and the default MDI
+        launcher is not available, or if neither option can be resolved.
     """
-    mdi_ = os.environ.get('ADAMS_LAUNCH_COMMAND', None)
-    
-    if mdi_ is None:
-        mdi = 'mdi.bat' if platform.system() == 'Windows' else 'mdi'
-    elif os.path.isfile(mdi_) is False:
-        mdi = 'mdi.bat' if platform.system() == 'Windows' else 'mdi'
-        warnings.warn(f'ADAMS_LAUNCH_COMMAND is set to "{mdi_}", but this file does not exist.'
-                      f'Using "{mdi}" instead.')
+    mdi_env = os.environ.get("ADAMS_LAUNCH_COMMAND")
+
+    # Check whether the environment-provided launcher is valid and executable
+    env_ok = mdi_env is not None and shutil.which(mdi_env)
+
+    # Check whether the default MDI launcher is available on PATH
+    default_ok = shutil.which(MDI_DEFAULT)
+
+    if env_ok:
+        
+        # Environment variable is set and resolves to a valid executable
+        mdi = mdi_env
+
+    elif mdi_env is not None and default_ok:
+
+        # Environment variable is set but invalid; fall back to default launcher
+        # and warn the user that their configuration is being overridden
+        warnings.warn(
+            f'ADAMS_LAUNCH_COMMAND is set to "{mdi_env}", but it is not executable '
+            f'or not on PATH. Falling back to {MDI_DEFAULT}.'
+        )
+        mdi = MDI_DEFAULT
+
+    elif mdi_env is None and default_ok:
+
+        # Environment variable is not set, but the default launcher is available;
+        # use the default silently
+        mdi = MDI_DEFAULT
+
+    elif mdi_env is not None:
+
+        # Environment variable is set, but neither it nor the default launcher
+        # can be resolved; fail explicitly
+        raise FileNotFoundError(
+            f'ADAMS_LAUNCH_COMMAND is set to "{mdi_env}", but it is not executable '
+            f'or not on PATH. Also, {MDI_DEFAULT} was not found on PATH.'
+        )
+
     else:
-        mdi = mdi_
+        # Environment variable is not set and the default launcher is unavailable;
+        # no valid way to launch Adams MDI
+        raise FileNotFoundError(
+            f'ADAMS_LAUNCH_COMMAND is not set, and {MDI_DEFAULT} was not found on PATH.'
+        )
 
     return mdi
-
 
 class AdmFileError(Exception):
     pass

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy package &mdash; adamspy 0.31.0 documentation</title>
+  <title>adamspy package &mdash; adamspy 0.31.1 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.31.0
+                0.31.1
               </div>
             
           
@@ -254,14 +254,31 @@
 <dl class="function">
 <dt id="adamspy.adamspy.get_mdi">
 <code class="descclassname">adamspy.adamspy.</code><code class="descname">get_mdi</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/adamspy/adamspy.html#get_mdi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#adamspy.adamspy.get_mdi" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the command to launch Adams MDI based on the OS.</p>
+<dd><p>Determine the command used to launch Adams MDI.</p>
+<p>This function resolves the Adams MDI launcher using the following priority:
+1. If the environment variable <code class="docutils literal notranslate"><span class="pre">ADAMS_LAUNCH_COMMAND</span></code> is set and refers to</p>
+<blockquote>
+<div>an executable found on the system PATH, that value is used.</div></blockquote>
+<ol class="arabic simple" start="2">
+<li>If <code class="docutils literal notranslate"><span class="pre">ADAMS_LAUNCH_COMMAND</span></code> is set but invalid, the default MDI launcher
+is used if available, and a warning is issued.</li>
+<li>If <code class="docutils literal notranslate"><span class="pre">ADAMS_LAUNCH_COMMAND</span></code> is not set, the default MDI launcher is used
+if available.</li>
+<li>If neither the environment variable nor the default launcher can be
+resolved, an exception is raised.</li>
+</ol>
+<p>The function never returns an empty string and will fail fast if no valid
+MDI launcher can be found.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Command to launch Adams MDI</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Command used to launch Adams MDI (e.g., <code class="docutils literal notranslate"><span class="pre">mdi</span></code> or <code class="docutils literal notranslate"><span class="pre">mdi.bat</span></code>).</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#FileNotFoundError" title="(in Python v3.14)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">FileNotFoundError</span></code></a> – If <code class="docutils literal notranslate"><span class="pre">ADAMS_LAUNCH_COMMAND</span></code> is set but invalid and the default MDI
+launcher is not available, or if neither option can be resolved.</td>
 </tr>
 </tbody>
 </table>

@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.31.0'
-version_notes = 'Refactor subprocess command handling to use get_mdi() for launching Adams MDI across multiple modules`'
+version = '0.31.1'
+version_notes = 'Refactored get_mdi()'
 date = 'January 29th, 2026'
 # ---------------------
 author = 'Ben Thornton'
