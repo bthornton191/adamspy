@@ -40,7 +40,7 @@ def write_results(file,  reqs_to_get, output_file, t_min=None, t_max=None):     
     time = ans.results.get('TIME').values
     _time_np = np.asarray(time)
     i_min = 0 if t_min is None else np.argmax(_time_np >= t_min)
-    i_max = len(time)-1 if t_max is None else np.argmax(_time_np >= t_max)
+    i_max = len(time)-1 if (t_max is None or t_max > max(time)) else np.argmax(_time_np >= t_max)
 
     # Store the time values
     res_dict['time'] = time[i_min:i_max]    

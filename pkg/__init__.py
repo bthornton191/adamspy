@@ -1,6 +1,6 @@
 # ---------------------
-version = '0.31.1'
-version_notes = 'Refactored get_mdi()'
+version = '0.32.0'
+version_notes = 'Fixed bug in get_results when t_max is greater than the simulation end time.'
 date = 'January 29th, 2026'
 # ---------------------
 author = 'Ben Thornton'
