@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.postprocess.xml &mdash; adamspy 0.30.1 documentation</title>
+  <title>adamspy.postprocess.xml &mdash; adamspy 0.31.0 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.30.1
+                0.31.0
               </div>
             
           
@@ -157,395 +157,411 @@
 <span class="n">COMPONENT_TAG</span> <span class="o">=</span> <span class="s1">&#39;Component&#39;</span>
 <span class="n">STEP_TAG</span> <span class="o">=</span> <span class="s1">&#39;{&#39;</span> <span class="o">+</span> <span class="n">XML_REF</span> <span class="o">+</span> <span class="s1">&#39;}&#39;</span> <span class="o">+</span> <span class="s1">&#39;Step&#39;</span>
 
+
 <div class="viewcode-block" id="get_results"><a class="viewcode-back" href="../../../adamspy.postprocess.html#adamspy.postprocess.xml.get_results">[docs]</a><span class="k">def</span> <span class="nf">get_results</span><span class="p">(</span><span class="n">result_file</span><span class="p">,</span> <span class="n">reqs_to_get</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_units</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">overwrite_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">use_iterparse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;Gets results from an Adams results (.res) file.</span>
-<span class="sd">	</span>
-<span class="sd">	Example</span>
-<span class="sd">	-------</span>
-<span class="sd">	&gt;&gt;&gt; result_file = &#39;example.res&#39;</span>
-<span class="sd">	&gt;&gt;&gt; t_min = 70</span>
-<span class="sd">	&gt;&gt;&gt; t_max = 80</span>
-<span class="sd">	&gt;&gt;&gt; reqs_to_get = {}</span>
-<span class="sd">	&gt;&gt;&gt; reqs_to_get[&#39;MSE&#39;] = [&#39;Instantaneous_Bottom_MSE&#39;, &#39;Filtered_Surface_MSE&#39;]</span>
-<span class="sd">	&gt;&gt;&gt; reqs_to_get[&#39;ROP_controls&#39;] = [&#39;Command_ROP&#39;, &#39;True_WOB&#39;]</span>
-<span class="sd">	&gt;&gt;&gt; requests, units = get_results(result_file, reqs_to_get, t_min, t_max)</span>
+    <span class="sd">&quot;&quot;&quot;Gets results from an Adams results (.res) file.</span>
 
-<span class="sd">	Note</span>
-<span class="sd">	----</span>
-<span class="sd">	This funciton only works with Requests.  It does not work with Result Sets.</span>
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    &gt;&gt;&gt; result_file = &#39;example.res&#39;</span>
+<span class="sd">    &gt;&gt;&gt; t_min = 70</span>
+<span class="sd">    &gt;&gt;&gt; t_max = 80</span>
+<span class="sd">    &gt;&gt;&gt; reqs_to_get = {}</span>
+<span class="sd">    &gt;&gt;&gt; reqs_to_get[&#39;MSE&#39;] = [&#39;Instantaneous_Bottom_MSE&#39;, &#39;Filtered_Surface_MSE&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; reqs_to_get[&#39;ROP_controls&#39;] = [&#39;Command_ROP&#39;, &#39;True_WOB&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; requests, units = get_results(result_file, reqs_to_get, t_min, t_max)</span>
 
-<span class="sd">	Note</span>
-<span class="sd">	----</span>
-<span class="sd">	This function only works with xml results files.</span>
-<span class="sd">	</span>
-<span class="sd">	Parameters</span>
-<span class="sd">	----------</span>
-<span class="sd">	result_file : str</span>
-<span class="sd">		Filename of an Adams results (.res) file</span>
-<span class="sd">	reqs_to_get : dict</span>
-<span class="sd">		Dictionary of requests to extract (the default is None, which gets all results)</span>
-<span class="sd">	t_min : float, optional</span>
-<span class="sd">		Minimum time for which to extract results (the default is None)</span>
-<span class="sd">	t_max : float, optional</span>
-<span class="sd">		Maximum time for which to extract results (the default is None)</span>
-<span class="sd">	</span>
-<span class="sd">	Returns</span>
-<span class="sd">	-------</span>
-<span class="sd">	dict</span>
-<span class="sd">		Dictionary of request data</span>
-<span class="sd">	dict</span>
-<span class="sd">		Dictionary defining units for each request. NOTE: This is only returned if `return_units=True`</span>
-<span class="sd">	</span>
-<span class="sd">	&quot;&quot;&quot;</span>
-	<span class="n">pickle_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">result_file</span><span class="p">),</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">result_file</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.pkl&#39;</span><span class="p">)</span>
-	<span class="n">units_pickle_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">result_file</span><span class="p">),</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">result_file</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_units.pkl&#39;</span><span class="p">)</span>
+<span class="sd">    Note</span>
+<span class="sd">    ----</span>
+<span class="sd">    This funciton only works with Requests.  It does not work with Result Sets.</span>
 
-	<span class="k">if</span> <span class="n">overwrite_pickle</span> <span class="ow">is</span> <span class="kc">False</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">pickle_filename</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">units_pickle_filename</span><span class="p">)</span> <span class="ow">or</span> <span class="n">return_units</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">):</span>
-		<span class="c1"># Load from a pickle file</span>
-		<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pickle_filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
-			<span class="n">reqs_to_return</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fid</span><span class="p">)</span>
+<span class="sd">    Note</span>
+<span class="sd">    ----</span>
+<span class="sd">    This function only works with xml results files.</span>
 
-		<span class="k">if</span> <span class="n">return_units</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-			<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">units_pickle_filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
-				<span class="n">units</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fid</span><span class="p">)</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    result_file : str</span>
+<span class="sd">        Filename of an Adams results (.res) file</span>
+<span class="sd">    reqs_to_get : dict</span>
+<span class="sd">        Dictionary of requests to extract (the default is None, which gets all results)</span>
+<span class="sd">    t_min : float, optional</span>
+<span class="sd">        Minimum time for which to extract results (the default is None)</span>
+<span class="sd">    t_max : float, optional</span>
+<span class="sd">        Maximum time for which to extract results (the default is None)</span>
 
-	<span class="k">elif</span> <span class="n">use_iterparse</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
-		<span class="c1"># Parse the results file</span>
-		<span class="n">res_tree</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">result_file</span><span class="p">)</span>
-		
-		<span class="c1"># Loop over all the *Entity* nodes in the input tree, pick out the ones requested</span>
-		<span class="c1"># in `reqs_to_keep` and put their units and original ids into dictionaries</span>
-		<span class="n">units</span><span class="p">,</span> <span class="n">req_ids</span><span class="p">,</span> <span class="n">reqs_to_get</span> <span class="o">=</span> <span class="n">_get_units_and_ids</span><span class="p">(</span><span class="n">res_tree</span><span class="p">,</span> <span class="n">reqs_to_get</span><span class="p">)</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Dictionary of request data</span>
+<span class="sd">    dict</span>
+<span class="sd">        Dictionary defining units for each request. NOTE: This is only returned if `return_units=True`</span>
 
-		<span class="c1"># Initialize the output requests dictionary</span>
-		<span class="n">reqs_to_return</span> <span class="o">=</span> <span class="p">{</span><span class="n">req</span> <span class="p">:</span> <span class="p">{</span><span class="n">req_comp</span> <span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">req_comp</span> <span class="ow">in</span> <span class="n">reqs_to_get</span><span class="p">[</span><span class="n">req</span><span class="p">]}</span> <span class="k">for</span> <span class="n">req</span> <span class="ow">in</span> <span class="n">reqs_to_get</span><span class="p">}</span>
-		<span class="n">time</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pickle_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">result_file</span><span class="p">),</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">result_file</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.pkl&#39;</span><span class="p">)</span>
+    <span class="n">units_pickle_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">result_file</span><span class="p">),</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">result_file</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_units.pkl&#39;</span><span class="p">)</span>
 
-		<span class="c1"># Make a list of all the data nodes that represent dynamic sims</span>
-		<span class="n">dyn_data_nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">node</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">res_tree</span><span class="o">.</span><span class="n">iter</span><span class="p">(</span><span class="s1">&#39;{&#39;</span><span class="o">+</span><span class="n">XML_REF</span><span class="o">+</span><span class="s1">&#39;}Data&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;dynamic_&#39;</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)]</span>
+    <span class="k">if</span> <span class="n">overwrite_pickle</span> <span class="ow">is</span> <span class="kc">False</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">pickle_filename</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">units_pickle_filename</span><span class="p">)</span> <span class="ow">or</span> <span class="n">return_units</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="c1"># Load from a pickle file</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pickle_filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+            <span class="n">reqs_to_return</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fid</span><span class="p">)</span>
 
-		<span class="k">del</span> <span class="n">res_tree</span>
+        <span class="k">if</span> <span class="n">return_units</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">units_pickle_filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+                <span class="n">units</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fid</span><span class="p">)</span>
 
-		<span class="k">for</span> <span class="n">data_node</span> <span class="ow">in</span> <span class="n">dyn_data_nodes</span><span class="p">:</span>
-			<span class="c1"># For each dynamic data node</span>
+    <span class="k">elif</span> <span class="n">use_iterparse</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="c1"># Parse the results file</span>
+        <span class="n">res_tree</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">result_file</span><span class="p">)</span>
 
-			<span class="n">_process_data_node</span><span class="p">(</span><span class="n">data_node</span><span class="p">,</span> <span class="n">reqs_to_return</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">req_ids</span><span class="p">,</span> <span class="n">t_max</span><span class="p">,</span> <span class="n">t_min</span><span class="p">)</span>
-		
-	<span class="k">else</span><span class="p">:</span>
-		
-		<span class="c1"># Loop over all the *Entity* nodes in the input tree, pick out the ones requested</span>
-		<span class="c1"># in `reqs_to_keep` and put their units and original ids into dictionaries</span>
-		<span class="n">units</span><span class="p">,</span> <span class="n">req_ids</span><span class="p">,</span> <span class="n">reqs_to_get</span> <span class="o">=</span> <span class="n">_get_units_and_ids</span><span class="p">(</span><span class="n">et</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">result_file</span><span class="p">),</span> <span class="n">reqs_to_get</span><span class="p">)</span>
+        <span class="c1"># Loop over all the *Entity* nodes in the input tree, pick out the ones requested</span>
+        <span class="c1"># in `reqs_to_keep` and put their units and original ids into dictionaries</span>
+        <span class="n">units</span><span class="p">,</span> <span class="n">req_ids</span><span class="p">,</span> <span class="n">reqs_to_get</span> <span class="o">=</span> <span class="n">_get_units_and_ids</span><span class="p">(</span><span class="n">res_tree</span><span class="p">,</span> <span class="n">reqs_to_get</span><span class="p">)</span>
 
-		<span class="c1"># Initialize the output requests dictionary</span>
-		<span class="n">reqs_to_return</span> <span class="o">=</span> <span class="p">{</span><span class="n">req</span> <span class="p">:</span> <span class="p">{</span><span class="n">req_comp</span> <span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">req_comp</span> <span class="ow">in</span> <span class="n">reqs_to_get</span><span class="p">[</span><span class="n">req</span><span class="p">]}</span> <span class="k">for</span> <span class="n">req</span> <span class="ow">in</span> <span class="n">reqs_to_get</span><span class="p">}</span>
-		<span class="n">time</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Initialize the output requests dictionary</span>
+        <span class="n">reqs_to_return</span> <span class="o">=</span> <span class="p">{</span><span class="n">req</span><span class="p">:</span> <span class="p">{</span><span class="n">req_comp</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">req_comp</span> <span class="ow">in</span> <span class="n">reqs_to_get</span><span class="p">[</span><span class="n">req</span><span class="p">]}</span> <span class="k">for</span> <span class="n">req</span> <span class="ow">in</span> <span class="n">reqs_to_get</span><span class="p">}</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="p">[]</span>
 
-		<span class="c1"># Parse the results file using iterparse</span>
-		<span class="k">for</span> <span class="n">_event</span><span class="p">,</span> <span class="n">data_node</span> <span class="ow">in</span> <span class="n">et</span><span class="o">.</span><span class="n">iterparse</span><span class="p">(</span><span class="n">result_file</span><span class="p">):</span>
-			<span class="c1"># For each node</span>
+        <span class="c1"># Make a list of all the data nodes that represent dynamic sims</span>
+        <span class="n">dyn_data_nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">node</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">res_tree</span><span class="o">.</span><span class="n">iter</span><span class="p">(</span><span class="s1">&#39;{&#39;</span><span class="o">+</span><span class="n">XML_REF</span><span class="o">+</span><span class="s1">&#39;}Data&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;dynamic_&#39;</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)]</span>
 
-			<span class="k">if</span> <span class="n">data_node</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;{&#39;</span><span class="o">+</span><span class="n">XML_REF</span><span class="o">+</span><span class="s1">&#39;}Data&#39;</span> <span class="ow">and</span> <span class="s1">&#39;dynamic_&#39;</span> <span class="ow">in</span> <span class="n">data_node</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">):</span>
+        <span class="k">del</span> <span class="n">res_tree</span>
 
-				<span class="c1"># If the node is a dynamic data node, process it</span>
-				<span class="n">_process_data_node</span><span class="p">(</span><span class="n">data_node</span><span class="p">,</span> <span class="n">reqs_to_return</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">req_ids</span><span class="p">,</span> <span class="n">t_max</span><span class="p">,</span> <span class="n">t_min</span><span class="p">)</span>
-		
-	<span class="c1"># Add the time list to the return dict</span>
-	<span class="n">reqs_to_return</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
+        <span class="k">for</span> <span class="n">data_node</span> <span class="ow">in</span> <span class="n">dyn_data_nodes</span><span class="p">:</span>
+            <span class="c1"># For each dynamic data node</span>
 
-	<span class="c1"># Write to a pickle file</span>
-	<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pickle_filename</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
-		<span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">reqs_to_return</span><span class="p">,</span> <span class="n">fid</span><span class="p">)</span>
-	
-	<span class="k">if</span> <span class="n">return_units</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-		<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">units_pickle_filename</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
-			<span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">units</span><span class="p">,</span> <span class="n">fid</span><span class="p">)</span>
+            <span class="n">_process_data_node</span><span class="p">(</span><span class="n">data_node</span><span class="p">,</span> <span class="n">reqs_to_return</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">req_ids</span><span class="p">,</span> <span class="n">t_max</span><span class="p">,</span> <span class="n">t_min</span><span class="p">)</span>
 
-	<span class="k">if</span> <span class="n">return_units</span><span class="p">:</span>
-		<span class="k">return</span> <span class="n">reqs_to_return</span><span class="p">,</span> <span class="n">units</span>
-	<span class="k">else</span><span class="p">:</span>
-		<span class="k">return</span> <span class="n">reqs_to_return</span></div>
+    <span class="k">else</span><span class="p">:</span>
 
-<span class="k">def</span> <span class="nf">_process_data_node</span><span class="p">(</span><span class="n">data_node</span><span class="p">,</span> <span class="n">reqs_to_return</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">time</span> <span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">req_ids</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">t_max</span> <span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t_min</span> <span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
-	<span class="k">for</span> <span class="n">step_node</span> <span class="ow">in</span> <span class="n">data_node</span><span class="p">:</span>
-		<span class="c1"># For each step (only one) in the model input data, put the</span>
-		<span class="c1"># old step data into a list</span>
-		<span class="n">step_data</span> <span class="o">=</span> <span class="n">step_node</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
-		
-		<span class="n">t_step</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">step_data</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span><span class="mi">3</span><span class="p">)</span>
-		<span class="k">if</span> <span class="p">(</span><span class="n">t_min</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">t_step</span> <span class="o">&gt;=</span> <span class="n">t_min</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">t_max</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">t_step</span> <span class="o">&lt;=</span> <span class="n">t_max</span><span class="p">):</span>
-			<span class="c1"># If the time falls within the desired time range, add to the time list</span>
-			<span class="n">time</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t_step</span><span class="p">)</span>
+        <span class="c1"># Loop over all the *Entity* nodes in the input tree, pick out the ones requested</span>
+        <span class="c1"># in `reqs_to_keep` and put their units and original ids into dictionaries</span>
+        <span class="n">units</span><span class="p">,</span> <span class="n">req_ids</span><span class="p">,</span> <span class="n">reqs_to_get</span> <span class="o">=</span> <span class="n">_get_units_and_ids</span><span class="p">(</span><span class="n">et</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">result_file</span><span class="p">),</span> <span class="n">reqs_to_get</span><span class="p">)</span>
 
-			<span class="c1"># Add to the req_comp list</span>
-			<span class="k">for</span> <span class="n">req</span> <span class="ow">in</span> <span class="n">reqs_to_return</span><span class="p">:</span>
-				<span class="k">for</span> <span class="n">req_comp</span> <span class="ow">in</span> <span class="n">reqs_to_return</span><span class="p">[</span><span class="n">req</span><span class="p">]:</span>
-					<span class="n">req_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">req_ids</span><span class="p">[</span><span class="n">req</span><span class="p">][</span><span class="n">req_comp</span><span class="p">])</span>
-					<span class="n">reqs_to_return</span><span class="p">[</span><span class="n">req</span><span class="p">][</span><span class="n">req_comp</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">step_data</span><span class="p">[</span><span class="n">req_id</span><span class="p">]))</span>
-		
-		<span class="k">elif</span> <span class="n">t_max</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">t_step</span> <span class="o">&gt;</span> <span class="n">t_max</span><span class="p">:</span>
-			<span class="k">break</span>
+        <span class="c1"># Initialize the output requests dictionary</span>
+        <span class="n">reqs_to_return</span> <span class="o">=</span> <span class="p">{</span><span class="n">req</span><span class="p">:</span> <span class="p">{</span><span class="n">req_comp</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">req_comp</span> <span class="ow">in</span> <span class="n">reqs_to_get</span><span class="p">[</span><span class="n">req</span><span class="p">]}</span> <span class="k">for</span> <span class="n">req</span> <span class="ow">in</span> <span class="n">reqs_to_get</span><span class="p">}</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="p">[]</span>
 
-<div class="viewcode-block" id="shrink_results"><a class="viewcode-back" href="../../../adamspy.postprocess.html#adamspy.postprocess.xml.shrink_results">[docs]</a><span class="k">def</span> <span class="nf">shrink_results</span><span class="p">(</span><span class="n">result_file</span><span class="p">,</span> <span class="n">reqs_to_keep</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">new_result_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">in_place</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>	
-	<span class="sd">&quot;&quot;&quot;Shrinks a results file by eliminating unwanted data.</span>
-<span class="sd">	</span>
-<span class="sd">	Example</span>
-<span class="sd">	-------</span>
-<span class="sd">	&gt;&gt;&gt; result_file = &#39;example.res&#39;</span>
-<span class="sd">	&gt;&gt;&gt; t_min = 70</span>
-<span class="sd">	&gt;&gt;&gt; t_max = 80</span>
-<span class="sd">	&gt;&gt;&gt; reqs_to_keep = {}</span>
-<span class="sd">	&gt;&gt;&gt; reqs_to_keep[&#39;MSE&#39;] = [&#39;Instantaneous_Bottom_MSE&#39;, &#39;Filtered_Surface_MSE&#39;]</span>
-<span class="sd">	&gt;&gt;&gt; reqs_to_keep[&#39;ROP_controls&#39;] = [&#39;Command_ROP&#39;, &#39;True_WOB&#39;]</span>
-<span class="sd">	&gt;&gt;&gt; shrink_results(result_file, reqs_to_keep, t_min, t_max)</span>
+        <span class="c1"># Parse the results file using iterparse</span>
+        <span class="k">for</span> <span class="n">_event</span><span class="p">,</span> <span class="n">data_node</span> <span class="ow">in</span> <span class="n">et</span><span class="o">.</span><span class="n">iterparse</span><span class="p">(</span><span class="n">result_file</span><span class="p">):</span>
+            <span class="c1"># For each node</span>
 
-<span class="sd">	Note</span>
-<span class="sd">	----</span>
-<span class="sd">	This funciton only works with Requests.  It does not work with Result Sets.</span>
+            <span class="k">if</span> <span class="n">data_node</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;{&#39;</span><span class="o">+</span><span class="n">XML_REF</span><span class="o">+</span><span class="s1">&#39;}Data&#39;</span> <span class="ow">and</span> <span class="s1">&#39;dynamic_&#39;</span> <span class="ow">in</span> <span class="n">data_node</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">):</span>
 
-<span class="sd">	Parameters</span>
-<span class="sd">	----------</span>
-<span class="sd">	result_file : str</span>
-<span class="sd">		Filename of the results file</span>
-<span class="sd">	reqs_to_keep : dict</span>
-<span class="sd">		Dictionary of requests and request components that should be saved. </span>
-<span class="sd">	t_min : float, optional</span>
-<span class="sd">		Start time of period of interest (default is None which uses the first time step)</span>
-<span class="sd">	t_max : float, optional</span>
-<span class="sd">		End time of period of interest (default is None which uses the last time step)</span>
-<span class="sd">	new_result_file : str</span>
-<span class="sd">		Name that will be given to the new results file. (Default is None which adds a &#39;_shrunk&#39; suffix to `result_file` if in_place=False or uses `result_file` if in_place=True.)</span>
-<span class="sd">	in_place : bool, optional</span>
-<span class="sd">		If True, existing file will be deleted.</span>
+                <span class="c1"># If the node is a dynamic data node, process it</span>
+                <span class="n">_process_data_node</span><span class="p">(</span><span class="n">data_node</span><span class="p">,</span> <span class="n">reqs_to_return</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">req_ids</span><span class="p">,</span> <span class="n">t_max</span><span class="p">,</span> <span class="n">t_min</span><span class="p">)</span>
 
-<span class="sd">	&quot;&quot;&quot;</span>	
-	<span class="n">input_tree</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">result_file</span><span class="p">)</span>
-	<span class="n">input_ans_node</span> <span class="o">=</span> <span class="p">[</span><span class="n">ans</span> <span class="k">for</span> <span class="n">ans</span> <span class="ow">in</span> <span class="n">input_tree</span><span class="o">.</span><span class="n">iter</span><span class="p">(</span><span class="s1">&#39;{&#39;</span><span class="o">+</span><span class="n">XML_REF</span><span class="o">+</span><span class="s1">&#39;}Analysis&#39;</span><span class="p">)][</span><span class="mi">0</span><span class="p">]</span>
-	
-	<span class="c1"># Create `units` and `old_ids` dictionaries</span>
-	<span class="n">units</span><span class="p">,</span> <span class="n">old_ids</span><span class="p">,</span> <span class="n">_reqs_to_keep</span> <span class="o">=</span> <span class="n">_get_units_and_ids</span><span class="p">(</span><span class="n">input_tree</span><span class="p">,</span> <span class="n">reqs_to_keep</span><span class="p">)</span>
-	
-	<span class="c1"># If `reqs_to_keep` is None, set it equal to all requrests</span>
-	<span class="k">if</span> <span class="n">reqs_to_keep</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-		<span class="n">reqs_to_keep</span> <span class="o">=</span> <span class="n">_reqs_to_keep</span>
+    <span class="c1"># Add the time list to the return dict</span>
+    <span class="n">reqs_to_return</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
 
-	<span class="c1"># Create New XML tree</span>
-	<span class="n">root_res</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="s1">&#39;Results&#39;</span><span class="p">,</span> <span class="n">xmlns</span><span class="o">=</span><span class="n">XML_REF</span><span class="p">)</span>    
-	<span class="n">root_ans</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">root_res</span><span class="p">,</span> <span class="s1">&#39;Analysis&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">input_ans_node</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">executionDate</span><span class="o">=</span><span class="n">input_ans_node</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;executionDate&#39;</span><span class="p">],</span> <span class="n">Solver</span><span class="o">=</span><span class="n">input_ans_node</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;Solver&#39;</span><span class="p">],</span> <span class="n">script</span><span class="o">=</span><span class="n">input_ans_node</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;script&#39;</span><span class="p">])</span>
-	<span class="n">root_map</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">root_ans</span><span class="p">,</span> <span class="s1">&#39;StepMap&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;map_001&#39;</span><span class="p">)</span>
-	<span class="n">ent_time</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">root_map</span><span class="p">,</span> <span class="s1">&#39;Entity&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
-	<span class="n">root_data</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">root_ans</span><span class="p">,</span> <span class="s1">&#39;Data&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;dynamic_001&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
-				
-	<span class="c1"># Create the time component</span>
-	<span class="n">et</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">ent_time</span><span class="p">,</span> <span class="s1">&#39;Component&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;TIME&#39;</span><span class="p">,</span> <span class="n">unitsValue</span><span class="o">=</span><span class="s1">&#39;sec&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+    <span class="c1"># Write to a pickle file</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pickle_filename</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">reqs_to_return</span><span class="p">,</span> <span class="n">fid</span><span class="p">)</span>
 
-	<span class="c1"># Create StepMap</span>
-	<span class="n">new_id</span> <span class="o">=</span> <span class="mi">2</span>
-	<span class="k">for</span> <span class="n">request</span> <span class="ow">in</span> <span class="n">reqs_to_keep</span><span class="p">:</span>
-		<span class="n">ent_map</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">root_map</span><span class="p">,</span> <span class="s1">&#39;Entity&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">request</span><span class="p">,</span> <span class="n">entity</span><span class="o">=</span><span class="n">request</span><span class="p">,</span> <span class="n">entType</span><span class="o">=</span><span class="s1">&#39;Request&#39;</span><span class="p">,</span> <span class="n">objectId</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
-		<span class="k">for</span> <span class="n">req_comp</span> <span class="ow">in</span> <span class="n">reqs_to_keep</span><span class="p">[</span><span class="n">request</span><span class="p">]:</span>
-			<span class="n">et</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">ent_map</span><span class="p">,</span> <span class="s1">&#39;Component&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">req_comp</span><span class="p">,</span> <span class="n">plotLabel</span><span class="o">=</span><span class="n">units</span><span class="p">[</span><span class="n">request</span><span class="p">][</span><span class="n">req_comp</span><span class="p">],</span> <span class="nb">id</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">new_id</span><span class="p">))</span>
-			<span class="n">new_id</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">return_units</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">units_pickle_filename</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+            <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">units</span><span class="p">,</span> <span class="n">fid</span><span class="p">)</span>
 
-	<span class="c1"># Make a list of all the data nodes that represent dynamic sims</span>
-	<span class="n">dyn_data_nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">node</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">input_tree</span><span class="o">.</span><span class="n">iter</span><span class="p">(</span><span class="s1">&#39;{&#39;</span><span class="o">+</span><span class="n">XML_REF</span><span class="o">+</span><span class="s1">&#39;}Data&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;dynamic_&#39;</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)]</span>
+    <span class="k">if</span> <span class="n">return_units</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">reqs_to_return</span><span class="p">,</span> <span class="n">units</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">reqs_to_return</span></div>
 
-	<span class="c1"># Loop through the dynamic sim data nodes</span>
-	<span class="k">for</span> <span class="n">data_node</span> <span class="ow">in</span> <span class="n">dyn_data_nodes</span><span class="p">:</span>
-		<span class="c1"># For each dynamic data node</span>
 
-		<span class="k">for</span> <span class="n">step_node</span> <span class="ow">in</span> <span class="n">data_node</span><span class="p">:</span>
-			<span class="c1"># For each step (only one) in the model input data, put the</span>
-			<span class="c1"># old step data into a list</span>
-			<span class="n">old_step_data</span> <span class="o">=</span> <span class="n">step_node</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">_process_data_node</span><span class="p">(</span><span class="n">data_node</span><span class="p">,</span> <span class="n">reqs_to_return</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">req_ids</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">t_max</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t_min</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">step_node</span> <span class="ow">in</span> <span class="n">data_node</span><span class="p">:</span>
+        <span class="c1"># For each step (only one) in the model input data, put the</span>
+        <span class="c1"># old step data into a list</span>
+        <span class="n">step_data</span> <span class="o">=</span> <span class="n">step_node</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
 
-			<span class="n">t_step</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">old_step_data</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span><span class="mi">3</span><span class="p">)</span>
-			<span class="k">if</span> <span class="p">(</span><span class="n">t_min</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">t_step</span> <span class="o">&gt;=</span> <span class="n">t_min</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">t_max</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">t_step</span> <span class="o">&lt;=</span> <span class="n">t_max</span><span class="p">):</span>
-				<span class="c1"># If the time falls within the desired time range add to `new_step_data`</span>
-				<span class="n">new_step_data</span> <span class="o">=</span> <span class="n">_get_new_steplist</span><span class="p">(</span><span class="n">reqs_to_keep</span><span class="p">,</span> <span class="n">old_step_data</span><span class="p">,</span> <span class="n">old_ids</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;time&#39;</span> <span class="ow">in</span> <span class="n">step_node</span><span class="o">.</span><span class="n">attrib</span><span class="p">:</span>
+            <span class="n">t_step</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">step_node</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">step_data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+            <span class="n">t_step</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">step_data</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">continue</span>
 
-				<span class="c1"># Create a string containing the model input data								</span>
-				<span class="n">new_dynamic_text</span> <span class="o">=</span> <span class="n">_convert_steplist_to_string</span><span class="p">(</span><span class="n">new_step_data</span><span class="p">)</span>
-			
-				<span class="c1"># Rewrite the SubElement text</span>
-				<span class="n">xml_step</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">root_data</span><span class="p">,</span> <span class="s1">&#39;Step&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;dynamic&#39;</span><span class="p">)</span>
-				<span class="n">xml_step</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">new_dynamic_text</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">t_min</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">t_step</span> <span class="o">&gt;=</span> <span class="n">t_min</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">t_max</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">t_step</span> <span class="o">&lt;=</span> <span class="n">t_max</span><span class="p">):</span>
+            <span class="c1"># If the time falls within the desired time range, add to the time list</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t_step</span><span class="p">)</span>
 
-	<span class="c1"># Determine the output file if it wasn&#39;t given or if the one that was provided is equal to the original</span>
-	<span class="k">if</span> <span class="n">new_result_file</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">new_result_file</span> <span class="o">==</span> <span class="n">result_file</span><span class="p">:</span>	
-		<span class="n">new_result_file</span> <span class="o">=</span> <span class="n">result_file</span> <span class="o">+</span> <span class="s1">&#39;.tmp&#39;</span> <span class="k">if</span> <span class="n">in_place</span> <span class="ow">is</span> <span class="kc">True</span> <span class="k">else</span> <span class="n">result_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.res&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{SHRUNK_RES_SUFFIX}</span><span class="s1">.res&#39;</span>
-	
-	<span class="c1"># Write the output file</span>
-	<span class="n">output_tree</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">ElementTree</span><span class="p">(</span><span class="n">root_res</span><span class="p">)</span>
-	<span class="n">_xml_format</span><span class="p">(</span><span class="n">root_res</span><span class="p">)</span>
-	<span class="n">output_tree</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">new_result_file</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="n">xml_declaration</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="c1"># Add to the req_comp list</span>
+            <span class="k">for</span> <span class="n">req</span> <span class="ow">in</span> <span class="n">reqs_to_return</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">req_comp</span> <span class="ow">in</span> <span class="n">reqs_to_return</span><span class="p">[</span><span class="n">req</span><span class="p">]:</span>
+                    <span class="n">req_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">req_ids</span><span class="p">[</span><span class="n">req</span><span class="p">][</span><span class="n">req_comp</span><span class="p">])</span>
 
-	<span class="c1"># If in_place is set to true, remove the original results file</span>
-	<span class="k">if</span> <span class="n">in_place</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-		<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">result_file</span><span class="p">)</span>
-		
-		<span class="c1"># If no name was given for the output file and a .tmp extension was used, remove it</span>
-		<span class="k">if</span> <span class="n">new_result_file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.tmp&#39;</span><span class="p">):</span>
-			<span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">new_result_file</span><span class="p">,</span> <span class="n">new_result_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.tmp&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))</span></div>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">step_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">req_id</span><span class="p">:</span>
+                        <span class="n">reqs_to_return</span><span class="p">[</span><span class="n">req</span><span class="p">][</span><span class="n">req_comp</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">step_data</span><span class="p">[</span><span class="n">req_id</span><span class="p">]))</span>
+
+        <span class="k">elif</span> <span class="n">t_max</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">t_step</span> <span class="o">&gt;</span> <span class="n">t_max</span><span class="p">:</span>
+            <span class="k">break</span>
+
+
+<div class="viewcode-block" id="shrink_results"><a class="viewcode-back" href="../../../adamspy.postprocess.html#adamspy.postprocess.xml.shrink_results">[docs]</a><span class="k">def</span> <span class="nf">shrink_results</span><span class="p">(</span><span class="n">result_file</span><span class="p">,</span> <span class="n">reqs_to_keep</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">new_result_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">in_place</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Shrinks a results file by eliminating unwanted data.</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    &gt;&gt;&gt; result_file = &#39;example.res&#39;</span>
+<span class="sd">    &gt;&gt;&gt; t_min = 70</span>
+<span class="sd">    &gt;&gt;&gt; t_max = 80</span>
+<span class="sd">    &gt;&gt;&gt; reqs_to_keep = {}</span>
+<span class="sd">    &gt;&gt;&gt; reqs_to_keep[&#39;MSE&#39;] = [&#39;Instantaneous_Bottom_MSE&#39;, &#39;Filtered_Surface_MSE&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; reqs_to_keep[&#39;ROP_controls&#39;] = [&#39;Command_ROP&#39;, &#39;True_WOB&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; shrink_results(result_file, reqs_to_keep, t_min, t_max)</span>
+
+<span class="sd">    Note</span>
+<span class="sd">    ----</span>
+<span class="sd">    This funciton only works with Requests.  It does not work with Result Sets.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    result_file : str</span>
+<span class="sd">        Filename of the results file</span>
+<span class="sd">    reqs_to_keep : dict</span>
+<span class="sd">        Dictionary of requests and request components that should be saved. </span>
+<span class="sd">    t_min : float, optional</span>
+<span class="sd">        Start time of period of interest (default is None which uses the first time step)</span>
+<span class="sd">    t_max : float, optional</span>
+<span class="sd">        End time of period of interest (default is None which uses the last time step)</span>
+<span class="sd">    new_result_file : str</span>
+<span class="sd">        Name that will be given to the new results file. (Default is None which adds a &#39;_shrunk&#39; suffix to `result_file` if in_place=False or uses `result_file` if in_place=True.)</span>
+<span class="sd">    in_place : bool, optional</span>
+<span class="sd">        If True, existing file will be deleted.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">input_tree</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">result_file</span><span class="p">)</span>
+    <span class="n">input_ans_node</span> <span class="o">=</span> <span class="p">[</span><span class="n">ans</span> <span class="k">for</span> <span class="n">ans</span> <span class="ow">in</span> <span class="n">input_tree</span><span class="o">.</span><span class="n">iter</span><span class="p">(</span><span class="s1">&#39;{&#39;</span><span class="o">+</span><span class="n">XML_REF</span><span class="o">+</span><span class="s1">&#39;}Analysis&#39;</span><span class="p">)][</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Create `units` and `old_ids` dictionaries</span>
+    <span class="n">units</span><span class="p">,</span> <span class="n">old_ids</span><span class="p">,</span> <span class="n">_reqs_to_keep</span> <span class="o">=</span> <span class="n">_get_units_and_ids</span><span class="p">(</span><span class="n">input_tree</span><span class="p">,</span> <span class="n">reqs_to_keep</span><span class="p">)</span>
+
+    <span class="c1"># If `reqs_to_keep` is None, set it equal to all requrests</span>
+    <span class="k">if</span> <span class="n">reqs_to_keep</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">reqs_to_keep</span> <span class="o">=</span> <span class="n">_reqs_to_keep</span>
+
+    <span class="c1"># Create New XML tree</span>
+    <span class="n">root_res</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="s1">&#39;Results&#39;</span><span class="p">,</span> <span class="n">xmlns</span><span class="o">=</span><span class="n">XML_REF</span><span class="p">)</span>
+    <span class="n">root_ans</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">root_res</span><span class="p">,</span> <span class="s1">&#39;Analysis&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">input_ans_node</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">executionDate</span><span class="o">=</span><span class="n">input_ans_node</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;executionDate&#39;</span><span class="p">],</span>
+                             <span class="n">Solver</span><span class="o">=</span><span class="n">input_ans_node</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;Solver&#39;</span><span class="p">],</span> <span class="n">script</span><span class="o">=</span><span class="n">input_ans_node</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;script&#39;</span><span class="p">])</span>
+    <span class="n">root_map</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">root_ans</span><span class="p">,</span> <span class="s1">&#39;StepMap&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;map_001&#39;</span><span class="p">)</span>
+    <span class="n">ent_time</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">root_map</span><span class="p">,</span> <span class="s1">&#39;Entity&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+    <span class="n">root_data</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">root_ans</span><span class="p">,</span> <span class="s1">&#39;Data&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;dynamic_001&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Create the time component</span>
+    <span class="n">et</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">ent_time</span><span class="p">,</span> <span class="s1">&#39;Component&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;TIME&#39;</span><span class="p">,</span> <span class="n">unitsValue</span><span class="o">=</span><span class="s1">&#39;sec&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Create StepMap</span>
+    <span class="n">new_id</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="k">for</span> <span class="n">request</span> <span class="ow">in</span> <span class="n">reqs_to_keep</span><span class="p">:</span>
+        <span class="n">ent_map</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">root_map</span><span class="p">,</span> <span class="s1">&#39;Entity&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">request</span><span class="p">,</span> <span class="n">entity</span><span class="o">=</span><span class="n">request</span><span class="p">,</span> <span class="n">entType</span><span class="o">=</span><span class="s1">&#39;Request&#39;</span><span class="p">,</span> <span class="n">objectId</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">req_comp</span> <span class="ow">in</span> <span class="n">reqs_to_keep</span><span class="p">[</span><span class="n">request</span><span class="p">]:</span>
+            <span class="n">et</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">ent_map</span><span class="p">,</span> <span class="s1">&#39;Component&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">req_comp</span><span class="p">,</span> <span class="n">plotLabel</span><span class="o">=</span><span class="n">units</span><span class="p">[</span><span class="n">request</span><span class="p">][</span><span class="n">req_comp</span><span class="p">],</span> <span class="nb">id</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">new_id</span><span class="p">))</span>
+            <span class="n">new_id</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="c1"># Make a list of all the data nodes that represent dynamic sims</span>
+    <span class="n">dyn_data_nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">node</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">input_tree</span><span class="o">.</span><span class="n">iter</span><span class="p">(</span><span class="s1">&#39;{&#39;</span><span class="o">+</span><span class="n">XML_REF</span><span class="o">+</span><span class="s1">&#39;}Data&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;dynamic_&#39;</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)]</span>
+
+    <span class="c1"># Loop through the dynamic sim data nodes</span>
+    <span class="k">for</span> <span class="n">data_node</span> <span class="ow">in</span> <span class="n">dyn_data_nodes</span><span class="p">:</span>
+        <span class="c1"># For each dynamic data node</span>
+
+        <span class="k">for</span> <span class="n">step_node</span> <span class="ow">in</span> <span class="n">data_node</span><span class="p">:</span>
+            <span class="c1"># For each step (only one) in the model input data, put the</span>
+            <span class="c1"># old step data into a list</span>
+            <span class="n">old_step_data</span> <span class="o">=</span> <span class="n">step_node</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+
+            <span class="n">t_step</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">old_step_data</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="mi">3</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">t_min</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">t_step</span> <span class="o">&gt;=</span> <span class="n">t_min</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">t_max</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">t_step</span> <span class="o">&lt;=</span> <span class="n">t_max</span><span class="p">):</span>
+                <span class="c1"># If the time falls within the desired time range add to `new_step_data`</span>
+                <span class="n">new_step_data</span> <span class="o">=</span> <span class="n">_get_new_steplist</span><span class="p">(</span><span class="n">reqs_to_keep</span><span class="p">,</span> <span class="n">old_step_data</span><span class="p">,</span> <span class="n">old_ids</span><span class="p">)</span>
+
+                <span class="c1"># Create a string containing the model input data</span>
+                <span class="n">new_dynamic_text</span> <span class="o">=</span> <span class="n">_convert_steplist_to_string</span><span class="p">(</span><span class="n">new_step_data</span><span class="p">)</span>
+
+                <span class="c1"># Rewrite the SubElement text</span>
+                <span class="n">xml_step</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">root_data</span><span class="p">,</span> <span class="s1">&#39;Step&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;dynamic&#39;</span><span class="p">)</span>
+                <span class="n">xml_step</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">new_dynamic_text</span>
+
+    <span class="c1"># Determine the output file if it wasn&#39;t given or if the one that was provided is equal to the original</span>
+    <span class="k">if</span> <span class="n">new_result_file</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">new_result_file</span> <span class="o">==</span> <span class="n">result_file</span><span class="p">:</span>
+        <span class="n">new_result_file</span> <span class="o">=</span> <span class="n">result_file</span> <span class="o">+</span> <span class="s1">&#39;.tmp&#39;</span> <span class="k">if</span> <span class="n">in_place</span> <span class="ow">is</span> <span class="kc">True</span> <span class="k">else</span> <span class="n">result_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.res&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{SHRUNK_RES_SUFFIX}</span><span class="s1">.res&#39;</span>
+
+    <span class="c1"># Write the output file</span>
+    <span class="n">output_tree</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">ElementTree</span><span class="p">(</span><span class="n">root_res</span><span class="p">)</span>
+    <span class="n">_xml_format</span><span class="p">(</span><span class="n">root_res</span><span class="p">)</span>
+    <span class="n">output_tree</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">new_result_file</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="n">xml_declaration</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># If in_place is set to true, remove the original results file</span>
+    <span class="k">if</span> <span class="n">in_place</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">result_file</span><span class="p">)</span>
+
+        <span class="c1"># If no name was given for the output file and a .tmp extension was used, remove it</span>
+        <span class="k">if</span> <span class="n">new_result_file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.tmp&#39;</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">new_result_file</span><span class="p">,</span> <span class="n">new_result_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.tmp&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span></div>
+
 
 <span class="k">def</span> <span class="nf">_get_new_steplist</span><span class="p">(</span><span class="n">reqs_to_keep</span><span class="p">,</span> <span class="n">old_step_data</span><span class="p">,</span> <span class="n">req_ids</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;Returns a list similar to `old_step_data` but with unwanted requests removed.</span>
+    <span class="sd">&quot;&quot;&quot;Returns a list similar to `old_step_data` but with unwanted requests removed.</span>
 
-<span class="sd">	Uses the requests and request components in `old_step_data` and the entitiy ids in `req_ids` to determine which elements in `old_step_data` to keep.</span>
-<span class="sd">	</span>
-<span class="sd">	Parameters</span>
-<span class="sd">	----------</span>
-<span class="sd">	reqs_to_keep : dict</span>
-<span class="sd">		Dictionary of requests and request components to keep</span>
-<span class="sd">	old_step_data : list</span>
-<span class="sd">		List of all the step data in the results file</span>
-<span class="sd">	req_ids : dict</span>
-<span class="sd">		Dictionary of entity ids for the entire results file</span>
-<span class="sd">	</span>
-<span class="sd">	Returns</span>
-<span class="sd">	-------</span>
-<span class="sd">	list</span>
-<span class="sd">		List of just the step data to keep</span>
-<span class="sd">	</span>
-<span class="sd">	&quot;&quot;&quot;</span>
-	<span class="c1"># Start a new list with just the time element from `old_step_data`  </span>
-	<span class="n">new_step_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">old_step_data</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+<span class="sd">    Uses the requests and request components in `old_step_data` and the entitiy ids in `req_ids` to determine which elements in `old_step_data` to keep.</span>
 
-	<span class="c1"># Loop through the desired requests and components to pull elements</span>
-	<span class="c1"># from `old_step_data` into `new_step_data`	</span>
-	<span class="k">for</span> <span class="n">request</span> <span class="ow">in</span> <span class="n">reqs_to_keep</span><span class="p">:</span>
-		<span class="c1"># For each desired request </span>
-		<span class="k">for</span> <span class="n">req_comp</span> <span class="ow">in</span> <span class="n">reqs_to_keep</span><span class="p">[</span><span class="n">request</span><span class="p">]:</span>
-			<span class="c1"># For each desired request component, add that components</span>
-			<span class="c1"># step data to `new_step_data`</span>
-			<span class="n">req_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">req_ids</span><span class="p">[</span><span class="n">request</span><span class="p">][</span><span class="n">req_comp</span><span class="p">])</span>
-			<span class="n">new_step_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">old_step_data</span><span class="p">[</span><span class="n">req_id</span><span class="p">])</span>
-	
-	<span class="k">return</span> <span class="n">new_step_data</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    reqs_to_keep : dict</span>
+<span class="sd">        Dictionary of requests and request components to keep</span>
+<span class="sd">    old_step_data : list</span>
+<span class="sd">        List of all the step data in the results file</span>
+<span class="sd">    req_ids : dict</span>
+<span class="sd">        Dictionary of entity ids for the entire results file</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list</span>
+<span class="sd">        List of just the step data to keep</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Start a new list with just the time element from `old_step_data`</span>
+    <span class="n">new_step_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">old_step_data</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+
+    <span class="c1"># Loop through the desired requests and components to pull elements</span>
+    <span class="c1"># from `old_step_data` into `new_step_data`</span>
+    <span class="k">for</span> <span class="n">request</span> <span class="ow">in</span> <span class="n">reqs_to_keep</span><span class="p">:</span>
+        <span class="c1"># For each desired request</span>
+        <span class="k">for</span> <span class="n">req_comp</span> <span class="ow">in</span> <span class="n">reqs_to_keep</span><span class="p">[</span><span class="n">request</span><span class="p">]:</span>
+            <span class="c1"># For each desired request component, add that components</span>
+            <span class="c1"># step data to `new_step_data`</span>
+            <span class="n">req_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">req_ids</span><span class="p">[</span><span class="n">request</span><span class="p">][</span><span class="n">req_comp</span><span class="p">])</span>
+            <span class="n">new_step_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">old_step_data</span><span class="p">[</span><span class="n">req_id</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">new_step_data</span>
+
 
 <span class="k">def</span> <span class="nf">_convert_steplist_to_string</span><span class="p">(</span><span class="n">step_data</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;Converts list of step data into a single string.</span>
-<span class="sd">	</span>
-<span class="sd">	Parameters</span>
-<span class="sd">	----------</span>
-<span class="sd">	step_data : list</span>
-<span class="sd">		List of step data</span>
-<span class="sd">	</span>
-<span class="sd">	Returns</span>
-<span class="sd">	-------</span>
-<span class="sd">	str</span>
-<span class="sd">		A space delimited string where every 6th value is followed by a newline.</span>
-<span class="sd">	</span>
-<span class="sd">	&quot;&quot;&quot;</span>
-	<span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="sd">&quot;&quot;&quot;Converts list of step data into a single string.</span>
 
-	<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">datum</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">step_data</span><span class="p">):</span>
-		<span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-			<span class="n">text</span> <span class="o">+=</span> <span class="n">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="si">{datum}</span><span class="se">\n</span><span class="s1">&#39;</span>
-		<span class="k">else</span><span class="p">:</span>
-			<span class="k">if</span> <span class="n">i</span><span class="o">%</span><span class="mi">6</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-				<span class="n">text</span> <span class="o">+=</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{datum}</span><span class="se">\n</span><span class="s1">&#39;</span>
-			<span class="k">else</span><span class="p">:</span>
-				<span class="n">text</span> <span class="o">+=</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{datum}</span><span class="s1"> &#39;</span>
-	
-	<span class="k">return</span> <span class="n">text</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    step_data : list</span>
+<span class="sd">        List of step data</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
+<span class="sd">        A space delimited string where every 6th value is followed by a newline.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">datum</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">step_data</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">+=</span> <span class="n">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="si">{datum}</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">6</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">text</span> <span class="o">+=</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{datum}</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">text</span> <span class="o">+=</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{datum}</span><span class="s1"> &#39;</span>
+
+    <span class="k">return</span> <span class="n">text</span>
 
 
 <span class="k">def</span> <span class="nf">_xml_format</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;Makes the root text look prettier.</span>
-<span class="sd">	</span>
-<span class="sd">	Parameters</span>
-<span class="sd">	----------</span>
-<span class="sd">	elem : Element</span>
-<span class="sd">		:class:`Element` whose text will be formatted.</span>
-<span class="sd">	level : int, optional</span>
-<span class="sd">		Tree level of `Element` (the default is 0)</span>
-<span class="sd">	</span>
-<span class="sd">	&quot;&quot;&quot;</span>
-	<span class="n">i</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">level</span><span class="o">*</span><span class="s2">&quot;  &quot;</span>
-	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">element</span><span class="p">):</span>
-		<span class="k">if</span> <span class="ow">not</span> <span class="n">element</span><span class="o">.</span><span class="n">text</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">element</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
-			<span class="n">element</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="s2">&quot;  &quot;</span>
-		<span class="k">if</span> <span class="ow">not</span> <span class="n">element</span><span class="o">.</span><span class="n">tail</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">element</span><span class="o">.</span><span class="n">tail</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
-			<span class="n">element</span><span class="o">.</span><span class="n">tail</span> <span class="o">=</span> <span class="n">i</span>
-		<span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">element</span><span class="p">:</span>
-			<span class="n">_xml_format</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">level</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-		<span class="k">if</span> <span class="ow">not</span> <span class="n">element</span><span class="o">.</span><span class="n">tail</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">element</span><span class="o">.</span><span class="n">tail</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
-			<span class="n">element</span><span class="o">.</span><span class="n">tail</span> <span class="o">=</span> <span class="n">i</span>
-	<span class="k">else</span><span class="p">:</span>
-		<span class="k">if</span> <span class="n">level</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">element</span><span class="o">.</span><span class="n">tail</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">element</span><span class="o">.</span><span class="n">tail</span><span class="o">.</span><span class="n">strip</span><span class="p">()):</span>
-			<span class="n">element</span><span class="o">.</span><span class="n">tail</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="sd">&quot;&quot;&quot;Makes the root text look prettier.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    elem : Element</span>
+<span class="sd">        :class:`Element` whose text will be formatted.</span>
+<span class="sd">    level : int, optional</span>
+<span class="sd">        Tree level of `Element` (the default is 0)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">level</span><span class="o">*</span><span class="s2">&quot;  &quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">element</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">element</span><span class="o">.</span><span class="n">text</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">element</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+            <span class="n">element</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="s2">&quot;  &quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">element</span><span class="o">.</span><span class="n">tail</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">element</span><span class="o">.</span><span class="n">tail</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+            <span class="n">element</span><span class="o">.</span><span class="n">tail</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">element</span><span class="p">:</span>
+            <span class="n">_xml_format</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">level</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">element</span><span class="o">.</span><span class="n">tail</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">element</span><span class="o">.</span><span class="n">tail</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+            <span class="n">element</span><span class="o">.</span><span class="n">tail</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">level</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">element</span><span class="o">.</span><span class="n">tail</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">element</span><span class="o">.</span><span class="n">tail</span><span class="o">.</span><span class="n">strip</span><span class="p">()):</span>
+            <span class="n">element</span><span class="o">.</span><span class="n">tail</span> <span class="o">=</span> <span class="n">i</span>
+
 
 <span class="k">def</span> <span class="nf">_get_units_and_ids</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">reqs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;Loops over all the *Entity* nodes in `tree` and picks out the ones requested	in `reqs`. Returns dictionaries of their units and original ids.</span>
-<span class="sd">	</span>
-<span class="sd">	Parameters</span>
-<span class="sd">	----------</span>
-<span class="sd">	tree : ElementTree</span>
-<span class="sd">		Root xml tree for an Adams results file</span>
-<span class="sd">	reqs : dict, optional</span>
-<span class="sd">		Dictionary of requests and request components to keep. (Default is None, which gets all the requests)</span>
-<span class="sd">	</span>
-<span class="sd">	Returns</span>
-<span class="sd">	-------</span>
-<span class="sd">	dict</span>
-<span class="sd">		Two level dictionary indicating the units associated with the request components</span>
-<span class="sd">	dict</span>
-<span class="sd">		Two level dictionary indicating the xml ids associated with the request components</span>
-<span class="sd">	dict</span>
-<span class="sd">		Two level dictionary indicating the requests and request components NOTE: This is identical to the `reqs` argument unless the reqs argument is None.)</span>
-<span class="sd">	&quot;&quot;&quot;</span>
-	<span class="n">units</span> <span class="o">=</span> <span class="p">{}</span>
-	<span class="n">req_ids</span> <span class="o">=</span> <span class="p">{}</span>
-	<span class="n">requests</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="sd">&quot;&quot;&quot;Loops over all the *Entity* nodes in `tree` and picks out the ones requested	in `reqs`. Returns dictionaries of their units and original ids.</span>
 
-	<span class="c1"># Make a list of the request entities in `tree`</span>
-	<span class="n">req_ents</span> <span class="o">=</span> <span class="p">[</span><span class="n">ent</span> <span class="k">for</span> <span class="n">ent</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">iter</span><span class="p">(</span><span class="s1">&#39;{&#39;</span><span class="o">+</span><span class="n">XML_REF</span><span class="o">+</span><span class="s1">&#39;}Entity&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;entType&#39;</span> <span class="ow">in</span> <span class="n">ent</span><span class="o">.</span><span class="n">attrib</span> <span class="ow">and</span> <span class="n">ent</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;entType&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Request&#39;</span><span class="p">]</span>
-	
-	<span class="c1"># Loop through all the request entities</span>
-	<span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">req_ents</span><span class="p">:</span>
-		<span class="c1"># For each entitiy in the results tree</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    tree : ElementTree</span>
+<span class="sd">        Root xml tree for an Adams results file</span>
+<span class="sd">    reqs : dict, optional</span>
+<span class="sd">        Dictionary of requests and request components to keep. (Default is None, which gets all the requests)</span>
 
-		<span class="k">if</span> <span class="n">reqs</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">entity</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">reqs</span><span class="p">:</span>
-			<span class="c1"># If this entity is in `reqs_to_get` or `reqs_to_get` is None</span>
-			<span class="c1"># Store the request name in `request` </span>
-			<span class="n">request</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Two level dictionary indicating the units associated with the request components</span>
+<span class="sd">    dict</span>
+<span class="sd">        Two level dictionary indicating the xml ids associated with the request components</span>
+<span class="sd">    dict</span>
+<span class="sd">        Two level dictionary indicating the requests and request components NOTE: This is identical to the `reqs` argument unless the reqs argument is None.)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">units</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">req_ids</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">requests</span> <span class="o">=</span> <span class="p">{}</span>
 
-			<span class="c1"># Create an entry in the `units` and `req_ids` dictionaries</span>
-			<span class="n">units</span><span class="p">[</span><span class="n">request</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-			<span class="n">req_ids</span><span class="p">[</span><span class="n">request</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-			<span class="n">requests</span><span class="p">[</span><span class="n">request</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="c1"># Make a list of the request entities in `tree`</span>
+    <span class="n">req_ents</span> <span class="o">=</span> <span class="p">[</span><span class="n">ent</span> <span class="k">for</span> <span class="n">ent</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">iter</span><span class="p">(</span><span class="s1">&#39;{&#39;</span><span class="o">+</span><span class="n">XML_REF</span><span class="o">+</span><span class="s1">&#39;}Entity&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;entType&#39;</span> <span class="ow">in</span> <span class="n">ent</span><span class="o">.</span><span class="n">attrib</span> <span class="ow">and</span> <span class="n">ent</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;entType&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Request&#39;</span><span class="p">]</span>
 
-			<span class="k">for</span> <span class="n">comp</span> <span class="ow">in</span> <span class="n">entity</span><span class="p">:</span>
-				<span class="c1"># For each component in the entitiy</span>
-				<span class="c1"># Store the component name as `req_comp`</span>
-				<span class="n">req_comp</span> <span class="o">=</span> <span class="n">comp</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+    <span class="c1"># Loop through all the request entities</span>
+    <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">req_ents</span><span class="p">:</span>
+        <span class="c1"># For each entitiy in the results tree</span>
 
-				<span class="k">if</span> <span class="n">reqs</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">req_comp</span> <span class="ow">in</span> <span class="n">reqs</span><span class="p">[</span><span class="n">request</span><span class="p">]:</span>
-					<span class="c1"># If this component is in `reqs_to_get[request]`</span>
-					<span class="c1"># Create an entry in the `units` and `req_ids` dictionaries </span>
-					<span class="n">units</span><span class="p">[</span><span class="n">request</span><span class="p">][</span><span class="n">req_comp</span><span class="p">]</span> <span class="o">=</span> <span class="n">comp</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;plotLabel&#39;</span><span class="p">]</span>
-					<span class="n">req_ids</span><span class="p">[</span><span class="n">request</span><span class="p">][</span><span class="n">req_comp</span><span class="p">]</span> <span class="o">=</span> <span class="n">comp</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
-					<span class="n">requests</span><span class="p">[</span><span class="n">request</span><span class="p">][</span><span class="n">req_comp</span><span class="p">]</span> <span class="o">=</span> <span class="n">comp</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
-					
-	<span class="k">return</span> <span class="n">units</span><span class="p">,</span> <span class="n">req_ids</span><span class="p">,</span> <span class="n">requests</span>
-		
+        <span class="k">if</span> <span class="n">reqs</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">entity</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">reqs</span><span class="p">:</span>
+            <span class="c1"># If this entity is in `reqs_to_get` or `reqs_to_get` is None</span>
+            <span class="c1"># Store the request name in `request`</span>
+            <span class="n">request</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+
+            <span class="c1"># Create an entry in the `units` and `req_ids` dictionaries</span>
+            <span class="n">units</span><span class="p">[</span><span class="n">request</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">req_ids</span><span class="p">[</span><span class="n">request</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">requests</span><span class="p">[</span><span class="n">request</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+            <span class="k">for</span> <span class="n">comp</span> <span class="ow">in</span> <span class="n">entity</span><span class="p">:</span>
+                <span class="c1"># For each component in the entitiy</span>
+                <span class="c1"># Store the component name as `req_comp`</span>
+                <span class="n">req_comp</span> <span class="o">=</span> <span class="n">comp</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+
+                <span class="k">if</span> <span class="n">reqs</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">req_comp</span> <span class="ow">in</span> <span class="n">reqs</span><span class="p">[</span><span class="n">request</span><span class="p">]:</span>
+                    <span class="c1"># If this component is in `reqs_to_get[request]`</span>
+                    <span class="c1"># Create an entry in the `units` and `req_ids` dictionaries</span>
+                    <span class="n">units</span><span class="p">[</span><span class="n">request</span><span class="p">][</span><span class="n">req_comp</span><span class="p">]</span> <span class="o">=</span> <span class="n">comp</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plotLabel&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+                    <span class="n">req_ids</span><span class="p">[</span><span class="n">request</span><span class="p">][</span><span class="n">req_comp</span><span class="p">]</span> <span class="o">=</span> <span class="n">comp</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+                    <span class="n">requests</span><span class="p">[</span><span class="n">request</span><span class="p">][</span><span class="n">req_comp</span><span class="p">]</span> <span class="o">=</span> <span class="n">comp</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">units</span><span class="p">,</span> <span class="n">req_ids</span><span class="p">,</span> <span class="n">requests</span>
+
+
 <div class="viewcode-block" id="get_stepmap_dictionary"><a class="viewcode-back" href="../../../adamspy.postprocess.html#adamspy.postprocess.xml.get_stepmap_dictionary">[docs]</a><span class="k">def</span> <span class="nf">get_stepmap_dictionary</span><span class="p">(</span><span class="n">file_name</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create dictionary where keys are result names and values are indices of components. </span>
-<span class="sd">    </span>
+
 <span class="sd">    Note</span>
 <span class="sd">    ----</span>
 <span class="sd">    Res names must be full, like: </span>
 <span class="sd">    * time.time</span>
 <span class="sd">    * part_2_xform.fx</span>
 <span class="sd">    * part_3_xform.accy</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    file_name : str</span>
 <span class="sd">        Results (.res) file</span>
-<span class="sd">        </span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    dict</span>
@@ -571,16 +587,17 @@
 
     <span class="k">return</span> <span class="n">step_dict</span></div>
 
+
 <div class="viewcode-block" id="get_component"><a class="viewcode-back" href="../../../adamspy.postprocess.html#adamspy.postprocess.xml.get_component">[docs]</a><span class="k">def</span> <span class="nf">get_component</span><span class="p">(</span><span class="n">res_file</span><span class="p">,</span> <span class="n">comp_name</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Returns the numeric data in `res_file` associated with the result component `comp_name`.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    res_file : str</span>
 <span class="sd">        Result (.res) file</span>
 <span class="sd">    comp_name : str</span>
 <span class="sd">        Name of result component</span>
-<span class="sd">    </span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    list</span>
@@ -593,13 +610,13 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">comp_dict</span> <span class="o">=</span> <span class="n">get_stepmap_dictionary</span><span class="p">(</span><span class="n">res_file</span><span class="p">)</span>
-    
+
     <span class="c1"># Check if the requested component is in the results and raise an error if not.</span>
     <span class="k">if</span> <span class="n">comp_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">comp_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{comp_name}</span><span class="s1"> was not found in </span><span class="si">{res_file}</span><span class="s1">!&#39;</span><span class="p">)</span>
-    
-    <span class="n">comp_id</span> <span class="o">=</span> <span class="n">comp_dict</span><span class="p">[</span><span class="n">comp_name</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span> 
-    
+
+    <span class="n">comp_id</span> <span class="o">=</span> <span class="n">comp_dict</span><span class="p">[</span><span class="n">comp_name</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+
     <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">_event</span><span class="p">,</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">et</span><span class="o">.</span><span class="n">iterparse</span><span class="p">(</span><span class="n">res_file</span><span class="p">):</span>
         <span class="n">step_data</span> <span class="o">=</span> <span class="p">[]</span>
@@ -607,7 +624,7 @@
             <span class="n">lines</span> <span class="o">=</span> <span class="n">elem</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
             <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
                 <span class="n">step_data</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()])</span>
-                
+
                 <span class="c1"># Free up memory:</span>
                 <span class="n">elem</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 

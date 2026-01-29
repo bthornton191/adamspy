@@ -1,7 +1,7 @@
 # ---------------------
-version = '0.30.1'
-version_notes = 'Added option to supply mdi.bat path in `adamspy.aviewpy.run_script`'
-date = 'September 1st, 2023'
+version = '0.31.0'
+version_notes = 'Refactor subprocess command handling to use get_mdi() for launching Adams MDI across multiple modules`'
+date = 'January 29th, 2026'
 # ---------------------
 author = 'Ben Thornton'
 author_email = 'ben.thornton@mscsoftware.com'

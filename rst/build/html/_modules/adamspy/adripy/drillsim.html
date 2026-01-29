@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>adamspy.adripy.drillsim &mdash; adamspy 0.30.1 documentation</title>
+  <title>adamspy.adripy.drillsim &mdash; adamspy 0.31.0 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.30.1
+                0.31.0
               </div>
             
           
@@ -160,7 +160,7 @@
 <span class="kn">from</span> <span class="nn">.string</span> <span class="k">import</span> <span class="n">DrillString</span>
 <span class="kn">from</span> <span class="nn">.event</span> <span class="k">import</span> <span class="n">DrillEvent</span>
 <span class="kn">from</span> <span class="nn">.solver_settings</span> <span class="k">import</span> <span class="n">DrillSolverSettings</span>
-<span class="kn">from</span> <span class="nn">..adamspy</span> <span class="k">import</span> <span class="n">get_simdur_from_acf</span><span class="p">,</span> <span class="n">get_simdur_from_msg</span>
+<span class="kn">from</span> <span class="nn">..adamspy</span> <span class="k">import</span> <span class="n">get_mdi</span><span class="p">,</span> <span class="n">get_simdur_from_acf</span><span class="p">,</span> <span class="n">get_simdur_from_msg</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">modify_acf_solver_settings</span>
 
 <div class="viewcode-block" id="DrillSim"><a class="viewcode-back" href="../../../adamspy.adripy.html#adamspy.adripy.drillsim.DrillSim">[docs]</a><span class="k">class</span> <span class="nc">DrillSim</span><span class="p">():</span> <span class="c1">#pylint: disable=too-many-instance-attributes</span>
@@ -398,10 +398,10 @@
         <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Windows&#39;</span><span class="p">:</span>
             <span class="n">startupinfo</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">STARTUPINFO</span><span class="p">()</span>
             <span class="n">startupinfo</span><span class="o">.</span><span class="n">dwFlags</span> <span class="o">|=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">STARTF_USESHOWWINDOW</span>        
-            <span class="bp">self</span><span class="o">.</span><span class="n">run_proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="s1">&#39;&quot;</span><span class="si">{}</span><span class="s1">&quot; ru-s &quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADAMS_LAUNCH_COMMAND&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">acf_filename</span><span class="p">),</span> <span class="n">cwd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">,</span> <span class="n">startupinfo</span><span class="o">=</span><span class="n">startupinfo</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">run_proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="s1">&#39;&quot;</span><span class="si">{}</span><span class="s1">&quot; ru-s &quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">get_mdi</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">acf_filename</span><span class="p">),</span> <span class="n">cwd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">,</span> <span class="n">startupinfo</span><span class="o">=</span><span class="n">startupinfo</span><span class="p">)</span>
         
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">run_proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ADAMS_LAUNCH_COMMAND&#39;</span><span class="p">],</span> <span class="s1">&#39;-c&#39;</span><span class="p">,</span> <span class="s1">&#39;ru-standard&#39;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">acf_filename</span><span class="p">,</span> <span class="s1">&#39;exit&#39;</span><span class="p">],</span> <span class="n">cwd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">run_proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="n">get_mdi</span><span class="p">(),</span> <span class="s1">&#39;-c&#39;</span><span class="p">,</span> <span class="s1">&#39;ru-standard&#39;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">acf_filename</span><span class="p">,</span> <span class="s1">&#39;exit&#39;</span><span class="p">],</span> <span class="n">cwd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">msg_filename</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{self.analysis_name}</span><span class="s1">.msg&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">res_filename</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{self.analysis_name}</span><span class="s1">.res&#39;</span>
